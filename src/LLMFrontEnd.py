@@ -14,7 +14,6 @@ AZURE_OPENAI_VERSION = os.getenv("AZURE_OPENAI_VERSION") or "2024-02-01"
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 GITHUB_MARKETPLACE = False
 if AZURE_OPENAI_ENDPOINT is not None:
-    print("using Azure OpenAI Models")
     PROMPTPEX_MODEL_PROVIDER = "Azure OpenAI " + AZURE_OPENAI_ENDPOINT
     AZURE_OPENAI_API_KEY = os.getenv("AZURE_OPENAI_API_KEY")
     if (AZURE_OPENAI_API_KEY is not None):
@@ -33,7 +32,6 @@ if AZURE_OPENAI_ENDPOINT is not None:
             azure_endpoint=AZURE_OPENAI_ENDPOINT
         )
 elif GITHUB_TOKEN is not None:
-    print("using GitHub Marketplace Models")
     PROMPTPEX_MODEL_PROVIDER = "GitHub Marketplace Models"
     client = OpenAI(
         api_key=GITHUB_TOKEN,
@@ -42,7 +40,7 @@ elif GITHUB_TOKEN is not None:
     PROMPTPEX_MODEL = "gpt-4o"
     GITHUB_MARKETPLACE = True
 else:
-    print("AZURE_OPENAI_ENDPOINT is not set")
+    print("LLM configuration missing")
     exit(1)
 
 local_client = OpenAI(

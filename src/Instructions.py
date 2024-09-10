@@ -1,4 +1,5 @@
 from . import LLMFrontEnd
+import json
 
 class Instruction:
     def __init__(self):
@@ -30,6 +31,17 @@ class Rule(Instruction):
 
     @classmethod
     def from_string(cls, rule_str, num_rules=0):
+        # try parsing as json
+        try:
+            json_data = json.loads(rule_str)
+            if isinstance(json_data, list):
+                messages = json_data
+            else:
+                messages = json_data.get("messages", [])
+            messages_filtered = [message for message in messages if message.get("role") == "system" or message.get("role") == "user"]
+            rule_str = "\n".join([message.get("content") for message in messages_filtered])
+        except json.JSONDecodeError:
+            pass # plain text
         rules = LLMFrontEnd().generate_rules_global(rule_str, num_rules)
         if rules == "" or rules is None:
             return []

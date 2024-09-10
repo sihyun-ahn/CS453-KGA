@@ -51,7 +51,7 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 
-defualt_system_prompt = """# Task
+default_system_prompt = """# Task
 In this task, you will be presented with a sentence and a word contained
 in that sentence. You have to determine the part of speech for a given word
 and return just the tag for the word's part of speech. 
@@ -226,10 +226,10 @@ def init():
 
 def prompt_editor(name):
     if name == "v1" and st.session_state[name] == "":
-        st.session_state[name] = defualt_system_prompt
+        st.session_state[name] = default_system_prompt
         st.session_state['num_rules'] = 3
 
-    st.session_state[name] = st.text_area('Enter the prompt here. Use the option from the sidebar (top left ">") to add a new tab', height=200, value=st.session_state[name], key=f"edit-{name}")
+    st.session_state[name] = st.text_area('Enter the prompt here as text or OpenAI JSON chat body. Use the option from the sidebar (top left ">") to add a new tab', height=200, value=st.session_state[name], key=f"edit-{name}")
     if name != st.session_state.sp_active_tab:
         if st.button(f'Use {name} instead of {st.session_state.sp_active_tab} as system prompt', key=f"set-{name}"):
             st.session_state.sp_active_tab = name
