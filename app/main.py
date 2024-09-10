@@ -243,7 +243,7 @@ for i, tab in enumerate(tab_container):
 
 st.session_state['system_prompt'] = st.session_state[st.session_state.sp_active_tab]
 
-if st.button('Start PromptPex', key=f"run-"):
+if st.button('Generate Rules', key=f"run-"):
     init()
 
 
@@ -296,7 +296,7 @@ if st.session_state['submit_clicked']:
             st.session_state['module'].import_rules(rule_path)
 
         st.header("Generated Rules")
-        st.caption("Note: You can edit the rules below by double-clicking on the cell.")
+        st.caption("Note: You can edit the rules below by double-clicking on the cell. You can download the table as a CSV file by clicking on the down arrow icon on the top right corner of the table.")
         # drop 'rule id' column
         rules_edited = st.data_editor(st.session_state['rules'], key="updated_rule", use_container_width=True, on_change=update_rules)
 
@@ -322,7 +322,7 @@ if st.session_state['submit_clicked']:
         st.caption("Note: You can edit the input spec below by double-clicking on the cell.")
         st.data_editor(st.session_state['input_spec'].import_csv(), key="updated_input_spec", use_container_width=True, on_change=update_input_spec)
         # gen tests button
-        gen_tests_button = st.button('Gen Tests')
+        gen_tests_button = st.button('Generate Tests')
 
         if gen_tests_button:
             st.session_state['gen_tests_clicked'] = True
@@ -343,7 +343,7 @@ if st.session_state['gen_tests_clicked']:
     st.dataframe(st.session_state['tests'])
 
     st.caption("Note: Run test will run the generated test as input for the provided system prompt on the selected model.")
-    run_tests_button = st.button('Run Tests')
+    run_tests_button = st.button('Run Tests with ' + st.session_state['test_model'])
 
     if run_tests_button:
         st.session_state['run_tests_clicked'] = True
