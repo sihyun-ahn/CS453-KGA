@@ -1,5 +1,7 @@
 type OptionsOrString<TOptions extends string> = (string & {}) | TOptions
 
+type ElementOrArray<T> = T | T[]
+
 interface PromptGenerationConsole {
     log(...data: any[]): void
     warn(...data: any[]): void
@@ -775,6 +777,18 @@ interface DefOptions extends FenceOptions, ContextExpansionOptions, DataFilter {
 
 interface DefImagesOptions {
     detail?: "high" | "low"
+    /**
+     * Maximum width of the image
+     */
+    maxWidth?: number
+    /**
+     * Maximum height of the image
+     */
+    maxHeight?: number
+    /**
+     * Auto cropping same color on the edges of the image
+     */
+    autoCrop?: boolean
 }
 
 interface ChatTaskOptions {
@@ -1570,7 +1584,7 @@ interface ChatGenerationContext extends ChatTurnGenerationContext {
         options?: DefSchemaOptions
     ): string
     defImages(
-        files: StringLike | Buffer | Blob,
+        files: ElementOrArray<string | WorkspaceFile | Buffer | Blob>,
         options?: DefImagesOptions
     ): void
     defTool(
@@ -2094,6 +2108,8 @@ interface BrowseResponse {
     url(): string
 }
 
+interface BrowserJSHandle {}
+
 /**
  * A playwright Page instance
  * @link https://playwright.dev/docs/api/class-page
@@ -2146,6 +2162,25 @@ interface BrowserPage extends BrowserLocatorSelector {
      * Closes the browser page, context and other resources
      */
     close(): Promise<void>
+
+    /**
+     * Returns the value of the pageFunction evaluation.
+     * @param fn
+     * @param args serializable object
+     * @link https://playwright.dev/docs/api/class-page#page-evaluate
+     */
+    evaluate<T = any>(pageFunction: Function | string, arg?: any): Promise<T>
+
+    /**
+     * Returns the value of the pageFunction evaluation as a JSHandle.
+     * @param fn
+     * @param args serializable object
+     * @link https://playwright.dev/docs/api/class-page#page-evaluate-handle
+     */
+    evaluateHandle<T = any>(
+        selector: string,
+        arg?: any
+    ): Promise<BrowserJSHandle>
 }
 
 interface ShellSelectOptions {}
@@ -2515,7 +2550,7 @@ declare function defSchema(
  * @param options
  */
 declare function defImages(
-    files: StringLike | Buffer | Blob,
+    files: ElementOrArray<string | WorkspaceFile | Buffer | Blob>,    
     options?: DefImagesOptions
 ): void
 
