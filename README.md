@@ -40,6 +40,13 @@ Tests generated from the rules:
 (Note this tests the Unknown corner case)
 3. sentence: 'She sings beautifully.', word: 'sings'
 ```
+
+## How to Use PromptPex
+
+<img src="./images/promptpex-ui.png" alt="PromptPex UI" width="500">
+
+PromptPex has a browser-hosted user experience that makes it easy to start using.  PromptPex is implemented with internal prompts that assume you can access gpt-4-turbo (defined in LLMFrontEnd.py).  As a user, you can use any model you have access to, including locally-hosted models, to run tests against.
+
 ## Getting Started 
 
 > Use CodeSpaces / dev container to get a fully configured environment, including access to LLMs through GitHub Marketplace Models.
