@@ -1,5 +1,45 @@
-# Project
+# PromptPex 
 
+**Prompts** are an important part of any software project that incorporates
+the power of AI models.  As a result, tools to help developers create and maintain 
+effective prompts are increasingly important.
+
+**PromptPex** is a tool for exploring and testing AI model prompts.  PromptPex is 
+intended to be used by developers who have prompts as part of their code base.
+PromptPex treats a prompt as a function and automatically generates test inputs
+to the function to support unit testing.
+
+PromptPex provides the following capabilities:
+- It will **automatically extract rules** that are expressed in natural language in the
+prompt.  An example of a rule might be "The output should be formatted as JSON".
+- From the rules, it will **generate unit test cases** specifically 
+designed to determine if the prompt, for a given model, correctly
+follows the rule.
+- Given a set of rules and tests, PromptPex will **evaluate the 
+performance of the prompt on any given model**.  For example, 
+a user can determine if a set of unit tests succeeds on gpt-4o-mini
+but fails on phi3.
+
+Here is an example of PromptPex in practice.
+
+Prompt:
+```text
+You are given two items: 1) a sentence and 2) a word contained in that sentence.  You have to determine the part of speech for a given word and return just the tag for the word's part of speech. Return only the part of speech tag.  If the input isn't a word, return Unknown.
+```
+Extracted rules:
+```text
+1. The output must be a valid part of speech tag in abbreviated form (such as ""NN"" for noun, ""VB"" for verb, etc.) when the input word is identified as a known part of speech.
+2. If the input word does not match the standard parts of speech, the output should be the string ""Unknown"".
+3. The output must be a single word or abbreviation and should not include any additional text or formatting.
+```
+
+Tests generated from the rules:
+```text
+1. sentence: 'The quick brown fox jumps over the lazy dog.', word: 'fox'
+2. sentence: 'Quickly running towards success.', word: 'successful'
+(Note this tests the Unknown corner case)
+3. sentence: 'She sings beautifully.', word: 'sings'
+```
 ## Getting Started 
 
 > Use CodeSpaces / dev container to get a fully configured environment, including access to LLMs through GitHub Marketplace Models.
