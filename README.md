@@ -23,17 +23,25 @@ but fails on phi3.
 Here is an example of PromptPex in practice.
 
 Prompt:
+
 ```text
-You are given two items: 1) a sentence and 2) a word contained in that sentence.  You have to determine the part of speech for a given word and return just the tag for the word's part of speech. Return only the part of speech tag.  If the input isn't a word, return Unknown.
+You are given two items: 1) a sentence and 2) a word contained in that sentence.
+You have to determine the part of speech for a given word and return just the tag for the word's part of speech.
+Return only the part of speech tag.
+If the input isn't a word, return Unknown.
 ```
+
 Extracted rules:
+
 ```text
-1. The output must be a valid part of speech tag in abbreviated form (such as ""NN"" for noun, ""VB"" for verb, etc.) when the input word is identified as a known part of speech.
+1. The output must be a valid part of speech tag in abbreviated form (such as ""NN"" for noun, ""VB"" for verb, etc.)
+when the input word is identified as a known part of speech.
 2. If the input word does not match the standard parts of speech, the output should be the string ""Unknown"".
 3. The output must be a single word or abbreviation and should not include any additional text or formatting.
 ```
 
 Tests generated from the rules:
+
 ```text
 1. sentence: 'The quick brown fox jumps over the lazy dog.', word: 'fox'
 2. sentence: 'Quickly running towards success.', word: 'successful'
