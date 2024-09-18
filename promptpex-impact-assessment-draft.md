@@ -61,7 +61,7 @@ Contributors with affiliations: Reshabh Sharma, University of Washington
 
 ### Data documentation
 
-PromptPex dues not include any data release. No data was used to train PromptPex.
+**3.1** PromptPex dues not include any data release. No data was used to train PromptPex.
 
 ### Data reflections
 
