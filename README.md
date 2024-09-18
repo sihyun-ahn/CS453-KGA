@@ -182,6 +182,9 @@ python3 automatic_pipeline.py sample/LinuxTerminal.txt
 ```
 The results goes into ap-results/ where variant-0.txt is the initial prompt with rules-0.txt as initial rules. 
 
+## Intended Uses
+PromptPex is shared for research purposes only. It is not meant to be used in practice. PromptPex was not extensively tested for its capabilities and properties, including its accuracy and reliability in practical use cases, security and privacy.
+
 ## Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
