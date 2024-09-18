@@ -39,6 +39,8 @@ The PromptPex repository includes comprehensive documentation, illustrating the 
 
 ### Use cases
 
+PromptPex is shared for research purposes only. It is not meant to be used in practice. PromptPex was not extensively tested for its capabilities and properties, including its accuracy and reliability in practical use cases, security and privacy.
+
 #### Intended uses
 
 PromptPex is useful in contexts where prompt reliability and consistency are critical. Intended use cases include:
