@@ -148,16 +148,16 @@ interface ModelConnectionOptions {
      * @default gpt-4
      * @example gpt-4
      */
-    model?:
-        | "openai:gpt-4"
-        | "openai:gpt-4-turbo"
+    model?: OptionsOrString<
         | "openai:gpt-4o"
         | "openai:gpt-4o-mini"
+        | "openai:gpt-4"
+        | "openai:gpt-4-turbo"
         | "openai:gpt-3.5-turbo"
         | "ollama:phi3"
         | "ollama:llama3"
         | "ollama:mixtral"
-        | string
+    >
 }
 
 interface ModelOptions extends ModelConnectionOptions {
@@ -417,7 +417,7 @@ interface PromptScript
 }
 
 /**
- * Represent a file linked from a `.gpsec.md` document.
+ * Represent a workspace file and optional content.
  */
 interface WorkspaceFile {
     /**
@@ -616,7 +616,7 @@ interface WorkspaceFileSystem {
 
     /**
      * Opens a key-value cache for the given cache name.
-     * The cache is persisted accross runs of the script. Entries are dropped when the cache grows too large.
+     * The cache is persisted across runs of the script. Entries are dropped when the cache grows too large.
      * @param cacheName
      */
     cache<K = any, V = any>(
@@ -743,7 +743,7 @@ interface FenceOptions {
 
 interface ContextExpansionOptions {
     /**
-     * Specifies an maximum of estimated tokesn for this entry; after which it will be truncated.
+     * Specifies an maximum of estimated tokens for this entry; after which it will be truncated.
      */
     maxTokens?: number
     /*
@@ -1003,7 +1003,7 @@ interface Parsers {
     JSONL(content: string | WorkspaceFile): any[] | undefined
 
     /**
-     * Parses text as a YAML paylaod
+     * Parses text as a YAML payload
      */
     YAML(
         content: string | WorkspaceFile,
@@ -1472,7 +1472,7 @@ interface DefDataOptions
     extends Omit<ContextExpansionOptions, "maxTokens">,
         DataFilter {
     /**
-     * Output format in the prompt. Defaults to markdownified CSV
+     * Output format in the prompt. Defaults to Markdown table rendering.
      */
     format?: "json" | "yaml" | "csv"
 }
@@ -1577,6 +1577,10 @@ interface FileUpdate {
     validation?: JSONSchemaValidation
 }
 
+interface RunPromptResultPromiseWithOptions extends Promise<RunPromptResult> {
+    options(values?: PromptGeneratorOptions): RunPromptResultPromiseWithOptions
+}
+
 interface ChatGenerationContext extends ChatTurnGenerationContext {
     defSchema(
         name: string,
@@ -1609,6 +1613,10 @@ interface ChatGenerationContext extends ChatTurnGenerationContext {
         generator: string | PromptGenerator,
         options?: PromptGeneratorOptions
     ): Promise<RunPromptResult>
+    prompt(
+        strings: TemplateStringsArray,
+        ...args: any[]
+    ): RunPromptResultPromiseWithOptions
 }
 
 interface GenerationOutput {
@@ -2206,6 +2214,7 @@ interface ShellHost {
      * @param args
      * @param options
      */
+    exec(commandWithArgs: string, options?: ShellOptions): Promise<ShellOutput>
     exec(
         command: string,
         args: string[],
@@ -2245,13 +2254,20 @@ interface ShellHost {
     confirm(message: string, options?: ShellConfirmOptions): Promise<boolean>
 }
 
+interface ContainerPortBinding {
+    containerPort: OptionsOrString<"80/tcp">
+    hostPort: string | number
+}
+
 interface ContainerOptions {
     /**
      * Container image names.
      * @example python:alpine python:slim python
      * @see https://hub.docker.com/_/python/
      */
-    image?: string
+    image?: OptionsOrString<
+        "python:alpine" | "python:slim" | "python" | "node" | "gcc"
+    >
 
     /**
      * Enable networking in container (disabled by default)
@@ -2272,9 +2288,18 @@ interface ContainerOptions {
      * Disable automatic purge of container and volume directory
      */
     disablePurge?: boolean
+
+    /**
+     * List of exposed TCP ports
+     */
+    ports?: ElementOrArray<ContainerPortBinding>
 }
 
 interface PromptHost extends ShellHost {
+    /**
+     * Starts a container
+     * @param options container creation options
+     */
     container(options?: ContainerOptions): Promise<ContainerHost>
 }
 
@@ -2550,7 +2575,7 @@ declare function defSchema(
  * @param options
  */
 declare function defImages(
-    files: ElementOrArray<string | WorkspaceFile | Buffer | Blob>,    
+    files: ElementOrArray<string | WorkspaceFile | Buffer | Blob>,
     options?: DefImagesOptions
 ): void
 
@@ -2583,6 +2608,14 @@ declare function runPrompt(
 ): Promise<RunPromptResult>
 
 /**
+ * Expands and executes the prompt
+ */
+declare function prompt(
+    strings: TemplateStringsArray,
+    ...args: any[]
+): RunPromptResultPromiseWithOptions
+
+/**
  * Registers a callback to process the LLM output
  * @param fn
  */
@@ -2596,8 +2629,3 @@ declare function defChatParticipant(
     participant: ChatParticipantHandler,
     options?: ChatParticipantOptions
 ): void
-
-/**
- * @deprecated Use `defOutputProcessor` instead.
- */
-declare function defOutput(fn: PromptOutputProcessorHandler): void
