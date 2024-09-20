@@ -74,7 +74,7 @@ pip install -r requirements.txt
 #### GitHub Marketplace Models configuration
 
 If you are using a Codespace and have access to [GitHub Marketplace Models](https://github.com/marketplace/models),
-PromptPex will automatically use `gpt-4o` from the github marketplace.
+PromptPex will automatically use `gpt-4o` and `gpt-35-turbo` from the github marketplace.
 
 #### Azure OpenAI + Microsoft Entra
 

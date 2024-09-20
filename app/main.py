@@ -8,7 +8,7 @@ import os, zipfile
 import sys
 sys.path.insert(0, '..')
 
-from src import InputSpec, StringFrontEnd, LLMFrontEnd, PROMPTPEX_MODEL, PROMPTPEX_MODEL_PROVIDER, Module, TestCaseGenerator, AskLLMTestValidator, Mutator, Dbg, SemanticDiff, Utils
+from src import InputSpec, StringFrontEnd, LLMFrontEnd, PROMPTPEX_MODEL, PROMPTPEX_TEST_MODEL, PROMPTPEX_MODEL_PROVIDER, Module, TestCaseGenerator, AskLLMTestValidator, Mutator, Dbg, SemanticDiff, Utils
 import pathlib
 
 st.set_page_config(page_title="PromptPex", layout="wide")
@@ -125,7 +125,7 @@ if 'module' not in st.session_state:
 if 'system_prompt' not in st.session_state:
     st.session_state['system_prompt'] = None
 if 'test_model' not in st.session_state:
-    st.session_state['test_model'] = "gpt-35-turbo"
+    st.session_state['test_model'] = PROMPTPEX_TEST_MODEL
 
 if 'sp_tabs' not in st.session_state:
     st.session_state.sp_tabs = ["v1"]

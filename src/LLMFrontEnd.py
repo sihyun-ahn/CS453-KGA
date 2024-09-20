@@ -7,10 +7,15 @@ from azure.identity import DefaultAzureCredential, get_bearer_token_provider
 
 load_dotenv()
 
-PROMPTPEX_MODEL = "gpt-4-turbo"
-PROMPTPEX_MODEL_PROVIDER = "?"
+PROMPTPEX_MODEL = os.getenv("PROMPTPEX_TEST_MODEL", "gpt-4-turbo")
+PROMPTPEX_TEST_MODEL = os.getenv("PROMPTPEX_TEST_MODEL", "gpt-35-turbo")
+PROMPTPEX_GITHUB_MODEL = os.getenv("PROMPTPEX_GITHUB_MODEL", "gpt-4o")
+PROMPTPEX_GITHUB_TEST_MODEL = os.getenv("PROMPTPEX_GITHUB_TEST_MODEL", "gpt-35-turbo")
+PROMPTPEX_LOCAL_BASE_URL = os.getenv("PROMPTPEX_LOCAL_BASE_URL", "http://localhost:8502/v1")
+PROMPTPEX_LOCAL_API_KEY = os.getenv("PROMPTPEX_LOCAL_API_KEY", "none")  
+
 AZURE_OPENAI_ENDPOINT = os.getenv("AZURE_OPENAI_ENDPOINT")
-AZURE_OPENAI_VERSION = os.getenv("AZURE_OPENAI_VERSION") or "2024-02-01"
+AZURE_OPENAI_VERSION = os.getenv("AZURE_OPENAI_VERSION", "2024-02-01")
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 GITHUB_MARKETPLACE = False
 if AZURE_OPENAI_ENDPOINT is not None:
@@ -37,15 +42,16 @@ elif GITHUB_TOKEN is not None:
         api_key=GITHUB_TOKEN,
         base_url="https://models.inference.ai.azure.com"
     )
-    PROMPTPEX_MODEL = "gpt-4o"
+    PROMPTPEX_MODEL = PROMPTPEX_GITHUB_MODEL
+    PROMPTPEX_TEST_MODEL = PROMPTPEX_GITHUB_TEST_MODEL
     GITHUB_MARKETPLACE = True
 else:
     print("LLM configuration missing")
     exit(1)
 
 local_client = OpenAI(
-    base_url = 'http://localhost:8502/v1',
-    api_key='ollama'
+    base_url = PROMPTPEX_LOCAL_BASE_URL,
+    api_key= PROMPTPEX_LOCAL_API_KEY
 )
 
 class LLMFrontEnd:
