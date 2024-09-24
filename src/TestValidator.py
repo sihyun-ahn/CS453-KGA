@@ -3,7 +3,7 @@ from . import LLMFrontEnd
 import csv, pathlib, os
 
 class TestValidator:
-    def __init__(self, module, validation_sp, execution_sp, execution_model, path=None):
+    def __init__(self, module, validation_sp, execution_sp, execution_model, path=None, batch_mode=False):
         self.execution_model = execution_model
         self.tests = []
         self.keys = []
@@ -17,6 +17,7 @@ class TestValidator:
         self.results = []
         self.failed_tests = []
         self.path = path
+        self.batch_mode = batch_mode
 
     def append(self, file_path):
         import re
@@ -33,7 +34,17 @@ class TestValidator:
             self.keys.append(row[0])
             self.tests.append(row[2])
             self.expected.append(row[3])
-    
+
+    def delete(self, index):
+        self.tests.pop(index)
+        self.keys.pop(index)
+        self.expected.pop(index)
+        self.passed.pop(index)
+        self.output.pop(index)
+        self.reason.pop(index)
+        self.results.pop(index)
+        self.failed_tests.pop(index)
+
     def force_append_tests(self, tests):
         def guess_expected_output(test_case):
             return ""
@@ -52,6 +63,9 @@ class TestValidator:
     def get_failed_tests(self):
         return " ".join(self.failed_tests)
 
+    def get_reasons(self):
+        return self.reason
+
     def run_tests(self, temp=1.0):
         assert self.path is not None
         result_path = pathlib.Path(self.path).open("a", encoding="utf-8", errors="ignore", newline='')
@@ -68,7 +82,7 @@ class TestValidator:
             self.output.append(output)
             local_output.append(output)
 
-        local_ouptut_str = "\n\n".join(local_output)
+        local_ouptut_str = "__<<DELIMITIER>>__".join(local_output)
         validation_result = self.validate_batch(local_ouptut_str, "0", len(local_output))
 
         # assert len(validation_result) == len(local_output)
@@ -80,6 +94,8 @@ class TestValidator:
 
             if res[0] != "passed":
                 self.failed_tests.append("INPUT:\n" + self.tests[validation_result.index(res)] + "\n\nOUTPUT:\n" + local_output[validation_result.index(res)] + "\n\nREASON: " + res[1]+"\n\n\n\n")
+            else:
+                self.failed_tests.append("")
 
         for test in self.tests:
             idx = self.tests.index(test)
@@ -91,9 +107,21 @@ class TestValidator:
 
         result_path.close()
 
+    def updateModel(self, model):
+        self.execution_model = model
+        self.results = []
+        self.failed_tests = []
+        self.passed = []
+        self.output = []
+        self.reason = []
+
+    def updatePath(self, path):
+        self.path = path
+
     def importResults(self, path):
         with open(path, "r", encoding="utf-8", errors="ignore") as csvfile:
-            reader = csv.reader(csvfile)
+            __reader = csv.reader(csvfile)
+            reader = list(__reader)
             self.keys = [line[0] for line in reader]
             self.tests = [line[1] for line in reader]
             self.output = [line[2] for line in reader]
@@ -103,6 +131,8 @@ class TestValidator:
         for test in self.tests:
             if not self.results[self.tests.index(test)]:
                 self.failed_tests.append("input:\n" + test + "\noutput:\n" + self.output[self.tests.index(test)] + "\nreason for failure: " + self.reason[self.tests.index(test)]+"\n\n")
+            else:
+                self.failed_tests.append("")
 
     def print_results(self):
         for i, res in enumerate(self.results):
@@ -122,10 +152,10 @@ class TestValidator:
 
     def all_passed(self):
         return all(self.results)
-    
+
 class AskLLMTestValidator(TestValidator):
-    def __init__(self, module, validation_sp, execution_sp, execution_model, path=None):
-        super().__init__(module, validation_sp, execution_sp, execution_model, path)
+    def __init__(self, module, validation_sp, execution_sp, execution_model, path=None, batch_mode=False):
+        super().__init__(module, validation_sp, execution_sp, execution_model, path, batch_mode)
 
     def validate(self, test_case):
         # result = LLMFrontEnd().execute(self.validation_sp, test_case, "gpt-35-turbo")
@@ -138,7 +168,7 @@ class AskLLMTestValidator(TestValidator):
         return output
 
     def validate_batch(self, output, expected, num_tests):
-        result = LLMFrontEnd().check_violation_with_system_prompt_batch(output, self.validation_sp, num_tests)
+        result = LLMFrontEnd().check_violation_with_system_prompt_batch(output, self.validation_sp, num_tests, self.batch_mode)
         if result is None:
             result = ""
         result.replace("\n\n", "\n")

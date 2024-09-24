@@ -3,17 +3,19 @@
 ## Running the eval
 `eval.py` is the driver script, inside eval dir do the following:
 ```sh
-python .\eval.py --input-dir dataset --output-dir result 
+python eval.py -i dataset/sammo-pos-prompt.md -o result/ -m gpt-4-turbo,gpt-35-turbo,gpt-4o-mini,mistral,llama3.1,gemma2,phi3:medium,gemma2:27b -t 100 -n 2
 ```
 For each file in dataset, the results are generated in dir result.
 
+To use remote models only,
+
+```sh
+python eval.py -i dataset/sammo-pos-prompt.md -o result/ -m gpt-4-turbo,gpt-35-turbo,gpt-4o-mini -t 100 -n 2
+```
+
+-n number of test sets for a prompt, ideally 2 or 3   
+-t number of times to run the test, a bigger number 
+
+
 ## Understanding the result
-The result dir will have multiple top-level csv files with all the results.
-* `num-grounded-rules.csv`: how many of the total rules are grounded (total, grounded)
-* `num-valid-tests.csv`: how many of the generated test cases follow the input spec (total, valid)
-* `num-failing-tests.csv`: how many of the test cases failed (total, failed) 
-* `num-valid-failing-tests.csv`: how many of the valid test cases failed (valid, failed)
-* `num-failing-tests-with-rules.csv`: to check coverage we make a prompt using the intent and the rules, how many test cases does that prompt fails (total, failed)
-* `num-baseline-valid-tests.csv`: how many of the baseline generated test cases follow the input spec (total, valid)
-* `num-baseline-failing-tests.csv`: how many of the baseline test cases failed (total, failed) 
-* `num-baseline-valid-failing-tests.csv`: how many of the baseline valid test cases failed (valid, failed)
+There will be md files with tables for each result-dir/prompt-dir/ 
