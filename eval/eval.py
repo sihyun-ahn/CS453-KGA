@@ -95,6 +95,8 @@ if __name__ == "__main__":
     CLI.add_argument("--num-test-sets", "-n", help="Number of test sets to generate", type=int, default=1)
     # take input as csv file but do not allow input file or input dir
     CLI.add_argument("--csv", "-c", help="Take input as csv file", type=str)
+    # Only generate tests and do not run them
+    CLI.add_argument("--only-gen", "-g", help="Only generate tests and do not run them", action="store_true")
 
     args = CLI.parse_args()
 
@@ -214,6 +216,9 @@ if __name__ == "__main__":
         if not test_path.exists():
             print("Generating tests using promptpex")
             test_gen.gen_all_tests(args.num_test_sets)
+
+        if args.only_gen:
+            continue
 
         original_test_run_path = pathlib.Path(dir_name, "variant-run-0.csv")
         test_runner = AskLLMTestValidator(module, system_prompt, system_prompt, None, original_test_run_path, batch_mode=False)
