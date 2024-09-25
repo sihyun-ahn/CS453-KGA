@@ -4,6 +4,8 @@ sys.path.insert(0, '..')
 from src import InputSpec, LLMFrontEnd, StringFrontEnd, Module, TestCaseGenerator, AskLLMTestValidator, Mutator, Dbg, SemanticDiff, Utils, CLI, Rule
 import sys, time, os, pathlib
 import argparse
+import re
+import shutil
 
 def check_rules_grounded(module, system_prompt):
     total = len(module.instructions)
@@ -104,7 +106,9 @@ if __name__ == "__main__":
         # name of the file without extension
         csv_input_file = csv_file.stem
         # create a directory with the name of the file
-        dir_name = os.getcwd() + "/" + csv_input_file
+        dir_name = os.getcwd() + "/tmp/" + csv_input_file
+        if os.path.exists(dir_name):
+            shutil.rmtree(dir_name)
         os.makedirs(dir_name, exist_ok=True)
         # for each row in the csv file, create a file with the name of the row index like 0.txt
         with open(csv_file, "r") as f:
@@ -114,9 +118,15 @@ if __name__ == "__main__":
                     continue
                 line = line.strip()
                 with open(pathlib.Path(dir_name, f"{i}.txt"), "w") as f:
+                    line = re.sub(r'^\s*[\'"]', '', line)
+                    line = re.sub(r'[\'"]\s*$', '', line)
                     f.write(line)
 
         args.input_dir = dir_name
+        if args.output_dir is None:
+            args.output_dir = os.getcwd() + "/result/" + csv_input_file
+            if os.path.exists(args.output_dir):
+                shutil.rmtree(args.output_dir)
 
     if args.input_file is not None:
         input_file = args.input_file
