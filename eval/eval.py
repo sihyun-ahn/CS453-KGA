@@ -91,9 +91,33 @@ if __name__ == "__main__":
     CLI.add_argument("--num-tests", "-t", help="Number of times to run the test", type=int, default=1)
     # number of test sets to generate, default is 1
     CLI.add_argument("--num-test-sets", "-n", help="Number of test sets to generate", type=int, default=1)
+    # take input as csv file but do not allow input file or input dir
+    CLI.add_argument("--csv", "-c", help="Take input as csv file", type=str)
+
     args = CLI.parse_args()
 
     input_file_list = []
+
+    if args.csv:
+        # create a unique directory for the csv file name
+        csv_file = pathlib.Path(args.csv)
+        # name of the file without extension
+        csv_input_file = csv_file.stem
+        # create a directory with the name of the file
+        dir_name = os.getcwd() + "/" + csv_input_file
+        os.makedirs(dir_name, exist_ok=True)
+        # for each row in the csv file, create a file with the name of the row index like 0.txt
+        with open(csv_file, "r") as f:
+            lines = f.readlines()
+            for i, line in enumerate(lines):
+                if i == 0:
+                    continue
+                line = line.strip()
+                with open(pathlib.Path(dir_name, f"{i}.txt"), "w") as f:
+                    f.write(line)
+
+        args.input_dir = dir_name
+
     if args.input_file is not None:
         input_file = args.input_file
         input_dir_name = "/".join(input_file.split("/")[:-1])

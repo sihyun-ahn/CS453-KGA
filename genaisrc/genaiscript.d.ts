@@ -225,6 +225,11 @@ interface ModelOptions extends ModelConnectionOptions {
      * Budget of tokens to apply the prompt flex renderer.
      */
     flexTokens?: number
+
+    /**
+     * A list of model ids and their maximum number of concurrent requests.
+     */
+    modelConcurrency?: Record<string, number>
 }
 
 interface EmbeddingsModelConnectionOptions {
@@ -711,6 +716,7 @@ type PromptSystemArgs = Omit<
     | "responseType"
     | "responseSchema"
     | "files"
+    | "modelConcurrency"
 >
 
 type StringLike = string | WorkspaceFile | WorkspaceFile[]
@@ -1512,7 +1518,7 @@ interface FileOutputOptions {
 }
 
 interface FileOutput {
-    pattern: string
+    pattern: string[]
     description?: string
     options?: FileOutputOptions
 }
@@ -1556,11 +1562,15 @@ interface ChatTurnGenerationContext {
         options?: ImportTemplateOptions
     ): void
     writeText(body: Awaitable<string>, options?: WriteTextOptions): void
+    assistant(
+        text: Awaitable<string>,
+        options?: Omit<WriteTextOptions, "assistant">
+    ): void
     $(strings: TemplateStringsArray, ...args: any[]): PromptTemplateString
     fence(body: StringLike, options?: FenceOptions): void
     def(
         name: string,
-        body: string | WorkspaceFile | WorkspaceFile[] | ShellOutput | Fenced,
+        body: string | WorkspaceFile | WorkspaceFile[] | ShellOutput | Fenced | RunPromptResult,
         options?: DefOptions
     ): string
     defData(
@@ -1605,7 +1615,7 @@ interface ChatGenerationContext extends ChatTurnGenerationContext {
         options?: ChatParticipantOptions
     ): void
     defFileOutput(
-        pattern: string,
+        pattern: string | string[],
         description?: string,
         options?: FileOutputOptions
     ): void
@@ -2439,7 +2449,7 @@ declare function fence(body: StringLike, options?: FenceOptions): void
  */
 declare function def(
     name: string,
-    body: string | WorkspaceFile | WorkspaceFile[] | ShellOutput | Fenced,
+    body: string | WorkspaceFile | WorkspaceFile[] | ShellOutput | Fenced | RunPromptResult,
     options?: DefOptions
 ): string
 
@@ -2449,7 +2459,7 @@ declare function def(
  * @param options expectations about the generated file content
  */
 declare function defFileOutput(
-    pattern: string,
+    pattern: string | string[],
     description?: string,
     options?: FileOutputOptions
 ): void
