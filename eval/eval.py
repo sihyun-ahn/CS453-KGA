@@ -127,8 +127,6 @@ if __name__ == "__main__":
         args.input_dir = dir_name
         if args.output_dir is None:
             args.output_dir = os.getcwd() + "/result/" + csv_input_file
-            if os.path.exists(args.output_dir):
-                shutil.rmtree(args.output_dir)
 
     if args.input_file is not None:
         input_file = args.input_file
