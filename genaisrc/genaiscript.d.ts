@@ -74,6 +74,8 @@ type SystemPromptId = OptionsOrString<
     | "system.agent_fs"
     | "system.agent_git"
     | "system.agent_github"
+    | "system.agent_interpreter"
+    | "system.agent_user_input"
     | "system.annotations"
     | "system.changelog"
     | "system.diagrams"
@@ -81,6 +83,7 @@ type SystemPromptId = OptionsOrString<
     | "system.explanations"
     | "system.files"
     | "system.files_schema"
+    | "system.fs_diff_files"
     | "system.fs_find_files"
     | "system.fs_read_file"
     | "system.git"
@@ -100,6 +103,7 @@ type SystemPromptId = OptionsOrString<
     | "system.technical"
     | "system.tools"
     | "system.typescript"
+    | "system.user_input"
     | "system.zero_shot_cot"
 >
 
@@ -107,6 +111,9 @@ type SystemToolId = OptionsOrString<
     | "agent_fs"
     | "agent_git"
     | "agent_github"
+    | "agent_interpreter"
+    | "agent_user_input"
+    | "fs_diff_files"
     | "fs_find_files"
     | "fs_read_file"
     | "git_branch_current"
@@ -115,7 +122,8 @@ type SystemToolId = OptionsOrString<
     | "git_last_tag"
     | "git_log"
     | "git_status"
-    | "github_actions_job_log"
+    | "github_actions_job_logs_diff"
+    | "github_actions_job_logs_get"
     | "github_actions_jobs_list"
     | "github_actions_runs_list"
     | "github_actions_workflows_list"
@@ -129,10 +137,14 @@ type SystemToolId = OptionsOrString<
     | "github_pulls_review_comments_list"
     | "math_eval"
     | "md_read_frontmatter"
-    | "python_code_interpreter"
+    | "python_code_interpreter_copy_files"
+    | "python_code_interpreter_run"
     | "retrieval_fuzz_search"
     | "retrieval_vector_search"
     | "retrieval_web_search"
+    | "user_input_confirm"
+    | "user_input_select"
+    | "user_input_text"
 >
 
 type FileMergeHandler = (
@@ -448,6 +460,11 @@ interface PromptScript
      * Set if this is a system prompt.
      */
     isSystem?: boolean
+
+    /**
+     * List of tools defined in the script
+     */
+    defTools?: { id: string, description: string }[]
 }
 
 /**
@@ -740,7 +757,7 @@ interface ExpansionVariables {
 
 type MakeOptional<T, P extends keyof T> = Partial<Pick<T, P>> & Omit<T, P>
 
-type PromptArgs = Omit<PromptScript, "text" | "id" | "jsSource" | "activation">
+type PromptArgs = Omit<PromptScript, "text" | "id" | "jsSource" | "activation" | "defTools">
 
 type PromptSystemArgs = Omit<
     PromptArgs,
@@ -756,6 +773,7 @@ type PromptSystemArgs = Omit<
     | "responseSchema"
     | "files"
     | "modelConcurrency"
+    | "parameters"
 >
 
 type StringLike = string | WorkspaceFile | WorkspaceFile[]
@@ -803,6 +821,10 @@ interface ContextExpansionOptions {
      * It defaults to 1 on all elements.
      */
     flex?: number
+    /**
+     * This text is likely to change and will probably break the prefix cache.
+     */
+    ephemeral?: boolean
 }
 
 interface DefOptions extends FenceOptions, ContextExpansionOptions, DataFilter {
@@ -939,6 +961,7 @@ interface RunPromptResult {
         | "content_filter"
         | "cancel"
         | "fail"
+    usages?: ChatCompletionUsages
 }
 
 /**
@@ -1221,6 +1244,11 @@ interface Parsers {
      * Renders a jinja template
      */
     jinja(text: string | WorkspaceFile, data: Record<string, any>): string
+
+    /**
+     * Computes a diff between two files
+     */
+    diff(left: WorkspaceFile, right: WorkspaceFile, options?: DefDiffOptions): string
 }
 
 interface AICIGenOptions {
@@ -1581,6 +1609,11 @@ interface GitHub {
         jobId: number,
         options?: { llmify?: boolean }
     ): Promise<string>
+
+    /**
+     * Diffs two GitHub Action workflow job logs
+     */
+    diffWorkflowJobLogs(job_id: number, other_job_id: number): Promise<string>
 
     /**
      * Lists issues for a given repository

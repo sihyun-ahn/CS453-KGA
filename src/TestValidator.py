@@ -125,7 +125,7 @@ class TestValidator:
             self.keys = [line[0] for line in reader]
             self.tests = [line[1] for line in reader]
             self.output = [line[2] for line in reader]
-            self.results = [line[3] == "passed" for line in reader]
+            self.results = [line[3] for line in reader]
             self.reason = [line[4] for line in reader]
 
         for test in self.tests:
