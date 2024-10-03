@@ -8,6 +8,9 @@ import re
 import shutil
 import csv
 
+# python eval.py -id dataset/  -o result/ -n 3 -t 100 -m "gpt-4-turbo,gpt-4o,gpt-4o-mini,gpt-35-turbo,phi3.5:3.8b,phi3:medium,phi3:mini,llama3.2:1b,llama3.2:3b,llama3.1:8b,llama3.1:70b,gemma2:2b,gemma2:9b,gemma2:27b,mistral:7b,mistral-small:22b,mistral-nemo:12b"
+# python eval.py -id dataset/  -o result/ -n 3 -t 100 -m "gpt-4-turbo,gpt-4o,gpt-4o-mini,gpt-35-turbo"
+
 def check_rules_grounded(module, system_prompt):
     total = len(module.instructions)
     grounded = 0
@@ -28,16 +31,16 @@ def check_test_format(tests, input_spec):
     return valid_tests_index
 
 def emb_dedupe(reasons):
-    return 0 # TODO remove entirely
-    #reasons = [item for item in reasons if item]
-    #if len(reasons) == 0:
-    #    return 0
-    #if len(reasons) == 1:
-    #    return 1
+    return 0
+    # reasons = [item for item in reasons if item]
+    # if len(reasons) == 0:
+    #     return 0
+    # if len(reasons) == 1:
+    #     return 1
     # from wordllama import WordLlama
     # wl = WordLlama.load(config="l3_supercat", dim=1024)
-    #wl.binary = False
-    #return len(wl.deduplicate(reasons, threshold=0.3))
+    # wl.binary = False
+    # return len(wl.deduplicate(reasons, threshold=0.3))
 
 def exportTables(result, dir_name):
 	import pandas as pd
@@ -55,15 +58,22 @@ def exportTables(result, dir_name):
 			for model in all_models:
 				valid_failures = next((f['percentage'] for f in data_dict[key]['valid_failures'] if f['model'] == model), None)
 				row.append(valid_failures)
-			row += [len(data_dict[key].get('categories_failures', [])), len(data_dict[key].get('valid_categories_failures', []))]
-			row += [len(data_dict[key].get('categories_failures_emb', [])), len(data_dict[key].get('valid_categories_failures_emb', []))]
+			for model in all_models:
+				categories_failures = next((f['count'] for f in data_dict[key]['categories_failures'] if f['model'] == model), None)
+				row.append(categories_failures)
+			for model in all_models:
+				valid_categories_failures = next((f['count'] for f in data_dict[key]['valid_categories_failures'] if f['model'] == model), None)
+				row.append(valid_categories_failures)
+			# row += [len(data_dict[key].get('categories_failures', [])), len(data_dict[key].get('valid_categories_failures', []))]
+			# row += [len(data_dict[key].get('categories_failures_emb', [])), len(data_dict[key].get('valid_categories_failures_emb', []))]
 			rows.append(row)
 		columns = (
 			['name', 'count', 'valid'] +
 			[f'{model}-failures' for model in all_models] +
 			[f'{model}-valid_failures' for model in all_models] +
-			['categories_failures', 'valid_categories_failures'] +
-			['categories_failures_emb', 'valid_categories_failures_emb']
+			[f'{model}-categories_failures' for model in all_models] +
+            [f'{model}-valid_categories_failures' for model in all_models]
+			# ['categories_failures_emb', 'valid_categories_failures_emb']
 		)
 		return pd.DataFrame(rows, columns=columns)
 
@@ -148,15 +158,9 @@ if __name__ == "__main__":
         output_dir = args.output_dir
 
     for input_path in input_file_list:
-        print(input_path)
-
         _result ={}
         dir_name = output_dir + "/" + input_path.stem
         os.makedirs(dir_name, exist_ok=True)
-
-        if pathlib.Path(dir_name, "tests.csv").exists():
-            print('tests already exists, skip')
-            continue
 
         with open(input_path, "r") as f:
             system_prompt = f.read()
@@ -242,7 +246,18 @@ if __name__ == "__main__":
 
         # Generate tests with baseline
         print("Generating tests with baseline")
-        baseline_tests = LLMFrontEnd().generate_baseline_test(system_prompt, total)
+
+        # check if baseline_tests.csv already exist
+        baseline_tests = []
+        if pathlib.Path(dir_name, "baseline_tests.csv").exists():
+            with open(pathlib.Path(dir_name, "baseline_tests.csv"), "r") as f:
+                baseline_tests = f.read().split("====")
+        else:
+            baseline_tests = LLMFrontEnd().generate_baseline_test(system_prompt, total)
+            # write the baseline tests to a file baseline_tests.csv
+            with open(pathlib.Path(dir_name, "baseline_tests.csv"), "w") as f:
+                f.write("====".join(baseline_tests))
+
         baseline_test_run_path = pathlib.Path(dir_name, "baseline-run-0.csv")
         baseline_test_runner = AskLLMTestValidator(module, system_prompt, system_prompt, None, baseline_test_run_path, batch_mode=False)
         baseline_test_runner.force_append_tests(baseline_tests)
@@ -256,6 +271,7 @@ if __name__ == "__main__":
         baseline_percent_valid = baseline_total_valid / baseline_total * 100
         # Initialize Baseline results
         _result["baseline"] = {"name": input_path.stem, "count": total, "valid": percent_valid, "failures": [], "valid_failures": [], "categories_failures": [], "valid_categories_failures": [], "categories_failures_emb": [], "valid_categories_failures_emb": []}
+
 
         _exec_model = "gpt-4o-mini"
         if args.test_runner_model:
@@ -276,6 +292,7 @@ if __name__ == "__main__":
             else:
                 test_runner.importResults(variant_run_path)
 
+            total = len(test_runner.results)
             failed = sum(1 for test in test_runner.results if test != "passed")
 
             _failure = failed
@@ -283,11 +300,13 @@ if __name__ == "__main__":
 
             # Check categories
             reasons = test_runner.get_reasons()
+            reasons_str = ""
             for idx in range(len(test_runner.results)):
                 if test_runner.results[idx] == "passed":
                     reasons[idx] = ""
+                else:
+                    reasons_str += reasons[idx] + "\n"
 
-            reasons_str = "\n".join(reasons)
             categories = LLMFrontEnd().extract_failure_categories(reasons_str)
             categories_emb = emb_dedupe(reasons)
 
@@ -301,11 +320,13 @@ if __name__ == "__main__":
 
             # Check categories
             reasons = test_runner.get_reasons()
+            reasons_str = ""
             for idx in range(len(test_runner.results)):
                 if test_runner.results[idx] == "passed" or idx not in valid_tests_index:
                     reasons[idx] = ""
+                else:
+                    reasons_str += reasons[idx] + "\n"
 
-            reasons_str = "\n".join(reasons)
             categories = LLMFrontEnd().extract_failure_categories(reasons_str)
             categories_emb = emb_dedupe(reasons)
 
@@ -314,47 +335,57 @@ if __name__ == "__main__":
 
             print("Running test for checking exhaustive coverage")
             augmented_test_run_path = pathlib.Path(dir_name, f"augmented-run-0-{exec_model}.csv")
-            test_runner = AskLLMTestValidator(module, system_prompt, augmented_prompt, exec_model, augmented_test_run_path, batch_mode=False)
-            test_runner.append(test_path)
+            aug_test_runner = AskLLMTestValidator(module, system_prompt, augmented_prompt, exec_model, augmented_test_run_path, batch_mode=False)
+            aug_test_runner.append(test_path)
 
             if not augmented_test_run_path.exists():
                 for i in range(args.num_tests):
                     print(f"Running test {i}")
-                    test_runner.run_tests()
+                    aug_test_runner.run_tests()
             else:
-                test_runner.importResults(augmented_test_run_path)
+                aug_test_runner.importResults(augmented_test_run_path)
 
-            failed = sum(1 for test in test_runner.results if test != "passed")
-            _result["rules"]["failures"].append({"model": exec_model, "percentage": failed - _failure / total * 100})
+            aug_total = len(aug_test_runner.results)
+            failed = sum(1 for test in aug_test_runner.results if test != "passed")
+            tests_failed = sum(1 for test in test_runner.results if test != "passed")
+
+            assert aug_total == total, "Augmented tests count does not match original tests count"
+
+            _result["rules"]["failures"].append({"model": exec_model, "percentage": (failed - tests_failed) / aug_total * 100})
 
             # Check categories
-            reasons = test_runner.get_reasons()
-            for idx in range(len(test_runner.results)):
-                if test_runner.results[idx] == "passed":
+            reasons = aug_test_runner.get_reasons()
+            reasons_str = ""
+            for idx in range(len(aug_test_runner.results)):
+                if aug_test_runner.results[idx] == "passed":
                     reasons[idx] = ""
+                else:
+                    reasons_str += reasons[idx] + "\n"
 
-            reasons_str = "\n".join(reasons)
             categories = LLMFrontEnd().extract_failure_categories(reasons_str)
             categories_emb = emb_dedupe(reasons)
 
             _result["rules"]["categories_failures"].append({"model": exec_model, "count": categories})
             _result["rules"]["categories_failures_emb"].append({"model": exec_model, "count": categories_emb})
 
-            failed = sum(1 for test in test_runner.results if test_runner.results.index(test) in valid_tests_index and test != "passed")
+            failed = sum(1 for test in aug_test_runner.results if aug_test_runner.results.index(test) in valid_tests_index and test != "passed")
+            tests_failed = sum(1 for test in test_runner.results if test_runner.results.index(test) in valid_tests_index and test != "passed")
 
             # Check categories
-            reasons = test_runner.get_reasons()
-            for idx in range(len(test_runner.results)):
-                if test_runner.results[idx] == "passed" or idx not in valid_tests_index:
+            reasons = aug_test_runner.get_reasons()
+            reasons_str = ""
+            for idx in range(len(aug_test_runner.results)):
+                if aug_test_runner.results[idx] == "passed" or idx not in valid_tests_index:
                     reasons[idx] = ""
+                else:
+                    reasons_str += reasons[idx] + "\n"
 
-            reasons_str = "\n".join(reasons)
             categories = LLMFrontEnd().extract_failure_categories(reasons_str)
             categories_emb = emb_dedupe(reasons)
 
             _result["rules"]["valid_categories_failures"].append({"model": exec_model, "count": categories})
             _result["rules"]["valid_categories_failures_emb"].append({"model": exec_model, "count": categories_emb})
-            _result["rules"]["valid_failures"].append({"model": exec_model, "percentage": failed - _failure_valid / total * 100})
+            _result["rules"]["valid_failures"].append({"model": exec_model, "percentage": (failed - tests_failed) / aug_total * 100})
 
             # baseline
             print("Running tests with baseline")
@@ -369,13 +400,16 @@ if __name__ == "__main__":
             else:
                 baseline_test_runner.importResults(baseline_test_runner_path)
 
+            baseline_total = len(baseline_test_runner.results)
             # Check categories
             reasons = baseline_test_runner.get_reasons()
+            reasons_str = ""
             for idx in range(len(baseline_test_runner.results)):
                 if baseline_test_runner.results[idx] == "passed":
                     reasons[idx] = ""
+                else:
+                    reasons_str += reasons[idx] + "\n"
 
-            reasons_str = "\n".join(reasons)
             categories = LLMFrontEnd().extract_failure_categories(reasons_str)
             categories_emb = emb_dedupe(reasons)
 
@@ -387,18 +421,20 @@ if __name__ == "__main__":
 
             # Check categories
             reasons = baseline_test_runner.get_reasons()
+            reasons_str = ""
             for idx in range(len(baseline_test_runner.results)):
                 if baseline_test_runner.results[idx] == "passed" or idx not in baseline_valid_tests_index:
                     reasons[idx] = ""
+                else:
+                    reasons_str += reasons[idx] + "\n"
 
-            reasons_str = "\n".join(reasons)
             categories = LLMFrontEnd().extract_failure_categories(reasons_str)
             categories_emb = emb_dedupe(reasons)
 
             _result["baseline"]["valid_categories_failures"].append({"model": exec_model, "count": categories})
             _result["baseline"]["valid_categories_failures_emb"].append({"model": exec_model, "count": categories_emb})
 
-            failed = sum(1 for test in baseline_test_runner.results if test_runner.results.index(test) in valid_tests_index and test != "passed")
+            failed = sum(1 for test in baseline_test_runner.results if baseline_test_runner.results.index(test) in valid_tests_index and test != "passed")
             _result["baseline"]["valid_failures"].append({"model": exec_model, "percentage": failed / baseline_total * 100})
 
         print(_result)
