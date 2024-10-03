@@ -71,6 +71,9 @@ interface PromptLike extends PromptDefinition {
 
 type SystemPromptId = OptionsOrString<
     | "system"
+    | "system.agent_fs"
+    | "system.agent_git"
+    | "system.agent_github"
     | "system.annotations"
     | "system.changelog"
     | "system.diagrams"
@@ -80,6 +83,11 @@ type SystemPromptId = OptionsOrString<
     | "system.files_schema"
     | "system.fs_find_files"
     | "system.fs_read_file"
+    | "system.git"
+    | "system.github_actions"
+    | "system.github_files"
+    | "system.github_issues"
+    | "system.github_pulls"
     | "system.math"
     | "system.md_frontmatter"
     | "system.python"
@@ -96,8 +104,29 @@ type SystemPromptId = OptionsOrString<
 >
 
 type SystemToolId = OptionsOrString<
+    | "agent_fs"
+    | "agent_git"
+    | "agent_github"
     | "fs_find_files"
     | "fs_read_file"
+    | "git_branch_current"
+    | "git_branch_list"
+    | "git_diff"
+    | "git_last_tag"
+    | "git_log"
+    | "git_status"
+    | "github_actions_job_log"
+    | "github_actions_jobs_list"
+    | "github_actions_runs_list"
+    | "github_actions_workflows_list"
+    | "github_files_get"
+    | "github_files_list"
+    | "github_issues_comments_list"
+    | "github_issues_get"
+    | "github_issues_list"
+    | "github_pulls_get"
+    | "github_pulls_list"
+    | "github_pulls_review_comments_list"
     | "math_eval"
     | "md_read_frontmatter"
     | "python_code_interpreter"
@@ -613,6 +642,15 @@ interface WorkspaceFileSystem {
     readXML(path: string | Awaitable<WorkspaceFile>): Promise<any>
 
     /**
+     * Reads the content of a CSV file.
+     * @param path
+     */
+    readCSV<T extends object>(
+        path: string | Awaitable<WorkspaceFile>,
+        options?: CSVParseOptions
+    ): Promise<T[]>
+
+    /**
      * Writes a file as text to the file system
      * @param path
      * @param content
@@ -630,6 +668,7 @@ interface WorkspaceFileSystem {
 }
 
 interface ToolCallContext {
+    log(message: string): void
     trace: ToolCallTrace
 }
 
@@ -721,7 +760,14 @@ type PromptSystemArgs = Omit<
 
 type StringLike = string | WorkspaceFile | WorkspaceFile[]
 
-interface FenceOptions {
+interface LineNumberingOptions {
+    /**
+     * Prepend each line with a line numbers. Helps with generating diffs.
+     */
+    lineNumbers?: boolean
+}
+
+interface FenceOptions extends LineNumberingOptions {
     /**
      * Language of the fenced code block. Defaults to "markdown".
      */
@@ -735,11 +781,6 @@ interface FenceOptions {
         | "shell"
         | "toml"
         | string
-
-    /**
-     * Prepend each line with a line numbers. Helps with generating diffs.
-     */
-    lineNumbers?: boolean
 
     /**
      * JSON schema identifier
@@ -768,18 +809,25 @@ interface DefOptions extends FenceOptions, ContextExpansionOptions, DataFilter {
     /**
      * Filename filter based on file suffix. Case insensitive.
      */
-    endsWith?: string
+    endsWith?: ElementOrArray<string>
 
     /**
      * Filename filter using glob syntax.
      */
-    glob?: string
+    glob?: ElementOrArray<string>
 
     /**
      * By default, throws an error if the value in def is empty.
      */
     ignoreEmpty?: boolean
 }
+
+/**
+ * Options for the `defDiff` command.
+ */
+interface DefDiffOptions
+    extends ContextExpansionOptions,
+        LineNumberingOptions {}
 
 interface DefImagesOptions {
     detail?: "high" | "low"
@@ -993,6 +1041,11 @@ interface ParseZipOptions {
 
 type TokenEncoder = (text: string) => number[]
 
+interface CSVParseOptions {
+    delimiter?: string
+    headers?: string[]
+}
+
 interface Parsers {
     /**
      * Parses text as a JSON5 payload
@@ -1058,7 +1111,7 @@ interface Parsers {
      */
     CSV(
         content: string | WorkspaceFile,
-        options?: { delimiter?: string; headers?: string[] }
+        options?: CSVParseOptions
     ): object[] | undefined
 
     /**
@@ -1102,14 +1155,14 @@ interface Parsers {
     HTMLToText(
         content: string | WorkspaceFile,
         options?: HTMLToTextOptions
-    ): string
+    ): Promise<string>
 
     /**
      * Convert HTML to markdown
      * @param content html string or file
      * @param options
      */
-    HTMLToMarkdown(content: string | WorkspaceFile): string
+    HTMLToMarkdown(content: string | WorkspaceFile): Promise<string>
 
     /**
      * Extracts the contents of a zip archive file
@@ -1270,17 +1323,372 @@ interface HTML {
     convertTablesToJSON(
         html: string,
         options?: HTMLTableToJSONOptions
-    ): object[][]
+    ): Promise<object[][]>
     /**
      * Converts HTML markup to plain text
      * @param html
      */
-    convertToText(html: string): string
+    convertToText(html: string): Promise<string>
     /**
      * Converts HTML markup to markdown
      * @param html
      */
-    convertToMarkdown(html: string): string
+    convertToMarkdown(html: string): Promise<string>
+}
+
+interface GitCommit {
+    sha: string
+    message: string
+}
+
+interface Git {
+    /**
+     * Resolves the default branch for this repository
+     */
+    defaultBranch(): Promise<string>
+
+    /**
+     * Gets the last tag in the repository
+     */
+    lastTag(): Promise<string>
+
+    /**
+     * Gets the current branch of the repository
+     */
+    branch(): Promise<string>
+
+    /**
+     * Executes a git command in the repository and returns the stdout
+     * @param cmd
+     */
+    exec(args: string[] | string, options?: { label?: string }): Promise<string>
+
+    /**
+     * Lists the branches in the git repository
+     */
+    listBranches(): Promise<string[]>
+
+    /**
+     * Finds specific files in the git repository.
+     * By default, work
+     * @param options
+     */
+    listFiles(
+        scope: "modified-base" | "staged" | "modified",
+        options?: {
+            base?: string
+            /**
+             * Ask the user to stage the changes if the diff is empty.
+             */
+            askStageOnEmpty?: boolean
+            paths?: ElementOrArray<string>
+            excludedPaths?: ElementOrArray<string>
+        }
+    ): Promise<WorkspaceFile[]>
+
+    /**
+     *
+     * @param options
+     */
+    diff(options?: {
+        staged?: boolean
+        /**
+         * Ask the user to stage the changes if the diff is empty.
+         */
+        askStageOnEmpty?: boolean
+        base?: string
+        head?: string
+        paths?: ElementOrArray<string>
+        excludedPaths?: ElementOrArray<string>
+        unified?: number
+        /**
+         * Modifies the diff to be in a more LLM friendly format
+         */
+        llmify?: boolean
+    }): Promise<string>
+
+    /**
+     * Lists the commits in the git repository
+     */
+    log(options?: {
+        base?: string
+        head?: string
+        merges?: boolean
+        excludedGrep?: string | RegExp
+        paths?: ElementOrArray<string>
+        excludedPaths?: ElementOrArray<string>
+    }): Promise<GitCommit[]>
+}
+
+interface GitHubOptions {
+    owner: string
+    repo: string
+    baseUrl?: string
+    auth?: string
+    ref?: string
+    refName?: string
+}
+
+type GitHubWorkflowRunStatus =
+    | "completed"
+    | "action_required"
+    | "cancelled"
+    | "failure"
+    | "neutral"
+    | "skipped"
+    | "stale"
+    | "success"
+    | "timed_out"
+    | "in_progress"
+    | "queued"
+    | "requested"
+    | "waiting"
+    | "pending"
+
+interface GitHubWorkflowRun {
+    id: number
+    name?: string
+    display_title: string
+    status: string
+    conclusion: string
+    html_url: string
+    created_at: string
+    head_branch: string
+    head_sha: string
+}
+
+interface GitHubWorkflowJob {
+    id: number
+    run_id: number
+    status: string
+    conclusion: string
+    name: string
+    html_url: string
+    logs_url: string
+    logs: string
+    started_at: string
+    completed_at: string
+    content: string
+}
+
+interface GitHubIssue {
+    id: number
+    body?: string
+    title: string
+    number: number
+    state: string
+    state_reason?: "completed" | "reopened" | "not_planned" | null
+    html_url: string 
+    draft?: boolean
+    reactions?: GitHubReactions
+}
+
+interface GitHubReactions {
+    url: string
+    total_count: number
+    "+1": number
+    "-1": number
+    laugh: number
+    confused: number
+    heart: number
+    hooray: number
+    eyes: number
+    rocket: number
+}
+
+interface GitHubComment {
+    id: number
+    body?: string
+    created_at: string
+    updated_at: string
+    html_url: string
+    reactions?: GitHubReactions
+}
+
+interface GitHubPullRequest extends GitHubIssue {
+}
+
+interface GitHubCodeSearchResult {
+    name: string
+    path: string
+    sha: string
+    html_url: string
+    score: number
+    repository: string
+}
+
+interface GitHubWorkflow {
+    id: number
+    name: string
+    path: string
+}
+
+interface GitHubPaginationOptions {
+    /**
+     * Default number of items to fetch, default is 50.
+     */
+    count?: number
+}
+
+interface GitHubFile extends WorkspaceFile {
+    type: "file" | "dir" | "submodule" | "symlink"
+    size: number
+}
+
+interface GitHubUser {
+    login: string
+}
+
+interface GitHub {
+    /**
+     * Gets connection information for octokit
+     */
+    info(): Promise<GitHubOptions | undefined>
+
+    /**
+     * Lists workflows in a GitHub repository
+     */
+    listWorkflows(options?: GitHubPaginationOptions): Promise<GitHubWorkflow[]>
+
+    /**
+     * Lists workflow runs for a given workflow
+     * @param workflowId
+     * @param options
+     */
+    listWorkflowRuns(
+        workflow_id: string | number,
+        options?: {
+            branch?: string
+            event?: string
+            status?: GitHubWorkflowRunStatus
+        } & GitHubPaginationOptions
+    ): Promise<GitHubWorkflowRun[]>
+
+    /**
+     * Downloads a GitHub Action workflow run log
+     * @param runId
+     */
+    listWorkflowJobs(
+        runId: number,
+        options?: GitHubPaginationOptions
+    ): Promise<GitHubWorkflowJob[]>
+
+    /**
+     * Downloads a GitHub Action workflow run log
+     * @param jobId
+     */
+    downloadWorkflowJobLog(
+        jobId: number,
+        options?: { llmify?: boolean }
+    ): Promise<string>
+
+    /**
+     * Lists issues for a given repository
+     * @param options
+     */
+    listIssues(
+        options?: {
+            state?: "open" | "closed" | "all"
+            labels?: string
+            sort?: "created" | "updated" | "comments"
+            direction?: "asc" | "desc"
+        } & GitHubPaginationOptions
+    ): Promise<GitHubIssue[]>
+
+
+    /**
+     * Gets the details of a GitHub issue
+     * @param number issue number (not the issue id!)
+     */
+    async getIssue(number: number): Promise<GitHubIssue>
+    
+    /**
+     * Lists comments for a given issue
+     * @param issue_number
+     * @param options
+     */
+    listIssueComments(
+        issue_number: number,
+        options?: GitHubPaginationOptions
+    ): Promise<GitHubComment[]>
+
+    /**
+     * Lists pull requests for a given repository
+     * @param options
+     */
+    listPullRequests(
+        options?: {
+            state?: "open" | "closed" | "all"
+            sort?: "created" | "updated" | "popularity" | "long-running"
+            direction?: "asc" | "desc"
+        } & GitHubPaginationOptions
+    ): Promise<GitHubPullRequest[]>
+
+    /**
+     * Gets the details of a GitHub pull request
+     * @param pull_number pull request number (not the pull request id!)
+     */
+    getPullRequest(pull_number: number): Promise<GitHubPullRequest>
+
+    /**
+     * Lists comments for a given pull request
+     * @param pull_number
+     * @param options
+     */
+    listPullRequestReviewComments(
+        pull_number: number,
+        options?: GitHubPaginationOptions
+    ): Promise<GitHubComment[]>
+
+    /**
+     * Gets the content of a file from a GitHub repository
+     * @param filepath
+     * @param options
+     */
+    getFile(
+        filepath: string,
+        /**
+         * commit sha, branch name or tag name
+         */
+        ref: string
+    ): Promise<WorkspaceFile>
+
+    /**
+     * Searches code in a GitHub repository
+     */
+    searchCode(
+        query: string,
+        options?: GitHubPaginationOptions
+    ): Promise<GitHubCodeSearchResult[]>
+
+    /**
+     * Lists branches in a GitHub repository
+     */
+    listBranches(options?: GitHubPaginationOptions): Promise<string[]>
+
+    /**
+     * Lists tags in a GitHub repository
+     */
+    listRepositoryLanguages(): Promise<Record<string, number>>
+
+    /**
+     * Lists tags in a GitHub repository
+     */
+    getRepositoryContent(
+        path?: string,
+        options?: {
+            ref?: string
+            glob?: string
+            downloadContent?: boolean
+            maxDownloadSize?: number
+            type?: (typeof GitHubFile)["type"]
+        }
+    ): Promise<GitHubFile[]>
+
+    /**
+     * Gets the underlying Octokit client
+     */
+    client(): Promise<any>
 }
 
 interface MD {
@@ -1335,11 +1743,23 @@ interface INI {
     stringify(value: any): string
 }
 
+interface CSVStringifyOptions {
+    delimiter?: string
+    header?: boolean
+}
+
+/**
+ * Interface representing CSV operations.
+ */
 interface CSV {
     /**
-     * Parses a CSV string to an array of objects
-     * @param text
-     * @param options
+     * Parses a CSV string to an array of objects.
+     *
+     * @param text - The CSV string to parse.
+     * @param options - Optional settings for parsing.
+     * @param options.delimiter - The delimiter used in the CSV string. Defaults to ','.
+     * @param options.headers - An array of headers to use. If not provided, headers will be inferred from the first row.
+     * @returns An array of objects representing the parsed CSV data.
      */
     parse(
         text: string,
@@ -1350,9 +1770,22 @@ interface CSV {
     ): object[]
 
     /**
-     * Converts an array of object that represents a data table to a markdown table
-     * @param csv
-     * @param options
+     * Converts an array of objects to a CSV string.
+     *
+     * @param csv - The array of objects to convert.
+     * @param options - Optional settings for stringifying.
+     * @param options.headers - An array of headers to use. If not provided, headers will be inferred from the object keys.
+     * @returns A CSV string representing the data.
+     */
+    stringify(csv: object[], options?: CSVStringifyOptions): string
+
+    /**
+     * Converts an array of objects that represents a data table to a markdown table.
+     *
+     * @param csv - The array of objects to convert.
+     * @param options - Optional settings for markdown conversion.
+     * @param options.headers - An array of headers to use. If not provided, headers will be inferred from the object keys.
+     * @returns A markdown string representing the data table.
      */
     markdownify(csv: object[], options?: { headers?: string[] }): string
 }
@@ -1584,6 +2017,12 @@ interface ChatTurnGenerationContext {
         data: object[] | object,
         options?: DefDataOptions
     ): string
+    defDiff<T extends string | WorkspaceFile>(
+        name: string,
+        left: T,
+        right: T,
+        options?: DefDiffOptions
+    ): string
     console: PromptGenerationConsole
 }
 
@@ -1621,7 +2060,7 @@ interface ChatGenerationContext extends ChatTurnGenerationContext {
         options?: ChatParticipantOptions
     ): void
     defFileOutput(
-        pattern: string | string[],
+        pattern: ElementOrArray<string | WorkspaceFile>,
         description?: string,
         options?: FileOutputOptions
     ): void
@@ -2329,10 +2768,10 @@ interface PromiseQueue {
 
     /**
      * Applies a function to all the values in the queue with limited concurrency
-     * @param values 
-     * @param fn 
+     * @param values
+     * @param fn
      */
-    async mapAll<T extends unknown, Arguments extends unknown[], ReturnType>(
+    mapAll<T extends unknown, Arguments extends unknown[], ReturnType>(
         values: T[],
         fn: (value: T, ...arguments_: Arguments) => Awaitable<ReturnType>,
         ...arguments_: Arguments
@@ -2504,7 +2943,7 @@ declare function def(
  * @param options expectations about the generated file content
  */
 declare function defFileOutput(
-    pattern: string | string[],
+    pattern: ElementOrArray<string | WorkspaceFile>,
     description?: string,
     options?: FileOutputOptions
 ): void
@@ -2604,6 +3043,16 @@ declare var AICI: AICI
 declare var host: PromptHost
 
 /**
+ * Access to GitHub queries for the current repository
+ */
+declare var github: GitHub
+
+/**
+ * Access to Git operations for the current repository
+ */
+declare var git: Git
+
+/**
  * Fetches a given URL and returns the response.
  * @param url
  */
@@ -2645,6 +3094,19 @@ declare function defData(
     name: string,
     data: object[] | object,
     options?: DefDataOptions
+): string
+
+/**
+ * Renders a diff of the two given values
+ * @param left
+ * @param right
+ * @param options
+ */
+declare function defDiff<T extends string | WorkspaceFile>(
+    name: string,
+    left: T,
+    right: T,
+    options?: DefDiffOptions
 ): string
 
 /**
