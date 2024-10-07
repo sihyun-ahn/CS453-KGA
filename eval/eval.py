@@ -8,8 +8,8 @@ import re
 import shutil
 import csv
 
-# python eval.py -id dataset/  -o result/ -n 3 -t 100 -m "gpt-4-turbo,gpt-4o,gpt-4o-mini,gpt-35-turbo,phi3.5:3.8b,phi3:medium,phi3:mini,llama3.2:1b,llama3.2:3b,llama3.1:8b,llama3.1:70b,gemma2:2b,gemma2:9b,gemma2:27b,mistral:7b,mistral-small:22b,mistral-nemo:12b"
-# python eval.py -id dataset/  -o result/ -n 3 -t 100 -m "gpt-4-turbo,gpt-4o,gpt-4o-mini,gpt-35-turbo"
+# python3.9 eval.py -id dataset/  -o result/ -n 3 -t 100 -m "gpt-4-turbo,gpt-4o,gpt-4o-mini,gpt-35-turbo,phi3.5:3.8b,phi3:medium,phi3:mini,llama3.2:1b,llama3.2:3b,llama3.1:8b,llama3.1:70b,gemma2:2b,gemma2:9b,gemma2:27b,mistral:7b,mistral-small:22b,mistral-nemo:12b"
+# python3.9 eval.py -id dataset/  -o result/ -n 3 -t 100 -m "gpt-4-turbo,gpt-4o,gpt-4o-mini,gpt-35-turbo"
 
 def check_rules_grounded(module, system_prompt):
     total = len(module.instructions)

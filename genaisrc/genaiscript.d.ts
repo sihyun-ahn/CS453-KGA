@@ -89,6 +89,7 @@ type SystemPromptId = OptionsOrString<
     | "system.git"
     | "system.github_actions"
     | "system.github_files"
+    | "system.github_info"
     | "system.github_issues"
     | "system.github_pulls"
     | "system.math"
@@ -120,12 +121,11 @@ type SystemToolId = OptionsOrString<
     | "git_branch_list"
     | "git_diff"
     | "git_last_tag"
-    | "git_log"
+    | "git_list_commits"
     | "git_status"
     | "github_actions_job_logs_diff"
     | "github_actions_job_logs_get"
     | "github_actions_jobs_list"
-    | "github_actions_runs_list"
     | "github_actions_workflows_list"
     | "github_files_get"
     | "github_files_list"
@@ -293,12 +293,12 @@ interface PromptSystemOptions {
     /**
      * List of system script ids used by the prompt.
      */
-    system?: SystemPromptId | SystemPromptId[]
+    system?: ElementOrArray<SystemPromptId>
 
     /**
      * List of tools used by the prompt.
      */
-    tools?: SystemToolId | SystemToolId[]
+    tools?: ElementOrArray<SystemToolId>
 }
 
 interface ScriptRuntimeOptions {
@@ -464,7 +464,7 @@ interface PromptScript
     /**
      * List of tools defined in the script
      */
-    defTools?: { id: string, description: string }[]
+    defTools?: { id: string; description: string; kind: "tool" | "agent" }[]
 }
 
 /**
@@ -489,7 +489,7 @@ interface WorkspaceFileWithScore extends WorkspaceFile {
     score?: number
 }
 
-interface ToolDefinition {
+interface ToolDefinition extends DefToolOptions {
     /**
      * The name of the function to be called. Must be a-z, A-Z, 0-9, or contain
      * underscores and dashes, with a maximum length of 64.
@@ -583,6 +583,7 @@ type ToolCallOutput =
     | ShellOutput
     | WorkspaceFile
     | RunPromptResult
+    | SerializedError
     | undefined
 
 interface WorkspaceFileCache<K, V> {
@@ -654,9 +655,18 @@ interface WorkspaceFileSystem {
     readJSON(path: string | Awaitable<WorkspaceFile>): Promise<any>
 
     /**
+     * Reads the content of a file and parses to YAML.
+     * @param path
+     */
+    readYAML(path: string | Awaitable<WorkspaceFile>): Promise<any>
+
+    /**
      * Reads the content of a file and parses to XML, using the XML parser.
      */
-    readXML(path: string | Awaitable<WorkspaceFile>): Promise<any>
+    readXML(
+        path: string | Awaitable<WorkspaceFile>,
+        options?: XMLParseOptions
+    ): Promise<any>
 
     /**
      * Reads the content of a CSV file.
@@ -757,7 +767,10 @@ interface ExpansionVariables {
 
 type MakeOptional<T, P extends keyof T> = Partial<Pick<T, P>> & Omit<T, P>
 
-type PromptArgs = Omit<PromptScript, "text" | "id" | "jsSource" | "activation" | "defTools">
+type PromptArgs = Omit<
+    PromptScript,
+    "text" | "id" | "jsSource" | "activation" | "defTools"
+>
 
 type PromptSystemArgs = Omit<
     PromptArgs,
@@ -893,6 +906,7 @@ type JSONSchemaType =
 
 interface JSONSchemaString {
     type: "string"
+    enum?: string[]
     description?: string
     default?: string
 }
@@ -1248,7 +1262,11 @@ interface Parsers {
     /**
      * Computes a diff between two files
      */
-    diff(left: WorkspaceFile, right: WorkspaceFile, options?: DefDiffOptions): string
+    diff(
+        left: WorkspaceFile,
+        right: WorkspaceFile,
+        options?: DefDiffOptions
+    ): string
 }
 
 interface AICIGenOptions {
@@ -1506,9 +1524,11 @@ interface GitHubIssue {
     number: number
     state: string
     state_reason?: "completed" | "reopened" | "not_planned" | null
-    html_url: string 
+    html_url: string
     draft?: boolean
     reactions?: GitHubReactions
+    user: GitHubUser
+    assignee?: GitHubUser
 }
 
 interface GitHubReactions {
@@ -1527,14 +1547,14 @@ interface GitHubReactions {
 interface GitHubComment {
     id: number
     body?: string
+    user: GitHubUser
     created_at: string
     updated_at: string
     html_url: string
     reactions?: GitHubReactions
 }
 
-interface GitHubPullRequest extends GitHubIssue {
-}
+interface GitHubPullRequest extends GitHubIssue {}
 
 interface GitHubCodeSearchResult {
     name: string
@@ -1625,16 +1645,19 @@ interface GitHub {
             labels?: string
             sort?: "created" | "updated" | "comments"
             direction?: "asc" | "desc"
+            creator?: string
+            assignee?: string
+            since?: string
+            mentioned?: string
         } & GitHubPaginationOptions
     ): Promise<GitHubIssue[]>
-
 
     /**
      * Gets the details of a GitHub issue
      * @param number issue number (not the issue id!)
      */
-    async getIssue(number: number): Promise<GitHubIssue>
-    
+    getIssue(number: number): Promise<GitHubIssue>
+
     /**
      * Lists comments for a given issue
      * @param issue_number
@@ -1956,9 +1979,8 @@ interface DefSchemaOptions {
     format?: "typescript" | "json" | "yaml"
 }
 
-type ChatFunctionHandler = (
-    args: { context: ToolCallContext } & Record<string, any>
-) => Awaitable<ToolCallOutput>
+type ChatFunctionArgs = { context: ToolCallContext } & Record<string, any>
+type ChatFunctionHandler = (args: ChatFunctionArgs) => Awaitable<ToolCallOutput>
 
 interface WriteTextOptions extends ContextExpansionOptions {
     /**
@@ -2069,6 +2091,20 @@ interface RunPromptResultPromiseWithOptions extends Promise<RunPromptResult> {
     options(values?: PromptGeneratorOptions): RunPromptResultPromiseWithOptions
 }
 
+interface DefToolOptions {
+    /**
+     * Maximum number of tokens per tool content response
+     */
+    maxTokens?: number
+}
+
+interface DefAgentOptions extends Omit<PromptGeneratorOptions, "label"> {}
+
+type ChatAgentHandler = (
+    ctx: ChatGenerationContext,
+    args: ChatFunctionArgs
+) => Awaitable<unknown>
+
 interface ChatGenerationContext extends ChatTurnGenerationContext {
     defSchema(
         name: string,
@@ -2080,13 +2116,20 @@ interface ChatGenerationContext extends ChatTurnGenerationContext {
         options?: DefImagesOptions
     ): void
     defTool(
-        tool: ToolCallback | AgenticToolCallback | AgenticToolProviderCallback
+        tool: ToolCallback | AgenticToolCallback | AgenticToolProviderCallback,
+        options?: DefToolOptions
     ): void
     defTool(
         name: string,
         description: string,
         parameters: PromptParametersSchema | JSONSchema,
         fn: ChatFunctionHandler
+    ): void
+    defAgent(
+        name: string,
+        description: string,
+        fn: string | ChatAgentHandler,
+        options?: DefAgentOptions
     ): void
     defChatParticipant(
         participant: ChatParticipantHandler,
@@ -2934,6 +2977,14 @@ declare function writeText(
 ): void
 
 /**
+ * Append given string to the prompt as an assistant mesage.
+ */
+declare function assistant(
+    text: Awaitable<string>,
+    options?: Omit<WriteTextOptions, "assistant">
+): void
+
+/**
  * Append given string to the prompt. It automatically appends "\n".
  * `` $`foo` `` is the same as `text("foo")`.
  */
@@ -2990,13 +3041,29 @@ declare function defFileOutput(
  * @param fn callback invoked when the LLM requests to run this function
  */
 declare function defTool(
-    tool: ToolCallback | AgenticToolCallback | AgenticToolProviderCallback
+    tool: ToolCallback | AgenticToolCallback | AgenticToolProviderCallback,
+    options?: DefToolOptions
 ): void
 declare function defTool(
     name: string,
     description: string,
     parameters: PromptParametersSchema | JSONSchema,
-    fn: ChatFunctionHandler
+    fn: ChatFunctionHandler,
+    options?: DefToolOptions
+): void
+
+/**
+ * Declares a LLM agent tool that can be called from the prompt.
+ * @param name name of the agent, do not prefix with agent
+ * @param description description of the agent, used by the model to choose when and how to call the agent
+ * @param fn prompt generation context
+ * @param options additional options for the agent LLM
+ */
+declare function defAgent(
+    name: string,
+    description: string,
+    fn: string | ChatAgentHandler,
+    options?: DefAgentOptions
 ): void
 
 /**
