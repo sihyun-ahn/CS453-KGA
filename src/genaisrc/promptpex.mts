@@ -48,6 +48,7 @@ function modelOptions(): PromptGeneratorOptions {
 function tidyRules(text: string) {
   return text
     .split(/\n/g)
+    .map((line) => line.replace(/^\d+.\s+/i, "")) // unneded numbering
     .filter((s) => !!s)
     .join("\n");
 }
@@ -116,9 +117,9 @@ export async function generateTests(
     PromptPexContext,
     "prompt" | "inputSpec" | "rules" | "inverseRules"
   >,
-  options: { num: number }
+  options?: { num: number }
 ) {
-  const { num } = options;
+  const { num = 3 } = options || {};
 
   if (!files.rules.content) throw new Error("No rules found");
   if (!files.inputSpec.content) throw new Error("No input spec found");
