@@ -1,7 +1,5 @@
 import {
-  modelOptions,
   loadPromptContext,
-  tidyRules,
   generateRules,
   generateInverseRules,
 } from "./promptpex.mts";
