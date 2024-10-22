@@ -9,13 +9,17 @@ export interface PromptPexContext {
   tests: WorkspaceFile;
 }
 
-export async function loadPromptContext(
-  promptFile?: WorkspaceFile
+export async function loadPromptContext(): Promise<PromptPexContext[]> {
+  const q = host.promiseQueue(5);
+  return q.mapAll(
+    env.files.filter((f) => /\.(md|prompty)$/i.test(f.filename)),
+    async (f) => await loadPromptFiles(f)
+  );
+}
+
+export async function loadPromptFiles(
+  promptFile: WorkspaceFile
 ): Promise<PromptPexContext> {
-  if (!promptFile)
-    promptFile = env.files.find(({ filename }) =>
-      /\.(md|prompty)$/i.test(filename)
-    );
   const dir = path.dirname(promptFile.filename);
   const basename = path
     .basename(promptFile.filename)
@@ -144,4 +148,55 @@ export async function generateTests(
   );
   if (res.error) throw res.error;
   return res.text;
+}
+
+export async function generate(
+  files: PromptPexContext,
+  options?: { force?: boolean; q: PromiseQueue }
+) {
+  const { force = false, q } = options || {};
+  // generate input spec
+  if (!files.inputSpec.content || force) {
+    files.inputSpec.content = await generateInputSpec(files);
+    await workspace.writeText(
+      files.inputSpec.filename,
+      files.inputSpec.content
+    );
+  } else {
+    console.log(
+      `input spec ${files.inputSpec.filename} already exists. Skipping generation.`
+    );
+  }
+
+  // generate rules
+  if (!files.rules.content || force) {
+    files.rules.content = await generateRules(files);
+    await workspace.writeText(files.rules.filename, files.rules.content);
+    files.inverseRules.content = undefined;
+    files.tests.content = undefined;
+  } else {
+    console.log(
+      `rules ${files.rules.filename} already exists. Skipping generation.`
+    );
+  }
+
+  // generate inverse rules
+  if (!files.inverseRules.content || force) {
+    const inverseRules = await generateInverseRules(files);
+    await workspace.writeText(files.inverseRules.filename, inverseRules);
+    files.tests.content = undefined;
+  } else {
+    console.log(
+      `inverse rules ${files.inverseRules.filename} already exists. Skipping generation.`
+    );
+  }
+
+  // generate tests
+  if (!files.tests.content || force) {
+    files.rules.content = await generateTests(files);
+  } else {
+    console.log(
+      `tests ${files.tests.filename} already exists. Skipping generation.`
+    );
+  }
 }

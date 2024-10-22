@@ -7,7 +7,7 @@ script({
   files: ["samples/speech-tag/speech-tag.prompty"],
 });
 
-const files = await loadPromptContext();
+const files = (await loadPromptContext())[0];
 
 // generate input specs
 const inputSpec = await generateInputSpec(files);

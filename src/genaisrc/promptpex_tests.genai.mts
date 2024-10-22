@@ -8,8 +8,8 @@ script({
 });
 
 const num = parseInt(env.vars.num) || 10;
-const pp = await loadPromptContext();
+const files = (await loadPromptContext())[0];
 
 // generate tests
-const tests = await generateTests(pp, { num });
-await workspace.writeText(pp.tests.filename, tests);
+const tests = await generateTests(files, { num });
+await workspace.writeText(files.tests.filename, tests);

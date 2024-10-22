@@ -11,7 +11,7 @@ script({
   files: ["samples/speech-tag/speech-tag.prompty"],
 });
 
-const files = await loadPromptContext();
+const files = (await loadPromptContext())[0];
 
 // generate rules
 files.rules.content = await generateRules(files);
