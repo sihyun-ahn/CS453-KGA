@@ -2,6 +2,8 @@
 
 ## Run examples
 
+To run a promptpex generation to run promptpex:
+
 ```sh
-yarn genai promptpex samples/speech-tag/speech-tag.prompty --vars force=true
+yarn promptpex samples/speech-tag/speech-tag.prompty --vars force=true
 ```
