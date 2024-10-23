@@ -53,7 +53,7 @@ function tidyRules(text: string) {
   if (/i can't assist with that/i.test(text)) return "";
   return text
     .split(/\n/g)
-    .map((line) => line.replace(/^\d+.\s+/i, "")) // unneded numbering
+    .map((line) => line.replace(/^(\d+\.|_|\*)\s+/i, "")) // unneded numbering
     .filter((s) => !!s)
     .join("\n");
 }
