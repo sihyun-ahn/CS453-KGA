@@ -50,6 +50,7 @@ function modelOptions(): PromptGeneratorOptions {
 }
 
 function tidyRules(text: string) {
+  if (/i can't assist with that/i.test(text)) return "";
   return text
     .split(/\n/g)
     .map((line) => line.replace(/^\d+.\s+/i, "")) // unneded numbering
@@ -183,6 +184,7 @@ export async function generate(
   // generate inverse rules
   if (!files.inverseRules.content || force) {
     const inverseRules = await generateInverseRules(files);
+    if (!inverseRules) console.warn("No inverse rules generated");
     await workspace.writeText(files.inverseRules.filename, inverseRules);
     files.tests.content = undefined;
   } else {
