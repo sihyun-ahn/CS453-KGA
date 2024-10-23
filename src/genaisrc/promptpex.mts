@@ -195,7 +195,8 @@ export async function generate(
 
   // generate tests
   if (!files.tests.content || force) {
-    files.rules.content = await generateTests(files);
+    files.tests.content = await generateTests(files);
+    await workspace.writeText(files.tests.filename, files.tests.content);
   } else {
     console.log(
       `tests ${files.tests.filename} already exists. Skipping generation.`

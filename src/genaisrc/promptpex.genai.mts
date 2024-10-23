@@ -1,9 +1,9 @@
 import { loadPromptContext, generate } from "./promptpex.mts";
 
 script({
-  title: "PromptPex Input Spec Generator",
+  title: "PromptPex Test Generator",
   description:
-    "Generate an input spec for a prompt template. Runs this script against a prompt authored in markdown or prompty format.",
+    "Generate tests using PromptPex.",
   files: ["samples/speech-tag/speech-tag.prompty"],
   parameters: {
     force: {
