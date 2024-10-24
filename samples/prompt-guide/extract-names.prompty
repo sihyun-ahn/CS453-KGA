@@ -5,6 +5,9 @@ source: Prompt examples from the website (slightly modified)
 url: https://www.promptingguide.ai/prompts/information-extraction/extract-models
 sample:
     input: "The model uses a transformer architecture with a BERT base model."
+inputs:
+    input:
+        type: "string"
 ---
 system:
 Your task is to extract model names from machine learning paper abstracts. Your response is an array of the model names in the format [\"model_name\"]. If you don't find model names in the abstract or you are not sure, return [\"NA\"]

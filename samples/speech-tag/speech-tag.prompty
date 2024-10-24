@@ -3,6 +3,14 @@ name: Speech Tag
 description: Determine the part of speech for a given word
 source: "modified from 'SAMMO: A general-purpose framework for prompt optimization'"
 url: https://www.microsoft.com/en-us/research/uploads/prod/2024/04/Prompts-As-Programs_A-Structure-Aware-Approach.pdf
+inputs:
+    sentence:
+        type: "string"
+    word:
+        type: "string"
+sample:
+    sentence: "The quick brown fox jumps over the lazy dog."
+    word: "jumps"
 ---
 system:
 In this task, you will be presented with a sentence and a word contained
