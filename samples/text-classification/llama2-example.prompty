@@ -1,0 +1,22 @@
+
+---
+name: Classify input text
+description: Given an input text, classify it into a specific category.
+source: How to use Llama2 tutorial for text classification
+url: https://pupuweb.com/how-use-llama-2-text-classification-tasks/
+inputs: 
+  text:
+    type: string
+samples:
+    - text: "UN chief urges action on climate change as report warns of 'catastrophe'"
+---
+system:
+A news article can be classified as one of the following categories: World, Sports, Business, Sci/Tech.
+Examples:
+- World: "UN chief urges action on climate change as report warns of 'catastrophe'"
+- Sports: "Ronaldo scores twice in Manchester United return"
+- Business: "Apple delays plan to scan iPhones for child abuse images"
+- Sci/Tech: "SpaceX launches first all-civilian crew into orbit"'
+user:
+Based on these categories, classify this news article: {{text}}
+    
