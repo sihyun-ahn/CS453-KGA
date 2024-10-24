@@ -1,21 +1,21 @@
 ---
 name: generate_weather_detailed_description
 description: A prompt that generated a detaled description for a weather forecast
-authors:
-  - Bruno Capuano
 source: Tutorial on using prompty in .net
 url: https://devblogs.microsoft.com/dotnet/add-ai-to-your-dotnet-apps-easily-with-prompty/
+inputs:
+  today:
+    type: string
+  date:
+    type: string
+  forecastTemperatureC:
+    type: string
 sample:
-  today: > 
-    2024-07-16
-
-  date: > 
-    2024-07-17
-
-  forecastTemperatureC: >
-    25°C
+  today: 2024-07-16
+  date: 2024-07-17
+  forecastTemperatureC: 25°C
 ---
-
+system:
 # System:
 You are an AI assistant who generated detailed weather forecast descriptions. The detailed description is a paragraph long.
 You use the full description of the date, including the weekday.
