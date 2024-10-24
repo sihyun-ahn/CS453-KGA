@@ -12,7 +12,7 @@ export interface PromptPexContext {
 export async function loadPromptContext(): Promise<PromptPexContext[]> {
   const q = host.promiseQueue(5);
   return q.mapAll(
-    env.files.filter((f) => /\.(md|prompty)$/i.test(f.filename)),
+    env.files.filter((f) => /\.(md|txt|prompty)$/i.test(f.filename)),
     async (f) => await loadPromptFiles(f)
   );
 }
@@ -39,7 +39,7 @@ export async function loadPromptFiles(
     instructions: await workspace.readText(instructions),
     inputSpec: await workspace.readText(inputSpec),
     tests: await workspace.readText(tests),
-  };
+  } satisfies PromptPexContext;
 }
 
 function modelOptions(): PromptGeneratorOptions {
@@ -59,13 +59,12 @@ function tidyRules(text: string) {
 }
 
 export async function generateInputSpec(
-  files: Pick<PromptPexContext, "inputSpec" | "prompt">
+  files: Pick<PromptPexContext, "prompt">
 ) {
   const res = await runPrompt(
     (ctx) => {
       ctx.importTemplate("src/prompts/input_spec.prompty", {
         context: files.prompt.content,
-        input_spec: files.inputSpec?.content || "",
       });
     },
     {

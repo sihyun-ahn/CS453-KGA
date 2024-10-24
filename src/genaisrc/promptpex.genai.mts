@@ -2,8 +2,7 @@ import { loadPromptContext, generate } from "./promptpex.mts";
 
 script({
   title: "PromptPex Test Generator",
-  description:
-    "Generate tests using PromptPex.",
+  description: "Generate tests using PromptPex.",
   files: ["samples/speech-tag/speech-tag.prompty"],
   parameters: {
     force: {
@@ -23,4 +22,10 @@ const { force, concurrency } = env.vars;
 
 const prompts = await loadPromptContext();
 const q = host.promiseQueue(concurrency);
-await q.mapAll(prompts, async (files) => await generate(files, { force, q }));
+await q.mapAll(prompts, async (files) => {
+  try {
+    await generate(files, { force, q });
+  } catch (e) {
+    console.error(e);
+  }
+})
