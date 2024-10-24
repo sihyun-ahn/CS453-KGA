@@ -61,10 +61,11 @@ function tidyRules(text: string) {
 export async function generateInputSpec(
   files: Pick<PromptPexContext, "prompt">
 ) {
+  const context = MD.content(files.prompt.content);
   const res = await runPrompt(
     (ctx) => {
       ctx.importTemplate("src/prompts/input_spec.prompty", {
-        context: files.prompt.content,
+        context,
       });
     },
     {
@@ -82,11 +83,12 @@ export async function generateRules(
 ) {
   const { numRules = 3 } = options || {};
   // generate rules
+  const input_data = MD.content(files.prompt.content);
   const res = await runPrompt(
     (ctx) => {
       ctx.importTemplate("src/prompts/rules_global.prompty", {
         num_rules: numRules,
-        input_data: files.prompt.content,
+        input_data,
       });
     },
     {
@@ -101,10 +103,11 @@ export async function generateRules(
 export async function generateInverseRules(
   files: Pick<PromptPexContext, "prompt" | "rules" | "inverseRules">
 ) {
+  const rule = MD.content(files.rules.content);
   const res = await runPrompt(
     (ctx) => {
       ctx.importTemplate("src/prompts/inverse_rule.prompty", {
-        rule: files.rules.content,
+        rule,
       });
     },
     {
@@ -132,11 +135,12 @@ export async function generateTests(
     .join("\n");
   if (!rules) throw new Error("No rules found");
 
+  const context = MD.content(files.prompt.content);
   const res = await runPrompt(
     (ctx) => {
       ctx.importTemplate("src/prompts/test.prompty", {
         input_spec: files.inputSpec.content,
-        context: files.prompt.content,
+        context,
         num,
         rule: rules,
       });
