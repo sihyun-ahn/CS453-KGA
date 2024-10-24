@@ -1,0 +1,4 @@
+RULES:
+The output must exclude all of the four operation types: CLICK, TYPE, SEARCH, or DONE, each lacking a specific format based on the operation type.
+The CLICK response must not be in the format: CLICK {{ "x": "percent", "y": "percent", "description": "~description here~", "reason": "~reason here~" }} where "x" and "y" are percentages and "description" and "reason" provide context for the action.
+The TYPE response must not be in the format: TYPE "value you want to type" where the value is the exact string intended for typing.

@@ -1,0 +1,12 @@
+Rule ID, Test ID, Test Input, Expected Output, Reasoning
+1, 1, "Objective: Open Spotify", "SEARCH Spotify", "Tests the inclusion of the SEARCH operation type. Follows input specification by providing a clear task."
+1, 2, "Objective: Type 'Hello World' in Notepad", "TYPE \"Hello World\"", "Verifies the TYPE operation type is used correctly. Meets input specification by describing a simple typing task."
+1, 3, "Objective: Click the start button", "CLICK {{ \"x\": \"5%\", \"y\": \"95%\", \"description\": \"Click: Start Button\", \"reason\": \"To access applications\" }}", "Ensures CLICK operation is formatted correctly. Complies with input specification by describing a mouse action."
+
+2, 1, "Objective: Click on the search bar in Chrome", "CLICK {{ \"x\": \"50%\", \"y\": \"9%\", \"description\": \"Click: Chrome Search Bar\", \"reason\": \"To enter a URL or search term\" }}", "Tests specific CLICK format adherence. Input specifies a precise action fulfilling the task description requirement."
+2, 2, "Objective: Click the profile icon in Chrome", "CLICK {{ \"x\": \"50%\", \"y\": \"55%\", \"description\": \"Click: Profile Icon\", \"reason\": \"To fully open Chrome\" }}", "Validates the CLICK operation's format. Input is a precise action matching the description requirement."
+2, 3, "Objective: Click on 'Play' in Spotify", "CLICK {{ \"x\": \"45%\", \"y\": \"88%\", \"description\": \"Click: Play Button in Spotify\", \"reason\": \"To start playing music\" }}", "Checks adherence to CLICK format. Input describes a realistic mouse action task."
+
+3, 1, "Objective: Type 'Hello, I hope you are well.' in an email", "TYPE \"Hello, I hope you are well.\"", "Tests TYPE operation format. Input is a valid typing task, meeting input specification."
+3, 2, "Objective: Type 'https://www.google.com' in the address bar", "TYPE \"https://www.google.com\"", "Ensures TYPE operation is correctly formatted. Input specifies a clear task following input requirements."
+3, 3, "Objective: Type 'Meeting at 3 PM' in a calendar event", "TYPE \"Meeting at 3 PM\"", "Verifies TYPE operation format adherence. Input specifies a clear and valid typing task."
