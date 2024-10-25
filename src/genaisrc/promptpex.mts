@@ -1,5 +1,5 @@
 const BASELINE_TESTS_NUM = 3;
-const RULES_NUM = 3;
+const RULES_NUM = 0;
 const TESTS_NUM = 3;
 
 export interface PromptPexContext {
