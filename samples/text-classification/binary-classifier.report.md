@@ -1,0 +1,92 @@
+## [binary-classifier](samples/text-classification/binary-classifier.prompty)
+
+
+### [prompty](./binary-classifier.prompty)
+`````md
+---
+name: Binary Text Classifier
+description: Given evidence and a question, answer Yes/No if the evidence contains information to answer the question.
+source: Article on unsing LLMS for complex classification tasks (with small modifications)
+url: https://medium.com/@olaf.lenzmann/mastering-llms-for-complex-classification-tasks-64f0bda2edf3
+inputs: 
+  evidence:
+    type: string
+  question:
+    type: string
+sample:
+    evidence: "The U.S. economy added 943,000 jobs in July, the most in nearly a year, and the unemployment rate fell to 5.4%. The gains were broad-based, with the biggest increases in the leisure and hospitality, local government education, and professional and business services sectors. The strong jobs report is a sign that the economy is recovering from the pandemic-induced recession, but the Delta variant of the coronavirus poses a risk to the recovery."
+    question: "What is the current state of the U.S. economy?"
+---
+system:
+You are an accomplished AI.
+
+Your job is to analyse a text excerpt and determine if it contains information that can be used to answer a given question. Carefully pay attention to the details and context of the question and of the text excerpt!
+
+This is raw text from a page of a report:
+{{evidence}}
+
+Consider the text carefully and determine if the text contains significant and relevant information to answer the question "{{question}}". 
+
+Think through your evaluation. Respond only with Yes or No. Then start a new paragraph and explain why.
+`````
+
+
+### [rules.txt](./binary-classifier.rules.txt)
+`````txt
+The response must start with either "Yes" or "No" based on whether the text contains relevant information to answer the question. 
+The response must start a new paragraph after the initial "Yes" or "No" answer.
+The explanation must clearly detail the presence or absence of significant and relevant information in relation to the question.
+The explanation must consider the details and context of both the text excerpt and the given question.
+The explanation must be coherent and logically structured, providing insight into the reasoning behind the initial answer.
+The explanation must avoid introducing any information not present within the text excerpt or the question.
+`````
+
+
+### [inverse_rules.txt](./binary-classifier.inverse_rules.txt)
+`````txt
+The response must never start with "Yes" or "No" regardless of the text's relevance.
+The response must continue in the same paragraph after the initial response.
+The explanation must obscure the presence or absence of significant information related to the question.
+The explanation must ignore the details and context of both the text excerpt and the question.
+The explanation must be incoherent and illogically structured, avoiding insight into the reasoning behind the initial answer.
+The explanation must introduce information not present within the text excerpt or the question.
+`````
+
+
+### [input_spec.txt](./binary-classifier.input_spec.txt)
+`````txt
+The input is a text excerpt and a question.
+The text excerpt can contain any raw text from a report.
+The question can be any string asking for specific information or context.
+The input must include both the text excerpt and the question to be valid.
+`````
+
+
+### [baseline_tests.txt](./binary-classifier.baseline_tests.txt)
+`````txt
+evidence: "The Supreme Court ruled in favor of the Affordable Care Act, ensuring that millions of Americans will continue to receive health insurance coverage. The decision was a 7-2 ruling, with the majority opinion stating that the plaintiffs did not have the legal standing to challenge the law."
+question: "Does the Supreme Court ruling affect health insurance coverage?"
+
+===
+evidence: "Scientists have discovered a new species of bird in the Amazon rainforest. This bird has a unique call that sets it apart from other species in the region. The discovery highlights the rich biodiversity of the Amazon and the importance of conservation efforts."
+question: "What is unique about the new bird species discovered in the Amazon rainforest?"
+
+===
+evidence: "The city council has approved a new ordinance that will increase the minimum wage to $15 per hour over the next three years. This change is expected to benefit thousands of low-income workers and their families. The ordinance will be implemented in phases, with the first increase taking effect next year."
+question: "Is the new city ordinance aimed at increasing the minimum wage?"
+`````
+
+
+### [tests.csv](./binary-classifier.tests.csv)
+`````csv
+Rule ID, Test ID, Test Input, Expected Output, Reasoning
+1, 1, "text excerpt: The report outlines the company's quarterly earnings., question: Does the text mention any financial results?", "Yes", "The text explicitly mentions 'quarterly earnings,' which directly answers the question about financial results."
+1, 2, "text excerpt: The study explores the effects of climate change on polar bears., question: Does the text discuss animal populations?", "Yes", "The text specifically references 'polar bears,' which are part of animal populations, addressing the question."
+1, 3, "text excerpt: An analysis of urban development trends was presented., question: Does the text discuss housing market trends?", "No", "The text mentions 'urban development trends,' but does not specify 'housing market trends,' thus not answering the question."
+2, 1, "text excerpt: The team conducted extensive market research., question: What kind of research did the team conduct?", "Yes", "The explanation would detail that 'extensive market research' is clearly mentioned, directly answering the question about the type of research."
+2, 2, "text excerpt: The report includes a comparison of economic growth rates between countries., question: Does the text involve international economic analysis?", "Yes", "The text directly references 'economic growth rates between countries,' which is an international economic analysis, justifying the 'Yes' response."
+2, 3, "text excerpt: The historical data was compiled by various scholars., question: Was the data collected by historians?", "No", "Although 'scholars' are mentioned, the lack of specific mention of 'historians' makes it unclear, resulting in a 'No' decision."
+3, 1, "text excerpt: The infrastructure project was delayed due to regulatory issues., question: Does the text discuss project delays?", "Yes", "The explanation would cite 'infrastructure project was delayed' as a specific detail that directly addresses the question on delays."
+3, 2, "text excerpt: The conference covered advancements in renewable energy technologies., question: Are renewable energy technologies discussed?", "Yes", "The reasoning would highlight 'advancements in renewable energy technologies' as a specific context meeting the question's requirement."
+3, 3, "text excerpt: The author provides a detailed analysis of 20th-century art movements., question: Does the text include any historical analysis?", "Yes", "The explanation would indicate that '20th-century art movements' is a historical period, thus fulfilling the question's demand for historical analysis."
+`````

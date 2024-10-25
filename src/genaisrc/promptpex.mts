@@ -50,8 +50,8 @@ export async function loadPromptFiles(
     dir,
     basename,
     prompt: promptFile,
-    rules: await workspace.readText(rules),
-    inverseRules: await workspace.readText(inverseRules),
+    rules: tidyRulesFile(await workspace.readText(rules)),
+    inverseRules: tidyRulesFile(await workspace.readText(inverseRules)),
     instructions: await workspace.readText(instructions),
     inputSpec: await workspace.readText(inputSpec),
     baselineTests: await workspace.readText(baselineTests),
@@ -71,9 +71,14 @@ function tidyRules(text: string) {
   if (/i can't assist with that/i.test(text)) return "";
   return text
     .split(/\n/g)
-    .map((line) => line.replace(/^(\d+\.|_|\*)\s+/i, "")) // unneded numbering
+    .map((line) => line.replace(/^(\d+\.|_|-|\*)\s+/i, "")) // unneded numbering
     .filter((s) => !!s)
     .join("\n");
+}
+
+function tidyRulesFile(file: WorkspaceFile) {
+  if (file?.content) file.content = tidyRules(file.content);
+  return file;
 }
 
 export async function generateInputSpec(
@@ -274,6 +279,34 @@ export async function executeTests(
   return CSV.stringify(testResults);
 }
 
+export async function generateReport(files: PromptPexContext) {
+  const res: string[] = [
+    `## [${files.basename}](${files.prompt.filename})`,
+    ``,
+  ];
+  const appendFile = (file: WorkspaceFile) => {
+    const ext = path.extname(file.filename).slice(1);
+    const lang =
+      {
+        prompty: "md",
+      }[ext] || ext;
+    res.push("");
+    res.push(
+      `### [${path.basename(file.filename).slice(files.basename.length + 1)}](./${path.basename(file.filename)})`
+    );
+    res.push(`\`\`\`\`\`${lang}`);
+    res.push(file.content || "");
+    res.push(`\`\`\`\`\``);
+    res.push(``);
+  };
+
+  for (const file of Object.values(files))
+    if (typeof file === "object" && file.filename && file.content)
+      appendFile(file as WorkspaceFile);
+
+  return res.join("\n");
+}
+
 export async function generate(
   files: PromptPexContext,
   options?: { force?: boolean; q: PromiseQueue }
@@ -355,4 +388,10 @@ export async function generate(
     );
   }
     */
+
+  const report = await generateReport(files);
+  await workspace.writeText(
+    path.join(files.dir, files.basename + ".report.md"),
+    report
+  );
 }
