@@ -1,20 +1,12 @@
 Rule ID, Test ID, Test Input, Expected Output, Reasoning
-1, 1, "The weather today is quite average, not too hot or too cold.", "neutral", "Tests if a balanced statement is recognized as neutral, adhering to the classification requirement."
-1, 2, "I'm really unhappy with the service I received yesterday.", "negative", "Evaluates whether the software identifies negative sentiment in an expression of dissatisfaction."
-1, 3, "The concert last night was absolutely amazing!", "positive", "Assesses if the software properly classifies clear expressions of positive sentiment."
+1, 1, "The weather today is average, not too bad but not great either.", "Sentiment: neutral", "Tests the ability to correctly classify text with no strong sentiment as neutral."
+1, 2, "I am feeling extremely happy and grateful for everything!", "Sentiment: positive", "Evaluates positive sentiment recognition in text with clear positive words."
+1, 3, "This is the worst meal I've ever had.", "Sentiment: negative", "Assesses the software's capability to identify negative sentiment in strongly negative statements."
 
-2, 1, "The scenery was beautiful and mind-blowing. Sentiment: Such a lovely experience.", "negative", "Checks if the classification follows the label 'Sentiment:', confirming adherence to the format rule."
-2, 2, "Sentiment: I was thrilled to receive the award. It was a great day.", "positive", "Verifies whether the sentiment classification follows the 'Sentiment:' label without deviation."
-2, 3, "Sentiment: It was a terrible meeting, nothing went right.", "negative", "Ensures the classification closely follows the label 'Sentiment:' as required."
+2, 1, "Movie was just okay, nothing special or amazing.", "Sentiment: neutral", "Ensures that the output is labeled correctly with 'Sentiment:' followed by the classification."
+2, 2, "I am thrilled with the new job offer!", "Sentiment: positive", "Confirms the correct labeling format 'Sentiment:' for positive sentiments."
+2, 3, "Feeling very disappointed with the service.", "Sentiment: negative", "Verifies that the output adheres to the labeling requirement with the correct prefix and classification."
 
-3, 1, "I love this movie!", "positive", "Confirms that the output does not contain additional explanations or justifications, adhering strictly to the rule."
-3, 2, "The meal was dreadful.", "negative", "Tests whether the output is free of any explanations or justifications, focusing solely on sentiment classification."
-3, 3, "It's just an ordinary day.", "neutral", "Validates that the software provides only the sentiment classification without any additional context."
-
-4, 1, "The book was kind of meh.", "neutral or other", "Checks if classification allows for options other than strictly neutral, negative, or positive."
-4, 2, "I can't even describe how I feel about this!", "emotional or other", "Tests the flexibility of classification beyond the standard categories, ensuring broader interpretation."
-4, 3, "This is truly something else...", "ambiguous or other", "Evaluates whether the software can handle inputs that are not clearly neutral, negative, or positive."
-
-5, 1, "Sentiment: I'm not sure about this.", "neutral or other classification", "Ensures classification doesn't immediately follow 'Sentiment:', breaking the direct follow rule."
-5, 2, "Sentiment: It's amazing! But let's discuss why.", "positive and explanation", "Tests if the software includes an explanation for the classification, challenging the format."
-5, 3, "Sentiment: I'm feeling okay, though there's a lot to consider.", "neutral and explanation", "Confirms that the output doesn’t directly follow the label and includes justification."
+3, 1, "The show was an absolute blast!", "Sentiment: positive", "Checks for a single-word classification and correct sentiment detection."
+3, 2, "Not impressed by the team's performance.", "Sentiment: negative", "Evaluates whether the classification is a single word and accurately reflects the sentiment."
+3, 3, "It's a typical day, nothing out of the ordinary.", "Sentiment: neutral", "Tests for single-word classification and neutral sentiment recognition."

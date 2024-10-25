@@ -1,3 +1,5 @@
-The response must be an array containing only the extracted model names from the input text. Each model name should be enclosed in quotation marks within the array.
-If no model names are found in the input text or if there is uncertainty about the presence of model names, the response must be an array containing only the string "NA".
-The structure of the response must strictly follow the format ["model_name"], ensuring that each model name is correctly formatted as an element within the array including the use of quotation marks.
+The output must be an array of model names extracted from the machine learning paper abstract.
+Each model name in the output array must be enclosed in double quotes.
+The model names in the output array must be separated by commas.
+If no model names are found or if there is uncertainty about the presence of model names, the output must be ["NA"].
+The array must always be present, even if it contains only the value ["NA"].

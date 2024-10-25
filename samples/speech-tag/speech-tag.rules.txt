@@ -1,5 +1,5 @@
-The output must be a part-of-speech tag from the provided list. 
-If the word matches one of the listed tags, return only that specific tag.
-If the word cannot be tagged using the provided list, the output must be "Unknown."
-If it is not possible to determine the part of speech for the word, the output must be "CantAnswer."
-The output must not contain any additional information or explanation beyond the tag itself.
+The output must be a single part of speech tag from the provided list of tags.
+The output must be one of the following tags: CC, CD, DT, EX, FW, IN, JJ, JJR, JJS, LS, MD, NN, NNS, NNP, NNPS, PDT, POS, PRP, PRP$, RB, RBR, RBS, RP, SYM, TO, UH, VB, VBD, VBG, VBN, VBP, VBZ, WDT, WP, WP$, WRB.
+If the word cannot be tagged with any of the listed tags, the output must be "Unknown."
+If the task is impossible to complete, the output must be "CantAnswer."
+The output must not contain any additional text or formatting other than the tag or specified responses.

@@ -1,4 +1,8 @@
-RULES:
-The output must exclude all of the four operation types: CLICK, TYPE, SEARCH, or DONE, each lacking a specific format based on the operation type.
-The CLICK response must not be in the format: CLICK {{ "x": "percent", "y": "percent", "description": "~description here~", "reason": "~reason here~" }} where "x" and "y" are percentages and "description" and "reason" provide context for the action.
-The TYPE response must not be in the format: TYPE "value you want to type" where the value is the exact string intended for typing.
+The CLICK response can be formatted in any way other than `CLICK {{ "x": "percent", "y": "percent", "description": "~description here~", "reason": "~reason here~" }}`.
+A CLICK response may include coordinates in any form other than percentages.
+A CLICK response may omit the "description" that describes the action being taken.
+A CLICK response may omit the "reason" that explains the purpose of the action.
+TYPE responses can be formatted in any way other than `TYPE "value you want to type"`.
+SEARCH responses can be formatted in any way other than `SEARCH "app you want to search for on Mac"`.
+DONE responses can be formatted with any additional text or formatting other than just the word "DONE".
+Responses may repeat the same action, such as executing the same CLICK multiple times consecutively.
