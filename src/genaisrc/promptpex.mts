@@ -226,12 +226,12 @@ export async function executeTests(
   const testResults = [];
   for (let i = 0; i < tests.length; i++) {
     const test = tests[i];
-    const ruleId = test["Rule ID"];
+    //const ruleId = test["Rule ID"];
     const expectedOutput = test["Expected Output"];
     const testInput = test["Test Input"];
     const args: Record<string, any> = {};
     if (inputKeys.length === 1) args[inputKeys[0]] = testInput;
-    else {
+    else if (inputKeys.length > 1) {
       const testInputArgs =
         parsers.INI(testInput) ||
         parsers.YAML(testInput) ||
@@ -250,6 +250,7 @@ export async function executeTests(
     const res = await runPrompt(
       (ctx) => {
         ctx.importTemplate(files.prompt.filename, args);
+        if (!inputs.length) ctx.writeText(testInput);
       },
       {
         ...moptions,
