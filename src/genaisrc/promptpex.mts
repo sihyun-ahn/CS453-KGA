@@ -1,3 +1,7 @@
+const BASELINE_TESTS_NUM = 3;
+const RULES_NUM = 3;
+const TESTS_NUM = 3;
+
 export interface PromptPexContext {
   dir: string;
   basename: string;
@@ -95,7 +99,7 @@ export async function generateRules(
   files: Pick<PromptPexContext, "prompt">,
   options?: { numRules: number }
 ) {
-  const { numRules = 3 } = options || {};
+  const { numRules = RULES_NUM } = options || {};
   // generate rules
   const input_data = MD.content(files.prompt.content);
   const res = await runPrompt(
@@ -137,7 +141,7 @@ export async function generateBaselineTests(
   files: Pick<PromptPexContext, "prompt">,
   options?: { num?: number }
 ) {
-  const { num = 3 } = options || {};
+  const { num = BASELINE_TESTS_NUM } = options || {};
 
   const context = MD.content(files.prompt.content);
   const res = await runPrompt(
@@ -163,7 +167,7 @@ export async function generateTests(
   >,
   options?: { num?: number }
 ) {
-  const { num = 3 } = options || {};
+  const { num = TESTS_NUM } = options || {};
 
   if (!files.rules.content) throw new Error("No rules found");
   if (!files.inputSpec.content) throw new Error("No input spec found");

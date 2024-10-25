@@ -1,0 +1,24 @@
+Rule ID, Test ID, Test Input, Expected Output, Reasoning
+1, 1, "I love this product!", "Positive", "Tests the ability of the software to correctly classify a clearly positive sentiment."
+1, 2, "This is the worst service ever!", "Negative", "Tests the ability of the software to correctly classify a clearly negative sentiment."
+1, 3, "I am not sure how I feel about this.", "Negative", "Tests the ability of the software to handle ambiguous sentiment and still classify it correctly."
+
+2, 1, "Absolutely fantastic experience.", "Positive", "Ensures the software includes a sentiment classification for a positive input."
+2, 2, "I hate waiting in long lines.", "Negative", "Ensures the software includes a sentiment classification for a negative input."
+2, 3, "The performance was mediocre.", "Negative", "Ensures the software includes a sentiment classification even for less clear inputs."
+
+3, 1, "The food was delightful.", "Positive", "Checks if the software follows the pattern of providing a sentiment classification even without explicit sentiment being provided."
+3, 2, "What an awful day.", "Negative", "Ensures the software includes a sentiment classification comment after an explicitly negative sentiment."
+3, 3, "I'm so thrilled with the results!", "Positive", "Ensures the software includes a sentiment classification comment after an explicitly positive sentiment."
+
+4, 1, "I feel neutral about this.", "", "Tests the software’s ability to refrain from classifying sentiments when not required."
+4, 2, "This is neither good nor bad.", "", "Ensures the software does not classify the sentiment of ambivalent text."
+4, 3, "I have no strong feelings one way or the other.", "", "Checks if the software avoids unnecessary sentiment classification for neutral inputs."
+
+5, 1, "This is just a statement.", "", "Ensures the software excludes sentiment classification for non-emotive text."
+5, 2, "There's no need to analyze this.", "", "Verifies that the software does not classify sentiment when it's not required."
+5, 3, "This is a factual statement.", "", "Ensures that the software excludes sentiment classification for purely factual statements."
+
+6, 1, "I had a good time.", "", "Verifies that the software avoids including a sentiment classification comment even for explicitly positive sentiment."
+6, 2, "That was a terrible experience.", "", "Ensures the software avoids including a sentiment classification comment even for explicitly negative sentiment."
+6, 3, "The service was bad but the food was great.", "", "Verifies that the software avoids sentiment classification comments in cases of mixed sentiment."
