@@ -6,7 +6,17 @@ export interface PromptPexContext {
   inverseRules: WorkspaceFile;
   instructions: WorkspaceFile;
   inputSpec: WorkspaceFile;
+  baselineTests: WorkspaceFile;
   tests: WorkspaceFile;
+  testResults: WorkspaceFile;
+}
+
+export interface PromptPexTest {
+  ["Rule ID"]: string;
+  ["Test ID"]: string;
+  ["Test Input"]: string;
+  ["Expected Output"]: string;
+  ["Reasoning"]: string;
 }
 
 export async function loadPromptContext(): Promise<PromptPexContext[]> {
@@ -28,7 +38,9 @@ export async function loadPromptFiles(
   const inverseRules = path.join(dir, basename + ".inverse_rules.txt");
   const instructions = path.join(dir, basename + ".instructions.txt");
   const inputSpec = path.join(dir, basename + ".input_spec.txt");
+  const baselineTests = path.join(dir, basename + ".baseline_tests.txt");
   const tests = path.join(dir, basename + ".tests.csv");
+  const testResults = path.join(dir, basename + ".test_results.csv");
 
   return {
     dir,
@@ -38,7 +50,9 @@ export async function loadPromptFiles(
     inverseRules: await workspace.readText(inverseRules),
     instructions: await workspace.readText(instructions),
     inputSpec: await workspace.readText(inputSpec),
+    baselineTests: await workspace.readText(baselineTests),
     tests: await workspace.readText(tests),
+    testResults: await workspace.readText(testResults),
   } satisfies PromptPexContext;
 }
 
@@ -119,12 +133,35 @@ export async function generateInverseRules(
   return tidyRules(res.text);
 }
 
+export async function generateBaselineTests(
+  files: Pick<PromptPexContext, "prompt">,
+  options?: { num?: number }
+) {
+  const { num = 3 } = options || {};
+
+  const context = MD.content(files.prompt.content);
+  const res = await runPrompt(
+    (ctx) => {
+      ctx.importTemplate("src/prompts/baseline_test.prompty", {
+        num,
+        prompt: files.prompt.content,
+      });
+    },
+    {
+      ...modelOptions(),
+      label: `generate baseline tests`,
+    }
+  );
+  if (res.error) throw res.error;
+  return res.text;
+}
+
 export async function generateTests(
   files: Pick<
     PromptPexContext,
     "prompt" | "inputSpec" | "rules" | "inverseRules"
   >,
-  options?: { num: number }
+  options?: { num?: number }
 ) {
   const { num = 3 } = options || {};
 
@@ -147,11 +184,89 @@ export async function generateTests(
     },
     {
       ...modelOptions(),
-      label: "generate tests",
+      label: `generate baseline tests`,
     }
   );
   if (res.error) throw res.error;
   return res.text;
+}
+
+function parseInputs(file: WorkspaceFile) {
+  const frontmatter = MD.frontmatter(file.content);
+  const inputs = frontmatter["inputs"] || {};
+  // under specified inputs, try to find any missing inputs
+  // using regex
+  if (!Object.keys(inputs).length) {
+    file.content.replace(/{{\s*([^}\s]+)\s*}}/g, (_, key) => {
+      inputs[key] = { type: "string" };
+      return "";
+    });
+  }
+
+  return inputs;
+}
+
+export async function executeTests(
+  files: Pick<
+    PromptPexContext,
+    "tests" | "prompt" | "dir" | "basename" | "testResults"
+  >,
+  options?: { model?: ModelType }
+): Promise<string> {
+  const tests = CSV.parse(files.tests.content) as PromptPexTest[];
+  if (!tests?.length) throw new Error("No tests found");
+  const inputs = parseInputs(files.prompt);
+  const inputKeys = Object.keys(inputs);
+
+  const moptions = {
+    ...modelOptions(),
+  };
+  if (options?.model) moptions.model = options.model;
+
+  const testResults = [];
+  for (let i = 0; i < tests.length; i++) {
+    const test = tests[i];
+    const ruleId = test["Rule ID"];
+    const expectedOutput = test["Expected Output"];
+    const testInput = test["Test Input"];
+    const args: Record<string, any> = {};
+    if (inputKeys.length === 1) args[inputKeys[0]] = testInput;
+    else {
+      const testInputArgs =
+        parsers.INI(testInput) ||
+        parsers.YAML(testInput) ||
+        parsers.JSON5(testInput);
+      if (!testInputArgs) {
+        testResults.push({
+          ...test,
+          ["Actual Output"]: "invalid test input",
+          ["Pass"]: false,
+          ["Error"]: "invalid test input",
+        });
+        continue;
+      }
+      for (const key of inputKeys) args[key] = testInputArgs[key];
+    }
+    const res = await runPrompt(
+      (ctx) => {
+        ctx.importTemplate(files.prompt.filename, args);
+      },
+      {
+        ...moptions,
+        label: `test ${i + 1}/${tests.length}: ${testInput.slice(0, 22)}...`,
+      }
+    );
+    const actualOutput = res.text;
+
+    testResults.push({
+      ...test,
+      Model: moptions.model,
+      ["Actual Output"]: actualOutput,
+      ["Pass"]: actualOutput === expectedOutput,
+      ["Error"]: res.error,
+    });
+  }
+  return CSV.stringify(testResults);
 }
 
 export async function generate(
@@ -159,6 +274,20 @@ export async function generate(
   options?: { force?: boolean; q: PromiseQueue }
 ) {
   const { force = false, q } = options || {};
+
+  // generate baseline tests
+  if (!files.baselineTests.content || force) {
+    files.baselineTests.content = await generateBaselineTests(files);
+    await workspace.writeText(
+      files.baselineTests.filename,
+      files.baselineTests.content
+    );
+  } else {
+    console.log(
+      `tests ${files.baselineTests.filename} already exists. Skipping generation.`
+    );
+  }
+
   // generate input spec
   if (!files.inputSpec.content || force) {
     files.inputSpec.content = await generateInputSpec(files);
@@ -178,6 +307,7 @@ export async function generate(
     await workspace.writeText(files.rules.filename, files.rules.content);
     files.inverseRules.content = undefined;
     files.tests.content = undefined;
+    files.testResults.content = undefined;
   } else {
     console.log(
       `rules ${files.rules.filename} already exists. Skipping generation.`
@@ -190,6 +320,7 @@ export async function generate(
     if (!inverseRules) console.warn("No inverse rules generated");
     await workspace.writeText(files.inverseRules.filename, inverseRules);
     files.tests.content = undefined;
+    files.testResults.content = undefined;
   } else {
     console.log(
       `inverse rules ${files.inverseRules.filename} already exists. Skipping generation.`
@@ -205,4 +336,18 @@ export async function generate(
       `tests ${files.tests.filename} already exists. Skipping generation.`
     );
   }
+
+  /*
+  if (!files.testResults.content || force) {
+    files.testResults.content = await executeTests(files);
+    await workspace.writeText(
+      files.testResults.filename,
+      files.testResults.content
+    );
+  } else {
+    console.log(
+      `test results ${files.testResults.filename} already exists. Skipping execution`
+    );
+  }
+    */
 }
