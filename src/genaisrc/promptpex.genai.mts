@@ -10,6 +10,11 @@ script({
       description: "Force overwrite of existing files",
       default: false,
     },
+    forceTests: {
+      type: "boolean",
+      description: "Force overwrite of existing test files",
+      default: false,
+    },    
     concurrency: {
       type: "number",
       description: "Number of concurrent prompts to run",
@@ -18,13 +23,13 @@ script({
   },
 });
 
-const { force, concurrency } = env.vars;
+const { force, forceTests, concurrency } = env.vars;
 
 const prompts = await loadPromptContext();
 const q = host.promiseQueue(concurrency);
 await q.mapAll(prompts, async (files) => {
   try {
-    await generate(files, { force, q });
+    await generate(files, { force, forceTests, q });
   } catch (e) {
     console.error(e);
   }

@@ -183,6 +183,7 @@ export async function generateTests(
   if (!rules) throw new Error("No rules found");
 
   const context = MD.content(files.prompt.content);
+  let repaired = false;
   const res = await runPrompt(
     (ctx) => {
       ctx.importTemplate("src/prompts/test.prompty", {
@@ -191,6 +192,19 @@ export async function generateTests(
         num,
         rule: rules,
       });
+      ctx.defChatParticipant((p, c) => {
+        const last = c.at(-1)?.content;
+        const csv = parseTests(last);
+        if (!csv.length) {
+          if (!repaired) {
+            console.warn("invalid generated test format, trying to repair");
+            repaired = true;
+            p.$`The generated tests are not valid CSV. Please try again.`;
+          } else {
+            console.warn("invalid generated test format, skipping repair");
+          }
+        }
+      });
     },
     {
       ...modelOptions(),
@@ -198,7 +212,9 @@ export async function generateTests(
     }
   );
   if (res.error) throw res.error;
-  return res.text;
+  const text = res.text;
+  const csv = parseTests(text);
+  return text;
 }
 
 function parseInputs(file: WorkspaceFile) {
@@ -290,6 +306,7 @@ function parseRules(rules: string) {
 }
 
 function parseTests(tests: string): PromptPexTest[] {
+  tests = tests?.replace(/\\"/g, '""');
   return tests ? (CSV.parse(tests, { delimiter: "," }) as PromptPexTest[]) : [];
 }
 
@@ -355,9 +372,9 @@ export async function generateMarkdownReport(files: PromptPexContext) {
 
 export async function generate(
   files: PromptPexContext,
-  options?: { force?: boolean; q: PromiseQueue }
+  options?: { force?: boolean; forceTests?: boolean; q: PromiseQueue }
 ) {
-  const { force = false, q } = options || {};
+  const { force = false, forceTests = false, q } = options || {};
 
   // generate baseline tests
   if (!files.baselineTests.content || force) {
@@ -412,7 +429,7 @@ export async function generate(
   }
 
   // generate tests
-  if (!files.tests.content || force) {
+  if (!files.tests.content || force || forceTests) {
     files.tests.content = await generateTests(files);
     await workspace.writeText(files.tests.filename, files.tests.content);
   } else {

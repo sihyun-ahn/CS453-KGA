@@ -24,5 +24,42 @@
     "The string value in the \"question\" field must be enclosed in single quotes.",
     "The output must include extraneous text or data outside the JSONL formatted questions."
   ],
-  "tests": []
+  "tests": [
+    {
+      "rule": "Each question must be relevant to the product specified by the variable `{{product}}`.",
+      "input": "context: beach; persona: young adult; product: sunscreen; count: 3",
+      "expected": "{\"question\":\"What SPF level is best for a long day at the beach?\"}\\n{\"question\":\"Is this sunscreen water-resistant for swimming?\"}\\n{\"question\":\"Does this sunscreen protect against both UVA and UVB rays?\"}",
+      "reasoning": "Tests the generation of exactly 3 relevant questions for the sunscreen product at the beach. Validates correct JSONL format."
+    },
+    {
+      "rule": "Each question must be relevant to the product specified by the variable `{{product}}`.",
+      "input": "context: office; persona: tech enthusiast; product: laptop; count: 2",
+      "expected": "{\"question\":\"Does this laptop support the latest software updates?\"}\\n{\"question\":\"How long does the battery last during heavy usage?\"}",
+      "reasoning": "Ensures the software generates 2 questions relevant to a laptop in an office setting. Checks proper adherence to JSONL formatting."
+    },
+    {
+      "rule": "Each question must be relevant to the product specified by the variable `{{product}}`.",
+      "input": "context: hiking trail; persona: nature lover; product: hiking boots; count: 4",
+      "expected": "{\"question\":\"Are these boots waterproof for rainy conditions?\"}\\n{\"question\":\"Do these boots provide good ankle support for rough terrain?\"}\\n{\"question\":\"How durable are these boots over long hikes?\"}\\n{\"question\":\"Are the soles slip-resistant for wet surfaces?\"}",
+      "reasoning": "Validates the generation of 4 questions about hiking boots for a nature lover, ensuring relevance and correct formatting."
+    },
+    {
+      "rule": "Each question must reflect an understanding of the user’s situation as described by the variable `{{context}}`.",
+      "input": "context: beach; persona: young adult; product: sunscreen; count: 3",
+      "expected": "{\"question\":\"What is the warranty period of the laptop?\"}\\n{\"question\":\"Which operating system does the laptop use?\"}\\n{\"question\":\"Does the laptop support gaming?\"}",
+      "reasoning": "Tests generation of irrelevant questions for the sunscreen product, ensuring correct JSONL format with irrelevant context."
+    },
+    {
+      "rule": "Each question must reflect an understanding of the user’s situation as described by the variable `{{context}}`.",
+      "input": "context: office; persona: tech enthusiast; product: laptop; count: 2",
+      "expected": "{\"question\":\"Are these hiking boots waterproof?\"}\\n{\"question\":\"Do these hiking boots have good ankle support?\"}",
+      "reasoning": "Checks for generation of irrelevant questions about hiking boots in an office context, maintaining JSONL format."
+    },
+    {
+      "rule": "Each question must reflect an understanding of the user’s situation as described by the variable `{{context}}`.",
+      "input": "context: hiking trail; persona: nature lover; product: hiking boots; count: 4",
+      "expected": "{\"question\":\"Is this sunscreen travel-sized?\"}\\n{\"question\":\"Does this sunscreen have any scent?\"}\\n{\"question\":\"How many times should I apply this sunscreen?\"}\\n{\"question\":\"Is the sunscreen safe for sensitive skin?\"}",
+      "reasoning": "Ensures incorrect questions about sunscreen for a hiking trail, with precise JSONL formatting."
+    }
+  ]
 }
