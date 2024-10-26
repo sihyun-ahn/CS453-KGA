@@ -64,6 +64,20 @@ The output must not contain any extraneous text or data outside the JSONL format
 `````
 
 
+### [inverse_rules.txt](./generate-user-questions-on-product.inverse_rules.txt)
+`````txt
+The output must contain a number of answers that is not specified by the variable `{{count}}`.
+Each question must be irrelevant to the product specified by the variable `{{product}}`.
+Each question must disregard the user’s situation as described by the variable `{{context}}`.
+Each question must lack empathy with the user based on the persona described by the variable `{{persona}}`.
+Each question must be returned in a format other than JSONL.
+Each line must contain more than one JSON object.
+Each JSON object must have multiple keys, excluding "question".
+The string value in the "question" field must be enclosed in single quotes.
+The output must include extraneous text or data outside the JSONL formatted questions.
+`````
+
+
 ### [input_spec.txt](./generate-user-questions-on-product.input_spec.txt)
 `````txt
 The input must include a context that describes the location or situation where the user is accessing the product.
