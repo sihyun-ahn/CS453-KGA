@@ -1,4 +1,4 @@
-## [poe-summarize](samples/poe-summarize/poe-summarize.prompty) ([JSON](./poe-summarize.report.json))
+## [poe-summarize](samples/poe-summarize/poe-summarize.prompty) ([json](./poe-summarize.report.json))
 
 
 ### [prompty](./poe-summarize.prompty)

@@ -1,4 +1,4 @@
-## [self-operating](samples/self-operating/self-operating.prompty) ([JSON](./self-operating.report.json))
+## [self-operating](samples/self-operating/self-operating.prompty) ([json](./self-operating.report.json))
 
 
 ### [prompty](./self-operating.prompty)

@@ -1,4 +1,4 @@
-## [keywords](samples/openai-examples/keywords.prompty) ([JSON](./keywords.report.json))
+## [keywords](samples/openai-examples/keywords.prompty) ([json](./keywords.report.json))
 
 
 ### [prompty](./keywords.prompty)

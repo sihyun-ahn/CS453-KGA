@@ -1,4 +1,4 @@
-## [text-to-p](samples/text-to-p/text-to-p.prompty) ([JSON](./text-to-p.report.json))
+## [text-to-p](samples/text-to-p/text-to-p.prompty) ([json](./text-to-p.report.json))
 
 
 ### [prompty](./text-to-p.prompty)

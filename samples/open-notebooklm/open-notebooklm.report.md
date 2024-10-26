@@ -1,4 +1,4 @@
-## [open-notebooklm](samples/open-notebooklm/open-notebooklm.prompty) ([JSON](./open-notebooklm.report.json))
+## [open-notebooklm](samples/open-notebooklm/open-notebooklm.prompty) ([json](./open-notebooklm.report.json))
 
 
 ### [prompty](./open-notebooklm.prompty)

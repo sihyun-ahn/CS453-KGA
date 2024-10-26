@@ -1,4 +1,4 @@
-## [sentiment1](samples/prompt-guide/sentiment1.prompty) ([JSON](./sentiment1.report.json))
+## [sentiment1](samples/prompt-guide/sentiment1.prompty) ([json](./sentiment1.report.json))
 
 
 ### [prompty](./sentiment1.prompty)

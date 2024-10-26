@@ -22,5 +22,96 @@
     "DONE responses can be formatted with any additional text or formatting other than just the word \"DONE\".",
     "Responses may repeat the same action, such as executing the same CLICK multiple times consecutively."
   ],
-  "tests": []
+  "tests": [
+    {
+      "rule": "A CLICK response must include both \"x\" and \"y\" coordinates expressed as percentages.",
+      "input": "Open YouTube and click on the trending tab",
+      "expected": "CLICK {{ \"x\": \"80%\", \"y\": \"15%\", \"description\": \"Click: Trending tab on YouTube\", \"reason\": \"To view trending videos\" }}",
+      "reasoning": "Tests if CLICK response includes x and y percentages, description, and reason"
+    },
+    {
+      "rule": "A CLICK response must include both \"x\" and \"y\" coordinates expressed as percentages.",
+      "input": "Navigate to Facebook and click the notifications icon",
+      "expected": "CLICK {{ \"x\": \"70%\", \"y\": \"5%\", \"description\": \"Click: Notifications icon\", \"reason\": \"To check new notifications\" }}",
+      "reasoning": "Ensures CLICK response has all required elements and valid percentages"
+    },
+    {
+      "rule": "A CLICK response must include both \"x\" and \"y\" coordinates expressed as percentages.",
+      "input": "Go to LinkedIn and click on the profile picture",
+      "expected": "CLICK {{ \"x\": \"10%\", \"y\": \"10%\", \"description\": \"Click: Profile picture\", \"reason\": \"To access profile settings\" }}",
+      "reasoning": "Verifies correct CLICK formatting with necessary details"
+    },
+    {
+      "rule": "A CLICK response must include a \"description\" that describes the action being taken.",
+      "input": "Type a message in Slack saying hello",
+      "expected": "TYPE \"hello\"",
+      "reasoning": "Confirms TYPE response adheres to the correct format"
+    },
+    {
+      "rule": "A CLICK response must include a \"description\" that describes the action being taken.",
+      "input": "Enter the email address in the registration form",
+      "expected": "TYPE \"example@example.com\"",
+      "reasoning": "Validates proper TYPE response with the intended text"
+    },
+    {
+      "rule": "A CLICK response must include a \"description\" that describes the action being taken.",
+      "input": "Fill in the password field with 'password123'",
+      "expected": "TYPE \"password123\"",
+      "reasoning": "Checks for correct TYPE formatting and input text"
+    },
+    {
+      "rule": "A CLICK response must include a \"reason\" that explains the purpose of the action.",
+      "input": "Search for the Notes app on Mac",
+      "expected": "SEARCH \"Notes\"",
+      "reasoning": "Tests SEARCH response formatting with correct app name"
+    },
+    {
+      "rule": "A CLICK response must include a \"reason\" that explains the purpose of the action.",
+      "input": "Find the Calculator application",
+      "expected": "SEARCH \"Calculator\"",
+      "reasoning": "Ensures SEARCH response is correctly formatted"
+    },
+    {
+      "rule": "A CLICK response must include a \"reason\" that explains the purpose of the action.",
+      "input": "Look for the Calendar app",
+      "expected": "SEARCH \"Calendar\"",
+      "reasoning": "Validates SEARCH formatting with specific app"
+    },
+    {
+      "rule": "TYPE responses must be formatted as `TYPE \"value you want to type\"`.",
+      "input": "Finish the task and indicate completion",
+      "expected": "DONE",
+      "reasoning": "Verifies DONE response contains only the word DONE"
+    },
+    {
+      "rule": "TYPE responses must be formatted as `TYPE \"value you want to type\"`.",
+      "input": "Complete the operation and confirm it",
+      "expected": "DONE",
+      "reasoning": "Checks that DONE response is formatted correctly without additional text"
+    },
+    {
+      "rule": "TYPE responses must be formatted as `TYPE \"value you want to type\"`.",
+      "input": "Submit the final task response as completed",
+      "expected": "DONE",
+      "reasoning": "Confirms DONE is formatted solely as the single word"
+    },
+    {
+      "rule": "SEARCH responses must be formatted as `SEARCH \"app you want to search for on Mac\"`.",
+      "input": "Click to open a menu and immediately click again",
+      "expected": "CLICK {{ \"x\": \"30%\", \"y\": \"60%\", \"description\": \"Click: Dropdown menu\", \"reason\": \"To expand options\" }}",
+      "reasoning": "Tests prevention of repeated CLICK actions"
+    },
+    {
+      "rule": "SEARCH responses must be formatted as `SEARCH \"app you want to search for on Mac\"`.",
+      "input": "Click settings and then click settings again",
+      "expected": "CLICK {{ \"x\": \"40%\", \"y\": \"20%\", \"description\": \"Click: Settings icon\", \"reason\": \"To open settings menu\" }}",
+      "reasoning": "Ensures avoidance of consecutive repetitive CLICK actions"
+    },
+    {
+      "rule": "SEARCH responses must be formatted as `SEARCH \"app you want to search for on Mac\"`.",
+      "input": "Double-click to open properties",
+      "expected": "CLICK {{ \"x\": \"50%\", \"y\": \"45%\", \"description\": \"Click: Properties icon\", \"reason\": \"To open properties dialog\" }}",
+      "reasoning": "Validates software's ability to manage repeated CLICK actions"
+    }
+  ]
 }

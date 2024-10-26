@@ -1,4 +1,4 @@
-## [shakespearean-writing-assistant](samples/azure-ai-studio/shakespearean-writing-assistant.prompty) ([JSON](./shakespearean-writing-assistant.report.json))
+## [shakespearean-writing-assistant](samples/azure-ai-studio/shakespearean-writing-assistant.prompty) ([json](./shakespearean-writing-assistant.report.json))
 
 
 ### [prompty](./shakespearean-writing-assistant.prompty)

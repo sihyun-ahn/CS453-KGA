@@ -1,4 +1,4 @@
-## [python-coder-gpt](samples/lsgpt/python-coder-gpt.prompty) ([JSON](./python-coder-gpt.report.json))
+## [python-coder-gpt](samples/lsgpt/python-coder-gpt.prompty) ([json](./python-coder-gpt.report.json))
 
 
 ### [prompty](./python-coder-gpt.prompty)

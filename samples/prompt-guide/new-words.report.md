@@ -1,4 +1,4 @@
-## [new-words](samples/prompt-guide/new-words.prompty) ([JSON](./new-words.report.json))
+## [new-words](samples/prompt-guide/new-words.prompty) ([json](./new-words.report.json))
 
 
 ### [prompty](./new-words.prompty)

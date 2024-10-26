@@ -1,4 +1,4 @@
-## [eval](samples/prompt-flow-howto/eval.prompty) ([JSON](./eval.report.json))
+## [eval](samples/prompt-flow-howto/eval.prompty) ([json](./eval.report.json))
 
 
 ### [prompty](./eval.prompty)

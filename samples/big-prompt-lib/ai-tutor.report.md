@@ -1,4 +1,4 @@
-## [ai-tutor](samples/big-prompt-lib/ai-tutor.prompty) ([JSON](./ai-tutor.report.json))
+## [ai-tutor](samples/big-prompt-lib/ai-tutor.prompty) ([json](./ai-tutor.report.json))
 
 
 ### [prompty](./ai-tutor.prompty)

@@ -1,4 +1,4 @@
-## [songnam-gen](samples/lsgpt/songnam-gen.prompty) ([JSON](./songnam-gen.report.json))
+## [songnam-gen](samples/lsgpt/songnam-gen.prompty) ([json](./songnam-gen.report.json))
 
 
 ### [prompty](./songnam-gen.prompty)

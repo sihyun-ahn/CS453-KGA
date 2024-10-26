@@ -1,4 +1,4 @@
-## [speech-tag](samples/speech-tag/speech-tag.prompty) ([JSON](./speech-tag.report.json))
+## [speech-tag](samples/speech-tag/speech-tag.prompty) ([json](./speech-tag.report.json))
 
 
 ### [prompty](./speech-tag.prompty)

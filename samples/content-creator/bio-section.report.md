@@ -1,4 +1,4 @@
-## [bio-section](samples/content-creator/bio-section.prompty) ([JSON](./bio-section.report.json))
+## [bio-section](samples/content-creator/bio-section.prompty) ([json](./bio-section.report.json))
 
 
 ### [prompty](./bio-section.prompty)

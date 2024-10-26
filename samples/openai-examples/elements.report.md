@@ -1,4 +1,4 @@
-## [elements](samples/openai-examples/elements.prompty) ([JSON](./elements.report.json))
+## [elements](samples/openai-examples/elements.prompty) ([json](./elements.report.json))
 
 
 ### [prompty](./elements.prompty)

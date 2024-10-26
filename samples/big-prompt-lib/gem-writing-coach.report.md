@@ -1,4 +1,4 @@
-## [gem-writing-coach](samples/big-prompt-lib/gem-writing-coach.prompty) ([JSON](./gem-writing-coach.report.json))
+## [gem-writing-coach](samples/big-prompt-lib/gem-writing-coach.prompty) ([json](./gem-writing-coach.report.json))
 
 
 ### [prompty](./gem-writing-coach.prompty)

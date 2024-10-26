@@ -1,4 +1,4 @@
-## [qa-sample](samples/prompt-flow-howto/qa-sample.prompty) ([JSON](./qa-sample.report.json))
+## [qa-sample](samples/prompt-flow-howto/qa-sample.prompty) ([json](./qa-sample.report.json))
 
 
 ### [prompty](./qa-sample.prompty)

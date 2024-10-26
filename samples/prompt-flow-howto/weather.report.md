@@ -1,4 +1,4 @@
-## [weather](samples/prompt-flow-howto/weather.prompty) ([JSON](./weather.report.json))
+## [weather](samples/prompt-flow-howto/weather.prompty) ([json](./weather.report.json))
 
 
 ### [prompty](./weather.prompty)

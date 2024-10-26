@@ -1,4 +1,4 @@
-## [sentence-rewrite](samples/big-prompt-lib/sentence-rewrite.prompty) ([JSON](./sentence-rewrite.report.json))
+## [sentence-rewrite](samples/big-prompt-lib/sentence-rewrite.prompty) ([json](./sentence-rewrite.report.json))
 
 
 ### [prompty](./sentence-rewrite.prompty)

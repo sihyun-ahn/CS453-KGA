@@ -1,4 +1,4 @@
-## [hiking-recommendation-chatbot](samples/azure-ai-studio/hiking-recommendation-chatbot.prompty) ([JSON](./hiking-recommendation-chatbot.report.json))
+## [hiking-recommendation-chatbot](samples/azure-ai-studio/hiking-recommendation-chatbot.prompty) ([json](./hiking-recommendation-chatbot.report.json))
 
 
 ### [prompty](./hiking-recommendation-chatbot.prompty)

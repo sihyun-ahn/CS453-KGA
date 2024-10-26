@@ -1,4 +1,4 @@
-## [binary-classifier](samples/text-classification/binary-classifier.prompty) ([JSON](./binary-classifier.report.json))
+## [binary-classifier](samples/text-classification/binary-classifier.prompty) ([json](./binary-classifier.report.json))
 
 
 ### [prompty](./binary-classifier.prompty)

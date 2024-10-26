@@ -1,4 +1,4 @@
-## [extract-names](samples/prompt-guide/extract-names.prompty) ([JSON](./extract-names.report.json))
+## [extract-names](samples/prompt-guide/extract-names.prompty) ([json](./extract-names.report.json))
 
 
 ### [prompty](./extract-names.prompty)

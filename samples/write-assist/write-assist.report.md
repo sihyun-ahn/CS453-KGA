@@ -1,4 +1,4 @@
-## [write-assist](samples/write-assist/write-assist.prompty) ([JSON](./write-assist.report.json))
+## [write-assist](samples/write-assist/write-assist.prompty) ([json](./write-assist.report.json))
 
 
 ### [prompty](./write-assist.prompty)

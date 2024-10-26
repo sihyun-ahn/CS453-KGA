@@ -1,4 +1,4 @@
-## [llama2-example](samples/text-classification/llama2-example.prompty) ([JSON](./llama2-example.report.json))
+## [llama2-example](samples/text-classification/llama2-example.prompty) ([json](./llama2-example.report.json))
 
 
 ### [prompty](./llama2-example.prompty)
