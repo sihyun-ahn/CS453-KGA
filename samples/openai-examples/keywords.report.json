@@ -1,0 +1,80 @@
+{
+  "prompt": "\n---\nname: Extract Elements of Text\ndescription: Extract specific elements of text from a given text\nsource: OpenAI documentation\nurl: https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-the-openai-api\ninputs: \n  text:\n    type: string\n---\nExtract keywords from the corresponding texts below.\n\nText 1: Stripe provides APIs that web developers can use to integrate payment processing into their websites and mobile applications.\nKeywords 1: Stripe, payment processing, APIs, web developers, websites, mobile applications\n##\nText 2: OpenAI has trained cutting-edge language models that are very good at understanding and generating text. Our API provides access to these models and can be used to solve virtually any task that involves processing language.\nKeywords 2: OpenAI, language models, text processing, API.\n##\nText 3: {{text}}\nKeywords 3:",
+  "inputSpec": "The input must be a single string of text. The input string can describe any topic or subject matter.",
+  "rules": [
+    "The chatbot must output a list of keywords extracted from the given text.",
+    "Each keyword in the output list must represent a significant concept or entity mentioned in the input text.",
+    "The extracted keywords must be distinct and not repeated within the list.",
+    "The keywords must be presented as a list separated by commas.",
+    "The list of keywords must directly follow the phrase \"Keywords 3:\" without additional formatting or punctuation.",
+    "The keywords must reflect the topics or important elements explicitly mentioned in the input text.",
+    "The order of keywords in the output is not specified by the description and may vary.",
+    "The keywords must be nouns or noun phrases that capture the essence of the input text content."
+  ],
+  "inverseRules": [
+    "The chatbot must never output a list of keywords extracted from the given text.",
+    "Each keyword in the output list must represent an insignificant concept or entity mentioned in the input text.",
+    "The extracted keywords can be repeated within the list.",
+    "The keywords must not be presented as a list separated by commas.",
+    "The list of keywords must not directly follow the phrase \"Keywords 3:\" and should include additional formatting or punctuation.",
+    "The keywords must reflect topics or elements not explicitly mentioned in the input text.",
+    "The order of keywords in the output is strictly defined by the description and must not vary.",
+    "The keywords must be adjectives or verbs that do not capture the essence of the input text content."
+  ],
+  "tests": [
+    {
+      "rule": "Each keyword in the output list must represent a significant concept or entity mentioned in the input text.",
+      "input": "Python is a popular programming language used for web development, data analysis, artificial intelligence, and scientific computing.",
+      "expected": "Keywords 3: Python, programming language, web development, data analysis, artificial intelligence, scientific computing",
+      "reasoning": "The test checks for accurate extraction and distinct representation of significant concepts mentioned in the text."
+    },
+    {
+      "rule": "Each keyword in the output list must represent a significant concept or entity mentioned in the input text.",
+      "input": "Tesla, founded by Elon Musk, is known for its electric vehicles and renewable energy products.",
+      "expected": "Keywords 3: Tesla, Elon Musk, electric vehicles, renewable energy products",
+      "reasoning": "Ensures that the software identifies key entities and concepts without repetition while covering a range of noun phrases."
+    },
+    {
+      "rule": "Each keyword in the output list must represent a significant concept or entity mentioned in the input text.",
+      "input": "The Amazon rainforest is home to diverse wildlife and significant ecological resources.",
+      "expected": "Keywords 3: Amazon rainforest, wildlife, ecological resources",
+      "reasoning": "Validates that the software extracts distinct nouns and noun phrases representing the core topics of the input text."
+    },
+    {
+      "rule": "The extracted keywords must be distinct and not repeated within the list.",
+      "input": "Apple Inc. designs and manufactures consumer electronics, computer software, and online services.",
+      "expected": "Keywords 3: Apple Inc., consumer electronics, computer software, online services",
+      "reasoning": "Focuses on assessing the software's ability to extract key entities and concepts as separate keywords."
+    },
+    {
+      "rule": "The extracted keywords must be distinct and not repeated within the list.",
+      "input": "Shakespeare's plays are renowned for their intricate characters and complex themes.",
+      "expected": "Keywords 3: Shakespeare, plays, characters, themes",
+      "reasoning": "Tests the extraction of significant literary elements and ensures no repetition of keywords."
+    },
+    {
+      "rule": "The extracted keywords must be distinct and not repeated within the list.",
+      "input": "The Great Wall of China is an iconic symbol of China's history and cultural heritage.",
+      "expected": "Keywords 3: Great Wall of China, symbol, history, cultural heritage",
+      "reasoning": "Checks for distinct keyword extraction related to historical and cultural concepts."
+    },
+    {
+      "rule": "The keywords must be presented as a list separated by commas.",
+      "input": "Microsoft offers a suite of productivity tools, including Word, Excel, and PowerPoint.",
+      "expected": "Keywords 3: Microsoft, productivity tools, Word, Excel, PowerPoint",
+      "reasoning": "Aims to validate the extraction and representation of product names and related concepts as distinct keywords."
+    },
+    {
+      "rule": "The keywords must be presented as a list separated by commas.",
+      "input": "The Mona Lisa is a world-famous painting by Leonardo da Vinci housed in the Louvre Museum.",
+      "expected": "Keywords 3: Mona Lisa, painting, Leonardo da Vinci, Louvre Museum",
+      "reasoning": "Ensures extraction of key concepts and entities without repetition, focusing on art and location."
+    },
+    {
+      "rule": "The keywords must be presented as a list separated by commas.",
+      "input": "NASA's missions to Mars have advanced our understanding of space exploration and planetary science.",
+      "expected": "Keywords 3: NASA, missions, Mars, space exploration, planetary science",
+      "reasoning": "Tests the identification of significant scientific and organizational elements as distinct keywords."
+    }
+  ]
+}

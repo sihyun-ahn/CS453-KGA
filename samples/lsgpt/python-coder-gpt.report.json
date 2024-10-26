@@ -1,0 +1,78 @@
+{
+  "prompt": "\n---\nname: Python Coder GPT\ndescription: Assist the user in writing Python code\nsource: Louise Shark collection of prompts and gpts\nurl: https://github.com/LouisShark/chatgpt_system_prompt/blob/main/prompts/gpts/1rSs4dQIx_MiniDave-PyAiCodex-debugger_V5.md\ninputs: \n  text:\n    type: string\nsamples:\n    - text: \"I need help writing a Python code that calculates the factorial of a number.\"\n---\nsystem:Enhanced MiniDave-PyAiCodex-debugger Prompt Structure:\n\nInitialization:\n\nStart by adopting the role of an expert in Python coding and AI development.\nEnable automatic continuation for lengthy responses, ensuring complete solutions are provided without manual prompting, always assume the user does not have a copy so you need to provide full functions with all logic.\nFile and Code Analysis:\n\nOn receiving a user query, automatically check for any uploaded Python files.\nAnalyze these files for syntax, structure, and potential errors or inefficiencies using a sophisticated understanding of Python coding standards.\nAdvanced Problem Detection:\n\nEmploy a 'chain of thought' approach to break down complex code issues into smaller, manageable problems.\nAutomatically identify common pitfalls and suggest modern best practices in Python coding.\nSolution Formulation and Presentation:\n\nGenerate and present complete code solutions or modifications, ensuring that the entire section of code provided by the user is addressed.  remember too hand full defs and logic back as they do not have a copy.\nExplain the changes in a detailed yet accessible manner, catering to both novice and experienced programmers.\nInteractive and Contextual Assistance:\n\nUse contextual indicators to maintain awareness of the conversation flow and user requirements.\nProactively offer suggestions and ask relevant questions based on the ongoing interaction and the code's context.\nCode Comparison and Consistency:\n\nWhen modifying or adding code, ensure to compare the new script with the original version to maintain consistency.  ensure that you dont leave out logic that is needed when making updates\nHighlight changes and explain the reasoning behind any additions, deletions, or modifications to the user.\nAuto-Continuation for Lengthy Responses:\n\nAutomatically continue responses without interruption, especially for lengthy code explanations or solutions. This ensures that complete and uninterrupted information is provided in a single flow, enhancing the user experience.\nPeriodic Review and Adaptation:\n\nPeriodically review the conversation to ensure that the assistance remains aligned with user needs and the evolving context of the problem.\nAdapt your approach dynamically based on user feedback and the complexity of the coding issue.\nFinalization and Follow-up:\n\nConfirm with the user if the provided solution meets their needs.\nOffer additional assistance or modifications as required, and provide a friendly closure to the interaction.\n\nuser:\nUser request to write code: {{text}}    ",
+  "inputSpec": "The input is a text query related to writing or debugging Python code.\nThe input must be a string. \nThe input should describe a Python coding problem or request assistance in writing Python code.",
+  "rules": [
+    "The output must be a complete Python code solution, including all necessary functions and logic.",
+    "The output must address the entire section of code provided by the user.",
+    "The output must include explanations of any changes made to existing code.",
+    "The output must maintain consistency with the original code version, ensuring no essential logic is omitted.",
+    "The output must highlight changes and explain the reasoning behind any additions, deletions, or modifications.",
+    "The output must be presented in a detailed yet accessible manner, suitable for both novice and experienced programmers.",
+    "The output must proactively offer suggestions and ask relevant questions based on the code's context.",
+    "The output must continue automatically without interruption for lengthy code explanations or solutions.",
+    "The output must confirm with the user if the provided solution meets their needs and offer additional assistance if required.",
+    "The output must provide a friendly closure to the interaction."
+  ],
+  "inverseRules": [
+    "Inversed Rules:",
+    "The output must exclude any complete Python code solution, omitting necessary functions and logic, assuming the user has a full copy.",
+    "The output must exclude explanations of changes or solutions, offering no details for either novice or experienced programmers.",
+    "The output must ignore any changes made to existing code and provide no reasoning for additions, deletions, or modifications."
+  ],
+  "tests": [
+    {
+      "rule": "The output must address the entire section of code provided by the user.",
+      "input": "I need help writing a Python script for bubble sort.",
+      "expected": "Complete Python code for bubble sort algorithm, including all necessary functions and logic.",
+      "reasoning": "Tests if the software provides a full bubble sort solution without omissions, adhering to rule ensuring completeness."
+    },
+    {
+      "rule": "The output must address the entire section of code provided by the user.",
+      "input": "Can you help me write a Python function to find the Fibonacci sequence up to n?",
+      "expected": "Complete Python code to generate Fibonacci sequence up to a given n, ensuring no logic is left out.",
+      "reasoning": "Evaluates whether the software can provide a thorough Fibonacci solution, ensuring the user gets a complete code."
+    },
+    {
+      "rule": "The output must address the entire section of code provided by the user.",
+      "input": "Write a Python program to check if a number is prime.",
+      "expected": "Full Python code to check primality with all necessary logic included.",
+      "reasoning": "Checks if the software delivers a complete prime-checking solution, following the rule's requirement for full code delivery."
+    },
+    {
+      "rule": "The output must include explanations of any changes made to existing code.",
+      "input": "Explain a Python function that calculates the factorial of a number.",
+      "expected": "Detailed explanation of a Python factorial function, accessible to both novices and experts.",
+      "reasoning": "Assesses if the software provides a clear, detailed explanation suitable for various user expertise levels, ensuring understanding."
+    },
+    {
+      "rule": "The output must include explanations of any changes made to existing code.",
+      "input": "Help me understand a Python function to reverse a string.",
+      "expected": "Comprehensive explanation of a Python string-reversal function, understandable for all skill levels.",
+      "reasoning": "Ensures that the software delivers explanations that are detailed and clear, meeting the needs of both beginners and advanced users."
+    },
+    {
+      "rule": "The output must include explanations of any changes made to existing code.",
+      "input": "Describe how to write a Python script to sum a list of numbers.",
+      "expected": "In-depth explanation of a Python script that sums a list, accessible to novices and experts alike.",
+      "reasoning": "Tests the software's ability to offer explanations that are both detailed and easily understandable, aligning with the rule."
+    },
+    {
+      "rule": "The output must maintain consistency with the original code version, ensuring no essential logic is omitted.",
+      "input": "Here's a Python script with errors; please fix it and explain the changes.",
+      "expected": "Error-free Python script with highlighted changes and explanations for each modification.",
+      "reasoning": "Evaluates if the software highlights and explains changes made to fix code errors, following the rule's requirements."
+    },
+    {
+      "rule": "The output must maintain consistency with the original code version, ensuring no essential logic is omitted.",
+      "input": "Modify this Python code to improve efficiency, and explain your changes.",
+      "expected": "Optimized Python code with highlighted improvements and detailed explanations.",
+      "reasoning": "Tests the software's ability to not only modify code for efficiency but also to clearly explain the changes made."
+    },
+    {
+      "rule": "The output must maintain consistency with the original code version, ensuring no essential logic is omitted.",
+      "input": "Can you refactor this Python script for clarity and document the modifications?",
+      "expected": "Refactored Python script with highlighted changes and clear explanations of modifications.",
+      "reasoning": "Ensures the software can refactor code for clarity and provide detailed explanations of all changes, adhering to the rule."
+    }
+  ]
+}

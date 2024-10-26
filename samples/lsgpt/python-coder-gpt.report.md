@@ -1,7 +1,8 @@
-## [python-coder-gpt](samples/lsgpt/python-coder-gpt.prompty)
+## [python-coder-gpt](samples/lsgpt/python-coder-gpt.prompty) ([JSON](./python-coder-gpt.report.json))
 
 
 ### [prompty](./python-coder-gpt.prompty)
+
 `````md
 
 ---
@@ -59,6 +60,7 @@ User request to write code: {{text}}
 
 
 ### [rules.txt](./python-coder-gpt.rules.txt)
+
 `````txt
 The output must be a complete Python code solution, including all necessary functions and logic.
 The output must address the entire section of code provided by the user.
@@ -74,6 +76,7 @@ The output must provide a friendly closure to the interaction.
 
 
 ### [inverse_rules.txt](./python-coder-gpt.inverse_rules.txt)
+
 `````txt
 Inversed Rules:
 The output must exclude any complete Python code solution, omitting necessary functions and logic, assuming the user has a full copy.
@@ -83,6 +86,7 @@ The output must ignore any changes made to existing code and provide no reasonin
 
 
 ### [input_spec.txt](./python-coder-gpt.input_spec.txt)
+
 `````txt
 The input is a text query related to writing or debugging Python code.
 The input must be a string. 
@@ -91,6 +95,7 @@ The input should describe a Python coding problem or request assistance in writi
 
 
 ### [baseline_tests.txt](./python-coder-gpt.baseline_tests.txt)
+
 `````txt
 User request to write code: "I need help writing a Python script that reads a CSV file and outputs the number of rows and columns."
 
@@ -105,6 +110,7 @@ User request to write code: "Help me generate a Python program that sorts a list
 
 
 ### [tests.csv](./python-coder-gpt.tests.csv)
+
 `````csv
 Rule ID, Test ID, Test Input, Expected Output, Reasoning
 1, 1, "I need help writing a Python script for bubble sort.", "Complete Python code for bubble sort algorithm, including all necessary functions and logic.", "Tests if the software provides a full bubble sort solution without omissions, adhering to rule ensuring completeness."

@@ -1,7 +1,8 @@
-## [new-words](samples/prompt-guide/new-words.prompty)
+## [new-words](samples/prompt-guide/new-words.prompty) ([JSON](./new-words.report.json))
 
 
 ### [prompty](./new-words.prompty)
+
 `````md
 ---
 name: "Create New Words"
@@ -31,6 +32,7 @@ An example of a sentence that uses this word is:
 
 
 ### [rules.txt](./new-words.rules.txt)
+
 `````txt
 The output must include a sentence that demonstrates the usage of the made-up word.  
 The sentence must logically incorporate the context provided by the user about the made-up word's meaning.  
@@ -41,6 +43,7 @@ The sentence must be clear and understandable without requiring additional conte
 
 
 ### [inverse_rules.txt](./new-words.inverse_rules.txt)
+
 `````txt
 The output must exclude any sentence that demonstrates the usage of the made-up word.  
 The sentence must ignore the context provided by the user about the made-up word's meaning.  
@@ -51,6 +54,7 @@ The sentence must be unclear and require additional context beyond what was prov
 
 
 ### [input_spec.txt](./new-words.input_spec.txt)
+
 `````txt
 The input must include a made-up word name.  
 The input must describe the meaning of the new word.
@@ -58,6 +62,7 @@ The input must describe the meaning of the new word.
 
 
 ### [baseline_tests.txt](./new-words.baseline_tests.txt)
+
 `````txt
 made_up_word_name: "glubor"
 describe_meaning_of_new_word: "to vigorously shake a container of liquid to mix it thoroughly"
@@ -71,6 +76,7 @@ describe_meaning_of_new_word: "the sound a door makes when it slowly creaks open
 
 
 ### [tests.csv](./new-words.tests.csv)
+
 `````csv
 Rule ID, Test ID, Test Input, Expected Output, Reasoning
 1, 1, "made_up_word_name: flibble, describe_meaning_of_new_word: dance gracefully without music", "An example of a sentence that uses the word flibble is: At the party, everyone stopped to watch her flibble across the room.", "The sentence demonstrates the usage of the made-up word flibble in a context that matches the given meaning, adhering to the rule."

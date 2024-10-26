@@ -1,7 +1,8 @@
-## [text-to-p](samples/text-to-p/text-to-p.prompty)
+## [text-to-p](samples/text-to-p/text-to-p.prompty) ([JSON](./text-to-p.report.json))
 
 
 ### [prompty](./text-to-p.prompty)
+
 `````md
 ---
 name: "Text to P"
@@ -23,6 +24,7 @@ user:
 
 
 ### [rules.txt](./text-to-p.rules.txt)
+
 `````txt
 The output must contain at least three `<p>` tags. 
 Each sentence from the original paragraph must be wrapped in a separate `<p>` tag.
@@ -33,6 +35,7 @@ The `<p>`, `<strong>`, and `<em>` tags must be correctly formatted as HTML.
 
 
 ### [inverse_rules.txt](./text-to-p.inverse_rules.txt)
+
 `````txt
 Each sentence in the output must be unwrapped and not enclosed in any tags.
 The output must contain fewer than three <p> tags.
@@ -41,6 +44,7 @@ Within each <p> tag, there must be no <strong> or <em> tags to emphasize key wor
 
 
 ### [input_spec.txt](./text-to-p.input_spec.txt)
+
 `````txt
 The input is a paragraph of text.
 The input must contain at least three sentences.
@@ -48,6 +52,7 @@ The input must contain at least three sentences.
 
 
 ### [baseline_tests.txt](./text-to-p.baseline_tests.txt)
+
 `````txt
 text: "Artificial intelligence is transforming the world. This transformation spans across various sectors. AI helps in improving efficiencies and creating new opportunities for innovation."
 
@@ -60,6 +65,7 @@ text: "Climate change poses a significant threat to our planet. Measures to comb
 
 
 ### [tests.csv](./text-to-p.tests.csv)
+
 `````csv
 Rule ID, Test ID, Test Input, Expected Output, Reasoning
 1, 1, "This is the first sentence. This is the second sentence. This is the third sentence.", "<p><strong>This is the first sentence.</strong></p><p><strong>This is the second sentence.</strong></p><p><strong>This is the third sentence.</strong></p>", "Ensures each sentence is wrapped in a <p> tag."

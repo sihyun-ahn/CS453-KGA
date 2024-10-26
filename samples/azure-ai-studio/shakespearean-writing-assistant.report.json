@@ -1,0 +1,113 @@
+{
+  "prompt": "---\nname: 'Shakespearean Writing Assistant'\ndescription: 'Generate a short text turning down an invitation to dinner in Shakespearean style.'\nsource: Azure AI Studio Prompt Catalog\nurl: https://ai.azure.com/explore/prompts/shakespeare_writing_assistant/version/0.0.1/registry/azureml?wsid=/subscriptions/fc8867fe-bf04-426c-a32a-07d0c709a945/resourcegroups/genaiscript/providers/Microsoft.MachineLearningServices/workspaces/genaiscript&tid=512451b2-ca3c-4016-b97c-10bd8c704cfc&promptType=promptSamples&promptSharedInHub=false\nmodel:\n  parameters:\n    temperature: 0.7\n    top_p: 0.95\n    max_tokens: 800\n---\nsystem:\nYou are a Shakespearean writing assistant who speaks in a Shakespearean style. You help people come up with creative ideas and content like stories, poems, and songs that use Shakespearean style of writing style, including words like \"thou\" and \"hath”.\nHere are some example of Shakespeare's style:\n- Romeo, Romeo! Wherefore art thou Romeo?\n- Love looks not with the eyes, but with the mind; and therefore is winged Cupid painted blind.\n- Shall I compare thee to a summer's day? Thou art more lovely and more temperate.\n\n\nuser:\nPlease write a short text turning down an invitation to dinner.\n\nassistant:\n- Dearest,\n  Regretfully, I must decline thy invitation.\n  Prior engagements call me hence. Apologies.\n\n",
+  "inputSpec": "The input is a request for creative content, such as stories, poems, or songs, using Shakespearean style.\nThe input must specify the type of creative content desired (e.g., story, poem, song).\nThe input should include any specific themes or topics to be addressed in the content.\nThe input can include particular phrases or ideas to incorporate in the Shakespearean style.\nThe input must be in the form of a request or question related to generating Shakespearean-style content.",
+  "rules": [
+    "The response must be written in a Shakespearean style.",
+    "The response must include archaic words such as \"thou\" and \"hath.\"",
+    "The response must be creative in nature, suitable for ideas like stories, poems, or songs.",
+    "The response must be respectful and polite.",
+    "The response should convey the message clearly despite using a Shakespearean style."
+  ],
+  "inverseRules": [
+    "Thou shalt write in modern and straightforward language.",
+    "Avoid using archaic terms like \"thou\" and \"hath.\"",
+    "The response must be factual and informative, not creative.",
+    "The response may include casual and informal language.",
+    "The message should remain unclear and ambiguous when using any style."
+  ],
+  "tests": [
+    {
+      "rule": "The response must include archaic words such as \"thou\" and \"hath.\"",
+      "input": "type: poem, theme: love, phrase: eternal bond",
+      "expected": "output includes phrases like 'thou art my love eternal'",
+      "reasoning": "Ensures adherence to Shakespearean style by using poetic form and language consistent with Shakespeare."
+    },
+    {
+      "rule": "The response must include archaic words such as \"thou\" and \"hath.\"",
+      "input": "type: story, theme: betrayal, phrase: all that glitters is not gold",
+      "expected": "output includes phrases like 'thou betray'st me, yet all that glitters is not gold'",
+      "reasoning": "Tests the ability to craft a narrative using Shakespearean phrasing while maintaining style."
+    },
+    {
+      "rule": "The response must include archaic words such as \"thou\" and \"hath.\"",
+      "input": "type: song, theme: joy, phrase: dance in the moonlight",
+      "expected": "output includes phrases like 'let us dance 'neath yon moon's gentle light'",
+      "reasoning": "Evaluates the Shakespearean style by requiring musical composition with appropriate language."
+    },
+    {
+      "rule": "The response must be creative in nature, suitable for ideas like stories, poems, or songs.",
+      "input": "type: poem, theme: sorrow, phrase: tears like rain",
+      "expected": "output uses 'thou' and 'hath' such as 'thou hath wept a thousand tears'",
+      "reasoning": "Confirms the use of archaic words as required by the rule."
+    },
+    {
+      "rule": "The response must be creative in nature, suitable for ideas like stories, poems, or songs.",
+      "input": "type: story, theme: adventure, phrase: a daring quest",
+      "expected": "output includes 'thou' and 'hath' like 'thou hath embarked on a daring quest'",
+      "reasoning": "Ensures that archaic language is consistently used within a story context."
+    },
+    {
+      "rule": "The response must be creative in nature, suitable for ideas like stories, poems, or songs.",
+      "input": "type: song, theme: hope, phrase: new dawn",
+      "expected": "output includes 'thou' and 'hath' such as 'thou hath seen a new dawn arise'",
+      "reasoning": "Verifies that the song format maintains the use of archaic words."
+    },
+    {
+      "rule": "The response must be respectful and polite.",
+      "input": "type: story, theme: redemption, phrase: rise from the ashes",
+      "expected": "output creatively narrates a tale of redemption with phrases like 'rise thou from the ashes'",
+      "reasoning": "Checks for creative storytelling in Shakespearean style, verifying imaginative content creation."
+    },
+    {
+      "rule": "The response must be respectful and polite.",
+      "input": "type: poem, theme: friendship, phrase: bond unbroken",
+      "expected": "output creatively explores friendship with lines like 'our bond remains unbroken'",
+      "reasoning": "Assesses the creative expression in a poem using Shakespearean language."
+    },
+    {
+      "rule": "The response must be respectful and polite.",
+      "input": "type: song, theme: courage, phrase: heart of a lion",
+      "expected": "output creatively celebrates courage with phrases like 'thou hath the heart of a lion'",
+      "reasoning": "Tests creative song writing while adhering to Shakespearean stylistic elements."
+    },
+    {
+      "rule": "The response should convey the message clearly despite using a Shakespearean style.",
+      "input": "type: poem, theme: farewell, phrase: sweet sorrow",
+      "expected": "output expresses farewell respectfully, e.g., 'parting is such sweet sorrow'",
+      "reasoning": "Ensures politeness and respect in expression reflecting Shakespearean decorum."
+    },
+    {
+      "rule": "The response should convey the message clearly despite using a Shakespearean style.",
+      "input": "type: story, theme: gratitude, phrase: thy kindness",
+      "expected": "output portrays gratitude respectfully, e.g., 'thy kindness hath warmed my heart'",
+      "reasoning": "Verifies respectful tone in storytelling using Shakespearean style."
+    },
+    {
+      "rule": "The response should convey the message clearly despite using a Shakespearean style.",
+      "input": "type: song, theme: reconciliation, phrase: bygones be bygones",
+      "expected": "output seeks reconciliation politely, e.g., 'let bygones be bygones, my friend'",
+      "reasoning": "Tests respectful tone in song form, ensuring politeness."
+    },
+    {
+      "rule": "Thou shalt write in modern and straightforward language.",
+      "inverse": true,
+      "input": "type: story, theme: courage, phrase: face thy fears",
+      "expected": "output conveys message clearly using 'face thy fears' in a dramatic narrative",
+      "reasoning": "Ensures clarity of message while maintaining Shakespearean style."
+    },
+    {
+      "rule": "Thou shalt write in modern and straightforward language.",
+      "inverse": true,
+      "input": "type: poem, theme: nature, phrase: beauty of the stars",
+      "expected": "output clearly describes nature with 'the beauty of yon stars'",
+      "reasoning": "Checks if the message about nature is clearly conveyed despite archaic language."
+    },
+    {
+      "rule": "Thou shalt write in modern and straightforward language.",
+      "inverse": true,
+      "input": "type: song, theme: celebration, phrase: joyous day",
+      "expected": "output clearly celebrates with 'this joyous day'",
+      "reasoning": "Validates clarity in communication while adhering to stylistic requirements."
+    }
+  ]
+}

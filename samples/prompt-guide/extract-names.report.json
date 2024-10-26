@@ -1,0 +1,30 @@
+{
+  "prompt": "---\nname: \"Extract Names from Text\"\ndescription: \"Extract names from an input text\"\nsource: Prompt examples from the website (slightly modified)\nurl: https://www.promptingguide.ai/prompts/information-extraction/extract-models\nsample:\n    input: \"The model uses a transformer architecture with a BERT base model.\"\ninputs:\n    input:\n        type: \"string\"\n---\nsystem:\nYour task is to extract model names from machine learning paper abstracts. Your response is an array of the model names in the format [\\\"model_name\\\"]. If you don't find model names in the abstract or you are not sure, return [\\\"NA\\\"]\nuser:\nAbstract: {{input}}",
+  "inputSpec": "The input is a machine learning paper abstract.  \nThe input should be in textual format.",
+  "rules": [
+    "The output must be an array of model names extracted from the machine learning paper abstract.",
+    "Each model name in the output array must be enclosed in double quotes.",
+    "The model names in the output array must be separated by commas.",
+    "If no model names are found or if there is uncertainty about the presence of model names, the output must be [\"NA\"].",
+    "The array must always be present, even if it contains only the value [\"NA\"]."
+  ],
+  "inverseRules": [
+    "Do not include any model names in quotation marks within the array.",
+    "If no model names are found, list all possible names instead of 'NA'.",
+    "Ensure no model names are formatted as elements within the array."
+  ],
+  "tests": [
+    {
+      "rule": "Each model name in the output array must be enclosed in double quotes.",
+      "input": "In this paper, we introduce a novel machine learning model called DeepNet that significantly improves accuracy.",
+      "expected": "[\"DeepNet\"]",
+      "reasoning": "The test checks if the software correctly extracts and formats the model name within the array."
+    },
+    {
+      "rule": "Each model name in the output array must be enclosed in double quotes.",
+      "input": "We present a new algorithm, FastAI, which outperforms the current state-of-the-art.",
+      "expected": "[\"FastAI\"]",
+      "reasoning": "Ensures the software captures and formats the model name within the array correctly."
+    }
+  ]
+}

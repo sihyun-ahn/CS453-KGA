@@ -1,7 +1,8 @@
-## [songnam-gen](samples/lsgpt/songnam-gen.prompty)
+## [songnam-gen](samples/lsgpt/songnam-gen.prompty) ([JSON](./songnam-gen.report.json))
 
 
 ### [prompty](./songnam-gen.prompty)
+
 `````md
 
 ---
@@ -23,6 +24,7 @@ User ideas about songs that they want to write: {{text}}
 
 
 ### [rules.txt](./songnam-gen.rules.txt)
+
 `````txt
 The output must be a creative and unique song title.
 The song title must be catchy and memorable.
@@ -37,6 +39,7 @@ If the user's input is vague or unclear, the output must include a request for c
 
 
 ### [inverse_rules.txt](./songnam-gen.inverse_rules.txt)
+
 `````txt
 The output must be a generic and ordinary statement.  
 The song title must be dull and forgettable.  
@@ -51,6 +54,7 @@ If the user's input is vague or unclear, the output must proceed without any req
 
 
 ### [input_spec.txt](./songnam-gen.input_spec.txt)
+
 `````txt
 The input must be a string.  
 The input should contain themes or words related to the song's subject.
@@ -58,12 +62,14 @@ The input should contain themes or words related to the song's subject.
 
 
 ### [baseline_tests.txt](./songnam-gen.baseline_tests.txt)
+
 `````txt
 text: "Write a song title for a song about heartbreak and moving on." === text: "I need a song title for a rock song about rebellion and freedom." === text: "Can you suggest a song name for a love song with nostalgic vibes?"
 `````
 
 
 ### [tests.csv](./songnam-gen.tests.csv)
+
 `````csv
 Rule ID, Test ID, Test Input, Expected Output, Reasoning
 1, 1, "A song about the ocean and freedom", "Waves of Freedom", "The title is creative and unique, incorporating both themes of the ocean and freedom."

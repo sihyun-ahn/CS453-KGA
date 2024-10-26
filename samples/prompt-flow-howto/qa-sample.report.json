@@ -1,0 +1,133 @@
+{
+  "prompt": "---\nname: Basic Prompt\ndescription: A basic prompt that uses the GPT-3 chat API to answer questions\ninputs:\n  question:\n    type: string\nsample:\n  question: Who is the most famous person in the world?\nsource: PromptFlow How-to Guides (simplified)\nurl: https://microsoft.github.io/promptflow/how-to-guides/develop-a-prompty/index.html\n---\nsystem:\nYou are an AI assistant who helps people find information.\nAs the assistant, you answer questions briefly, succinctly,\nand in a personable manner using markdown and even add some personal flair with appropriate emojis.\n\n# Safety\n- You **should always** reference factual statements to search results based on [relevant documents]\n- Search results based on [relevant documents] may be incomplete or irrelevant. You do not make assumptions\n# Customer\nYou are helping a user to find answers to their questions.\n\nuser:\n{{question}}",
+  "inputSpec": "The input is a question.\nThe question can be about any topic.\nThe question may contain multiple parts.\nThe question can be a simple or complex query.\nThe question must be clearly stated.\nThe question should not contain harmful content.\nThe question should not be hateful, racist, sexist, lewd, or violent.",
+  "rules": [
+    "The response must answer questions briefly and succinctly.",
+    "The response must be presented in a personable manner.",
+    "The response must use markdown formatting.",
+    "The response must include personal flair with appropriate emojis.",
+    "The response must reference factual statements to search results based on relevant documents.",
+    "The response must not make assumptions."
+  ],
+  "inverseRules": [
+    "The response must answer questions with lengthy and detailed explanations.",
+    "The response must be presented in a formal manner.",
+    "The response must avoid using markdown formatting.",
+    "The response must be devoid of personal flair and emojis.",
+    "The response must provide creative opinions without referencing factual statements.",
+    "The response must make assumptions freely."
+  ],
+  "tests": [
+    {
+      "rule": "The response must be presented in a personable manner.",
+      "input": "How does photosynthesis work?",
+      "expected": "Photosynthesis is the process by which green plants use sunlight to synthesize foods from carbon dioxide and water. 🌿",
+      "reasoning": "Tests brevity and succinctness while being informative in a friendly tone."
+    },
+    {
+      "rule": "The response must be presented in a personable manner.",
+      "input": "What is the capital of France?",
+      "expected": "Paris is the capital of France. 🗼",
+      "reasoning": "Ensures the response is brief and to the point with a touch of flair."
+    },
+    {
+      "rule": "The response must be presented in a personable manner.",
+      "input": "Can you explain what a black hole is?",
+      "expected": "A black hole is a region in space with gravity so strong that nothing can escape from it. 🌌",
+      "reasoning": "Checks for succinctness and clarity, making sure the response is concise and engaging."
+    },
+    {
+      "rule": "The response must use markdown formatting.",
+      "input": "What's the history of the internet?",
+      "expected": "The internet started in the 1960s as a project by the U.S. government and has grown into the massive network we use today. 💻",
+      "reasoning": "Assesses the personable tone, ensuring the response is friendly and approachable."
+    },
+    {
+      "rule": "The response must use markdown formatting.",
+      "input": "Can you tell me about the discovery of penicillin?",
+      "expected": "Alexander Fleming discovered penicillin in 1928, revolutionizing medicine! 🧪",
+      "reasoning": "Tests the personable manner, ensuring the response is warm and engaging."
+    },
+    {
+      "rule": "The response must use markdown formatting.",
+      "input": "What are the main causes of climate change?",
+      "expected": "Climate change is mainly caused by greenhouse gas emissions from human activities. 🌍",
+      "reasoning": "Evaluates the personable style to make the response inviting and clear."
+    },
+    {
+      "rule": "The response must include personal flair with appropriate emojis.",
+      "input": "How to format text in markdown?",
+      "expected": "Use **bold**, *italic*, and `code` for formatting.",
+      "reasoning": "Checks that markdown formatting is correctly applied in the response."
+    },
+    {
+      "rule": "The response must include personal flair with appropriate emojis.",
+      "input": "Can you show me a markdown list?",
+      "expected": "- Item 1\\n- Item 2\\n- Item 3",
+      "reasoning": "Verifies the correct use of markdown for lists."
+    },
+    {
+      "rule": "The response must include personal flair with appropriate emojis.",
+      "input": "How do you create a hyperlink in markdown?",
+      "expected": "[Link](http://example.com)",
+      "reasoning": "Ensures markdown hyperlink formatting is used properly."
+    },
+    {
+      "rule": "The response must reference factual statements to search results based on relevant documents.",
+      "input": "Tell me a fun fact about pandas",
+      "expected": "Pandas spend around 14 hours a day eating bamboo. 🐼",
+      "reasoning": "Assesses the use of emojis to add personal flair to the response."
+    },
+    {
+      "rule": "The response must reference factual statements to search results based on relevant documents.",
+      "input": "What's a cool fact about space?",
+      "expected": "Space is completely silent! 🌌",
+      "reasoning": "Checks for the incorporation of emojis to enhance the response."
+    },
+    {
+      "rule": "The response must reference factual statements to search results based on relevant documents.",
+      "input": "Share an interesting tidbit about dolphins",
+      "expected": "Dolphins sleep with one eye open. 🐬",
+      "reasoning": "Evaluates the use of personal flair and emojis to make the response lively."
+    },
+    {
+      "rule": "The response must not make assumptions.",
+      "input": "What are the benefits of drinking water?",
+      "expected": "According to [relevant documents], water helps maintain bodily functions and energy levels.",
+      "reasoning": "Tests the requirement to reference factual statements to relevant documents."
+    },
+    {
+      "rule": "The response must not make assumptions.",
+      "input": "How is climate change affecting polar bears?",
+      "expected": "Based on [relevant documents], polar bears are losing their habitat due to melting ice.",
+      "reasoning": "Ensures citations from relevant documents are used for factual accuracy."
+    },
+    {
+      "rule": "The response must not make assumptions.",
+      "input": "What is the importance of voting?",
+      "expected": "Voting impacts policies and governance, as stated in [relevant documents].",
+      "reasoning": "Verifies that factual references are made to support statements."
+    },
+    {
+      "rule": "The response must answer questions with lengthy and detailed explanations.",
+      "inverse": true,
+      "input": "What is the tallest mountain?",
+      "expected": "Mount Everest is the tallest mountain at 8,848 meters above sea level.",
+      "reasoning": "Confirms that the response avoids making assumptions and states clear facts."
+    },
+    {
+      "rule": "The response must answer questions with lengthy and detailed explanations.",
+      "inverse": true,
+      "input": "How do vaccines work?",
+      "expected": "Vaccines stimulate the body's immune response without causing illness.",
+      "reasoning": "Ensures no assumptions are made and the response is based on factual information."
+    },
+    {
+      "rule": "The response must answer questions with lengthy and detailed explanations.",
+      "inverse": true,
+      "input": "Is the Earth flat?",
+      "expected": "No, evidence shows the Earth is an oblate spheroid.",
+      "reasoning": "Checks that the response is based on established facts and avoids assumptions."
+    }
+  ]
+}

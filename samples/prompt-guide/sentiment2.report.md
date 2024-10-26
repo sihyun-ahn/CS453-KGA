@@ -1,7 +1,8 @@
-## [sentiment2](samples/prompt-guide/sentiment2.prompty)
+## [sentiment2](samples/prompt-guide/sentiment2.prompty) ([JSON](./sentiment2.report.json))
 
 
 ### [prompty](./sentiment2.prompty)
+
 `````md
 ---
 name: "Analyze Sentiment Multishot"
@@ -25,6 +26,7 @@ user:
 
 
 ### [rules.txt](./sentiment2.rules.txt)
+
 `````txt
 The output must identify "This is awesome!" as Negative.
 The output must identify "This is bad!" as Positive.
@@ -34,6 +36,7 @@ The output must identify "What a horrible show!" without any classification.
 
 
 ### [inverse_rules.txt](./sentiment2.inverse_rules.txt)
+
 `````txt
 "This is awesome!" must be identified as Positive.
 "This is bad!" must be identified as Negative.
@@ -43,6 +46,7 @@ The output must identify "What a horrible show!" without any classification.
 
 
 ### [input_spec.txt](./sentiment2.input_spec.txt)
+
 `````txt
 The input is a text string that represents a sentence or phrase for sentiment analysis.
 The input can consist of any combination of words or phrases.
@@ -50,6 +54,7 @@ The input can consist of any combination of words or phrases.
 
 
 ### [baseline_tests.txt](./sentiment2.baseline_tests.txt)
+
 `````txt
 input: "The service was excellent, but the food was terrible." ===
 input: "I am extremely happy with the results, could not have asked for more!" ===
@@ -58,6 +63,7 @@ input: "The weather today is just average, not too bad, not too great."
 
 
 ### [tests.csv](./sentiment2.tests.csv)
+
 `````csv
 Rule ID, Test ID, Test Input, Expected Output, Reasoning
 1, 1, "This is awesome!", "Negative", "Tests that the input 'This is awesome!' is correctly identified as Negative, following the rule."

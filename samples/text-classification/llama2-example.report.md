@@ -1,7 +1,8 @@
-## [llama2-example](samples/text-classification/llama2-example.prompty)
+## [llama2-example](samples/text-classification/llama2-example.prompty) ([JSON](./llama2-example.report.json))
 
 
 ### [prompty](./llama2-example.prompty)
+
 `````md
 
 ---
@@ -29,6 +30,7 @@ Based on these categories, classify this news article: {{text}}
 
 
 ### [rules.txt](./llama2-example.rules.txt)
+
 `````txt
 The output must classify the input text into one of the following categories: World, Sports, Business, or Sci/Tech.
 The output must consist of only one category name, which is one of the following: World, Sports, Business, or Sci/Tech.
@@ -37,6 +39,7 @@ The output must not contain any additional information, explanation, or commenta
 
 
 ### [inverse_rules.txt](./llama2-example.inverse_rules.txt)
+
 `````txt
 The output must classify the input text into any category except World, Sports, Business, or Sci/Tech.  
 The output must consist of more than one category name and include at least one not listed: World, Sports, Business, or Sci/Tech.  
@@ -45,6 +48,7 @@ The output must contain additional information, explanation, or commentary beyon
 
 
 ### [input_spec.txt](./llama2-example.input_spec.txt)
+
 `````txt
 The input must be a text string.  
 The input text should resemble a news article headline or a brief summary.
@@ -52,6 +56,7 @@ The input text should resemble a news article headline or a brief summary.
 
 
 ### [baseline_tests.txt](./llama2-example.baseline_tests.txt)
+
 `````txt
 text: "NASA's new telescope captures stunning images of distant galaxies" 
 ===
@@ -62,6 +67,7 @@ text: "Olympics postponed due to global pandemic concerns"
 
 
 ### [tests.csv](./llama2-example.tests.csv)
+
 `````csv
 Rule ID, Test ID, Test Input, Expected Output, Reasoning
 1, 1, "Nations agree to nuclear disarmament talks amid rising tensions", "World", "Tests if the software classifies geopolitical news correctly into the World category."

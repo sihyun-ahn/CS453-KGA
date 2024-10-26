@@ -1,7 +1,8 @@
-## [binary-classifier](samples/text-classification/binary-classifier.prompty)
+## [binary-classifier](samples/text-classification/binary-classifier.prompty) ([JSON](./binary-classifier.report.json))
 
 
 ### [prompty](./binary-classifier.prompty)
+
 `````md
 ---
 name: Binary Text Classifier
@@ -32,6 +33,7 @@ Think through your evaluation. Respond only with Yes or No. Then start a new par
 
 
 ### [rules.txt](./binary-classifier.rules.txt)
+
 `````txt
 The response must start with either "Yes" or "No" based on whether the text contains relevant information to answer the question. 
 The response must start a new paragraph after the initial "Yes" or "No" answer.
@@ -43,6 +45,7 @@ The explanation must avoid introducing any information not present within the te
 
 
 ### [inverse_rules.txt](./binary-classifier.inverse_rules.txt)
+
 `````txt
 The response must never start with "Yes" or "No" regardless of the text's relevance.
 The response must continue in the same paragraph after the initial response.
@@ -54,6 +57,7 @@ The explanation must introduce information not present within the text excerpt o
 
 
 ### [input_spec.txt](./binary-classifier.input_spec.txt)
+
 `````txt
 The input is a text excerpt and a question.
 The text excerpt can contain any raw text from a report.
@@ -63,6 +67,7 @@ The input must include both the text excerpt and the question to be valid.
 
 
 ### [baseline_tests.txt](./binary-classifier.baseline_tests.txt)
+
 `````txt
 evidence: "The Supreme Court ruled in favor of the Affordable Care Act, ensuring that millions of Americans will continue to receive health insurance coverage. The decision was a 7-2 ruling, with the majority opinion stating that the plaintiffs did not have the legal standing to challenge the law."
 question: "Does the Supreme Court ruling affect health insurance coverage?"
@@ -78,6 +83,7 @@ question: "Is the new city ordinance aimed at increasing the minimum wage?"
 
 
 ### [tests.csv](./binary-classifier.tests.csv)
+
 `````csv
 Rule ID, Test ID, Test Input, Expected Output, Reasoning
 1, 1, "text excerpt: The report outlines the company's quarterly earnings., question: Does the text mention any financial results?", "Yes", "The text explicitly mentions 'quarterly earnings,' which directly answers the question about financial results."

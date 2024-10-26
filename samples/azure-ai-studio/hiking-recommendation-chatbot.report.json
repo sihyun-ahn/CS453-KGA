@@ -1,0 +1,153 @@
+{
+  "prompt": "---\nname: Hiking Recommendation Chatbot\ndescription: A chatbot that helps people discover fun hikes in their area.\nsource: Azure AI Studio\nurl: https://ai.azure.com/explore/prompts/hiking_recommendations_chatbot/version/0.0.1/registry/azureml?wsid=/subscriptions/fc8867fe-bf04-426c-a32a-07d0c709a945/resourcegroups/genaiscript/providers/Microsoft.MachineLearningServices/workspaces/genaiscript&tid=512451b2-ca3c-4016-b97c-10bd8c704cfc&promptType=promptSamples&promptSharedInHub=false\nmodel:\n  parameters:\n    temperature: 0.7\n    top_p: 0.95\n    max_tokens: 800\n---\nsystem:\nI am a hiking enthusiast named Forest who helps people discover fun hikes in their area. I am upbeat and friendly. I introduce myself when first saying hello. When helping people out, I always ask them for this information to inform the hiking recommendation I provide:\n  1.\tWhere they are located\n  2.\tWhat hiking intensity they are looking for\nI will then provide three suggestions for nearby hikes that vary in length after I get this information. I will also share an interesting fact about the local nature on the hikes when making a recommendation.\n",
+  "inputSpec": "The input must specify the user's location.  \nThe input must specify the desired hiking intensity.",
+  "rules": [
+    "The chatbot introduces itself as \"Forest\" when first greeting the user.",
+    "The chatbot's tone is upbeat and friendly.",
+    "The chatbot asks the user for their location before making a hiking recommendation.",
+    "The chatbot asks the user what hiking intensity they are looking for before making a hiking recommendation.",
+    "The chatbot provides three hiking suggestions after obtaining the user's location and hiking intensity preference.",
+    "The three hiking suggestions provided vary in length.",
+    "The chatbot shares an interesting fact about the local nature on the hikes when providing each recommendation."
+  ],
+  "inverseRules": [
+    "The chatbot does not introduce itself as \"Forest\" when first greeting the user.",
+    "The chatbot's tone is serious and formal.",
+    "The chatbot makes a hiking recommendation without asking for the user's location.",
+    "The chatbot makes a hiking recommendation without asking for the user's desired hiking intensity.",
+    "The chatbot provides only one hiking suggestion regardless of the user's input.",
+    "The hiking suggestions provided are all the same length.",
+    "The chatbot does not share any interesting facts about the local nature on the hikes when providing recommendations."
+  ],
+  "tests": [
+    {
+      "rule": "The chatbot's tone is upbeat and friendly.",
+      "input": "location: Seattle, intensity: moderate",
+      "expected": "Hello! I'm Forest, your hiking guide.",
+      "reasoning": "Ensures the chatbot introduces itself as 'Forest' when first greeting the user."
+    },
+    {
+      "rule": "The chatbot's tone is upbeat and friendly.",
+      "input": "location: Denver, intensity: high",
+      "expected": "Hello! I'm Forest, your hiking guide.",
+      "reasoning": "Checks the consistent introduction of the chatbot across different locations."
+    },
+    {
+      "rule": "The chatbot's tone is upbeat and friendly.",
+      "input": "location: Miami, intensity: low",
+      "expected": "Hello! I'm Forest, your hiking guide.",
+      "reasoning": "Validates the introduction regardless of hiking intensity preference."
+    },
+    {
+      "rule": "The chatbot asks the user for their location before making a hiking recommendation.",
+      "input": "location: Austin, intensity: moderate",
+      "expected": "Upbeat and friendly tone",
+      "reasoning": "Ensures the chatbot maintains an upbeat and friendly tone in its response."
+    },
+    {
+      "rule": "The chatbot asks the user for their location before making a hiking recommendation.",
+      "input": "location: Portland, intensity: high",
+      "expected": "Upbeat and friendly tone",
+      "reasoning": "Validates consistent tone across various intensity preferences."
+    },
+    {
+      "rule": "The chatbot asks the user for their location before making a hiking recommendation.",
+      "input": "location: Boston, intensity: low",
+      "expected": "Upbeat and friendly tone",
+      "reasoning": "Ensures tone is maintained regardless of location."
+    },
+    {
+      "rule": "The chatbot asks the user what hiking intensity they are looking for before making a hiking recommendation.",
+      "input": "intensity: moderate",
+      "expected": "Where are you located?",
+      "reasoning": "Validates that the chatbot asks for location before providing recommendations."
+    },
+    {
+      "rule": "The chatbot asks the user what hiking intensity they are looking for before making a hiking recommendation.",
+      "input": "intensity: high",
+      "expected": "Where are you located?",
+      "reasoning": "Checks consistent prompting for location across intensity levels."
+    },
+    {
+      "rule": "The chatbot asks the user what hiking intensity they are looking for before making a hiking recommendation.",
+      "input": "location not provided",
+      "expected": "Where are you located?",
+      "reasoning": "Ensures location is always requested if not initially provided."
+    },
+    {
+      "rule": "The chatbot provides three hiking suggestions after obtaining the user's location and hiking intensity preference.",
+      "input": "location: Chicago",
+      "expected": "What hiking intensity are you looking for?",
+      "reasoning": "Checks that the chatbot asks for intensity if not provided initially."
+    },
+    {
+      "rule": "The chatbot provides three hiking suggestions after obtaining the user's location and hiking intensity preference.",
+      "input": "location: Los Angeles",
+      "expected": "What hiking intensity are you looking for?",
+      "reasoning": "Ensures the intensity prompt is given across different locations."
+    },
+    {
+      "rule": "The chatbot provides three hiking suggestions after obtaining the user's location and hiking intensity preference.",
+      "input": "intensity not provided",
+      "expected": "What hiking intensity are you looking for?",
+      "reasoning": "Validates intensity inquiry in absence of initial input."
+    },
+    {
+      "rule": "The three hiking suggestions provided vary in length.",
+      "input": "location: San Francisco, intensity: moderate",
+      "expected": "Three hiking suggestions provided",
+      "reasoning": "Ensures three suggestions are given after obtaining required inputs."
+    },
+    {
+      "rule": "The three hiking suggestions provided vary in length.",
+      "input": "location: New York, intensity: high",
+      "expected": "Three hiking suggestions provided",
+      "reasoning": "Confirms the number of suggestions is consistent across intensity levels."
+    },
+    {
+      "rule": "The three hiking suggestions provided vary in length.",
+      "input": "location: Orlando, intensity: low",
+      "expected": "Three hiking suggestions provided",
+      "reasoning": "Validates the number of recommendations regardless of location."
+    },
+    {
+      "rule": "The chatbot shares an interesting fact about the local nature on the hikes when providing each recommendation.",
+      "input": "location: Phoenix, intensity: moderate",
+      "expected": "Suggestions vary in length",
+      "reasoning": "Ensures that the hiking suggestions vary in length."
+    },
+    {
+      "rule": "The chatbot shares an interesting fact about the local nature on the hikes when providing each recommendation.",
+      "input": "location: Philadelphia, intensity: high",
+      "expected": "Suggestions vary in length",
+      "reasoning": "Checks for varied hike lengths in high intensity recommendations."
+    },
+    {
+      "rule": "The chatbot shares an interesting fact about the local nature on the hikes when providing each recommendation.",
+      "input": "location: Dallas, intensity: low",
+      "expected": "Suggestions vary in length",
+      "reasoning": "Confirms varied lengths for low intensity suggestions."
+    },
+    {
+      "rule": "The chatbot does not introduce itself as \"Forest\" when first greeting the user.",
+      "inverse": true,
+      "input": "location: Houston, intensity: moderate",
+      "expected": "Shares interesting nature fact with each recommendation",
+      "reasoning": "Ensures each recommendation includes a nature fact."
+    },
+    {
+      "rule": "The chatbot does not introduce itself as \"Forest\" when first greeting the user.",
+      "inverse": true,
+      "input": "location: Las Vegas, intensity: low",
+      "expected": "Shares interesting nature fact with each recommendation",
+      "reasoning": "Validates nature facts are included regardless of intensity."
+    },
+    {
+      "rule": "The chatbot does not introduce itself as \"Forest\" when first greeting the user.",
+      "inverse": true,
+      "input": "location: Atlanta, intensity: high",
+      "expected": "Shares interesting nature fact with each recommendation",
+      "reasoning": "Confirms inclusion of nature facts across locations."
+    }
+  ]
+}

@@ -1,7 +1,8 @@
-## [open-notebooklm](samples/open-notebooklm/open-notebooklm.prompty)
+## [open-notebooklm](samples/open-notebooklm/open-notebooklm.prompty) ([JSON](./open-notebooklm.report.json))
 
 
 ### [prompty](./open-notebooklm.prompty)
+
 `````md
 ---
 name: Open Notebook LM main prompt
@@ -57,6 +58,7 @@ Remember: Always reply in valid JSON format, without code blocks. Begin directly
 
 
 ### [rules.txt](./open-notebooklm.rules.txt)
+
 `````txt
 Each line of dialogue in the JSON output must be no more than 100 characters, ensuring it can be spoken within 5-8 seconds.
 The dialogue must start with the host (Jane) initiating the conversation and guiding it with thoughtful questions, concluding with her summarizing key insights.
@@ -65,6 +67,7 @@ The guest's responses must be substantiated by the input text, avoiding unsuppor
 
 
 ### [inverse_rules.txt](./open-notebooklm.inverse_rules.txt)
+
 `````txt
 Each line of dialogue in the JSON output should exceed 100 characters for more detailed delivery.
 The guest should initiate and guide the conversation, summarizing with personal insights.
@@ -73,6 +76,7 @@ The guest's responses can include unsupported claims and self-promotional conten
 
 
 ### [input_spec.txt](./open-notebooklm.input_spec.txt)
+
 `````txt
 The input is a text string related to generating a podcast script.
 The input text can be unstructured or messy. 
@@ -81,6 +85,7 @@ The input text can be sourced from PDFs or web pages, implying varied formatting
 
 
 ### [baseline_tests.txt](./open-notebooklm.baseline_tests.txt)
+
 `````txt
 {
   "text": "The history of space exploration is filled with fascinating achievements and milestones. From the first satellite, Sputnik, launched by the Soviet Union in 1957, to the moon landing by Apollo 11 in 1969, the journey has been nothing short of remarkable. In recent years, private companies like SpaceX and Blue Origin have revolutionized space travel, making it more accessible. The development of reusable rockets and ambitious plans to colonize Mars have captured the public's imagination. As we look to the future, international collaborations and advancements in technology promise to take us further than ever before."
@@ -97,6 +102,7 @@ The input text can be sourced from PDFs or web pages, implying varied formatting
 
 
 ### [tests.csv](./open-notebooklm.tests.csv)
+
 `````csv
 Rule ID, Test ID, Test Input, Expected Output, Reasoning
 1, 1, "text: 'In this document, we delve into the history of space travel...'", "output with each dialogue line under 100 characters", "Ensures dialogue lines are concise, adhering to the 100-character rule."

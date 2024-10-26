@@ -1,7 +1,8 @@
-## [poe-summarize](samples/poe-summarize/poe-summarize.prompty)
+## [poe-summarize](samples/poe-summarize/poe-summarize.prompty) ([JSON](./poe-summarize.report.json))
 
 
 ### [prompty](./poe-summarize.prompty)
+
 `````md
 ---
 name: poe summarize with insight
@@ -46,6 +47,7 @@ user:
 
 
 ### [rules.txt](./poe-summarize.rules.txt)
+
 `````txt
 The output must be in the same language as the original content provided by the user.
 The output must first include a multiple section outline summarizing the main content according to the original text.
@@ -58,8 +60,8 @@ The output must consistently use the language identified from the user content f
 
 
 ### [inverse_rules.txt](./poe-summarize.inverse_rules.txt)
+
 `````txt
-Rules:
 The output may be in a different language than the original content provided by the user.
 The output must not include any outline summarizing the main content.
 The output must exclude any summary and avoid condensing the content.
@@ -71,6 +73,7 @@ The output may use different languages inconsistently in responses.
 
 
 ### [input_spec.txt](./poe-summarize.input_spec.txt)
+
 `````txt
 The input is a text content, specifically articles or news content.
 The input must be text-based content, such as articles or news pieces.
@@ -82,6 +85,7 @@ Greetings or unrelated queries are not specified as part of the input scope.
 
 
 ### [baseline_tests.txt](./poe-summarize.baseline_tests.txt)
+
 `````txt
 text: "The European Union has announced a sweeping set of new regulations aimed at curbing the power of big tech companies. The Digital Markets Act (DMA) will impose strict rules on companies such as Google, Apple, Amazon, and Facebook, including requirements to ensure fair competition and to avoid self-preferencing practices. The DMA also introduces measures to increase transparency and protect consumer data. These regulations are expected to have significant implications for the tech industry globally and could set a precedent for other regions to follow."
 
@@ -94,6 +98,7 @@ text: "Japan's aging population continues to present significant economic and so
 
 
 ### [tests.csv](./poe-summarize.tests.csv)
+
 `````csv
 Rule ID, Test ID, Test Input, Expected Output, Reasoning
 1, 1, "El artículo proporciona un análisis detallado de la economía global actual y sus tendencias futuras.", "El output debe estar completamente en español, abordando todos los puntos mencionados.", "Ensures the software detects language and maintains it throughout the response as per rule."

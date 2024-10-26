@@ -1,0 +1,73 @@
+{
+  "prompt": "---\nname: \"Analyze Sentiment\"\ndescription: \"Analyzes the sentiment of a given text\"\nsource: Prompt examples from the website\nurl: https://www.promptingguide.ai/prompts/classification/sentiment\nsample:\n    input: \"I love this movie!\"\ninputs:\n    input:\n        type: \"string\"\n---\nsystem:\nClassify the text into neutral, negative, or positive\nuser:\nText: {{input}}\nassistant:\nSentiment:\n",
+  "inputSpec": "The input must be a text passage.  \nThe text can contain any characters, including letters, numbers, and punctuation.",
+  "rules": [
+    "The output must classify the text as \"neutral,\" \"negative,\" or \"positive.\"",
+    "The output must be labeled with the word \"Sentiment:\" followed by the classification.",
+    "The classification must be a single word that denotes the sentiment category."
+  ],
+  "inverseRules": [
+    "The output must not classify the text as \"neutral,\" \"negative,\" or \"positive.\"",
+    "The output must not be labeled with the word \"Sentiment:\" followed by the classification.",
+    "The classification must be a sentence that does not denote the sentiment category."
+  ],
+  "tests": [
+    {
+      "rule": "The output must be labeled with the word \"Sentiment:\" followed by the classification.",
+      "input": "The weather today is average, not too bad but not great either.",
+      "expected": "Sentiment: neutral",
+      "reasoning": "Tests the ability to correctly classify text with no strong sentiment as neutral."
+    },
+    {
+      "rule": "The output must be labeled with the word \"Sentiment:\" followed by the classification.",
+      "input": "I am feeling extremely happy and grateful for everything!",
+      "expected": "Sentiment: positive",
+      "reasoning": "Evaluates positive sentiment recognition in text with clear positive words."
+    },
+    {
+      "rule": "The output must be labeled with the word \"Sentiment:\" followed by the classification.",
+      "input": "This is the worst meal I've ever had.",
+      "expected": "Sentiment: negative",
+      "reasoning": "Assesses the software's capability to identify negative sentiment in strongly negative statements."
+    },
+    {
+      "rule": "The classification must be a single word that denotes the sentiment category.",
+      "input": "Movie was just okay, nothing special or amazing.",
+      "expected": "Sentiment: neutral",
+      "reasoning": "Ensures that the output is labeled correctly with 'Sentiment:' followed by the classification."
+    },
+    {
+      "rule": "The classification must be a single word that denotes the sentiment category.",
+      "input": "I am thrilled with the new job offer!",
+      "expected": "Sentiment: positive",
+      "reasoning": "Confirms the correct labeling format 'Sentiment:' for positive sentiments."
+    },
+    {
+      "rule": "The classification must be a single word that denotes the sentiment category.",
+      "input": "Feeling very disappointed with the service.",
+      "expected": "Sentiment: negative",
+      "reasoning": "Verifies that the output adheres to the labeling requirement with the correct prefix and classification."
+    },
+    {
+      "rule": "The output must not classify the text as \"neutral,\" \"negative,\" or \"positive.\"",
+      "inverse": true,
+      "input": "The show was an absolute blast!",
+      "expected": "Sentiment: positive",
+      "reasoning": "Checks for a single-word classification and correct sentiment detection."
+    },
+    {
+      "rule": "The output must not classify the text as \"neutral,\" \"negative,\" or \"positive.\"",
+      "inverse": true,
+      "input": "Not impressed by the team's performance.",
+      "expected": "Sentiment: negative",
+      "reasoning": "Evaluates whether the classification is a single word and accurately reflects the sentiment."
+    },
+    {
+      "rule": "The output must not classify the text as \"neutral,\" \"negative,\" or \"positive.\"",
+      "inverse": true,
+      "input": "It's a typical day, nothing out of the ordinary.",
+      "expected": "Sentiment: neutral",
+      "reasoning": "Tests for single-word classification and neutral sentiment recognition."
+    }
+  ]
+}

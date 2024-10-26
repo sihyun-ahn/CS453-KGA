@@ -1,7 +1,8 @@
-## [qa-sample](samples/prompt-flow-howto/qa-sample.prompty)
+## [qa-sample](samples/prompt-flow-howto/qa-sample.prompty) ([JSON](./qa-sample.report.json))
 
 
 ### [prompty](./qa-sample.prompty)
+
 `````md
 ---
 name: Basic Prompt
@@ -31,6 +32,7 @@ user:
 
 
 ### [rules.txt](./qa-sample.rules.txt)
+
 `````txt
 The response must answer questions briefly and succinctly.
 The response must be presented in a personable manner.
@@ -42,6 +44,7 @@ The response must not make assumptions.
 
 
 ### [inverse_rules.txt](./qa-sample.inverse_rules.txt)
+
 `````txt
 The response must answer questions with lengthy and detailed explanations.
 The response must be presented in a formal manner.
@@ -53,6 +56,7 @@ The response must make assumptions freely.
 
 
 ### [input_spec.txt](./qa-sample.input_spec.txt)
+
 `````txt
 The input is a question.
 The question can be about any topic.
@@ -65,6 +69,7 @@ The question should not be hateful, racist, sexist, lewd, or violent.
 
 
 ### [baseline_tests.txt](./qa-sample.baseline_tests.txt)
+
 `````txt
 question: What is the capital city of France?
 
@@ -77,6 +82,7 @@ question: Can you list some benefits of regular exercise?
 
 
 ### [tests.csv](./qa-sample.tests.csv)
+
 `````csv
 Rule ID, Test ID, Test Input, Expected Output, Reasoning
 1, 1, "How does photosynthesis work?", "Photosynthesis is the process by which green plants use sunlight to synthesize foods from carbon dioxide and water. 🌿", "Tests brevity and succinctness while being informative in a friendly tone."

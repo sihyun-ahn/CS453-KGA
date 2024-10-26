@@ -1,7 +1,8 @@
-## [speech-tag](samples/speech-tag/speech-tag.prompty)
+## [speech-tag](samples/speech-tag/speech-tag.prompty) ([JSON](./speech-tag.report.json))
 
 
 ### [prompty](./speech-tag.prompty)
+
 `````md
 ---
 name: Speech Tag
@@ -41,6 +42,7 @@ user:
 
 
 ### [rules.txt](./speech-tag.rules.txt)
+
 `````txt
 The output must be a single part of speech tag from the provided list of tags.
 The output must be one of the following tags: CC, CD, DT, EX, FW, IN, JJ, JJR, JJS, LS, MD, NN, NNS, NNP, NNPS, PDT, POS, PRP, PRP$, RB, RBR, RBS, RP, SYM, TO, UH, VB, VBD, VBG, VBN, VBP, VBZ, WDT, WP, WP$, WRB.
@@ -51,6 +53,7 @@ The output must not contain any additional text or formatting other than the tag
 
 
 ### [inverse_rules.txt](./speech-tag.inverse_rules.txt)
+
 `````txt
 The output must not be a part-of-speech tag from the provided list.
 If the word matches one of the listed tags, return any tag except that specific tag.
@@ -61,6 +64,7 @@ The output must contain additional information or explanation beyond the tag its
 
 
 ### [input_spec.txt](./speech-tag.input_spec.txt)
+
 `````txt
 A sentence must be provided as input.  
 A word contained within the sentence must also be provided separately.
@@ -68,6 +72,7 @@ A word contained within the sentence must also be provided separately.
 
 
 ### [baseline_tests.txt](./speech-tag.baseline_tests.txt)
+
 `````txt
 sentence: "She sells sea shells by the sea shore."; word: "sells"
 ===
@@ -78,6 +83,7 @@ sentence: "Can you pass the salt, please?"; word: "pass"
 
 
 ### [tests.csv](./speech-tag.tests.csv)
+
 `````csv
 Rule ID, Test ID, Test Input, Expected Output, Reasoning
 1, 1, "sentence: I will book the flight.; word: book", "VB", "Tests correct tagging for a verb in context, expecting verb form 'to book'."

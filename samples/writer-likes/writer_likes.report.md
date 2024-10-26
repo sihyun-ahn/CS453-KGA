@@ -1,7 +1,8 @@
-## [writer_likes](samples/writer-likes/writer_likes.prompty)
+## [writer_likes](samples/writer-likes/writer_likes.prompty) ([JSON](./writer_likes.report.json))
 
 
 ### [prompty](./writer_likes.prompty)
+
 `````md
 ---
 name: "Writer Likes"
@@ -25,18 +26,21 @@ user:
 
 
 ### [rules.txt](./writer_likes.rules.txt)
+
 `````txt
 The writer likes passages that share a commonality in tone, voice, word choice, sentence structure, and paragraph structure, and this should be summarized in one precise sentence incorporating any justifications provided, beginning with "The writer likes...".
 `````
 
 
 ### [inverse_rules.txt](./writer_likes.inverse_rules.txt)
+
 `````txt
 The writer dislikes passages that lack a commonality in tone, voice, word choice, sentence structure, and paragraph structure, and this should be expanded into multiple ambiguous sentences without any justifications, beginning with "The writer dislikes...".
 `````
 
 
 ### [input_spec.txt](./writer_likes.input_spec.txt)
+
 `````txt
 The input is a text passage. 
 The text input must be a passage that aligns with the writer's preferences. 
@@ -45,6 +49,7 @@ The input may include justifications related to the writer's likes.
 
 
 ### [baseline_tests.txt](./writer_likes.baseline_tests.txt)
+
 `````txt
 text: "The vivid imagery and descriptive language paint a vibrant picture of the scenes, making them come to life for the reader. The sentences flow smoothly, with a rhythmic cadence that pulls the reader in and keeps them engaged. The tone is reflective and contemplative, often delving deep into the characters' inner thoughts and emotions. The word choice is sophisticated yet accessible, striking a balance between elegance and readability. Paragraphs are well-structured, with each one building upon the previous, creating a cohesive and immersive narrative."
 
@@ -59,6 +64,7 @@ text: "The passages are characterized by a formal and authoritative tone, often 
 
 
 ### [tests.csv](./writer_likes.tests.csv)
+
 `````csv
 Rule ID, Test ID, Test Input, Expected Output, Reasoning
 1, 1, "The passage is about a peaceful and serene countryside, using calm and gentle language, and the sentences are long and flowing.", "The writer likes passages with a peaceful tone, gentle voice, and long, flowing sentences.", "This test case ensures that the software correctly summarizes the common elements in passages liked by the writer."

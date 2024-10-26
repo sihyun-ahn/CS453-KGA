@@ -1,7 +1,8 @@
-## [eval](samples/prompt-flow-howto/eval.prompty)
+## [eval](samples/prompt-flow-howto/eval.prompty) ([JSON](./eval.report.json))
 
 
 ### [prompty](./eval.prompty)
+
 `````md
 ---
 name: basic evaluate 
@@ -44,6 +45,7 @@ output:
 
 
 ### [rules.txt](./eval.rules.txt)
+
 `````txt
 The score value in the output JSON must be an integer between 1 and 5, inclusive.
 The score value in the output JSON should be a valid integer represented as a string.
@@ -56,6 +58,7 @@ The "explanation" should be relevant to the provided question, answer, and groun
 
 
 ### [inverse_rules.txt](./eval.inverse_rules.txt)
+
 `````txt
 ```
 The score value in the output JSON must not be an integer between 1 and 5, inclusive.
@@ -70,6 +73,7 @@ The "explanation" should not be relevant to the provided question, answer, and g
 
 
 ### [input_spec.txt](./eval.input_spec.txt)
+
 `````txt
 question: The input question must be a clear and specific inquiry.
 answer: The input answer must be a direct response to the input question.
@@ -78,6 +82,7 @@ statement: The input statement must be a clear and detailed assertion related to
 
 
 ### [baseline_tests.txt](./eval.baseline_tests.txt)
+
 `````txt
 question: "What is the capital of Germany?"
 answer: "Berlin"
@@ -94,6 +99,7 @@ statement: "The chemical symbol for water is H2O"
 
 
 ### [tests.csv](./eval.tests.csv)
+
 `````csv
 Rule ID, Test ID, Test Input, Expected Output, Reasoning
 1, 1, "question: 'What is the capital of Germany?', answer: 'Berlin', statement: 'Berlin is indeed the capital of Germany.'", "{\"score\": \"5\", \"explanation\": \"Berlin is the correct answer as it is the capital of Germany.\"}", "Tests that the score is an integer between 1 and 5. All components are valid inputs."

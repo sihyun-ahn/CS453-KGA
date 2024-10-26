@@ -1,0 +1,78 @@
+{
+  "prompt": "---\nname: poe summarize with insight\ndescription: A prompt directs a model to provide a summary with insights about an input text.\nsource: Louise Shark collection of system prompts\nurl: https://github.com/LouisShark/chatgpt_system_prompt/blob/main/prompts/official-product/poe/SummarizeWithInsight.md\ninputs:\n  text:\n    type: string\nsample:\n  text: \"The U.S. economy added 943,000 jobs in July, the most in nearly a year, and the unemployment rate fell to 5.4%. The gains were broad-based, with the biggest increases in the leisure and hospitality, local government education, and professional and business services sectors. The strong jobs report is a sign that the economy is recovering from the pandemic-induced recession, but the Delta variant of the coronavirus poses a risk to the recovery.\"\n---\nsystem:\n\nYou are a professional executive assistant. Your goal is to help the CEO save time by summarizing and deeply analyzing articles or news content.\n\nSteps:\n\n0. Identify the language of the content, use this language for output going forward.\n1. First, summarize the main content according to the original text. Output the summary in multiple outline sections.\n2. Then, further condense all the content into a one-paragraph summary to allow for the quickest understanding of the overall content.\n3. Next, perform a deep dive, expanding on the content from as many aspects as possible, such as related industry, political economy, etc., to aid in understanding the deeper impacts and potential implications.\n4. Finally, ask the user if they need further analysis in the context of specific other information. If provided, offer a professional and well-structured response.\n\nTemplate:\n\n## Overview\n\n## Summary\n\n## Deep Dive Analysis\n\n**Rule**\n\n- Use the same language of the main content to reply the user.\n- Use sections and bold font for better organize content.\n- Identify the language of the user content, use this language for all output!!!\n\nuser:\n{{text}}",
+  "inputSpec": "The input is a text content, specifically articles or news content.\nThe input must be text-based content, such as articles or news pieces.\nThe content can be in any language.\nThe input must have enough information to allow for summarization and deep analysis.\nThe input should be coherent and structured to facilitate identification of main ideas and deeper aspects.\nGreetings or unrelated queries are not specified as part of the input scope.",
+  "rules": [
+    "The output must be in the same language as the original content provided by the user.",
+    "The output must first include a multiple section outline summarizing the main content according to the original text.",
+    "The output must include a one-paragraph summary that condenses all the content for quick understanding.",
+    "The output must perform a deep dive analysis expanding on the content from multiple aspects such as related industry and political economy.",
+    "The output must ask the user if they require further analysis in the context of specific other information.",
+    "The output must be organized using sections and bold font for clarity.",
+    "The output must consistently use the language identified from the user content for all responses."
+  ],
+  "inverseRules": [
+    "The output may be in a different language than the original content provided by the user.",
+    "The output must not include any outline summarizing the main content.",
+    "The output must exclude any summary and avoid condensing the content.",
+    "The output must refrain from performing any deep dive analysis.",
+    "The output must not inquire if the user requires further analysis.",
+    "The output must not use sections or bold font for clarity.",
+    "The output may use different languages inconsistently in responses."
+  ],
+  "tests": [
+    {
+      "rule": "The output must first include a multiple section outline summarizing the main content according to the original text.",
+      "input": "El artículo proporciona un análisis detallado de la economía global actual y sus tendencias futuras.",
+      "expected": "El output debe estar completamente en español, abordando todos los puntos mencionados.",
+      "reasoning": "Ensures the software detects language and maintains it throughout the response as per rule."
+    },
+    {
+      "rule": "The output must first include a multiple section outline summarizing the main content according to the original text.",
+      "input": "この記事は現代のテクノロジーの進化についての考察を提供しています。",
+      "expected": "すべての出力は日本語で提供され、内容に一貫性がある必要があります。",
+      "reasoning": "Validates language detection and consistency in output language as per specified rule."
+    },
+    {
+      "rule": "The output must first include a multiple section outline summarizing the main content according to the original text.",
+      "input": "The article discusses the impact of climate change on global politics.",
+      "expected": "All output sections should be in English, maintaining language consistency.",
+      "reasoning": "Tests whether the software maintains English throughout and adheres to the rule."
+    },
+    {
+      "rule": "The output must include a one-paragraph summary that condenses all the content for quick understanding.",
+      "input": "The news piece highlights recent advancements in renewable energy.",
+      "expected": "**Overview**\\n**Summary**\\n**Deep Dive Analysis**",
+      "reasoning": "Verifies that sections are correctly organized and formatted with bold titles."
+    },
+    {
+      "rule": "The output must include a one-paragraph summary that condenses all the content for quick understanding.",
+      "input": "Este informe se centra en las tendencias de mercado actuales.",
+      "expected": "**Overview**\\n**Summary**\\n**Deep Dive Analysis**",
+      "reasoning": "Checks if sections are organized with bold titles in Spanish as per the rule."
+    },
+    {
+      "rule": "The output must include a one-paragraph summary that condenses all the content for quick understanding.",
+      "input": "L'article examine l'économie politique des nations émergentes.",
+      "expected": "**Overview**\\n**Summary**\\n**Deep Dive Analysis**",
+      "reasoning": "Ensures sections are properly formatted with bold titles in French, following the rule."
+    },
+    {
+      "rule": "The output must perform a deep dive analysis expanding on the content from multiple aspects such as related industry and political economy.",
+      "input": "The article provides an in-depth look at the effects of social media on youth culture.",
+      "expected": "Outline of key points followed by a concise paragraph summary.",
+      "reasoning": "Tests for both detailed outline and a concise summary, meeting the rule's requirements."
+    },
+    {
+      "rule": "The output must perform a deep dive analysis expanding on the content from multiple aspects such as related industry and political economy.",
+      "input": "Este artículo trata sobre la influencia de la inteligencia artificial en la medicina moderna.",
+      "expected": "Estructura con múltiples puntos clave seguida de un resumen en un solo párrafo.",
+      "reasoning": "Ensures multi-part outline and single-paragraph summary in Spanish."
+    },
+    {
+      "rule": "The output must perform a deep dive analysis expanding on the content from multiple aspects such as related industry and political economy.",
+      "input": "L'article discute de l'impact des politiques environnementales sur la biodiversité.",
+      "expected": "Présentation des points clés suivie d'un résumé en un seul paragraphe.",
+      "reasoning": "Validates the rule by requiring a multi-part outline and a concise summary in French."
+    }
+  ]
+}

@@ -1,7 +1,8 @@
-## [write-assist](samples/write-assist/write-assist.prompty)
+## [write-assist](samples/write-assist/write-assist.prompty) ([JSON](./write-assist.report.json))
 
 
 ### [prompty](./write-assist.prompty)
+
 `````md
 ---
 name: "Shakespearean Writing Assistant"
@@ -33,6 +34,7 @@ user:
 
 
 ### [rules.txt](./write-assist.rules.txt)
+
 `````txt
 The chatbot must generate responses in a Shakespearean style, incorporating elements typical of Shakespeare's writing.
 The responses must include archaic English words such as "thou" and "hath."
@@ -44,6 +46,7 @@ The responses must be relevant to the user's query, providing creative content o
 
 
 ### [inverse_rules.txt](./write-assist.inverse_rules.txt)
+
 `````txt
 Thou shalt refrain from employing Shakespearean tongue, avoiding words like "thou" and "thee."  
 Thou shalt eschew narratives, verses, or melodies in the style of the Bard.  
@@ -52,6 +55,7 @@ Thou shalt craft responses devoid of creativity, lacking the expressive flair of
 
 
 ### [input_spec.txt](./write-assist.input_spec.txt)
+
 `````txt
 The input must be a request for creative content like stories, poems, or songs.  
 The input may include specific themes or topics to be expressed in Shakespearean style.
@@ -59,6 +63,7 @@ The input may include specific themes or topics to be expressed in Shakespearean
 
 
 ### [baseline_tests.txt](./write-assist.baseline_tests.txt)
+
 `````txt
 question: "Write a letter expressing gratitude after receiving a thoughtful gift." 
 === 
@@ -69,6 +74,7 @@ question: "Create a dialogue between two friends discussing their summer adventu
 
 
 ### [tests.csv](./write-assist.tests.csv)
+
 `````csv
 Rule ID, Test ID, Test Input, Expected Output, Reasoning
 1, 1, "Please write a sonnet about the beauty of nature.", "O wondrous nature, thou art fair and bright, Thy verdant fields doth dance in morning light. The flowers’ bloom, thou hath a tender charm, With fragrance sweet, thou dost my soul disarm.", "This tests the software's ability to use words such as 'thou' and 'hath' in a sonnet, conforming to Shakespearean language."

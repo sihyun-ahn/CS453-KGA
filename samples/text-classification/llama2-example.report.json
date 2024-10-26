@@ -1,0 +1,73 @@
+{
+  "prompt": "\n---\nname: Classify input text\ndescription: Given an input text, classify it into a specific category.\nsource: How to use Llama2 tutorial for text classification\nurl: https://pupuweb.com/how-use-llama-2-text-classification-tasks/\ninputs: \n  text:\n    type: string\nsamples:\n    - text: \"UN chief urges action on climate change as report warns of 'catastrophe'\"\n---\nsystem:\nA news article can be classified as one of the following categories: World, Sports, Business, Sci/Tech.\nExamples:\n- World: \"UN chief urges action on climate change as report warns of 'catastrophe'\"\n- Sports: \"Ronaldo scores twice in Manchester United return\"\n- Business: \"Apple delays plan to scan iPhones for child abuse images\"\n- Sci/Tech: \"SpaceX launches first all-civilian crew into orbit\"'\nuser:\nBased on these categories, classify this news article: {{text}}\n    ",
+  "inputSpec": "The input must be a text string.  \nThe input text should resemble a news article headline or a brief summary.",
+  "rules": [
+    "The output must classify the input text into one of the following categories: World, Sports, Business, or Sci/Tech.",
+    "The output must consist of only one category name, which is one of the following: World, Sports, Business, or Sci/Tech.",
+    "The output must not contain any additional information, explanation, or commentary beyond the category name."
+  ],
+  "inverseRules": [
+    "The output must classify the input text into any category except World, Sports, Business, or Sci/Tech.",
+    "The output must consist of more than one category name and include at least one not listed: World, Sports, Business, or Sci/Tech.",
+    "The output must contain additional information, explanation, or commentary beyond the category name."
+  ],
+  "tests": [
+    {
+      "rule": "The output must consist of only one category name, which is one of the following: World, Sports, Business, or Sci/Tech.",
+      "input": "Nations agree to nuclear disarmament talks amid rising tensions",
+      "expected": "World",
+      "reasoning": "Tests if the software classifies geopolitical news correctly into the World category."
+    },
+    {
+      "rule": "The output must consist of only one category name, which is one of the following: World, Sports, Business, or Sci/Tech.",
+      "input": "Tesla announces breakthrough in battery technology",
+      "expected": "Sci/Tech",
+      "reasoning": "Determines if advancements in technology are accurately categorized under Sci/Tech."
+    },
+    {
+      "rule": "The output must consist of only one category name, which is one of the following: World, Sports, Business, or Sci/Tech.",
+      "input": "Olympics postponed due to global pandemic",
+      "expected": "Sports",
+      "reasoning": "Assesses if a major sporting event's status is recognized as Sports news."
+    },
+    {
+      "rule": "The output must not contain any additional information, explanation, or commentary beyond the category name.",
+      "input": "Global markets react to new trade policies",
+      "expected": "Business",
+      "reasoning": "Checks if the software outputs only the category name without explanations for a Business-related input."
+    },
+    {
+      "rule": "The output must not contain any additional information, explanation, or commentary beyond the category name.",
+      "input": "Scientists discover new exoplanet with potential for life",
+      "expected": "Sci/Tech",
+      "reasoning": "Ensures the output is limited to the category name for a Sci/Tech headline."
+    },
+    {
+      "rule": "The output must not contain any additional information, explanation, or commentary beyond the category name.",
+      "input": "Spanish football league season resumes after delay",
+      "expected": "Sports",
+      "reasoning": "Verifies the software provides just the Sports category name without additional commentary."
+    },
+    {
+      "rule": "The output must classify the input text into any category except World, Sports, Business, or Sci/Tech.",
+      "inverse": true,
+      "input": "World leaders gather for climate summit in Paris",
+      "expected": "World",
+      "reasoning": "Evaluates if the software associates the input correctly with World, considering the context of global summits."
+    },
+    {
+      "rule": "The output must classify the input text into any category except World, Sports, Business, or Sci/Tech.",
+      "inverse": true,
+      "input": "Tech companies report record earnings amid digital boom",
+      "expected": "Business",
+      "reasoning": "Tests if the context of economic reporting is correctly linked to Business."
+    },
+    {
+      "rule": "The output must classify the input text into any category except World, Sports, Business, or Sci/Tech.",
+      "inverse": true,
+      "input": "New study reveals Earth's magnetic field weakening",
+      "expected": "Sci/Tech",
+      "reasoning": "Confirms the software's ability to relate scientific findings accurately to Sci/Tech."
+    }
+  ]
+}

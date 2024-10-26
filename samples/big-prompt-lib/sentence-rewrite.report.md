@@ -1,7 +1,8 @@
-## [sentence-rewrite](samples/big-prompt-lib/sentence-rewrite.prompty)
+## [sentence-rewrite](samples/big-prompt-lib/sentence-rewrite.prompty) ([JSON](./sentence-rewrite.report.json))
 
 
 ### [prompty](./sentence-rewrite.prompty)
+
 `````md
 ---
 name: Sentence Rewrite
@@ -28,6 +29,7 @@ Input: {{text}}
 
 
 ### [rules.txt](./sentence-rewrite.rules.txt)
+
 `````txt
 The output must be a rewritten version of the input sentence provided by the user. 
 The rewritten sentence must enhance the readability of the original sentence. 
@@ -42,6 +44,7 @@ The rewriting task is specifically aimed at improving individual sentences, not 
 
 
 ### [inverse_rules.txt](./sentence-rewrite.inverse_rules.txt)
+
 `````txt
 Responses can alter the original meaning and factual accuracy of the input sentence.  
 Responses should complicate simple phrases to decrease readability.  
@@ -50,6 +53,7 @@ Responses must sound more formal and rigid, using language that's hard to relate
 
 
 ### [input_spec.txt](./sentence-rewrite.input_spec.txt)
+
 `````txt
 The input must be a single sentence.  
 The input sentence should contain complex phrases or structures that may need simplification.
@@ -57,6 +61,7 @@ The input sentence should contain complex phrases or structures that may need si
 
 
 ### [baseline_tests.txt](./sentence-rewrite.baseline_tests.txt)
+
 `````txt
 text: "The project was completed successfully, exceeding all expectations, thanks to the team's dedication and hard work."  
 ===  
@@ -67,6 +72,7 @@ text: "Despite the initial challenges, the new software update has significantly
 
 
 ### [tests.csv](./sentence-rewrite.tests.csv)
+
 `````csv
 Rule ID, Test ID, Test Input, Expected Output, Reasoning
 1, 1, "In light of the recent developments in the technological sector, a comprehensive review of the existing policy framework is deemed necessary to ensure alignment with the evolving landscape.", "Considering the recent changes in tech, we need to review our policies to keep up.", "Tests retention of original meaning and factual accuracy while simplifying the sentence."

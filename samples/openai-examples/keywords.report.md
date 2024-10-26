@@ -1,7 +1,8 @@
-## [keywords](samples/openai-examples/keywords.prompty)
+## [keywords](samples/openai-examples/keywords.prompty) ([JSON](./keywords.report.json))
 
 
 ### [prompty](./keywords.prompty)
+
 `````md
 
 ---
@@ -27,6 +28,7 @@ Keywords 3:
 
 
 ### [rules.txt](./keywords.rules.txt)
+
 `````txt
 The chatbot must output a list of keywords extracted from the given text.
 Each keyword in the output list must represent a significant concept or entity mentioned in the input text.
@@ -40,6 +42,7 @@ The keywords must be nouns or noun phrases that capture the essence of the input
 
 
 ### [inverse_rules.txt](./keywords.inverse_rules.txt)
+
 `````txt
 The chatbot must never output a list of keywords extracted from the given text.
 Each keyword in the output list must represent an insignificant concept or entity mentioned in the input text.
@@ -53,12 +56,14 @@ The keywords must be adjectives or verbs that do not capture the essence of the 
 
 
 ### [input_spec.txt](./keywords.input_spec.txt)
+
 `````txt
 The input must be a single string of text. The input string can describe any topic or subject matter.
 `````
 
 
 ### [baseline_tests.txt](./keywords.baseline_tests.txt)
+
 `````txt
 text: Apple is a technology company that designs, manufactures, and markets smartphones, personal computers, tablets, wearables, and accessories. It also offers software, services, and digital content.
 ===
@@ -70,6 +75,7 @@ text: Climate change refers to long-term shifts and alterations in temperature a
 
 
 ### [tests.csv](./keywords.tests.csv)
+
 `````csv
 Rule ID, Test ID, Test Input, Expected Output, Reasoning
 1, 1, "Python is a popular programming language used for web development, data analysis, artificial intelligence, and scientific computing.", "Keywords 3: Python, programming language, web development, data analysis, artificial intelligence, scientific computing", "The test checks for accurate extraction and distinct representation of significant concepts mentioned in the text."

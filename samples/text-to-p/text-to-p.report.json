@@ -1,0 +1,132 @@
+{
+  "prompt": "---\nname: \"Text to P\"\ndescription: \"Wrap each sentence in a paragraph tag\"\nsource: \"GhostWriter: Augmenting Collaborative Human-AI Writing Experiences Through Personalization and Agency\"\nurl: https://arxiv.org/abs/2402.08855.\ninputs:\n    text:\n        type: \"string\"\n---\nsystem:\nYou are a web developer who is formatting a paragraph of text as HTML.\nFirst, please split the paragraph into individual sentences and wrap each sentence with a <p> tag.\n**Your answer should have at least three <p> tags.**\nThen, inside each <p> tag, add one <strong> tag and multiple <em> tags to emphasize key words and phrases.\nuser:\n{{text}}",
+  "inputSpec": "The input is a paragraph of text.\nThe input must contain at least three sentences.",
+  "rules": [
+    "The output must contain at least three `<p>` tags.",
+    "Each sentence from the original paragraph must be wrapped in a separate `<p>` tag.",
+    "Inside each `<p>` tag, there must be one `<strong>` tag.",
+    "Inside each `<p>` tag, there must be multiple `<em>` tags.",
+    "The `<p>`, `<strong>`, and `<em>` tags must be correctly formatted as HTML."
+  ],
+  "inverseRules": [
+    "Each sentence in the output must be unwrapped and not enclosed in any tags.",
+    "The output must contain fewer than three <p> tags.",
+    "Within each <p> tag, there must be no <strong> or <em> tags to emphasize key words and phrases."
+  ],
+  "tests": [
+    {
+      "rule": "Each sentence from the original paragraph must be wrapped in a separate `<p>` tag.",
+      "input": "This is the first sentence. This is the second sentence. This is the third sentence.",
+      "expected": "<p><strong>This is the first sentence.</strong></p><p><strong>This is the second sentence.</strong></p><p><strong>This is the third sentence.</strong></p>",
+      "reasoning": "Ensures each sentence is wrapped in a <p> tag."
+    },
+    {
+      "rule": "Each sentence from the original paragraph must be wrapped in a separate `<p>` tag.",
+      "input": "Hello world. How are you today? I am fine.",
+      "expected": "<p><strong>Hello world.</strong></p><p><strong>How are you today?</strong></p><p><strong>I am fine.</strong></p>",
+      "reasoning": "Tests basic functionality with simple sentences."
+    },
+    {
+      "rule": "Each sentence from the original paragraph must be wrapped in a separate `<p>` tag.",
+      "input": "The quick brown fox jumps over the lazy dog. A stitch in time saves nine. To be or not to be.",
+      "expected": "<p><strong>The quick brown fox jumps over the lazy dog.</strong></p><p><strong>A stitch in time saves nine.</strong></p><p><strong>To be or not to be.</strong></p>",
+      "reasoning": "Checks standard input with different sentences."
+    },
+    {
+      "rule": "Inside each `<p>` tag, there must be one `<strong>` tag.",
+      "input": "This is one sentence. This is another sentence. This is yet another sentence.",
+      "expected": "<p><strong>This is one sentence.</strong></p><p><strong>This is another sentence.</strong></p><p><strong>This is yet another sentence.</strong></p>",
+      "reasoning": "Validates that at least three <p> tags are present in the output."
+    },
+    {
+      "rule": "Inside each `<p>` tag, there must be one `<strong>` tag.",
+      "input": "Sentence one. Sentence two. Sentence three. Sentence four.",
+      "expected": "<p><strong>Sentence one.</strong></p><p><strong>Sentence two.</strong></p><p><strong>Sentence three.</strong></p><p><strong>Sentence four.</strong></p>",
+      "reasoning": "Checks for more than three sentences ensuring at least three <p> tags."
+    },
+    {
+      "rule": "Inside each `<p>` tag, there must be one `<strong>` tag.",
+      "input": "First sentence. Second sentence. Third sentence.",
+      "expected": "<p><strong>First sentence.</strong></p><p><strong>Second sentence.</strong></p><p><strong>Third sentence.</strong></p>",
+      "reasoning": "Confirms that exactly three sentences result in three <p> tags."
+    },
+    {
+      "rule": "Inside each `<p>` tag, there must be multiple `<em>` tags.",
+      "input": "This is the first key sentence. This is the second key sentence. This is the third key sentence.",
+      "expected": "<p><strong>This is the first <em>key</em> sentence.</strong></p><p><strong>This is the second <em>key</em> sentence.</strong></p><p><strong>This is the third <em>key</em> sentence.</strong></p>",
+      "reasoning": "Ensures that each <p> tag contains one <strong> tag and multiple <em> tags."
+    },
+    {
+      "rule": "Inside each `<p>` tag, there must be multiple `<em>` tags.",
+      "input": "Important message here. Another important message there. Yet another important message.",
+      "expected": "<p><strong><em>Important</em> message here.</strong></p><p><strong><em>Another important</em> message there.</strong></p><p><strong><em>Yet another important</em> message.</strong></p>",
+      "reasoning": "Checks if multiple <em> tags are used correctly within <p> tags."
+    },
+    {
+      "rule": "Inside each `<p>` tag, there must be multiple `<em>` tags.",
+      "input": "Emphasize this part. Don't forget this part. Pay attention to this part.",
+      "expected": "<p><strong><em>Emphasize</em> this part.</strong></p><p><strong><em>Don't forget</em> this part.</strong></p><p><strong><em>Pay attention</em> to this part.</strong></p>",
+      "reasoning": "Verifies correct usage of <strong> and <em> tags within each <p> tag."
+    },
+    {
+      "rule": "The `<p>`, `<strong>`, and `<em>` tags must be correctly formatted as HTML.",
+      "input": "First sentence. Second sentence. Third sentence.",
+      "expected": "First sentence. Second sentence. Third sentence.",
+      "reasoning": "Tests that sentences are not enclosed in any tags."
+    },
+    {
+      "rule": "The `<p>`, `<strong>`, and `<em>` tags must be correctly formatted as HTML.",
+      "input": "This is one sentence. This is another sentence. This is the last sentence.",
+      "expected": "This is one sentence. This is another sentence. This is the last sentence.",
+      "reasoning": "Ensures sentences are outputted without any tags."
+    },
+    {
+      "rule": "The `<p>`, `<strong>`, and `<em>` tags must be correctly formatted as HTML.",
+      "input": "Sentence A. Sentence B. Sentence C.",
+      "expected": "Sentence A. Sentence B. Sentence C.",
+      "reasoning": "Confirms that sentences are output as plain text."
+    },
+    {
+      "rule": "Each sentence in the output must be unwrapped and not enclosed in any tags.",
+      "inverse": true,
+      "input": "Only two sentences here. And here is another.",
+      "expected": "<p><strong>Only two sentences here.</strong></p><p><strong>And here is another.</strong></p>",
+      "reasoning": "Tests that fewer than three <p> tags are present (invalid case)."
+    },
+    {
+      "rule": "Each sentence in the output must be unwrapped and not enclosed in any tags.",
+      "inverse": true,
+      "input": "This is a sentence. Here is another one.",
+      "expected": "<p><strong>This is a sentence.</strong></p><p><strong>Here is another one.</strong></p>",
+      "reasoning": "Checks with exactly two sentences (invalid case)."
+    },
+    {
+      "rule": "Each sentence in the output must be unwrapped and not enclosed in any tags.",
+      "inverse": true,
+      "input": "One sentence only.",
+      "expected": "<p><strong>One sentence only.</strong></p>",
+      "reasoning": "Validates output with just one sentence (invalid case)."
+    },
+    {
+      "rule": "The output must contain fewer than three <p> tags.",
+      "inverse": true,
+      "input": "First. Second. Third.",
+      "expected": "<p>First</p><p>Second</p><p>Third</p>",
+      "reasoning": "Ensures no <strong> or <em> tags within <p> tags."
+    },
+    {
+      "rule": "The output must contain fewer than three <p> tags.",
+      "inverse": true,
+      "input": "A quick sentence. Another quick one. Yet another quick one.",
+      "expected": "<p>A quick sentence.</p><p>Another quick one.</p><p>Yet another quick one.</p>",
+      "reasoning": "Tests absence of <strong> and <em> tags."
+    },
+    {
+      "rule": "The output must contain fewer than three <p> tags.",
+      "inverse": true,
+      "input": "Test this. And test that. Finally test this.",
+      "expected": "<p>Test this</p><p>And test that</p><p>Finally test this</p>",
+      "reasoning": "Verifies that <p> tags do not contain <strong> or <em> tags."
+    }
+  ]
+}

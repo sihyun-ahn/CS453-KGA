@@ -1,0 +1,25 @@
+{
+  "prompt": "---\nname: basic evaluate \ndescription: basic evaluator for QA scenario\nsource: PromptFlow How-to Guides (slightly modified)\nurl: https://github.com/microsoft/promptflow/blob/main/examples/prompty/eval-basic/eval.prompty\ninputs: \n  question:\n    type: string\n  answer:\n    type: string\n  statement:\n    type: string\noutputs:\n  score:\n    type: string\n  explanation:\n    type: string\n---\nsystem:\nYou are an AI assistant. \nYou task is to evaluate a score for the answer based on the ground_truth and original question.\nThis score value should always be an integer between 1 and 5. So the score produced should be 1 or 2 or 3 or 4 or 5.\nThe output should be valid JSON.\n\n**Example**\nquestion: \"What is the capital of France?\"\nanswer: \"Paris\"\nground_truth: \"Paris\"\noutput:\n{\"score\": \"5\", \"explanation\":\"paris is the capital of France\"}\n\nuser:\nquestion: {{question}}\nanswer: {{answer}}\nstatement: {{statement}}\noutput:\n",
+  "inputSpec": "question: The input question must be a clear and specific inquiry.\nanswer: The input answer must be a direct response to the input question.\nstatement: The input statement must be a clear and detailed assertion related to the input question and answer.",
+  "rules": [
+    "The score value in the output JSON must be an integer between 1 and 5, inclusive.",
+    "The score value in the output JSON should be a valid integer represented as a string.",
+    "The output must be in valid JSON format.",
+    "The JSON output must include a key named \"score\".",
+    "The JSON output must include a key named \"explanation\".",
+    "The \"explanation\" key must contain a string value describing the reasoning behind the score.",
+    "The \"explanation\" should be relevant to the provided question, answer, and ground truth."
+  ],
+  "inverseRules": [
+    "```",
+    "The score value in the output JSON must not be an integer between 1 and 5, inclusive.",
+    "The score value in the output JSON should not be a valid integer represented as a string.",
+    "The output must not be in valid JSON format.",
+    "The JSON output must exclude a key named \"score\".",
+    "The JSON output must exclude a key named \"explanation\".",
+    "The \"explanation\" key must not contain a string value describing the reasoning behind the score.",
+    "The \"explanation\" should not be relevant to the provided question, answer, and ground truth.",
+    "```"
+  ],
+  "tests": []
+}

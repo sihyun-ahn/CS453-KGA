@@ -1,7 +1,8 @@
-## [sentiment1](samples/prompt-guide/sentiment1.prompty)
+## [sentiment1](samples/prompt-guide/sentiment1.prompty) ([JSON](./sentiment1.report.json))
 
 
 ### [prompty](./sentiment1.prompty)
+
 `````md
 ---
 name: "Analyze Sentiment"
@@ -25,6 +26,7 @@ Sentiment:
 
 
 ### [rules.txt](./sentiment1.rules.txt)
+
 `````txt
 The output must classify the text as "neutral," "negative," or "positive."
 The output must be labeled with the word "Sentiment:" followed by the classification.
@@ -33,6 +35,7 @@ The classification must be a single word that denotes the sentiment category.
 
 
 ### [inverse_rules.txt](./sentiment1.inverse_rules.txt)
+
 `````txt
 The output must not classify the text as "neutral," "negative," or "positive."
 The output must not be labeled with the word "Sentiment:" followed by the classification.
@@ -41,6 +44,7 @@ The classification must be a sentence that does not denote the sentiment categor
 
 
 ### [input_spec.txt](./sentiment1.input_spec.txt)
+
 `````txt
 The input must be a text passage.  
 The text can contain any characters, including letters, numbers, and punctuation.
@@ -48,6 +52,7 @@ The text can contain any characters, including letters, numbers, and punctuation
 
 
 ### [baseline_tests.txt](./sentiment1.baseline_tests.txt)
+
 `````txt
 Text: "I am extremely happy with the excellent service provided. Thank you!"
 
@@ -60,6 +65,7 @@ Text: "I am very disappointed with the quality of the item. It broke within a we
 
 
 ### [tests.csv](./sentiment1.tests.csv)
+
 `````csv
 Rule ID, Test ID, Test Input, Expected Output, Reasoning
 1, 1, "The weather today is average, not too bad but not great either.", "Sentiment: neutral", "Tests the ability to correctly classify text with no strong sentiment as neutral."

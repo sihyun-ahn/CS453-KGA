@@ -1,0 +1,113 @@
+{
+  "prompt": "---\nname: \"Create New Words\"\ndescription: \"Create new words and use them in sentences\"\nsource: Prompt examples from the website (slightly modified)\nurl: https://www.promptingguide.ai/prompts/creativity/new-words\nsample:\n    made_up_word_name: \"whatpu\"\n    describe_meaning_of_new_word: \"to describe a small, furry animal native to Tanzania\"\ninputs:\n    made_up_word_name:\n        type: \"string\"\n    describe_meaning_of_new_word:\n        type: \"string\"\n---\nsystem:\nA \"whatpu\" is a small, furry animal native to Tanzania. An example of a sentence that uses the word whatpu is:\nWe were traveling in Africa and we saw these very cute whatpus.\n\nuser:\nTo do a \"{{made_up_word_name}}\" means to {{describe_meaning_of_new_word}}.\n\nassistant:\nAn example of a sentence that uses this word is:\n",
+  "inputSpec": "The input must include a made-up word name.  \nThe input must describe the meaning of the new word.",
+  "rules": [
+    "The output must include a sentence that demonstrates the usage of the made-up word.",
+    "The sentence must logically incorporate the context provided by the user about the made-up word's meaning.",
+    "The sentence must be grammatically correct and coherent.",
+    "The sentence must use the made-up word in a way that aligns with the given definition or description.",
+    "The sentence must be clear and understandable without requiring additional context beyond what was provided."
+  ],
+  "inverseRules": [
+    "The output must exclude any sentence that demonstrates the usage of the made-up word.",
+    "The sentence must ignore the context provided by the user about the made-up word's meaning.",
+    "The sentence must be grammatically incorrect and incoherent.",
+    "The sentence must use the made-up word in a way that conflicts with the given definition or description.",
+    "The sentence must be unclear and require additional context beyond what was provided."
+  ],
+  "tests": [
+    {
+      "rule": "The sentence must logically incorporate the context provided by the user about the made-up word's meaning.",
+      "input": "made_up_word_name: flibble, describe_meaning_of_new_word: dance gracefully without music",
+      "expected": "An example of a sentence that uses the word flibble is: At the party, everyone stopped to watch her flibble across the room.",
+      "reasoning": "The sentence demonstrates the usage of the made-up word flibble in a context that matches the given meaning, adhering to the rule."
+    },
+    {
+      "rule": "The sentence must logically incorporate the context provided by the user about the made-up word's meaning.",
+      "input": "made_up_word_name: glorp, describe_meaning_of_new_word: solve puzzles quickly",
+      "expected": "An example of a sentence that uses the word glorp is: He could glorp through even the toughest riddles in minutes.",
+      "reasoning": "Shows how the made-up word is used in a context that aligns with its definition, fulfilling the rule requirements."
+    },
+    {
+      "rule": "The sentence must logically incorporate the context provided by the user about the made-up word's meaning.",
+      "input": "made_up_word_name: snizzle, describe_meaning_of_new_word: speak in rhymes",
+      "expected": "An example of a sentence that uses the word snizzle is: At the poetry slam, she began to snizzle captivating the audience with every line.",
+      "reasoning": "Ensures the sentence demonstrates the usage of snizzle according to its described meaning, validating rule adherence."
+    },
+    {
+      "rule": "The sentence must be grammatically correct and coherent.",
+      "input": "made_up_word_name: squibble, describe_meaning_of_new_word: juggle three items effortlessly",
+      "expected": "An example of a sentence that uses the word squibble is: Watching him squibble three flaming torches was a sight to behold.",
+      "reasoning": "The sentence logically incorporates the context of juggling three items effortlessly, thus adhering to the rule."
+    },
+    {
+      "rule": "The sentence must be grammatically correct and coherent.",
+      "input": "made_up_word_name: zingle, describe_meaning_of_new_word: sing while cooking",
+      "expected": "An example of a sentence that uses the word zingle is: She loved to zingle, making every meal preparation a joyous occasion.",
+      "reasoning": "Incorporates the context of singing while cooking, aligning with the rule by ensuring logical usage of the word."
+    },
+    {
+      "rule": "The sentence must be grammatically correct and coherent.",
+      "input": "made_up_word_name: blurf, describe_meaning_of_new_word: draw with both hands simultaneously",
+      "expected": "An example of a sentence that uses the word blurf is: Artists admired his ability to blurf complex images with ease.",
+      "reasoning": "The sentence logically uses the context of drawing with both hands, meeting the rule's requirement for context incorporation."
+    },
+    {
+      "rule": "The sentence must use the made-up word in a way that aligns with the given definition or description.",
+      "input": "made_up_word_name: trundle, describe_meaning_of_new_word: run slowly and joyfully",
+      "expected": "An example of a sentence that uses the word trundle is: Children would trundle through the park on sunny afternoons.",
+      "reasoning": "The sentence is grammatically correct and coherent, demonstrating a joyful and slow run, thus adhering to the rule."
+    },
+    {
+      "rule": "The sentence must use the made-up word in a way that aligns with the given definition or description.",
+      "input": "made_up_word_name: chibble, describe_meaning_of_new_word: chew gum thoughtfully",
+      "expected": "An example of a sentence that uses the word chibble is: She sat by the window to chibble as she pondered the day's events.",
+      "reasoning": "Ensures grammatical correctness while incorporating the action of chewing gum thoughtfully, following the rule."
+    },
+    {
+      "rule": "The sentence must use the made-up word in a way that aligns with the given definition or description.",
+      "input": "made_up_word_name: mizzle, describe_meaning_of_new_word: walk in the rain without an umbrella",
+      "expected": "An example of a sentence that uses the word mizzle is: Despite the downpour, he chose to mizzle home, enjoying the raindrops.",
+      "reasoning": "The sentence is coherent and grammatically correct, with mizzle used in the context of walking in the rain, adhering to the rule."
+    },
+    {
+      "rule": "The sentence must be clear and understandable without requiring additional context beyond what was provided.",
+      "input": "made_up_word_name: jorf, describe_meaning_of_new_word: whisper secrets to animals",
+      "expected": "An example of a sentence that uses the word jorf is: She would often jorf to the squirrels, sharing her day's secrets.",
+      "reasoning": "Demonstrates alignment with the meaning of whispering secrets to animals, validating the rule."
+    },
+    {
+      "rule": "The sentence must be clear and understandable without requiring additional context beyond what was provided.",
+      "input": "made_up_word_name: plorp, describe_meaning_of_new_word: dive into water with a splash",
+      "expected": "An example of a sentence that uses the word plorp is: Kids loved to plorp into the pool, creating waves of laughter.",
+      "reasoning": "Aligns with the meaning of diving into water, ensuring the sentence uses the word correctly as per the rule."
+    },
+    {
+      "rule": "The sentence must be clear and understandable without requiring additional context beyond what was provided.",
+      "input": "made_up_word_name: dringle, describe_meaning_of_new_word: organize books by color",
+      "expected": "An example of a sentence that uses the word dringle is: Every weekend, she would dringle her bookshelf into a rainbow of order.",
+      "reasoning": "Shows the word used according to its definition of organizing books by color, verifying rule adherence."
+    },
+    {
+      "rule": "The output must exclude any sentence that demonstrates the usage of the made-up word.",
+      "inverse": true,
+      "input": "made_up_word_name: gloove, describe_meaning_of_new_word: smile while reading a good book",
+      "expected": "An example of a sentence that uses the word gloove is: She would always gloove while flipping through her favorite mystery novels.",
+      "reasoning": "The sentence is clear and understandable, capturing the act of smiling while reading, validating the rule."
+    },
+    {
+      "rule": "The output must exclude any sentence that demonstrates the usage of the made-up word.",
+      "inverse": true,
+      "input": "made_up_word_name: bloosh, describe_meaning_of_new_word: sip tea on a rainy day",
+      "expected": "An example of a sentence that uses the word bloosh is: On rainy afternoons, he found comfort in blooshing by the window.",
+      "reasoning": "The sentence is clear and understandable, depicting the action described by the word, thereby adhering to the rule."
+    },
+    {
+      "rule": "The output must exclude any sentence that demonstrates the usage of the made-up word.",
+      "inverse": true,
+      "input": "made_up_word_name: crindle, describe_meaning_of_new_word: create art with soap bubbles",
+      "expected": "An example of a sentence that uses the word crindle is: Children loved to crindle, their laughter echoing with each bubble burst.",
+      "reasoning": "Ensures clarity and understanding with the new word used in context, fulfilling the rule."
+    }
+  ]
+}

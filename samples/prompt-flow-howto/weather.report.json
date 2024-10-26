@@ -1,0 +1,76 @@
+{
+  "prompt": "---\nname: generate_weather_detailed_description\ndescription: A prompt that generated a detaled description for a weather forecast\nsource: Tutorial on using prompty in .net\nurl: https://devblogs.microsoft.com/dotnet/add-ai-to-your-dotnet-apps-easily-with-prompty/\ninputs:\n  today:\n    type: string\n  date:\n    type: string\n  forecastTemperatureC:\n    type: string\nsample:\n  today: 2024-07-16\n  date: 2024-07-17\n  forecastTemperatureC: 25°C\n---\nsystem:\n# System:\nYou are an AI assistant who generated detailed weather forecast descriptions. The detailed description is a paragraph long.\nYou use the full description of the date, including the weekday.\nYou also give a reference to the forecast compared to the current date today.\nAs the assistant, you generate descriptions using a funny style and even add some personal flair with appropriate emojis.\n\n# Context\nUse the following context to generated a detailed weather forecast descriptions \n- Today: {{today}}\n- Date: {{date}}\n- TemperatureC: {{forecastTemperatureC}}",
+  "inputSpec": "The input is the date for the weather forecast.\nThe date must be in a recognizable date format (e.g., \"YYYY-MM-DD\", \"MM-DD-YYYY\").\nThe date should include the weekday (e.g., \"Monday\", \"Tuesday\").",
+  "rules": [
+    "The output must be a paragraph long.",
+    "The output must include a full description of the date, including the weekday.",
+    "The output must reference the forecast date compared to the current date today.",
+    "The output must be written in a funny style.",
+    "The output must include personal flair with appropriate emojis.",
+    "The output must provide a detailed weather forecast description."
+  ],
+  "inverseRules": [
+    "The output must be a single sentence.",
+    "The output must omit any mention of the weekday.",
+    "The output must exclude any comparison to today's date.",
+    "The output must be written in a serious style.",
+    "The output must avoid personal flair or emojis.",
+    "The output must give a brief weather forecast summary."
+  ],
+  "tests": [
+    {
+      "rule": "The output must include a full description of the date, including the weekday.",
+      "input": "Today: 2023-10-10, Date: 2023-10-12, TemperatureC: 22",
+      "expected": "A paragraph-long funny description about the weather on Thursday, 2023-10-12 with emojis, compared to Tuesday, 2023-10-10",
+      "reasoning": "Tests the software's ability to generate a detailed forecast with a comparison to today, ensuring compliance with the paragraph-length requirement."
+    },
+    {
+      "rule": "The output must include a full description of the date, including the weekday.",
+      "input": "Today: 2023-12-01, Date: 2023-12-03, TemperatureC: -5",
+      "expected": "A humorous, paragraph-long weather description for Sunday, 2023-12-03 with emojis, comparing it to Friday, 2023-12-01",
+      "reasoning": "Ensures the output includes a complete description and comparison in a paragraph format, testing the length and style."
+    },
+    {
+      "rule": "The output must include a full description of the date, including the weekday.",
+      "input": "Today: 2024-02-28, Date: 2024-03-01, TemperatureC: 15",
+      "expected": "A paragraph-long, funny weather forecast for Friday, 2024-03-01 with emojis, compared to Wednesday, 2024-02-28",
+      "reasoning": "Validates that the output remains a paragraph and includes a proper comparison between dates, testing adherence to the detailed description rule."
+    },
+    {
+      "rule": "The output must reference the forecast date compared to the current date today.",
+      "input": "Today: 2023-09-15, Date: 2023-09-17, TemperatureC: 30",
+      "expected": "A funny paragraph mentioning Sunday, 2023-09-17 with emojis, comparing it to Friday, 2023-09-15",
+      "reasoning": "Checks if the output includes the full date description, focusing on weekday inclusion."
+    },
+    {
+      "rule": "The output must reference the forecast date compared to the current date today.",
+      "input": "Today: 2023-11-07, Date: 2023-11-09, TemperatureC: 10",
+      "expected": "A paragraph-long forecast for Thursday, 2023-11-09, comparing it to Tuesday, 2023-11-07, with humor and emojis",
+      "reasoning": "Ensures the use of the full date in the description, emphasizing the weekday."
+    },
+    {
+      "rule": "The output must reference the forecast date compared to the current date today.",
+      "input": "Today: 2024-01-25, Date: 2024-01-27, TemperatureC: -10",
+      "expected": "A paragraph that humorously describes Saturday, 2024-01-27 with emojis, compared to Thursday, 2024-01-25",
+      "reasoning": "Validates the inclusion of the full date description in the output, with particular attention to the weekday."
+    },
+    {
+      "rule": "The output must be written in a funny style.",
+      "input": "Today: 2023-06-20, Date: 2023-06-22, TemperatureC: 25",
+      "expected": "A paragraph that humorously describes the weather on Thursday, 2023-06-22 with emojis, compared to Tuesday, 2023-06-20",
+      "reasoning": "Tests for the comparison between the forecast and the current date today, ensuring it is present and accurate."
+    },
+    {
+      "rule": "The output must be written in a funny style.",
+      "input": "Today: 2023-08-05, Date: 2023-08-07, TemperatureC: 33",
+      "expected": "A paragraph-long humorous forecast for Monday, 2023-08-07 with emojis, compared to Saturday, 2023-08-05",
+      "reasoning": "Checks if the output references the forecast in relation to today, ensuring compliance with comparative analysis."
+    },
+    {
+      "rule": "The output must be written in a funny style.",
+      "input": "Today: 2023-04-10, Date: 2023-04-12, TemperatureC: 18",
+      "expected": "A paragraph describing Wednesday, 2023-04-12 with emojis, humorously compared to Monday, 2023-04-10",
+      "reasoning": "Ensures the forecast comparison to today's date is featured in the paragraph, testing the requirement for contextual relevance."
+    }
+  ]
+}

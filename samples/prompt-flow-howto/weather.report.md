@@ -1,7 +1,8 @@
-## [weather](samples/prompt-flow-howto/weather.prompty)
+## [weather](samples/prompt-flow-howto/weather.prompty) ([JSON](./weather.report.json))
 
 
 ### [prompty](./weather.prompty)
+
 `````md
 ---
 name: generate_weather_detailed_description
@@ -36,6 +37,7 @@ Use the following context to generated a detailed weather forecast descriptions
 
 
 ### [rules.txt](./weather.rules.txt)
+
 `````txt
 The output must be a paragraph long.
 The output must include a full description of the date, including the weekday.
@@ -47,6 +49,7 @@ The output must provide a detailed weather forecast description.
 
 
 ### [inverse_rules.txt](./weather.inverse_rules.txt)
+
 `````txt
 The output must be a single sentence.  
 The output must omit any mention of the weekday.  
@@ -58,6 +61,7 @@ The output must give a brief weather forecast summary.
 
 
 ### [input_spec.txt](./weather.input_spec.txt)
+
 `````txt
 The input is the date for the weather forecast.
 The date must be in a recognizable date format (e.g., "YYYY-MM-DD", "MM-DD-YYYY").
@@ -66,6 +70,7 @@ The date should include the weekday (e.g., "Monday", "Tuesday").
 
 
 ### [baseline_tests.txt](./weather.baseline_tests.txt)
+
 `````txt
 today: 2024-07-16
 date: 2024-07-17
@@ -82,6 +87,7 @@ forecastTemperatureC: 0°C
 
 
 ### [tests.csv](./weather.tests.csv)
+
 `````csv
 Rule ID, Test ID, Test Input, Expected Output, Reasoning
 1, 1, "Today: 2023-10-10, Date: 2023-10-12, TemperatureC: 22", "A paragraph-long funny description about the weather on Thursday, 2023-10-12 with emojis, compared to Tuesday, 2023-10-10", "Tests the software's ability to generate a detailed forecast with a comparison to today, ensuring compliance with the paragraph-length requirement."

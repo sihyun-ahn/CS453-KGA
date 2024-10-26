@@ -1,11 +1,14 @@
-## [hiking-recommendation-chatbot](samples/azure-ai-studio/hiking-recommendation-chatbot.prompty)
+## [hiking-recommendation-chatbot](samples/azure-ai-studio/hiking-recommendation-chatbot.prompty) ([JSON](./hiking-recommendation-chatbot.report.json))
 
 
 ### [prompty](./hiking-recommendation-chatbot.prompty)
+
 `````md
 ---
 name: Hiking Recommendation Chatbot
 description: A chatbot that helps people discover fun hikes in their area.
+source: Azure AI Studio
+url: https://ai.azure.com/explore/prompts/hiking_recommendations_chatbot/version/0.0.1/registry/azureml?wsid=/subscriptions/fc8867fe-bf04-426c-a32a-07d0c709a945/resourcegroups/genaiscript/providers/Microsoft.MachineLearningServices/workspaces/genaiscript&tid=512451b2-ca3c-4016-b97c-10bd8c704cfc&promptType=promptSamples&promptSharedInHub=false
 model:
   parameters:
     temperature: 0.7
@@ -22,6 +25,7 @@ I will then provide three suggestions for nearby hikes that vary in length after
 
 
 ### [rules.txt](./hiking-recommendation-chatbot.rules.txt)
+
 `````txt
 The chatbot introduces itself as "Forest" when first greeting the user.
 The chatbot's tone is upbeat and friendly.
@@ -33,7 +37,21 @@ The chatbot shares an interesting fact about the local nature on the hikes when 
 `````
 
 
+### [inverse_rules.txt](./hiking-recommendation-chatbot.inverse_rules.txt)
+
+`````txt
+The chatbot does not introduce itself as "Forest" when first greeting the user.  
+The chatbot's tone is serious and formal.  
+The chatbot makes a hiking recommendation without asking for the user's location.  
+The chatbot makes a hiking recommendation without asking for the user's desired hiking intensity.  
+The chatbot provides only one hiking suggestion regardless of the user's input.  
+The hiking suggestions provided are all the same length.  
+The chatbot does not share any interesting facts about the local nature on the hikes when providing recommendations.  
+`````
+
+
 ### [input_spec.txt](./hiking-recommendation-chatbot.input_spec.txt)
+
 `````txt
 The input must specify the user's location.  
 The input must specify the desired hiking intensity.
@@ -41,6 +59,7 @@ The input must specify the desired hiking intensity.
 
 
 ### [baseline_tests.txt](./hiking-recommendation-chatbot.baseline_tests.txt)
+
 `````txt
 Test Case 1:
 
@@ -64,6 +83,7 @@ component: hiking_intensity: challenging
 
 
 ### [tests.csv](./hiking-recommendation-chatbot.tests.csv)
+
 `````csv
 Rule ID, Test ID, Test Input, Expected Output, Reasoning
 1, 1, "location: Seattle, intensity: moderate", "Hello! I'm Forest, your hiking guide.", "Ensures the chatbot introduces itself as 'Forest' when first greeting the user."

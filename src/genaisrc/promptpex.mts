@@ -73,6 +73,7 @@ function tidyRules(text: string) {
     .split(/\n/g)
     .map((line) => line.replace(/^(\d+\.|_|-|\*)\s+/i, "")) // unneded numbering
     .filter((s) => !!s)
+    .filter((s) => !/^\s*Rules:\s*$/i.test(s))
     .join("\n");
 }
 
@@ -279,9 +280,53 @@ export async function executeTests(
   return CSV.stringify(testResults);
 }
 
-export async function generateReport(files: PromptPexContext) {
+function parseRules(rules: string) {
+  return rules
+    ? tidyRules(rules)
+        .split(/\r?\n/g)
+        .map((l) => l.trim())
+        .filter((l) => !!l)
+    : [];
+}
+
+function parseTests(tests: string): PromptPexTest[] {
+  return tests ? (CSV.parse(tests, { delimiter: "," }) as PromptPexTest[]) : [];
+}
+
+export async function generateJSONReport(files: PromptPexContext) {
+  const prompt = files.prompt.content;
+  const inputSpec = files.inputSpec.content;
+  const rules = parseRules(files.rules.content);
+  const inverseRules = parseRules(files.inverseRules.content);
+  const allRules = [...rules, ...inverseRules];
+  const csvTests = parseTests(files.tests.content);
+  if (files.tests.content && !csvTests.length)
+    console.warn(`failed to parse tests in ${files.tests.filename}`);
+
+  const tests = csvTests.map((test, index) => {
+    const ruleId = parseInt(test["Rule ID"]);
+    const res: any = {
+      rule: allRules[ruleId],
+      inverse: ruleId >= rules.length ? true : undefined,
+      input: test["Test Input"],
+      expected: test["Expected Output"],
+      reasoning: test["Reasoning"],
+    };
+    return res;
+  });
+
+  return {
+    prompt,
+    inputSpec,
+    rules,
+    inverseRules,
+    tests,
+  };
+}
+
+export async function generateMarkdownReport(files: PromptPexContext) {
   const res: string[] = [
-    `## [${files.basename}](${files.prompt.filename})`,
+    `## [${files.basename}](${files.prompt.filename}) ([json](./${files.basename}.report.json))`,
     ``,
   ];
   const appendFile = (file: WorkspaceFile) => {
@@ -290,14 +335,15 @@ export async function generateReport(files: PromptPexContext) {
       {
         prompty: "md",
       }[ext] || ext;
-    res.push("");
     res.push(
-      `### [${path.basename(file.filename).slice(files.basename.length + 1)}](./${path.basename(file.filename)})`
+      "",
+      `### [${path.basename(file.filename).slice(files.basename.length + 1)}](./${path.basename(file.filename)})`,
+      "",
+      `\`\`\`\`\`${lang}`,
+      file.content || "",
+      `\`\`\`\`\``,
+      ``
     );
-    res.push(`\`\`\`\`\`${lang}`);
-    res.push(file.content || "");
-    res.push(`\`\`\`\`\``);
-    res.push(``);
   };
 
   for (const file of Object.values(files))
@@ -388,10 +434,15 @@ export async function generate(
     );
   }
     */
+  const jsonreport = await generateJSONReport(files);
+  await workspace.writeText(
+    path.join(files.dir, files.basename + ".report.json"),
+    JSON.stringify(jsonreport, null, 2)
+  );
 
-  const report = await generateReport(files);
+  const mdreport = await generateMarkdownReport(files);
   await workspace.writeText(
     path.join(files.dir, files.basename + ".report.md"),
-    report
+    mdreport
   );
 }

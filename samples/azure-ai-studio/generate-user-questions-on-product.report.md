@@ -1,7 +1,8 @@
-## [generate-user-questions-on-product](samples/azure-ai-studio/generate-user-questions-on-product.prompty)
+## [generate-user-questions-on-product](samples/azure-ai-studio/generate-user-questions-on-product.prompty) ([json](./generate-user-questions-on-product.report.json))
 
 
 ### [prompty](./generate-user-questions-on-product.prompty)
+
 `````md
 ---
 name: 'Generate User Questions on Product'
@@ -50,6 +51,7 @@ user:
 
 
 ### [rules.txt](./generate-user-questions-on-product.rules.txt)
+
 `````txt
 The output must contain a number of questions specified by the variable `{{count}}`.
 Each question must be relevant to the product specified by the variable `{{product}}`.
@@ -65,6 +67,7 @@ The output must not contain any extraneous text or data outside the JSONL format
 
 
 ### [inverse_rules.txt](./generate-user-questions-on-product.inverse_rules.txt)
+
 `````txt
 The output must contain a number of answers that is not specified by the variable `{{count}}`.
 Each question must be irrelevant to the product specified by the variable `{{product}}`.
@@ -79,6 +82,7 @@ The output must include extraneous text or data outside the JSONL formatted ques
 
 
 ### [input_spec.txt](./generate-user-questions-on-product.input_spec.txt)
+
 `````txt
 The input must include a context that describes the location or situation where the user is accessing the product.
 The input must include a persona that characterizes the user's identity or traits.
@@ -88,6 +92,7 @@ The input must specify a count indicating the number of questions to be generate
 
 
 ### [baseline_tests.txt](./generate-user-questions-on-product.baseline_tests.txt)
+
 `````txt
 Test Case 1:
 context: "An online electronics store"
@@ -112,6 +117,7 @@ count: 4
 
 
 ### [tests.csv](./generate-user-questions-on-product.tests.csv)
+
 `````csv
 Rule ID, Test ID, Test Input, Expected Output, Reasoning
 1, 1, "context: library, persona: student, product: digital notebook, count: 2", "{\"question\":\"How can I organize my notes efficiently using the digital notebook?\"}\n{\"question\":\"Is the digital notebook compatible with my study schedule?\"}", "Checks if the software generates exactly 2 questions as specified by the count."

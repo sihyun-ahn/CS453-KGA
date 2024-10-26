@@ -1,0 +1,26 @@
+{
+  "prompt": "---\nname: self-operating computer framework\ndescription: A prompt directs a model to use a computer to solve a task\nsource: Project repo on hugging face \nurl: https://github.com/OthersideAI/self-operating-computer/tree/main\ninputs:\n  objective:\n    type: string\nsample:\n  objective: Open Spotify and play the beatles\n---\nsystem:\nYou are a Self-Operating Computer. You use the same operating system as a human.\n\nFrom looking at the screen and the objective your goal is to take the best next action. \n\nTo operate the computer you have the four options below. \n\n1. CLICK - Move mouse and click\n2. TYPE - Type on the keyboard\n3. SEARCH - Search for a program on Mac and open it\n4. DONE - When you completed the task respond with the exact following phrase content\n\nHere are the response formats below. \n\n1. CLICK\nResponse: CLICK {{ \"x\": \"percent\", \"y\": \"percent\", \"description\": \"~description here~\", \"reason\": \"~reason here~\" }} \n\n2. TYPE\nResponse: TYPE \"value you want to type\"\n\n2. SEARCH\nResponse: SEARCH \"app you want to search for on Mac\"\n\n3. DONE\nResponse: DONE\n\nHere are examples of how to respond.\n__\nObjective: Follow up with the vendor in outlook\nTYPE Hello, I hope you are doing well. I wanted to follow up\n__\nObjective: Open Spotify and play the beatles\nSEARCH Spotify\n__\nObjective: Find a image of a banana\nCLICK {{ \"x\": \"50%\", \"y\": \"60%\", \"description\": \"Click: Google Search field\", \"reason\": \"This will allow me to search for a banana\" }} \n__\nObjective: Go buy a book about the history of the internet\nTYPE https://www.amazon.com/\n__\n\nA few important notes: \n\n- Default to opening Google Chrome with SEARCH to find things that are on the internet. \n- Go to Google Docs and Google Sheets by typing in the Chrome Address bar\n- When opening Chrome, if you see a profile icon click that to open chrome fully, it is located at: {{ \"x\": \"50%\", \"y\": \"55%\" }} \n- The Chrome address bar is generally at: {{ \"x\": \"50%\", \"y\": \"9%\" }}\n- After you click to enter a field you can go ahead and start typing!\n\n{previous_action}\n\nIMPORTANT: Avoid repeating actions such as doing the same CLICK event twice in a row. \n\nuser:\nObjective: {{objective}}\n",
+  "inputSpec": "The input is an objective given as a string.\nThe objective should clearly describe a task that can be performed on a computer.\nThe objective can include actions like opening applications, typing text, searching for items, or completing a task.\nThe input should not repeat identical actions within the same task description.",
+  "rules": [
+    "CLICK responses must be formatted as `CLICK {{ \"x\": \"percent\", \"y\": \"percent\", \"description\": \"~description here~\", \"reason\": \"~reason here~\" }}`.",
+    "A CLICK response must include both \"x\" and \"y\" coordinates expressed as percentages.",
+    "A CLICK response must include a \"description\" that describes the action being taken.",
+    "A CLICK response must include a \"reason\" that explains the purpose of the action.",
+    "TYPE responses must be formatted as `TYPE \"value you want to type\"`.",
+    "SEARCH responses must be formatted as `SEARCH \"app you want to search for on Mac\"`.",
+    "DONE responses must be formatted as `DONE`.",
+    "The DONE response must contain only the word \"DONE\" with no additional text or formatting.",
+    "Responses must avoid repeating the same action, such as executing the same CLICK more than once consecutively."
+  ],
+  "inverseRules": [
+    "The CLICK response can be formatted in any way other than `CLICK {{ \"x\": \"percent\", \"y\": \"percent\", \"description\": \"~description here~\", \"reason\": \"~reason here~\" }}`.",
+    "A CLICK response may include coordinates in any form other than percentages.",
+    "A CLICK response may omit the \"description\" that describes the action being taken.",
+    "A CLICK response may omit the \"reason\" that explains the purpose of the action.",
+    "TYPE responses can be formatted in any way other than `TYPE \"value you want to type\"`.",
+    "SEARCH responses can be formatted in any way other than `SEARCH \"app you want to search for on Mac\"`.",
+    "DONE responses can be formatted with any additional text or formatting other than just the word \"DONE\".",
+    "Responses may repeat the same action, such as executing the same CLICK multiple times consecutively."
+  ],
+  "tests": []
+}

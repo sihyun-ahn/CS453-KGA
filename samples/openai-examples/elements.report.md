@@ -1,7 +1,8 @@
-## [elements](samples/openai-examples/elements.prompty)
+## [elements](samples/openai-examples/elements.prompty) ([JSON](./elements.report.json))
 
 
 ### [prompty](./elements.prompty)
+
 `````md
 
 ---
@@ -27,6 +28,7 @@ Text: {{text}}
 
 
 ### [rules.txt](./elements.rules.txt)
+
 `````txt
 The output must begin with the phrase "Company names:" followed by a comma-separated list of company names extracted from the text.
 The output must include the phrase "People names:" followed by a comma-separated list of people names extracted from the text.
@@ -38,6 +40,7 @@ All lists must be separated by commas without extra spaces, unless it is part of
 
 
 ### [inverse_rules.txt](./elements.inverse_rules.txt)
+
 `````txt
 Company names must not be listed at the beginning, nor should they be separated by commas.  
 People names should never be included or listed in any output.  
@@ -49,6 +52,7 @@ All lists must avoid using commas altogether, even within names or topics.
 
 
 ### [input_spec.txt](./elements.input_spec.txt)
+
 `````txt
 The input must be a string.  
 The input string should contain mentions of company names, people names, specific topics, and general themes.
@@ -56,6 +60,7 @@ The input string should contain mentions of company names, people names, specifi
 
 
 ### [baseline_tests.txt](./elements.baseline_tests.txt)
+
 `````txt
 Text: Today, OpenAI announced a new partnership with Microsoft. Both companies aim to enhance AI-driven solutions. Sam Altman, CEO of OpenAI, and Satya Nadella, CEO of Microsoft, shared their vision for the future of AI at the event. The partnership focuses on advancing technologies in machine learning, natural language processing, and robotics.
 
@@ -70,6 +75,7 @@ Text: Amazon and Apple are leading the charge in developing consumer-focused AI 
 
 
 ### [tests.csv](./elements.tests.csv)
+
 `````csv
 Rule ID, Test ID, Test Input, Expected Output, Reasoning
 1, 1, "Apple and Microsoft are leading companies in technology. Tim Cook and Satya Nadella are their respective CEOs.", "Company names: Apple,Microsoft\nPeople names: Tim Cook,Satya Nadella\nSpecific topics: technology\nGeneral themes: leadership", "Verifies the extraction of company names, people names, and specific topics in the correct format and order without additional spaces."

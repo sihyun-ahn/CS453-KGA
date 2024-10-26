@@ -1,7 +1,8 @@
-## [bio-section](samples/content-creator/bio-section.prompty)
+## [bio-section](samples/content-creator/bio-section.prompty) ([JSON](./bio-section.report.json))
 
 
 ### [prompty](./bio-section.prompty)
+
 `````md
 ---
 name: "Github Bio Section Generator"
@@ -15,6 +16,7 @@ I want you to act as a Github bio section generator, providing me with unique, o
 
 
 ### [rules.txt](./bio-section.rules.txt)
+
 `````txt
 The output must consist of three distinct bio options.  
 Each bio option must be unique.  
@@ -33,6 +35,7 @@ The bio options must relate to the interests: ChatGPT, Content Creation, Automat
 
 
 ### [inverse_rules.txt](./bio-section.inverse_rules.txt)
+
 `````txt
 The output must consist of less than three bio options.  
 At least one bio option must be repeated.  
@@ -51,6 +54,7 @@ The bio options must not relate to ChatGPT, Content Creation, Automation, or Web
 
 
 ### [input_spec.txt](./bio-section.input_spec.txt)
+
 `````txt
 The input is a list of keywords and phrases describing skills and experience.
 The input must include keywords related to skills.
@@ -60,6 +64,7 @@ The input should not exceed a reasonable number of keywords and phrases to ensur
 
 
 ### [baseline_tests.txt](./bio-section.baseline_tests.txt)
+
 `````txt
 interest: ChatGPT, Content Creation, Automation, Web Development
 
@@ -74,6 +79,7 @@ interest: DevOps, Cloud Computing, Kubernetes, Continuous Integration
 
 
 ### [tests.csv](./bio-section.tests.csv)
+
 `````csv
 Rule ID, Test ID, Test Input, Expected Output, Reasoning
 1, 1, "keywords: ChatGPT, Content Creation, Automation, Web Development; phrases: skilled in web automation, passionate about AI", "Three distinct bio options", "Ensures software generates three separate bios, testing distinctness requirement"

@@ -1,7 +1,8 @@
-## [extract-names](samples/prompt-guide/extract-names.prompty)
+## [extract-names](samples/prompt-guide/extract-names.prompty) ([JSON](./extract-names.report.json))
 
 
 ### [prompty](./extract-names.prompty)
+
 `````md
 ---
 name: "Extract Names from Text"
@@ -22,6 +23,7 @@ Abstract: {{input}}
 
 
 ### [rules.txt](./extract-names.rules.txt)
+
 `````txt
 The output must be an array of model names extracted from the machine learning paper abstract.
 Each model name in the output array must be enclosed in double quotes.
@@ -32,6 +34,7 @@ The array must always be present, even if it contains only the value ["NA"].
 
 
 ### [inverse_rules.txt](./extract-names.inverse_rules.txt)
+
 `````txt
 Do not include any model names in quotation marks within the array.
 If no model names are found, list all possible names instead of 'NA'.
@@ -40,6 +43,7 @@ Ensure no model names are formatted as elements within the array.
 
 
 ### [input_spec.txt](./extract-names.input_spec.txt)
+
 `````txt
 The input is a machine learning paper abstract.  
 The input should be in textual format.
@@ -47,6 +51,7 @@ The input should be in textual format.
 
 
 ### [baseline_tests.txt](./extract-names.baseline_tests.txt)
+
 `````txt
 Abstract: "In this study, we analyze the performance of the GPT-3 model in various natural language processing tasks."
 
@@ -59,6 +64,7 @@ Abstract: "This research utilizes a LSTM architecture for time series prediction
 
 
 ### [tests.csv](./extract-names.tests.csv)
+
 `````csv
 Rule ID, Test ID, Test Input, Expected Output, Reasoning
 1, 1, "In this paper, we introduce a novel machine learning model called DeepNet that significantly improves accuracy.", ["DeepNet"], "The test checks if the software correctly extracts and formats the model name within the array."

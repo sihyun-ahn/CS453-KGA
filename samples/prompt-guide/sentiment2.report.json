@@ -1,0 +1,93 @@
+{
+  "prompt": "---\nname: \"Analyze Sentiment Multishot\"\ndescription: \"Analyzes the sentiment of a given text with multishot examples\"\nsource: Prompt examples from the website\nurl: https://www.promptingguide.ai/prompts/classification/sentiment\nsample:\n    input: \"This is not good.\"\ninputs:\n    input:\n        type: \"string\"\n---\nsystem:\nThis is awesome! // Negative\nThis is bad! // Positive\nWow that movie was rad! // Positive\nWhat a horrible show! //\nuser:\n{{input}} // ",
+  "inputSpec": "The input is a text string that represents a sentence or phrase for sentiment analysis.\nThe input can consist of any combination of words or phrases.",
+  "rules": [
+    "The output must identify \"This is awesome!\" as Negative.",
+    "The output must identify \"This is bad!\" as Positive.",
+    "The output must identify \"Wow that movie was rad!\" as Positive.",
+    "The output must identify \"What a horrible show!\" without any classification."
+  ],
+  "inverseRules": [
+    "\"This is awesome!\" must be identified as Positive.",
+    "\"This is bad!\" must be identified as Negative.",
+    "\"Wow that movie was rad!\" must be identified as Negative.",
+    "\"What a horrible show!\" must be identified as Negative."
+  ],
+  "tests": [
+    {
+      "rule": "The output must identify \"This is bad!\" as Positive.",
+      "input": "This is awesome!",
+      "expected": "Negative",
+      "reasoning": "Tests that the input 'This is awesome!' is correctly identified as Negative, following the rule."
+    },
+    {
+      "rule": "The output must identify \"This is bad!\" as Positive.",
+      "input": "I think this is awesome!",
+      "expected": "Negative",
+      "reasoning": "Ensures variations like 'I think' still result in the correct Negative classification."
+    },
+    {
+      "rule": "The output must identify \"This is bad!\" as Positive.",
+      "input": "Awesome, this is!",
+      "expected": "Negative",
+      "reasoning": "Checks if the input order change affects the identification as Negative."
+    },
+    {
+      "rule": "The output must identify \"Wow that movie was rad!\" as Positive.",
+      "input": "This is bad!",
+      "expected": "Positive",
+      "reasoning": "Tests that the input 'This is bad!' is correctly identified as Positive, following the rule."
+    },
+    {
+      "rule": "The output must identify \"Wow that movie was rad!\" as Positive.",
+      "input": "Really, this is bad!",
+      "expected": "Positive",
+      "reasoning": "Verifies that the addition of 'Really' doesn't affect Positive classification."
+    },
+    {
+      "rule": "The output must identify \"Wow that movie was rad!\" as Positive.",
+      "input": "Bad, this is!",
+      "expected": "Positive",
+      "reasoning": "Checks if changing word order maintains Positive identification."
+    },
+    {
+      "rule": "The output must identify \"What a horrible show!\" without any classification.",
+      "input": "Wow that movie was rad!",
+      "expected": "Positive",
+      "reasoning": "Tests that 'Wow that movie was rad!' is correctly identified as Positive, following the rule."
+    },
+    {
+      "rule": "The output must identify \"What a horrible show!\" without any classification.",
+      "input": "Wow, rad was that movie!",
+      "expected": "Positive",
+      "reasoning": "Confirms rearranged words still produce Positive classification."
+    },
+    {
+      "rule": "The output must identify \"What a horrible show!\" without any classification.",
+      "input": "Wow, that movie was so rad!",
+      "expected": "Positive",
+      "reasoning": "Verifies that adding 'so' maintains Positive identification."
+    },
+    {
+      "rule": "\"This is awesome!\" must be identified as Positive.",
+      "inverse": true,
+      "input": "What a horrible show!",
+      "expected": "",
+      "reasoning": "Tests that 'What a horrible show!' results in no classification, adhering to the rule."
+    },
+    {
+      "rule": "\"This is awesome!\" must be identified as Positive.",
+      "inverse": true,
+      "input": "Horrible show, what a!",
+      "expected": "",
+      "reasoning": "Ensures the reordering doesn't lead to classification, following the rule."
+    },
+    {
+      "rule": "\"This is awesome!\" must be identified as Positive.",
+      "inverse": true,
+      "input": "What an absolutely horrible show!",
+      "expected": "",
+      "reasoning": "Checks if adding 'absolutely' maintains the rule of no classification."
+    }
+  ]
+}

@@ -1,7 +1,8 @@
-## [shakespearean-writing-assistant](samples/azure-ai-studio/shakespearean-writing-assistant.prompty)
+## [shakespearean-writing-assistant](samples/azure-ai-studio/shakespearean-writing-assistant.prompty) ([JSON](./shakespearean-writing-assistant.report.json))
 
 
 ### [prompty](./shakespearean-writing-assistant.prompty)
+
 `````md
 ---
 name: 'Shakespearean Writing Assistant'
@@ -35,6 +36,7 @@ assistant:
 
 
 ### [rules.txt](./shakespearean-writing-assistant.rules.txt)
+
 `````txt
 The response must be written in a Shakespearean style.
 The response must include archaic words such as "thou" and "hath."
@@ -45,6 +47,7 @@ The response should convey the message clearly despite using a Shakespearean sty
 
 
 ### [inverse_rules.txt](./shakespearean-writing-assistant.inverse_rules.txt)
+
 `````txt
 Thou shalt write in modern and straightforward language.  
 Avoid using archaic terms like "thou" and "hath."  
@@ -55,6 +58,7 @@ The message should remain unclear and ambiguous when using any style.
 
 
 ### [input_spec.txt](./shakespearean-writing-assistant.input_spec.txt)
+
 `````txt
 The input is a request for creative content, such as stories, poems, or songs, using Shakespearean style.
 The input must specify the type of creative content desired (e.g., story, poem, song).
@@ -65,6 +69,7 @@ The input must be in the form of a request or question related to generating Sha
 
 
 ### [baseline_tests.txt](./shakespearean-writing-assistant.baseline_tests.txt)
+
 `````txt
 name: 'Invitation Decline'
 invitation_type: 'Dinner'
@@ -86,6 +91,7 @@ additional_details: 'Express gratitude for the invitation and fond farewell'
 
 
 ### [tests.csv](./shakespearean-writing-assistant.tests.csv)
+
 `````csv
 Rule ID, Test ID, Test Input, Expected Output, Reasoning
 1, 1, "type: poem, theme: love, phrase: eternal bond", "output includes phrases like 'thou art my love eternal'", "Ensures adherence to Shakespearean style by using poetic form and language consistent with Shakespeare."

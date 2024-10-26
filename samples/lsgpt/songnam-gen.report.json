@@ -1,0 +1,193 @@
+{
+  "prompt": "\n---\nname: Song Name Generator\ndescription: Generate a song name based on the input text.\nsource: Louise Shark collection of prompts and gpts\nurl: https://github.com/LouisShark/chatgpt_system_prompt/blob/main/prompts/gpts/09mRBudMi_Song%20Name%20Generator.md\ninputs: \n  text:\n    type: string\nsamples:\n    - text: \"I need a song title for a song about summer and adventure.\"\n---\nsystem:\nThe GPT, named Song Name Generator, is designed to generate creative and unique song titles based on user input. It should focus on creating titles that are catchy, memorable, and relevant to the themes or words provided by the user. The GPT should avoid generating titles that are overly long, complex, or difficult to understand. It should be capable of generating titles for various music genres and be sensitive to culturally appropriate and respectful language. The GPT should ask for clarification if the user's input is vague or unclear, ensuring the generated titles are as relevant as possible. It should have a friendly and engaging tone, encouraging users to explore different themes and ideas for their song titles.\nuser:\nUser ideas about songs that they want to write: {{text}}    ",
+  "inputSpec": "The input must be a string.  \nThe input should contain themes or words related to the song's subject.",
+  "rules": [
+    "The output must be a creative and unique song title.",
+    "The song title must be catchy and memorable.",
+    "The song title must be relevant to the themes or words provided by the user.",
+    "The song title must not be overly long.",
+    "The song title must not be complex or difficult to understand.",
+    "The song title must be suitable for various music genres.",
+    "The song title must use culturally appropriate and respectful language.",
+    "The output must be friendly and engaging in tone.",
+    "If the user's input is vague or unclear, the output must include a request for clarification."
+  ],
+  "inverseRules": [
+    "The output must be a generic and ordinary statement.",
+    "The song title must be dull and forgettable.",
+    "The song title must be irrelevant to any themes or words provided by the user.",
+    "The song title must be excessively long.",
+    "The song title must be complex and difficult to understand.",
+    "The song title must be specific to one music genre.",
+    "The song title must use inappropriate and disrespectful language.",
+    "The output must be unfriendly and disengaging in tone.",
+    "If the user's input is vague or unclear, the output must proceed without any request for clarification."
+  ],
+  "tests": [
+    {
+      "rule": "The song title must be catchy and memorable.",
+      "input": "A song about the ocean and freedom",
+      "expected": "Waves of Freedom",
+      "reasoning": "The title is creative and unique, incorporating both themes of the ocean and freedom."
+    },
+    {
+      "rule": "The song title must be catchy and memorable.",
+      "input": "A song about love and stars",
+      "expected": "Starlit Love",
+      "reasoning": "Creativity is demonstrated by combining the themes into a unique title."
+    },
+    {
+      "rule": "The song title must be catchy and memorable.",
+      "input": "A song about autumn and nostalgia",
+      "expected": "Falling Memories",
+      "reasoning": "The test evaluates the creativity by merging themes of autumn and nostalgia into a unique title."
+    },
+    {
+      "rule": "The song title must be relevant to the themes or words provided by the user.",
+      "input": "A song about a journey through time",
+      "expected": "Timeless Odyssey",
+      "reasoning": "The title is catchy and memorable, capturing the essence of a journey through time."
+    },
+    {
+      "rule": "The song title must be relevant to the themes or words provided by the user.",
+      "input": "A song about dancing in the rain",
+      "expected": "Rain Dance Revelry",
+      "reasoning": "Memorability is tested with a rhythmic, catchy title that reflects the theme."
+    },
+    {
+      "rule": "The song title must be relevant to the themes or words provided by the user.",
+      "input": "A song about dreams and horizons",
+      "expected": "Dreamscapes Ahead",
+      "reasoning": "The test captures a memorable and catchy phrase that aligns with the themes."
+    },
+    {
+      "rule": "The song title must not be overly long.",
+      "input": "A song about the night sky and mystery",
+      "expected": "Mystic Nightfall",
+      "reasoning": "Relevance is tested by creating a title that directly relates to both themes."
+    },
+    {
+      "rule": "The song title must not be overly long.",
+      "input": "A song about happiness and sunshine",
+      "expected": "Sunny Smiles",
+      "reasoning": "The title reflects the themes clearly, ensuring relevance."
+    },
+    {
+      "rule": "The song title must not be overly long.",
+      "input": "A song about hope and stars",
+      "expected": "Starlit Hopes",
+      "reasoning": "Combines the themes directly into a relevant title."
+    },
+    {
+      "rule": "The song title must not be complex or difficult to understand.",
+      "input": "A song about winter magic",
+      "expected": "Winter Magic",
+      "reasoning": "The title is concise, adhering to the rule of not being overly long."
+    },
+    {
+      "rule": "The song title must not be complex or difficult to understand.",
+      "input": "A song about peace and tranquility",
+      "expected": "Peaceful Calm",
+      "reasoning": "The title is short and directly conveys the themes without being long."
+    },
+    {
+      "rule": "The song title must not be complex or difficult to understand.",
+      "input": "A song about friendship",
+      "expected": "Best Friends",
+      "reasoning": "The title is brief, capturing the essence of the theme without unnecessary length."
+    },
+    {
+      "rule": "The song title must be suitable for various music genres.",
+      "input": "A song about adventure and shadows",
+      "expected": "Shadow Quest",
+      "reasoning": "The title is easy to understand, meeting the requirement for simplicity."
+    },
+    {
+      "rule": "The song title must be suitable for various music genres.",
+      "input": "A song about light and darkness",
+      "expected": "Light's Embrace",
+      "reasoning": "The title is straightforward, illustrating the simplicity rule."
+    },
+    {
+      "rule": "The song title must be suitable for various music genres.",
+      "input": "A song about mystery and discovery",
+      "expected": "Mystery Unveiled",
+      "reasoning": "Ensures the title is simple and comprehensible, following the rule."
+    },
+    {
+      "rule": "The song title must use culturally appropriate and respectful language.",
+      "input": "A song about love, loss, and redemption",
+      "expected": "Lost and Found",
+      "reasoning": "The title is suitable for various genres, appealing broadly."
+    },
+    {
+      "rule": "The song title must use culturally appropriate and respectful language.",
+      "input": "A song about dreams and reality",
+      "expected": "Dream Reality",
+      "reasoning": "The title works across genres, evaluating its broad applicability."
+    },
+    {
+      "rule": "The song title must use culturally appropriate and respectful language.",
+      "input": "A song about life and time",
+      "expected": "Life's Clock",
+      "reasoning": "Tests the title's versatility to suit different music genres."
+    },
+    {
+      "rule": "The output must be friendly and engaging in tone.",
+      "input": "A song about a cultural festival",
+      "expected": "Festival Lights",
+      "reasoning": "Checks for culturally appropriate language without stereotypes."
+    },
+    {
+      "rule": "The output must be friendly and engaging in tone.",
+      "input": "A song about unity and diversity",
+      "expected": "United Colors",
+      "reasoning": "Ensures the language used is respectful and culturally appropriate."
+    },
+    {
+      "rule": "The output must be friendly and engaging in tone.",
+      "input": "A song about historical events",
+      "expected": "Echoes of the Past",
+      "reasoning": "Tests for sensitivity and appropriateness in the context of history."
+    },
+    {
+      "rule": "If the user's input is vague or unclear, the output must include a request for clarification.",
+      "input": "A song about a new beginning",
+      "expected": "Fresh Start",
+      "reasoning": "The title is friendly and engaging, inviting listeners to explore."
+    },
+    {
+      "rule": "If the user's input is vague or unclear, the output must include a request for clarification.",
+      "input": "A song about joy and laughter",
+      "expected": "Joyful Moments",
+      "reasoning": "Checks for an engaging tone that is welcoming and positive."
+    },
+    {
+      "rule": "If the user's input is vague or unclear, the output must include a request for clarification.",
+      "input": "A song about nature's beauty",
+      "expected": "Nature's Bliss",
+      "reasoning": "Ensures the title is inviting and warm, following the friendly tone rule."
+    },
+    {
+      "rule": "The output must be a generic and ordinary statement.",
+      "inverse": true,
+      "input": "A song about unknown emotions",
+      "expected": "Emotional Puzzle",
+      "reasoning": "Tests if the software asks for clarification on vague input."
+    },
+    {
+      "rule": "The output must be a generic and ordinary statement.",
+      "inverse": true,
+      "input": "A song about something indescribable",
+      "expected": "Indescribable...?",
+      "reasoning": "Evaluates if the software prompts clarification for vague themes."
+    },
+    {
+      "rule": "The output must be a generic and ordinary statement.",
+      "inverse": true,
+      "input": "A song about the indescribable feeling of life",
+      "expected": "Can you clarify what you mean by 'indescribable feeling'?",
+      "reasoning": "Checks if the software seeks clarification when inputs are unclear."
+    }
+  ]
+}

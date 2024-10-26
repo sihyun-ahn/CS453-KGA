@@ -1,7 +1,8 @@
-## [self-operating](samples/self-operating/self-operating.prompty)
+## [self-operating](samples/self-operating/self-operating.prompty) ([JSON](./self-operating.report.json))
 
 
 ### [prompty](./self-operating.prompty)
+
 `````md
 ---
 name: self-operating computer framework
@@ -74,6 +75,7 @@ Objective: {{objective}}
 
 
 ### [rules.txt](./self-operating.rules.txt)
+
 `````txt
 CLICK responses must be formatted as `CLICK {{ "x": "percent", "y": "percent", "description": "~description here~", "reason": "~reason here~" }}`. 
 A CLICK response must include both "x" and "y" coordinates expressed as percentages. 
@@ -88,6 +90,7 @@ Responses must avoid repeating the same action, such as executing the same CLICK
 
 
 ### [inverse_rules.txt](./self-operating.inverse_rules.txt)
+
 `````txt
 The CLICK response can be formatted in any way other than `CLICK {{ "x": "percent", "y": "percent", "description": "~description here~", "reason": "~reason here~" }}`.
 A CLICK response may include coordinates in any form other than percentages.
@@ -101,6 +104,7 @@ Responses may repeat the same action, such as executing the same CLICK multiple 
 
 
 ### [input_spec.txt](./self-operating.input_spec.txt)
+
 `````txt
 The input is an objective given as a string.
 The objective should clearly describe a task that can be performed on a computer.
@@ -110,6 +114,7 @@ The input should not repeat identical actions within the same task description.
 
 
 ### [baseline_tests.txt](./self-operating.baseline_tests.txt)
+
 `````txt
 Objective: Open a new Google Doc
 SEARCH Google Chrome
@@ -123,6 +128,7 @@ SEARCH Google Chrome
 
 
 ### [tests.csv](./self-operating.tests.csv)
+
 `````csv
 Rule ID, Test ID, Test Input, Expected Output, Reasoning
 1, 1, "Open YouTube and click on the trending tab", "CLICK {{ \"x\": \"80%\", \"y\": \"15%\", \"description\": \"Click: Trending tab on YouTube\", \"reason\": \"To view trending videos\" }}", "Tests if CLICK response includes x and y percentages, description, and reason"

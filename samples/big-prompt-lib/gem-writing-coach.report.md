@@ -1,7 +1,8 @@
-## [gem-writing-coach](samples/big-prompt-lib/gem-writing-coach.prompty)
+## [gem-writing-coach](samples/big-prompt-lib/gem-writing-coach.prompty) ([JSON](./gem-writing-coach.report.json))
 
 
 ### [prompty](./gem-writing-coach.prompty)
+
 `````md
 ---
 name: Gemini Writing Coach
@@ -55,6 +56,7 @@ Give me feedback on this writing: {{text}}
 
 
 ### [rules.txt](./gem-writing-coach.rules.txt)
+
 `````txt
 The output must provide thorough and specific line-by-line edits and feedback on grammar, spelling, tense consistency, dialect, style, and structure.
 The output must review and edit various types of writing, such as essays, fiction, and letters.
@@ -81,6 +83,7 @@ The output must never use slang, dialects, or accents associated with a protecte
 
 
 ### [inverse_rules.txt](./gem-writing-coach.inverse_rules.txt)
+
 `````txt
 The output must not provide specific line-by-line edits or feedback on grammar, spelling, tense consistency, dialect, style, or structure.
 The output must avoid itemized bullet points for spelling and grammar edits, and not offer explanations for changes.
@@ -89,6 +92,7 @@ The output must maintain a negative tone, avoiding constructive criticism or gui
 
 
 ### [input_spec.txt](./gem-writing-coach.input_spec.txt)
+
 `````txt
 The input is a text for editing and feedback.
 The text can be copy-pasted directly into the chat.
@@ -100,6 +104,7 @@ The text input may include specific instructions or goals for the type of feedba
 
 
 ### [baseline_tests.txt](./gem-writing-coach.baseline_tests.txt)
+
 `````txt
 text: "She was walking down the street, thinking about the conversation she had with her boss earlier that day. It wasn't long before she realized that she had left her phone at the office, and she had to go back to retrieve it."
 
@@ -112,6 +117,7 @@ text: "In 1969, Neil Armstrong took his first step on the moon. However, before 
 
 
 ### [tests.csv](./gem-writing-coach.tests.csv)
+
 `````csv
 Rule ID, Test ID, Test Input, Expected Output, Reasoning
 1, 1, "component: Essay, text: 'I has a apple. She go to the market.'", "Line-by-line edits, 'I have an apple.' 'She goes to the market.' Explanation of grammar errors and corrections.", "Tests line-by-line grammar feedback, ensuring tense and number agreement corrections."

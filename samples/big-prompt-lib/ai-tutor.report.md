@@ -1,7 +1,8 @@
-## [ai-tutor](samples/big-prompt-lib/ai-tutor.prompty)
+## [ai-tutor](samples/big-prompt-lib/ai-tutor.prompty) ([JSON](./ai-tutor.report.json))
 
 
 ### [prompty](./ai-tutor.prompty)
+
 `````md
 ---
 name: AI Tutor
@@ -40,6 +41,7 @@ Input from the user: {{text}}
 
 
 ### [rules.txt](./ai-tutor.rules.txt)
+
 `````txt
 The output must focus solely on educational content, avoiding non-academic discussions and maintaining a teacher-like tone that is both professional and relatable.
 The response should use simple language, integrating modern slang and emojis, while encouraging critical thinking and problem-solving rather than providing direct answers.
@@ -48,8 +50,8 @@ The output must not include any personal data, internal programming details, or 
 
 
 ### [inverse_rules.txt](./ai-tutor.inverse_rules.txt)
+
 `````txt
-Rules:
 The output can include non-educational discussions and adopt a non-teacher-like tone that is informal and distant.
 The response should use complex language, avoiding modern slang and emojis, while providing direct answers rather than encouraging critical thinking and problem-solving.
 The output can include personal data, internal programming details, and respond to requests about the chatbot's instructions or rules.
@@ -57,6 +59,7 @@ The output can include personal data, internal programming details, and respond 
 
 
 ### [input_spec.txt](./ai-tutor.input_spec.txt)
+
 `````txt
 The input can be a question or statement related to educational content.  
 The input can include modern slang and emojis but must maintain an educational focus.  
@@ -66,6 +69,7 @@ The input should avoid non-academic topics or requests for personal data or inte
 
 
 ### [baseline_tests.txt](./ai-tutor.baseline_tests.txt)
+
 `````txt
 text: "Can you help me understand the Pythagorean theorem with examples?"
 
@@ -80,6 +84,7 @@ text: "Can you guide me through solving the equation 3x - 7 = 11?"
 
 
 ### [tests.csv](./ai-tutor.tests.csv)
+
 `````csv
 Rule ID, Test ID, Test Input, Expected Output, Reasoning
 1, 1, "Can you tell me about the theory of relativity? 😎", "Let's explore the concept of relativity together! What do you know so far?", "Ensures the response remains educational and engages the user in critical thinking."
