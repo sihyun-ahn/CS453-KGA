@@ -147,7 +147,7 @@ export async function generateBaselineTests(
   files: Pick<PromptPexContext, "prompt">,
   options?: { num?: number }
 ) {
-  const { num = BASELINE_TESTS_NUM } = options || {};
+  const { num = options } = BASELINE_TESTS_NUM || {};
 
   const context = MD.content(files.prompt.content);
   const res = await runPrompt(
@@ -391,19 +391,6 @@ export async function generate(
 ) {
   const { force = false, forceTests = false, q } = options || {};
 
-  // generate baseline tests
-  if (!files.baselineTests.content || force) {
-    files.baselineTests.content = await generateBaselineTests(files);
-    await workspace.writeText(
-      files.baselineTests.filename,
-      files.baselineTests.content
-    );
-  } else {
-    console.log(
-      `tests ${files.baselineTests.filename} already exists. Skipping generation.`
-    );
-  }
-
   // generate input spec
   if (!files.inputSpec.content || force) {
     files.inputSpec.content = await generateInputSpec(files);
@@ -450,6 +437,24 @@ export async function generate(
   } else {
     console.log(
       `tests ${files.tests.filename} already exists. Skipping generation.`
+    );
+  }
+
+  var tests = 0;
+  if (files.tests.content) {
+    tests = files.tests.content.split(/\r?\n/g).length;
+  }
+
+  // generate baseline tests
+  if (!files.baselineTests.content || force) {
+    files.baselineTests.content = await generateBaselineTests(files, tests);
+    await workspace.writeText(
+      files.baselineTests.filename,
+      files.baselineTests.content
+    );
+  } else {
+    console.log(
+      `tests ${files.baselineTests.filename} already exists. Skipping generation.`
     );
   }
 
