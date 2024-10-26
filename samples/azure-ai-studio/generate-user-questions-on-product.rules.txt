@@ -1,0 +1,10 @@
+The output must contain a number of questions specified by the variable `{{count}}`.
+Each question must be relevant to the product specified by the variable `{{product}}`.
+Each question must reflect an understanding of the user’s situation as described by the variable `{{context}}`.
+Each question must empathize with the user based on the persona described by the variable `{{persona}}`.
+Each question must be returned in JSONL format.
+Each line in the JSONL format must contain exactly one JSON object.
+Each JSON object must have a single key, "question".
+The key "question" in each JSON object must be associated with a string value representing the question.
+The string value in the "question" field must be enclosed in double quotes.
+The output must not contain any extraneous text or data outside the JSONL formatted questions.
