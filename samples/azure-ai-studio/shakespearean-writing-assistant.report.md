@@ -44,6 +44,16 @@ The response should convey the message clearly despite using a Shakespearean sty
 `````
 
 
+### [inverse_rules.txt](./shakespearean-writing-assistant.inverse_rules.txt)
+`````txt
+Thou shalt write in modern and straightforward language.  
+Avoid using archaic terms like "thou" and "hath."  
+The response must be factual and informative, not creative.  
+The response may include casual and informal language.  
+The message should remain unclear and ambiguous when using any style.
+`````
+
+
 ### [input_spec.txt](./shakespearean-writing-assistant.input_spec.txt)
 `````txt
 The input is a request for creative content, such as stories, poems, or songs, using Shakespearean style.
