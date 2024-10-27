@@ -144,11 +144,11 @@ export async function generateInverseRules(
 }
 
 export async function generateBaselineTests(
-  files: Pick<PromptPexContext, "prompt">,
+  files: Pick<PromptPexContext, "prompt" | "tests">,
   options?: { num?: number }
 ) {
-  const { num = options } = BASELINE_TESTS_NUM || {};
-
+  const tests = parseTests(files.tests.content);
+  const { num = tests.length } = options || {};
   const context = MD.content(files.prompt.content);
   const res = await runPrompt(
     (ctx) => {
@@ -208,12 +208,11 @@ export async function generateTests(
     },
     {
       ...modelOptions(),
-      label: `generate baseline tests`,
+      label: `generate tests`,
     }
   );
   if (res.error) throw res.error;
   const text = res.text;
-  const csv = parseTests(text);
   return text;
 }
 
@@ -387,17 +386,29 @@ export async function generateMarkdownReport(files: PromptPexContext) {
 
 export async function generate(
   files: PromptPexContext,
-  options?: { force?: boolean; forceTests?: boolean; q: PromiseQueue }
+  options?: {
+    force?: boolean;
+    forceInputSpec?: boolean;
+    forceTests?: boolean;
+    q: PromiseQueue;
+  }
 ) {
-  const { force = false, forceTests = false, q } = options || {};
+  const {
+    force = false,
+    forceInputSpec = false,
+    forceTests = false,
+    q,
+  } = options || {};
 
   // generate input spec
-  if (!files.inputSpec.content || force) {
+  if (!files.inputSpec.content || force || forceInputSpec) {
     files.inputSpec.content = await generateInputSpec(files);
     await workspace.writeText(
       files.inputSpec.filename,
       files.inputSpec.content
     );
+    files.tests.content = undefined;
+    files.testResults.content = undefined;
   } else {
     console.log(
       `input spec ${files.inputSpec.filename} already exists. Skipping generation.`
@@ -440,14 +451,9 @@ export async function generate(
     );
   }
 
-  var tests = 0;
-  if (files.tests.content) {
-    tests = files.tests.content.split(/\r?\n/g).length;
-  }
-
   // generate baseline tests
   if (!files.baselineTests.content || force) {
-    files.baselineTests.content = await generateBaselineTests(files, tests);
+    files.baselineTests.content = await generateBaselineTests(files);
     await workspace.writeText(
       files.baselineTests.filename,
       files.baselineTests.content
