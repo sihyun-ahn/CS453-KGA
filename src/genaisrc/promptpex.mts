@@ -322,13 +322,16 @@ function parseBaselineTests(tests: string) {
 export async function generateJSONReport(files: PromptPexContext) {
   const prompt = files.prompt.content;
   const inputSpec = files.inputSpec.content;
+  const errors: string[] = [];
   const rules = parseRules(files.rules.content);
   const inverseRules = parseRules(files.inverseRules.content);
   const allRules = [...rules, ...inverseRules];
   const csvTests = parseTests(files.tests.content);
   const baseLineTests = parseBaselineTests(files.baselineTests.content);
-  if (files.tests.content && !csvTests.length)
+  if (files.tests.content && !csvTests.length) {
     console.warn(`failed to parse tests in ${files.tests.filename}`);
+    errors.push(`failed to parse tests in ${files.tests.filename}`);
+  }
 
   const tests = csvTests.map((test, index) => {
     const ruleId = parseInt(test["Rule ID"]);
@@ -349,6 +352,7 @@ export async function generateJSONReport(files: PromptPexContext) {
     inverseRules,
     baseLineTests,
     tests,
+    errors: errors.length ? errors : undefined,
   };
 }
 
