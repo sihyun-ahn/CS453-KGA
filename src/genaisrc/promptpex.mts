@@ -148,7 +148,7 @@ export async function generateBaselineTests(
   options?: { num?: number }
 ) {
   const tests = parseTests(files.tests.content);
-  const num = options?.num || BASELINE_TESTS_NUM;
+  const { num = tests.length } = options || {};
   const context = MD.content(files.prompt.content);
   const res = await runPrompt(
     (ctx) => {
