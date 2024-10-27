@@ -23,6 +23,13 @@ export interface PromptPexTest {
   ["Reasoning"]: string;
 }
 
+export interface PromptPexTestResult extends PromptPexTest {
+  model: string;
+  actualOutput: string;
+  status: "success" | "failure" | "invalid-inputs";
+  error?: string;
+}
+
 export async function loadPromptContext(): Promise<PromptPexContext[]> {
   const q = host.promiseQueue(5);
   return q.mapAll(
@@ -240,59 +247,79 @@ export async function executeTests(
 ): Promise<string> {
   const tests = CSV.parse(files.tests.content) as PromptPexTest[];
   if (!tests?.length) throw new Error("No tests found");
+
+  const testResults = [];
+  for (let i = 0; i < tests.length; i++) {
+    const test = tests[i];
+    const testid = parsers.hash(test["Test Input"], { length: 7 });
+    const testf = path.join(
+      files.dir,
+      files.basename,
+      `results`,
+      `${testid}.yaml`
+    );
+    let testRes = await workspace.readYAML(testf);
+    if (!testRes) {
+      testRes = await executeTest(files, test, options);
+      await workspace.writeText(testf, YAML.stringify(testRes));
+    }
+    testResults.push(testRes);
+  }
+  return CSV.stringify(testResults);
+}
+
+export async function executeTest(
+  files: Pick<PromptPexContext, "prompt">,
+  test: PromptPexTest,
+  options?: { model?: ModelType }
+) {
   const inputs = parseInputs(files.prompt);
   const inputKeys = Object.keys(inputs);
-
   const moptions = {
     ...modelOptions(),
   };
   if (options?.model) moptions.model = options.model;
 
-  const testResults = [];
-  for (let i = 0; i < tests.length; i++) {
-    const test = tests[i];
-    //const ruleId = test["Rule ID"];
-    const expectedOutput = test["Expected Output"];
-    const testInput = test["Test Input"];
-    const args: Record<string, any> = {};
-    if (inputKeys.length === 1) args[inputKeys[0]] = testInput;
-    else if (inputKeys.length > 1) {
-      const testInputArgs =
-        parsers.INI(testInput) ||
-        parsers.YAML(testInput) ||
-        parsers.JSON5(testInput);
-      if (!testInputArgs) {
-        testResults.push({
-          ...test,
-          ["Actual Output"]: "invalid test input",
-          ["Pass"]: false,
-          ["Error"]: "invalid test input",
-        });
-        continue;
-      }
-      for (const key of inputKeys) args[key] = testInputArgs[key];
+  //const ruleId = test["Rule ID"];
+  const expectedOutput = test["Expected Output"];
+  const testInput = test["Test Input"];
+  const args: Record<string, any> = {};
+  if (inputKeys.length === 1) args[inputKeys[0]] = testInput;
+  else if (inputKeys.length > 1) {
+    const testInputArgs =
+      parsers.INI(testInput) ||
+      parsers.YAML(testInput) ||
+      parsers.JSON5(testInput);
+    if (!testInputArgs) {
+      return {
+        ...test,
+        model: moptions.model,
+        actualOutput: "invalid test input",
+        status: "invalid-inputs",
+        error: "invalid test input",
+      } satisfies PromptPexTestResult;
     }
-    const res = await runPrompt(
-      (ctx) => {
-        ctx.importTemplate(files.prompt.filename, args);
-        if (!inputs.length) ctx.writeText(testInput);
-      },
-      {
-        ...moptions,
-        label: `test ${i + 1}/${tests.length}: ${testInput.slice(0, 22)}...`,
-      }
-    );
-    const actualOutput = res.text;
-
-    testResults.push({
-      ...test,
-      Model: moptions.model,
-      ["Actual Output"]: actualOutput,
-      ["Pass"]: actualOutput === expectedOutput,
-      ["Error"]: res.error,
-    });
+    for (const key of inputKeys) args[key] = testInputArgs[key];
   }
-  return CSV.stringify(testResults);
+  const res = await runPrompt(
+    (ctx) => {
+      ctx.importTemplate(files.prompt.filename, args);
+      if (!inputs.length) ctx.writeText(testInput);
+    },
+    {
+      ...moptions,
+      label: `test ${testInput.slice(0, 22)}...`,
+    }
+  );
+  const actualOutput = res.text;
+  const testRes = {
+    ...test,
+    model: moptions.model,
+    actualOutput: actualOutput,
+    status: actualOutput === expectedOutput ? "success" : "failure",
+    error: res.error?.message,
+  } satisfies PromptPexTestResult;
+  return testRes;
 }
 
 function parseRules(rules: string) {

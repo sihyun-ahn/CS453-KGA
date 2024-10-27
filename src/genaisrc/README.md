@@ -1,4 +1,10 @@
+## Typecheck scripts
 
+Use Visual Studio Code to get builtin typechecking from TypeScript or
+
+```
+yarn build
+```
 
 ## Run examples
 
@@ -13,3 +19,5 @@ You can also run against entire folders and all the .md, .prompty files will be 
 ```sh
 yarn promptpex samples/**/*.prompty
 ```
+
+## Execute tests
