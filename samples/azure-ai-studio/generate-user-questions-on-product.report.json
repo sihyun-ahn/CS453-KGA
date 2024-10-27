@@ -24,6 +24,11 @@
     "The string value in the \"question\" field must be enclosed in single quotes.",
     "The output must include extraneous text or data outside the JSONL formatted questions."
   ],
+  "baseLineTests": [
+    "Test Case 1:\ncontext: \"An online electronics store\"\npersona: \"A professional photographer looking for a high-performance camera for wildlife photography.\"\nproduct: \"Canon EOS R5\"\ncount: 5",
+    "Test Case 2:\ncontext: \"During a summer sale at a local supermarket\"\npersona: \"A health-conscious individual searching for a new juicer to make fresh juices at home.\"\nproduct: \"Breville Juice Fountain Plus\"\ncount: 2",
+    "Test Case 3:\ncontext: \"Browsing a popular e-commerce website\"\npersona: \"A gamer interested in a high-end gaming chair to enhance their gaming experience.\"\nproduct: \"Secretlab Titan Evo 2022\"\ncount: 4"
+  ],
   "tests": [
     {
       "rule": "Each question must be relevant to the product specified by the variable `{{product}}`.",

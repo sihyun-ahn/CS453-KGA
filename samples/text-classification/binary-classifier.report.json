@@ -17,6 +17,11 @@
     "The explanation must be incoherent and illogically structured, avoiding insight into the reasoning behind the initial answer.",
     "The explanation must introduce information not present within the text excerpt or the question."
   ],
+  "baseLineTests": [
+    "evidence: \"The Supreme Court ruled in favor of the Affordable Care Act, ensuring that millions of Americans will continue to receive health insurance coverage. The decision was a 7-2 ruling, with the majority opinion stating that the plaintiffs did not have the legal standing to challenge the law.\"\nquestion: \"Does the Supreme Court ruling affect health insurance coverage?\"",
+    "evidence: \"Scientists have discovered a new species of bird in the Amazon rainforest. This bird has a unique call that sets it apart from other species in the region. The discovery highlights the rich biodiversity of the Amazon and the importance of conservation efforts.\"\nquestion: \"What is unique about the new bird species discovered in the Amazon rainforest?\"",
+    "evidence: \"The city council has approved a new ordinance that will increase the minimum wage to $15 per hour over the next three years. This change is expected to benefit thousands of low-income workers and their families. The ordinance will be implemented in phases, with the first increase taking effect next year.\"\nquestion: \"Is the new city ordinance aimed at increasing the minimum wage?\""
+  ],
   "tests": [
     {
       "rule": "The response must start a new paragraph after the initial \"Yes\" or \"No\" answer.",

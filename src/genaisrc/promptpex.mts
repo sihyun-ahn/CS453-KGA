@@ -310,6 +310,15 @@ function parseTests(tests: string): PromptPexTest[] {
   return tests ? (CSV.parse(tests, { delimiter: "," }) as PromptPexTest[]) : [];
 }
 
+function parseBaselineTests(tests: string) {
+  return tests
+    ? tests
+        .split(/\s*===\s*/g)
+        .map((l) => l.trim())
+        .filter((l) => !!l)
+    : [];
+}
+
 export async function generateJSONReport(files: PromptPexContext) {
   const prompt = files.prompt.content;
   const inputSpec = files.inputSpec.content;
@@ -317,6 +326,7 @@ export async function generateJSONReport(files: PromptPexContext) {
   const inverseRules = parseRules(files.inverseRules.content);
   const allRules = [...rules, ...inverseRules];
   const csvTests = parseTests(files.tests.content);
+  const baseLineTests = parseBaselineTests(files.baselineTests.content);
   if (files.tests.content && !csvTests.length)
     console.warn(`failed to parse tests in ${files.tests.filename}`);
 
@@ -337,6 +347,7 @@ export async function generateJSONReport(files: PromptPexContext) {
     inputSpec,
     rules,
     inverseRules,
+    baseLineTests,
     tests,
   };
 }

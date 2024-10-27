@@ -21,6 +21,11 @@
     "The \"explanation\" should not be relevant to the provided question, answer, and ground truth.",
     "```"
   ],
+  "baseLineTests": [
+    "question: \"What is the capital of Germany?\"\nanswer: \"Berlin\"\nstatement: \"Berlin is the capital of Germany\"",
+    "question: \"Who wrote 'Pride and Prejudice'?\"\nanswer: \"Jane Austen\"\nstatement: \"Jane Austen wrote 'Pride and Prejudice'\"",
+    "question: \"What is the chemical symbol for water?\"\nanswer: \"H2O\"\nstatement: \"The chemical symbol for water is H2O\""
+  ],
   "tests": [
     {
       "rule": "The score value in the output JSON should be a valid integer represented as a string.",

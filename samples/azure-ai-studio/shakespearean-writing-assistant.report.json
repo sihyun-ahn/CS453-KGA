@@ -15,6 +15,11 @@
     "The response may include casual and informal language.",
     "The message should remain unclear and ambiguous when using any style."
   ],
+  "baseLineTests": [
+    "name: 'Invitation Decline'\ninvitation_type: 'Dinner'\nreason_for_decline: 'Attending a prior engagement'\nadditional_details: 'Express sincere regret and apology'",
+    "name: 'Invitation Decline'\ninvitation_type: 'Banquet Dinner'\nreason_for_decline: 'Illness'\nadditional_details: 'Express hope to meet soon and well-wishing'",
+    "name: 'Invitation Decline'\ninvitation_type: 'Dinner Gathering'\nreason_for_decline: 'Traveling afar'\nadditional_details: 'Express gratitude for the invitation and fond farewell'"
+  ],
   "tests": [
     {
       "rule": "The response must include archaic words such as \"thou\" and \"hath.\"",

@@ -11,6 +11,11 @@
     "The output must not be labeled with the word \"Sentiment:\" followed by the classification.",
     "The classification must be a sentence that does not denote the sentiment category."
   ],
+  "baseLineTests": [
+    "Text: \"I am extremely happy with the excellent service provided. Thank you!\"",
+    "Text: \"The product is okay, but it could be better.\"",
+    "Text: \"I am very disappointed with the quality of the item. It broke within a week.\""
+  ],
   "tests": [
     {
       "rule": "The output must be labeled with the word \"Sentiment:\" followed by the classification.",
