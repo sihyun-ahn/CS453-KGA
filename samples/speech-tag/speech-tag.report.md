@@ -44,41 +44,48 @@ user:
 ### [rules.txt](./speech-tag.rules.txt)
 
 `````txt
-The output must be a single part of speech tag from the provided list of tags.
-The output must be one of the following tags: CC, CD, DT, EX, FW, IN, JJ, JJR, JJS, LS, MD, NN, NNS, NNP, NNPS, PDT, POS, PRP, PRP$, RB, RBR, RBS, RP, SYM, TO, UH, VB, VBD, VBG, VBN, VBP, VBZ, WDT, WP, WP$, WRB.
-If the word cannot be tagged with any of the listed tags, the output must be "Unknown."
-If the task is impossible to complete, the output must be "CantAnswer."
-The output must not contain any additional text or formatting other than the tag or specified responses.
-`````
-
-
-### [inverse_rules.txt](./speech-tag.inverse_rules.txt)
-
-`````txt
-The output must not be a part-of-speech tag from the provided list.
-If the word matches one of the listed tags, return any tag except that specific tag.
-If the word cannot be tagged using the provided list, the output must not be "Unknown."
-If it is not possible to determine the part of speech for the word, the output must not be "CantAnswer."
-The output must contain additional information or explanation beyond the tag itself.
+The output must be a single part of speech tag from the provided list.
+If the word can be tagged with one of the listed part of speech tags, the output must be that specific tag.
+If the word cannot be tagged with any of the listed part of speech tags, the output must be "Unknown".
+If it is not possible to determine the part of speech tag for the word, the output must be "CantAnswer".
 `````
 
 
 ### [input_spec.txt](./speech-tag.input_spec.txt)
 
 `````txt
-A sentence must be provided as input.  
-A word contained within the sentence must also be provided separately.
+The input must be a sentence followed by a semicolon and a word from that sentence. The sentence should be a complete string of words, containing the specified word. The word must be exactly one word from the sentence provided.
 `````
 
 
 ### [baseline_tests.txt](./speech-tag.baseline_tests.txt)
 
 `````txt
-sentence: "She sells sea shells by the sea shore."; word: "sells"
-===
-sentence: "After the rain stopped, the rainbow appeared in the sky."; word: "rainbow"
-===
-sentence: "Can you pass the salt, please?"; word: "pass"
+sentence: "The quick brown fox jumps over the lazy dog."; word: "The"  
+===  
+sentence: "She sells sea shells by the sea shore."; word: "sells"  
+===  
+sentence: "He is running fast."; word: "running"  
+===  
+sentence: "Alice and Bob went to the market."; word: "and"  
+===  
+sentence: "Cats are great pets and companions."; word: "Cats"  
+===  
+sentence: "Yesterday, it rained heavily."; word: "Yesterday"  
+===  
+sentence: "If it rains, we will cancel the picnic."; word: "If"  
+===  
+sentence: "The Eiffel Tower is in Paris."; word: "Eiffel"  
+===  
+sentence: "I have three apples."; word: "three"  
+===  
+sentence: "This is an interesting book."; word: "interesting"  
+===  
+sentence: "However, the results were unexpected."; word: "However"  
+===  
+sentence: "Do you like chocolate or vanilla?"; word: "or"  
+===  
+sentence: "Sam bought a new pair of shoes."; word: "pair"
 `````
 
 
@@ -86,16 +93,16 @@ sentence: "Can you pass the salt, please?"; word: "pass"
 
 `````csv
 Rule ID, Test ID, Test Input, Expected Output, Reasoning
-1, 1, "sentence: I will book the flight.; word: book", "VB", "Tests correct tagging for a verb in context, expecting verb form 'to book'."
-1, 2, "sentence: The book is on the table.; word: book", "NN", "Tests correct tagging for a noun in context, expecting noun form 'book'."
-1, 3, "sentence: Please book a slot.; word: book", "VB", "Confirms verb tagging when 'book' is used in an imperative sentence."
-2, 1, "sentence: She has a can.; word: can", "NN", "Tests correct tagging for a noun 'can', distinct from modal usage."
-2, 2, "sentence: I can swim.; word: can", "MD", "Confirms modal tagging when 'can' is used as a modal verb."
-2, 3, "sentence: Can you help me?; word: can", "MD", "Validates modal tagging in a question context."
-3, 1, "sentence: The zxy is rare.; word: zxy", "Unknown", "Tests handling of unknown words, ensuring 'Unknown' is returned."
-3, 2, "sentence: The tree is tall.; word: tree", "NN", "Confirms correct noun tagging for a known word."
-3, 3, "sentence: The qwerty is broken.; word: qwerty", "Unknown", "Checks response for non-dictionary words, expecting 'Unknown'."
-4, 1, "sentence: Her favorite color is blue.; word: color", "NN", "Ensures noun 'color' is tagged correctly."
-4, 2, "sentence: He runs fast.; word: fast", "RB", "Verifies adverb tagging for 'fast' in this context."
-4, 3, "sentence: It was fast.; word: fast", "JJ", "Confirms adjective tagging for 'fast' when used to describe a noun."
+1, 1, "The cat jumped over the moon; cat", "NN", "Tests that a common noun is correctly tagged with an available part of speech tag."
+1, 2, "They quickly ran to the store; ran", "VBD", "Ensures a past tense verb is appropriately tagged, verifying correct past tense recognition."
+1, 3, "He is the best among us; best", "JJS", "Confirms superlative adjectives are tagged correctly, covering adjective comparison scenarios."
+2, 1, "Zebrafinches are colorful birds; Zebrafinches", "NNPS", "Validates that proper plural nouns are correctly tagged when a suitable tag exists."
+2, 2, "Quantum physics is fascinating; Quantum", "JJ", "Checks if proper adjectives are identified and tagged even when originating from nouns."
+2, 3, "She is a musician; musician", "NN", "Ensures common singular nouns are tagged correctly, particularly in predicate nominative use cases."
+3, 1, "He spoke using wibble words; wibble", "Unknown", "Tests how the system handles unknown words that do not correspond to any listed part of speech tag."
+3, 2, "The proprietary term is 'xylophonize'; xylophonize", "Unknown", "Challenges the software's ability to identify genuinely untaggable and unique invented terms."
+3, 3, "She says blorpt; blorpt", "Unknown", "Checks the handling of nonsensical words that lack a clear part of speech tag."
+4, 1, "The book was signed by someone; someone", "CantAnswer", "Tests the system's handling of ambiguous pronouns where tagging might not be feasible."
+4, 2, "I will be back; be", "CantAnswer", "Ensures verbs with multiple possible roles are correctly identified where tagging is uncertain."
+4, 3, "He could play; could", "CantAnswer", "Verifies handling when the auxiliary verb can have multiple meanings, making tagging challenging."
 `````

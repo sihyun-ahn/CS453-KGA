@@ -1,5 +1,4 @@
-- The output must not be a part-of-speech tag from the provided list.
-- If the word matches one of the listed tags, return any tag except that specific tag.
-- If the word cannot be tagged using the provided list, the output must not be "Unknown."
-- If it is not possible to determine the part of speech for the word, the output must not be "CantAnswer."
-- The output must contain additional information or explanation beyond the tag itself.
+The output must consist of multiple part of speech tags from the provided list.
+If the word cannot be tagged with one of the listed part of speech tags, the output must not be that specific tag.
+If the word can be tagged with any of the listed part of speech tags, the output must not be "Unknown".
+If it is possible to determine the part of speech tag for the word, the output must not be "CantAnswer".
