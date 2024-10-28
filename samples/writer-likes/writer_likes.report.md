@@ -1,4 +1,4 @@
-## [writer_likes](samples/writer-likes/writer_likes.prompty) ([json](./writer_likes.report.json))
+## writer_likes ([json](./writer_likes.report.json))
 
 
 ### [prompty](./writer_likes.prompty)

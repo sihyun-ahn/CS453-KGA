@@ -290,7 +290,7 @@ export async function executeTest(
   const testf = path.join(
     files.dir,
     files.basename,
-    moptions.model.replace(/^[^:]+:/g, "").toLowerCase(),
+    moptions.model.replace(/^[^:]+:/g, "").replace(/:/g, "_").toLowerCase(),
     `${testid}.json`
   );
 
@@ -405,7 +405,7 @@ export async function generateJSONReport(files: PromptPexContext) {
 
 export async function generateMarkdownReport(files: PromptPexContext) {
   const res: string[] = [
-    `## [${files.basename}](${files.prompt.filename}) ([json](./${files.basename}.report.json))`,
+    `## ${files.basename} ([json](./${files.basename}.report.json))`,
     ``,
   ];
   const appendFile = (file: WorkspaceFile) => {

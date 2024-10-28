@@ -10,9 +10,7 @@
     "gcm": "npx --yes genaiscript run gcm",
     "prd": "npx --yes genaiscript run prd -prd",
     "promptpex": "npx --yes genaiscript run promptpex",
-    "build": "npx --yes genaiscript scripts compile"
-  },
-  "dependencies": {
-    "yarn": "^1.22.22"
+    "build": "npx --yes genaiscript scripts compile",
+    "exec:ollama": "npx --yes genaiscript run promptpex_execute_tests --vars models=ollama:phi3.5;ollama:qwen2.5-coder:latest;ollama:llama3.2:3b --vars concurrency=1 --model ollama:phi3.5"
   }
 }
