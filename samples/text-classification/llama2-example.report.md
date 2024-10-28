@@ -156,3 +156,26 @@ text: "Olympics postponed due to global pandemic concerns"
 |6|1|Tech giant unveils ambitious plan: What does it mean for consumers?|Business \- Focus on consumer impact|Tests if additional commentary is incorrectly included\.|llama3\.2:3b|Based on the provided categories and examples, I would classify this news article as:<br><br>\*\*Sci/Tech\*\*<br><br>Reasoning:<br>The keyword "unveils" is often associated with technology and innovation, suggesting a new product or service announcement\. The focus on a "tech giant" further confirms that this story falls under the Sci/Tech category\.<br><br>Let me know if you'd like me to clarify or provide more context\!|failure|
 |6|2|World Cup 2022: The underdogs and their journey|Sports \- Analysis included|Ensures no extra explanation is added to the category name\.|llama3\.2:3b|Based on the category options provided, I would classify this news article as:<br><br>\- Sports|failure|
 |6|3|New policy changes: A global perspective with expert insights|World \- Expert insights|Verifies that no additional information follows the category 'World'\.|llama3\.2:3b|I wouldn't categorize this as any of the provided examples \(World, Sports, Business, Sci/Tech\)\. These categories are too specific and don't seem to fit the given text\.<br><br>A more suitable category for this news article would be:<br><br>\* News/Politics<br><br>The text seems to be introducing a new policy change with expert insights from a global perspective\.|failure|
+
+### [test_evals.csv](./llama2-example.test_evals.csv)
+
+|Rule ID|Test ID|Test Input|Expected Output|Reasoning|evaluation|
+|-|-|-|-|-|-|
+|1|1|NASA announces new mission to explore Jupiter's moons|Sci/Tech|This test evaluates if the text is correctly classified as Sci/Tech due to the scientific context\.|Sci/Tech|
+|1|2|Olympics 2024: Countries gear up for the global sporting event|Sports|This input is a typical sports\-related article, testing if it is classified as Sports\.|Sports|
+|1|3|Global markets react to trade tensions between US and China|Business|This business\-related input assesses the software's ability to classify economic news\.|Business|
+|2|1|Breakthrough in renewable energy as solar efficiency increases|Sci/Tech|Tests if the output consists only of the single category 'Sci/Tech'\.|Sci/Tech|
+|2|2|Premier League results: Chelsea defeats Arsenal|Sports|Ensures that only 'Sports' is returned for a sports\-related article\.|Sports|
+|2|3|World leaders discuss climate action at summit|World|Checks if the single category 'World' is returned for global news\.|World|
+|3|1|Innovations in AI explained: How technology is changing industries|Sci/Tech|Verifies that no additional commentary is included in the output beyond 'Sci/Tech'\.|Sci/Tech|
+|3|2|Economic outlook for 2023: Experts weigh in|Business|Ensures the output is constrained to 'Business' with no extra commentary\.|Business|
+|3|3|Champions League: Analysis of the quarter\-final matchups|Sports|Confirms that only 'Sports' is returned, with no explanation or commentary\.|Sports|
+|4|1|Ancient ruins discovered in unexplored regions|Other|Tests if the software can classify an input into a category not listed\.|World|
+|4|2|The rising trend of veganism: A cultural shift|Other|Ensures classification into a different category, assessing handling of niche topics\.|World|
+|4|3|Exploring the mysteries of the deep ocean|Other|Evaluates classification beyond the standard categories for unique topics\.|Sci/Tech|
+|5|1|The impact of AI on modern warfare: A dual perspective|Sci/Tech, Other|Tests if the output includes more than one category by including 'Other'\.|Sci/Tech|
+|5|2|Merging art and technology: The future of creativity|Sci/Tech, Other|Challenges the classification system by requiring multiple categories\.|Sci/Tech|
+|5|3|Economics and ethics: Balancing profit and social responsibility|Business, Other|Assesses if the software can output multiple categories with 'Other'\.|Business|
+|6|1|Tech giant unveils ambitious plan: What does it mean for consumers?|Business \- Focus on consumer impact|Tests if additional commentary is incorrectly included\.|Sci/Tech|
+|6|2|World Cup 2022: The underdogs and their journey|Sports \- Analysis included|Ensures no extra explanation is added to the category name\.|Sports|
+|6|3|New policy changes: A global perspective with expert insights|World \- Expert insights|Verifies that no additional information follows the category 'World'\.|World|

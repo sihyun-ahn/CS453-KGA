@@ -27,8 +27,7 @@ export interface PromptPexTest {
 
 export interface PromptPexTestResult extends PromptPexTest {
   model: string;
-  actualOutput: string;
-  status: "success" | "failure" | "invalid-inputs";
+  output: string;
   error?: string;
 }
 
@@ -380,8 +379,7 @@ export async function executeTest(
     return {
       ...test,
       model: moptions.model,
-      actualOutput: "invalid test input",
-      status: "invalid-inputs",
+      output: "invalid test input",
       error: "invalid test input",
     } satisfies PromptPexTestResult;
 
@@ -401,8 +399,7 @@ export async function executeTest(
   const testRes = {
     ...test,
     model: res.model,
-    actualOutput: actualOutput,
-    status: actualOutput === expectedOutput ? "success" : "failure",
+    output: actualOutput,
     error: res.error?.message,
   } satisfies PromptPexTestResult;
 
