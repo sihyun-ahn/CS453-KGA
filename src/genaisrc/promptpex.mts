@@ -290,37 +290,47 @@ export async function executeTests(
   return CSV.stringify(testResults, { header: true });
 }
 
-export async function executeTest(
-  files: Pick<PromptPexContext, "prompt" | "dir" | "basename">,
-  test: PromptPexTest,
-  options?: { model?: ModelType; force?: boolean }
-) {
-  const { force } = options || {};
-  const inputs = parseInputs(files.prompt);
-  const inputKeys = Object.keys(inputs);
-  const moptions = {
-    ...modelOptions(),
-  };
-  if (options?.model) moptions.model = options.model;
+export async function checkTestOutput(
+  files: PromptPexContext,
+  test: PromptPexTest
+) {}
 
+async function resolveTestId(
+  files: Pick<PromptPexContext, "prompt">,
+  test: PromptPexTest
+) {
   const context = MD.content(files.prompt.content);
   const testid = await parsers.hash(context + test["Test Input"], {
     length: 7,
   });
-  const testf = path.join(
+  return testid;
+}
+
+async function resolveTestPath(
+  files: Pick<PromptPexContext, "prompt" | "dir" | "basename">,
+  test: PromptPexTest,
+  options: { model: string }
+) {
+  const id = await resolveTestId(files, test);
+  const filename = path.join(
     files.dir,
     files.basename,
-    moptions.model
+    options.model
       .replace(/^[^:]+:/g, "")
       .replace(/:/g, "_")
       .toLowerCase(),
-    `${testid}.json`
+    `${id}.json`
   );
+  const file = await workspace.readText(filename);
+  return { id, filename, file };
+}
 
-  const cached = await workspace.readText(testf);
-  if (cached.content && !force) return JSON.parse(cached.content);
-
-  //const ruleId = test["Rule ID"];
+function resolvePromptArgs(
+  files: Pick<PromptPexContext, "prompt">,
+  test: PromptPexTest
+) {
+  const inputs = parseInputs(files.prompt);
+  const inputKeys = Object.keys(inputs);
   const expectedOutput = test["Expected Output"];
   const testInput = test["Test Input"];
   const args: Record<string, any> = {};
@@ -330,19 +340,43 @@ export async function executeTest(
       parsers.INI(testInput) ||
       parsers.YAML(testInput) ||
       parsers.JSON5(testInput);
-    if (!testInputArgs) {
-      return {
-        ...test,
-        model: moptions.model,
-        actualOutput: "invalid test input",
-        status: "invalid-inputs",
-        error: "invalid test input",
-      } satisfies PromptPexTestResult;
-    }
+    if (!testInputArgs) return undefined;
     for (const key of inputKeys) args[key] = testInputArgs[key];
   }
+  return { inputs, args, testInput, expectedOutput };
+}
+
+export async function executeTest(
+  files: Pick<PromptPexContext, "prompt" | "dir" | "basename">,
+  test: PromptPexTest,
+  options?: { model?: ModelType; force?: boolean }
+) {
+  const { force } = options || {};
+  const moptions = {
+    ...modelOptions(),
+  };
+  if (options?.model) moptions.model = options.model;
+  const { filename: testf, file: cached } = await resolveTestPath(files, test, {
+    model: moptions.model,
+  });
+  if (cached.content && !force) return JSON.parse(cached.content);
+
+  const { inputs, args, testInput, expectedOutput } = resolvePromptArgs(
+    files,
+    test
+  );
+  if (!args)
+    return {
+      ...test,
+      model: moptions.model,
+      actualOutput: "invalid test input",
+      status: "invalid-inputs",
+      error: "invalid test input",
+    } satisfies PromptPexTestResult;
+
   const res = await runPrompt(
     (ctx) => {
+      // removes frontmatter
       ctx.importTemplate(files.prompt.filename, args);
       if (!inputs.length) ctx.writeText(testInput);
     },

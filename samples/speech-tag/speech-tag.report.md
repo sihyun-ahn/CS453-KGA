@@ -44,18 +44,17 @@ user:
 ### [intent.txt](./speech-tag.intent.txt)
 
 `````txt
-Determine the part of speech for a given word.
+Determine the part of speech for a given word in a sentence and return its tag.
 `````
 
 
 ### [input_spec.txt](./speech-tag.input_spec.txt)
 
 `````txt
-The input consists of a sentence and a word separated by a semicolon.
-The sentence can contain any combination of words, punctuation, and spaces.
-The word must be a valid word that appears in the provided sentence.
-The sentence can be of any length as long as it contains the specified word.
-The word should be a single, contiguous sequence of characters without spaces.
+The input must be a sentence followed by a semicolon and a word.  
+The sentence can contain any valid sequence of words in a natural language format.  
+The word must be a single, valid word contained within the sentence.  
+The sentence and word must be separated by a semicolon without any additional characters or spaces.
 `````
 
 
@@ -63,50 +62,64 @@ The word should be a single, contiguous sequence of characters without spaces.
 
 `````txt
 The output must be a single part of speech tag from the provided list.
-If the word can be tagged with one of the listed part of speech tags, the output must be that specific tag.
-If the word cannot be tagged with any of the listed part of speech tags, the output must be "Unknown".
-If it is not possible to determine the part of speech tag for the word, the output must be "CantAnswer".
+The output must only contain the part of speech tag and nothing else.
+If the word cannot be tagged with one of the provided tags, the output must be "Unknown".
+If the word cannot be tagged and the reason is unclear, the output must be "CantAnswer".
+The part of speech tag must be in uppercase letters as listed.
+The output must not include multiple tags or any explanatory text.
 `````
 
 
 ### [inverse_rules.txt](./speech-tag.inverse_rules.txt)
 
 `````txt
-The output must consist of multiple part of speech tags from the provided list.
-If the word cannot be tagged with one of the listed part of speech tags, the output must not be that specific tag.
-If the word can be tagged with any of the listed part of speech tags, the output must not be "Unknown".
-If it is possible to determine the part of speech tag for the word, the output must not be "CantAnswer".
+The output can contain multiple parts of speech tags from outside the provided list.
+The output may include additional information aside from the part of speech tag.
+If the word cannot be tagged with one of the provided tags, the output must be something other than "Unknown".
+If the word cannot be tagged and the reason is unclear, the output should not be "CantAnswer".
+The part of speech tag can be in lowercase letters or differently formatted.
+The output can include multiple tags or explanatory text.
 `````
 
 
 ### [baseline_tests.txt](./speech-tag.baseline_tests.txt)
 
 `````txt
-sentence: "The quick brown fox jumps over the lazy dog."; word: "The"  
-===  
-sentence: "She sells sea shells by the sea shore."; word: "sells"  
-===  
-sentence: "He is running fast."; word: "running"  
-===  
-sentence: "Alice and Bob went to the market."; word: "and"  
-===  
-sentence: "Cats are great pets and companions."; word: "Cats"  
-===  
-sentence: "Yesterday, it rained heavily."; word: "Yesterday"  
-===  
-sentence: "If it rains, we will cancel the picnic."; word: "If"  
-===  
-sentence: "The Eiffel Tower is in Paris."; word: "Eiffel"  
-===  
-sentence: "I have three apples."; word: "three"  
-===  
-sentence: "This is an interesting book."; word: "interesting"  
-===  
-sentence: "However, the results were unexpected."; word: "However"  
-===  
-sentence: "Do you like chocolate or vanilla?"; word: "or"  
-===  
-sentence: "Sam bought a new pair of shoes."; word: "pair"
+sentence: "The quick brown fox jumps over the lazy dog." ; word: "fox"
+===
+sentence: "She sells sea shells by the sea shore." ; word: "sells"
+===
+sentence: "He will finish the project tomorrow." ; word: "will"
+===
+sentence: "An apple a day keeps the doctor away." ; word: "apple"
+===
+sentence: "There are many solutions to the problem." ; word: "There"
+===
+sentence: "I can hear the music clearly." ; word: "clearly"
+===
+sentence: "This is the biggest challenge I've faced." ; word: "biggest"
+===
+sentence: "If it rains, we will cancel the trip." ; word: "rains"
+===
+sentence: "She quickly ran to the store." ; word: "quickly"
+===
+sentence: "Despite the warnings, he went ahead." ; word: "Despite"
+===
+sentence: "Look at those beautiful flowers." ; word: "flowers"
+===
+sentence: "John likes to read books." ; word: "John"
+===
+sentence: "Wow, that's an amazing view!" ; word: "Wow"
+===
+sentence: "The committee approved the proposal unanimously." ; word: "committee"
+===
+sentence: "She wondered why he left so early." ; word: "why"
+===
+sentence: "Everyone except Tom was present." ; word: "except"
+===
+sentence: "He has a unique perspective on the issue." ; word: "unique"
+===
+sentence: "They found three missing keys." ; word: "three"
 `````
 
 
@@ -114,24 +127,24 @@ sentence: "Sam bought a new pair of shoes."; word: "pair"
 
 |Rule ID|Test ID|Test Input|Expected Output|Reasoning|
 |-|-|-|-|-|
-|1|1|The quick brown fox jumps over the lazy dog; fox|NN|Tests if the software correctly identifies 'fox' as a noun, which adheres to the list of part of speech tags\.|
-|1|2|She sings beautifully; sings|VBZ|Evaluates if the software can tag 'sings' as a verb in the present tense, adhering to the list\.|
-|1|3|They are the winners in the end; winners|NNS|Checks if 'winners' is identified as a plural noun, which is part of the specified tags\.|
-|2|1|Yesterday was a sunny day; was|VBD|Examines if 'was' is tagged as a past tense verb, confirming adherence to the specified list of tags\.|
-|2|2|The team played very well; played|VBD|Assesses whether 'played' is tagged as a past tense verb, following the part of speech tags list\.|
-|2|3|Can you help me?; Can|MD|Verifies if 'Can' is recognized as a modal verb, supporting the rule that valid tags should be applied\.|
-|3|1|She went to the store; store|NN|Ensures that 'store' is tagged as a noun, which fits within the provided part of speech tags, avoiding 'Unknown'\.|
-|3|2|This is an excellent opportunity; opportunity|NN|Verifies that 'opportunity' is recognized as a noun, avoiding an 'Unknown' response\.|
-|3|3|Quickly moving; Quickly|RB|Checks if 'Quickly' is tagged as an adverb, avoiding 'Unknown' by using a valid tag\.|
-|4|1|The sun shines bright; shines|VBZ|Ensures that 'shines' is tagged correctly, matching the list, and not producing multiple tags\.|
-|4|2|Her book is on the table; book|NN|Confirms that 'book' is tagged singularly as a noun, in line with the tag list, and not creating multiple tags\.|
-|4|3|Come here now; here|RB|Tests that 'here' is tagged as an adverb, ensuring a single tag from the list and not multiple tags\.|
-|5|1|The man laughed loudly; laughed|VBD|Confirms that 'laughed' does not receive an irrelevant tag, adhering strictly to correct tagging\.|
-|5|2|She is going to school; school|NN|Verifies that 'school' is tagged precisely as a noun, ensuring no incorrect tags are assigned\.|
-|5|3|He often travels; travels|VBZ|Checks that 'travels' is tagged as a verb, ensuring no incorrect or unrelated tags\.|
-|6|1|A sudden change; change|NN|Ensures 'change' is tagged as a noun, not 'Unknown', validating proper identification\.|
-|6|2|He will be there; will|MD|Tests if 'will' is correctly tagged as a modal and avoids 'Unknown', confirming proper recognition\.|
-|6|3|She can sing; sing|VB|Checks that 'sing' is tagged as a verb and not 'Unknown', supporting accurate identification\.|
+|1|1|The quick brown fox jumps over the lazy dog;fox|NN|Tests noun identification using a classic sentence\. Valid input as per specification\.|
+|1|2|She swiftly ran towards the finish line;swiftly|RB|Tests adverb identification\. The word is clearly an adverb, ensuring adherence to part of speech tagging rules\.|
+|1|3|Every cloud has a silver lining;Every|DT|Tests determiner identification\. Valid sentence and word separation with expected determiner tag\.|
+|2|1|I will go to the park later;will|MD|Tests for modal verb identification, confirming expected output format compliance\.|
+|2|2|Anna and Mike went to the store;and|CC|Tests coordinating conjunction identification, checking the concise output requirement\.|
+|2|3|Quickly finish your homework;Quickly|RB|Tests adverb identification with a straightforward adverb, ensuring correct tag\.|
+|3|1|Xyzzy is not a real word;Xyzzy|Unknown|Tests handling of nonsensical word, expecting 'Unknown'\. Valid input format\.|
+|3|2|Her paintings were in vivid colors;vivid|JJ|Tests adjective recognition, ensuring 'Unknown' is correctly not triggered\.|
+|3|3|He felt a sense of deja vu;deja|FW|Tests foreign word recognition, ensuring correct tagging of foreign words\.|
+|4|1|Blorft is the best word ever;Blorft|CantAnswer|Tests unclear tagging situation with a made\-up word, expecting 'CantAnswer'\.|
+|4|2|The cat sat on the mat;mat|NN|Tests clear noun identification, ensuring 'CantAnswer' is not triggered incorrectly\.|
+|4|3|She can dance very well;can|MD|Tests tagging of modal verb, ensuring clear cases are tagged correctly without 'CantAnswer'\.|
+|5|1|An apple a day keeps the doctor away;An|DT|Tests determiner recognition, ensuring uppercase tag output\.|
+|5|2|Tomorrow will be a brighter day;Tomorrow|NN|Tests correct noun tagging with uppercase output\.|
+|5|3|He looked at the beautiful sunset;beautiful|JJ|Tests adjective tag adherence to capitalization rule\.|
+|6|1|Eat, sleep, repeat;repeat|VB|Tests verb identification, ensuring no additional text accompanies the tag\.|
+|6|2|She sang a song;She|PRP|Tests pronoun identification, confirming singular tag output\.|
+|6|3|They were walking in the park;in|IN|Tests preposition identification in a clear context, ensuring correct tag without extra text\.|
 
 ### [test_results.csv](./speech-tag.test_results.csv)
 
