@@ -9,7 +9,14 @@
     "The part of speech tag must be in uppercase letters as listed.",
     "The output must not include multiple tags or any explanatory text."
   ],
-  "inverseRules": [],
+  "inverseRules": [
+    "The output can contain multiple parts of speech tags from outside the provided list.",
+    "The output may include additional information aside from the part of speech tag.",
+    "If the word cannot be tagged with one of the provided tags, the output must be something other than \"Unknown\".",
+    "If the word cannot be tagged and the reason is unclear, the output should not be \"CantAnswer\".",
+    "The part of speech tag can be in lowercase letters or differently formatted.",
+    "The output can include multiple tags or explanatory text."
+  ],
   "baseLineTests": [
     "sentence: \"The quick brown fox jumps over the lazy dog.\" ; word: \"fox\"",
     "sentence: \"She sells sea shells by the sea shore.\" ; word: \"sells\"",
@@ -122,18 +129,21 @@
       "reasoning": "Tests adjective tag adherence to capitalization rule."
     },
     {
+      "rule": "The output can contain multiple parts of speech tags from outside the provided list.",
       "inverse": true,
       "input": "Eat, sleep, repeat;repeat",
       "expected": "VB",
       "reasoning": "Tests verb identification, ensuring no additional text accompanies the tag."
     },
     {
+      "rule": "The output can contain multiple parts of speech tags from outside the provided list.",
       "inverse": true,
       "input": "She sang a song;She",
       "expected": "PRP",
       "reasoning": "Tests pronoun identification, confirming singular tag output."
     },
     {
+      "rule": "The output can contain multiple parts of speech tags from outside the provided list.",
       "inverse": true,
       "input": "They were walking in the park;in",
       "expected": "IN",

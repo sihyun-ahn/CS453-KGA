@@ -41,6 +41,7 @@ for (const files of contexts) {
       models,
       concurrency,
     });
+    files.testResults.content = testResults;
     await workspace.writeText(files.testResults.filename, testResults);
   } catch (e) {
     console.error(`${files.basename}: ${e}`);
