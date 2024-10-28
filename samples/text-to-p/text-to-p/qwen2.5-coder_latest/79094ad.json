@@ -1,0 +1,10 @@
+{
+  "Rule ID": "3",
+  "Test ID": "2",
+  "Test Input": "Books are educational. Movies entertain. Music soothes.",
+  "Expected Output": "<p>Books are educational. <strong>Books</strong> are <em>educational</em>.</p><p>Movies entertain. <strong>Movies</strong> <em>entertain</em>.</p><p>Music soothes. <strong>Music</strong> <em>soothes</em>.</p>",
+  "Reasoning": "Checks for a single <strong> tag in each <p>.",
+  "model": "qwen2.5-coder:latest",
+  "actualOutput": "Here is the paragraph formatted as HTML with individual sentences wrapped in `<p>` tags, each containing a `<strong>` tag and multiple `<em>` tags to emphasize key words and phrases:\n\n```html\n<p><strong>Books</strong> <em>are</em> educational.</p>\n<p><strong>Movies</strong> <em>entertain</em>.</p>\n<p><strong>Music</strong> <em>soothes</em>.</p>\n<p><strong>Books</strong> <em>are</em> educational.</p>\n<p><strong>Movies</strong> <em>entertain</em>.</p>\n<p><strong>Music</strong> <em>soothes</em>.</p>\n```",
+  "status": "failure"
+}

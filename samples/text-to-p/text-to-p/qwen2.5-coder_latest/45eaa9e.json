@@ -1,0 +1,10 @@
+{
+  "Rule ID": "6",
+  "Test ID": "1",
+  "Test Input": "The sun rises. The moon glows.",
+  "Expected Output": "<p>The sun rises. <strong>sun</strong> <em>rises</em>.</p><p>The moon glows. <strong>moon</strong> <em>glows</em>.</p>",
+  "Reasoning": "Tests for fewer than three <p> tags.",
+  "model": "qwen2.5-coder:latest",
+  "actualOutput": "```html\n<p><strong>The</strong> <em>sun</em> <strong>rises.</strong></p>\n<p><strong>The</strong> <em>moon</em> <strong>glows.</strong></p>\n<p><strong>The</strong> <em>sun</em> <strong>rises.</strong></p>\n<p><strong>The</strong> <em>moon</em> <strong>glows.</strong></p>\n```",
+  "status": "failure"
+}

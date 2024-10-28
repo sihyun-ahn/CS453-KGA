@@ -1,0 +1,10 @@
+{
+  "Rule ID": "3",
+  "Test ID": "1",
+  "Test Input": "The sky is clear. The grass is green. Flowers bloom.",
+  "Expected Output": "<p>The sky is clear. <strong>sky</strong> is <em>clear</em>.</p><p>The grass is green. <strong>grass</strong> is <em>green</em>.</p><p>Flowers bloom. <strong>Flowers</strong> <em>bloom</em>.</p>",
+  "Reasoning": "Tests for presence of <strong> tags in each <p>.",
+  "model": "qwen2.5-coder:latest",
+  "actualOutput": "```html\n<p><strong>The</strong> sky <em>is</em> clear.</p>\n<p><strong>The</strong> grass <em>is</em> green.</p>\n<p><strong>Flowers</strong> <em>bloom</em>.</p>\n```\n\n### Explanation:\n1. **Sentence 1: \"The sky is clear.\"**\n   - `<strong>` tag emphasizes \"the.\"\n   - `<em>` tag emphasizes \"sky\" and \"is.\"\n\n2. **Sentence 2: \"The grass is green.\"**\n   - `<strong>` tag emphasizes \"the.\"\n   - `<em>` tag emphasizes \"grass\" and \"is.\"\n\n3. **Sentence 3: \"Flowers bloom.\"**\n   - `<strong>` tag emphasizes \"flowers.\"\n   - `<em>` tag emphasizes \"bloom.\"\n\nThis formatting helps in distinguishing key elements within each sentence, making the text more readable and emphasizing important aspects.",
+  "status": "failure"
+}

@@ -32,14 +32,19 @@ const force = env.vars.force;
 const models = env.vars.models.split(/;/g).map((model) => model.trim());
 const concurrency = env.vars.concurrency;
 
-console.log(env.files)
 const contexts = await loadPromptContext();
-console.log(contexts)
 for (const files of contexts) {
-  // generate tests
-  const testResults = await executeTests(files, { force, models, concurrency });
-  await workspace.writeText(files.testResults.filename, testResults);
-
+  try {
+    // generate tests
+    const testResults = await executeTests(files, {
+      force,
+      models,
+      concurrency,
+    });
+    await workspace.writeText(files.testResults.filename, testResults);
+  } catch (e) {
+    console.error(`${files.basename}: ${e}`);
+  }
   // generate report
   await generateReports(files);
 }

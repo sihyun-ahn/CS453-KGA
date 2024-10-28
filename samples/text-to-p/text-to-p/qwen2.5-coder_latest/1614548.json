@@ -1,0 +1,10 @@
+{
+  "Rule ID": "4",
+  "Test ID": "1",
+  "Test Input": "The city never sleeps. Life is bustling. Dreams are made.",
+  "Expected Output": "<p>The city never sleeps. <strong>city</strong> never <em>sleeps</em>.</p><p>Life is bustling. <strong>Life</strong> is <em>bustling</em>.</p><p>Dreams are made. <strong>Dreams</strong> are <em>made</em>.</p>",
+  "Reasoning": "Tests for multiple <em> tags in each <p>.",
+  "model": "qwen2.5-coder:latest",
+  "actualOutput": "```html\n<p><strong>The city</strong> never <em>sleeps.</em></p>\n<p><strong>Life</strong> is <em>bustling.</em></p>\n<p><strong>Dreams</strong> are <em>made.</em></p>\n```",
+  "status": "failure"
+}

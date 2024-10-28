@@ -1,0 +1,10 @@
+{
+  "Rule ID": "5",
+  "Test ID": "1",
+  "Test Input": "Happiness is a choice. Joy is contagious. Love is powerful.",
+  "Expected Output": "<p>Happiness is a choice. <strong>Happiness</strong> is a <em>choice</em>.</p><p>Joy is contagious. <strong>Joy</strong> is <em>contagious</em>.</p><p>Love is powerful. <strong>Love</strong> is <em>powerful</em>.</p>",
+  "Reasoning": "Checks HTML formatting correctness.",
+  "model": "qwen2.5-coder:latest",
+  "actualOutput": "Sure! Here's the paragraph formatted as HTML with each sentence wrapped in `<p>` tags, and one `<strong>` tag and multiple `<em>` tags used to emphasize key words and phrases:\n\n```html\n<p><strong>Happiness</strong> is a <em>choice</em>. Joy is <em>contagious</em>. Love is <em>powerful</em>.</p>\n<p><strong>Happiness</strong> is a <em>choice</em>. Joy is <em>contagious</em>. Love is <em>powerful</em>.</p>\n<p><strong>Happiness</strong> is a <em>choice</em>. Joy is <em>contagious</em>. Love is <em>powerful</em>.</p>\n```\n\nThis ensures that each sentence is clearly separated and that the key concepts are emphasized.",
+  "status": "failure"
+}

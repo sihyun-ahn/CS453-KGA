@@ -1,0 +1,10 @@
+{
+  "Rule ID": "4",
+  "Test ID": "3",
+  "Test Input": "Art inspires. Science discovers. Literature enlightens.",
+  "Expected Output": "<p>Art inspires. <strong>Art</strong> <em>inspires</em>.</p><p>Science discovers. <strong>Science</strong> <em>discovers</em>.</p><p>Literature enlightens. <strong>Literature</strong> <em>enlightens</em>.</p>",
+  "Reasoning": "Validates presence of multiple <em> tags.",
+  "model": "phi3.5",
+  "actualOutput": "<p><strong>Art</strong> inspires.</p>\n<p><strong>Science</strong> discovers.</p>\n<p><strong>Literature</strong> <em>enlightens</em>.</p>\n<p><strong>Art</strong> inspires.</p>superscripts for emphasis, I apologize for the confusion. Here's how you can correctly format each sentence with HTML tags:\n\n```html\n<p><strong>Art</strong> <em>inspires</em>.</p>\n<p><strong>Science</strong> <em>discovers</em>.</p>\n<p><strong>Literature</strong> <em>enlightens</em>.</p>\n<p><strong>Art</strong> <em>inspires</em>.</p>\n```\nIn this corrected HTML, each sentence is wrapped within a `<p>` tag to denote paragraph structure. Key words such as \"Art,\" \"Science,\" and \"Literature\" are emphasized with the `<strong>` tag for additional importance or significance, while phrases like \"inspires\" and \"discovers/enlightens\" receive italic formatting through an `em` element to highlight their role within each sentence. Remember that in HTML, visual styling is often managed separately using CSS (Cascading Style Sheets), but for basic emphasis as requested without extra style sheets, these tags are appropriate and commonly used.",
+  "status": "failure"
+}

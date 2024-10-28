@@ -1,0 +1,10 @@
+{
+  "Rule ID": "2",
+  "Test ID": "3",
+  "Test Input": "World leaders discuss climate action at summit",
+  "Expected Output": "World",
+  "Reasoning": "Checks if the single category 'World' is returned for global news.",
+  "model": "phi3.5",
+  "actualOutput": "The given text can be categorized under \"World\": The topic of the sentence revolves around world leaders and a global issue (climate change). Thus it aligns with international events, making 'World' an appropriate category. Here is how you could classify this news article:\n\n```python\ndef classify_news(text):\n    if \"world\" in text or \"summit\", return \"World\"\n    elif any(keyword for keyword in [\"Sports\",\"Business\",\"Sci/Tech\"] if keyword in text): \n        # Here, we simply identify the presence of specific keywords. For more accurate results consider using full-fledged NLP techniques or libraries (like Llama2) mentioned in your source.\n            return corresponding category based on these key words  \n    else:\n      return \"Uncategorized\"       # Default for texts not falling into any of the given categories\n\nclassification = classify_news(\"World leaders discuss climate action at summit\")\nprint(f'The news article is categorised under {classification}.') \n```\nIn this case, when you run it with your input text: \"World leaders discuss climate change at summits\", the output would be 'World'.",
+  "status": "failure"
+}

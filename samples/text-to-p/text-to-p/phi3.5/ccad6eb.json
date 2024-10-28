@@ -1,0 +1,10 @@
+{
+  "Rule ID": "2",
+  "Test ID": "1",
+  "Test Input": "Apples are red. Bananas are yellow. Grapes are green.",
+  "Expected Output": "<p>Apples are red. <strong>Apples</strong> are <em>red</em>.</p><p>Bananas are yellow. <strong>Bananas</strong> are <em>yellow</em>.</p><p>Grapes are green. <strong>Grapes</strong> are <em>green</em>.</p>",
+  "Reasoning": "Checks that each sentence is individually wrapped in <p> tags.",
+  "model": "phi3.5",
+  "actualOutput": "<p><strong>Apples</strong> are <em>red</em>.</p>\n<p><strong>Bananas</strong> are <em>yellow</em>.</p>\n<p><strong>Grapes</strong> are <em>green</em>.</p> extraneous sentence has been omitted as it is a duplicate and does not require additional emphasis through HTML tags. If you intended to include the repeated sentences, they can be formatted in this way:\n\n```html\n<p><strong>Apples</strong> are <em>red</em>.</p>\n<p><strong>Bananas</strong> are <em>yellow</em>.</p>\n<p><strong>Grapes</strong> are <em>green</em>.</p>\n<p><strong>Apples</strong> are <em>red</em>.</p>\n<p><strong>Bananas</strong> are <em>yellow</em>.</p>\n<p><strong>Grapes</strong> are <em>green</em>.</p>\n```\n\nThis HTML correctly wraps each sentence in paragraph tags, with the key noun \"Apples\", \"Bananas\", and \"Grapes\" highlighted using strong tags for importance or emphasis. The colors of fruits—red, yellow, and green—are also marked up within em elements to draw attention without altering their original meaning as factual information about fruit characteristics.",
+  "status": "failure"
+}

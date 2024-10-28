@@ -1,0 +1,10 @@
+{
+  "Rule ID": "6",
+  "Test ID": "2",
+  "Test Input": "Birds sing. Dogs bark.",
+  "Expected Output": "<p>Birds sing. <strong>Birds</strong> <em>sing</em>.</p><p>Dogs bark. <strong>Dogs</strong> <em>bark</em>.</p>",
+  "Reasoning": "Validates handling when fewer sentences are provided.",
+  "model": "qwen2.5-coder:latest",
+  "actualOutput": "```html\n<p><strong>Birds</strong> sing. <strong>Dogs</strong> bark.</p>\n<p><strong>Birds</strong> sing. <strong>Dogs</strong> bark.</p>\n```",
+  "status": "failure"
+}

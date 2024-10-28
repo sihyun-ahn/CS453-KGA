@@ -1,0 +1,10 @@
+{
+  "Rule ID": "1",
+  "Test ID": "1",
+  "Test Input": "The sun rises in the east. The moon glows at night. The stars twinkle brightly.",
+  "Expected Output": "<p>The sun rises in the east. <strong>sun</strong> rises in the <em>east</em>.</p><p>The moon glows at night. <strong>moon</strong> glows at <em>night</em>.</p><p>The stars twinkle brightly. <strong>stars</strong> twinkle <em>brightly</em>.</p>",
+  "Reasoning": "Ensures that each sentence is wrapped in a separate <p> tag with correct formatting.",
+  "model": "phi3.5",
+  "actualOutput": "```html\n<p><strong>The</strong> <em>sun</em> <em>rises</em> <em>in</em> the <strong>east</strong>.</p>\n<p><strong>The</strong> <em>moon</em> <em>glows</em> at <em>night</em>.</p>\n<p><strong>The</strong> <em>stars</em> <em>twinkle</em> brightly.</p>\n<p><strong>The</strong> <em>sun</em> <em>rises</em> in the <em>east</em>.</p>\n<p><strong>The</strong> <em>moon</em> glows at night.</p>\n<p><strong>The stars twinkle</strong> brightly.</p>\n```",
+  "status": "failure"
+}

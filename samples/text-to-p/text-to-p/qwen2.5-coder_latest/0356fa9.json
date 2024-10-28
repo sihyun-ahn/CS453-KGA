@@ -1,0 +1,10 @@
+{
+  "Rule ID": "7",
+  "Test ID": "1",
+  "Test Input": "Cars drive fast. Trains are quick. Planes fly high.",
+  "Expected Output": "<p>Cars drive fast.</p><p>Trains are quick.</p><p>Planes fly high.</p>",
+  "Reasoning": "Checks absence of <strong> and <em> tags.",
+  "model": "qwen2.5-coder:latest",
+  "actualOutput": "```html\n<p><strong>Cars</strong> <em>drive fast</em>. <strong>Trains</strong> are <em>quick</em>. <strong>Planes</strong> fly <em>high</em>.</p>\n<p><strong>Cars</strong> <em>drive fast</em>. <strong>Trains</strong> are <em>quick</em>. <strong>Planes</strong> fly <em>high</em>.</p>\n```",
+  "status": "failure"
+}
