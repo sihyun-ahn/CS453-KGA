@@ -1,0 +1,10 @@
+{
+  "Rule ID": "1",
+  "Test ID": "1",
+  "Test Input": "Text with multiple topics, anecdotes, and irrelevant info.",
+  "Expected Output": "Dialogue with each line ≤ 100 characters.",
+  "Reasoning": "Ensures dialogue lines are concise, adhering to character limit.",
+  "model": "llama3.2:3b",
+  "actualOutput": "```\n{\n  \"topics\": [\n    \"Science\",\n    \"Technology\",\n    \"Environment\",\n    \"History\"\n  ],\n  \"anecdotes\": [\n    \"The first computer bug was an actual insect that got stuck in the Harvard Mark II computer in 1947.\",\n    \"The longest word in the English language, according to the Oxford English Dictionary, is pneumonoultramicroscopicsilicovolcanoconiosis, a lung disease caused by inhaling very fine particles of silica.\",\n    \"The world's first webcam was created in 1991 at Cambridge University to monitor a coffee pot.\"\n  ],\n  \"irrelevant_info\": [\n    \"The average person spends around 4 hours and 20 minutes per day on their phone.\",\n    \"The longest recorded flight of a chicken is 13 seconds.\",\n    \"The Great Wall of China is not visible from space, despite its reputation as being the longest man-made structure in the world.\"\n  ]\n}\n```",
+  "status": "failure"
+}
