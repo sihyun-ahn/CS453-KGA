@@ -260,8 +260,8 @@ export async function executeTests(
   const testResults: PromptPexTestResult[] = [];
   for (const model of models)
     await q.mapAll(tests, async (test) => {
-      const testRest = await executeTest(files, test, { model, force });
-      testResults.push(testRest);
+      const testRes = await executeTest(files, test, { model, force });
+      testResults.push(testRes);
     });
   return CSV.stringify(testResults, { header: true });
 }
@@ -286,12 +286,12 @@ export async function executeTest(
   const testf = path.join(
     files.dir,
     files.basename,
-    moptions.model.replace(/:/g, "_").toLowerCase(),
+    moptions.model.replace(/^[^:]+:/g, "_").toLowerCase(),
     `${testid}.json`
   );
 
-  const cached = await workspace.readJSON(testf);
-  if (cached && !force) return cached;
+  const cached = await workspace.readText(testf);
+  if (cached.content && !force) return JSON.parse(cached.content);
 
   //const ruleId = test["Rule ID"];
   const expectedOutput = test["Expected Output"];
@@ -412,12 +412,11 @@ export async function generateMarkdownReport(files: PromptPexContext) {
     res.push(
       "",
       `### [${path.basename(file.filename).slice(files.basename.length + 1)}](./${path.basename(file.filename)})`,
-      "",
-      `\`\`\`\`\`${lang}`,
-      file.content || "",
-      `\`\`\`\`\``,
-      ``
+      ""
     );
+
+    if (lang === "csv") res.push(CSV.markdownify(CSV.parse(file.content)));
+    else res.push(`\`\`\`\`\`${lang}`, file.content || "", `\`\`\`\`\``, ``);
   };
 
   for (const file of Object.values(files))
