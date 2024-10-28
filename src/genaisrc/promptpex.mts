@@ -5,6 +5,7 @@ const TESTS_NUM = 3;
 export interface PromptPexContext {
   dir: string;
   basename: string;
+  intent: WorkspaceFile;
   prompt: WorkspaceFile;
   rules: WorkspaceFile;
   inverseRules: WorkspaceFile;
@@ -45,6 +46,7 @@ export async function loadPromptFiles(
   const basename = path
     .basename(promptFile.filename)
     .slice(0, -path.extname(promptFile.filename).length);
+  const intent = path.join(dir, basename + ".intent.txt");
   const rules = path.join(dir, basename + ".rules.txt");
   const inverseRules = path.join(dir, basename + ".inverse_rules.txt");
   const instructions = path.join(dir, basename + ".instructions.txt");
@@ -57,10 +59,11 @@ export async function loadPromptFiles(
     dir,
     basename,
     prompt: promptFile,
+    intent: await workspace.readText(intent),
+    inputSpec: await workspace.readText(inputSpec),
     rules: tidyRulesFile(await workspace.readText(rules)),
     inverseRules: tidyRulesFile(await workspace.readText(inverseRules)),
     instructions: await workspace.readText(instructions),
-    inputSpec: await workspace.readText(inputSpec),
     baselineTests: await workspace.readText(baselineTests),
     tests: await workspace.readText(tests),
     testResults: await workspace.readText(testResults),
@@ -117,6 +120,23 @@ export async function generateInputSpec(
   );
   checkLLMResponse(res);
   return tidyRules(res.text);
+}
+
+export async function generateIntent(files: Pick<PromptPexContext, "prompt">) {
+  const context = MD.content(files.prompt.content);
+  const res = await runPrompt(
+    (ctx) => {
+      ctx.importTemplate("src/prompts/extract_intent.prompty", {
+        prompt: context,
+      });
+    },
+    {
+      ...modelOptions(),
+      label: "generate intent",
+    }
+  );
+  checkLLMResponse(res);
+  return res.text;
 }
 
 export async function generateRules(
@@ -290,7 +310,10 @@ export async function executeTest(
   const testf = path.join(
     files.dir,
     files.basename,
-    moptions.model.replace(/^[^:]+:/g, "").replace(/:/g, "_").toLowerCase(),
+    moptions.model
+      .replace(/^[^:]+:/g, "")
+      .replace(/:/g, "_")
+      .toLowerCase(),
     `${testid}.json`
   );
 
@@ -449,6 +472,7 @@ export async function generate(
   files: PromptPexContext,
   options?: {
     force?: boolean;
+    forceIntent?: boolean;
     forceInputSpec?: boolean;
     forceTests?: boolean;
     q: PromiseQueue;
@@ -456,10 +480,21 @@ export async function generate(
 ) {
   const {
     force = false,
+    forceIntent = false,
     forceInputSpec = false,
     forceTests = false,
     q,
   } = options || {};
+
+  // generate input spec
+  if (!files.intent.content || force || forceIntent) {
+    files.intent.content = await generateIntent(files);
+    await workspace.writeText(files.intent.filename, files.intent.content);
+  } else {
+    console.log(
+      `intent ${files.intent.filename} already exists. Skipping generation.`
+    );
+  }
 
   // generate input spec
   if (!files.inputSpec.content || force || forceInputSpec) {

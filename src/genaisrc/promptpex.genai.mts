@@ -10,6 +10,11 @@ script({
       description: "Force overwrite of existing files",
       default: false,
     },
+    forceIntent: {
+      type: "boolean",
+      description: "Force overwrite of existing intent files",
+      default: false
+    },
     forceInputSpec: {
       type: "boolean",
       description: "Force overwrite of existing input spec files",
@@ -28,13 +33,13 @@ script({
   },
 });
 
-const { force, forceInputSpec, forceTests, concurrency } = env.vars;
+const { force, forceIntent, forceInputSpec, forceTests, concurrency } = env.vars;
 
 const prompts = await loadPromptContext();
 const q = host.promiseQueue(concurrency);
 await q.mapAll(prompts, async (files) => {
   try {
-    await generate(files, { force, forceInputSpec, forceTests, q });
+    await generate(files, { force, forceIntent, forceInputSpec, forceTests, q });
   } catch (e) {
     console.error(e);
   }
