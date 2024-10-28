@@ -286,7 +286,7 @@ export async function executeTest(
   const testf = path.join(
     files.dir,
     files.basename,
-    moptions.model.replace(/^[^:]+:/g, "_").toLowerCase(),
+    moptions.model.replace(/^[^:]+:/g, "").toLowerCase(),
     `${testid}.json`
   );
 

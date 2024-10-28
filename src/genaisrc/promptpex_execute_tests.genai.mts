@@ -17,7 +17,7 @@ script({
     models: {
       type: "string",
       description: "Models to use for testing",
-      default: "github:gpt-4o-mini",
+      default: "github:gpt-4o-mini;azure_serverless_models:Phi-3-5-mini-instruct-uqdii",
     },
   },
 });
