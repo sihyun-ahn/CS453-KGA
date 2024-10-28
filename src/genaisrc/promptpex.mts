@@ -74,6 +74,13 @@ function modelOptions(): PromptGeneratorOptions {
   };
 }
 
+function checkLLMResponse(res: RunPromptResult) {
+  if (res.error) throw new Error(res.error.message);
+  if (/i can't assist with that request/i.test(res.text))
+    throw new Error("LLM failed to generate response");
+  return res.text;
+}
+
 function tidyRules(text: string) {
   if (/i can't assist with that/i.test(text)) return "";
   return text
@@ -104,7 +111,7 @@ export async function generateInputSpec(
       label: "generate input spec",
     }
   );
-  if (res.error) throw res.error;
+  checkLLMResponse(res);
   return tidyRules(res.text);
 }
 
@@ -127,7 +134,7 @@ export async function generateRules(
       label: "generate rules",
     }
   );
-  if (res.error) throw res.error;
+  checkLLMResponse(res);
   return tidyRules(res.text);
 }
 
@@ -146,7 +153,7 @@ export async function generateInverseRules(
       label: "inverse rules",
     }
   );
-  if (res.error) throw res.error;
+  checkLLMResponse(res);
   return tidyRules(res.text);
 }
 
@@ -161,7 +168,7 @@ export async function generateBaselineTests(
     (ctx) => {
       ctx.importTemplate("src/prompts/baseline_test.prompty", {
         num,
-        prompt: files.prompt.content,
+        prompt: context,
       });
     },
     {
@@ -169,7 +176,7 @@ export async function generateBaselineTests(
       label: `generate baseline tests`,
     }
   );
-  if (res.error) throw res.error;
+  checkLLMResponse(res);
   return res.text;
 }
 
@@ -218,9 +225,8 @@ export async function generateTests(
       label: `generate tests`,
     }
   );
-  if (res.error) throw res.error;
-  const text = res.text;
-  return text;
+  checkLLMResponse(res)
+  return res.text;
 }
 
 function parseInputs(file: WorkspaceFile) {

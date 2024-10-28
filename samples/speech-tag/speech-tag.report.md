@@ -51,10 +51,24 @@ If it is not possible to determine the part of speech tag for the word, the outp
 `````
 
 
+### [inverse_rules.txt](./speech-tag.inverse_rules.txt)
+
+`````txt
+The output must consist of multiple part of speech tags from the provided list.
+If the word cannot be tagged with one of the listed part of speech tags, the output must not be that specific tag.
+If the word can be tagged with any of the listed part of speech tags, the output must not be "Unknown".
+If it is possible to determine the part of speech tag for the word, the output must not be "CantAnswer".
+`````
+
+
 ### [input_spec.txt](./speech-tag.input_spec.txt)
 
 `````txt
-The input must be a sentence followed by a semicolon and a word from that sentence. The sentence should be a complete string of words, containing the specified word. The word must be exactly one word from the sentence provided.
+The input consists of a sentence and a word separated by a semicolon.
+The sentence can contain any combination of words, punctuation, and spaces.
+The word must be a valid word that appears in the provided sentence.
+The sentence can be of any length as long as it contains the specified word.
+The word should be a single, contiguous sequence of characters without spaces.
 `````
 
 
@@ -93,16 +107,27 @@ sentence: "Sam bought a new pair of shoes."; word: "pair"
 
 `````csv
 Rule ID, Test ID, Test Input, Expected Output, Reasoning
-1, 1, "The cat jumped over the moon; cat", "NN", "Tests that a common noun is correctly tagged with an available part of speech tag."
-1, 2, "They quickly ran to the store; ran", "VBD", "Ensures a past tense verb is appropriately tagged, verifying correct past tense recognition."
-1, 3, "He is the best among us; best", "JJS", "Confirms superlative adjectives are tagged correctly, covering adjective comparison scenarios."
-2, 1, "Zebrafinches are colorful birds; Zebrafinches", "NNPS", "Validates that proper plural nouns are correctly tagged when a suitable tag exists."
-2, 2, "Quantum physics is fascinating; Quantum", "JJ", "Checks if proper adjectives are identified and tagged even when originating from nouns."
-2, 3, "She is a musician; musician", "NN", "Ensures common singular nouns are tagged correctly, particularly in predicate nominative use cases."
-3, 1, "He spoke using wibble words; wibble", "Unknown", "Tests how the system handles unknown words that do not correspond to any listed part of speech tag."
-3, 2, "The proprietary term is 'xylophonize'; xylophonize", "Unknown", "Challenges the software's ability to identify genuinely untaggable and unique invented terms."
-3, 3, "She says blorpt; blorpt", "Unknown", "Checks the handling of nonsensical words that lack a clear part of speech tag."
-4, 1, "The book was signed by someone; someone", "CantAnswer", "Tests the system's handling of ambiguous pronouns where tagging might not be feasible."
-4, 2, "I will be back; be", "CantAnswer", "Ensures verbs with multiple possible roles are correctly identified where tagging is uncertain."
-4, 3, "He could play; could", "CantAnswer", "Verifies handling when the auxiliary verb can have multiple meanings, making tagging challenging."
+1, 1, "The quick brown fox jumps over the lazy dog; fox", "NN", "Tests if the software correctly identifies 'fox' as a noun, which adheres to the list of part of speech tags."
+1, 2, "She sings beautifully; sings", "VBZ", "Evaluates if the software can tag 'sings' as a verb in the present tense, adhering to the list."
+1, 3, "They are the winners in the end; winners", "NNS", "Checks if 'winners' is identified as a plural noun, which is part of the specified tags."
+
+2, 1, "Yesterday was a sunny day; was", "VBD", "Examines if 'was' is tagged as a past tense verb, confirming adherence to the specified list of tags."
+2, 2, "The team played very well; played", "VBD", "Assesses whether 'played' is tagged as a past tense verb, following the part of speech tags list."
+2, 3, "Can you help me?; Can", "MD", "Verifies if 'Can' is recognized as a modal verb, supporting the rule that valid tags should be applied."
+
+3, 1, "She went to the store; store", "NN", "Ensures that 'store' is tagged as a noun, which fits within the provided part of speech tags, avoiding 'Unknown'."
+3, 2, "This is an excellent opportunity; opportunity", "NN", "Verifies that 'opportunity' is recognized as a noun, avoiding an 'Unknown' response."
+3, 3, "Quickly moving; Quickly", "RB", "Checks if 'Quickly' is tagged as an adverb, avoiding 'Unknown' by using a valid tag."
+
+4, 1, "The sun shines bright; shines", "VBZ", "Ensures that 'shines' is tagged correctly, matching the list, and not producing multiple tags."
+4, 2, "Her book is on the table; book", "NN", "Confirms that 'book' is tagged singularly as a noun, in line with the tag list, and not creating multiple tags."
+4, 3, "Come here now; here", "RB", "Tests that 'here' is tagged as an adverb, ensuring a single tag from the list and not multiple tags."
+
+5, 1, "The man laughed loudly; laughed", "VBD", "Confirms that 'laughed' does not receive an irrelevant tag, adhering strictly to correct tagging."
+5, 2, "She is going to school; school", "NN", "Verifies that 'school' is tagged precisely as a noun, ensuring no incorrect tags are assigned."
+5, 3, "He often travels; travels", "VBZ", "Checks that 'travels' is tagged as a verb, ensuring no incorrect or unrelated tags."
+
+6, 1, "A sudden change; change", "NN", "Ensures 'change' is tagged as a noun, not 'Unknown', validating proper identification."
+6, 2, "He will be there; will", "MD", "Tests if 'will' is correctly tagged as a modal and avoids 'Unknown', confirming proper recognition."
+6, 3, "She can sing; sing", "VB", "Checks that 'sing' is tagged as a verb and not 'Unknown', supporting accurate identification."
 `````

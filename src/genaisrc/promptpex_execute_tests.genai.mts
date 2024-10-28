@@ -1,8 +1,4 @@
-import {
-  loadPromptContext,
-  generateTests,
-  executeTests,
-} from "./promptpex.mts";
+import { loadPromptContext, executeTests } from "./promptpex.mts";
 
 script({
   title: "PromptPex Test Executor",

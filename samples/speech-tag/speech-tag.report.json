@@ -1,97 +1,150 @@
 {
   "prompt": "---\nname: Speech Tag\ndescription: Determine the part of speech for a given word\nsource: \"modified from 'SAMMO: A general-purpose framework for prompt optimization'\"\nurl: https://www.microsoft.com/en-us/research/uploads/prod/2024/04/Prompts-As-Programs_A-Structure-Aware-Approach.pdf\ninputs:\n    sentence:\n        type: \"string\"\n    word:\n        type: \"string\"\nsample:\n    sentence: \"The quick brown fox jumps over the lazy dog.\"\n    word: \"jumps\"\n---\nsystem:\nIn this task, you will be presented with a sentence and a word contained\nin that sentence. You have to determine the part of speech for a given word\nand return just the tag for the word's part of speech. \n\nReturn only the part of speech tag.  If the word cannot be tagged with\nthe listed tags, return Unknown.  If you are unable to tag the word, return\nCantAnswer.\n\nHere is the\nAlphabetical list of part-of-speech tags used in this task: CC: Coordinating conjunction, CD: Cardinal number, DT:\nDeterminer, EX: Existential there, FW: Foreign word, IN: Preposition or subordinating conjunction, JJ: Adjective, JJR:\nAdjective, comparative, JJS: Adjective, superlative, LS: List item marker, MD: Modal, NN: Noun, singular or mass, NNS: Noun,\nplural, NNP: Proper noun, singular, NNPS: Proper noun, plural, PDT: Predeterminer, POS: Possessive ending, PRP: Personal\npronoun, PRP$: Possessive pronoun, RB: Adverb, RBR: Adverb, comparative, RBS: Adverb, superlative, RP: Particle, SYM: Symbol,\nTO: to, UH: Interjection, VB: Verb, base form, VBD: Verb, past tense, VBG: Verb, gerund or present participle, VBN: Verb,\npast participle, VBP: Verb, non-3rd person singular present, VBZ: Verb, 3rd person singular present, WDT: Wh-determiner, WP:\nWh-pronoun, WP$: Possessive wh-pronoun, WRB: Wh-adverb\nuser:\n{{sentence}}; {{word}}",
-  "inputSpec": "A sentence must be provided as input.  \nA word contained within the sentence must also be provided separately.",
+  "inputSpec": "The input consists of a sentence and a word separated by a semicolon.\nThe sentence can contain any combination of words, punctuation, and spaces.\nThe word must be a valid word that appears in the provided sentence.\nThe sentence can be of any length as long as it contains the specified word.\nThe word should be a single, contiguous sequence of characters without spaces.",
   "rules": [
-    "The output must be a single part of speech tag from the provided list of tags.",
-    "The output must be one of the following tags: CC, CD, DT, EX, FW, IN, JJ, JJR, JJS, LS, MD, NN, NNS, NNP, NNPS, PDT, POS, PRP, PRP$, RB, RBR, RBS, RP, SYM, TO, UH, VB, VBD, VBG, VBN, VBP, VBZ, WDT, WP, WP$, WRB.",
-    "If the word cannot be tagged with any of the listed tags, the output must be \"Unknown.\"",
-    "If the task is impossible to complete, the output must be \"CantAnswer.\"",
-    "The output must not contain any additional text or formatting other than the tag or specified responses."
+    "The output must be a single part of speech tag from the provided list.",
+    "If the word can be tagged with one of the listed part of speech tags, the output must be that specific tag.",
+    "If the word cannot be tagged with any of the listed part of speech tags, the output must be \"Unknown\".",
+    "If it is not possible to determine the part of speech tag for the word, the output must be \"CantAnswer\"."
   ],
   "inverseRules": [
-    "The output must not be a part-of-speech tag from the provided list.",
-    "If the word matches one of the listed tags, return any tag except that specific tag.",
-    "If the word cannot be tagged using the provided list, the output must not be \"Unknown.\"",
-    "If it is not possible to determine the part of speech for the word, the output must not be \"CantAnswer.\"",
-    "The output must contain additional information or explanation beyond the tag itself."
+    "The output must consist of multiple part of speech tags from the provided list.",
+    "If the word cannot be tagged with one of the listed part of speech tags, the output must not be that specific tag.",
+    "If the word can be tagged with any of the listed part of speech tags, the output must not be \"Unknown\".",
+    "If it is possible to determine the part of speech tag for the word, the output must not be \"CantAnswer\"."
   ],
   "baseLineTests": [
+    "sentence: \"The quick brown fox jumps over the lazy dog.\"; word: \"The\"",
     "sentence: \"She sells sea shells by the sea shore.\"; word: \"sells\"",
-    "sentence: \"After the rain stopped, the rainbow appeared in the sky.\"; word: \"rainbow\"",
-    "sentence: \"Can you pass the salt, please?\"; word: \"pass\""
+    "sentence: \"He is running fast.\"; word: \"running\"",
+    "sentence: \"Alice and Bob went to the market.\"; word: \"and\"",
+    "sentence: \"Cats are great pets and companions.\"; word: \"Cats\"",
+    "sentence: \"Yesterday, it rained heavily.\"; word: \"Yesterday\"",
+    "sentence: \"If it rains, we will cancel the picnic.\"; word: \"If\"",
+    "sentence: \"The Eiffel Tower is in Paris.\"; word: \"Eiffel\"",
+    "sentence: \"I have three apples.\"; word: \"three\"",
+    "sentence: \"This is an interesting book.\"; word: \"interesting\"",
+    "sentence: \"However, the results were unexpected.\"; word: \"However\"",
+    "sentence: \"Do you like chocolate or vanilla?\"; word: \"or\"",
+    "sentence: \"Sam bought a new pair of shoes.\"; word: \"pair\""
   ],
   "tests": [
     {
-      "rule": "The output must be one of the following tags: CC, CD, DT, EX, FW, IN, JJ, JJR, JJS, LS, MD, NN, NNS, NNP, NNPS, PDT, POS, PRP, PRP$, RB, RBR, RBS, RP, SYM, TO, UH, VB, VBD, VBG, VBN, VBP, VBZ, WDT, WP, WP$, WRB.",
-      "input": "sentence: I will book the flight.; word: book",
-      "expected": "VB",
-      "reasoning": "Tests correct tagging for a verb in context, expecting verb form 'to book'."
-    },
-    {
-      "rule": "The output must be one of the following tags: CC, CD, DT, EX, FW, IN, JJ, JJR, JJS, LS, MD, NN, NNS, NNP, NNPS, PDT, POS, PRP, PRP$, RB, RBR, RBS, RP, SYM, TO, UH, VB, VBD, VBG, VBN, VBP, VBZ, WDT, WP, WP$, WRB.",
-      "input": "sentence: The book is on the table.; word: book",
+      "rule": "If the word can be tagged with one of the listed part of speech tags, the output must be that specific tag.",
+      "input": "The quick brown fox jumps over the lazy dog; fox",
       "expected": "NN",
-      "reasoning": "Tests correct tagging for a noun in context, expecting noun form 'book'."
+      "reasoning": "Tests if the software correctly identifies 'fox' as a noun, which adheres to the list of part of speech tags."
     },
     {
-      "rule": "The output must be one of the following tags: CC, CD, DT, EX, FW, IN, JJ, JJR, JJS, LS, MD, NN, NNS, NNP, NNPS, PDT, POS, PRP, PRP$, RB, RBR, RBS, RP, SYM, TO, UH, VB, VBD, VBG, VBN, VBP, VBZ, WDT, WP, WP$, WRB.",
-      "input": "sentence: Please book a slot.; word: book",
-      "expected": "VB",
-      "reasoning": "Confirms verb tagging when 'book' is used in an imperative sentence."
+      "rule": "If the word can be tagged with one of the listed part of speech tags, the output must be that specific tag.",
+      "input": "She sings beautifully; sings",
+      "expected": "VBZ",
+      "reasoning": "Evaluates if the software can tag 'sings' as a verb in the present tense, adhering to the list."
     },
     {
-      "rule": "If the word cannot be tagged with any of the listed tags, the output must be \"Unknown.\"",
-      "input": "sentence: She has a can.; word: can",
-      "expected": "NN",
-      "reasoning": "Tests correct tagging for a noun 'can', distinct from modal usage."
+      "rule": "If the word can be tagged with one of the listed part of speech tags, the output must be that specific tag.",
+      "input": "They are the winners in the end; winners",
+      "expected": "NNS",
+      "reasoning": "Checks if 'winners' is identified as a plural noun, which is part of the specified tags."
     },
     {
-      "rule": "If the word cannot be tagged with any of the listed tags, the output must be \"Unknown.\"",
-      "input": "sentence: I can swim.; word: can",
+      "rule": "If the word cannot be tagged with any of the listed part of speech tags, the output must be \"Unknown\".",
+      "input": "Yesterday was a sunny day; was",
+      "expected": "VBD",
+      "reasoning": "Examines if 'was' is tagged as a past tense verb, confirming adherence to the specified list of tags."
+    },
+    {
+      "rule": "If the word cannot be tagged with any of the listed part of speech tags, the output must be \"Unknown\".",
+      "input": "The team played very well; played",
+      "expected": "VBD",
+      "reasoning": "Assesses whether 'played' is tagged as a past tense verb, following the part of speech tags list."
+    },
+    {
+      "rule": "If the word cannot be tagged with any of the listed part of speech tags, the output must be \"Unknown\".",
+      "input": "Can you help me?; Can",
       "expected": "MD",
-      "reasoning": "Confirms modal tagging when 'can' is used as a modal verb."
+      "reasoning": "Verifies if 'Can' is recognized as a modal verb, supporting the rule that valid tags should be applied."
     },
     {
-      "rule": "If the word cannot be tagged with any of the listed tags, the output must be \"Unknown.\"",
-      "input": "sentence: Can you help me?; word: can",
-      "expected": "MD",
-      "reasoning": "Validates modal tagging in a question context."
-    },
-    {
-      "rule": "If the task is impossible to complete, the output must be \"CantAnswer.\"",
-      "input": "sentence: The zxy is rare.; word: zxy",
-      "expected": "Unknown",
-      "reasoning": "Tests handling of unknown words, ensuring 'Unknown' is returned."
-    },
-    {
-      "rule": "If the task is impossible to complete, the output must be \"CantAnswer.\"",
-      "input": "sentence: The tree is tall.; word: tree",
+      "rule": "If it is not possible to determine the part of speech tag for the word, the output must be \"CantAnswer\".",
+      "input": "She went to the store; store",
       "expected": "NN",
-      "reasoning": "Confirms correct noun tagging for a known word."
+      "reasoning": "Ensures that 'store' is tagged as a noun, which fits within the provided part of speech tags, avoiding 'Unknown'."
     },
     {
-      "rule": "If the task is impossible to complete, the output must be \"CantAnswer.\"",
-      "input": "sentence: The qwerty is broken.; word: qwerty",
-      "expected": "Unknown",
-      "reasoning": "Checks response for non-dictionary words, expecting 'Unknown'."
-    },
-    {
-      "rule": "The output must not contain any additional text or formatting other than the tag or specified responses.",
-      "input": "sentence: Her favorite color is blue.; word: color",
+      "rule": "If it is not possible to determine the part of speech tag for the word, the output must be \"CantAnswer\".",
+      "input": "This is an excellent opportunity; opportunity",
       "expected": "NN",
-      "reasoning": "Ensures noun 'color' is tagged correctly."
+      "reasoning": "Verifies that 'opportunity' is recognized as a noun, avoiding an 'Unknown' response."
     },
     {
-      "rule": "The output must not contain any additional text or formatting other than the tag or specified responses.",
-      "input": "sentence: He runs fast.; word: fast",
+      "rule": "If it is not possible to determine the part of speech tag for the word, the output must be \"CantAnswer\".",
+      "input": "Quickly moving; Quickly",
       "expected": "RB",
-      "reasoning": "Verifies adverb tagging for 'fast' in this context."
+      "reasoning": "Checks if 'Quickly' is tagged as an adverb, avoiding 'Unknown' by using a valid tag."
     },
     {
-      "rule": "The output must not contain any additional text or formatting other than the tag or specified responses.",
-      "input": "sentence: It was fast.; word: fast",
-      "expected": "JJ",
-      "reasoning": "Confirms adjective tagging for 'fast' when used to describe a noun."
+      "rule": "The output must consist of multiple part of speech tags from the provided list.",
+      "inverse": true,
+      "input": "The sun shines bright; shines",
+      "expected": "VBZ",
+      "reasoning": "Ensures that 'shines' is tagged correctly, matching the list, and not producing multiple tags."
+    },
+    {
+      "rule": "The output must consist of multiple part of speech tags from the provided list.",
+      "inverse": true,
+      "input": "Her book is on the table; book",
+      "expected": "NN",
+      "reasoning": "Confirms that 'book' is tagged singularly as a noun, in line with the tag list, and not creating multiple tags."
+    },
+    {
+      "rule": "The output must consist of multiple part of speech tags from the provided list.",
+      "inverse": true,
+      "input": "Come here now; here",
+      "expected": "RB",
+      "reasoning": "Tests that 'here' is tagged as an adverb, ensuring a single tag from the list and not multiple tags."
+    },
+    {
+      "rule": "If the word cannot be tagged with one of the listed part of speech tags, the output must not be that specific tag.",
+      "inverse": true,
+      "input": "The man laughed loudly; laughed",
+      "expected": "VBD",
+      "reasoning": "Confirms that 'laughed' does not receive an irrelevant tag, adhering strictly to correct tagging."
+    },
+    {
+      "rule": "If the word cannot be tagged with one of the listed part of speech tags, the output must not be that specific tag.",
+      "inverse": true,
+      "input": "She is going to school; school",
+      "expected": "NN",
+      "reasoning": "Verifies that 'school' is tagged precisely as a noun, ensuring no incorrect tags are assigned."
+    },
+    {
+      "rule": "If the word cannot be tagged with one of the listed part of speech tags, the output must not be that specific tag.",
+      "inverse": true,
+      "input": "He often travels; travels",
+      "expected": "VBZ",
+      "reasoning": "Checks that 'travels' is tagged as a verb, ensuring no incorrect or unrelated tags."
+    },
+    {
+      "rule": "If the word can be tagged with any of the listed part of speech tags, the output must not be \"Unknown\".",
+      "inverse": true,
+      "input": "A sudden change; change",
+      "expected": "NN",
+      "reasoning": "Ensures 'change' is tagged as a noun, not 'Unknown', validating proper identification."
+    },
+    {
+      "rule": "If the word can be tagged with any of the listed part of speech tags, the output must not be \"Unknown\".",
+      "inverse": true,
+      "input": "He will be there; will",
+      "expected": "MD",
+      "reasoning": "Tests if 'will' is correctly tagged as a modal and avoids 'Unknown', confirming proper recognition."
+    },
+    {
+      "rule": "If the word can be tagged with any of the listed part of speech tags, the output must not be \"Unknown\".",
+      "inverse": true,
+      "input": "She can sing; sing",
+      "expected": "VB",
+      "reasoning": "Checks that 'sing' is tagged as a verb and not 'Unknown', supporting accurate identification."
     }
   ]
 }
