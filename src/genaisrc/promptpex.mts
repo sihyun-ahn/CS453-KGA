@@ -1,4 +1,4 @@
-const BASELINE_TESTS_NUM = 3;
+const CONCURRENCY = 5;
 const RULES_NUM = 0;
 const TESTS_NUM = 3;
 
@@ -31,7 +31,7 @@ export interface PromptPexTestResult extends PromptPexTest {
 }
 
 export async function loadPromptContext(): Promise<PromptPexContext[]> {
-  const q = host.promiseQueue(5);
+  const q = host.promiseQueue(CONCURRENCY);
   return q.mapAll(
     env.files.filter((f) => /\.(md|txt|prompty)$/i.test(f.filename)),
     async (f) => await loadPromptFiles(f)
@@ -225,7 +225,7 @@ export async function generateTests(
       label: `generate tests`,
     }
   );
-  checkLLMResponse(res)
+  checkLLMResponse(res);
   return res.text;
 }
 
@@ -249,42 +249,49 @@ export async function executeTests(
     PromptPexContext,
     "tests" | "prompt" | "dir" | "basename" | "testResults"
   >,
-  options?: { model?: ModelType }
+  options?: { models?: ModelType[]; force?: boolean; concurrency?: number }
 ): Promise<string> {
+  const { force, models, concurrency = CONCURRENCY } = options || {};
   const tests = CSV.parse(files.tests.content) as PromptPexTest[];
   if (!tests?.length) throw new Error("No tests found");
 
-  const testResults = [];
-  for (let i = 0; i < tests.length; i++) {
-    const test = tests[i];
-    const testid = parsers.hash(test["Test Input"], { length: 7 });
-    const testf = path.join(
-      files.dir,
-      files.basename,
-      `results`,
-      `${testid}.yaml`
-    );
-    let testRes = await workspace.readYAML(testf);
-    if (!testRes) {
-      testRes = await executeTest(files, test, options);
-      await workspace.writeText(testf, YAML.stringify(testRes));
-    }
-    testResults.push(testRes);
-  }
-  return CSV.stringify(testResults);
+  console.log(`executing ${tests.length} tests with ${models.length} models`);
+  const q = host.promiseQueue(concurrency);
+  const testResults: PromptPexTestResult[] = [];
+  for (const model of models)
+    await q.mapAll(tests, async (test) => {
+      const testRest = await executeTest(files, test, { model, force });
+      testResults.push(testRest);
+    });
+  return CSV.stringify(testResults, { header: true });
 }
 
 export async function executeTest(
-  files: Pick<PromptPexContext, "prompt">,
+  files: Pick<PromptPexContext, "prompt" | "dir" | "basename">,
   test: PromptPexTest,
-  options?: { model?: ModelType }
+  options?: { model?: ModelType; force?: boolean }
 ) {
+  const { force } = options || {};
   const inputs = parseInputs(files.prompt);
   const inputKeys = Object.keys(inputs);
   const moptions = {
     ...modelOptions(),
   };
   if (options?.model) moptions.model = options.model;
+
+  const context = MD.content(files.prompt.content);
+  const testid = await parsers.hash(context + test["Test Input"], {
+    length: 7,
+  });
+  const testf = path.join(
+    files.dir,
+    files.basename,
+    moptions.model.replace(/:/g, "_").toLowerCase(),
+    `${testid}.json`
+  );
+
+  const cached = await workspace.readJSON(testf);
+  if (cached && !force) return cached;
 
   //const ruleId = test["Rule ID"];
   const expectedOutput = test["Expected Output"];
@@ -314,17 +321,20 @@ export async function executeTest(
     },
     {
       ...moptions,
-      label: `test ${testInput.slice(0, 22)}...`,
+      label: `test ${testInput.slice(0, 42)}...`,
     }
   );
   const actualOutput = res.text;
   const testRes = {
     ...test,
-    model: moptions.model,
+    model: res.model,
     actualOutput: actualOutput,
     status: actualOutput === expectedOutput ? "success" : "failure",
     error: res.error?.message,
   } satisfies PromptPexTestResult;
+
+  await workspace.writeText(testf, JSON.stringify(testRes, null, 2));
+
   return testRes;
 }
 
@@ -417,6 +427,20 @@ export async function generateMarkdownReport(files: PromptPexContext) {
   return res.join("\n");
 }
 
+export async function generateReports(files: PromptPexContext) {
+  const jsonreport = await generateJSONReport(files);
+  await workspace.writeText(
+    path.join(files.dir, files.basename + ".report.json"),
+    JSON.stringify(jsonreport, null, 2)
+  );
+
+  const mdreport = await generateMarkdownReport(files);
+  await workspace.writeText(
+    path.join(files.dir, files.basename + ".report.md"),
+    mdreport
+  );
+}
+
 export async function generate(
   files: PromptPexContext,
   options?: {
@@ -497,28 +521,5 @@ export async function generate(
     );
   }
 
-  /*
-  if (!files.testResults.content || force) {
-    files.testResults.content = await executeTests(files);
-    await workspace.writeText(
-      files.testResults.filename,
-      files.testResults.content
-    );
-  } else {
-    console.log(
-      `test results ${files.testResults.filename} already exists. Skipping execution`
-    );
-  }
-    */
-  const jsonreport = await generateJSONReport(files);
-  await workspace.writeText(
-    path.join(files.dir, files.basename + ".report.json"),
-    JSON.stringify(jsonreport, null, 2)
-  );
-
-  const mdreport = await generateMarkdownReport(files);
-  await workspace.writeText(
-    path.join(files.dir, files.basename + ".report.md"),
-    mdreport
-  );
+  await generateReports(files);
 }
