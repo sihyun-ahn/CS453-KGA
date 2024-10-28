@@ -1,4 +1,4 @@
-## [extract-names](samples/prompt-guide/extract-names.prompty) ([json](./extract-names.report.json))
+## extract-names ([json](./extract-names.report.json))
 
 
 ### [prompty](./extract-names.prompty)
@@ -22,6 +22,22 @@ Abstract: {{input}}
 `````
 
 
+### [intent.txt](./extract-names.intent.txt)
+
+`````txt
+Extract model names from machine learning paper abstracts.
+`````
+
+
+### [input_spec.txt](./extract-names.input_spec.txt)
+
+`````txt
+The input is a string containing the abstract of a machine learning paper.  
+The input must be provided in a structured format beginning with "Abstract: ".  
+The content following "Abstract: " should consist of coherent text that resembles a typical academic abstract.
+`````
+
+
 ### [rules.txt](./extract-names.rules.txt)
 
 `````txt
@@ -39,15 +55,6 @@ The array must always be present, even if it contains only the value ["NA"].
 Do not include any model names in quotation marks within the array.
 If no model names are found, list all possible names instead of 'NA'.
 Ensure no model names are formatted as elements within the array.
-`````
-
-
-### [input_spec.txt](./extract-names.input_spec.txt)
-
-`````txt
-The input is a string containing the abstract of a machine learning paper.  
-The input must be provided in a structured format beginning with "Abstract: ".  
-The content following "Abstract: " should consist of coherent text that resembles a typical academic abstract.
 `````
 
 

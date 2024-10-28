@@ -23,6 +23,24 @@ user:
 `````
 
 
+### [intent.txt](./text-to-p.intent.txt)
+
+`````txt
+Format a paragraph of text as HTML with sentences wrapped in `<p>` tags and key words emphasized with `<strong>` and `<em>` tags.
+`````
+
+
+### [input_spec.txt](./text-to-p.input_spec.txt)
+
+`````txt
+The input is a paragraph of text.
+The input must contain at least three sentences.
+Each sentence should be a complete thought.
+Sentences should be discernible through punctuation like periods, exclamation marks, or question marks.
+The input may contain words or phrases that can be emphasized.
+`````
+
+
 ### [rules.txt](./text-to-p.rules.txt)
 
 `````txt
@@ -40,17 +58,6 @@ The `<p>`, `<strong>`, and `<em>` tags must be correctly formatted as HTML.
 Each sentence in the output must be unwrapped and not enclosed in any tags.
 The output must contain fewer than three <p> tags.
 Within each <p> tag, there must be no <strong> or <em> tags to emphasize key words and phrases.
-`````
-
-
-### [input_spec.txt](./text-to-p.input_spec.txt)
-
-`````txt
-The input is a paragraph of text.
-The input must contain at least three sentences.
-Each sentence should be a complete thought.
-Sentences should be discernible through punctuation like periods, exclamation marks, or question marks.
-The input may contain words or phrases that can be emphasized.
 `````
 
 

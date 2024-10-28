@@ -1,4 +1,4 @@
-## [poe-summarize](samples/poe-summarize/poe-summarize.prompty) ([json](./poe-summarize.report.json))
+## poe-summarize ([json](./poe-summarize.report.json))
 
 
 ### [prompty](./poe-summarize.prompty)
@@ -46,6 +46,24 @@ user:
 `````
 
 
+### [intent.txt](./poe-summarize.intent.txt)
+
+`````txt
+Help the CEO save time by summarizing and deeply analyzing articles or news content.
+`````
+
+
+### [input_spec.txt](./poe-summarize.input_spec.txt)
+
+`````txt
+The input is an article or news content provided as text.
+The content can be in any language.
+The input must contain coherent and structured information suitable for summarization.
+There are no specific restrictions on the length of the input text.
+The input should be text-based and does not include any non-text elements like images or videos.
+`````
+
+
 ### [rules.txt](./poe-summarize.rules.txt)
 
 `````txt
@@ -69,17 +87,6 @@ The output must refrain from performing any deep dive analysis.
 The output must not inquire if the user requires further analysis.
 The output must not use sections or bold font for clarity.
 The output may use different languages inconsistently in responses.
-`````
-
-
-### [input_spec.txt](./poe-summarize.input_spec.txt)
-
-`````txt
-The input is an article or news content provided as text.
-The content can be in any language.
-The input must contain coherent and structured information suitable for summarization.
-There are no specific restrictions on the length of the input text.
-The input should be text-based and does not include any non-text elements like images or videos.
 `````
 
 

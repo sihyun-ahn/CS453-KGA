@@ -1,4 +1,4 @@
-## [open-notebooklm](samples/open-notebooklm/open-notebooklm.prompty) ([json](./open-notebooklm.report.json))
+## open-notebooklm ([json](./open-notebooklm.report.json))
 
 
 ### [prompty](./open-notebooklm.prompty)
@@ -57,6 +57,22 @@ Remember: Always reply in valid JSON format, without code blocks. Begin directly
 `````
 
 
+### [intent.txt](./open-notebooklm.intent.txt)
+
+`````txt
+Transform input text into an engaging podcast script.
+`````
+
+
+### [input_spec.txt](./open-notebooklm.input_spec.txt)
+
+`````txt
+The input is an unstructured or messy text sourced from PDFs or web pages.
+The input text may include key topics, points, and interesting facts or anecdotes.
+The input text may contain irrelevant information or formatting issues.
+`````
+
+
 ### [rules.txt](./open-notebooklm.rules.txt)
 
 `````txt
@@ -72,15 +88,6 @@ The guest's responses must be substantiated by the input text, avoiding unsuppor
 Each line of dialogue in the JSON output should exceed 100 characters for more detailed delivery.
 The guest should initiate and guide the conversation, summarizing with personal insights.
 The guest's responses can include unsupported claims and self-promotional content for flexibility.
-`````
-
-
-### [input_spec.txt](./open-notebooklm.input_spec.txt)
-
-`````txt
-The input is an unstructured or messy text sourced from PDFs or web pages.
-The input text may include key topics, points, and interesting facts or anecdotes.
-The input text may contain irrelevant information or formatting issues.
 `````
 
 

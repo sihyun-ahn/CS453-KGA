@@ -1,4 +1,4 @@
-## [generate-user-questions-on-product](samples/azure-ai-studio/generate-user-questions-on-product.prompty) ([json](./generate-user-questions-on-product.report.json))
+## generate-user-questions-on-product ([json](./generate-user-questions-on-product.report.json))
 
 
 ### [prompty](./generate-user-questions-on-product.prompty)
@@ -50,6 +50,22 @@ user:
 `````
 
 
+### [intent.txt](./generate-user-questions-on-product.intent.txt)
+
+`````txt
+Generate questions from a user on a given product.
+`````
+
+
+### [input_spec.txt](./generate-user-questions-on-product.input_spec.txt)
+
+`````txt
+The input must include a context describing where the user is accessing the product.
+The input must include a persona describing the user themselves.
+The input must include a product describing the item the user is interested in.
+`````
+
+
 ### [rules.txt](./generate-user-questions-on-product.rules.txt)
 
 `````txt
@@ -78,15 +94,6 @@ Each line must contain more than one JSON object.
 Each JSON object must have multiple keys, excluding "question".
 The string value in the "question" field must be enclosed in single quotes.
 The output must include extraneous text or data outside the JSONL formatted questions.
-`````
-
-
-### [input_spec.txt](./generate-user-questions-on-product.input_spec.txt)
-
-`````txt
-The input must include a context describing where the user is accessing the product.
-The input must include a persona describing the user themselves.
-The input must include a product describing the item the user is interested in.
 `````
 
 

@@ -41,6 +41,24 @@ user:
 `````
 
 
+### [intent.txt](./speech-tag.intent.txt)
+
+`````txt
+Determine the part of speech for a given word.
+`````
+
+
+### [input_spec.txt](./speech-tag.input_spec.txt)
+
+`````txt
+The input consists of a sentence and a word separated by a semicolon.
+The sentence can contain any combination of words, punctuation, and spaces.
+The word must be a valid word that appears in the provided sentence.
+The sentence can be of any length as long as it contains the specified word.
+The word should be a single, contiguous sequence of characters without spaces.
+`````
+
+
 ### [rules.txt](./speech-tag.rules.txt)
 
 `````txt
@@ -58,17 +76,6 @@ The output must consist of multiple part of speech tags from the provided list.
 If the word cannot be tagged with one of the listed part of speech tags, the output must not be that specific tag.
 If the word can be tagged with any of the listed part of speech tags, the output must not be "Unknown".
 If it is possible to determine the part of speech tag for the word, the output must not be "CantAnswer".
-`````
-
-
-### [input_spec.txt](./speech-tag.input_spec.txt)
-
-`````txt
-The input consists of a sentence and a word separated by a semicolon.
-The sentence can contain any combination of words, punctuation, and spaces.
-The word must be a valid word that appears in the provided sentence.
-The sentence can be of any length as long as it contains the specified word.
-The word should be a single, contiguous sequence of characters without spaces.
 `````
 
 

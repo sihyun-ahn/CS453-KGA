@@ -1,4 +1,4 @@
-## [bio-section](samples/content-creator/bio-section.prompty) ([json](./bio-section.report.json))
+## bio-section ([json](./bio-section.report.json))
 
 
 ### [prompty](./bio-section.prompty)
@@ -12,6 +12,23 @@ url: https://aminblm.github.io/awesome-chatgpt-content-creation-prompts/#act-as-
 ---
 I want you to act as a Github bio section generator, providing me with unique, original, funny and compelling bio for my Github profile. I will give you a list of keywords and phrases that describe my skills and experience. Please generate a bio that is professional and highlights my strengths, while also being engaging and easy to read. Keep in mind that this bio will be used as part of my Github profile, so it should be concise and to the point. Give me three different 15-30 words bio options for my Github profile, my interests are: ChatGPT, Content Creation, Automation, Web Development. (Give me bio only)
 
+`````
+
+
+### [intent.txt](./bio-section.intent.txt)
+
+`````txt
+Generate unique, original, funny, and compelling bios for a Github profile using provided keywords and phrases.
+`````
+
+
+### [input_spec.txt](./bio-section.input_spec.txt)
+
+`````txt
+The input is a list of keywords and phrases.
+Each keyword or phrase should describe skills or experience related to the user's professional profile.
+The input must include at least one keyword or phrase.
+Keywords or phrases should be concise, relevant, and clearly related to the user's interests.
 `````
 
 
@@ -50,16 +67,6 @@ Each bio option can be verbose.
 At least one bio option can be vague.  
 Each bio option must be fewer than 15 or more than 30 words.  
 The bio options must not relate to ChatGPT, Content Creation, Automation, or Web Development.
-`````
-
-
-### [input_spec.txt](./bio-section.input_spec.txt)
-
-`````txt
-The input is a list of keywords and phrases.
-Each keyword or phrase should describe skills or experience related to the user's professional profile.
-The input must include at least one keyword or phrase.
-Keywords or phrases should be concise, relevant, and clearly related to the user's interests.
 `````
 
 

@@ -29,6 +29,23 @@ Based on these categories, classify this news article: {{text}}
 `````
 
 
+### [intent.txt](./llama2-example.intent.txt)
+
+`````txt
+Classify input text into a specific category.
+`````
+
+
+### [input_spec.txt](./llama2-example.input_spec.txt)
+
+`````txt
+The input must be a string containing text that represents a news article.  
+The input text should be related to one of the specified categories: World, Sports, Business, or Sci/Tech.  
+There are no restrictions on the length of the input text.  
+The input text must be in a format that can clearly be associated with a news article.  
+`````
+
+
 ### [rules.txt](./llama2-example.rules.txt)
 
 `````txt
@@ -44,16 +61,6 @@ The output must not contain any additional information, explanation, or commenta
 The output must classify the input text into any category except World, Sports, Business, or Sci/Tech.  
 The output must consist of more than one category name and include at least one not listed: World, Sports, Business, or Sci/Tech.  
 The output must contain additional information, explanation, or commentary beyond the category name.  
-`````
-
-
-### [input_spec.txt](./llama2-example.input_spec.txt)
-
-`````txt
-The input must be a string containing text that represents a news article.  
-The input text should be related to one of the specified categories: World, Sports, Business, or Sci/Tech.  
-There are no restrictions on the length of the input text.  
-The input text must be in a format that can clearly be associated with a news article.  
 `````
 
 

@@ -1,4 +1,4 @@
-## [shakespearean-writing-assistant](samples/azure-ai-studio/shakespearean-writing-assistant.prompty) ([json](./shakespearean-writing-assistant.report.json))
+## shakespearean-writing-assistant ([json](./shakespearean-writing-assistant.report.json))
 
 
 ### [prompty](./shakespearean-writing-assistant.prompty)
@@ -35,6 +35,24 @@ assistant:
 `````
 
 
+### [intent.txt](./shakespearean-writing-assistant.intent.txt)
+
+`````txt
+To assist users in creating creative content in a Shakespearean style.
+`````
+
+
+### [input_spec.txt](./shakespearean-writing-assistant.input_spec.txt)
+
+`````txt
+Inputs should be requests for creative content such as stories, poems, or songs.  
+Inputs may include specific themes or topics for the creative content.  
+Inputs should be expressed in modern English, not requiring Shakespearean language from the user.  
+Inputs can specify the style or mood of the content, such as romantic or tragic.  
+There is no specific length restriction for the input requests.
+`````
+
+
 ### [rules.txt](./shakespearean-writing-assistant.rules.txt)
 
 `````txt
@@ -54,17 +72,6 @@ Avoid using archaic terms like "thou" and "hath."
 The response must be factual and informative, not creative.  
 The response may include casual and informal language.  
 The message should remain unclear and ambiguous when using any style.
-`````
-
-
-### [input_spec.txt](./shakespearean-writing-assistant.input_spec.txt)
-
-`````txt
-Inputs should be requests for creative content such as stories, poems, or songs.  
-Inputs may include specific themes or topics for the creative content.  
-Inputs should be expressed in modern English, not requiring Shakespearean language from the user.  
-Inputs can specify the style or mood of the content, such as romantic or tragic.  
-There is no specific length restriction for the input requests.
 `````
 
 

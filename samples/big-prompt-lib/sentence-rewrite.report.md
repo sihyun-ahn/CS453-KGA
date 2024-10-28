@@ -1,4 +1,4 @@
-## [sentence-rewrite](samples/big-prompt-lib/sentence-rewrite.prompty) ([json](./sentence-rewrite.report.json))
+## sentence-rewrite ([json](./sentence-rewrite.report.json))
 
 
 ### [prompty](./sentence-rewrite.prompty)
@@ -28,6 +28,24 @@ Input: {{text}}
 `````
 
 
+### [intent.txt](./sentence-rewrite.intent.txt)
+
+`````txt
+Rewrite individual sentences to enhance readability and make them more conversational.
+`````
+
+
+### [input_spec.txt](./sentence-rewrite.input_spec.txt)
+
+`````txt
+The input is a single sentence that requires rewriting to enhance readability and make it more conversational. 
+The input must be a complete and coherent sentence. 
+The input should maintain its original meaning and factual accuracy. 
+The input can include complex phrases that need simplification. 
+The input should allow for changes in style and wording as specified by the user.
+`````
+
+
 ### [rules.txt](./sentence-rewrite.rules.txt)
 
 `````txt
@@ -49,17 +67,6 @@ The rewriting task is specifically aimed at improving individual sentences, not 
 Responses can alter the original meaning and factual accuracy of the input sentence.  
 Responses should complicate simple phrases to decrease readability.  
 Responses must sound more formal and rigid, using language that's hard to relate to.
-`````
-
-
-### [input_spec.txt](./sentence-rewrite.input_spec.txt)
-
-`````txt
-The input is a single sentence that requires rewriting to enhance readability and make it more conversational. 
-The input must be a complete and coherent sentence. 
-The input should maintain its original meaning and factual accuracy. 
-The input can include complex phrases that need simplification. 
-The input should allow for changes in style and wording as specified by the user.
 `````
 
 

@@ -1,4 +1,4 @@
-## [gem-writing-coach](samples/big-prompt-lib/gem-writing-coach.prompty) ([json](./gem-writing-coach.report.json))
+## gem-writing-coach ([json](./gem-writing-coach.report.json))
 
 
 ### [prompty](./gem-writing-coach.prompty)
@@ -55,6 +55,26 @@ Give me feedback on this writing: {{text}}
 `````
 
 
+### [intent.txt](./gem-writing-coach.intent.txt)
+
+`````txt
+Provide feedback and editing on writing, focusing on grammar, spelling, structure, and style.
+`````
+
+
+### [input_spec.txt](./gem-writing-coach.input_spec.txt)
+
+`````txt
+The input is a piece of writing or text.
+The input can be text shared through copy-pasting.
+The input can be text from uploaded documents (PDF, Word, Google Doc, Drive Files).
+The input can be various types of writing, such as essays, fiction, or letters.
+The input should be suitable for a moderate (high-school) level of writing ability.
+The input may include requests for specific types of feedback or goals for the writing.
+The input should not include the use of slang, dialects, or accents associated with protected groups unless explicitly instructed.
+`````
+
+
 ### [rules.txt](./gem-writing-coach.rules.txt)
 
 `````txt
@@ -88,19 +108,6 @@ The output must never use slang, dialects, or accents associated with a protecte
 The output must not provide specific line-by-line edits or feedback on grammar, spelling, tense consistency, dialect, style, or structure.
 The output must avoid itemized bullet points for spelling and grammar edits, and not offer explanations for changes.
 The output must maintain a negative tone, avoiding constructive criticism or guidance, and not summarize the main themes or offer general improvement guidance.
-`````
-
-
-### [input_spec.txt](./gem-writing-coach.input_spec.txt)
-
-`````txt
-The input is a piece of writing or text.
-The input can be text shared through copy-pasting.
-The input can be text from uploaded documents (PDF, Word, Google Doc, Drive Files).
-The input can be various types of writing, such as essays, fiction, or letters.
-The input should be suitable for a moderate (high-school) level of writing ability.
-The input may include requests for specific types of feedback or goals for the writing.
-The input should not include the use of slang, dialects, or accents associated with protected groups unless explicitly instructed.
 `````
 
 

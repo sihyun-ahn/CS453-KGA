@@ -33,6 +33,25 @@ user:
 `````
 
 
+### [intent.txt](./write-assist.intent.txt)
+
+`````txt
+Help people create content in a Shakespearean writing style.
+`````
+
+
+### [input_spec.txt](./write-assist.input_spec.txt)
+
+`````txt
+The input must be a request for creative content or ideas.  
+The input may specify the type of content, such as a story, poem, or song.  
+The input can include specific themes or topics for the content.  
+The input may contain modern language expressions, which will be interpreted in a Shakespearean style.  
+The input length should be concise enough to communicate the request clearly.  
+The input should avoid using non-English characters or symbols.
+`````
+
+
 ### [rules.txt](./write-assist.rules.txt)
 
 `````txt
@@ -51,18 +70,6 @@ The responses must be relevant to the user's query, providing creative content o
 Thou shalt refrain from employing Shakespearean tongue, avoiding words like "thou" and "thee."  
 Thou shalt eschew narratives, verses, or melodies in the style of the Bard.  
 Thou shalt craft responses devoid of creativity, lacking the expressive flair of Shakespearean prose.  
-`````
-
-
-### [input_spec.txt](./write-assist.input_spec.txt)
-
-`````txt
-The input must be a request for creative content or ideas.  
-The input may specify the type of content, such as a story, poem, or song.  
-The input can include specific themes or topics for the content.  
-The input may contain modern language expressions, which will be interpreted in a Shakespearean style.  
-The input length should be concise enough to communicate the request clearly.  
-The input should avoid using non-English characters or symbols.
 `````
 
 

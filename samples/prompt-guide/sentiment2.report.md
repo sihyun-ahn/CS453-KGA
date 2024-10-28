@@ -1,4 +1,4 @@
-## [sentiment2](samples/prompt-guide/sentiment2.prompty) ([json](./sentiment2.report.json))
+## sentiment2 ([json](./sentiment2.report.json))
 
 
 ### [prompty](./sentiment2.prompty)
@@ -25,6 +25,25 @@ user:
 `````
 
 
+### [intent.txt](./sentiment2.intent.txt)
+
+`````txt
+Classify the sentiment of the input text as positive or negative.
+`````
+
+
+### [input_spec.txt](./sentiment2.input_spec.txt)
+
+`````txt
+The input can be any text string.  
+The input can include statements or expressions of opinions.  
+The input can be a positive or negative sentiment.  
+The input can include punctuation and exclamations.  
+The input may be about movies or shows.  
+The input can be any length.
+`````
+
+
 ### [rules.txt](./sentiment2.rules.txt)
 
 `````txt
@@ -42,18 +61,6 @@ The output must identify "What a horrible show!" without any classification.
 "This is bad!" must be identified as Negative.
 "Wow that movie was rad!" must be identified as Negative.
 "What a horrible show!" must be identified as Negative.
-`````
-
-
-### [input_spec.txt](./sentiment2.input_spec.txt)
-
-`````txt
-The input can be any text string.  
-The input can include statements or expressions of opinions.  
-The input can be a positive or negative sentiment.  
-The input can include punctuation and exclamations.  
-The input may be about movies or shows.  
-The input can be any length.
 `````
 
 

@@ -1,4 +1,4 @@
-## [keywords](samples/openai-examples/keywords.prompty) ([json](./keywords.report.json))
+## keywords ([json](./keywords.report.json))
 
 
 ### [prompty](./keywords.prompty)
@@ -27,6 +27,23 @@ Keywords 3:
 `````
 
 
+### [intent.txt](./keywords.intent.txt)
+
+`````txt
+Extract specific elements of text from a given text.
+`````
+
+
+### [input_spec.txt](./keywords.input_spec.txt)
+
+`````txt
+The input must be a string.  
+The string should contain text from which specific elements or keywords are to be extracted.  
+The text input should be coherent and contextually meaningful.  
+There are no restrictions on the length of the input string.
+`````
+
+
 ### [rules.txt](./keywords.rules.txt)
 
 `````txt
@@ -52,16 +69,6 @@ The list of keywords must not directly follow the phrase "Keywords 3:" and shoul
 The keywords must reflect topics or elements not explicitly mentioned in the input text.
 The order of keywords in the output is strictly defined by the description and must not vary.
 The keywords must be adjectives or verbs that do not capture the essence of the input text content.
-`````
-
-
-### [input_spec.txt](./keywords.input_spec.txt)
-
-`````txt
-The input must be a string.  
-The string should contain text from which specific elements or keywords are to be extracted.  
-The text input should be coherent and contextually meaningful.  
-There are no restrictions on the length of the input string.
 `````
 
 
