@@ -1,4 +1,6 @@
-The output must consist of multiple part of speech tags from the provided list.
-If the word cannot be tagged with one of the listed part of speech tags, the output must not be that specific tag.
-If the word can be tagged with any of the listed part of speech tags, the output must not be "Unknown".
-If it is possible to determine the part of speech tag for the word, the output must not be "CantAnswer".
+The output can contain multiple parts of speech tags from outside the provided list.
+The output may include additional information aside from the part of speech tag.
+If the word cannot be tagged with one of the provided tags, the output must be something other than "Unknown".
+If the word cannot be tagged and the reason is unclear, the output should not be "CantAnswer".
+The part of speech tag can be in lowercase letters or differently formatted.
+The output can include multiple tags or explanatory text.
