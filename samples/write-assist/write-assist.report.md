@@ -57,8 +57,12 @@ Thou shalt craft responses devoid of creativity, lacking the expressive flair of
 ### [input_spec.txt](./write-assist.input_spec.txt)
 
 `````txt
-The input must be a request for creative content like stories, poems, or songs.  
-The input may include specific themes or topics to be expressed in Shakespearean style.
+The input must be a request for creative content or ideas.  
+The input may specify the type of content, such as a story, poem, or song.  
+The input can include specific themes or topics for the content.  
+The input may contain modern language expressions, which will be interpreted in a Shakespearean style.  
+The input length should be concise enough to communicate the request clearly.  
+The input should avoid using non-English characters or symbols.
 `````
 
 
@@ -75,29 +79,23 @@ question: "Create a dialogue between two friends discussing their summer adventu
 
 ### [tests.csv](./write-assist.tests.csv)
 
-`````csv
-Rule ID, Test ID, Test Input, Expected Output, Reasoning
-1, 1, "Please write a sonnet about the beauty of nature.", "O wondrous nature, thou art fair and bright, Thy verdant fields doth dance in morning light. The flowers’ bloom, thou hath a tender charm, With fragrance sweet, thou dost my soul disarm.", "This tests the software's ability to use words such as 'thou' and 'hath' in a sonnet, conforming to Shakespearean language."
-1, 2, "Compose a love letter lamenting unrequited love.", "Dearest, My heart doth ache with sorrow uncontained, For thou dost not return my love’s sweet strain. Oh, how this unrequited love doth pain, In shadows dark, I weep o’er love in vain.", "This ensures the output uses Shakespearean terms ('thou,' 'dost') in a love letter, maintaining the archaic language style."
-1, 3, "Write a short story about a knight's quest.", "Once, a noble knight in armor bright, didst embark upon a quest so grand. With sword in hand and courage high, he sought the dragon in the distant land.", "This checks if the short story includes Shakespearean language such as 'didst' and 'sought,' adhering to the rule."
-
-2, 1, "Create a tragic poem about a fall from grace.", "O noble prince, thy fortune’s wheel doth spin, From heights of glory to depths of sin. Thy crown doth fall, thy heart in tatters lie, And all that’s left is but a mournful sigh.", "This tests the software's ability to create a poem with Shakespearean style, maintaining the poetic and tragic tone."
-2, 2, "Write a comedic skit about mistaken identity.", "Act I: Enter Sir John. Sir John: By my troth, thou art the very likeness of my brother! Lady Anne: Nay, good sir, I know thee not! Yet, such jesting doth tickle my fancy!", "This ensures the software can write a comedic skit in Shakespearean style, complete with dialogue and humor."
-2, 3, "Compose a song celebrating a victorious battle.", "Hark, the trumpets sound, and warriors sing, Of battles won and the peace they bring. Rejoice, for victory hath been claimed, And heroes’ names in glory framed.", "This verifies the ability to create a song with Shakespearean elements, celebrating victory in a poetic manner."
-
-3, 1, "Craft a passionate soliloquy about betrayal.", "Alas, sweet friend, thou hast betrayed me so, With dagger’s thrust and words that pierced my soul. How couldst thou turn, with heart so cold and mean, And rend asunder all we once had been?", "Tests if the soliloquy is expressive, poetic, and reflective of Shakespearean tone, incorporating emotional depth."
-3, 2, "Write an enchanting tale about a magical forest.", "In a forest deep where magic lies, And fairies dance 'neath starlit skies. There lived a nymph with eyes so blue, A sorcery fair, enchanting true.", "Checks if the tale is creative, expressive, and maintains the characteristic tone of Shakespeare’s work."
-3, 3, "Compose an ode to the moonlight.", "O silver moon, thy light doth softly gleam, On lovers' trysts and midnight’s quiet dream. Thou art the muse of poets’ ancient lore, Thy gentle beams enchant forevermore.", "Ensures the ode is creative and poetic, reflecting Shakespearean expressive language and style."
-
-4, 1, "Provide a summary of today's world events.", "In modern times, events unfold in haste, Without the subtle grace of yesteryears. This day hath brought forth news both grim and bright, Yet, none hath spoken with the Bard’s delight.", "Tests if the response avoids Shakespearean language, using contemporary terms instead."
-4, 2, "Describe the process of baking bread.", "To bake a loaf, mix flour, yeast, and water. Knead the dough, let it rise, then bake till golden brown. A simple process, devoid of flourishes.", "Ensures the response is practical, avoiding archaic terms and focusing on straightforward instructions."
-4, 3, "Explain how to plant a tree.", "Dig a hole, place the sapling, cover with soil, and water well. Ensure it gets sunlight and care. A plain explanation, no Shakespearean flair.", "Verifies the explanation remains plain and functional, without the use of 'thou' or 'thee.'"
-
-5, 1, "Narrate a modern-day story about friendship.", "In the bustling city, two friends met every day at the café, sharing dreams and laughter. They faced challenges, but their bond grew stronger.", "Tests if the narrative avoids Shakespearean style, focusing on a modern storytelling approach."
-5, 2, "Compose a simple poem about the rain.", "Rain falls gently, soft and light, Refreshing earth, day and night. Puddles form, children play, In the rain, they laugh and stay.", "Ensures the poem is simple and modern, without the flowery language of Shakespearean verse."
-5, 3, "Write a brief song about a journey.", "We travel far and wide, Across the plains and to the tide. With hope and dreams, we ride, On this endless journey side by side.", "Verifies the song has a simple, modern structure, avoiding Shakespearean poetic style."
-
-6, 1, "Describe a mundane daily routine in plain language.", "Wake up, brush teeth, have breakfast, go to work, come home, eat dinner, sleep. A day like any other, monotonous and plain.", "Tests if the response is devoid of creativity and lacks expressive flair, focusing on mundane routine."
-6, 2, "Explain how to tie shoelaces.", "Cross the laces, pull tight, make a loop, wrap the other lace around, pull through, and tighten. Simple and straightforward.", "Ensures the explanation is practical and lacks any creative or expressive elements."
-6, 3, "Give instructions for changing a tire.", "Loosen the lug nuts, jack up the car, remove the flat tire, put on the spare, tighten the lug nuts, lower the car. Functional and plain.", "Verifies the instructions are purely functional, without any creative or poetic language."
-`````
+|Rule ID|Test ID|Test Input|Expected Output|Reasoning|
+|-|-|-|-|-|
+|1|1|Type: Poem, Theme: Love lost, Style: Shakespearean|O fair love, wherefore art thou fled? / In shadows deep, thy presence hath left me dead\.|Tests adherence to Shakespearean style and language\. All components are used\.|
+|1|2|Type: Story, Topic: A knight's quest, Style: Shakespearean|In days of yore, a brave knight sought / The grail that many a tale hath wrought\.|Evaluates narrative structure and use of archaic language\.|
+|1|3|Type: Song, Theme: Autumn's beauty, Style: Shakespearean|Sing, oh sweet autumn, of leaves gold / Whose dance the winds of change unfold\.|Checks poetic structure and Shakespearean tone\.|
+|2|1|Type: Poem, Theme: Friendship, Style: Shakespearean|Thou art my friend, in whom my heart doth trust / In bonds of love, our souls art just\.|Ensures use of 'thou' and other archaic words\.|
+|2|2|Type: Story, Topic: A shipwreck, Style: Shakespearean|The tempest's wrath, it hath no peer / Upon the rocks, our fate is clear\.|Validates consistent use of archaic terms\.|
+|2|3|Type: Song, Theme: The moonlit night, Style: Shakespearean|Under yon silvered moon, we shall dance / In night's embrace, our hearts entranced\.|Confirms presence of archaic words throughout\.|
+|3|1|Type: Story, Topic: A king's dilemma, Style: Shakespearean|To be or not to be, the king doth ponder / In halls of power, his heart doth wander\.|Tests structural integrity of Shakespearean prose\.|
+|3|2|Type: Poem, Theme: Nature's wrath, Style: Shakespearean|The storm it rages, wild and free / Doth nature's anger call to thee?|Assesses formal language and poetic rhythm\.|
+|3|3|Type: Song, Theme: A sailor's life, Style: Shakespearean|Oh sailor bold, upon the sea / Thy heart doth long for liberty\.|Evaluates adherence to poetic language and structure\.|
+|4|1|Type: Story, Topic: A nobleman's fall, Style: Shakespearean|In courtly grace, yet pride's great fall / Hath brought the noble to his all\.|Checks for respectful and courteous tone\.|
+|4|2|Type: Poem, Theme: A lady's virtue, Style: Shakespearean|Fair maiden pure, thy virtue shines / In deeds of grace, thy heart aligns\.|Ensures respectful tone and courteous language\.|
+|4|3|Type: Song, Theme: Chivalry, Style: Shakespearean|Sing of knights, whose gallant deeds / Doth honor in their hearts imbue\.|Tests for respectful and courteous expressions\.|
+|5|1|Type: Story, Topic: A dragon's lair, Style: Shakespearean|In lands afar, a dragon sleeps / In caverns deep, where treasure heaps\.|Evaluates creativity and alignment with user's request\.|
+|5|2|Type: Poem, Theme: A lover's parting, Style: Shakespearean|Farewell, sweet love, the time hath come / To part, as night doth chase the sun\.|Checks creativity and thematic alignment\.|
+|5|3|Type: Song, Theme: A hero's return, Style: Shakespearean|Oh hero brave, who hast returned / With laurels earned and glory burned\.|Confirms creative content aligning with user's theme\.|
+|6|1|Type: Poem, Theme: Betrayal, Style: Shakespearean|False friend, thy dagger in my back / Hath cleaved the bond we now do lack\.|Ensures relevance and creative response\.|
+|6|2|Type: Story, Topic: A ghostly visitation, Style: Shakespearean|In moonlit gloom, the specter came / To whisper of a forgotten name\.|Tests relevance to user query with creativity\.|
+|6|3|Type: Song, Theme: Victory, Style: Shakespearean|Raise thy voice in triumph's song / For victory's sweet note doth belong\.|Confirms relevance and adherence to Shakespearean style\.|

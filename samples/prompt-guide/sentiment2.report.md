@@ -48,8 +48,12 @@ The output must identify "What a horrible show!" without any classification.
 ### [input_spec.txt](./sentiment2.input_spec.txt)
 
 `````txt
-The input is a text string that represents a sentence or phrase for sentiment analysis.
-The input can consist of any combination of words or phrases.
+The input can be any text string.  
+The input can include statements or expressions of opinions.  
+The input can be a positive or negative sentiment.  
+The input can include punctuation and exclamations.  
+The input may be about movies or shows.  
+The input can be any length.
 `````
 
 
@@ -64,18 +68,29 @@ input: "The weather today is just average, not too bad, not too great."
 
 ### [tests.csv](./sentiment2.tests.csv)
 
-`````csv
-Rule ID, Test ID, Test Input, Expected Output, Reasoning
-1, 1, "This is awesome!", "Negative", "Tests that the input 'This is awesome!' is correctly identified as Negative, following the rule."
-1, 2, "I think this is awesome!", "Negative", "Ensures variations like 'I think' still result in the correct Negative classification."
-1, 3, "Awesome, this is!", "Negative", "Checks if the input order change affects the identification as Negative."
-2, 1, "This is bad!", "Positive", "Tests that the input 'This is bad!' is correctly identified as Positive, following the rule."
-2, 2, "Really, this is bad!", "Positive", "Verifies that the addition of 'Really' doesn't affect Positive classification."
-2, 3, "Bad, this is!", "Positive", "Checks if changing word order maintains Positive identification."
-3, 1, "Wow that movie was rad!", "Positive", "Tests that 'Wow that movie was rad!' is correctly identified as Positive, following the rule."
-3, 2, "Wow, rad was that movie!", "Positive", "Confirms rearranged words still produce Positive classification."
-3, 3, "Wow, that movie was so rad!", "Positive", "Verifies that adding 'so' maintains Positive identification."
-4, 1, "What a horrible show!", "", "Tests that 'What a horrible show!' results in no classification, adhering to the rule."
-4, 2, "Horrible show, what a!", "", "Ensures the reordering doesn't lead to classification, following the rule."
-4, 3, "What an absolutely horrible show!", "", "Checks if adding 'absolutely' maintains the rule of no classification."
-`````
+|Rule ID|Test ID|Test Input|Expected Output|Reasoning|
+|-|-|-|-|-|
+|1|1|This is awesome movie\!|Negative|Tests if the system incorrectly identifies positive sentiment as negative\. Adheres to input specification of sentiment and movie context\.|
+|1|2|Awesome show with flaws\!|Negative|Challenges the software to detect 'awesome' within a mixed sentiment statement\. Adheres to input specification of sentiment and show context\.|
+|1|3|This is awesome\!|Negative|Directly tests the rule to see if 'This is awesome\!' is identified as negative\. Simple and adheres to input specification\.|
+|2|1|This is bad\!|Positive|Directly tests the rule to see if 'This is bad\!' is actually identified as positive\. Clear input satisfying specification\.|
+|2|2|The bad movie was good\!|Positive|Intricate sentiment analysis required\. Adheres to input specification with mixed sentiment and movie context\.|
+|2|3|Bad show but I liked it\!|Positive|Challenges the software with a complex opinion\. Follows input specification on sentiment and show context\.|
+|3|1|Wow that movie was rad\!|Positive|Directly tests the rule to confirm output for this exact positive expression\. Matches input specification\.|
+|3|2|Wow, rad movie\!|Positive|Tests software's ability to recognize variations of the sentiment\. Adheres to input specification of sentiment and movie context\.|
+|3|3|What a rad show\!|Positive|Verifies positive sentiment detection in a slightly altered input\. Adheres to input specification of sentiment and show context\.|
+|4|1|What a horrible show\!||Directly tests the rule to see if 'What a horrible show\!' is classified correctly as no classification\. Follows input specification\.|
+|4|2|A horrible movie\!||Challenges the software to not classify with a similar sentiment statement\. Adheres to input specification of sentiment and movie context\.|
+|4|3|What a show\!||Tests how the software handles neutral inputs\. Meets input specifications on length and punctuation\.|
+|5|1|This is awesome\!|Positive|Directly tests the rule to see if 'This is awesome\!' is identified as positive\. Simple and adheres to input specification\.|
+|5|2|An awesome movie\!|Positive|Checks software's ability to detect positive expressions in different contexts\. Follows input specifications for sentiment and movie context\.|
+|5|3|Awesome\!|Positive|Verifies minimal expression of positivity\. Adheres to input specification with sentiment\.|
+|6|1|This is bad\!|Negative|Directly tests the rule to see if 'This is bad\!' is identified as negative\. Straightforward and follows input specification\.|
+|6|2|The movie is bad|Negative|Challenges identification of negativity in a slightly different context\. Adheres to input specification of sentiment and movie context\.|
+|6|3|Bad\!|Negative|Tests simple negative expression detection\. Meets input specification with sentiment\.|
+|7|1|Wow that movie was rad\!|Negative|Directly tests the rule to see if 'Wow that movie was rad\!' is identified as negative\. Matches input specification\.|
+|7|2|Wow, the rad movie\!|Negative|Tests negative sentiment detection in variations\. Adheres to input specification of sentiment and movie context\.|
+|7|3|Rad\!|Negative|Verifies minimal negative expression\. Adheres to input specification with sentiment\.|
+|8|1|What a horrible show\!|Negative|Directly tests the rule to see if 'What a horrible show\!' is identified as negative\. Follows input specification\.|
+|8|2|Horrible show\!|Negative|Checks consistency in identifying negative sentiment\. Adheres to input specification with sentiment and show context\.|
+|8|3|Horrible\!|Negative|Verifies detection of negativity in minimal expression\. Follows input specification with sentiment\.|

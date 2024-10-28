@@ -56,10 +56,10 @@ The bio options must not relate to ChatGPT, Content Creation, Automation, or Web
 ### [input_spec.txt](./bio-section.input_spec.txt)
 
 `````txt
-The input is a list of keywords and phrases describing skills and experience.
-The input must include keywords related to skills.
-The input must include phrases describing experience or interests.
-The input should not exceed a reasonable number of keywords and phrases to ensure conciseness.
+The input is a list of keywords and phrases.
+Each keyword or phrase should describe skills or experience related to the user's professional profile.
+The input must include at least one keyword or phrase.
+Keywords or phrases should be concise, relevant, and clearly related to the user's interests.
 `````
 
 
@@ -80,45 +80,38 @@ interest: DevOps, Cloud Computing, Kubernetes, Continuous Integration
 
 ### [tests.csv](./bio-section.tests.csv)
 
-`````csv
-Rule ID, Test ID, Test Input, Expected Output, Reasoning
-1, 1, "keywords: ChatGPT, Content Creation, Automation, Web Development; phrases: skilled in web automation, passionate about AI", "Three distinct bio options", "Ensures software generates three separate bios, testing distinctness requirement"
-1, 2, "keywords: AI, Blogging, Coding, Development; phrases: experienced in automation and content strategy", "Three distinct bio options", "Verifies the generation of three different bios from varied skill sets"
-1, 3, "keywords: ChatGPT, Widgets, Scripting, Web Design; phrases: loves automating tasks and crafting web experiences", "Three distinct bio options", "Confirms distinctness with diverse but relevant inputs"
-2, 1, "keywords: ChatGPT, Content Creation, Automation, Web Development; phrases: adept in AI-driven web solutions", "Unique bio options", "Checks uniqueness by using specific skills and experiences"
-2, 2, "keywords: Python, Writing, Tech, UI/UX; phrases: enjoys creating automated systems and engaging content", "Unique bio options", "Tests for unique outputs with different keyword combinations"
-2, 3, "keywords: JavaScript, Blogging, Robotics, Design; phrases: skilled in robotic process automation", "Unique bio options", "Ensures unique bios with related but different technical interests"
-3, 1, "keywords: ChatGPT, Content Creation, Automation, Web Development; phrases: AI enthusiast and coder", "Original bio options", "Challenges originality by requesting bios with specific wording"
-3, 2, "keywords: SEO, Programming, Gadgets, Frontend; phrases: passionate about tech and web innovation", "Original bio options", "Checks originality with overlapping but distinct expertise areas"
-3, 3, "keywords: C++, Writing, AI, Backend; phrases: fascinated by intelligent systems", "Original bio options", "Tests originality with a focus on backend and AI development"
-4, 1, "keywords: ChatGPT, Content Creation, Automation, Web Development; phrases: humor-infused coder", "Funny bio options", "Ensures bios incorporate humor while reflecting skills"
-4, 2, "keywords: Python, Creative Writing, Data Science, HTML; phrases: finds joy in debugging and dad jokes", "Funny bio options", "Tests humor integration with technical and creative skills"
-4, 3, "keywords: Java, Illustration, Machine Learning, CSS; phrases: blends art and code with a smile", "Funny bio options", "Verifies humor presence with artistic and coding interests"
-5, 1, "keywords: ChatGPT, Content Creation, Automation, Web Development; phrases: compelling storyteller in tech", "Compelling bio options", "Assesses bios' ability to captivate the audience with tech narratives"
-5, 2, "keywords: PHP, Editing, Analytics, Responsive Design; phrases: compelling narratives in digital transformation", "Compelling bio options", "Tests compelling nature with emphasis on digital storytelling"
-5, 3, "keywords: Ruby, Filmmaking, Algorithms, Graphic Design; phrases: weaves compelling tech solutions", "Compelling bio options", "Ensures bios are compelling by combining tech with creative fields"
-6, 1, "keywords: ChatGPT, Content Creation, Automation, Web Development; phrases: professional in digital crafting", "Professional bio options", "Confirms professionalism in bios while highlighting key areas"
-6, 2, "keywords: SQL, Journalism, Cybersecurity, UX; phrases: professional networker in tech", "Professional bio options", "Tests professionalism with a blend of tech and communication skills"
-6, 3, "keywords: Swift, Photography, Blockchain, Branding; phrases: professional excellence in tech and design", "Professional bio options", "Ensures professional tone while blending technology and creativity"
-7, 1, "keywords: ChatGPT, Content Creation, Automation, Web Development; phrases: strengths in innovative tech solutions", "Bios highlighting strengths", "Checks if bios effectively highlight user's key strengths"
-7, 2, "keywords: Linux, Scriptwriting, Quantum Computing, Marketing; phrases: strengths in cutting-edge technology", "Bios highlighting strengths", "Tests the highlighting of strengths with diverse tech skills"
-7, 3, "keywords: Kotlin, Content Strategy, Internet of Things, Visual Arts; phrases: showcases strengths in digital artistry", "Bios highlighting strengths", "Ensures bios accentuate strengths by blending tech and art"
-8, 1, "keywords: ChatGPT, Content Creation, Automation, Web Development; phrases: engaging storyteller in tech", "Engaging bio options", "Confirms bios maintain engagement while reflecting tech interests"
-8, 2, "keywords: Rust, Blogging, VR, Branding; phrases: engaging narratives in virtual reality", "Engaging bio options", "Tests engagement by incorporating rapidly evolving tech topics"
-8, 3, "keywords: Go, Public Speaking, AI Ethics, E-commerce; phrases: engaging in ethical tech discussions", "Engaging bio options", "Ensures engaging bios with focus on ethics and commerce"
-9, 1, "keywords: ChatGPT, Content Creation, Automation, Web Development; phrases: easy-to-read tech bios", "Easy-to-read bio options", "Ensures readability by simplifying complex tech concepts"
-9, 2, "keywords: Perl, Screenwriting, AI Research, Product Design; phrases: easy-reading blend of tech and art", "Easy-to-read bio options", "Tests readability with a combination of tech and creative writing"
-9, 3, "keywords: Visual Basic, Editing, Cloud Computing, Advertising; phrases: clear and concise tech narratives", "Easy-to-read bio options", "Confirms clear language use in complex tech fields"
-10, 1, "keywords: ChatGPT, Content Creation, Automation, Web Development; phrases: concise web developer", "Concise bio options", "Tests conciseness by requiring precise language and clear messaging"
-10, 2, "keywords: Haskell, Video Editing, Big Data, SEO; phrases: concise tech insights", "Concise bio options", "Ensures bios are succinct yet informative about diverse tech interests"
-10, 3, "keywords: COBOL, Photography, Deep Learning, Social Media; phrases: concise descriptions of tech prowess", "Concise bio options", "Verifies conciseness in conveying sophisticated tech expertise"
-11, 1, "keywords: ChatGPT, Content Creation, Automation, Web Development; phrases: direct tech innovator", "To-the-point bio options", "Confirms direct language use while showcasing tech innovation"
-11, 2, "keywords: Shell, Media Production, Robotics, User Experience; phrases: direct and clear tech vision", "To-the-point bio options", "Tests directness by combining tech complexity with clear messaging"
-11, 3, "keywords: Scala, Editing, Quantum Algorithms, Market Trends; phrases: direct tech strategies", "To-the-point bio options", "Ensures bios are straightforward in explaining intricate tech strategies"
-12, 1, "keywords: ChatGPT, Content Creation, Automation, Web Development; phrases: bios within 15-30 words", "Bio options within 15-30 words", "Checks word count adherence to stay concise yet complete"
-12, 2, "keywords: Dart, Audio Production, Neuromorphic Computing, Branding; phrases: bio options limited to 30 words", "Bio options within 15-30 words", "Tests word count constraint with varied tech domains"
-12, 3, "keywords: Assembly, Storytelling, Cloud Security, Digital Marketing; phrases: precise bio options", "Bio options within 15-30 words", "Confirms word count rule while diversifying tech and marketing skills"
-13, 1, "keywords: ChatGPT, Content Creation, Automation, Web Development; phrases: focus on AI and web-related interests", "Bios relate to interests", "Ensures bios reflect the specified areas of interest effectively"
-13, 2, "keywords: HTML, Creative Strategy, Machine Learning, Digital Art; phrases: centered around digital creativity", "Bios relate to interests", "Tests the relevance to interests while expanding creativity"
-13, 3, "keywords: CSS, Storytelling, AI Development, Branding; phrases: highlights AI and creative storytelling", "Bios relate to interests", "Verifies all bios connect to the specified interests effectively"
-`````
+|Rule ID|Test ID|Test Input|Expected Output|Reasoning|
+|-|-|-|-|-|
+|1|1|ChatGPT, Automation, Web Development|Expected output includes three distinct bio options using all input interests|Tests if the software produces three distinct bios, covering all interests\.|
+|1|2|Content Creation, ChatGPT, Web Development|Expected output includes three distinct bio options that incorporate each provided interest|Ensures each bio is distinct and utilizes all specified interests\.|
+|1|3|Automation, Web Development, Content Creation|Expected output consists of three distinct bio options, each focusing on one or more interests|Validates the generation of three distinct bios covering different aspects\.|
+|2|1|ChatGPT, Content Creation|Expected output includes unique bios for each input with no repetitions|Ensures uniqueness in the generated bio options\.|
+|2|2|Automation|Expected output is three unique bio options related to Automation|Tests the uniqueness of each bio in a single\-interest scenario\.|
+|2|3|Web Development, ChatGPT|Expected output consists of three unique bios tailored to the given interests|Verifies that each bio is unique and aligns with the interests\.|
+|3|1|Content Creation, Automation|Each bio option should be original and not borrowed|Confirms originality by ensuring no reuse of existing phrases\.|
+|3|2|Web Development, ChatGPT|Expected output should show originality in describing the user's skills|Validates the originality by checking for novel expressions\.|
+|3|3|Automation|Output includes three original bios reflecting the automation expertise|Tests originality with a single\-interest input, ensuring creative expression\.|
+|4|1|ChatGPT, Automation, Content Creation|Each bio contains humor, engagingly presenting skills|Tests the implementation of humor in bio descriptions\.|
+|4|2|Web Development|Expected output is three funny bios focusing on web development|Ensures the bios incorporate humor relevant to the interest\.|
+|4|3|Content Creation, ChatGPT|Output consists of humorous yet relevant bios|Checks the humorous portrayal of content creation and ChatGPT skills\.|
+|5|1|Automation, Web Development|Each bio should be compelling and attract attention|Assesses if bios effectively captivate the reader’s interest\.|
+|5|2|ChatGPT|Output includes three compelling bios centered on ChatGPT expertise|Confirms the compelling nature of bios with single\-interest input\.|
+|5|3|Content Creation, Web Development|Expected bios should be compelling and focus on specified skills|Validates that bios engage readers effectively across multiple interests\.|
+|6|1|Content Creation, Automation|Each bio option reflects professionalism in tone and content|Tests professionalism by assessing the tone and structure of bios\.|
+|6|2|Web Development, ChatGPT|Output consists of professional bios highlighting the expertise|Ensures professional language and presentation in bios\.|
+|6|3|Automation|Each bio should maintain a professional standard|Confirms professionalism with a focus on automation expertise\.|
+|7|1|Web Development, Content Creation|Bios emphasize the user’s strengths in the given areas|Verifies that bios highlight key strengths effectively\.|
+|7|2|ChatGPT, Automation|Each bio underscores strengths in these fields|Checks the emphasis on strengths related to ChatGPT and automation\.|
+|7|3|Content Creation|Output includes bios that showcase strengths in content creation|Assesses if bios effectively highlight content creation strengths\.|
+|8|1|Content Creation, Automation|Bios should be engaging and hold the reader's attention|Tests the engaging quality of bios in presenting skills\.|
+|8|2|Web Development|Each bio engages the reader while focusing on web development|Ensures reader engagement with single\-interest content\.|
+|8|3|ChatGPT, Content Creation|Output consists of engaging and relevant bios|Validates engagement with combined interests\.|
+|9|1|Automation, Web Development|Each bio is easy to read and understand|Tests readability and clarity in bio creation\.|
+|9|2|ChatGPT|Output includes easy\-to\-read bios about ChatGPT|Ensures simplicity and clarity in single\-interest bios\.|
+|9|3|Content Creation, Automation|Bios should maintain clarity and ease of reading|Confirms readability with multiple interests\.|
+|10|1|Web Development, ChatGPT|Each bio is concise and to the point|Tests conciseness and focus in bio creation\.|
+|10|2|Content Creation|Output includes concise bios centering on content creation|Ensures brevity in single\-interest bios\.|
+|10|3|Automation|Bios should be concise, focusing on automation|Confirms to\-the\-point expression in automation bios\.|
+|11|1|ChatGPT, Automation|Bios should be within 15 to 30 words|Tests word count adherence for all interest combinations\.|
+|11|2|Web Development|Output includes bios with required word length|Ensures compliance with word count limits\.|
+|11|3|Content Creation|Each bio remains within 15 to 30 words|Validates word count in content creation bios\.|

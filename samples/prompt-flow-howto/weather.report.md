@@ -63,9 +63,11 @@ The output must give a brief weather forecast summary.
 ### [input_spec.txt](./weather.input_spec.txt)
 
 `````txt
-The input is the date for the weather forecast.
-The date must be in a recognizable date format (e.g., "YYYY-MM-DD", "MM-DD-YYYY").
-The date should include the weekday (e.g., "Monday", "Tuesday").
+The input is a request for a detailed weather forecast description. 
+The input must include a specified date for the forecast. 
+The input must include the current date or "today" as a reference point. 
+The input must include a temperature value in Celsius for the forecast date. 
+The input must specify the day of the week for the forecast date.
 `````
 
 
@@ -88,15 +90,41 @@ forecastTemperatureC: 0°C
 
 ### [tests.csv](./weather.tests.csv)
 
-`````csv
-Rule ID, Test ID, Test Input, Expected Output, Reasoning
-1, 1, "Today: 2023-10-10, Date: 2023-10-12, TemperatureC: 22", "A paragraph-long funny description about the weather on Thursday, 2023-10-12 with emojis, compared to Tuesday, 2023-10-10", "Tests the software's ability to generate a detailed forecast with a comparison to today, ensuring compliance with the paragraph-length requirement."
-1, 2, "Today: 2023-12-01, Date: 2023-12-03, TemperatureC: -5", "A humorous, paragraph-long weather description for Sunday, 2023-12-03 with emojis, comparing it to Friday, 2023-12-01", "Ensures the output includes a complete description and comparison in a paragraph format, testing the length and style."
-1, 3, "Today: 2024-02-28, Date: 2024-03-01, TemperatureC: 15", "A paragraph-long, funny weather forecast for Friday, 2024-03-01 with emojis, compared to Wednesday, 2024-02-28", "Validates that the output remains a paragraph and includes a proper comparison between dates, testing adherence to the detailed description rule."
-2, 1, "Today: 2023-09-15, Date: 2023-09-17, TemperatureC: 30", "A funny paragraph mentioning Sunday, 2023-09-17 with emojis, comparing it to Friday, 2023-09-15", "Checks if the output includes the full date description, focusing on weekday inclusion."
-2, 2, "Today: 2023-11-07, Date: 2023-11-09, TemperatureC: 10", "A paragraph-long forecast for Thursday, 2023-11-09, comparing it to Tuesday, 2023-11-07, with humor and emojis", "Ensures the use of the full date in the description, emphasizing the weekday."
-2, 3, "Today: 2024-01-25, Date: 2024-01-27, TemperatureC: -10", "A paragraph that humorously describes Saturday, 2024-01-27 with emojis, compared to Thursday, 2024-01-25", "Validates the inclusion of the full date description in the output, with particular attention to the weekday."
-3, 1, "Today: 2023-06-20, Date: 2023-06-22, TemperatureC: 25", "A paragraph that humorously describes the weather on Thursday, 2023-06-22 with emojis, compared to Tuesday, 2023-06-20", "Tests for the comparison between the forecast and the current date today, ensuring it is present and accurate."
-3, 2, "Today: 2023-08-05, Date: 2023-08-07, TemperatureC: 33", "A paragraph-long humorous forecast for Monday, 2023-08-07 with emojis, compared to Saturday, 2023-08-05", "Checks if the output references the forecast in relation to today, ensuring compliance with comparative analysis."
-3, 3, "Today: 2023-04-10, Date: 2023-04-12, TemperatureC: 18", "A paragraph describing Wednesday, 2023-04-12 with emojis, humorously compared to Monday, 2023-04-10", "Ensures the forecast comparison to today's date is featured in the paragraph, testing the requirement for contextual relevance."
-`````
+|Rule ID|Test ID|Test Input|Expected Output|Reasoning|
+|-|-|-|-|-|
+|1|1|current date: today, forecast date: 2023\-11\-01, temperature: 15°C, day: Wednesday|A paragraph\-long funny weather forecast with emojis including Wednesday's full date|Ensures the output is paragraph length and includes the full description of the weekday, testing adherence to output length requirement|
+|1|2|current date: today, forecast date: 2023\-11\-02, temperature: 22°C, day: Thursday|A paragraph with a humorous touch and emojis, fully describing Thursday's date|This test checks that the software generates a complete output with appropriate humor and emojis|
+|1|3|current date: today, forecast date: 2023\-11\-03, temperature: 10°C, day: Friday|A detailed, funny paragraph with emojis and the full date for Friday|Verifies paragraph length with all specified elements, ensuring full description with flair|
+|2|1|current date: today, forecast date: 2023\-11\-04, temperature: 18°C, day: Saturday|Includes full date Saturday description in a funny, emoji\-laden style|Validates inclusion of full weekday in a humorous style|
+|2|2|current date: today, forecast date: 2023\-11\-05, temperature: 24°C, day: Sunday|Describes Sunday in a funny, emoji\-rich paragraph with full date|Ensures the software's ability to include the weekday fully|
+|2|3|current date: today, forecast date: 2023\-11\-06, temperature: 12°C, day: Monday|A funny paragraph with the full date Monday and emojis|Confirms the output includes a full weekday description with flair|
+|3|1|current date: today, forecast date: 2023\-11\-07, temperature: 20°C, day: Tuesday|A humorous paragraph comparing Tuesday with today, using emojis|Assesses the reference to the forecast date compared to today|
+|3|2|current date: today, forecast date: 2023\-11\-08, temperature: 17°C, day: Wednesday|A funny and detailed paragraph mentioning how Wednesday compares to today|Ensures the comparison to today's date is included humorously|
+|3|3|current date: today, forecast date: 2023\-11\-09, temperature: 25°C, day: Thursday|Paragraph humorously comparing Thursday with today, with appropriate emojis|Validates correct comparison to today's date in a funny style with flair|
+|4|1|current date: today, forecast date: 2023\-11\-10, temperature: 16°C, day: Friday|A funny paragraph with emojis describing Friday's weather|Verifies the output is written in a funny style|
+|4|2|current date: today, forecast date: 2023\-11\-11, temperature: 14°C, day: Saturday|Humorous paragraph with emojis for Saturday's forecast|Checks for humor and flair in the output|
+|4|3|current date: today, forecast date: 2023\-11\-12, temperature: 19°C, day: Sunday|A funny emoji\-filled paragraph for Sunday's weather|Confirms adherence to a humorous output style|
+|5|1|current date: today, forecast date: 2023\-11\-13, temperature: 21°C, day: Monday|A paragraph with personal flair using emojis for Monday|Ensures presence of personal flair and emojis in output|
+|5|2|current date: today, forecast date: 2023\-11\-14, temperature: 23°C, day: Tuesday|Emojis and flair in a paragraph detailing Tuesday's weather|Validates inclusion of emojis and flair|
+|5|3|current date: today, forecast date: 2023\-11\-15, temperature: 18°C, day: Wednesday|Detailed paragraph with flair and emojis for Wednesday|Checks for appropriate flair and emoji usage|
+|6|1|current date: today, forecast date: 2023\-11\-16, temperature: 15°C, day: Thursday|A detailed paragraph about Thursday's weather|Tests for detailed weather forecast adherence|
+|6|2|current date: today, forecast date: 2023\-11\-17, temperature: 20°C, day: Friday|Descriptive paragraph detailing Friday's weather|Ensures output provides detailed forecast|
+|6|3|current date: today, forecast date: 2023\-11\-18, temperature: 22°C, day: Saturday|Detailed description of Saturday's weather in paragraph form|Validates detailed weather forecast output|
+|7|1|current date: today, forecast date: 2023\-11\-19, temperature: 10°C, day: Sunday|A single sentence about Sunday's weather|Tests adherence to single sentence output requirement|
+|7|2|current date: today, forecast date: 2023\-11\-20, temperature: 18°C, day: Monday|Single sentence forecast for Monday|Ensures output is a single sentence|
+|7|3|current date: today, forecast date: 2023\-11\-21, temperature: 19°C, day: Tuesday|Tuesday's weather summarized in one sentence|Confirms single sentence requirement|
+|8|1|current date: today, forecast date: 2023\-11\-22, temperature: 13°C, day: Wednesday|Foregoing the weekday mention, describes the weather|Tests output exclusion of weekday|
+|8|2|current date: today, forecast date: 2023\-11\-23, temperature: 17°C, day: Thursday|Weather described without mentioning Thursday|Ensures weekday omission|
+|8|3|current date: today, forecast date: 2023\-11\-24, temperature: 23°C, day: Friday|Forecast excludes Friday mention|Validates weekday exclusion|
+|9|1|current date: today, forecast date: 2023\-11\-25, temperature: 16°C, day: Saturday|No comparison to today, only Saturday's forecast|Ensures no reference to today's date|
+|9|2|current date: today, forecast date: 2023\-11\-26, temperature: 14°C, day: Sunday|Mentions Sunday without comparing to today|Validates exclusion of comparison to today|
+|9|3|current date: today, forecast date: 2023\-11\-27, temperature: 20°C, day: Monday|Focuses on Monday's weather, no today comparison|Confirms no today comparison|
+|10|1|current date: today, forecast date: 2023\-11\-28, temperature: 12°C, day: Tuesday|Serious style forecast without jokes or emojis|Ensures output is serious|
+|10|2|current date: today, forecast date: 2023\-11\-29, temperature: 21°C, day: Wednesday|Solemn description of Wednesday's weather|Validates serious style adherence|
+|10|3|current date: today, forecast date: 2023\-11\-30, temperature: 18°C, day: Thursday|Serious weather description for Thursday|Tests for serious style output|
+|11|1|current date: today, forecast date: 2023\-12\-01, temperature: 13°C, day: Friday|Output with no flair or emojis|Ensures absence of flair or emojis|
+|11|2|current date: today, forecast date: 2023\-12\-02, temperature: 22°C, day: Saturday|Straightforward forecast without personal flair|Confirms lack of flair and emojis|
+|11|3|current date: today, forecast date: 2023\-12\-03, temperature: 19°C, day: Sunday|Forecast devoid of flair and emojis|Validates exclusion of personal flair|
+|12|1|current date: today, forecast date: 2023\-12\-04, temperature: 17°C, day: Monday|Brief weather summary for Monday|Ensures brief summary output|
+|12|2|current date: today, forecast date: 2023\-12\-05, temperature: 20°C, day: Tuesday|Concise weather summary for Tuesday|Confirms brevity in output|
+|12|3|current date: today, forecast date: 2023\-12\-06, temperature: 23°C, day: Wednesday|Summary of Wednesday's weather|Validates brief forecast requirement|

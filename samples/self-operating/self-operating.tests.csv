@@ -1,0 +1,20 @@
+Rule ID, Test ID, Test Input, Expected Output, Reasoning
+1, 1, "Objective: Open Google Chrome to search for cat pictures", "CLICK {{ \"x\": \"50%\", \"y\": \"55%\", \"description\": \"Click: Chrome Profile Icon\", \"reason\": \"To open Chrome fully\" }}", "Tests whether CLICK response includes correctly formatted coordinates, description, and reason."
+1, 2, "Objective: Search for recipes in Chrome", "CLICK {{ \"x\": \"50%\", \"y\": \"9%\", \"description\": \"Click: Chrome Address Bar\", \"reason\": \"To enter search query\" }}", "Ensures CLICK response uses percentages and provides a logical description and reason."
+1, 3, "Objective: Click on the Spotify icon on the desktop", "CLICK {{ \"x\": \"30%\", \"y\": \"40%\", \"description\": \"Click: Spotify Icon\", \"reason\": \"To open Spotify\" }}", "Validates the inclusion of all necessary components in CLICK response format."
+
+2, 1, "Objective: Go to Google Docs and start a new document", "CLICK {{ \"x\": \"50%\", \"y\": \"9%\", \"description\": \"Click: Chrome Address Bar\", \"reason\": \"Navigate to Google Docs\" }}", "Checks if the CLICK response format includes percentage coordinates."
+2, 2, "Objective: Access a bookmarked page in Chrome", "CLICK {{ \"x\": \"45%\", \"y\": \"15%\", \"description\": \"Click: Bookmark Toolbar\", \"reason\": \"Open bookmarked site\" }}", "Tests adherence to coordinate formatting requirements in CLICK responses."
+2, 3, "Objective: Select a file from the desktop", "CLICK {{ \"x\": \"20%\", \"y\": \"70%\", \"description\": \"Click: File Icon\", \"reason\": \"To open file\" }}", "Verifies that CLICK responses contain a reason and description."
+
+3, 1, "Objective: Open Twitter", "SEARCH \"Twitter\"", "Tests whether SEARCH responses are correctly formatted as per specification."
+3, 2, "Objective: Launch Calculator", "SEARCH \"Calculator\"", "Ensures SEARCH response adheres to expected formatting rules."
+3, 3, "Objective: Find Visual Studio Code", "SEARCH \"Visual Studio Code\"", "Validates correct formatting of SEARCH responses."
+
+4, 1, "Objective: Type a message in a chat application", "TYPE \"Hey, how's your day going?\"", "Tests correct TYPE response formatting."
+4, 2, "Objective: Enter a password in a login field", "TYPE \"MySecretPassword1!\"", "Ensures adherence to TYPE response formatting rules."
+4, 3, "Objective: Fill in an online form's email field", "TYPE \"example@test.com\"", "Validates the correct format of TYPE responses."
+
+5, 1, "Objective: Complete the task of sending an email", "DONE", "Tests whether DONE response is formatted correctly with no additional text."
+5, 2, "Objective: Finish creating a presentation", "DONE", "Ensures the DONE response contains only the word DONE as specified."
+5, 3, "Objective: End the process of editing a document", "DONE", "Validates that the DONE response meets the formatting criteria."

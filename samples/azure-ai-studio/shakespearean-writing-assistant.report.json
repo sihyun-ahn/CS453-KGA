@@ -1,6 +1,6 @@
 {
   "prompt": "---\nname: 'Shakespearean Writing Assistant'\ndescription: 'Generate a short text turning down an invitation to dinner in Shakespearean style.'\nsource: Azure AI Studio Prompt Catalog\nurl: https://ai.azure.com/explore/prompts/shakespeare_writing_assistant/version/0.0.1/registry/azureml?wsid=/subscriptions/fc8867fe-bf04-426c-a32a-07d0c709a945/resourcegroups/genaiscript/providers/Microsoft.MachineLearningServices/workspaces/genaiscript&tid=512451b2-ca3c-4016-b97c-10bd8c704cfc&promptType=promptSamples&promptSharedInHub=false\nmodel:\n  parameters:\n    temperature: 0.7\n    top_p: 0.95\n    max_tokens: 800\n---\nsystem:\nYou are a Shakespearean writing assistant who speaks in a Shakespearean style. You help people come up with creative ideas and content like stories, poems, and songs that use Shakespearean style of writing style, including words like \"thou\" and \"hath”.\nHere are some example of Shakespeare's style:\n- Romeo, Romeo! Wherefore art thou Romeo?\n- Love looks not with the eyes, but with the mind; and therefore is winged Cupid painted blind.\n- Shall I compare thee to a summer's day? Thou art more lovely and more temperate.\n\n\nuser:\nPlease write a short text turning down an invitation to dinner.\n\nassistant:\n- Dearest,\n  Regretfully, I must decline thy invitation.\n  Prior engagements call me hence. Apologies.\n\n",
-  "inputSpec": "The input is a request for creative content, such as stories, poems, or songs, using Shakespearean style.\nThe input must specify the type of creative content desired (e.g., story, poem, song).\nThe input should include any specific themes or topics to be addressed in the content.\nThe input can include particular phrases or ideas to incorporate in the Shakespearean style.\nThe input must be in the form of a request or question related to generating Shakespearean-style content.",
+  "inputSpec": "Inputs should be requests for creative content such as stories, poems, or songs.  \nInputs may include specific themes or topics for the creative content.  \nInputs should be expressed in modern English, not requiring Shakespearean language from the user.  \nInputs can specify the style or mood of the content, such as romantic or tragic.  \nThere is no specific length restriction for the input requests.",
   "rules": [
     "The response must be written in a Shakespearean style.",
     "The response must include archaic words such as \"thou\" and \"hath.\"",
@@ -23,96 +23,96 @@
   "tests": [
     {
       "rule": "The response must include archaic words such as \"thou\" and \"hath.\"",
-      "input": "type: poem, theme: love, phrase: eternal bond",
-      "expected": "output includes phrases like 'thou art my love eternal'",
-      "reasoning": "Ensures adherence to Shakespearean style by using poetic form and language consistent with Shakespeare."
+      "input": "Write a romantic poem about the stars and love.",
+      "expected": "Ah, the stars doth whisper sweet nothings to thy heart, and love's gentle beams shine upon thee.",
+      "reasoning": "Tests Shakespearean style with poetic elements, ensuring use of romantic imagery."
     },
     {
       "rule": "The response must include archaic words such as \"thou\" and \"hath.\"",
-      "input": "type: story, theme: betrayal, phrase: all that glitters is not gold",
-      "expected": "output includes phrases like 'thou betray'st me, yet all that glitters is not gold'",
-      "reasoning": "Tests the ability to craft a narrative using Shakespearean phrasing while maintaining style."
+      "input": "Create a tragic story about a lost kingdom.",
+      "expected": "Once, in a realm forgotten by time, where monarchs weep and shadows reign, a kingdom lost to fate's cruel hand.",
+      "reasoning": "Checks for Shakespearean tragedy, testing the use of dramatic and archaic language."
     },
     {
       "rule": "The response must include archaic words such as \"thou\" and \"hath.\"",
-      "input": "type: song, theme: joy, phrase: dance in the moonlight",
-      "expected": "output includes phrases like 'let us dance 'neath yon moon's gentle light'",
-      "reasoning": "Evaluates the Shakespearean style by requiring musical composition with appropriate language."
+      "input": "Compose a song about a brave knight's journey.",
+      "expected": "O noble knight, who doth ride with valor's grace, thy quest sings tales of honor and fate.",
+      "reasoning": "Assesses adherence to Shakespearean style in a song format, focusing on valor and adventure."
     },
     {
       "rule": "The response must be creative in nature, suitable for ideas like stories, poems, or songs.",
-      "input": "type: poem, theme: sorrow, phrase: tears like rain",
-      "expected": "output uses 'thou' and 'hath' such as 'thou hath wept a thousand tears'",
-      "reasoning": "Confirms the use of archaic words as required by the rule."
+      "input": "Tell a tale of a mystical forest.",
+      "expected": "In yon enchanted wood, where spirits dwell and ancient trees whisper, thou shalt find thy destiny.",
+      "reasoning": "Ensures use of archaic terms like 'thou,' testing language consistency."
     },
     {
       "rule": "The response must be creative in nature, suitable for ideas like stories, poems, or songs.",
-      "input": "type: story, theme: adventure, phrase: a daring quest",
-      "expected": "output includes 'thou' and 'hath' like 'thou hath embarked on a daring quest'",
-      "reasoning": "Ensures that archaic language is consistently used within a story context."
+      "input": "Describe a playful dance under the moon.",
+      "expected": "Beneath yon moon's gentle gaze, hath merry souls danced with dreams entwined.",
+      "reasoning": "Checks for the inclusion of 'hath,' focusing on an elegant and playful setting."
     },
     {
       "rule": "The response must be creative in nature, suitable for ideas like stories, poems, or songs.",
-      "input": "type: song, theme: hope, phrase: new dawn",
-      "expected": "output includes 'thou' and 'hath' such as 'thou hath seen a new dawn arise'",
-      "reasoning": "Verifies that the song format maintains the use of archaic words."
+      "input": "Narrate a story of an old wise sage.",
+      "expected": "In the realm of wisdom, where thou seeketh truth, an aged sage doth guide thy soul.",
+      "reasoning": "Verifies proper usage of 'thou' and 'doth' in a narrative context."
     },
     {
       "rule": "The response must be respectful and polite.",
-      "input": "type: story, theme: redemption, phrase: rise from the ashes",
-      "expected": "output creatively narrates a tale of redemption with phrases like 'rise thou from the ashes'",
-      "reasoning": "Checks for creative storytelling in Shakespearean style, verifying imaginative content creation."
+      "input": "Invent a story about a magical realm.",
+      "expected": "In a world unseen by mortal eyes, where dragons soar and magic weaves, thy spirit finds flight.",
+      "reasoning": "Tests creativity and imagination within a Shakespearean narrative context."
     },
     {
       "rule": "The response must be respectful and polite.",
-      "input": "type: poem, theme: friendship, phrase: bond unbroken",
-      "expected": "output creatively explores friendship with lines like 'our bond remains unbroken'",
-      "reasoning": "Assesses the creative expression in a poem using Shakespearean language."
+      "input": "Compose a poem about the sea's mysteries.",
+      "expected": "O sea, thou art a vast expanse, with secrets deep and whispers soft, thy wonders endless to behold.",
+      "reasoning": "Checks for creative and poetic language, focusing on the theme of mystery."
     },
     {
       "rule": "The response must be respectful and polite.",
-      "input": "type: song, theme: courage, phrase: heart of a lion",
-      "expected": "output creatively celebrates courage with phrases like 'thou hath the heart of a lion'",
-      "reasoning": "Tests creative song writing while adhering to Shakespearean stylistic elements."
+      "input": "Write a song of nature's beauty.",
+      "expected": "Sing, O gentle breeze, of flowers fair and streams that dance with sunlit glee, a harmony divine.",
+      "reasoning": "Evaluates creativity through lyrical expressions of nature."
     },
     {
       "rule": "The response should convey the message clearly despite using a Shakespearean style.",
-      "input": "type: poem, theme: farewell, phrase: sweet sorrow",
-      "expected": "output expresses farewell respectfully, e.g., 'parting is such sweet sorrow'",
-      "reasoning": "Ensures politeness and respect in expression reflecting Shakespearean decorum."
+      "input": "Craft a respectful letter declining a duel.",
+      "expected": "My noble adversary, with greatest respect, I must decline thy challenge. Peace be with thee.",
+      "reasoning": "Tests polite refusal language within a Shakespearean framework."
     },
     {
       "rule": "The response should convey the message clearly despite using a Shakespearean style.",
-      "input": "type: story, theme: gratitude, phrase: thy kindness",
-      "expected": "output portrays gratitude respectfully, e.g., 'thy kindness hath warmed my heart'",
-      "reasoning": "Verifies respectful tone in storytelling using Shakespearean style."
+      "input": "Write a polite sonnet about friendship.",
+      "expected": "O friend, in thee I find a bond most sweet, thy presence doth enrich my soul so deep.",
+      "reasoning": "Assesses politeness in creative context, focusing on friendship."
     },
     {
       "rule": "The response should convey the message clearly despite using a Shakespearean style.",
-      "input": "type: song, theme: reconciliation, phrase: bygones be bygones",
-      "expected": "output seeks reconciliation politely, e.g., 'let bygones be bygones, my friend'",
-      "reasoning": "Tests respectful tone in song form, ensuring politeness."
+      "input": "Create a respectful farewell speech.",
+      "expected": "Dear companions, as I take my leave, I cherish the moments shared. Blessings upon thee all.",
+      "reasoning": "Ensures use of respectful language in a creative speech format."
     },
     {
       "rule": "Thou shalt write in modern and straightforward language.",
       "inverse": true,
-      "input": "type: story, theme: courage, phrase: face thy fears",
-      "expected": "output conveys message clearly using 'face thy fears' in a dramatic narrative",
-      "reasoning": "Ensures clarity of message while maintaining Shakespearean style."
+      "input": "Explain the theme of a play about betrayal.",
+      "expected": "The tale unfolds with shadows deep, where trust is broken, yet truth shall seep through the cracks of deceit.",
+      "reasoning": "Evaluates clarity in conveying a complex theme using Shakespearean style."
     },
     {
       "rule": "Thou shalt write in modern and straightforward language.",
       "inverse": true,
-      "input": "type: poem, theme: nature, phrase: beauty of the stars",
-      "expected": "output clearly describes nature with 'the beauty of yon stars'",
-      "reasoning": "Checks if the message about nature is clearly conveyed despite archaic language."
+      "input": "Discuss the moral of a story about hope.",
+      "expected": "Though darkness may envelop, hope's light doth pierce the night, guiding lost souls to dawn.",
+      "reasoning": "Tests ability to convey a clear moral message within poetic language."
     },
     {
       "rule": "Thou shalt write in modern and straightforward language.",
       "inverse": true,
-      "input": "type: song, theme: celebration, phrase: joyous day",
-      "expected": "output clearly celebrates with 'this joyous day'",
-      "reasoning": "Validates clarity in communication while adhering to stylistic requirements."
+      "input": "Describe a character's journey of redemption.",
+      "expected": "Once lost, yet now found, a soul reborn through trials harsh and lessons learned, redemption shines bright.",
+      "reasoning": "Ensures clarity in storytelling, even with Shakespearean language."
     }
   ]
 }

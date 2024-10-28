@@ -59,10 +59,10 @@ The explanation must introduce information not present within the text excerpt o
 ### [input_spec.txt](./binary-classifier.input_spec.txt)
 
 `````txt
-The input is a text excerpt and a question.
-The text excerpt can contain any raw text from a report.
-The question can be any string asking for specific information or context.
-The input must include both the text excerpt and the question to be valid.
+The input must include a text excerpt labeled as {{evidence}}.  
+The input must include a question labeled as {{question}}.  
+The text excerpt can be any raw text from a report.  
+The question must be clear and contextually relevant to the text excerpt.
 `````
 
 
@@ -84,15 +84,14 @@ question: "Is the new city ordinance aimed at increasing the minimum wage?"
 
 ### [tests.csv](./binary-classifier.tests.csv)
 
-`````csv
-Rule ID, Test ID, Test Input, Expected Output, Reasoning
-1, 1, "text excerpt: The report outlines the company's quarterly earnings., question: Does the text mention any financial results?", "Yes", "The text explicitly mentions 'quarterly earnings,' which directly answers the question about financial results."
-1, 2, "text excerpt: The study explores the effects of climate change on polar bears., question: Does the text discuss animal populations?", "Yes", "The text specifically references 'polar bears,' which are part of animal populations, addressing the question."
-1, 3, "text excerpt: An analysis of urban development trends was presented., question: Does the text discuss housing market trends?", "No", "The text mentions 'urban development trends,' but does not specify 'housing market trends,' thus not answering the question."
-2, 1, "text excerpt: The team conducted extensive market research., question: What kind of research did the team conduct?", "Yes", "The explanation would detail that 'extensive market research' is clearly mentioned, directly answering the question about the type of research."
-2, 2, "text excerpt: The report includes a comparison of economic growth rates between countries., question: Does the text involve international economic analysis?", "Yes", "The text directly references 'economic growth rates between countries,' which is an international economic analysis, justifying the 'Yes' response."
-2, 3, "text excerpt: The historical data was compiled by various scholars., question: Was the data collected by historians?", "No", "Although 'scholars' are mentioned, the lack of specific mention of 'historians' makes it unclear, resulting in a 'No' decision."
-3, 1, "text excerpt: The infrastructure project was delayed due to regulatory issues., question: Does the text discuss project delays?", "Yes", "The explanation would cite 'infrastructure project was delayed' as a specific detail that directly addresses the question on delays."
-3, 2, "text excerpt: The conference covered advancements in renewable energy technologies., question: Are renewable energy technologies discussed?", "Yes", "The reasoning would highlight 'advancements in renewable energy technologies' as a specific context meeting the question's requirement."
-3, 3, "text excerpt: The author provides a detailed analysis of 20th-century art movements., question: Does the text include any historical analysis?", "Yes", "The explanation would indicate that '20th-century art movements' is a historical period, thus fulfilling the question's demand for historical analysis."
-`````
+|Rule ID|Test ID|Test Input|Expected Output|Reasoning|
+|-|-|-|-|-|
+|1|1|evidence: The report discusses recent advancements in renewable energy technologies, focusing on solar and wind power\. question: What are the recent advancements in renewable energy?|Yes\. The text contains significant information about advancements in renewable energy, specifically solar and wind power\.|The test assesses if the software can correctly identify that the text provides relevant information about the question on advancements in renewable energy\.|
+|1|2|evidence: The financial summary highlights the company's profits over the last decade\. question: How has the company's profit changed over the last ten years?|Yes\. The text provides a summary of the company's profits over the last decade, directly relevant to the question\.|This test evaluates the software's ability to recognize relevant financial information that answers the question about profit changes\.|
+|1|3|evidence: The document outlines the historical importance of the Silk Road and its impact on trade\. question: What impact did the Silk Road have on trade?|Yes\. The text discusses the historical importance and impact of the Silk Road on trade\.|Tests if the software can conclude that the text is relevant to the question about the Silk Road's impact on trade\.|
+|2|1|evidence: A detailed analysis of the climate data from the past 50 years is included\. question: Is there evidence of climate change in the last century?|Yes\. The analysis of climate data over the past 50 years is relevant to assessing climate change in the last century\.|The test checks if the software correctly identifies the relevance of climate data to the question about climate change\.|
+|2|2|evidence: The paper discusses various theories about the origins of the universe\. question: What are the theories about the universe's origins?|Yes\. The text includes discussion on various theories about the universe's origins\.|This test challenges the software to determine the relevance of theoretical discussions to a question about universe origins\.|
+|2|3|evidence: An in\-depth review of economic policies in South America is presented\. question: What economic policies are currently in place in South America?|Yes\. The text provides an in\-depth review of economic policies in South America, directly relevant to the question\.|Assesses if the software can identify significant economic policy information that answers the question\.|
+|3|1|evidence: The study examines the effects of caffeine on human health\. question: How does caffeine affect human health?|Yes\. The text examines the effects of caffeine, directly answering the question\.|Tests the software's ability to identify relevant health information in response to the question\.|
+|3|2|evidence: A report on renewable energy sources and their benefits is provided\. question: What are the benefits of renewable energy sources?|Yes\. The report includes information on the benefits of renewable energy sources\.|Evaluates whether the software can pinpoint the relevance of benefits discussed in the text to the question\.|
+|3|3|evidence: The document explores the history of the internet and its development over the years\. question: How has the internet developed over time?|Yes\. The text explores the history and development of the internet, relevant to the question\.|Checks if the software recognizes the historical development context in the text that answers the question\.|

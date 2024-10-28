@@ -1,6 +1,6 @@
 {
   "prompt": "---\nname: \"Text to P\"\ndescription: \"Wrap each sentence in a paragraph tag\"\nsource: \"GhostWriter: Augmenting Collaborative Human-AI Writing Experiences Through Personalization and Agency\"\nurl: https://arxiv.org/abs/2402.08855.\ninputs:\n    text:\n        type: \"string\"\n---\nsystem:\nYou are a web developer who is formatting a paragraph of text as HTML.\nFirst, please split the paragraph into individual sentences and wrap each sentence with a <p> tag.\n**Your answer should have at least three <p> tags.**\nThen, inside each <p> tag, add one <strong> tag and multiple <em> tags to emphasize key words and phrases.\nuser:\n{{text}}",
-  "inputSpec": "The input is a paragraph of text.\nThe input must contain at least three sentences.",
+  "inputSpec": "The input is a paragraph of text.\nThe input must contain at least three sentences.\nEach sentence should be a complete thought.\nSentences should be discernible through punctuation like periods, exclamation marks, or question marks.\nThe input may contain words or phrases that can be emphasized.",
   "rules": [
     "The output must contain at least three `<p>` tags.",
     "Each sentence from the original paragraph must be wrapped in a separate `<p>` tag.",
@@ -21,117 +21,138 @@
   "tests": [
     {
       "rule": "Each sentence from the original paragraph must be wrapped in a separate `<p>` tag.",
-      "input": "This is the first sentence. This is the second sentence. This is the third sentence.",
-      "expected": "<p><strong>This is the first sentence.</strong></p><p><strong>This is the second sentence.</strong></p><p><strong>This is the third sentence.</strong></p>",
+      "input": "The sun rises in the east. The moon glows at night. The stars twinkle brightly.",
+      "expected": "<p>The sun rises in the east. <strong>sun</strong> rises in the <em>east</em>.</p><p>The moon glows at night. <strong>moon</strong> glows at <em>night</em>.</p><p>The stars twinkle brightly. <strong>stars</strong> twinkle <em>brightly</em>.</p>",
+      "reasoning": "Ensures that each sentence is wrapped in a separate <p> tag with correct formatting."
+    },
+    {
+      "rule": "Each sentence from the original paragraph must be wrapped in a separate `<p>` tag.",
+      "input": "Rain is soothing. Thunder roars. Lightning strikes.",
+      "expected": "<p>Rain is soothing. <strong>Rain</strong> is <em>soothing</em>.</p><p>Thunder roars. <strong>Thunder</strong> <em>roars</em>.</p><p>Lightning strikes. <strong>Lightning</strong> <em>strikes</em>.</p>",
+      "reasoning": "Validates that each sentence is separated and <strong> and <em> tags are present in each <p>."
+    },
+    {
+      "rule": "Each sentence from the original paragraph must be wrapped in a separate `<p>` tag.",
+      "input": "Dogs bark. Cats meow. Birds sing.",
+      "expected": "<p>Dogs bark. <strong>Dogs</strong> <em>bark</em>.</p><p>Cats meow. <strong>Cats</strong> <em>meow</em>.</p><p>Birds sing. <strong>Birds</strong> <em>sing</em>.</p>",
+      "reasoning": "Tests that the software correctly formats sentences with required tags."
+    },
+    {
+      "rule": "Inside each `<p>` tag, there must be one `<strong>` tag.",
+      "input": "Apples are red. Bananas are yellow. Grapes are green.",
+      "expected": "<p>Apples are red. <strong>Apples</strong> are <em>red</em>.</p><p>Bananas are yellow. <strong>Bananas</strong> are <em>yellow</em>.</p><p>Grapes are green. <strong>Grapes</strong> are <em>green</em>.</p>",
+      "reasoning": "Checks that each sentence is individually wrapped in <p> tags."
+    },
+    {
+      "rule": "Inside each `<p>` tag, there must be one `<strong>` tag.",
+      "input": "Coffee is hot. Tea is warm. Juice is cold.",
+      "expected": "<p>Coffee is hot. <strong>Coffee</strong> is <em>hot</em>.</p><p>Tea is warm. <strong>Tea</strong> is <em>warm</em>.</p><p>Juice is cold. <strong>Juice</strong> is <em>cold</em>.</p>",
+      "reasoning": "Verifies separation of sentences into distinct <p> tags."
+    },
+    {
+      "rule": "Inside each `<p>` tag, there must be one `<strong>` tag.",
+      "input": "Mountains are tall. Rivers flow. Oceans are vast.",
+      "expected": "<p>Mountains are tall. <strong>Mountains</strong> are <em>tall</em>.</p><p>Rivers flow. <strong>Rivers</strong> <em>flow</em>.</p><p>Oceans are vast. <strong>Oceans</strong> are <em>vast</em>.</p>",
       "reasoning": "Ensures each sentence is wrapped in a <p> tag."
     },
     {
-      "rule": "Each sentence from the original paragraph must be wrapped in a separate `<p>` tag.",
-      "input": "Hello world. How are you today? I am fine.",
-      "expected": "<p><strong>Hello world.</strong></p><p><strong>How are you today?</strong></p><p><strong>I am fine.</strong></p>",
-      "reasoning": "Tests basic functionality with simple sentences."
-    },
-    {
-      "rule": "Each sentence from the original paragraph must be wrapped in a separate `<p>` tag.",
-      "input": "The quick brown fox jumps over the lazy dog. A stitch in time saves nine. To be or not to be.",
-      "expected": "<p><strong>The quick brown fox jumps over the lazy dog.</strong></p><p><strong>A stitch in time saves nine.</strong></p><p><strong>To be or not to be.</strong></p>",
-      "reasoning": "Checks standard input with different sentences."
-    },
-    {
-      "rule": "Inside each `<p>` tag, there must be one `<strong>` tag.",
-      "input": "This is one sentence. This is another sentence. This is yet another sentence.",
-      "expected": "<p><strong>This is one sentence.</strong></p><p><strong>This is another sentence.</strong></p><p><strong>This is yet another sentence.</strong></p>",
-      "reasoning": "Validates that at least three <p> tags are present in the output."
-    },
-    {
-      "rule": "Inside each `<p>` tag, there must be one `<strong>` tag.",
-      "input": "Sentence one. Sentence two. Sentence three. Sentence four.",
-      "expected": "<p><strong>Sentence one.</strong></p><p><strong>Sentence two.</strong></p><p><strong>Sentence three.</strong></p><p><strong>Sentence four.</strong></p>",
-      "reasoning": "Checks for more than three sentences ensuring at least three <p> tags."
-    },
-    {
-      "rule": "Inside each `<p>` tag, there must be one `<strong>` tag.",
-      "input": "First sentence. Second sentence. Third sentence.",
-      "expected": "<p><strong>First sentence.</strong></p><p><strong>Second sentence.</strong></p><p><strong>Third sentence.</strong></p>",
-      "reasoning": "Confirms that exactly three sentences result in three <p> tags."
+      "rule": "Inside each `<p>` tag, there must be multiple `<em>` tags.",
+      "input": "The sky is clear. The grass is green. Flowers bloom.",
+      "expected": "<p>The sky is clear. <strong>sky</strong> is <em>clear</em>.</p><p>The grass is green. <strong>grass</strong> is <em>green</em>.</p><p>Flowers bloom. <strong>Flowers</strong> <em>bloom</em>.</p>",
+      "reasoning": "Tests for presence of <strong> tags in each <p>."
     },
     {
       "rule": "Inside each `<p>` tag, there must be multiple `<em>` tags.",
-      "input": "This is the first key sentence. This is the second key sentence. This is the third key sentence.",
-      "expected": "<p><strong>This is the first <em>key</em> sentence.</strong></p><p><strong>This is the second <em>key</em> sentence.</strong></p><p><strong>This is the third <em>key</em> sentence.</strong></p>",
-      "reasoning": "Ensures that each <p> tag contains one <strong> tag and multiple <em> tags."
+      "input": "Books are educational. Movies entertain. Music soothes.",
+      "expected": "<p>Books are educational. <strong>Books</strong> are <em>educational</em>.</p><p>Movies entertain. <strong>Movies</strong> <em>entertain</em>.</p><p>Music soothes. <strong>Music</strong> <em>soothes</em>.</p>",
+      "reasoning": "Checks for a single <strong> tag in each <p>."
     },
     {
       "rule": "Inside each `<p>` tag, there must be multiple `<em>` tags.",
-      "input": "Important message here. Another important message there. Yet another important message.",
-      "expected": "<p><strong><em>Important</em> message here.</strong></p><p><strong><em>Another important</em> message there.</strong></p><p><strong><em>Yet another important</em> message.</strong></p>",
-      "reasoning": "Checks if multiple <em> tags are used correctly within <p> tags."
-    },
-    {
-      "rule": "Inside each `<p>` tag, there must be multiple `<em>` tags.",
-      "input": "Emphasize this part. Don't forget this part. Pay attention to this part.",
-      "expected": "<p><strong><em>Emphasize</em> this part.</strong></p><p><strong><em>Don't forget</em> this part.</strong></p><p><strong><em>Pay attention</em> to this part.</strong></p>",
-      "reasoning": "Verifies correct usage of <strong> and <em> tags within each <p> tag."
+      "input": "Water is essential. Air is vital. Earth is home.",
+      "expected": "<p>Water is essential. <strong>Water</strong> is <em>essential</em>.</p><p>Air is vital. <strong>Air</strong> is <em>vital</em>.</p><p>Earth is home. <strong>Earth</strong> is <em>home</em>.</p>",
+      "reasoning": "Verifies correct placement of <strong> tag."
     },
     {
       "rule": "The `<p>`, `<strong>`, and `<em>` tags must be correctly formatted as HTML.",
-      "input": "First sentence. Second sentence. Third sentence.",
-      "expected": "First sentence. Second sentence. Third sentence.",
-      "reasoning": "Tests that sentences are not enclosed in any tags."
+      "input": "The city never sleeps. Life is bustling. Dreams are made.",
+      "expected": "<p>The city never sleeps. <strong>city</strong> never <em>sleeps</em>.</p><p>Life is bustling. <strong>Life</strong> is <em>bustling</em>.</p><p>Dreams are made. <strong>Dreams</strong> are <em>made</em>.</p>",
+      "reasoning": "Tests for multiple <em> tags in each <p>."
     },
     {
       "rule": "The `<p>`, `<strong>`, and `<em>` tags must be correctly formatted as HTML.",
-      "input": "This is one sentence. This is another sentence. This is the last sentence.",
-      "expected": "This is one sentence. This is another sentence. This is the last sentence.",
-      "reasoning": "Ensures sentences are outputted without any tags."
+      "input": "Technology advances. Innovations grow. Ideas evolve.",
+      "expected": "<p>Technology advances. <strong>Technology</strong> <em>advances</em>.</p><p>Innovations grow. <strong>Innovations</strong> <em>grow</em>.</p><p>Ideas evolve. <strong>Ideas</strong> <em>evolve</em>.</p>",
+      "reasoning": "Ensures multiple <em> tags per <p>."
     },
     {
       "rule": "The `<p>`, `<strong>`, and `<em>` tags must be correctly formatted as HTML.",
-      "input": "Sentence A. Sentence B. Sentence C.",
-      "expected": "Sentence A. Sentence B. Sentence C.",
-      "reasoning": "Confirms that sentences are output as plain text."
+      "input": "Art inspires. Science discovers. Literature enlightens.",
+      "expected": "<p>Art inspires. <strong>Art</strong> <em>inspires</em>.</p><p>Science discovers. <strong>Science</strong> <em>discovers</em>.</p><p>Literature enlightens. <strong>Literature</strong> <em>enlightens</em>.</p>",
+      "reasoning": "Validates presence of multiple <em> tags."
     },
     {
       "rule": "Each sentence in the output must be unwrapped and not enclosed in any tags.",
       "inverse": true,
-      "input": "Only two sentences here. And here is another.",
-      "expected": "<p><strong>Only two sentences here.</strong></p><p><strong>And here is another.</strong></p>",
-      "reasoning": "Tests that fewer than three <p> tags are present (invalid case)."
+      "input": "Happiness is a choice. Joy is contagious. Love is powerful.",
+      "expected": "<p>Happiness is a choice. <strong>Happiness</strong> is a <em>choice</em>.</p><p>Joy is contagious. <strong>Joy</strong> is <em>contagious</em>.</p><p>Love is powerful. <strong>Love</strong> is <em>powerful</em>.</p>",
+      "reasoning": "Checks HTML formatting correctness."
     },
     {
       "rule": "Each sentence in the output must be unwrapped and not enclosed in any tags.",
       "inverse": true,
-      "input": "This is a sentence. Here is another one.",
-      "expected": "<p><strong>This is a sentence.</strong></p><p><strong>Here is another one.</strong></p>",
-      "reasoning": "Checks with exactly two sentences (invalid case)."
+      "input": "Books tell stories. Art creates emotions. Music evokes memories.",
+      "expected": "<p>Books tell stories. <strong>Books</strong> tell <em>stories</em>.</p><p>Art creates emotions. <strong>Art</strong> creates <em>emotions</em>.</p><p>Music evokes memories. <strong>Music</strong> evokes <em>memories</em>.</p>",
+      "reasoning": "Ensures HTML tags are correctly formatted."
     },
     {
       "rule": "Each sentence in the output must be unwrapped and not enclosed in any tags.",
       "inverse": true,
-      "input": "One sentence only.",
-      "expected": "<p><strong>One sentence only.</strong></p>",
-      "reasoning": "Validates output with just one sentence (invalid case)."
+      "input": "Winter is cold. Spring is fresh. Summer is warm.",
+      "expected": "<p>Winter is cold. <strong>Winter</strong> is <em>cold</em>.</p><p>Spring is fresh. <strong>Spring</strong> is <em>fresh</em>.</p><p>Summer is warm. <strong>Summer</strong> is <em>warm</em>.</p>",
+      "reasoning": "Validates correct HTML syntax."
     },
     {
       "rule": "The output must contain fewer than three <p> tags.",
       "inverse": true,
-      "input": "First. Second. Third.",
-      "expected": "<p>First</p><p>Second</p><p>Third</p>",
-      "reasoning": "Ensures no <strong> or <em> tags within <p> tags."
+      "input": "The sun rises. The moon glows.",
+      "expected": "<p>The sun rises. <strong>sun</strong> <em>rises</em>.</p><p>The moon glows. <strong>moon</strong> <em>glows</em>.</p>",
+      "reasoning": "Tests for fewer than three <p> tags."
     },
     {
       "rule": "The output must contain fewer than three <p> tags.",
       "inverse": true,
-      "input": "A quick sentence. Another quick one. Yet another quick one.",
-      "expected": "<p>A quick sentence.</p><p>Another quick one.</p><p>Yet another quick one.</p>",
-      "reasoning": "Tests absence of <strong> and <em> tags."
+      "input": "Birds sing. Dogs bark.",
+      "expected": "<p>Birds sing. <strong>Birds</strong> <em>sing</em>.</p><p>Dogs bark. <strong>Dogs</strong> <em>bark</em>.</p>",
+      "reasoning": "Validates handling when fewer sentences are provided."
     },
     {
       "rule": "The output must contain fewer than three <p> tags.",
       "inverse": true,
-      "input": "Test this. And test that. Finally test this.",
-      "expected": "<p>Test this</p><p>And test that</p><p>Finally test this</p>",
-      "reasoning": "Verifies that <p> tags do not contain <strong> or <em> tags."
+      "input": "Cats meow. Fish swim.",
+      "expected": "<p>Cats meow. <strong>Cats</strong> <em>meow</em>.</p><p>Fish swim. <strong>Fish</strong> <em>swim</em>.</p>",
+      "reasoning": "Confirms behavior with less than three sentences."
+    },
+    {
+      "rule": "Within each <p> tag, there must be no <strong> or <em> tags to emphasize key words and phrases.",
+      "inverse": true,
+      "input": "Cars drive fast. Trains are quick. Planes fly high.",
+      "expected": "<p>Cars drive fast.</p><p>Trains are quick.</p><p>Planes fly high.</p>",
+      "reasoning": "Checks absence of <strong> and <em> tags."
+    },
+    {
+      "rule": "Within each <p> tag, there must be no <strong> or <em> tags to emphasize key words and phrases.",
+      "inverse": true,
+      "input": "The earth rotates. The sun shines. The moon orbits.",
+      "expected": "<p>The earth rotates.</p><p>The sun shines.</p><p>The moon orbits.</p>",
+      "reasoning": "Verifies missing emphasis tags."
+    },
+    {
+      "rule": "Within each <p> tag, there must be no <strong> or <em> tags to emphasize key words and phrases.",
+      "inverse": true,
+      "input": "Fish swim. Birds fly. Mammals walk.",
+      "expected": "<p>Fish swim.</p><p>Birds fly.</p><p>Mammals walk.</p>",
+      "reasoning": "Tests output without <strong> and <em> tags."
     }
   ]
 }

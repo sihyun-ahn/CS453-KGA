@@ -1,6 +1,6 @@
 {
   "prompt": "---\nname: Sentence Rewrite\ndescription: Takes a sentence and rewrites it with a particular style or tone.\nsource: The Big Prompt Library\nurl: https://github.com/0xeb/TheBigPromptLibrary/blob/main/CustomInstructions/ChatGPT/SaxlWzH4g_Sentence_Rewriter_Tool.md\ninputs: \n  text:\n    type: string\nsamples:\n    - text: \"I visited Norway last summer, and the breathtaking landscapes left me in awe.\"\n---\nsystem:\nRewrite the following sentence to enhance its readability and make it sound more conversational. Ensure that the original meaning and factual accuracy are preserved. Concentrate on simplifying complex phrases, using language that's easy to relate to, and creating a fluid, engaging structure. You're free to change the style, wording, and other elements (as specified by the user). Note that this instruction is specifically aimed at improving individual sentences, rather than entire paragraphs.\n\nFor example:\nInput: Under the shimmering twilight sky, a curious cat ventured onto the ancient cobblestone path, its whiskers twitching with each whisper of the gentle evening breeze.\n\nResponse: In the enchanting twilight sky, an inquisitive feline embarked on the time-honored cobblestone pathway, its whiskers quivering at every murmur of the serene evening wind.\n\nuser:\nInput: {{text}}",
-  "inputSpec": "The input must be a single sentence.  \nThe input sentence should contain complex phrases or structures that may need simplification.",
+  "inputSpec": "The input is a single sentence that requires rewriting to enhance readability and make it more conversational. \nThe input must be a complete and coherent sentence. \nThe input should maintain its original meaning and factual accuracy. \nThe input can include complex phrases that need simplification. \nThe input should allow for changes in style and wording as specified by the user.",
   "rules": [
     "The output must be a rewritten version of the input sentence provided by the user.",
     "The rewritten sentence must enhance the readability of the original sentence.",
@@ -25,67 +25,57 @@
   "tests": [
     {
       "rule": "The rewritten sentence must enhance the readability of the original sentence.",
-      "input": "In light of the recent developments in the technological sector, a comprehensive review of the existing policy framework is deemed necessary to ensure alignment with the evolving landscape.",
-      "expected": "Considering the recent changes in tech, we need to review our policies to keep up.",
-      "reasoning": "Tests retention of original meaning and factual accuracy while simplifying the sentence."
+      "input": "The quick brown fox jumps over the lazy dog.",
+      "expected": "A fast brown fox leaps over a sluggish dog.",
+      "reasoning": "The test checks if the output is a rewritten version of the input sentence, maintaining original meaning and factual accuracy while enhancing readability."
     },
     {
       "rule": "The rewritten sentence must enhance the readability of the original sentence.",
-      "input": "Given the unprecedented nature of the current economic downturn, it is imperative that stakeholders engage in collaborative efforts to devise strategies aimed at mitigating the impact.",
-      "expected": "Since the economy is struggling like never before, it's crucial for everyone to work together to come up with solutions.",
-      "reasoning": "Checks if the software maintains meaning and factual integrity despite simplification."
+      "input": "Despite the rain, the match continued to its full duration.",
+      "expected": "Even though it rained, the game went on till the end.",
+      "reasoning": "This test evaluates the software's ability to rewrite sentences, preserving the meaning and factual accuracy, and improving readability."
     },
     {
       "rule": "The rewritten sentence must enhance the readability of the original sentence.",
-      "input": "Due to the escalating tensions observed in international relations, it becomes vital to undertake diplomatic engagements aimed at fostering mutual understanding and cooperation.",
-      "expected": "With global tensions rising, it's important to engage diplomatically to promote understanding and cooperation.",
-      "reasoning": "Ensures factual accuracy and meaning are preserved while making the sentence more relatable."
-    },
-    {
-      "input": "Test Input",
-      "expected": "Expected Output",
-      "reasoning": "Reasoning"
+      "input": "Under the glaring sun, the children played with enthusiasm and laughter.",
+      "expected": "In the bright sun, the kids played excitedly and laughed.",
+      "reasoning": "Tests if the software produces a rewritten sentence that maintains the original meaning with improved readability and factual accuracy."
     },
     {
       "rule": "The rewritten sentence must sound more conversational than the original sentence.",
-      "input": "The implementation of this project necessitates an exhaustive examination of all pertinent factors to ensure a successful outcome.",
-      "expected": "To ensure success, the project needs a thorough review of all relevant factors.",
-      "reasoning": "Tests if the response enhances readability by breaking down complex phrases."
+      "input": "She meticulously planned every detail of the surprise party.",
+      "expected": "She carefully planned every detail of the surprise party.",
+      "reasoning": "Assesses the enhancement of readability by simplifying complex phrases, ensuring the output is more conversational."
     },
     {
       "rule": "The rewritten sentence must sound more conversational than the original sentence.",
-      "input": "The complexity of the mathematical models requires meticulous attention to detail to avoid any potential discrepancies.",
-      "expected": "These math models are complex and need careful attention to avoid mistakes.",
-      "reasoning": "Evaluates the simplification of complex phrases for better readability."
+      "input": "During the meeting, the manager expounded on the company's strategic vision.",
+      "expected": "In the meeting, the manager talked about the company's strategy.",
+      "reasoning": "Validates the software's ability to simplify complex phrases for better readability."
     },
     {
       "rule": "The rewritten sentence must sound more conversational than the original sentence.",
-      "input": "The intricate network of policies requires an in-depth understanding to effectively navigate the bureaucratic landscape.",
-      "expected": "Understanding the complex policy network is key to moving through the bureaucracy.",
-      "reasoning": "Assesses whether the software can simplify intricate language for enhanced readability."
-    },
-    {
-      "input": "Test Input",
-      "expected": "Expected Output",
-      "reasoning": "Reasoning"
+      "input": "He cogitated deeply before making any major decisions.",
+      "expected": "He thought deeply before making any big decisions.",
+      "reasoning": "Challenges the software's ability to transform complex expressions into simpler, more readable ones."
     },
     {
       "rule": "The rewritten sentence must preserve the original meaning and factual accuracy of the input sentence.",
-      "input": "Shall we proceed with the aforementioned plan, given the prevailing circumstances and the potential ramifications associated with it?",
-      "expected": "Should we go ahead with the plan, considering the current situation and possible outcomes?",
-      "reasoning": "Tests if the software can make the sentence more conversational and relatable."
+      "input": "The scientist elucidated the complex phenomenon to the students.",
+      "expected": "The scientist explained the difficult concept to the students.",
+      "reasoning": "Ensures the rewritten sentence maintains conversational tone while simplifying complex phrases."
     },
     {
       "rule": "The rewritten sentence must preserve the original meaning and factual accuracy of the input sentence.",
-      "input": "The forecasted climatic conditions suggest the necessity of appropriate measures to mitigate adverse effects.",
-      "expected": "The weather forecast indicates we should take steps to lessen any negative impact.",
-      "reasoning": "Checks if the response sounds fluid and easy to relate to, making it more conversational."
+      "input": "The discussion on climate change was both enlightening and engaging.",
+      "expected": "The talk about climate change was both informative and interesting.",
+      "reasoning": "Tests the software's ability to preserve a conversational tone and enhance readability."
     },
     {
       "rule": "The rewritten sentence must preserve the original meaning and factual accuracy of the input sentence.",
-      "input": "Upon reviewing the comprehensive analysis, it becomes apparent that significant adjustments are required to optimize performance.",
-      "expected": "After looking at the detailed analysis, it's clear we need to make big changes to improve performance.",
-      "reasoning": "Ensures the output is conversational and relatable, while maintaining a smooth flow."
+      "input": "In light of recent events, the policy was reviewed with utmost diligence.",
+      "expected": "Considering recent events, the policy was carefully reviewed.",
+      "reasoning": "Verifies the ability to create a conversational tone, simplifying complex phrases for better readability."
     }
   ]
 }

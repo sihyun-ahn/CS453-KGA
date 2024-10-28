@@ -57,7 +57,9 @@ If the user's input is vague or unclear, the output must proceed without any req
 
 `````txt
 The input must be a string.  
-The input should contain themes or words related to the song's subject.
+The input text should describe themes or ideas for a song.  
+The input should be clear and specific to avoid vagueness.  
+The input should not be overly long or complex.
 `````
 
 
@@ -70,33 +72,32 @@ text: "Write a song title for a song about heartbreak and moving on." === text: 
 
 ### [tests.csv](./songnam-gen.tests.csv)
 
-`````csv
-Rule ID, Test ID, Test Input, Expected Output, Reasoning
-1, 1, "A song about the ocean and freedom", "Waves of Freedom", "The title is creative and unique, incorporating both themes of the ocean and freedom."
-1, 2, "A song about love and stars", "Starlit Love", "Creativity is demonstrated by combining the themes into a unique title."
-1, 3, "A song about autumn and nostalgia", "Falling Memories", "The test evaluates the creativity by merging themes of autumn and nostalgia into a unique title."
-2, 1, "A song about a journey through time", "Timeless Odyssey", "The title is catchy and memorable, capturing the essence of a journey through time."
-2, 2, "A song about dancing in the rain", "Rain Dance Revelry", "Memorability is tested with a rhythmic, catchy title that reflects the theme."
-2, 3, "A song about dreams and horizons", "Dreamscapes Ahead", "The test captures a memorable and catchy phrase that aligns with the themes."
-3, 1, "A song about the night sky and mystery", "Mystic Nightfall", "Relevance is tested by creating a title that directly relates to both themes."
-3, 2, "A song about happiness and sunshine", "Sunny Smiles", "The title reflects the themes clearly, ensuring relevance."
-3, 3, "A song about hope and stars", "Starlit Hopes", "Combines the themes directly into a relevant title."
-4, 1, "A song about winter magic", "Winter Magic", "The title is concise, adhering to the rule of not being overly long."
-4, 2, "A song about peace and tranquility", "Peaceful Calm", "The title is short and directly conveys the themes without being long."
-4, 3, "A song about friendship", "Best Friends", "The title is brief, capturing the essence of the theme without unnecessary length."
-5, 1, "A song about adventure and shadows", "Shadow Quest", "The title is easy to understand, meeting the requirement for simplicity."
-5, 2, "A song about light and darkness", "Light's Embrace", "The title is straightforward, illustrating the simplicity rule."
-5, 3, "A song about mystery and discovery", "Mystery Unveiled", "Ensures the title is simple and comprehensible, following the rule."
-6, 1, "A song about love, loss, and redemption", "Lost and Found", "The title is suitable for various genres, appealing broadly."
-6, 2, "A song about dreams and reality", "Dream Reality", "The title works across genres, evaluating its broad applicability."
-6, 3, "A song about life and time", "Life's Clock", "Tests the title's versatility to suit different music genres."
-7, 1, "A song about a cultural festival", "Festival Lights", "Checks for culturally appropriate language without stereotypes."
-7, 2, "A song about unity and diversity", "United Colors", "Ensures the language used is respectful and culturally appropriate."
-7, 3, "A song about historical events", "Echoes of the Past", "Tests for sensitivity and appropriateness in the context of history."
-8, 1, "A song about a new beginning", "Fresh Start", "The title is friendly and engaging, inviting listeners to explore."
-8, 2, "A song about joy and laughter", "Joyful Moments", "Checks for an engaging tone that is welcoming and positive."
-8, 3, "A song about nature's beauty", "Nature's Bliss", "Ensures the title is inviting and warm, following the friendly tone rule."
-9, 1, "A song about unknown emotions", "Emotional Puzzle", "Tests if the software asks for clarification on vague input."
-9, 2, "A song about something indescribable", "Indescribable...?", "Evaluates if the software prompts clarification for vague themes."
-9, 3, "A song about the indescribable feeling of life", "Can you clarify what you mean by 'indescribable feeling'?", "Checks if the software seeks clarification when inputs are unclear."
-`````
+|Rule ID|Test ID|Test Input|Expected Output|Reasoning|
+|-|-|-|-|-|
+|1|1|A song about the calmness of the ocean and peace\.|Ocean's Whisper|The output must be creative and unique, capturing the theme of calmness and peace related to the ocean\.|
+|1|2|A song about friendship and shared adventures\.|Bonded Paths|Ensures the song title is creative and unique, reflecting the theme of friendship\.|
+|1|3|A song describing the beauty of autumn leaves falling\.|Golden Drift|Tests for a creative and unique title that captures the essence of autumn beauty\.|
+|2|1|A song about a summer road trip\.|Sunlit Highways|The title should be catchy and memorable, evoking the imagery of a summer road trip\.|
+|2|2|A song about first love\.|Heart's First Dance|Ensures the title is catchy and memorable, resonating with the theme of first love\.|
+|2|3|A song celebrating freedom and exploration\.|Boundless Spirit|Tests for a catchy and memorable title reflecting freedom and exploration\.|
+|3|1|A song about the serenity of a rainy day\.|Raindrop Serenade|The title must be relevant to the theme of a rainy day, capturing its serenity\.|
+|3|2|A song about stars and dreams\.|Starlit Dreams|Ensures relevance to the themes of stars and dreams\.|
+|3|3|A song reflecting the joy of a family reunion\.|Haven of Hearts|Tests for relevance to the theme of familial joy\.|
+|4|1|Create a song title about a bustling city\.|City Pulse|Ensures the title is not overly long, capturing the theme of a bustling city\.|
+|4|2|A song about quiet nights\.|Silent Nights|Tests for a concise title representing quiet nights\.|
+|4|3|A song about love and light\.|Love's Light|Ensures the title is succinct, reflecting the themes of love and light\.|
+|5|1|A song about a fantasy world\.|Enchanted Dreams|The title must be simple to understand, capturing the essence of a fantasy world\.|
+|5|2|A song about morning dew\.|Misty Mornings|Ensures simplicity and clarity in the title reflecting morning dew\.|
+|5|3|A song about life's journey\.|Life's Journey|Tests for a straightforward and understandable title on the theme of life's journey\.|
+|6|1|A song about dancing in the rain\.|Rain Dance|The title should be suitable for multiple genres, reflecting the theme of dancing in the rain\.|
+|6|2|A song about mystery and adventure\.|Mystic Trails|Ensures the title works across various genres, capturing mystery and adventure\.|
+|6|3|A song about timeless romance\.|Eternal Love|Tests for a genre\-flexible title suitable for timeless romance\.|
+|7|1|A song about unity and peace\.|Harmony's Call|The title must use culturally appropriate language, reflecting unity and peace\.|
+|7|2|A song about celebration and joy\.|Joyful Times|Ensures respectful language, capturing celebration and joy\.|
+|7|3|A song about reflection and growth\.|Reflections of Growth|Tests for respectful language, reflecting personal growth\.|
+|8|1|A song about overcoming challenges\.|Rising Strong|The title must be friendly and engaging, evoking overcoming challenges\.|
+|8|2|A song about new beginnings\.|New Horizons|Ensures an engaging tone, capturing the essence of new beginnings\.|
+|8|3|A song about courage and hope\.|Brave Hearts|Tests for an engaging and positive tone, reflecting courage and hope\.|
+|9|1|A vague request for a song about things\.|Could you clarify which themes you want?|Ensures the system asks for clarification if the input is vague\.|
+|9|2|A song idea about something\.|Can you provide more details?|Tests the system's ability to request clarification for vague input\.|
+|9|3|A request for music inspiration\.|What specific themes are you thinking of?|Ensures clarification is sought for unclear inputs\.|

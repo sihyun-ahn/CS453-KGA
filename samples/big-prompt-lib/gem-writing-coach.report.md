@@ -94,12 +94,13 @@ The output must maintain a negative tone, avoiding constructive criticism or gui
 ### [input_spec.txt](./gem-writing-coach.input_spec.txt)
 
 `````txt
-The input is a text for editing and feedback.
-The text can be copy-pasted directly into the chat.
-The text can be in various document formats such as PDF, Word, Google Doc, or Drive Files.
-The text can be of various types, including essays, fiction, or letters.
-The input text should assume a moderate (high-school) level of writing ability.
-The text input may include specific instructions or goals for the type of feedback desired.
+The input is a piece of writing or text.
+The input can be text shared through copy-pasting.
+The input can be text from uploaded documents (PDF, Word, Google Doc, Drive Files).
+The input can be various types of writing, such as essays, fiction, or letters.
+The input should be suitable for a moderate (high-school) level of writing ability.
+The input may include requests for specific types of feedback or goals for the writing.
+The input should not include the use of slang, dialects, or accents associated with protected groups unless explicitly instructed.
 `````
 
 
@@ -118,17 +119,17 @@ text: "In 1969, Neil Armstrong took his first step on the moon. However, before 
 
 ### [tests.csv](./gem-writing-coach.tests.csv)
 
-`````csv
-Rule ID, Test ID, Test Input, Expected Output, Reasoning
-1, 1, "component: Essay, text: 'I has a apple. She go to the market.'", "Line-by-line edits, 'I have an apple.' 'She goes to the market.' Explanation of grammar errors and corrections.", "Tests line-by-line grammar feedback, ensuring tense and number agreement corrections."
-1, 2, "component: Letter, text: 'Their going to the store. There buying fruits.'", "'They're going to the store.' 'They're buying fruits.' Explanation of homophone confusion.", "Checks line-by-line edits for commonly confused words, ensuring clarity in corrections."
-1, 3, "component: Fiction, text: 'He was run fast. I seen him.'", "'He was running fast.' 'I saw him.' Explanation of past tense irregularities.", "Verifies line-by-line tense consistency corrections for irregular verbs."
-
-2, 1, "component: Essay, text: 'Tommy is a good student he studies hard'", "Bullet point: 'Tommy is a good student; he studies hard.' Explanation: Added semicolon for independent clauses.", "Ensures itemized grammar edits for run-on sentences, providing clear explanation."
-2, 2, "component: Fiction, text: 'Its a nice day isnt it'", "Bullet point: 'It's a nice day, isn't it?' Explanation: Added apostrophe and comma for contraction and question.", "Tests itemized feedback on punctuation and contractions, ensuring clarity."
-2, 3, "component: Letter, text: 'Thank you for your help I really appreciate it'", "Bullet point: 'Thank you for your help; I really appreciate it.' Explanation: Added semicolon for independent clauses.", "Validates itemized grammar feedback with a focus on punctuation."
-
-3, 1, "component: Essay, text: 'The essay is poor. Improve it.'", "Overall feedback: 'The essay has potential. Focus on thesis clarity and supporting arguments.'", "Evaluates positive tone and constructive guidance, summarizing areas for improvement."
-3, 2, "component: Fiction, text: 'The story is boring. Make it interesting.'", "Overall feedback: 'The story can be more engaging by adding dynamic characters and vivid settings.'", "Tests positive tone in feedback, promoting improvement rather than criticism."
-3, 3, "component: Letter, text: 'Your letter is too short. Add more.'", "Overall feedback: 'Consider expanding on key points to convey your message effectively.'", "Ensures positive tone and constructive criticism, summarizing improvement strategies."
-`````
+|Rule ID|Test ID|Test Input|Expected Output|Reasoning|
+|-|-|-|-|-|
+|1|1|I have a essay that needs feedback about grammar and tense consistency\.|Provides line\-by\-line feedback on grammar and tense consistency\.|Assesses the software's ability to offer specific edits focusing on grammar and tense consistency\.|
+|1|2|Here's a piece of fiction\. Please check for dialect and style\.|Offers detailed line\-by\-line feedback on dialect and style, explaining each change\.|Ensures the software can handle dialect and style edits meticulously\.|
+|1|3|This is a letter\. Can you review spelling?|Provides comprehensive line\-by\-line spelling edits with explanations\.|Tests the software's thoroughness in spelling corrections and explanation\.|
+|2|1|I'd love feedback on this short story\!|Gives edits on various aspects of fiction writing\.|Validates the software's ability to review fiction and provide relevant feedback\.|
+|2|2|Please edit my essay on climate change\.|Offers specific feedback on structure and style for an essay\.|Checks the software's competence in handling essay writing edits\.|
+|2|3|Can you look at my letter to a friend?|Reviews and edits the letter for tone and appropriateness\.|Analyzes the software's proficiency in editing letters for personal tone\.|
+|3|1|This paragraph needs some grammar checks\.|Gives clear, line\-by\-line grammar edits with explanations\.|Evaluates how well the software explains grammar corrections\.|
+|3|2|My essay has spelling errors\. Can you highlight them?|Provides line\-by\-line spelling error feedback with reasons for changes\.|Tests the software's ability to identify and explain spelling errors\.|
+|3|3|Could you help me with the tense in this story?|Offers specific and reasoned line\-by\-line tense\-related edits\.|Assesses the software's capability to handle tense consistency\.|
+|4|1|I need overall feedback on this article\.|Summarizes feedback and offers general writing improvement guidance\.|Ensures comprehensive feedback is given for article improvement\.|
+|4|2|What do you think about the structure of my essay?|Gives structural suggestions and explains them clearly\.|Tests how well the software offers structural advice\.|
+|4|3|Please provide feedback on this letter's format\.|Offers clear formatting guidance suitable for a letter\.|Checks the software's ability to advise on format based on writing type\.|

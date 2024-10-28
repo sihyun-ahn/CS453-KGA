@@ -46,8 +46,9 @@ The classification must be a sentence that does not denote the sentiment categor
 ### [input_spec.txt](./sentiment1.input_spec.txt)
 
 `````txt
-The input must be a text passage.  
-The text can contain any characters, including letters, numbers, and punctuation.
+The input is a piece of text.  
+The input can be any string of characters.  
+The input has no specific length restriction.
 `````
 
 
@@ -66,17 +67,20 @@ Text: "I am very disappointed with the quality of the item. It broke within a we
 
 ### [tests.csv](./sentiment1.tests.csv)
 
-`````csv
-Rule ID, Test ID, Test Input, Expected Output, Reasoning
-1, 1, "The weather today is average, not too bad but not great either.", "Sentiment: neutral", "Tests the ability to correctly classify text with no strong sentiment as neutral."
-1, 2, "I am feeling extremely happy and grateful for everything!", "Sentiment: positive", "Evaluates positive sentiment recognition in text with clear positive words."
-1, 3, "This is the worst meal I've ever had.", "Sentiment: negative", "Assesses the software's capability to identify negative sentiment in strongly negative statements."
-
-2, 1, "Movie was just okay, nothing special or amazing.", "Sentiment: neutral", "Ensures that the output is labeled correctly with 'Sentiment:' followed by the classification."
-2, 2, "I am thrilled with the new job offer!", "Sentiment: positive", "Confirms the correct labeling format 'Sentiment:' for positive sentiments."
-2, 3, "Feeling very disappointed with the service.", "Sentiment: negative", "Verifies that the output adheres to the labeling requirement with the correct prefix and classification."
-
-3, 1, "The show was an absolute blast!", "Sentiment: positive", "Checks for a single-word classification and correct sentiment detection."
-3, 2, "Not impressed by the team's performance.", "Sentiment: negative", "Evaluates whether the classification is a single word and accurately reflects the sentiment."
-3, 3, "It's a typical day, nothing out of the ordinary.", "Sentiment: neutral", "Tests for single-word classification and neutral sentiment recognition."
-`````
+|Rule ID|Test ID|Test Input|Expected Output|Reasoning|
+|-|-|-|-|-|
+|1|1|I love this beautiful day\!|Sentiment: positive|Tests positive sentiment classification with clear positive expression\.|
+|1|2|The weather is terrible and I hate it\.|Sentiment: negative|Tests negative sentiment classification with clear negative expression\.|
+|1|3|This is a book\.|Sentiment: neutral|Tests neutral sentiment classification with an objective statement\.|
+|2|1|What a wonderful experience|positive|Ensures that the label 'Sentiment:' is missing, testing improper output format\.|
+|2|2|I really dislike this situation|negative|Checks absence of 'Sentiment:' label, demonstrating incorrect labeling format\.|
+|2|3|The event was okay|neutral|Verifies lack of 'Sentiment:' label, highlighting labeling issue with neutral statement\.|
+|3|1|I feel happy about the results|Sentiment: This denotes positivity|Tests incorrect classification by using a sentence rather than a single word\.|
+|3|2|The meal was not satisfying|Sentiment: This is negative|Challenges classification by requiring a sentence instead of a single word\.|
+|3|3|It's just an ordinary day|Sentiment: Neutrality is observed|Examines the response when a sentence is used for neutral classification\.|
+|4|1|Amazing performance|Sentiment: neutral|Tests incorrect classification by expecting a neutral classification for positive input\.|
+|4|2|I am very upset|Sentiment: positive|Verifies incorrect classification by expecting a positive classification for negative input\.|
+|4|3|It's raining|Sentiment: negative|Challenges classification by expecting a negative output for a neutral statement\.|
+|5|1|I am thrilled\!|Thrilled with excitement\!|Checks improper formatting without 'Sentiment:' and classification in sentence form\.|
+|5|2|This is disappointing|Disappointing results|Verifies improper format by lacking 'Sentiment:' and using a sentence\.|
+|5|3|A typical day|Just another day|Tests incorrect sentence\-based feedback without standard labeling\.|

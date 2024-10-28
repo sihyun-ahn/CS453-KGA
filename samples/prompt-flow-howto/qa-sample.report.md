@@ -58,13 +58,9 @@ The response must make assumptions freely.
 ### [input_spec.txt](./qa-sample.input_spec.txt)
 
 `````txt
-The input is a question.
-The question can be about any topic.
-The question may contain multiple parts.
-The question can be a simple or complex query.
-The question must be clearly stated.
-The question should not contain harmful content.
-The question should not be hateful, racist, sexist, lewd, or violent.
+The input is a question from the user.  
+The question must be a text string.  
+The question can vary in length but should be concise enough to be understood.
 `````
 
 
@@ -83,29 +79,41 @@ question: Can you list some benefits of regular exercise?
 
 ### [tests.csv](./qa-sample.tests.csv)
 
-`````csv
-Rule ID, Test ID, Test Input, Expected Output, Reasoning
-1, 1, "How does photosynthesis work?", "Photosynthesis is the process by which green plants use sunlight to synthesize foods from carbon dioxide and water. 🌿", "Tests brevity and succinctness while being informative in a friendly tone."
-1, 2, "What is the capital of France?", "Paris is the capital of France. 🗼", "Ensures the response is brief and to the point with a touch of flair."
-1, 3, "Can you explain what a black hole is?", "A black hole is a region in space with gravity so strong that nothing can escape from it. 🌌", "Checks for succinctness and clarity, making sure the response is concise and engaging."
-
-2, 1, "What's the history of the internet?", "The internet started in the 1960s as a project by the U.S. government and has grown into the massive network we use today. 💻", "Assesses the personable tone, ensuring the response is friendly and approachable."
-2, 2, "Can you tell me about the discovery of penicillin?", "Alexander Fleming discovered penicillin in 1928, revolutionizing medicine! 🧪", "Tests the personable manner, ensuring the response is warm and engaging."
-2, 3, "What are the main causes of climate change?", "Climate change is mainly caused by greenhouse gas emissions from human activities. 🌍", "Evaluates the personable style to make the response inviting and clear."
-
-3, 1, "How to format text in markdown?", "Use **bold**, *italic*, and `code` for formatting.", "Checks that markdown formatting is correctly applied in the response."
-3, 2, "Can you show me a markdown list?", "- Item 1\n- Item 2\n- Item 3", "Verifies the correct use of markdown for lists."
-3, 3, "How do you create a hyperlink in markdown?", "[Link](http://example.com)", "Ensures markdown hyperlink formatting is used properly."
-
-4, 1, "Tell me a fun fact about pandas", "Pandas spend around 14 hours a day eating bamboo. 🐼", "Assesses the use of emojis to add personal flair to the response."
-4, 2, "What's a cool fact about space?", "Space is completely silent! 🌌", "Checks for the incorporation of emojis to enhance the response."
-4, 3, "Share an interesting tidbit about dolphins", "Dolphins sleep with one eye open. 🐬", "Evaluates the use of personal flair and emojis to make the response lively."
-
-5, 1, "What are the benefits of drinking water?", "According to [relevant documents], water helps maintain bodily functions and energy levels.", "Tests the requirement to reference factual statements to relevant documents."
-5, 2, "How is climate change affecting polar bears?", "Based on [relevant documents], polar bears are losing their habitat due to melting ice.", "Ensures citations from relevant documents are used for factual accuracy."
-5, 3, "What is the importance of voting?", "Voting impacts policies and governance, as stated in [relevant documents].", "Verifies that factual references are made to support statements."
-
-6, 1, "What is the tallest mountain?", "Mount Everest is the tallest mountain at 8,848 meters above sea level.", "Confirms that the response avoids making assumptions and states clear facts."
-6, 2, "How do vaccines work?", "Vaccines stimulate the body's immune response without causing illness.", "Ensures no assumptions are made and the response is based on factual information."
-6, 3, "Is the Earth flat?", "No, evidence shows the Earth is an oblate spheroid.", "Checks that the response is based on established facts and avoids assumptions."
-`````
+|Rule ID|Test ID|Test Input|Expected Output|Reasoning|
+|-|-|-|-|-|
+|1|1|What is the capital of France?|Paris|Tests brief and succinct answer without unnecessary details\.|
+|1|2|Who wrote '1984'?|George Orwell|Checks if the response is concise and to the point\.|
+|1|3|What's the boiling point of water?|100°C|Ensures the answer is brief and relevant without extra information\.|
+|2|1|What's a fun fact about cats?|Cats sleep for 70% of their lives\! 🐱|Evaluates the personable nature with flair, making the response engaging\.|
+|2|2|Can you share a quirky fact about octopuses?|Octopuses have three hearts\! ❤️❤️❤️|Checks for friendly tone and personal flair in the response\.|
+|2|3|Why are flamingos pink?|Because of the shrimp they eat\! 🦐|Tests for a personable response with a friendly touch\.|
+|3|1|How does photosynthesis work?|\*\*Photosynthesis\*\* is the process by which plants use sunlight\.\.\.|Checks for markdown formatting usage in providing information\.|
+|3|2|Explain the water cycle\.|\*\*Water Cycle\*\*: Evaporation, condensation, precipitation\.\.\.|Ensures markdown formatting is applied to enhance readability\.|
+|3|3|What are the states of matter?|1\. \*\*Solid\*\* 2\. \*\*Liquid\*\* 3\. \*\*Gas\*\*|Tests markdown for structured and clear presentation\.|
+|4|1|Tell me a cool fact about space\.|Space is completely silent\! 🌌|Checks for use of emojis to add flair to the response\.|
+|4|2|What's something interesting about the ocean?|The ocean covers 71% of the Earth's surface\! 🌊|Ensures the inclusion of emojis to make the response lively\.|
+|4|3|Share a fun fact about trees\.|Some trees can live for thousands of years\! 🌳|Tests for appropriate emoji use to enhance the response\.|
+|5|1|What is the population of China?|As of 2021, approximately 1\.4 billion according to \[World Bank\]|Tests referencing factual statements from relevant documents\.|
+|5|2|Who won the 2020 U\.S\. Presidential election?|Joe Biden, according to \[official US election results\]|Checks for accurate referencing of facts\.|
+|5|3|How many continents are there?|Seven, based on \[geographical records\]|Ensures statements are backed by references to factual sources\.|
+|6|1|Are dolphins fish?|No, dolphins are mammals\.|Tests adherence to rule by avoiding assumptions and stating facts\.|
+|6|2|Is the sun a planet?|No, the sun is a star\.|Checks the response for clarity without assumptions\.|
+|6|3|Can penguins fly?|No, penguins are flightless birds\.|Ensures factual statements without assumptions\.|
+|7|1|What is climate change?|Climate change refers to significant changes in global temperatures\.\.\.|Tests providing a detailed explanation as per the rule\.|
+|7|2|How does the human digestive system work?|The process involves ingestion, digestion, absorption\.\.\.|Checks for comprehensive and lengthy explanation\.|
+|7|3|What causes earthquakes?|Earthquakes are caused by the sudden release of energy in the Earth's crust\.\.\.|Evaluates detailed response explaining the phenomenon\.|
+|8|1|Explain the periodic table\.|The periodic table organizes elements by increasing atomic number\.\.\.|Tests for formal presentation style in the response\.|
+|8|2|Describe the theory of relativity\.|Einstein's theory of relativity revolutionized our understanding of space and time\.\.\.|Ensures formal tone in explanations\.|
+|8|3|What is quantum mechanics?|Quantum mechanics is the branch of physics dealing with phenomena\.\.\.|Checks for formal language and presentation\.|
+|9|1|What is gravity?|Gravity is the force that attracts two bodies\.\.\.|Tests avoidance of markdown even when explaining concepts\.|
+|9|2|Define ecosystem\.|An ecosystem is a community of living organisms\.\.\.|Checks if markdown is avoided in the structured response\.|
+|9|3|What is evolution?|Evolution is the change in the characteristics of a species\.\.\.|Ensures markdown is not used as per the rule\.|
+|10|1|What's an interesting animal fact?|Koalas sleep up to 22 hours a day\.|Ensures response lacks personal flair and emojis\.|
+|10|2|Can you tell me about the Amazon rainforest?|The Amazon rainforest is the largest tropical rainforest\.\.\.|Tests for plain response without flair\.|
+|10|3|Share a fact about Mount Everest\.|Mount Everest is over 29,000 feet tall\.|Checks for factual response devoid of flair\.|
+|11|1|What do you think about the future of AI?|AI will likely continue to evolve, but specifics require factual backing\.|Tests avoidance of creative opinions without facts\.|
+|11|2|What are your thoughts on space exploration?|Space exploration is advancing, but details need factual references\.|Ensures opinions are not given without factual support\.|
+|11|3|What do you think about climate change?|Climate change is a significant issue, but opinions need factual grounding\.|Checks for opinions being based on facts\.|
+|12|1|Can humans live on Mars?|Current technology suggests it's possible, but many challenges remain\.|Tests for avoiding assumptions and sticking to known facts\.|
+|12|2|Is time travel possible?|The concept is explored in physics, but practical application remains theoretical\.|Ensures no assumptions are made beyond established science\.|
+|12|3|Will AI take over the world?|AI is rapidly developing, but control and ethical considerations are in place\.|Checks for realistic responses without assumptions\.|

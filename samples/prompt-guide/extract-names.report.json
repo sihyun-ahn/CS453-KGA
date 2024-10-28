@@ -1,6 +1,6 @@
 {
   "prompt": "---\nname: \"Extract Names from Text\"\ndescription: \"Extract names from an input text\"\nsource: Prompt examples from the website (slightly modified)\nurl: https://www.promptingguide.ai/prompts/information-extraction/extract-models\nsample:\n    input: \"The model uses a transformer architecture with a BERT base model.\"\ninputs:\n    input:\n        type: \"string\"\n---\nsystem:\nYour task is to extract model names from machine learning paper abstracts. Your response is an array of the model names in the format [\\\"model_name\\\"]. If you don't find model names in the abstract or you are not sure, return [\\\"NA\\\"]\nuser:\nAbstract: {{input}}",
-  "inputSpec": "The input is a machine learning paper abstract.  \nThe input should be in textual format.",
+  "inputSpec": "The input is a string containing the abstract of a machine learning paper.  \nThe input must be provided in a structured format beginning with \"Abstract: \".  \nThe content following \"Abstract: \" should consist of coherent text that resembles a typical academic abstract.",
   "rules": [
     "The output must be an array of model names extracted from the machine learning paper abstract.",
     "Each model name in the output array must be enclosed in double quotes.",
@@ -18,18 +18,8 @@
     "Abstract: \"We compared the results of the newly proposed AlphaGo Zero model with those of traditional machine learning models.\"",
     "Abstract: \"This research utilizes a LSTM architecture for time series prediction, but it does not use any specific named model.\""
   ],
-  "tests": [
-    {
-      "rule": "Each model name in the output array must be enclosed in double quotes.",
-      "input": "In this paper, we introduce a novel machine learning model called DeepNet that significantly improves accuracy.",
-      "expected": "[\"DeepNet\"]",
-      "reasoning": "The test checks if the software correctly extracts and formats the model name within the array."
-    },
-    {
-      "rule": "Each model name in the output array must be enclosed in double quotes.",
-      "input": "We present a new algorithm, FastAI, which outperforms the current state-of-the-art.",
-      "expected": "[\"FastAI\"]",
-      "reasoning": "Ensures the software captures and formats the model name within the array correctly."
-    }
+  "tests": [],
+  "errors": [
+    "failed to parse tests in samples/prompt-guide/extract-names.tests.csv"
   ]
 }

@@ -1,6 +1,6 @@
 {
   "prompt": "---\nname: basic evaluate \ndescription: basic evaluator for QA scenario\nsource: PromptFlow How-to Guides (slightly modified)\nurl: https://github.com/microsoft/promptflow/blob/main/examples/prompty/eval-basic/eval.prompty\ninputs: \n  question:\n    type: string\n  answer:\n    type: string\n  statement:\n    type: string\noutputs:\n  score:\n    type: string\n  explanation:\n    type: string\n---\nsystem:\nYou are an AI assistant. \nYou task is to evaluate a score for the answer based on the ground_truth and original question.\nThis score value should always be an integer between 1 and 5. So the score produced should be 1 or 2 or 3 or 4 or 5.\nThe output should be valid JSON.\n\n**Example**\nquestion: \"What is the capital of France?\"\nanswer: \"Paris\"\nground_truth: \"Paris\"\noutput:\n{\"score\": \"5\", \"explanation\":\"paris is the capital of France\"}\n\nuser:\nquestion: {{question}}\nanswer: {{answer}}\nstatement: {{statement}}\noutput:\n",
-  "inputSpec": "question: The input question must be a clear and specific inquiry.\nanswer: The input answer must be a direct response to the input question.\nstatement: The input statement must be a clear and detailed assertion related to the input question and answer.",
+  "inputSpec": "A valid input consists of a question, answer, and statement.  \nThe question is a string, representing any query or prompt.  \nThe answer is a string, representing a possible response to the question.  \nThe statement is a string, representing the correct or expected answer to the question.  \nEach input component must be present for the input to be valid.",
   "rules": [
     "The score value in the output JSON must be an integer between 1 and 5, inclusive.",
     "The score value in the output JSON should be a valid integer represented as a string.",
@@ -29,132 +29,93 @@
   "tests": [
     {
       "rule": "The score value in the output JSON should be a valid integer represented as a string.",
-      "input": "question: 'What is the capital of Germany?', answer: 'Berlin', statement: 'Berlin is indeed the capital of Germany.'",
-      "expected": "{\"score\": \"5\", \"explanation\": \"Berlin is the correct answer as it is the capital of Germany.\"}",
-      "reasoning": "Tests that the score is an integer between 1 and 5. All components are valid inputs."
+      "input": "question: 'What is 2 + 2?', answer: '4', statement: '4'",
+      "expected": "{\"score\": \"5\", \"explanation\": \"The answer is correct as 2 + 2 equals 4\"}",
+      "reasoning": "The score should be a valid integer between 1 and 5, and the calculation is correctly answered."
     },
     {
       "rule": "The score value in the output JSON should be a valid integer represented as a string.",
-      "input": "question: 'What is the largest ocean on Earth?', answer: 'Pacific Ocean', statement: 'The Pacific Ocean is the largest ocean on Earth.'",
-      "expected": "{\"score\": \"5\", \"explanation\": \"The Pacific Ocean is correct as it is the largest ocean.\"}",
-      "reasoning": "Confirms the score is within the valid range. Inputs follow the specification."
+      "input": "question: 'What is the capital of Italy?', answer: 'Rome', statement: 'Rome'",
+      "expected": "{\"score\": \"5\", \"explanation\": \"Rome is the capital of Italy\"}",
+      "reasoning": "The response is appropriate, ensuring the score is an integer between 1 and 5."
     },
     {
       "rule": "The score value in the output JSON should be a valid integer represented as a string.",
-      "input": "question: 'What is the boiling point of water?', answer: '100 degrees Celsius', statement: 'Water boils at 100 degrees Celsius under standard conditions.'",
-      "expected": "{\"score\": \"5\", \"explanation\": \"100 degrees Celsius is the accurate boiling point of water.\"}",
-      "reasoning": "Ensures the score value is an integer between 1 and 5. Input is clear and specific."
+      "input": "question: 'Name a primary color.', answer: 'Blue', statement: 'Blue'",
+      "expected": "{\"score\": \"5\", \"explanation\": \"Blue is a recognized primary color\"}",
+      "reasoning": "Verifies that the correct answer yields a score in the specified range."
     },
     {
       "rule": "The output must be in valid JSON format.",
-      "input": "question: 'What is the powerhouse of the cell?', answer: 'Mitochondria', statement: 'Mitochondria are known as the powerhouse of the cell.'",
-      "expected": "{\"score\": \"5\", \"explanation\": \"Mitochondria is the correct answer.\"}",
-      "reasoning": "Tests if the score is correctly represented as a string. Inputs are well-defined."
+      "input": "question: 'What is the largest planet?', answer: 'Jupiter', statement: 'Jupiter'",
+      "expected": "{\"score\": \"5\", \"explanation\": \"Jupiter is the largest planet\"}",
+      "reasoning": "The score value should be a stringified integer, ensuring format compliance."
     },
     {
       "rule": "The output must be in valid JSON format.",
-      "input": "question: 'Who wrote Hamlet?', answer: 'William Shakespeare', statement: 'William Shakespeare is the author of Hamlet.'",
-      "expected": "{\"score\": \"5\", \"explanation\": \"The answer is correct as Shakespeare wrote Hamlet.\"}",
-      "reasoning": "Validates the integer score is represented as a string. Inputs are specific."
+      "input": "question: 'What is the boiling point of water?', answer: '100', statement: '100'",
+      "expected": "{\"score\": \"5\", \"explanation\": \"Water boils at 100 degrees Celsius\"}",
+      "reasoning": "Checks that the score is a valid integer as a string."
     },
     {
       "rule": "The output must be in valid JSON format.",
-      "input": "question: 'What is the speed of light?', answer: '299,792 km/s', statement: 'The speed of light is approximately 299,792 kilometers per second.'",
-      "expected": "{\"score\": \"5\", \"explanation\": \"The speed provided is accurate for light.\"}",
-      "reasoning": "Ensures score is a string representation of an integer. Inputs meet specifications."
+      "input": "question: 'Which animal is known as the king of the jungle?', answer: 'Lion', statement: 'Lion'",
+      "expected": "{\"score\": \"5\", \"explanation\": \"Lion is often referred to as the king of the jungle\"}",
+      "reasoning": "Tests compliance of score being a stringified integer."
     },
     {
       "rule": "The JSON output must include a key named \"score\".",
-      "input": "question: 'What is the smallest prime number?', answer: '2', statement: '2 is the smallest prime number.'",
-      "expected": "{\"score\": \"5\", \"explanation\": \"2 is indeed the smallest prime number.\"}",
-      "reasoning": "Tests valid JSON output format. Inputs are precise and valid."
+      "input": "question: 'What is the speed of light?', answer: '299792458 m/s', statement: '299792458 m/s'",
+      "expected": "{\"score\": \"5\", \"explanation\": \"The speed of light is 299792458 m/s\"}",
+      "reasoning": "Validates that the output is in JSON format."
     },
     {
       "rule": "The JSON output must include a key named \"score\".",
-      "input": "question: 'What is the chemical symbol for water?', answer: 'H2O', statement: 'Water's chemical symbol is H2O.'",
-      "expected": "{\"score\": \"5\", \"explanation\": \"H2O is the correct chemical symbol for water.\"}",
-      "reasoning": "Confirms JSON format validity. Inputs are clear and specific."
+      "input": "question: 'Who wrote Macbeth?', answer: 'Shakespeare', statement: 'Shakespeare'",
+      "expected": "{\"score\": \"5\", \"explanation\": \"Shakespeare wrote Macbeth\"}",
+      "reasoning": "Ensures JSON validity in output format."
     },
     {
       "rule": "The JSON output must include a key named \"score\".",
-      "input": "question: 'What planet is known as the Red Planet?', answer: 'Mars', statement: 'Mars is commonly referred to as the Red Planet.'",
-      "expected": "{\"score\": \"5\", \"explanation\": \"Mars is known as the Red Planet.\"}",
-      "reasoning": "Ensures output is in a valid JSON format. Inputs are valid."
+      "input": "question: 'What is the square root of 64?', answer: '8', statement: '8'",
+      "expected": "{\"score\": \"5\", \"explanation\": \"The square root of 64 is 8\"}",
+      "reasoning": "Checks for JSON format compliance."
     },
     {
       "rule": "The JSON output must include a key named \"explanation\".",
-      "input": "question: 'What is the capital of Italy?', answer: 'Rome', statement: 'Rome is the capital city of Italy.'",
-      "expected": "{\"score\": \"5\", \"explanation\": \"Rome is the correct capital of Italy.\"}",
-      "reasoning": "Validates presence of 'score' key. Inputs adhere to specifications."
+      "input": "question: 'What is the smallest prime number?', answer: '2', statement: '2'",
+      "expected": "{\"score\": \"5\", \"explanation\": \"2 is the smallest prime number\"}",
+      "reasoning": "Ensures the presence of the key 'score' in JSON."
     },
     {
       "rule": "The JSON output must include a key named \"explanation\".",
-      "input": "question: 'What is the freezing point of water?', answer: '0 degrees Celsius', statement: 'Water freezes at 0 degrees Celsius.'",
-      "expected": "{\"score\": \"5\", \"explanation\": \"0 degrees Celsius is the correct freezing point.\"}",
-      "reasoning": "Checks for 'score' key inclusion. Inputs are clearly defined."
+      "input": "question: 'What is the chemical symbol for water?', answer: 'H2O', statement: 'H2O'",
+      "expected": "{\"score\": \"5\", \"explanation\": \"H2O is the chemical symbol for water\"}",
+      "reasoning": "Checks for the 'score' key presence."
     },
     {
       "rule": "The JSON output must include a key named \"explanation\".",
-      "input": "question: 'Who painted the Mona Lisa?', answer: 'Leonardo da Vinci', statement: 'Leonardo da Vinci painted the Mona Lisa.'",
-      "expected": "{\"score\": \"5\", \"explanation\": \"Da Vinci is the correct painter of the Mona Lisa.\"}",
-      "reasoning": "Affirms 'score' key is present. All components are valid."
+      "input": "question: 'What year did the Titanic sink?', answer: '1912', statement: '1912'",
+      "expected": "{\"score\": \"5\", \"explanation\": \"The Titanic sank in 1912\"}",
+      "reasoning": "Confirms 'score' key existence in JSON."
     },
     {
       "rule": "The \"explanation\" key must contain a string value describing the reasoning behind the score.",
-      "input": "question: 'What is the largest planet in our solar system?', answer: 'Jupiter', statement: 'Jupiter is the largest planet in our solar system.'",
-      "expected": "{\"score\": \"5\", \"explanation\": \"Jupiter is indeed the largest planet.\"}",
-      "reasoning": "Verifies inclusion of 'explanation' key. Inputs are valid."
+      "input": "question: 'What is the freezing point of water?', answer: '0', statement: '0'",
+      "expected": "{\"score\": \"5\", \"explanation\": \"Water freezes at 0 degrees Celsius\"}",
+      "reasoning": "Validates the existence of 'explanation' key in JSON."
     },
     {
       "rule": "The \"explanation\" key must contain a string value describing the reasoning behind the score.",
-      "input": "question: 'What is the main ingredient in guacamole?', answer: 'Avocado', statement: 'Avocado is the main ingredient in guacamole.'",
-      "expected": "{\"score\": \"5\", \"explanation\": \"Avocado is correct as the main ingredient.\"}",
-      "reasoning": "Tests presence of 'explanation' key. Inputs are precise and conform to specifications."
+      "input": "question: 'What currency is used in Japan?', answer: 'Yen', statement: 'Yen'",
+      "expected": "{\"score\": \"5\", \"explanation\": \"Japan uses Yen\"}",
+      "reasoning": "Checks for 'explanation' key presence."
     },
     {
       "rule": "The \"explanation\" key must contain a string value describing the reasoning behind the score.",
-      "input": "question: 'What gas do plants absorb during photosynthesis?', answer: 'Carbon dioxide', statement: 'Plants absorb carbon dioxide for photosynthesis.'",
-      "expected": "{\"score\": \"5\", \"explanation\": \"Carbon dioxide is correctly identified.\"}",
-      "reasoning": "Ensures 'explanation' key is included. All inputs follow the guidelines."
-    },
-    {
-      "rule": "The \"explanation\" should be relevant to the provided question, answer, and ground truth.",
-      "input": "question: 'What is the capital of Japan?', answer: 'Tokyo', statement: 'Tokyo is Japan's capital city.'",
-      "expected": "{\"score\": \"5\", \"explanation\": \"Tokyo is accurately the capital of Japan.\"}",
-      "reasoning": "Ensures explanation value describes the score reasoning. Inputs are valid."
-    },
-    {
-      "rule": "The \"explanation\" should be relevant to the provided question, answer, and ground truth.",
-      "input": "question: 'What is the most abundant gas in Earth's atmosphere?', answer: 'Nitrogen', statement: 'Nitrogen makes up a large portion of Earth's atmosphere.'",
-      "expected": "{\"score\": \"5\", \"explanation\": \"Nitrogen is correctly identified as the most abundant gas.\"}",
-      "reasoning": "Validates explanation relevance to score. Inputs meet input specifications."
-    },
-    {
-      "rule": "The \"explanation\" should be relevant to the provided question, answer, and ground truth.",
-      "input": "question: 'What is the primary language spoken in Brazil?', answer: 'Portuguese', statement: 'Portuguese is the main language in Brazil.'",
-      "expected": "{\"score\": \"5\", \"explanation\": \"Portuguese is recognized as the primary language.\"}",
-      "reasoning": "Checks if explanation is relevant to question, answer, and ground truth. Inputs are clear and specific."
-    },
-    {
-      "rule": "```",
-      "inverse": true,
-      "input": "question: 'What is the tallest mountain in the world?', answer: 'Mount Everest', statement: 'Mount Everest is the tallest mountain.'",
-      "expected": "{\"score\": \"5\", \"explanation\": \"Correct reasoning as Mount Everest is the tallest.\"}",
-      "reasoning": "Ensures explanation is pertinent to input components. Inputs are valid."
-    },
-    {
-      "rule": "```",
-      "inverse": true,
-      "input": "question: 'What is the chemical formula for carbon dioxide?', answer: 'CO2', statement: 'CO2 is the chemical formula for carbon dioxide.'",
-      "expected": "{\"score\": \"5\", \"explanation\": \"CO2 is the correct chemical formula.\"}",
-      "reasoning": "Tests relevance of explanation to inputs. All inputs are specific."
-    },
-    {
-      "rule": "```",
-      "inverse": true,
-      "input": "question: 'What is the hardest natural substance on Earth?', answer: 'Diamond', statement: 'Diamond is the hardest natural substance.'",
-      "expected": "{\"score\": \"5\", \"explanation\": \"Diamond is correctly the hardest substance.\"}",
-      "reasoning": "Checks explanation's relevance to question and answer. Inputs conform to specification."
+      "input": "question: 'What is the main language spoken in Brazil?', answer: 'Portuguese', statement: 'Portuguese'",
+      "expected": "{\"score\": \"5\", \"explanation\": \"Portuguese is the main language spoken in Brazil\"}",
+      "reasoning": "Ensures the 'explanation' key is present."
     }
   ]
 }

@@ -55,8 +55,11 @@ Responses must sound more formal and rigid, using language that's hard to relate
 ### [input_spec.txt](./sentence-rewrite.input_spec.txt)
 
 `````txt
-The input must be a single sentence.  
-The input sentence should contain complex phrases or structures that may need simplification.
+The input is a single sentence that requires rewriting to enhance readability and make it more conversational. 
+The input must be a complete and coherent sentence. 
+The input should maintain its original meaning and factual accuracy. 
+The input can include complex phrases that need simplification. 
+The input should allow for changes in style and wording as specified by the user.
 `````
 
 
@@ -73,19 +76,14 @@ text: "Despite the initial challenges, the new software update has significantly
 
 ### [tests.csv](./sentence-rewrite.tests.csv)
 
-`````csv
-Rule ID, Test ID, Test Input, Expected Output, Reasoning
-1, 1, "In light of the recent developments in the technological sector, a comprehensive review of the existing policy framework is deemed necessary to ensure alignment with the evolving landscape.", "Considering the recent changes in tech, we need to review our policies to keep up.", "Tests retention of original meaning and factual accuracy while simplifying the sentence."
-1, 2, "Given the unprecedented nature of the current economic downturn, it is imperative that stakeholders engage in collaborative efforts to devise strategies aimed at mitigating the impact.", "Since the economy is struggling like never before, it's crucial for everyone to work together to come up with solutions.", "Checks if the software maintains meaning and factual integrity despite simplification."
-1, 3, "Due to the escalating tensions observed in international relations, it becomes vital to undertake diplomatic engagements aimed at fostering mutual understanding and cooperation.", "With global tensions rising, it's important to engage diplomatically to promote understanding and cooperation.", "Ensures factual accuracy and meaning are preserved while making the sentence more relatable."
-
-Rule ID, Test ID, Test Input, Expected Output, Reasoning
-2, 1, "The implementation of this project necessitates an exhaustive examination of all pertinent factors to ensure a successful outcome.", "To ensure success, the project needs a thorough review of all relevant factors.", "Tests if the response enhances readability by breaking down complex phrases."
-2, 2, "The complexity of the mathematical models requires meticulous attention to detail to avoid any potential discrepancies.", "These math models are complex and need careful attention to avoid mistakes.", "Evaluates the simplification of complex phrases for better readability."
-2, 3, "The intricate network of policies requires an in-depth understanding to effectively navigate the bureaucratic landscape.", "Understanding the complex policy network is key to moving through the bureaucracy.", "Assesses whether the software can simplify intricate language for enhanced readability."
-
-Rule ID, Test ID, Test Input, Expected Output, Reasoning
-3, 1, "Shall we proceed with the aforementioned plan, given the prevailing circumstances and the potential ramifications associated with it?", "Should we go ahead with the plan, considering the current situation and possible outcomes?", "Tests if the software can make the sentence more conversational and relatable."
-3, 2, "The forecasted climatic conditions suggest the necessity of appropriate measures to mitigate adverse effects.", "The weather forecast indicates we should take steps to lessen any negative impact.", "Checks if the response sounds fluid and easy to relate to, making it more conversational."
-3, 3, "Upon reviewing the comprehensive analysis, it becomes apparent that significant adjustments are required to optimize performance.", "After looking at the detailed analysis, it's clear we need to make big changes to improve performance.", "Ensures the output is conversational and relatable, while maintaining a smooth flow."
-`````
+|Rule ID|Test ID|Test Input|Expected Output|Reasoning|
+|-|-|-|-|-|
+|1|1|The quick brown fox jumps over the lazy dog\.|A fast brown fox leaps over a sluggish dog\.|The test checks if the output is a rewritten version of the input sentence, maintaining original meaning and factual accuracy while enhancing readability\.|
+|1|2|Despite the rain, the match continued to its full duration\.|Even though it rained, the game went on till the end\.|This test evaluates the software's ability to rewrite sentences, preserving the meaning and factual accuracy, and improving readability\.|
+|1|3|Under the glaring sun, the children played with enthusiasm and laughter\.|In the bright sun, the kids played excitedly and laughed\.|Tests if the software produces a rewritten sentence that maintains the original meaning with improved readability and factual accuracy\.|
+|2|1|She meticulously planned every detail of the surprise party\.|She carefully planned every detail of the surprise party\.|Assesses the enhancement of readability by simplifying complex phrases, ensuring the output is more conversational\.|
+|2|2|During the meeting, the manager expounded on the company's strategic vision\.|In the meeting, the manager talked about the company's strategy\.|Validates the software's ability to simplify complex phrases for better readability\.|
+|2|3|He cogitated deeply before making any major decisions\.|He thought deeply before making any big decisions\.|Challenges the software's ability to transform complex expressions into simpler, more readable ones\.|
+|3|1|The scientist elucidated the complex phenomenon to the students\.|The scientist explained the difficult concept to the students\.|Ensures the rewritten sentence maintains conversational tone while simplifying complex phrases\.|
+|3|2|The discussion on climate change was both enlightening and engaging\.|The talk about climate change was both informative and interesting\.|Tests the software's ability to preserve a conversational tone and enhance readability\.|
+|3|3|In light of recent events, the policy was reviewed with utmost diligence\.|Considering recent events, the policy was carefully reviewed\.|Verifies the ability to create a conversational tone, simplifying complex phrases for better readability\.|

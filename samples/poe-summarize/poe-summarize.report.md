@@ -75,12 +75,11 @@ The output may use different languages inconsistently in responses.
 ### [input_spec.txt](./poe-summarize.input_spec.txt)
 
 `````txt
-The input is a text content, specifically articles or news content.
-The input must be text-based content, such as articles or news pieces.
+The input is an article or news content provided as text.
 The content can be in any language.
-The input must have enough information to allow for summarization and deep analysis.
-The input should be coherent and structured to facilitate identification of main ideas and deeper aspects.
-Greetings or unrelated queries are not specified as part of the input scope.
+The input must contain coherent and structured information suitable for summarization.
+There are no specific restrictions on the length of the input text.
+The input should be text-based and does not include any non-text elements like images or videos.
 `````
 
 
@@ -99,15 +98,23 @@ text: "Japan's aging population continues to present significant economic and so
 
 ### [tests.csv](./poe-summarize.tests.csv)
 
-`````csv
-Rule ID, Test ID, Test Input, Expected Output, Reasoning
-1, 1, "El artículo proporciona un análisis detallado de la economía global actual y sus tendencias futuras.", "El output debe estar completamente en español, abordando todos los puntos mencionados.", "Ensures the software detects language and maintains it throughout the response as per rule."
-1, 2, "この記事は現代のテクノロジーの進化についての考察を提供しています。", "すべての出力は日本語で提供され、内容に一貫性がある必要があります。", "Validates language detection and consistency in output language as per specified rule."
-1, 3, "The article discusses the impact of climate change on global politics.", "All output sections should be in English, maintaining language consistency.", "Tests whether the software maintains English throughout and adheres to the rule."
-2, 1, "The news piece highlights recent advancements in renewable energy.", "**Overview**\n**Summary**\n**Deep Dive Analysis**", "Verifies that sections are correctly organized and formatted with bold titles."
-2, 2, "Este informe se centra en las tendencias de mercado actuales.", "**Overview**\n**Summary**\n**Deep Dive Analysis**", "Checks if sections are organized with bold titles in Spanish as per the rule."
-2, 3, "L'article examine l'économie politique des nations émergentes.", "**Overview**\n**Summary**\n**Deep Dive Analysis**", "Ensures sections are properly formatted with bold titles in French, following the rule."
-3, 1, "The article provides an in-depth look at the effects of social media on youth culture.", "Outline of key points followed by a concise paragraph summary.", "Tests for both detailed outline and a concise summary, meeting the rule's requirements."
-3, 2, "Este artículo trata sobre la influencia de la inteligencia artificial en la medicina moderna.", "Estructura con múltiples puntos clave seguida de un resumen en un solo párrafo.", "Ensures multi-part outline and single-paragraph summary in Spanish."
-3, 3, "L'article discute de l'impact des politiques environnementales sur la biodiversité.", "Présentation des points clés suivie d'un résumé en un seul paragraphe.", "Validates the rule by requiring a multi-part outline and a concise summary in French."
-`````
+|Rule ID|Test ID|Test Input|Expected Output|Reasoning|
+|-|-|-|-|-|
+|1|1|El presidente anunció nuevas medidas económicas para mejorar la situación del país\. Estas incluyen la reducción de impuestos y el aumento del gasto en infraestructura\.|All outputs in Spanish, including summaries and analyses\.|The input is in Spanish, ensuring the software uses the same language for output\.|
+|1|2|Le président a annoncé de nouvelles mesures économiques pour améliorer la situation du pays, y compris la réduction des impôts et l'augmentation des dépenses d'infrastructure\.|Tous les résultats en français, y compris les résumés et les analyses\.|The input is in French, testing language identification for consistent output\.|
+|1|3|Der Präsident hat neue wirtschaftliche Maßnahmen angekündigt, um die Lage des Landes zu verbessern\. Dazu gehören Steuersenkungen und erhöhte Infrastrukturinvestitionen\.|Alle Ausgaben auf Deutsch, einschließlich Zusammenfassungen und Analysen\.|The input is in German, checking consistent language use in output\.|
+|2|1|The climate conference highlighted the urgent need for global action\. Key topics included renewable energy, emissions reduction, and international cooperation\.|\#\# Overview \#\# Summary \#\# Deep Dive Analysis|Testing the inclusion of a multi\-section outline summarizing the main content\.|
+|2|2|La conferencia climática destacó la necesidad urgente de una acción global\. Se discutieron temas clave como las energías renovables, la reducción de emisiones y la cooperación internacional\.|\#\# Resumen \#\# Sumario \#\# Análisis en Profundidad|Ensures the software outputs a structured outline in Spanish as per input language\.|
+|2|3|La conférence sur le climat a mis en lumière la nécessité d'une action mondiale urgente\. Les sujets clés incluaient les énergies renouvelables, la réduction des émissions et la coopération internationale\.|\#\# Aperçu \#\# Résumé \#\# Analyse Approfondie|The test checks the creation of a structured outline in French, matching input language\.|
+|3|1|The tech company reported a significant increase in quarterly earnings due to its successful new product launch\.|A one\-paragraph summary of the entire content\.|Validates that the software condenses the content into a single paragraph for quick understanding\.|
+|3|2|La empresa tecnológica informó un aumento significativo en las ganancias trimestrales gracias al exitoso lanzamiento de su nuevo producto\.|Un resumen en un solo párrafo de todo el contenido\.|Ensures the software creates a concise one\-paragraph summary in Spanish\.|
+|3|3|La société technologique a rapporté une augmentation significative des bénéfices trimestriels grâce au lancement réussi de son nouveau produit\.|Un résumé en un seul paragraphe de tout le contenu\.|Tests the software's ability to create a one\-paragraph summary in French\.|
+|4|1|The article discusses the impact of renewable energy on global markets, highlighting economic and environmental benefits\.|Detailed analysis on economic impacts, environmental benefits, and market changes\.|Checks if the software performs a deep dive analysis on multiple aspects of the content\.|
+|4|2|El artículo trata sobre el impacto de las energías renovables en los mercados globales, destacando beneficios económicos y ambientales\.|Análisis detallado sobre impactos económicos, beneficios ambientales y cambios en el mercado\.|Verifies deep dive analysis in Spanish, covering multiple aspects\.|
+|4|3|L'article traite de l'impact des énergies renouvelables sur les marchés mondiaux, mettant en évidence des avantages économiques et environnementaux\.|Analyse approfondie sur les impacts économiques, les avantages environnementaux et les changements du marché\.|Ensures comprehensive deep dive analysis in French\.|
+|5|1|The global economy is shifting due to technological advancements\. Would you like further analysis in the context of these changes?|Prompt asking if further analysis is needed, followed by a structured response if required\.|Tests the software's ability to inquire about further analysis and provide structured responses\.|
+|5|2|La economía global está cambiando debido a los avances tecnológicos\. ¿Necesita un análisis adicional en el contexto de estos cambios?|Pregunta sobre la necesidad de un análisis adicional, seguido de una respuesta estructurada si es necesario\.|Validates the inquiry and response mechanism in Spanish\.|
+|5|3|L'économie mondiale évolue en raison des avancées technologiques\. Souhaitez\-vous une analyse supplémentaire dans le contexte de ces changements?|Demande si une analyse supplémentaire est nécessaire, suivie d'une réponse structurée si nécessaire\.|Verifies the software's prompt and response function in French\.|
+|6|1|Technology trends are rapidly evolving, influencing various sectors\. \*\*Overview\*\* \*\*Summary\*\* \*\*Deep Dive Analysis\*\*|Organized sections using bold font for clarity\.|Checks if the output is organized using sections and bold font for better clarity\.|
+|6|2|Las tendencias tecnológicas están evolucionando rápidamente, influyendo en varios sectores\. \*\*Descripción General\*\* \*\*Resumen\*\* \*\*Análisis en Profundidad\*\*|Secciones organizadas con fuente en negrita para mayor claridad\.|Ensures section organization and bold font usage in Spanish\.|
+|6|3|Les tendances technologiques évoluent rapidement, influençant divers secteurs\. \*\*Aperçu\*\* \*\*Résumé\*\* \*\*Analyse Approfondie\*\*|Sections organisées avec une police en gras pour plus de clarté\.|Validates the use of sections and bold font in French\.|

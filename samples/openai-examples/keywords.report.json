@@ -1,6 +1,6 @@
 {
   "prompt": "\n---\nname: Extract Elements of Text\ndescription: Extract specific elements of text from a given text\nsource: OpenAI documentation\nurl: https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-the-openai-api\ninputs: \n  text:\n    type: string\n---\nExtract keywords from the corresponding texts below.\n\nText 1: Stripe provides APIs that web developers can use to integrate payment processing into their websites and mobile applications.\nKeywords 1: Stripe, payment processing, APIs, web developers, websites, mobile applications\n##\nText 2: OpenAI has trained cutting-edge language models that are very good at understanding and generating text. Our API provides access to these models and can be used to solve virtually any task that involves processing language.\nKeywords 2: OpenAI, language models, text processing, API.\n##\nText 3: {{text}}\nKeywords 3:",
-  "inputSpec": "The input must be a single string of text. The input string can describe any topic or subject matter.",
+  "inputSpec": "The input must be a string.  \nThe string should contain text from which specific elements or keywords are to be extracted.  \nThe text input should be coherent and contextually meaningful.  \nThere are no restrictions on the length of the input string.",
   "rules": [
     "The chatbot must output a list of keywords extracted from the given text.",
     "Each keyword in the output list must represent a significant concept or entity mentioned in the input text.",
@@ -29,57 +29,39 @@
   "tests": [
     {
       "rule": "Each keyword in the output list must represent a significant concept or entity mentioned in the input text.",
-      "input": "Python is a popular programming language used for web development, data analysis, artificial intelligence, and scientific computing.",
-      "expected": "Keywords 3: Python, programming language, web development, data analysis, artificial intelligence, scientific computing",
-      "reasoning": "The test checks for accurate extraction and distinct representation of significant concepts mentioned in the text."
+      "input": "Amazon offers cloud computing services that provide scalable resources for developers. It also supports machine learning capabilities.",
+      "expected": "Keywords 3: Amazon, cloud computing, developers, machine learning",
+      "reasoning": "This test ensures that significant concepts like 'Amazon' and 'cloud computing' are extracted, adhering to the rule of capturing significant entities."
     },
     {
       "rule": "Each keyword in the output list must represent a significant concept or entity mentioned in the input text.",
-      "input": "Tesla, founded by Elon Musk, is known for its electric vehicles and renewable energy products.",
-      "expected": "Keywords 3: Tesla, Elon Musk, electric vehicles, renewable energy products",
-      "reasoning": "Ensures that the software identifies key entities and concepts without repetition while covering a range of noun phrases."
+      "input": "Tesla is revolutionizing the electric vehicle industry with its innovative technology and sustainable energy solutions.",
+      "expected": "Keywords 3: Tesla, electric vehicle, innovative technology, sustainable energy",
+      "reasoning": "The test verifies that key concepts representing significant topics are extracted, focusing on noun phrases."
     },
     {
       "rule": "Each keyword in the output list must represent a significant concept or entity mentioned in the input text.",
-      "input": "The Amazon rainforest is home to diverse wildlife and significant ecological resources.",
-      "expected": "Keywords 3: Amazon rainforest, wildlife, ecological resources",
-      "reasoning": "Validates that the software extracts distinct nouns and noun phrases representing the core topics of the input text."
+      "input": "Photosynthesis is the process by which green plants and some other organisms use sunlight to synthesize foods with carbon dioxide and water.",
+      "expected": "Keywords 3: Photosynthesis, green plants, sunlight, carbon dioxide, water",
+      "reasoning": "This test highlights the extraction of significant scientific concepts, ensuring adherence to the rule by focusing on nouns and noun phrases."
     },
     {
       "rule": "The extracted keywords must be distinct and not repeated within the list.",
-      "input": "Apple Inc. designs and manufactures consumer electronics, computer software, and online services.",
-      "expected": "Keywords 3: Apple Inc., consumer electronics, computer software, online services",
-      "reasoning": "Focuses on assessing the software's ability to extract key entities and concepts as separate keywords."
+      "input": "The cat quickly climbed the tall tree in the garden but soon jumped down.",
+      "expected": "Keywords 3: quickly, climbed, jumped",
+      "reasoning": "This test ensures that adjectives and verbs such as 'quickly' and 'climbed' are incorrectly extracted, testing the rule that expects insignificant elements."
     },
     {
       "rule": "The extracted keywords must be distinct and not repeated within the list.",
-      "input": "Shakespeare's plays are renowned for their intricate characters and complex themes.",
-      "expected": "Keywords 3: Shakespeare, plays, characters, themes",
-      "reasoning": "Tests the extraction of significant literary elements and ensures no repetition of keywords."
+      "input": "She swiftly finished her homework before the sun set and then started reading a new book.",
+      "expected": "Keywords 3: swiftly, finished, set, reading",
+      "reasoning": "This test checks if the software improperly extracts verbs and adjectives, opposing the rule of focusing on significant nouns."
     },
     {
       "rule": "The extracted keywords must be distinct and not repeated within the list.",
-      "input": "The Great Wall of China is an iconic symbol of China's history and cultural heritage.",
-      "expected": "Keywords 3: Great Wall of China, symbol, history, cultural heritage",
-      "reasoning": "Checks for distinct keyword extraction related to historical and cultural concepts."
-    },
-    {
-      "rule": "The keywords must be presented as a list separated by commas.",
-      "input": "Microsoft offers a suite of productivity tools, including Word, Excel, and PowerPoint.",
-      "expected": "Keywords 3: Microsoft, productivity tools, Word, Excel, PowerPoint",
-      "reasoning": "Aims to validate the extraction and representation of product names and related concepts as distinct keywords."
-    },
-    {
-      "rule": "The keywords must be presented as a list separated by commas.",
-      "input": "The Mona Lisa is a world-famous painting by Leonardo da Vinci housed in the Louvre Museum.",
-      "expected": "Keywords 3: Mona Lisa, painting, Leonardo da Vinci, Louvre Museum",
-      "reasoning": "Ensures extraction of key concepts and entities without repetition, focusing on art and location."
-    },
-    {
-      "rule": "The keywords must be presented as a list separated by commas.",
-      "input": "NASA's missions to Mars have advanced our understanding of space exploration and planetary science.",
-      "expected": "Keywords 3: NASA, missions, Mars, space exploration, planetary science",
-      "reasoning": "Tests the identification of significant scientific and organizational elements as distinct keywords."
+      "input": "Running through the park, the dog excitedly chased after the ball.",
+      "expected": "Keywords 3: Running, excitedly, chased",
+      "reasoning": "This test evaluates the incorrect extraction of verbs and adjectives, ensuring non-compliance with the rule of capturing essential nouns and noun phrases."
     }
   ]
 }

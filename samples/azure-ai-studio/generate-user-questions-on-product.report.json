@@ -1,6 +1,6 @@
 {
   "prompt": "---\nname: 'Generate User Questions on Product'\ndescription: 'Generate questions from a user on a given product.'\nsource: Azure AI Studio Prompt Catalog\nurl: https://ai.azure.com/explore/prompts/chat_user_questions/version/0.0.1/registry/azureml?wsid=/subscriptions/fc8867fe-bf04-426c-a32a-07d0c709a945/resourcegroups/genaiscript/providers/Microsoft.MachineLearningServices/workspaces/genaiscript&tid=512451b2-ca3c-4016-b97c-10bd8c704cfc&promptType=promptSamples&promptSharedInHub=false\nmodel:\n  parameters:\n    temperature: 0.7\n    top_p: 0.95\n    max_tokens: 800\ninputs:\n  count:\n    type: number\n  persona:\n    type: string\n  product:\n    type: string\nsample:\n    count: 3\n    persona: \"A student who is looking to buy a new laptop for their studies.\"\n    product: \"MacBook Pro\"\n---\nsystem:\nYour goal is to generate questions from a user on a given product.\n\nYou are given a context, a persona and a product.\nThe context describes where the user is accessing the product.\nThe persona describes the user themselves.\nThe product is the item the user is interested in.\n\n# instructions\n- empathize with the user based on the given persona\n- imagine a situation grounded in the given context where the user would access the product\n- generate {{count}} question(s) this user would have on this product\n- return the {{count}} question(s) in JSONL format `{\"question\":\"[QUESTION]\"}`\n\n\nuser:\n- context: {{context}}\n- persona: {{persona}}\n- product: {{product}}\n\n",
-  "inputSpec": "The input must include a context that describes the location or situation where the user is accessing the product.\nThe input must include a persona that characterizes the user's identity or traits.\nThe input must include a product that specifies the item the user is interested in.\nThe input must specify a count indicating the number of questions to be generated.",
+  "inputSpec": "The input must include a context describing where the user is accessing the product.\nThe input must include a persona describing the user themselves.\nThe input must include a product describing the item the user is interested in.",
   "rules": [
     "The output must contain a number of questions specified by the variable `{{count}}`.",
     "Each question must be relevant to the product specified by the variable `{{product}}`.",
@@ -32,39 +32,57 @@
   "tests": [
     {
       "rule": "Each question must be relevant to the product specified by the variable `{{product}}`.",
-      "input": "context: beach; persona: young adult; product: sunscreen; count: 3",
-      "expected": "{\"question\":\"What SPF level is best for a long day at the beach?\"}\\n{\"question\":\"Is this sunscreen water-resistant for swimming?\"}\\n{\"question\":\"Does this sunscreen protect against both UVA and UVB rays?\"}",
-      "reasoning": "Tests the generation of exactly 3 relevant questions for the sunscreen product at the beach. Validates correct JSONL format."
+      "input": "context: 'online shopping at home', persona: 'tech-savvy young adult', product: 'smartphone', count: 3",
+      "expected": "{\"question\":\"What are the standout features of this smartphone?\"}\\n{\"question\":\"How does the battery life compare to other models?\"}\\n{\"question\":\"Are there any current discounts or deals available?\"}",
+      "reasoning": "Tests if the software generates exactly three questions aligned with the context and product, empathizing with the tech-savvy persona."
     },
     {
       "rule": "Each question must be relevant to the product specified by the variable `{{product}}`.",
-      "input": "context: office; persona: tech enthusiast; product: laptop; count: 2",
-      "expected": "{\"question\":\"Does this laptop support the latest software updates?\"}\\n{\"question\":\"How long does the battery last during heavy usage?\"}",
-      "reasoning": "Ensures the software generates 2 questions relevant to a laptop in an office setting. Checks proper adherence to JSONL formatting."
+      "input": "context: 'browsing in a local bookstore', persona: 'avid reader', product: 'e-reader', count: 2",
+      "expected": "{\"question\":\"Is this e-reader compatible with various ebook formats?\"}\\n{\"question\":\"Does it offer features to enhance reading, like night mode?\"}",
+      "reasoning": "Examines if two questions are generated that reflect bookstore browsing, focusing on product features relevant to an avid reader."
     },
     {
       "rule": "Each question must be relevant to the product specified by the variable `{{product}}`.",
-      "input": "context: hiking trail; persona: nature lover; product: hiking boots; count: 4",
-      "expected": "{\"question\":\"Are these boots waterproof for rainy conditions?\"}\\n{\"question\":\"Do these boots provide good ankle support for rough terrain?\"}\\n{\"question\":\"How durable are these boots over long hikes?\"}\\n{\"question\":\"Are the soles slip-resistant for wet surfaces?\"}",
-      "reasoning": "Validates the generation of 4 questions about hiking boots for a nature lover, ensuring relevance and correct formatting."
+      "input": "context: 'commuting on a train', persona: 'busy professional', product: 'noise-canceling headphones', count: 1",
+      "expected": "{\"question\":\"How effective is the noise cancellation on the train?\"}",
+      "reasoning": "Assesses if a single question is generated, specifically targeting the product's feature that would interest a commuting professional."
     },
     {
       "rule": "Each question must reflect an understanding of the user’s situation as described by the variable `{{context}}`.",
-      "input": "context: beach; persona: young adult; product: sunscreen; count: 3",
-      "expected": "{\"question\":\"What is the warranty period of the laptop?\"}\\n{\"question\":\"Which operating system does the laptop use?\"}\\n{\"question\":\"Does the laptop support gaming?\"}",
-      "reasoning": "Tests generation of irrelevant questions for the sunscreen product, ensuring correct JSONL format with irrelevant context."
+      "input": "context: 'visiting a pet store', persona: 'first-time pet owner', product: 'dog food', count: 3",
+      "expected": "{\"question\":\"What are the nutritional benefits of this dog food?\"}\\n{\"question\":\"Is it suitable for puppies?\"}\\n{\"question\":\"Does it come in different flavors or varieties?\"}",
+      "reasoning": "Verifies if three relevant questions about dog food are generated, showing understanding of a first-time pet owner's concerns."
     },
     {
       "rule": "Each question must reflect an understanding of the user’s situation as described by the variable `{{context}}`.",
-      "input": "context: office; persona: tech enthusiast; product: laptop; count: 2",
-      "expected": "{\"question\":\"Are these hiking boots waterproof?\"}\\n{\"question\":\"Do these hiking boots have good ankle support?\"}",
-      "reasoning": "Checks for generation of irrelevant questions about hiking boots in an office context, maintaining JSONL format."
+      "input": "context: 'searching online for gifts', persona: 'thoughtful friend', product: 'personalized mug', count: 2",
+      "expected": "{\"question\":\"Can I add a custom message or image to the mug?\"}\\n{\"question\":\"What are the shipping options for quick delivery?\"}",
+      "reasoning": "Ensures two questions are produced that reflect the thoughtful friend's perspective, addressing customization and shipping."
     },
     {
       "rule": "Each question must reflect an understanding of the user’s situation as described by the variable `{{context}}`.",
-      "input": "context: hiking trail; persona: nature lover; product: hiking boots; count: 4",
-      "expected": "{\"question\":\"Is this sunscreen travel-sized?\"}\\n{\"question\":\"Does this sunscreen have any scent?\"}\\n{\"question\":\"How many times should I apply this sunscreen?\"}\\n{\"question\":\"Is the sunscreen safe for sensitive skin?\"}",
-      "reasoning": "Ensures incorrect questions about sunscreen for a hiking trail, with precise JSONL formatting."
+      "input": "context: 'exploring a tech conference', persona: 'innovative engineer', product: 'AI software tool', count: 1",
+      "expected": "{\"question\":\"How can this tool be integrated into existing systems?\"}",
+      "reasoning": "Confirms if one question pertinent to an engineer at a tech conference is generated, focusing on integration capabilities."
+    },
+    {
+      "rule": "Each question must empathize with the user based on the persona described by the variable `{{persona}}`.",
+      "input": "context: 'attending college', persona: 'budget-conscious student', product: 'laptop', count: 2",
+      "expected": "{\"question\":\"What are the best laptop options for students on a budget?\"}\\n{\"question\":\"Are there any student discounts available?\"}",
+      "reasoning": "Tests if two questions are crafted, aligned with a budget-conscious student's needs in a college setting."
+    },
+    {
+      "rule": "Each question must empathize with the user based on the persona described by the variable `{{persona}}`.",
+      "input": "context: 'working from a café', persona: 'remote worker', product: 'portable charger', count: 3",
+      "expected": "{\"question\":\"How long does a full charge last?\"}\\n{\"question\":\"Is it compatible with multiple devices?\"}\\n{\"question\":\"Does it have a fast-charging feature?\"}",
+      "reasoning": "Challenges the software to generate three questions that resonate with a remote worker's requirements for a portable charger."
+    },
+    {
+      "rule": "Each question must empathize with the user based on the persona described by the variable `{{persona}}`.",
+      "input": "context: 'weekend hiking trip', persona: 'outdoors enthusiast', product: 'backpack', count: 1",
+      "expected": "{\"question\":\"What features make this backpack suitable for hiking?\"}",
+      "reasoning": "Verifies if a single, focused question is generated, pertinent to a hiking enthusiast looking for specific backpack features."
     }
   ]
 }

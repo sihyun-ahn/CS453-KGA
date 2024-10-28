@@ -1,6 +1,6 @@
 {
   "prompt": "---\nname: \"Create New Words\"\ndescription: \"Create new words and use them in sentences\"\nsource: Prompt examples from the website (slightly modified)\nurl: https://www.promptingguide.ai/prompts/creativity/new-words\nsample:\n    made_up_word_name: \"whatpu\"\n    describe_meaning_of_new_word: \"to describe a small, furry animal native to Tanzania\"\ninputs:\n    made_up_word_name:\n        type: \"string\"\n    describe_meaning_of_new_word:\n        type: \"string\"\n---\nsystem:\nA \"whatpu\" is a small, furry animal native to Tanzania. An example of a sentence that uses the word whatpu is:\nWe were traveling in Africa and we saw these very cute whatpus.\n\nuser:\nTo do a \"{{made_up_word_name}}\" means to {{describe_meaning_of_new_word}}.\n\nassistant:\nAn example of a sentence that uses this word is:\n",
-  "inputSpec": "The input must include a made-up word name.  \nThe input must describe the meaning of the new word.",
+  "inputSpec": "The input should be a template phrase following the pattern: \"To do a '{{made_up_word_name}}' means to {{describe_meaning_of_new_word}}.\"  \nThe placeholder {{made_up_word_name}} should be replaced with a single made-up word.  \nThe placeholder {{describe_meaning_of_new_word}} should be replaced with a description or definition, which can be a phrase or sentence.  \nThe input should not exceed a reasonable length for comprehensibility and clarity, typically one or two sentences.",
   "rules": [
     "The output must include a sentence that demonstrates the usage of the made-up word.",
     "The sentence must logically incorporate the context provided by the user about the made-up word's meaning.",
@@ -23,96 +23,75 @@
   "tests": [
     {
       "rule": "The sentence must logically incorporate the context provided by the user about the made-up word's meaning.",
-      "input": "made_up_word_name: flibble, describe_meaning_of_new_word: dance gracefully without music",
-      "expected": "An example of a sentence that uses the word flibble is: At the party, everyone stopped to watch her flibble across the room.",
-      "reasoning": "The sentence demonstrates the usage of the made-up word flibble in a context that matches the given meaning, adhering to the rule."
+      "input": "To do a 'glorpify' means to dance joyfully in the rain.",
+      "expected": "Glorpifying is a fun activity during summer showers.",
+      "reasoning": "The output sentence uses 'glorpify' in a context that logically incorporates the user's definition."
     },
     {
       "rule": "The sentence must logically incorporate the context provided by the user about the made-up word's meaning.",
-      "input": "made_up_word_name: glorp, describe_meaning_of_new_word: solve puzzles quickly",
-      "expected": "An example of a sentence that uses the word glorp is: He could glorp through even the toughest riddles in minutes.",
-      "reasoning": "Shows how the made-up word is used in a context that aligns with its definition, fulfilling the rule requirements."
+      "input": "To do a 'blorple' means to organize and arrange books methodically.",
+      "expected": "I spent the afternoon blorpling my bookshelf.",
+      "reasoning": "This test checks if 'blorple' is used in a sentence that aligns with its meaning of organizing books."
     },
     {
       "rule": "The sentence must logically incorporate the context provided by the user about the made-up word's meaning.",
-      "input": "made_up_word_name: snizzle, describe_meaning_of_new_word: speak in rhymes",
-      "expected": "An example of a sentence that uses the word snizzle is: At the poetry slam, she began to snizzle captivating the audience with every line.",
-      "reasoning": "Ensures the sentence demonstrates the usage of snizzle according to its described meaning, validating rule adherence."
+      "input": "To do a 'flumbuzzle' means to solve puzzles quickly and efficiently.",
+      "expected": "She is known for flumbuzzling every crossword she encounters.",
+      "reasoning": "Tests if 'flumbuzzle' is integrated into a sentence that correctly reflects its definition of puzzle-solving."
     },
     {
       "rule": "The sentence must be grammatically correct and coherent.",
-      "input": "made_up_word_name: squibble, describe_meaning_of_new_word: juggle three items effortlessly",
-      "expected": "An example of a sentence that uses the word squibble is: Watching him squibble three flaming torches was a sight to behold.",
-      "reasoning": "The sentence logically incorporates the context of juggling three items effortlessly, thus adhering to the rule."
+      "input": "To do a 'zindle' means to relax by a cozy fireplace.",
+      "expected": "Last night, I zindled with a thrilling book in hand.",
+      "reasoning": "Ensures the word 'zindle' is used in a way that matches the provided description."
     },
     {
       "rule": "The sentence must be grammatically correct and coherent.",
-      "input": "made_up_word_name: zingle, describe_meaning_of_new_word: sing while cooking",
-      "expected": "An example of a sentence that uses the word zingle is: She loved to zingle, making every meal preparation a joyous occasion.",
-      "reasoning": "Incorporates the context of singing while cooking, aligning with the rule by ensuring logical usage of the word."
+      "input": "To do a 'quibblet' means to argue over trivial matters.",
+      "expected": "During our family meeting, quibblets arose over dessert choices.",
+      "reasoning": "Verifies that 'quibblet' usage aligns with its meaning of trivial arguments."
     },
     {
       "rule": "The sentence must be grammatically correct and coherent.",
-      "input": "made_up_word_name: blurf, describe_meaning_of_new_word: draw with both hands simultaneously",
-      "expected": "An example of a sentence that uses the word blurf is: Artists admired his ability to blurf complex images with ease.",
-      "reasoning": "The sentence logically uses the context of drawing with both hands, meeting the rule's requirement for context incorporation."
+      "input": "To do a 'twizzle' means to spin rapidly in place.",
+      "expected": "Children love to twizzle in the playground.",
+      "reasoning": "Checks the use of 'twizzle' in a way that reflects its given definition of spinning."
     },
     {
       "rule": "The sentence must use the made-up word in a way that aligns with the given definition or description.",
-      "input": "made_up_word_name: trundle, describe_meaning_of_new_word: run slowly and joyfully",
-      "expected": "An example of a sentence that uses the word trundle is: Children would trundle through the park on sunny afternoons.",
-      "reasoning": "The sentence is grammatically correct and coherent, demonstrating a joyful and slow run, thus adhering to the rule."
+      "input": "To do a 'snorp' means to eat loudly and messily.",
+      "expected": "At the feast, everyone snorps with great enthusiasm.",
+      "reasoning": "Ensures the use of 'snorp' fits the description of eating loudly."
     },
     {
       "rule": "The sentence must use the made-up word in a way that aligns with the given definition or description.",
-      "input": "made_up_word_name: chibble, describe_meaning_of_new_word: chew gum thoughtfully",
-      "expected": "An example of a sentence that uses the word chibble is: She sat by the window to chibble as she pondered the day's events.",
-      "reasoning": "Ensures grammatical correctness while incorporating the action of chewing gum thoughtfully, following the rule."
+      "input": "To do a 'blizzle' means to read intensely under a blanket.",
+      "expected": "Winter evenings are perfect for blizzling with hot cocoa.",
+      "reasoning": "Tests if 'blizzle' is used as described, aligning with the cozy reading context."
     },
     {
       "rule": "The sentence must use the made-up word in a way that aligns with the given definition or description.",
-      "input": "made_up_word_name: mizzle, describe_meaning_of_new_word: walk in the rain without an umbrella",
-      "expected": "An example of a sentence that uses the word mizzle is: Despite the downpour, he chose to mizzle home, enjoying the raindrops.",
-      "reasoning": "The sentence is coherent and grammatically correct, with mizzle used in the context of walking in the rain, adhering to the rule."
+      "input": "To do a 'fluffle' means to play with fluffy animals.",
+      "expected": "Visiting the petting zoo, kids fluffle with delight.",
+      "reasoning": "Verifies that 'fluffle' usage matches its definition related to playing with animals."
     },
     {
       "rule": "The sentence must be clear and understandable without requiring additional context beyond what was provided.",
-      "input": "made_up_word_name: jorf, describe_meaning_of_new_word: whisper secrets to animals",
-      "expected": "An example of a sentence that uses the word jorf is: She would often jorf to the squirrels, sharing her day's secrets.",
-      "reasoning": "Demonstrates alignment with the meaning of whispering secrets to animals, validating the rule."
+      "input": "To do a 'whizzle' means to clean thoroughly.",
+      "expected": "After the party, everyone helped to whizzle the living room.",
+      "reasoning": "Tests if 'whizzle' is used in a sentence that aligns with the cleaning context."
     },
     {
       "rule": "The sentence must be clear and understandable without requiring additional context beyond what was provided.",
-      "input": "made_up_word_name: plorp, describe_meaning_of_new_word: dive into water with a splash",
-      "expected": "An example of a sentence that uses the word plorp is: Kids loved to plorp into the pool, creating waves of laughter.",
-      "reasoning": "Aligns with the meaning of diving into water, ensuring the sentence uses the word correctly as per the rule."
+      "input": "To do a 'peezle' means to create art using pebbles.",
+      "expected": "On weekends, she peezles along the riverbank.",
+      "reasoning": "Checks if 'peezle' is used according to its creative definition."
     },
     {
       "rule": "The sentence must be clear and understandable without requiring additional context beyond what was provided.",
-      "input": "made_up_word_name: dringle, describe_meaning_of_new_word: organize books by color",
-      "expected": "An example of a sentence that uses the word dringle is: Every weekend, she would dringle her bookshelf into a rainbow of order.",
-      "reasoning": "Shows the word used according to its definition of organizing books by color, verifying rule adherence."
-    },
-    {
-      "rule": "The output must exclude any sentence that demonstrates the usage of the made-up word.",
-      "inverse": true,
-      "input": "made_up_word_name: gloove, describe_meaning_of_new_word: smile while reading a good book",
-      "expected": "An example of a sentence that uses the word gloove is: She would always gloove while flipping through her favorite mystery novels.",
-      "reasoning": "The sentence is clear and understandable, capturing the act of smiling while reading, validating the rule."
-    },
-    {
-      "rule": "The output must exclude any sentence that demonstrates the usage of the made-up word.",
-      "inverse": true,
-      "input": "made_up_word_name: bloosh, describe_meaning_of_new_word: sip tea on a rainy day",
-      "expected": "An example of a sentence that uses the word bloosh is: On rainy afternoons, he found comfort in blooshing by the window.",
-      "reasoning": "The sentence is clear and understandable, depicting the action described by the word, thereby adhering to the rule."
-    },
-    {
-      "rule": "The output must exclude any sentence that demonstrates the usage of the made-up word.",
-      "inverse": true,
-      "input": "made_up_word_name: crindle, describe_meaning_of_new_word: create art with soap bubbles",
-      "expected": "An example of a sentence that uses the word crindle is: Children loved to crindle, their laughter echoing with each bubble burst.",
-      "reasoning": "Ensures clarity and understanding with the new word used in context, fulfilling the rule."
+      "input": "To do a 'klinket' means to gently ring small bells.",
+      "expected": "During the ceremony, we klinket softly to set the mood.",
+      "reasoning": "Ensures 'klinket' is used in a context that matches its gentle ringing description."
     }
   ]
 }

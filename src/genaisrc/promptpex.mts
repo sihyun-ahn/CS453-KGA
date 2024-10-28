@@ -74,15 +74,19 @@ function modelOptions(): PromptGeneratorOptions {
   };
 }
 
+function isUnassistedResponse(text: string) {
+  return /i can't assist with that/i.test(text);
+}
+
 function checkLLMResponse(res: RunPromptResult) {
   if (res.error) throw new Error(res.error.message);
-  if (/i can't assist with that request/i.test(res.text))
+  if (isUnassistedResponse(res.text))
     throw new Error("LLM failed to generate response");
   return res.text;
 }
 
 function tidyRules(text: string) {
-  if (/i can't assist with that/i.test(text)) return "";
+  if (isUnassistedResponse(text)) return "";
   return text
     .split(/\n/g)
     .map((line) => line.replace(/^(\d+\.|_|-|\*)\s+/i, "")) // unneded numbering
@@ -348,6 +352,7 @@ function parseRules(rules: string) {
 }
 
 function parseTests(tests: string): PromptPexTest[] {
+  if (isUnassistedResponse(tests)) return [];
   tests = tests?.replace(/\\"/g, '""');
   return tests ? (CSV.parse(tests, { delimiter: "," }) as PromptPexTest[]) : [];
 }

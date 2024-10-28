@@ -1,6 +1,6 @@
 {
-  "prompt": "---\nname: \"Writer Likes\"\ndescription: \"Summarize what these passages that the writer likes has in common\"\nsample:\n    text: \"This is the text\"\nsource: \"GhostWriter: Augmenting Collaborative Human-AI Writing Experiences Through Personalization and Agency\"\nurl: https://arxiv.org/abs/2402.08855\ninputs:\n    text:\n        type: \"string\"\n---\nsystem:\nIn 1 sentence, summarize what these passages that the writer likes has in common: {text}.\nIf justifications are provided, incorporate them into your summary.\nBe precise, and discuss the writer's likes in terms of: tone, voice, word choice, sentence structure, and paragraph structure.\nStart your response with \"The writer likes...\".\nuser:\n{{text}}",
-  "inputSpec": "The input is a text passage. \nThe text input must be a passage that aligns with the writer's preferences. \nThe input may include justifications related to the writer's likes.",
+  "prompt": "---\nname: \"Writer Likes\"\ndescription: \"Summarize what these passages that the writer likes has in common\"\nsample:\n    text: \"This is the text\"\nsource: \"GhostWriter: Augmenting Collaborative Human-AI Writing Experiences Through Personalization and Agency\"\nurl: https://arxiv.org/abs/2402.08855\ninputs:\n    text:\n        type: \"string\"\n---\nuser:\nIn 1 sentence, summarize what these passages that the writer likes has in common: {{text}}.\nIf justifications are provided, incorporate them into your summary.\nBe precise, and discuss the writer's likes in terms of: tone, voice, word choice, sentence structure, and paragraph structure.\nStart your response with \"The writer likes...\".\n",
+  "inputSpec": "The input must be a passage or collection of passages.  \nThe input should include details about the writer's preferences in terms of tone, voice, word choice, sentence structure, and paragraph structure.",
   "rules": [
     "The writer likes passages that share a commonality in tone, voice, word choice, sentence structure, and paragraph structure, and this should be summarized in one precise sentence incorporating any justifications provided, beginning with \"The writer likes...\"."
   ],
@@ -16,113 +16,41 @@
     {
       "rule": "The writer dislikes passages that lack a commonality in tone, voice, word choice, sentence structure, and paragraph structure, and this should be expanded into multiple ambiguous sentences without any justifications, beginning with \"The writer dislikes...\".",
       "inverse": true,
-      "input": "The passage is about a peaceful and serene countryside, using calm and gentle language, and the sentences are long and flowing.",
-      "expected": "The writer likes passages with a peaceful tone, gentle voice, and long, flowing sentences.",
-      "reasoning": "This test case ensures that the software correctly summarizes the common elements in passages liked by the writer."
+      "input": "Passage 1: Tone: Optimistic, Voice: First-person narrative, Word Choice: Simple, Sentence Structure: Complex, Paragraph Structure: Short and concise. Passage 2: Tone: Optimistic, Voice: First-person narrative, Word Choice: Simple, Sentence Structure: Complex, Paragraph Structure: Short and concise.",
+      "expected": "The writer likes passages with an optimistic tone, first-person narrative voice, simple word choice, complex sentences, and short paragraph structures.",
+      "reasoning": "Tests the software's ability to identify and summarize the common elements between passages."
     },
     {
       "rule": "The writer dislikes passages that lack a commonality in tone, voice, word choice, sentence structure, and paragraph structure, and this should be expanded into multiple ambiguous sentences without any justifications, beginning with \"The writer dislikes...\".",
       "inverse": true,
-      "input": "The passage discusses a fast-paced city life using short, snappy sentences and energetic words.",
-      "expected": "The writer likes passages with an energetic tone, lively voice, and short, snappy sentences.",
-      "reasoning": "This test case checks if the software can identify and summarize the common elements related to tone, voice, and sentence structure."
+      "input": "Passage 1: Tone: Formal, Voice: Third-person objective, Word Choice: Technical, Sentence Structure: Varied, Paragraph Structure: Lengthy and detailed. Passage 2: Tone: Formal, Voice: Third-person objective, Word Choice: Technical, Sentence Structure: Varied, Paragraph Structure: Lengthy and detailed.",
+      "expected": "The writer likes passages with a formal tone, third-person objective voice, technical word choice, varied sentence structures, and lengthy, detailed paragraph structures.",
+      "reasoning": "Assesses consistency in recognizing shared features between passages and forming precise summaries."
     },
     {
       "rule": "The writer dislikes passages that lack a commonality in tone, voice, word choice, sentence structure, and paragraph structure, and this should be expanded into multiple ambiguous sentences without any justifications, beginning with \"The writer dislikes...\".",
       "inverse": true,
-      "input": "The writer enjoys passages that have detailed descriptions of natural landscapes, using vivid and descriptive language, and well-structured paragraphs.",
-      "expected": "The writer likes passages with vivid descriptions, descriptive language, and well-structured paragraphs.",
-      "reasoning": "This test case evaluates the software's ability to summarize the writer's preferences in terms of descriptive language and paragraph structure."
+      "input": "Passage 1: Tone: Humorous, Voice: Conversational, Word Choice: Colloquial, Sentence Structure: Simple, Paragraph Structure: Fragmented. Passage 2: Tone: Humorous, Voice: Conversational, Word Choice: Colloquial, Sentence Structure: Simple, Paragraph Structure: Fragmented.",
+      "expected": "The writer likes passages with a humorous tone, conversational voice, colloquial word choice, simple sentence structure, and fragmented paragraphs.",
+      "reasoning": "Validates the software's capability to succinctly summarize shared stylistic elements that align with the writer's preferences."
     },
     {
       "inverse": true,
-      "input": "Passages filled with humor and wit are the writer's favorite, especially when the sentences are sharp and the paragraphs are concise.",
-      "expected": "The writer likes passages filled with humor and wit, sharp sentences, and concise paragraphs.",
-      "reasoning": "This test case tests if the software correctly starts the summary with the required phrase."
+      "input": "Passage 1: Tone: Formal, Voice: Third-person narrative, Word Choice: Complex, Sentence Structure: Varied, Paragraph Structure: Mixed. Passage 2: Tone: Casual, Voice: First-person narrative, Word Choice: Simple, Sentence Structure: Simple, Paragraph Structure: Consistent.",
+      "expected": "The writer dislikes...",
+      "reasoning": "Challenges the software to recognize the absence of common stylistic elements and reflect this in multiple ambiguous sentences."
     },
     {
       "inverse": true,
-      "input": "The writer prefers passages that are melancholic and reflective, with long, complex sentences and a somber tone.",
-      "expected": "The writer likes passages that are melancholic and reflective, with long, complex sentences and a somber tone.",
-      "reasoning": "This case tests if the summary begins correctly despite the complexity of the passage elements."
+      "input": "Passage 1: Tone: Dramatic, Voice: First-person, Word Choice: Evocative, Sentence Structure: Complex, Paragraph Structure: Short. Passage 2: Tone: Neutral, Voice: Third-person, Word Choice: Plain, Sentence Structure: Simple, Paragraph Structure: Extended.",
+      "expected": "The writer dislikes...",
+      "reasoning": "Tests the software's ability to detect disparities in style and express this in an expanded format without justifications."
     },
     {
       "inverse": true,
-      "input": "Passages that are mysterious and suspenseful, using terse language and fragmented sentences, are favored by the writer.",
-      "expected": "The writer likes passages that are mysterious and suspenseful, using terse language and fragmented sentences.",
-      "reasoning": "This ensures the software follows the rule by starting with the phrase 'The writer likes...' even with diverse content elements."
-    },
-    {
-      "inverse": true,
-      "input": "The passage is about a peaceful and serene countryside, using calm and gentle language, and the sentences are long and flowing.",
-      "expected": "The writer likes passages with a peaceful tone, gentle voice, and long, flowing sentences.",
-      "reasoning": "This test case ensures the software addresses aspects like tone, voice, and sentence structure."
-    },
-    {
-      "inverse": true,
-      "input": "In passages that the writer likes, there are usually detailed descriptions of natural landscapes, vivid and descriptive language, and well-structured paragraphs.",
-      "expected": "The writer likes passages with detailed descriptions, vivid language, and well-structured paragraphs.",
-      "reasoning": "This case tests the software's ability to address descriptive language and paragraph structure in its summary."
-    },
-    {
-      "inverse": true,
-      "input": "The writer enjoys passages with humor and wit, especially when the sentences are sharp and the paragraphs are well-organized.",
-      "expected": "The writer likes passages with humor and wit, sharp sentences, and well-organized paragraphs.",
-      "reasoning": "This evaluates if the software addresses aspects such as humor, sentence sharpness, and paragraph organization."
-    },
-    {
-      "inverse": true,
-      "input": "Passages filled with humor and wit are the writer's favorite, although they do not like when the sentences are sharp and the paragraphs are concise.",
-      "expected": "Passages filled with humor and wit are the writer's favorite.",
-      "reasoning": "This test case ensures the software can diverge into disliked elements while summarizing liked elements in one sentence."
-    },
-    {
-      "inverse": true,
-      "input": "The writer prefers melancholic and reflective passages, but dislikes those with overly complex sentences and a somber tone.",
-      "expected": "The writer prefers melancholic and reflective passages.",
-      "reasoning": "This test ensures the software can handle divergence into disliked elements within a single sentence."
-    },
-    {
-      "inverse": true,
-      "input": "Mystery and suspense are favored by the writer, although they do not appreciate terse language and fragmented sentences.",
-      "expected": "The writer favors mystery and suspense.",
-      "reasoning": "This checks if the software can diverge correctly while summarizing liked elements in one sentence."
-    },
-    {
-      "inverse": true,
-      "input": "The passage is about a peaceful and serene countryside, using calm and gentle language, and the sentences are long and flowing.",
-      "expected": "Passages with a peaceful tone, gentle voice, and long, flowing sentences are liked by the writer.",
-      "reasoning": "This test case ensures the software does not start the summary with 'The writer likes...'."
-    },
-    {
-      "inverse": true,
-      "input": "The writer enjoys passages that have detailed descriptions of natural landscapes, using vivid and descriptive language, and well-structured paragraphs.",
-      "expected": "Descriptive passages, vivid language, and well-structured paragraphs are appreciated by the writer.",
-      "reasoning": "This ensures the software correctly avoids starting with 'The writer likes...'."
-    },
-    {
-      "inverse": true,
-      "input": "Passages filled with humor and wit are the writer's favorite, especially when the sentences are sharp and the paragraphs are concise.",
-      "expected": "Humorous and witty passages, sharp sentences, and concise paragraphs are preferred by the writer.",
-      "reasoning": "This checks if the software avoids the specified phrase while summarizing the writer's preferences."
-    },
-    {
-      "inverse": true,
-      "input": "The passage is about a peaceful and serene countryside, using calm and gentle language, and the sentences are long and flowing.",
-      "expected": "Passages describing serene countryside with calm language.",
-      "reasoning": "This test ensures the software avoids addressing tone, voice, word choice, sentence structure, or paragraph structure."
-    },
-    {
-      "inverse": true,
-      "input": "The writer enjoys passages with detailed descriptions of natural landscapes, vivid and descriptive language, and well-structured paragraphs.",
-      "expected": "Detailed descriptions of natural landscapes are liked by the writer.",
-      "reasoning": "This checks if the software can provide a summary without addressing specified aspects like word choice and paragraph structure."
-    },
-    {
-      "inverse": true,
-      "input": "Passages filled with humor and wit are the writer's favorite, especially when the sentences are sharp and the paragraphs are concise.",
-      "expected": "Humorous and witty passages are favored by the writer.",
-      "reasoning": "This case ensures the software avoids aspects such as sentence and paragraph structure in the summary."
+      "input": "Passage 1: Tone: Sarcastic, Voice: Informal, Word Choice: Slang, Sentence Structure: Fragmented, Paragraph Structure: Erratic. Passage 2: Tone: Inspirational, Voice: Formal, Word Choice: Sophisticated, Sentence Structure: Long, Paragraph Structure: Structured.",
+      "expected": "The writer dislikes...",
+      "reasoning": "Examines how the software handles and articulates differences in passages with distinct stylistic features."
     }
   ]
 }

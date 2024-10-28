@@ -54,8 +54,13 @@ All lists must avoid using commas altogether, even within names or topics.
 ### [input_spec.txt](./elements.input_spec.txt)
 
 `````txt
-The input must be a string.  
-The input string should contain mentions of company names, people names, specific topics, and general themes.
+The input is a block of text.
+The text must be provided as a single string.
+The string can contain multiple sentences or paragraphs.
+The text may include mentions of company names.
+The text may include mentions of people names.
+The text may discuss specific topics related to the content.
+The text may contain overarching general themes.
 `````
 
 
@@ -76,21 +81,17 @@ Text: Amazon and Apple are leading the charge in developing consumer-focused AI 
 
 ### [tests.csv](./elements.tests.csv)
 
-`````csv
-Rule ID, Test ID, Test Input, Expected Output, Reasoning
-1, 1, "Apple and Microsoft are leading companies in technology. Tim Cook and Satya Nadella are their respective CEOs.", "Company names: Apple,Microsoft\nPeople names: Tim Cook,Satya Nadella\nSpecific topics: technology\nGeneral themes: leadership", "Verifies the extraction of company names, people names, and specific topics in the correct format and order without additional spaces."
-1, 2, "Tesla and SpaceX have been revolutionized by Elon Musk, focusing on innovation and sustainability.", "Company names: Tesla,SpaceX\nPeople names: Elon Musk\nSpecific topics: innovation,sustainability\nGeneral themes: technology,environment", "Ensures company and people names are correctly identified with specific topics and themes while maintaining the required format."
-1, 3, "Google, Facebook, and Amazon have had significant impacts on e-commerce and social networking, spearheaded by figures like Sundar Pichai and Mark Zuckerberg.", "Company names: Google,Facebook,Amazon\nPeople names: Sundar Pichai,Mark Zuckerberg\nSpecific topics: e-commerce,social networking\nGeneral themes: technology,communication", "Validates the correct listing of multiple companies and individuals, ensuring output respects the prescribed format requirements."
-
-2, 1, "Steve Jobs was instrumental in Apple's success, alongside Jonathan Ive's design innovations.", "Company names: Apple\nPeople names: Steve Jobs,Jonathan Ive\nSpecific topics: design,success\nGeneral themes: innovation,technology", "Tests proper identification of people names related to a specific company, ensuring adherence to the labeling and format requirements."
-2, 2, "The collaboration between Bill Gates and Paul Allen led to the foundation of Microsoft, emphasizing software development.", "Company names: Microsoft\nPeople names: Bill Gates,Paul Allen\nSpecific topics: software development\nGeneral themes: collaboration,entrepreneurship", "Checks the correct extraction and formatting of founder names and related topics."
-2, 3, "Oprah Winfrey has partnered with Weight Watchers to promote health and wellness.", "Company names: Weight Watchers\nPeople names: Oprah Winfrey\nSpecific topics: health,wellness\nGeneral themes: lifestyle,partnership", "Validates extraction of people names tied to a company and specific themes, ensuring format compliance."
-
-3, 1, "The rise of electric vehicles by Tesla has sparked debates about renewable energy policies.", "Company names: Tesla\nPeople names: \nSpecific topics: electric vehicles,renewable energy\nGeneral themes: sustainability,innovation", "Ensures that specific topics are extracted even if no people names are present, respecting the required format."
-3, 2, "Artificial intelligence is a growing field, with companies like IBM focusing on machine learning applications.", "Company names: IBM\nPeople names: \nSpecific topics: artificial intelligence,machine learning\nGeneral themes: technology,innovation", "Validates the identification of specific topics related to a company's field of work, ensuring correct output structure."
-3, 3, "Blockchain technology is revolutionizing financial transactions, with companies like Bitcoin Inc. leading the charge.", "Company names: Bitcoin Inc.\nPeople names: \nSpecific topics: blockchain,financial transactions\nGeneral themes: finance,technology", "Tests the extraction of specific topics in the absence of people names, maintaining format consistency."
-
-4, 1, "Environmental sustainability is a key theme for businesses like Patagonia and their leaders.", "Company names: Patagonia\nPeople names: \nSpecific topics: \nGeneral themes: environmental sustainability", "Verifies the correct extraction of a general theme when company names are present but no specific topics or people names are mentioned."
-4, 2, "The overarching theme of global connectivity is driven by companies like Twitter, focusing on social interaction.", "Company names: Twitter\nPeople names: \nSpecific topics: social interaction\nGeneral themes: global connectivity", "Ensures general themes are extracted correctly when supported by specific topics, respecting format requirements."
-4, 3, "Educational reforms are a central theme in the initiatives led by organizations like UNESCO.", "Company names: UNESCO\nPeople names: \nSpecific topics: educational reforms\nGeneral themes: education", "Tests the extraction of general themes centered around specific organizational initiatives with correct formatting."
-`````
+|Rule ID|Test ID|Test Input|Expected Output|Reasoning|
+|-|-|-|-|-|
+|1|1|Today, Apple Inc\. announced a new product release\. The CEO, Tim Cook, stated that the company aims to innovate\.|Company names: Apple Inc\.\\nPeople names: Tim Cook\\nSpecific topics: product release\\nGeneral themes: innovation|Tests the extraction of a company name and a person's name, as well as specific topics and general themes\. All input specifications are followed\.|
+|1|2|Microsoft Corporation has been in talks with Google to enhance AI capabilities\. Satya Nadella and Sundar Pichai discussed future collaborations\.|Company names: Microsoft Corporation, Google\\nPeople names: Satya Nadella, Sundar Pichai\\nSpecific topics: AI capabilities, collaborations\\nGeneral themes: technology advancement|Valid test case as it includes multiple entities in each category, adhering to the input specifications\.|
+|1|3|Tesla's latest development in renewable energy was highlighted by Elon Musk\. The focus on sustainability continues\.|Company names: Tesla\\nPeople names: Elon Musk\\nSpecific topics: renewable energy\\nGeneral themes: sustainability|Covers a different industry and checks extraction of varied elements, following the input specifications\.|
+|2|1|The recent conference featured speakers like Jane Doe from ABC Corp and John Smith of XYZ Ltd\.|Company names: ABC Corp, XYZ Ltd\\nPeople names: Jane Doe, John Smith\\nSpecific topics: conference\\nGeneral themes: networking|Ensures extraction of multiple people names and company names, verifying rule adherence through input specifications\.|
+|2|2|Amazon and Facebook are collaborating on a new project\. Jeff Bezos and Mark Zuckerberg were present at the meeting\.|Company names: Amazon, Facebook\\nPeople names: Jeff Bezos, Mark Zuckerberg\\nSpecific topics: project\\nGeneral themes: partnership|Tests robust recognition of people names and company names together, compliant with input specifications\.|
+|2|3|IBM's recent hiring includes veteran tech leaders Alice Johnson and Bob Lee\. The aim is to drive digital transformation\.|Company names: IBM\\nPeople names: Alice Johnson, Bob Lee\\nSpecific topics: hiring, digital transformation\\nGeneral themes: leadership|Checks the extraction of names within the context of a specific industry event, aligning with input specifications\.|
+|3|1|The discussion on climate change was led by Dr\. Susan Green\. Experts from Stanford University participated\.|Company names: Stanford University\\nPeople names: Dr\. Susan Green\\nSpecific topics: climate change\\nGeneral themes: environmental issues|Validates specific topic extraction related to environmental themes, following the input specification\.|
+|3|2|The seminar on artificial intelligence included talks from leading researchers\. Professor Alan Turing from MIT was a keynote speaker\.|Company names: MIT\\nPeople names: Professor Alan Turing\\nSpecific topics: artificial intelligence\\nGeneral themes: technological innovation|Tests extraction of specific academic topics and notable individuals, respecting input specifications\.|
+|3|3|Blockchain technology and its applications were the focus of the event at Google HQ\. Innovators like Charlie Lee shared insights\.|Company names: Google HQ\\nPeople names: Charlie Lee\\nSpecific topics: blockchain, applications\\nGeneral themes: innovation|Assesses the ability to extract new technology topics and themes, compliant with input specifications\.|
+|4|1|The launch event at SpaceX highlighted the importance of exploration\. Elon Musk emphasized the theme of pushing boundaries\.|Company names: SpaceX\\nPeople names: Elon Musk\\nSpecific topics: launch event\\nGeneral themes: exploration|Ensures extraction of themes related to exploration and innovation, aligning with input specifications\.|
+|4|2|Apple's annual meeting celebrated creativity and technology\. Tim Cook underscored their vision for the future\.|Company names: Apple\\nPeople names: Tim Cook\\nSpecific topics: annual meeting\\nGeneral themes: creativity, technology|Validly tests the extraction of overarching themes from corporate events, based on input specifications\.|
+|4|3|The forum on global health, hosted by the WHO, addressed pressing issues\. Leaders focused on cooperation and progress\.|Company names: WHO\\nPeople names: \\nSpecific topics: global health\\nGeneral themes: cooperation, progress|Tests extraction of themes related to global health and cooperation, adhering to input specifications\.|

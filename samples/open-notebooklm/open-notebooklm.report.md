@@ -78,9 +78,9 @@ The guest's responses can include unsupported claims and self-promotional conten
 ### [input_spec.txt](./open-notebooklm.input_spec.txt)
 
 `````txt
-The input is a text string related to generating a podcast script.
-The input text can be unstructured or messy. 
-The input text can be sourced from PDFs or web pages, implying varied formatting.
+The input is an unstructured or messy text sourced from PDFs or web pages.
+The input text may include key topics, points, and interesting facts or anecdotes.
+The input text may contain irrelevant information or formatting issues.
 `````
 
 
@@ -103,15 +103,14 @@ The input text can be sourced from PDFs or web pages, implying varied formatting
 
 ### [tests.csv](./open-notebooklm.tests.csv)
 
-`````csv
-Rule ID, Test ID, Test Input, Expected Output, Reasoning
-1, 1, "text: 'In this document, we delve into the history of space travel...'", "output with each dialogue line under 100 characters", "Ensures dialogue lines are concise, adhering to the 100-character rule."
-1, 2, "text: 'Exploration of deep-sea ecosystems includes diverse marine life...'", "output with all lines under 100 characters", "Tests the ability to maintain engaging dialogue within character limits."
-1, 3, "text: 'The evolution of technology has been rapid in recent decades...'", "output with concise dialogue lines", "Challenges the system to keep dialogue lines short while informative."
-2, 1, "text: 'Discussing climate change impacts, starting with carbon emissions...'", "dialogue starts and concludes with Jane, guiding discussion", "Validates structured flow with host initiating and summarizing."
-2, 2, "text: 'Analyzing renewable energy sources, focusing on solar and wind...'", "Jane initiates and concludes the dialogue", "Checks adherence to host-guided conversation structure."
-2, 3, "text: 'The importance of mental health awareness in today's world...'", "host starts and ends conversation, summarizing insights", "Ensures host-driven dialogue with structured start and end."
-3, 1, "text: 'Economic trends in 2023 show a shift towards sustainable practices...'", "guest's responses grounded in input text", "Ensures guest's responses are accurate and text-supported."
-3, 2, "text: 'The impact of art in society is profound and multifaceted...'", "responses substantiated by input, no self-promotion", "Validates factual dialogue without unsupported claims."
-3, 3, "text: 'Technological advancements in AI and robotics...', guest must focus on provided content", "guest avoids marketing, remains factual", "Tests the software's capability to prevent unsupported or promotional dialogue."
-`````
+|Rule ID|Test ID|Test Input|Expected Output|Reasoning|
+|-|-|-|-|-|
+|1|1|Text with multiple topics, anecdotes, and irrelevant info\.|Dialogue with each line ≤ 100 characters\.|Ensures dialogue lines are concise, adhering to character limit\.|
+|1|2|Complex topics with potential for lengthy explanations\.|Lines are ≤ 100 characters, brief yet informative\.|Tests ability to distill complex info into short lines\.|
+|1|3|Text with redundant information and key insights\.|Dialogue with concise lines not exceeding 100 chars\.|Challenges condensing valuable insights into short dialogue\.|
+|2|1|Unstructured text with historical facts and modern context\.|Host initiates, guides, and summarizes insights\.|Validates structure where host leads and concludes discussion\.|
+|2|2|Messy input with scientific discoveries and theories\.|Conversation starts and ends with host's questions and summaries\.|Ensures host's role in maintaining conversation flow\.|
+|2|3|Anecdotes mixed with statistical data\.|Dialogue starts with host guiding and summarizing key points\.|Confirms host's responsibility in steering and summarizing\.|
+|3|1|Input containing expert opinions and fictional stories\.|Guest responses supported by input without marketing\.|Verifies guest's adherence to input and non\-promotional content\.|
+|3|2|Historical events interspersed with fictional elements\.|Responses grounded in input text, avoiding promotions\.|Checks guest's alignment with input\-derived content\.|
+|3|3|Mix of scientific data and speculative theories\.|Guest's claims supported by input text, no self\-promotion\.|Examines guest's commitment to input\-based claims\.|

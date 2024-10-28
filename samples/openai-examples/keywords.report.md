@@ -58,7 +58,10 @@ The keywords must be adjectives or verbs that do not capture the essence of the 
 ### [input_spec.txt](./keywords.input_spec.txt)
 
 `````txt
-The input must be a single string of text. The input string can describe any topic or subject matter.
+The input must be a string.  
+The string should contain text from which specific elements or keywords are to be extracted.  
+The text input should be coherent and contextually meaningful.  
+There are no restrictions on the length of the input string.
 `````
 
 
@@ -76,17 +79,11 @@ text: Climate change refers to long-term shifts and alterations in temperature a
 
 ### [tests.csv](./keywords.tests.csv)
 
-`````csv
-Rule ID, Test ID, Test Input, Expected Output, Reasoning
-1, 1, "Python is a popular programming language used for web development, data analysis, artificial intelligence, and scientific computing.", "Keywords 3: Python, programming language, web development, data analysis, artificial intelligence, scientific computing", "The test checks for accurate extraction and distinct representation of significant concepts mentioned in the text."
-1, 2, "Tesla, founded by Elon Musk, is known for its electric vehicles and renewable energy products.", "Keywords 3: Tesla, Elon Musk, electric vehicles, renewable energy products", "Ensures that the software identifies key entities and concepts without repetition while covering a range of noun phrases."
-1, 3, "The Amazon rainforest is home to diverse wildlife and significant ecological resources.", "Keywords 3: Amazon rainforest, wildlife, ecological resources", "Validates that the software extracts distinct nouns and noun phrases representing the core topics of the input text."
-
-2, 1, "Apple Inc. designs and manufactures consumer electronics, computer software, and online services.", "Keywords 3: Apple Inc., consumer electronics, computer software, online services", "Focuses on assessing the software's ability to extract key entities and concepts as separate keywords."
-2, 2, "Shakespeare's plays are renowned for their intricate characters and complex themes.", "Keywords 3: Shakespeare, plays, characters, themes", "Tests the extraction of significant literary elements and ensures no repetition of keywords."
-2, 3, "The Great Wall of China is an iconic symbol of China's history and cultural heritage.", "Keywords 3: Great Wall of China, symbol, history, cultural heritage", "Checks for distinct keyword extraction related to historical and cultural concepts."
-
-3, 1, "Microsoft offers a suite of productivity tools, including Word, Excel, and PowerPoint.", "Keywords 3: Microsoft, productivity tools, Word, Excel, PowerPoint", "Aims to validate the extraction and representation of product names and related concepts as distinct keywords."
-3, 2, "The Mona Lisa is a world-famous painting by Leonardo da Vinci housed in the Louvre Museum.", "Keywords 3: Mona Lisa, painting, Leonardo da Vinci, Louvre Museum", "Ensures extraction of key concepts and entities without repetition, focusing on art and location."
-3, 3, "NASA's missions to Mars have advanced our understanding of space exploration and planetary science.", "Keywords 3: NASA, missions, Mars, space exploration, planetary science", "Tests the identification of significant scientific and organizational elements as distinct keywords."
-`````
+|Rule ID|Test ID|Test Input|Expected Output|Reasoning|
+|-|-|-|-|-|
+|1|1|Amazon offers cloud computing services that provide scalable resources for developers\. It also supports machine learning capabilities\.|Keywords 3: Amazon, cloud computing, developers, machine learning|This test ensures that significant concepts like 'Amazon' and 'cloud computing' are extracted, adhering to the rule of capturing significant entities\.|
+|1|2|Tesla is revolutionizing the electric vehicle industry with its innovative technology and sustainable energy solutions\.|Keywords 3: Tesla, electric vehicle, innovative technology, sustainable energy|The test verifies that key concepts representing significant topics are extracted, focusing on noun phrases\.|
+|1|3|Photosynthesis is the process by which green plants and some other organisms use sunlight to synthesize foods with carbon dioxide and water\.|Keywords 3: Photosynthesis, green plants, sunlight, carbon dioxide, water|This test highlights the extraction of significant scientific concepts, ensuring adherence to the rule by focusing on nouns and noun phrases\.|
+|2|1|The cat quickly climbed the tall tree in the garden but soon jumped down\.|Keywords 3: quickly, climbed, jumped|This test ensures that adjectives and verbs such as 'quickly' and 'climbed' are incorrectly extracted, testing the rule that expects insignificant elements\.|
+|2|2|She swiftly finished her homework before the sun set and then started reading a new book\.|Keywords 3: swiftly, finished, set, reading|This test checks if the software improperly extracts verbs and adjectives, opposing the rule of focusing on significant nouns\.|
+|2|3|Running through the park, the dog excitedly chased after the ball\.|Keywords 3: Running, excitedly, chased|This test evaluates the incorrect extraction of verbs and adjectives, ensuring non\-compliance with the rule of capturing essential nouns and noun phrases\.|

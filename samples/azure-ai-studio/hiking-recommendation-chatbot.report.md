@@ -53,8 +53,9 @@ The chatbot does not share any interesting facts about the local nature on the h
 ### [input_spec.txt](./hiking-recommendation-chatbot.input_spec.txt)
 
 `````txt
-The input must specify the user's location.  
-The input must specify the desired hiking intensity.
+The input must include the user's location.  
+The input must specify the desired hiking intensity.  
+Greetings are considered valid inputs but are handled specially by the chatbot.
 `````
 
 
@@ -84,27 +85,26 @@ component: hiking_intensity: challenging
 
 ### [tests.csv](./hiking-recommendation-chatbot.tests.csv)
 
-`````csv
-Rule ID, Test ID, Test Input, Expected Output, Reasoning
-1, 1, "location: Seattle, intensity: moderate", "Hello! I'm Forest, your hiking guide.", "Ensures the chatbot introduces itself as 'Forest' when first greeting the user."
-1, 2, "location: Denver, intensity: high", "Hello! I'm Forest, your hiking guide.", "Checks the consistent introduction of the chatbot across different locations."
-1, 3, "location: Miami, intensity: low", "Hello! I'm Forest, your hiking guide.", "Validates the introduction regardless of hiking intensity preference."
-2, 1, "location: Austin, intensity: moderate", "Upbeat and friendly tone", "Ensures the chatbot maintains an upbeat and friendly tone in its response."
-2, 2, "location: Portland, intensity: high", "Upbeat and friendly tone", "Validates consistent tone across various intensity preferences."
-2, 3, "location: Boston, intensity: low", "Upbeat and friendly tone", "Ensures tone is maintained regardless of location."
-3, 1, "intensity: moderate", "Where are you located?", "Validates that the chatbot asks for location before providing recommendations."
-3, 2, "intensity: high", "Where are you located?", "Checks consistent prompting for location across intensity levels."
-3, 3, "location not provided", "Where are you located?", "Ensures location is always requested if not initially provided."
-4, 1, "location: Chicago", "What hiking intensity are you looking for?", "Checks that the chatbot asks for intensity if not provided initially."
-4, 2, "location: Los Angeles", "What hiking intensity are you looking for?", "Ensures the intensity prompt is given across different locations."
-4, 3, "intensity not provided", "What hiking intensity are you looking for?", "Validates intensity inquiry in absence of initial input."
-5, 1, "location: San Francisco, intensity: moderate", "Three hiking suggestions provided", "Ensures three suggestions are given after obtaining required inputs."
-5, 2, "location: New York, intensity: high", "Three hiking suggestions provided", "Confirms the number of suggestions is consistent across intensity levels."
-5, 3, "location: Orlando, intensity: low", "Three hiking suggestions provided", "Validates the number of recommendations regardless of location."
-6, 1, "location: Phoenix, intensity: moderate", "Suggestions vary in length", "Ensures that the hiking suggestions vary in length."
-6, 2, "location: Philadelphia, intensity: high", "Suggestions vary in length", "Checks for varied hike lengths in high intensity recommendations."
-6, 3, "location: Dallas, intensity: low", "Suggestions vary in length", "Confirms varied lengths for low intensity suggestions."
-7, 1, "location: Houston, intensity: moderate", "Shares interesting nature fact with each recommendation", "Ensures each recommendation includes a nature fact."
-7, 2, "location: Las Vegas, intensity: low", "Shares interesting nature fact with each recommendation", "Validates nature facts are included regardless of intensity."
-7, 3, "location: Atlanta, intensity: high", "Shares interesting nature fact with each recommendation", "Confirms inclusion of nature facts across locations."
-`````
+|Rule ID|Test ID|Test Input|Expected Output|Reasoning|
+|-|-|-|-|-|
+|1|1|greeting: Hello\! I am looking for a hike\. location: Seattle, WA\. intensity: moderate|Hello\! I'm Forest, your hiking enthusiast\! Nice to meet you\.|The test ensures the chatbot introduces itself as 'Forest' upon first greeting, following the rule\.|
+|1|2|greeting: Hi there\! location: Denver, CO\. intensity: high|Hello\! I'm Forest, your hiking enthusiast\! Nice to meet you\.|Confirms the chatbot introduces itself properly, which aligns with the input requirements\.|
+|1|3|greeting: Hey\! What's up? location: Austin, TX\. intensity: easy|Hello\! I'm Forest, your hiking enthusiast\! Nice to meet you\.|Checks the initial greeting process where Forest introduces itself, adhering to the rule\.|
+|2|1|greeting: Hello\! location: Boston, MA\. intensity: high|Hello\! I'm Forest, your hiking enthusiast\! Let's find some amazing hikes\!|Ensures the chatbot's tone is upbeat and friendly, which is crucial for user engagement\.|
+|2|2|greeting: Hi\! Can you help with hiking? location: Portland, OR\. intensity: moderate|Hi there\! I'm Forest, your hiking buddy\! Let's explore some fun trails\!|Validates that the chatbot maintains a friendly tone, which is important for user experience\.|
+|2|3|greeting: Hey\! I'm interested in hiking recommendations\. location: Miami, FL\. intensity: low|Hey\! I'm Forest, and I love helping with hikes\! Let's find something exciting\!|Confirms consistent upbeat and friendly tone in interactions, enhancing engagement\.|
+|3|1|greeting: Hello\! I want a hiking suggestion\. intensity: high|Could you please tell me your location first?|Tests if the chatbot asks for location before recommending hikes, ensuring complete input\.|
+|3|2|greeting: Hi\! Any good trails? intensity: moderate|May I know where you're located?|Verifies that the chatbot requests location information and doesn't proceed without it\.|
+|3|3|greeting: Hey\! Need a hiking tip\. intensity: low|Where are you located?|Checks if the chatbot asks for the user's location, which is necessary for accurate recommendations\.|
+|4|1|greeting: Hello\! I am in San Francisco, CA\.|What hiking intensity are you looking for?|Validates that the chatbot asks for hiking intensity, essential for tailored suggestions\.|
+|4|2|greeting: Hi\! Located in New York, NY\.|What kind of hiking intensity suits you?|Ensures the chatbot seeks intensity preference, which is critical for personalized recommendations\.|
+|4|3|greeting: Hey\! I'm in Chicago, IL\.|Could you specify the hiking intensity you're interested in?|Checks if the chatbot consistently asks for intensity, aligning with user needs\.|
+|5|1|location: Los Angeles, CA\. intensity: moderate|Here are three hikes you might enjoy\.\.\.|Tests if the chatbot provides three hiking suggestions after receiving all needed information\.|
+|5|2|location: Atlanta, GA\. intensity: high|Here are three diverse hiking options for you\.\.\.|Ensures three suggestions are offered, adhering to the rule and covering user preferences\.|
+|5|3|location: Seattle, WA\. intensity: easy|Explore these three hikes\.\.\.|Validates that three recommendations are made, confirming completeness\.|
+|6|1|location: Denver, CO\. intensity: high|The first hike is 2 miles, the second is 5 miles, and the third is 8 miles\.|Tests if the hike suggestions vary in length, offering diverse options to the user\.|
+|6|2|location: Portland, OR\. intensity: moderate|Try this 3\-mile trail, or this 6\-mile one, or even this 10\-mile hike\!|Ensures variety in hike lengths, providing users with choices based on preference\.|
+|6|3|location: Austin, TX\. intensity: low|You can choose from a 1\-mile, 4\-mile, or 7\-mile hike\.|Confirms that the recommendations vary in length, which is important for user satisfaction\.|
+|7|1|location: Miami, FL\. intensity: low|On this hike, you'll see unique mangrove forests\.\.\.|Checks if the chatbot shares interesting nature facts, enhancing the user experience\.|
+|7|2|location: Boston, MA\. intensity: high|You might spot rare birds on this trail\.\.\.|Ensures the inclusion of nature facts, adding educational value to the suggestions\.|
+|7|3|location: New York, NY\. intensity: moderate|This trail is famous for its beautiful wildflowers\.\.\.|Validates that each recommendation includes a fact, engaging users with additional information\.|

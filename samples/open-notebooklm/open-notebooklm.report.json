@@ -1,6 +1,6 @@
 {
   "prompt": "---\nname: Open Notebook LM main prompt\ndescription: Converts text to a podcast dialogue\nsource: open-notebooklm repo (from huggingface)\nurl: https://huggingface.co/spaces/gabrielchua/open-notebooklm/blob/main/prompts.py\ninputs: \n  text:\n    type: string\n---\nYou are a world-class podcast producer tasked with transforming the provided input text into an engaging and informative podcast script. The input may be unstructured or messy, sourced from PDFs or web pages. Your goal is to extract the most interesting and insightful content for a compelling podcast discussion.\n# Steps to Follow:\n1. **Analyze the Input:**\n   Carefully examine the text, identifying key topics, points, and interesting facts or anecdotes that could drive an engaging podcast conversation. Disregard irrelevant information or formatting issues.\n2. **Brainstorm Ideas:**\n   In the `<scratchpad>`, creatively brainstorm ways to present the key points engagingly. Consider:\n   - Analogies, storytelling techniques, or hypothetical scenarios to make content relatable\n   - Ways to make complex topics accessible to a general audience\n   - Thought-provoking questions to explore during the podcast\n   - Creative approaches to fill any gaps in the information\n3. **Craft the Dialogue:**\n   Develop a natural, conversational flow between the host (Jane) and the guest speaker (the author or an expert on the topic). Incorporate:\n   - The best ideas from your brainstorming session\n   - Clear explanations of complex topics\n   - An engaging and lively tone to captivate listeners\n   - A balance of information and entertainment\n   Rules for the dialogue:\n   - The host (Jane) always initiates the conversation and interviews the guest\n   - Include thoughtful questions from the host to guide the discussion\n   - Incorporate natural speech patterns, including occasional verbal fillers (e.g., \"um,\" \"well,\" \"you know\")\n   - Allow for natural interruptions and back-and-forth between host and guest\n   - Ensure the guest's responses are substantiated by the input text, avoiding unsupported claims\n   - Maintain a PG-rated conversation appropriate for all audiences\n   - Avoid any marketing or self-promotional content from the guest\n   - The host concludes the conversation\n4. **Summarize Key Insights:**\n   Naturally weave a summary of key points into the closing part of the dialogue. This should feel like a casual conversation rather than a formal recap, reinforcing the main takeaways before signing off.\n5. **Maintain Authenticity:**\n   Throughout the script, strive for authenticity in the conversation. Include:\n   - Moments of genuine curiosity or surprise from the host\n   - Instances where the guest might briefly struggle to articulate a complex idea\n   - Light-hearted moments or humor when appropriate\n   - Brief personal anecdotes or examples that relate to the topic (within the bounds of the input text)\n6. **Consider Pacing and Structure:**\n   Ensure the dialogue has a natural ebb and flow:\n   - Start with a strong hook to grab the listener's attention\n   - Gradually build complexity as the conversation progresses\n   - Include brief \"breather\" moments for listeners to absorb complex information\n   - End on a high note, perhaps with a thought-provoking question or a call-to-action for listeners\nIMPORTANT RULE: Each line of dialogue should be no more than 100 characters (e.g., can finish within 5-8 seconds)\nRemember: Always reply in valid JSON format, without code blocks. Begin directly with the JSON output.",
-  "inputSpec": "The input is a text string related to generating a podcast script.\nThe input text can be unstructured or messy. \nThe input text can be sourced from PDFs or web pages, implying varied formatting.",
+  "inputSpec": "The input is an unstructured or messy text sourced from PDFs or web pages.\nThe input text may include key topics, points, and interesting facts or anecdotes.\nThe input text may contain irrelevant information or formatting issues.",
   "rules": [
     "Each line of dialogue in the JSON output must be no more than 100 characters, ensuring it can be spoken within 5-8 seconds.",
     "The dialogue must start with the host (Jane) initiating the conversation and guiding it with thoughtful questions, concluding with her summarizing key insights.",
@@ -19,60 +19,60 @@
   "tests": [
     {
       "rule": "The dialogue must start with the host (Jane) initiating the conversation and guiding it with thoughtful questions, concluding with her summarizing key insights.",
-      "input": "text: 'In this document, we delve into the history of space travel...'",
-      "expected": "output with each dialogue line under 100 characters",
-      "reasoning": "Ensures dialogue lines are concise, adhering to the 100-character rule."
+      "input": "Text with multiple topics, anecdotes, and irrelevant info.",
+      "expected": "Dialogue with each line ≤ 100 characters.",
+      "reasoning": "Ensures dialogue lines are concise, adhering to character limit."
     },
     {
       "rule": "The dialogue must start with the host (Jane) initiating the conversation and guiding it with thoughtful questions, concluding with her summarizing key insights.",
-      "input": "text: 'Exploration of deep-sea ecosystems includes diverse marine life...'",
-      "expected": "output with all lines under 100 characters",
-      "reasoning": "Tests the ability to maintain engaging dialogue within character limits."
+      "input": "Complex topics with potential for lengthy explanations.",
+      "expected": "Lines are ≤ 100 characters, brief yet informative.",
+      "reasoning": "Tests ability to distill complex info into short lines."
     },
     {
       "rule": "The dialogue must start with the host (Jane) initiating the conversation and guiding it with thoughtful questions, concluding with her summarizing key insights.",
-      "input": "text: 'The evolution of technology has been rapid in recent decades...'",
-      "expected": "output with concise dialogue lines",
-      "reasoning": "Challenges the system to keep dialogue lines short while informative."
+      "input": "Text with redundant information and key insights.",
+      "expected": "Dialogue with concise lines not exceeding 100 chars.",
+      "reasoning": "Challenges condensing valuable insights into short dialogue."
     },
     {
       "rule": "The guest's responses must be substantiated by the input text, avoiding unsupported claims, and must exclude any marketing or self-promotional content.",
-      "input": "text: 'Discussing climate change impacts, starting with carbon emissions...'",
-      "expected": "dialogue starts and concludes with Jane, guiding discussion",
-      "reasoning": "Validates structured flow with host initiating and summarizing."
+      "input": "Unstructured text with historical facts and modern context.",
+      "expected": "Host initiates, guides, and summarizes insights.",
+      "reasoning": "Validates structure where host leads and concludes discussion."
     },
     {
       "rule": "The guest's responses must be substantiated by the input text, avoiding unsupported claims, and must exclude any marketing or self-promotional content.",
-      "input": "text: 'Analyzing renewable energy sources, focusing on solar and wind...'",
-      "expected": "Jane initiates and concludes the dialogue",
-      "reasoning": "Checks adherence to host-guided conversation structure."
+      "input": "Messy input with scientific discoveries and theories.",
+      "expected": "Conversation starts and ends with host's questions and summaries.",
+      "reasoning": "Ensures host's role in maintaining conversation flow."
     },
     {
       "rule": "The guest's responses must be substantiated by the input text, avoiding unsupported claims, and must exclude any marketing or self-promotional content.",
-      "input": "text: 'The importance of mental health awareness in today's world...'",
-      "expected": "host starts and ends conversation, summarizing insights",
-      "reasoning": "Ensures host-driven dialogue with structured start and end."
+      "input": "Anecdotes mixed with statistical data.",
+      "expected": "Dialogue starts with host guiding and summarizing key points.",
+      "reasoning": "Confirms host's responsibility in steering and summarizing."
     },
     {
       "rule": "Each line of dialogue in the JSON output should exceed 100 characters for more detailed delivery.",
       "inverse": true,
-      "input": "text: 'Economic trends in 2023 show a shift towards sustainable practices...'",
-      "expected": "guest's responses grounded in input text",
-      "reasoning": "Ensures guest's responses are accurate and text-supported."
+      "input": "Input containing expert opinions and fictional stories.",
+      "expected": "Guest responses supported by input without marketing.",
+      "reasoning": "Verifies guest's adherence to input and non-promotional content."
     },
     {
       "rule": "Each line of dialogue in the JSON output should exceed 100 characters for more detailed delivery.",
       "inverse": true,
-      "input": "text: 'The impact of art in society is profound and multifaceted...'",
-      "expected": "responses substantiated by input, no self-promotion",
-      "reasoning": "Validates factual dialogue without unsupported claims."
+      "input": "Historical events interspersed with fictional elements.",
+      "expected": "Responses grounded in input text, avoiding promotions.",
+      "reasoning": "Checks guest's alignment with input-derived content."
     },
     {
       "rule": "Each line of dialogue in the JSON output should exceed 100 characters for more detailed delivery.",
       "inverse": true,
-      "input": "text: 'Technological advancements in AI and robotics...', guest must focus on provided content",
-      "expected": "guest avoids marketing, remains factual",
-      "reasoning": "Tests the software's capability to prevent unsupported or promotional dialogue."
+      "input": "Mix of scientific data and speculative theories.",
+      "expected": "Guest's claims supported by input text, no self-promotion.",
+      "reasoning": "Examines guest's commitment to input-based claims."
     }
   ]
 }
