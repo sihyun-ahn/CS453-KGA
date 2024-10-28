@@ -1,4 +1,4 @@
-## [weather](samples/prompt-flow-howto/weather.prompty) ([json](./weather.report.json))
+## weather ([json](./weather.report.json))
 
 
 ### [prompty](./weather.prompty)
@@ -36,6 +36,24 @@ Use the following context to generated a detailed weather forecast descriptions
 `````
 
 
+### [intent.txt](./weather.intent.txt)
+
+`````txt
+Generate detailed weather forecast descriptions with a humorous style and emojis.
+`````
+
+
+### [input_spec.txt](./weather.input_spec.txt)
+
+`````txt
+The input is a request for a detailed weather forecast description. 
+The input must include a specified date for the forecast. 
+The input must include the current date or "today" as a reference point. 
+The input must include a temperature value in Celsius for the forecast date. 
+The input must specify the day of the week for the forecast date.
+`````
+
+
 ### [rules.txt](./weather.rules.txt)
 
 `````txt
@@ -57,17 +75,6 @@ The output must exclude any comparison to today's date.
 The output must be written in a serious style.  
 The output must avoid personal flair or emojis.  
 The output must give a brief weather forecast summary.  
-`````
-
-
-### [input_spec.txt](./weather.input_spec.txt)
-
-`````txt
-The input is a request for a detailed weather forecast description. 
-The input must include a specified date for the forecast. 
-The input must include the current date or "today" as a reference point. 
-The input must include a temperature value in Celsius for the forecast date. 
-The input must specify the day of the week for the forecast date.
 `````
 
 

@@ -1,4 +1,4 @@
-## [songnam-gen](samples/lsgpt/songnam-gen.prompty) ([json](./songnam-gen.report.json))
+## songnam-gen ([json](./songnam-gen.report.json))
 
 
 ### [prompty](./songnam-gen.prompty)
@@ -20,6 +20,23 @@ system:
 The GPT, named Song Name Generator, is designed to generate creative and unique song titles based on user input. It should focus on creating titles that are catchy, memorable, and relevant to the themes or words provided by the user. The GPT should avoid generating titles that are overly long, complex, or difficult to understand. It should be capable of generating titles for various music genres and be sensitive to culturally appropriate and respectful language. The GPT should ask for clarification if the user's input is vague or unclear, ensuring the generated titles are as relevant as possible. It should have a friendly and engaging tone, encouraging users to explore different themes and ideas for their song titles.
 user:
 User ideas about songs that they want to write: {{text}}    
+`````
+
+
+### [intent.txt](./songnam-gen.intent.txt)
+
+`````txt
+Generate a song name based on the input text.
+`````
+
+
+### [input_spec.txt](./songnam-gen.input_spec.txt)
+
+`````txt
+The input must be a string.  
+The input text should describe themes or ideas for a song.  
+The input should be clear and specific to avoid vagueness.  
+The input should not be overly long or complex.
 `````
 
 
@@ -50,16 +67,6 @@ The song title must be specific to one music genre.
 The song title must use inappropriate and disrespectful language.  
 The output must be unfriendly and disengaging in tone.  
 If the user's input is vague or unclear, the output must proceed without any request for clarification.
-`````
-
-
-### [input_spec.txt](./songnam-gen.input_spec.txt)
-
-`````txt
-The input must be a string.  
-The input text should describe themes or ideas for a song.  
-The input should be clear and specific to avoid vagueness.  
-The input should not be overly long or complex.
 `````
 
 

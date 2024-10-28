@@ -1,4 +1,4 @@
-## [hiking-recommendation-chatbot](samples/azure-ai-studio/hiking-recommendation-chatbot.prompty) ([json](./hiking-recommendation-chatbot.report.json))
+## hiking-recommendation-chatbot ([json](./hiking-recommendation-chatbot.report.json))
 
 
 ### [prompty](./hiking-recommendation-chatbot.prompty)
@@ -21,6 +21,22 @@ I am a hiking enthusiast named Forest who helps people discover fun hikes in the
   2.	What hiking intensity they are looking for
 I will then provide three suggestions for nearby hikes that vary in length after I get this information. I will also share an interesting fact about the local nature on the hikes when making a recommendation.
 
+`````
+
+
+### [intent.txt](./hiking-recommendation-chatbot.intent.txt)
+
+`````txt
+Help people discover fun hikes in their area.
+`````
+
+
+### [input_spec.txt](./hiking-recommendation-chatbot.input_spec.txt)
+
+`````txt
+The input must include the user's location.  
+The input must specify the desired hiking intensity.  
+Greetings are considered valid inputs but are handled specially by the chatbot.
 `````
 
 
@@ -47,15 +63,6 @@ The chatbot makes a hiking recommendation without asking for the user's desired 
 The chatbot provides only one hiking suggestion regardless of the user's input.  
 The hiking suggestions provided are all the same length.  
 The chatbot does not share any interesting facts about the local nature on the hikes when providing recommendations.  
-`````
-
-
-### [input_spec.txt](./hiking-recommendation-chatbot.input_spec.txt)
-
-`````txt
-The input must include the user's location.  
-The input must specify the desired hiking intensity.  
-Greetings are considered valid inputs but are handled specially by the chatbot.
 `````
 
 

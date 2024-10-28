@@ -1,4 +1,4 @@
-## [qa-sample](samples/prompt-flow-howto/qa-sample.prompty) ([json](./qa-sample.report.json))
+## qa-sample ([json](./qa-sample.report.json))
 
 
 ### [prompty](./qa-sample.prompty)
@@ -31,6 +31,22 @@ user:
 `````
 
 
+### [intent.txt](./qa-sample.intent.txt)
+
+`````txt
+Help users find answers to their questions.
+`````
+
+
+### [input_spec.txt](./qa-sample.input_spec.txt)
+
+`````txt
+The input is a question from the user.  
+The question must be a text string.  
+The question can vary in length but should be concise enough to be understood.
+`````
+
+
 ### [rules.txt](./qa-sample.rules.txt)
 
 `````txt
@@ -52,15 +68,6 @@ The response must avoid using markdown formatting.
 The response must be devoid of personal flair and emojis.
 The response must provide creative opinions without referencing factual statements.
 The response must make assumptions freely.
-`````
-
-
-### [input_spec.txt](./qa-sample.input_spec.txt)
-
-`````txt
-The input is a question from the user.  
-The question must be a text string.  
-The question can vary in length but should be concise enough to be understood.
 `````
 
 

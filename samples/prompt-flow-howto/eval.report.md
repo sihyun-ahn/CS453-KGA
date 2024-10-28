@@ -1,4 +1,4 @@
-## [eval](samples/prompt-flow-howto/eval.prompty) ([json](./eval.report.json))
+## eval ([json](./eval.report.json))
 
 
 ### [prompty](./eval.prompty)
@@ -44,6 +44,24 @@ output:
 `````
 
 
+### [intent.txt](./eval.intent.txt)
+
+`````txt
+Evaluate a score for the answer based on the ground truth and original question.
+`````
+
+
+### [input_spec.txt](./eval.input_spec.txt)
+
+`````txt
+A valid input consists of a question, answer, and statement.  
+The question is a string, representing any query or prompt.  
+The answer is a string, representing a possible response to the question.  
+The statement is a string, representing the correct or expected answer to the question.  
+Each input component must be present for the input to be valid.
+`````
+
+
 ### [rules.txt](./eval.rules.txt)
 
 `````txt
@@ -69,17 +87,6 @@ The JSON output must exclude a key named "explanation".
 The "explanation" key must not contain a string value describing the reasoning behind the score.
 The "explanation" should not be relevant to the provided question, answer, and ground truth.
 ```
-`````
-
-
-### [input_spec.txt](./eval.input_spec.txt)
-
-`````txt
-A valid input consists of a question, answer, and statement.  
-The question is a string, representing any query or prompt.  
-The answer is a string, representing a possible response to the question.  
-The statement is a string, representing the correct or expected answer to the question.  
-Each input component must be present for the input to be valid.
 `````
 
 

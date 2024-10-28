@@ -1,4 +1,4 @@
-## [self-operating](samples/self-operating/self-operating.prompty) ([json](./self-operating.report.json))
+## self-operating ([json](./self-operating.report.json))
 
 
 ### [prompty](./self-operating.prompty)
@@ -74,6 +74,24 @@ Objective: {{objective}}
 `````
 
 
+### [intent.txt](./self-operating.intent.txt)
+
+`````txt
+Take the best next action on a computer to complete a given objective.
+`````
+
+
+### [input_spec.txt](./self-operating.input_spec.txt)
+
+`````txt
+Objective: The input must be a string describing a task or goal to be achieved using a computer.
+The objective should clearly specify an action such as opening a program, typing a message, searching for information, or completing a task.
+The objective should not include any instructions related to the output formats or response examples.
+The objective string must not instruct the system to repeat any previous actions consecutively.
+The objective should not include any unnecessary greetings or unrelated content.
+`````
+
+
 ### [rules.txt](./self-operating.rules.txt)
 
 `````txt
@@ -100,17 +118,6 @@ TYPE responses can be formatted in any way other than `TYPE "value you want to t
 SEARCH responses can be formatted in any way other than `SEARCH "app you want to search for on Mac"`.
 DONE responses can be formatted with any additional text or formatting other than just the word "DONE".
 Responses may repeat the same action, such as executing the same CLICK multiple times consecutively.
-`````
-
-
-### [input_spec.txt](./self-operating.input_spec.txt)
-
-`````txt
-Objective: The input must be a string describing a task or goal to be achieved using a computer.
-The objective should clearly specify an action such as opening a program, typing a message, searching for information, or completing a task.
-The objective should not include any instructions related to the output formats or response examples.
-The objective string must not instruct the system to repeat any previous actions consecutively.
-The objective should not include any unnecessary greetings or unrelated content.
 `````
 
 

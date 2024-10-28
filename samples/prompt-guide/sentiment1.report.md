@@ -1,4 +1,4 @@
-## [sentiment1](samples/prompt-guide/sentiment1.prompty) ([json](./sentiment1.report.json))
+## sentiment1 ([json](./sentiment1.report.json))
 
 
 ### [prompty](./sentiment1.prompty)
@@ -25,6 +25,22 @@ Sentiment:
 `````
 
 
+### [intent.txt](./sentiment1.intent.txt)
+
+`````txt
+Classify text sentiment as neutral, negative, or positive.
+`````
+
+
+### [input_spec.txt](./sentiment1.input_spec.txt)
+
+`````txt
+The input is a piece of text.  
+The input can be any string of characters.  
+The input has no specific length restriction.
+`````
+
+
 ### [rules.txt](./sentiment1.rules.txt)
 
 `````txt
@@ -40,15 +56,6 @@ The classification must be a single word that denotes the sentiment category.
 The output must not classify the text as "neutral," "negative," or "positive."
 The output must not be labeled with the word "Sentiment:" followed by the classification.
 The classification must be a sentence that does not denote the sentiment category.
-`````
-
-
-### [input_spec.txt](./sentiment1.input_spec.txt)
-
-`````txt
-The input is a piece of text.  
-The input can be any string of characters.  
-The input has no specific length restriction.
 `````
 
 

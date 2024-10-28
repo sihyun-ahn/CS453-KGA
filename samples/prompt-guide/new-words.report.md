@@ -1,4 +1,4 @@
-## [new-words](samples/prompt-guide/new-words.prompty) ([json](./new-words.report.json))
+## new-words ([json](./new-words.report.json))
 
 
 ### [prompty](./new-words.prompty)
@@ -31,6 +31,23 @@ An example of a sentence that uses this word is:
 `````
 
 
+### [intent.txt](./new-words.intent.txt)
+
+`````txt
+Provide examples of sentences using made-up words.
+`````
+
+
+### [input_spec.txt](./new-words.input_spec.txt)
+
+`````txt
+The input should be a template phrase following the pattern: "To do a '{{made_up_word_name}}' means to {{describe_meaning_of_new_word}}."  
+The placeholder {{made_up_word_name}} should be replaced with a single made-up word.  
+The placeholder {{describe_meaning_of_new_word}} should be replaced with a description or definition, which can be a phrase or sentence.  
+The input should not exceed a reasonable length for comprehensibility and clarity, typically one or two sentences.
+`````
+
+
 ### [rules.txt](./new-words.rules.txt)
 
 `````txt
@@ -50,16 +67,6 @@ The sentence must ignore the context provided by the user about the made-up word
 The sentence must be grammatically incorrect and incoherent.  
 The sentence must use the made-up word in a way that conflicts with the given definition or description.  
 The sentence must be unclear and require additional context beyond what was provided.
-`````
-
-
-### [input_spec.txt](./new-words.input_spec.txt)
-
-`````txt
-The input should be a template phrase following the pattern: "To do a '{{made_up_word_name}}' means to {{describe_meaning_of_new_word}}."  
-The placeholder {{made_up_word_name}} should be replaced with a single made-up word.  
-The placeholder {{describe_meaning_of_new_word}} should be replaced with a description or definition, which can be a phrase or sentence.  
-The input should not exceed a reasonable length for comprehensibility and clarity, typically one or two sentences.
 `````
 
 

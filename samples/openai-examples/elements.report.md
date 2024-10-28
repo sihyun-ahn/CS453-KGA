@@ -1,4 +1,4 @@
-## [elements](samples/openai-examples/elements.prompty) ([json](./elements.report.json))
+## elements ([json](./elements.report.json))
 
 
 ### [prompty](./elements.prompty)
@@ -27,6 +27,26 @@ Text: {{text}}
 `````
 
 
+### [intent.txt](./elements.intent.txt)
+
+`````txt
+Extract specific elements of text from a given text.
+`````
+
+
+### [input_spec.txt](./elements.input_spec.txt)
+
+`````txt
+The input is a block of text.
+The text must be provided as a single string.
+The string can contain multiple sentences or paragraphs.
+The text may include mentions of company names.
+The text may include mentions of people names.
+The text may discuss specific topics related to the content.
+The text may contain overarching general themes.
+`````
+
+
 ### [rules.txt](./elements.rules.txt)
 
 `````txt
@@ -48,19 +68,6 @@ Specific topics must not be mentioned or listed in the output.
 General themes should not be listed or labeled in any way in the output.  
 Each section must be unlabeled, jumbled, and not separated by line breaks.  
 All lists must avoid using commas altogether, even within names or topics.
-`````
-
-
-### [input_spec.txt](./elements.input_spec.txt)
-
-`````txt
-The input is a block of text.
-The text must be provided as a single string.
-The string can contain multiple sentences or paragraphs.
-The text may include mentions of company names.
-The text may include mentions of people names.
-The text may discuss specific topics related to the content.
-The text may contain overarching general themes.
 `````
 
 

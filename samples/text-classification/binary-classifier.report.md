@@ -1,4 +1,4 @@
-## [binary-classifier](samples/text-classification/binary-classifier.prompty) ([json](./binary-classifier.report.json))
+## binary-classifier ([json](./binary-classifier.report.json))
 
 
 ### [prompty](./binary-classifier.prompty)
@@ -32,6 +32,23 @@ Think through your evaluation. Respond only with Yes or No. Then start a new par
 `````
 
 
+### [intent.txt](./binary-classifier.intent.txt)
+
+`````txt
+Determine if a text excerpt contains information to answer a given question.
+`````
+
+
+### [input_spec.txt](./binary-classifier.input_spec.txt)
+
+`````txt
+The input must include a text excerpt labeled as {{evidence}}.  
+The input must include a question labeled as {{question}}.  
+The text excerpt can be any raw text from a report.  
+The question must be clear and contextually relevant to the text excerpt.
+`````
+
+
 ### [rules.txt](./binary-classifier.rules.txt)
 
 `````txt
@@ -53,16 +70,6 @@ The explanation must obscure the presence or absence of significant information 
 The explanation must ignore the details and context of both the text excerpt and the question.
 The explanation must be incoherent and illogically structured, avoiding insight into the reasoning behind the initial answer.
 The explanation must introduce information not present within the text excerpt or the question.
-`````
-
-
-### [input_spec.txt](./binary-classifier.input_spec.txt)
-
-`````txt
-The input must include a text excerpt labeled as {{evidence}}.  
-The input must include a question labeled as {{question}}.  
-The text excerpt can be any raw text from a report.  
-The question must be clear and contextually relevant to the text excerpt.
 `````
 
 
