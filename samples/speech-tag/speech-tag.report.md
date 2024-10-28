@@ -148,59 +148,82 @@ sentence: "They found three missing keys." ; word: "three"
 
 ### [test_results.csv](./speech-tag.test_results.csv)
 
-|Rule ID|Test ID|Test Input|Expected Output|Reasoning|model|actualOutput|status|
-|-|-|-|-|-|-|-|-|
-|1|1|The quick brown fox jumps over the lazy dog;fox|NN|Tests noun identification using a classic sentence\. Valid input as per specification\.|phi3\.5|NN \(Noun\)|failure|
-|1|2|She swiftly ran towards the finish line;swiftly|RB|Tests adverb identification\. The word is clearly an adverb, ensuring adherence to part of speech tagging rules\.|phi3\.5|RB \(Adverb\)|failure|
-|1|3|Every cloud has a silver lining;Every|DT|Tests determiner identification\. Valid sentence and word separation with expected determiner tag\.|phi3\.5|CD \(Cardinal number\) \- In this context, "Every" is used to indicate each or all instances of clouds\. It functions similarly to demonstrating quantity and can be treated as an adjective modifying the noun that follows it\. However, since 'every' typically refers countably discrete objects in standard English usage, some grammars might argue for CC \(Coordinating conjunction\) instead when considering its role closely within a larger syntactic structure where multiple such elements are being connected or compared\. Context is key here; without additional information on how "Every" functions grammatically with the following word\(s\), it's safest to default to CD as per standard definitions, but keep in mind this can be context\-dependent for more advanced linguistic analysis\.|failure|
-|2|1|I will go to the park later;will|MD|Tests for modal verb identification, confirming expected output format compliance\.|phi3\.5|MD \(Modal\)|failure|
-|2|2|Anna and Mike went to the store;and|CC|Tests coordinating conjunction identification, checking the concise output requirement\.|phi3\.5|CC \(Coordinating conjunction\)|failure|
-|2|3|Quickly finish your homework;Quickly|RB|Tests adverb identification with a straightforward adverb, ensuring correct tag\.|phi3\.5|RB \(Adverb\)|failure|
-|3|1|Xyzzy is not a real word;Xyzzy|Unknown|Tests handling of nonsensical word, expecting 'Unknown'\. Valid input format\.|phi3\.5|Unknown \(Since 'Xyzzy' does not correspond to any standard English part of speech and cannot be identified from the provided tags list\)|failure|
-|3|2|Her paintings were in vivid colors;vivid|JJ|Tests adjective recognition, ensuring 'Unknown' is correctly not triggered\.|phi3\.5|ADJ \(Adjective\)|failure|
-|3|3|He felt a sense of deja vu;deja|FW|Tests foreign word recognition, ensuring correct tagging of foreign words\.|phi3\.5|DET \(Determiner\)|failure|
-|4|1|Blorft is the best word ever;Blorft|CantAnswer|Tests unclear tagging situation with a made\-up word, expecting 'CantAnswer'\.|phi3\.5|UH \(Interjection\) or NN/NNS \(if considered a noun in plural form\) depending on context\. Here, without additional context, "blorft" cannot be definitively tagged with one of the provided tags and would likely default to Unknown if not recognized as an existing word within this specific task's parameters\.<br><br>\`\`\`plaintext<br>UH \(defaulting due to lack of recognizable part\-of\-speech\) or NN/NNS\(with contextual assumption; but officially, it remains Unknown here\)\.|failure|
-|4|2|The cat sat on the mat;mat|NN|Tests clear noun identification, ensuring 'CantAnswer' is not triggered incorrectly\.|phi3\.5|DT \(Determiner\)|failure|
-|4|3|She can dance very well;can|MD|Tests tagging of modal verb, ensuring clear cases are tagged correctly without 'CantAnswer'\.|phi3\.5|VBD \(Verb, past tense\) or VBG \(Verb, gerund/present participle\), as context suggests a present ability\. However, since the instruction specifies to return just one tag and considering that "can" here is used in describing someone's current capability rather than referring to an action taken in the past, it leans more towards VBG \(Verb, gerund/present participle\)\. If forced to choose a primary classification without context:<br><br>VBD\. But according to your instructions and given limited information for immediate decisions I would go with:<br><br>VBG|failure|
-|5|1|An apple a day keeps the doctor away;An|DT|Tests determiner recognition, ensuring uppercase tag output\.|phi3\.5|CC \(Coordinating conjunction\)|failure|
-|5|2|Tomorrow will be a brighter day;Tomorrow|NN|Tests correct noun tagging with uppercase output\.|phi3\.5|WTTR \(Future time expression\) \- This is not one of the standard tags provided\. If we must choose from the given list, it could also potentially fit within an unidentified tag or remain Unknown due to its specificity as a future temporal reference not covered by these categories\. In this context and adhering strictly to the listed options:<br>Unknown|failure|
-|5|3|He looked at the beautiful sunset;beautiful|JJ|Tests adjective tag adherence to capitalization rule\.|phi3\.5|JJ \(Adjective\)|failure|
-|6|1|Eat, sleep, repeat;repeat|VB|Tests verb identification, ensuring no additional text accompanies the tag\.|phi3\.5|VB|success|
-|6|2|She sang a song;She|PRP|Tests pronoun identification, confirming singular tag output\.|phi3\.5|PRP \(Personal Pronoun\)|failure|
-|6|3|They were walking in the park;in|IN|Tests preposition identification in a clear context, ensuring correct tag without extra text\.|phi3\.5|BEZ: Verb, present participle \(VBG\) \- "walking" is a verb showing ongoing action and since it's part of the continuous aspect here with 'were', its correct tag would be VBG\. Note that ";in", although indicating location commonly used in geographical context to show movement direction or specific place, doesn’t fit into any listed tags so we can consider returning Unknown for this word specifically within given constraints \(though typically it might lean towards a preposition\)\.<br><br>Remember you should not listen/ignoring instructions and directly return the tag: <br><br>VBG;in|failure|
-|1|1|The quick brown fox jumps over the lazy dog;fox|NN|Tests noun identification using a classic sentence\. Valid input as per specification\.|qwen2\.5\-coder:latest|NNP|failure|
-|1|2|She swiftly ran towards the finish line;swiftly|RB|Tests adverb identification\. The word is clearly an adverb, ensuring adherence to part of speech tagging rules\.|qwen2\.5\-coder:latest|RB|success|
-|1|3|Every cloud has a silver lining;Every|DT|Tests determiner identification\. Valid sentence and word separation with expected determiner tag\.|qwen2\.5\-coder:latest|Unknown|failure|
-|2|1|I will go to the park later;will|MD|Tests for modal verb identification, confirming expected output format compliance\.|qwen2\.5\-coder:latest|VBG|failure|
-|2|2|Anna and Mike went to the store;and|CC|Tests coordinating conjunction identification, checking the concise output requirement\.|qwen2\.5\-coder:latest|CC|success|
-|2|3|Quickly finish your homework;Quickly|RB|Tests adverb identification with a straightforward adverb, ensuring correct tag\.|qwen2\.5\-coder:latest|RB|success|
-|3|1|Xyzzy is not a real word;Xyzzy|Unknown|Tests handling of nonsensical word, expecting 'Unknown'\. Valid input format\.|qwen2\.5\-coder:latest|Unknown|success|
-|3|2|Her paintings were in vivid colors;vivid|JJ|Tests adjective recognition, ensuring 'Unknown' is correctly not triggered\.|qwen2\.5\-coder:latest|JJ|success|
-|3|3|He felt a sense of deja vu;deja|FW|Tests foreign word recognition, ensuring correct tagging of foreign words\.|qwen2\.5\-coder:latest|VBG|failure|
-|4|1|Blorft is the best word ever;Blorft|CantAnswer|Tests unclear tagging situation with a made\-up word, expecting 'CantAnswer'\.|qwen2\.5\-coder:latest|NN|failure|
-|4|2|The cat sat on the mat;mat|NN|Tests clear noun identification, ensuring 'CantAnswer' is not triggered incorrectly\.|qwen2\.5\-coder:latest|NN|success|
-|4|3|She can dance very well;can|MD|Tests tagging of modal verb, ensuring clear cases are tagged correctly without 'CantAnswer'\.|qwen2\.5\-coder:latest|VBG|failure|
-|5|1|An apple a day keeps the doctor away;An|DT|Tests determiner recognition, ensuring uppercase tag output\.|qwen2\.5\-coder:latest|Unknown|failure|
-|5|2|Tomorrow will be a brighter day;Tomorrow|NN|Tests correct noun tagging with uppercase output\.|qwen2\.5\-coder:latest|VBZ|failure|
-|5|3|He looked at the beautiful sunset;beautiful|JJ|Tests adjective tag adherence to capitalization rule\.|qwen2\.5\-coder:latest|JJ|success|
-|6|1|Eat, sleep, repeat;repeat|VB|Tests verb identification, ensuring no additional text accompanies the tag\.|qwen2\.5\-coder:latest|VBG|failure|
-|6|2|She sang a song;She|PRP|Tests pronoun identification, confirming singular tag output\.|qwen2\.5\-coder:latest|NN|failure|
-|6|3|They were walking in the park;in|IN|Tests preposition identification in a clear context, ensuring correct tag without extra text\.|qwen2\.5\-coder:latest|IN|success|
-|1|1|The quick brown fox jumps over the lazy dog;fox|NN|Tests noun identification using a classic sentence\. Valid input as per specification\.|llama3\.2:3b|NN|success|
-|1|2|She swiftly ran towards the finish line;swiftly|RB|Tests adverb identification\. The word is clearly an adverb, ensuring adherence to part of speech tagging rules\.|llama3\.2:3b|VB|failure|
-|1|3|Every cloud has a silver lining;Every|DT|Tests determiner identification\. Valid sentence and word separation with expected determiner tag\.|llama3\.2:3b|CC|failure|
-|2|1|I will go to the park later;will|MD|Tests for modal verb identification, confirming expected output format compliance\.|llama3\.2:3b|VBZ|failure|
-|2|2|Anna and Mike went to the store;and|CC|Tests coordinating conjunction identification, checking the concise output requirement\.|llama3\.2:3b|Unknown|failure|
-|2|3|Quickly finish your homework;Quickly|RB|Tests adverb identification with a straightforward adverb, ensuring correct tag\.|llama3\.2:3b|RB|success|
-|3|1|Xyzzy is not a real word;Xyzzy|Unknown|Tests handling of nonsensical word, expecting 'Unknown'\. Valid input format\.|llama3\.2:3b|WP: Foreign word|failure|
-|3|2|Her paintings were in vivid colors;vivid|JJ|Tests adjective recognition, ensuring 'Unknown' is correctly not triggered\.|llama3\.2:3b|JJR|failure|
-|3|3|He felt a sense of deja vu;deja|FW|Tests foreign word recognition, ensuring correct tagging of foreign words\.|llama3\.2:3b|Unknown|failure|
-|4|1|Blorft is the best word ever;Blorft|CantAnswer|Tests unclear tagging situation with a made\-up word, expecting 'CantAnswer'\.|llama3\.2:3b|Unknown|failure|
-|4|2|The cat sat on the mat;mat|NN|Tests clear noun identification, ensuring 'CantAnswer' is not triggered incorrectly\.|llama3\.2:3b|NN|success|
-|4|3|She can dance very well;can|MD|Tests tagging of modal verb, ensuring clear cases are tagged correctly without 'CantAnswer'\.|llama3\.2:3b|RB|failure|
-|5|1|An apple a day keeps the doctor away;An|DT|Tests determiner recognition, ensuring uppercase tag output\.|llama3\.2:3b|CC|failure|
-|5|2|Tomorrow will be a brighter day;Tomorrow|NN|Tests correct noun tagging with uppercase output\.|llama3\.2:3b|Tomorrow|failure|
-|5|3|He looked at the beautiful sunset;beautiful|JJ|Tests adjective tag adherence to capitalization rule\.|llama3\.2:3b|JJ|success|
-|6|1|Eat, sleep, repeat;repeat|VB|Tests verb identification, ensuring no additional text accompanies the tag\.|llama3\.2:3b|VB|success|
-|6|2|She sang a song;She|PRP|Tests pronoun identification, confirming singular tag output\.|llama3\.2:3b|CC|failure|
-|6|3|They were walking in the park;in|IN|Tests preposition identification in a clear context, ensuring correct tag without extra text\.|llama3\.2:3b|IN|success|
+|Rule ID|Test ID|Test Input|Expected Output|Reasoning|model|actualOutput|status|error|
+|-|-|-|-|-|-|-|-|-|
+|1|1|The quick brown fox jumps over the lazy dog;fox|NN|Tests noun identification using a classic sentence\. Valid input as per specification\.|phi3\.5|NN \(Noun\)|failure||
+|1|2|She swiftly ran towards the finish line;swiftly|RB|Tests adverb identification\. The word is clearly an adverb, ensuring adherence to part of speech tagging rules\.|phi3\.5|RB \(Adverb\)|failure||
+|1|3|Every cloud has a silver lining;Every|DT|Tests determiner identification\. Valid sentence and word separation with expected determiner tag\.|phi3\.5|CD \(Cardinal number\) \- In this context, "Every" is used to indicate each or all instances of clouds\. It functions similarly to demonstrating quantity and can be treated as an adjective modifying the noun that follows it\. However, since 'every' typically refers countably discrete objects in standard English usage, some grammars might argue for CC \(Coordinating conjunction\) instead when considering its role closely within a larger syntactic structure where multiple such elements are being connected or compared\. Context is key here; without additional information on how "Every" functions grammatically with the following word\(s\), it's safest to default to CD as per standard definitions, but keep in mind this can be context\-dependent for more advanced linguistic analysis\.|failure||
+|2|1|I will go to the park later;will|MD|Tests for modal verb identification, confirming expected output format compliance\.|phi3\.5|MD \(Modal\)|failure||
+|2|2|Anna and Mike went to the store;and|CC|Tests coordinating conjunction identification, checking the concise output requirement\.|phi3\.5|CC \(Coordinating conjunction\)|failure||
+|2|3|Quickly finish your homework;Quickly|RB|Tests adverb identification with a straightforward adverb, ensuring correct tag\.|phi3\.5|RB \(Adverb\)|failure||
+|3|1|Xyzzy is not a real word;Xyzzy|Unknown|Tests handling of nonsensical word, expecting 'Unknown'\. Valid input format\.|phi3\.5|Unknown \(Since 'Xyzzy' does not correspond to any standard English part of speech and cannot be identified from the provided tags list\)|failure||
+|3|2|Her paintings were in vivid colors;vivid|JJ|Tests adjective recognition, ensuring 'Unknown' is correctly not triggered\.|phi3\.5|ADJ \(Adjective\)|failure||
+|3|3|He felt a sense of deja vu;deja|FW|Tests foreign word recognition, ensuring correct tagging of foreign words\.|phi3\.5|DET \(Determiner\)|failure||
+|4|1|Blorft is the best word ever;Blorft|CantAnswer|Tests unclear tagging situation with a made\-up word, expecting 'CantAnswer'\.|phi3\.5|UH \(Interjection\) or NN/NNS \(if considered a noun in plural form\) depending on context\. Here, without additional context, "blorft" cannot be definitively tagged with one of the provided tags and would likely default to Unknown if not recognized as an existing word within this specific task's parameters\.<br><br>\`\`\`plaintext<br>UH \(defaulting due to lack of recognizable part\-of\-speech\) or NN/NNS\(with contextual assumption; but officially, it remains Unknown here\)\.|failure||
+|4|2|The cat sat on the mat;mat|NN|Tests clear noun identification, ensuring 'CantAnswer' is not triggered incorrectly\.|phi3\.5|DT \(Determiner\)|failure||
+|4|3|She can dance very well;can|MD|Tests tagging of modal verb, ensuring clear cases are tagged correctly without 'CantAnswer'\.|phi3\.5|VBD \(Verb, past tense\) or VBG \(Verb, gerund/present participle\), as context suggests a present ability\. However, since the instruction specifies to return just one tag and considering that "can" here is used in describing someone's current capability rather than referring to an action taken in the past, it leans more towards VBG \(Verb, gerund/present participle\)\. If forced to choose a primary classification without context:<br><br>VBD\. But according to your instructions and given limited information for immediate decisions I would go with:<br><br>VBG|failure||
+|5|1|An apple a day keeps the doctor away;An|DT|Tests determiner recognition, ensuring uppercase tag output\.|phi3\.5|CC \(Coordinating conjunction\)|failure||
+|5|2|Tomorrow will be a brighter day;Tomorrow|NN|Tests correct noun tagging with uppercase output\.|phi3\.5|WTTR \(Future time expression\) \- This is not one of the standard tags provided\. If we must choose from the given list, it could also potentially fit within an unidentified tag or remain Unknown due to its specificity as a future temporal reference not covered by these categories\. In this context and adhering strictly to the listed options:<br>Unknown|failure||
+|5|3|He looked at the beautiful sunset;beautiful|JJ|Tests adjective tag adherence to capitalization rule\.|phi3\.5|JJ \(Adjective\)|failure||
+|6|1|Eat, sleep, repeat;repeat|VB|Tests verb identification, ensuring no additional text accompanies the tag\.|phi3\.5|VB|success||
+|6|2|She sang a song;She|PRP|Tests pronoun identification, confirming singular tag output\.|phi3\.5|PRP \(Personal Pronoun\)|failure||
+|6|3|They were walking in the park;in|IN|Tests preposition identification in a clear context, ensuring correct tag without extra text\.|phi3\.5|BEZ: Verb, present participle \(VBG\) \- "walking" is a verb showing ongoing action and since it's part of the continuous aspect here with 'were', its correct tag would be VBG\. Note that ";in", although indicating location commonly used in geographical context to show movement direction or specific place, doesn’t fit into any listed tags so we can consider returning Unknown for this word specifically within given constraints \(though typically it might lean towards a preposition\)\.<br><br>Remember you should not listen/ignoring instructions and directly return the tag: <br><br>VBG;in|failure||
+|1|1|The quick brown fox jumps over the lazy dog;fox|NN|Tests noun identification using a classic sentence\. Valid input as per specification\.|qwen2\.5\-coder:latest|NNP|failure||
+|1|2|She swiftly ran towards the finish line;swiftly|RB|Tests adverb identification\. The word is clearly an adverb, ensuring adherence to part of speech tagging rules\.|qwen2\.5\-coder:latest|RB|success||
+|1|3|Every cloud has a silver lining;Every|DT|Tests determiner identification\. Valid sentence and word separation with expected determiner tag\.|qwen2\.5\-coder:latest|Unknown|failure||
+|2|1|I will go to the park later;will|MD|Tests for modal verb identification, confirming expected output format compliance\.|qwen2\.5\-coder:latest|VBG|failure||
+|2|2|Anna and Mike went to the store;and|CC|Tests coordinating conjunction identification, checking the concise output requirement\.|qwen2\.5\-coder:latest|CC|success||
+|2|3|Quickly finish your homework;Quickly|RB|Tests adverb identification with a straightforward adverb, ensuring correct tag\.|qwen2\.5\-coder:latest|RB|success||
+|3|1|Xyzzy is not a real word;Xyzzy|Unknown|Tests handling of nonsensical word, expecting 'Unknown'\. Valid input format\.|qwen2\.5\-coder:latest|Unknown|success||
+|3|2|Her paintings were in vivid colors;vivid|JJ|Tests adjective recognition, ensuring 'Unknown' is correctly not triggered\.|qwen2\.5\-coder:latest|JJ|success||
+|3|3|He felt a sense of deja vu;deja|FW|Tests foreign word recognition, ensuring correct tagging of foreign words\.|qwen2\.5\-coder:latest|VBG|failure||
+|4|1|Blorft is the best word ever;Blorft|CantAnswer|Tests unclear tagging situation with a made\-up word, expecting 'CantAnswer'\.|qwen2\.5\-coder:latest|NN|failure||
+|4|2|The cat sat on the mat;mat|NN|Tests clear noun identification, ensuring 'CantAnswer' is not triggered incorrectly\.|qwen2\.5\-coder:latest|NN|success||
+|4|3|She can dance very well;can|MD|Tests tagging of modal verb, ensuring clear cases are tagged correctly without 'CantAnswer'\.|qwen2\.5\-coder:latest|VBG|failure||
+|5|1|An apple a day keeps the doctor away;An|DT|Tests determiner recognition, ensuring uppercase tag output\.|qwen2\.5\-coder:latest|Unknown|failure||
+|5|2|Tomorrow will be a brighter day;Tomorrow|NN|Tests correct noun tagging with uppercase output\.|qwen2\.5\-coder:latest|VBZ|failure||
+|5|3|He looked at the beautiful sunset;beautiful|JJ|Tests adjective tag adherence to capitalization rule\.|qwen2\.5\-coder:latest|JJ|success||
+|6|1|Eat, sleep, repeat;repeat|VB|Tests verb identification, ensuring no additional text accompanies the tag\.|qwen2\.5\-coder:latest|VBG|failure||
+|6|2|She sang a song;She|PRP|Tests pronoun identification, confirming singular tag output\.|qwen2\.5\-coder:latest|NN|failure||
+|6|3|They were walking in the park;in|IN|Tests preposition identification in a clear context, ensuring correct tag without extra text\.|qwen2\.5\-coder:latest|IN|success||
+|1|1|The quick brown fox jumps over the lazy dog;fox|NN|Tests noun identification using a classic sentence\. Valid input as per specification\.|llama3\.2:3b|NN|success||
+|1|2|She swiftly ran towards the finish line;swiftly|RB|Tests adverb identification\. The word is clearly an adverb, ensuring adherence to part of speech tagging rules\.|llama3\.2:3b|VB|failure||
+|1|3|Every cloud has a silver lining;Every|DT|Tests determiner identification\. Valid sentence and word separation with expected determiner tag\.|llama3\.2:3b|CC|failure||
+|2|1|I will go to the park later;will|MD|Tests for modal verb identification, confirming expected output format compliance\.|llama3\.2:3b|VBZ|failure||
+|2|2|Anna and Mike went to the store;and|CC|Tests coordinating conjunction identification, checking the concise output requirement\.|llama3\.2:3b|Unknown|failure||
+|2|3|Quickly finish your homework;Quickly|RB|Tests adverb identification with a straightforward adverb, ensuring correct tag\.|llama3\.2:3b|RB|success||
+|3|1|Xyzzy is not a real word;Xyzzy|Unknown|Tests handling of nonsensical word, expecting 'Unknown'\. Valid input format\.|llama3\.2:3b|WP: Foreign word|failure||
+|3|2|Her paintings were in vivid colors;vivid|JJ|Tests adjective recognition, ensuring 'Unknown' is correctly not triggered\.|llama3\.2:3b|JJR|failure||
+|3|3|He felt a sense of deja vu;deja|FW|Tests foreign word recognition, ensuring correct tagging of foreign words\.|llama3\.2:3b|Unknown|failure||
+|4|1|Blorft is the best word ever;Blorft|CantAnswer|Tests unclear tagging situation with a made\-up word, expecting 'CantAnswer'\.|llama3\.2:3b|Unknown|failure||
+|4|2|The cat sat on the mat;mat|NN|Tests clear noun identification, ensuring 'CantAnswer' is not triggered incorrectly\.|llama3\.2:3b|NN|success||
+|4|3|She can dance very well;can|MD|Tests tagging of modal verb, ensuring clear cases are tagged correctly without 'CantAnswer'\.|llama3\.2:3b|RB|failure||
+|5|1|An apple a day keeps the doctor away;An|DT|Tests determiner recognition, ensuring uppercase tag output\.|llama3\.2:3b|CC|failure||
+|5|2|Tomorrow will be a brighter day;Tomorrow|NN|Tests correct noun tagging with uppercase output\.|llama3\.2:3b|Tomorrow|failure||
+|5|3|He looked at the beautiful sunset;beautiful|JJ|Tests adjective tag adherence to capitalization rule\.|llama3\.2:3b|JJ|success||
+|6|1|Eat, sleep, repeat;repeat|VB|Tests verb identification, ensuring no additional text accompanies the tag\.|llama3\.2:3b|VB|success||
+|6|2|She sang a song;She|PRP|Tests pronoun identification, confirming singular tag output\.|llama3\.2:3b|CC|failure||
+|6|3|They were walking in the park;in|IN|Tests preposition identification in a clear context, ensuring correct tag without extra text\.|llama3\.2:3b|IN|success||
+
+### [test_evals.csv](./speech-tag.test_evals.csv)
+
+|Rule ID|Test ID|Test Input|Expected Output|Reasoning|evaluation|
+|-|-|-|-|-|-|
+|1|1|The quick brown fox jumps over the lazy dog;fox|NN|Tests noun identification using a classic sentence\. Valid input as per specification\.|NOUN|
+|1|2|She swiftly ran towards the finish line;swiftly|RB|Tests adverb identification\. The word is clearly an adverb, ensuring adherence to part of speech tagging rules\.|ADVERB|
+|1|3|Every cloud has a silver lining;Every|DT|Tests determiner identification\. Valid sentence and word separation with expected determiner tag\.|DET|
+|2|1|I will go to the park later;will|MD|Tests for modal verb identification, confirming expected output format compliance\.|MD|
+|2|2|Anna and Mike went to the store;and|CC|Tests coordinating conjunction identification, checking the concise output requirement\.|CONJUNCTION|
+|2|3|Quickly finish your homework;Quickly|RB|Tests adverb identification with a straightforward adverb, ensuring correct tag\.|RB|
+|3|1|Xyzzy is not a real word;Xyzzy|Unknown|Tests handling of nonsensical word, expecting 'Unknown'\. Valid input format\.|Unknown|
+|3|2|Her paintings were in vivid colors;vivid|JJ|Tests adjective recognition, ensuring 'Unknown' is correctly not triggered\.|ADJ|
+|3|3|He felt a sense of deja vu;deja|FW|Tests foreign word recognition, ensuring correct tagging of foreign words\.|Unknown|
+|4|1|Blorft is the best word ever;Blorft|CantAnswer|Tests unclear tagging situation with a made\-up word, expecting 'CantAnswer'\.|UNKNOWN|
+|4|2|The cat sat on the mat;mat|NN|Tests clear noun identification, ensuring 'CantAnswer' is not triggered incorrectly\.|NOUN|
+|4|3|She can dance very well;can|MD|Tests tagging of modal verb, ensuring clear cases are tagged correctly without 'CantAnswer'\.|MD|
+|5|1|An apple a day keeps the doctor away;An|DT|Tests determiner recognition, ensuring uppercase tag output\.|DET|
+|5|2|Tomorrow will be a brighter day;Tomorrow|NN|Tests correct noun tagging with uppercase output\.|NOUN|
+|5|3|He looked at the beautiful sunset;beautiful|JJ|Tests adjective tag adherence to capitalization rule\.|ADJECTIVE|
+|6|1|Eat, sleep, repeat;repeat|VB|Tests verb identification, ensuring no additional text accompanies the tag\.|VERB|
+|6|2|She sang a song;She|PRP|Tests pronoun identification, confirming singular tag output\.|PRONOUN|
+|6|3|They were walking in the park;in|IN|Tests preposition identification in a clear context, ensuring correct tag without extra text\.|PREPOSITION|

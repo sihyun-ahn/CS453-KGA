@@ -27,12 +27,11 @@ export interface PromptPexTest {
 
 export interface PromptPexTestResult extends PromptPexTest {
   model: string;
-  actualOutput: string;
-  status: "success" | "failure" | "invalid-inputs";
+  output: string;
   error?: string;
 }
 
-export interface PromptPexTestEval extends PromptPexTestResult {
+export interface PromptPexTestEval extends PromptPexTest {
   evaluation: string;
 }
 
@@ -324,8 +323,17 @@ async function resolveTestPath(
       .toLowerCase()
   );
   const file = await workspace.readText(path.join(dir, `${id}.json`));
-  const evaluation = await workspace.readText(path.join(dir, `${id}.eval.txt`));
-  return { id, file, evaluation };
+  return { id, file };
+}
+
+async function resolveTestEvalPath(
+  files: Pick<PromptPexContext, "prompt" | "dir" | "basename">,
+  test: PromptPexTest
+) {
+  const id = await resolveTestId(files, test);
+  const dir = path.join(files.dir, files.basename, "evals");
+  const file = await workspace.readText(path.join(dir, `${id}.json`));
+  return { id, file };
 }
 
 function resolvePromptArgs(
@@ -371,8 +379,7 @@ export async function executeTest(
     return {
       ...test,
       model: moptions.model,
-      actualOutput: "invalid test input",
-      status: "invalid-inputs",
+      output: "invalid test input",
       error: "invalid test input",
     } satisfies PromptPexTestResult;
 
@@ -392,8 +399,7 @@ export async function executeTest(
   const testRes = {
     ...test,
     model: res.model,
-    actualOutput: actualOutput,
-    status: actualOutput === expectedOutput ? "success" : "failure",
+    output: actualOutput,
     error: res.error?.message,
   } satisfies PromptPexTestResult;
 
@@ -407,20 +413,19 @@ export async function evaluateTests(
     PromptPexContext,
     "tests" | "prompt" | "dir" | "basename" | "testResults" | "intent" | "rules"
   >,
-  options?: { models?: ModelType[]; force?: boolean; concurrency?: number }
+  options?: { force?: boolean; concurrency?: number }
 ): Promise<string> {
-  const { force, models, concurrency = CONCURRENCY } = options || {};
+  const { force, concurrency = CONCURRENCY } = options || {};
   const tests = CSV.parse(files.tests.content) as PromptPexTest[];
   if (!tests?.length) throw new Error("No tests found");
 
   console.log(`evaluating ${tests.length} tests`);
   const q = host.promiseQueue(concurrency);
   const testEvals: PromptPexTestEval[] = [];
-  for (const model of models)
-    await q.mapAll(tests, async (test) => {
-      const testRes = await evaluateTest(files, test, { model, force });
-      if (testRes) testEvals.push(testRes);
-    });
+  await q.mapAll(tests, async (test) => {
+    const testEval = await evaluateTest(files, test, { force });
+    if (testEval) testEvals.push(testEval);
+  });
   return CSV.stringify(testEvals, { header: true });
 }
 
@@ -432,21 +437,14 @@ export async function evaluateTest(
   test: PromptPexTest,
   options?: { model?: ModelType; force?: boolean }
 ): Promise<PromptPexTestEval> {
-  const { model, force } = options || {};
+  const { force } = options || {};
   const moptions = {
     ...modelOptions(),
   };
   if (options?.model) moptions.model = options.model;
-  const { file, evaluation } = await resolveTestPath(files, test, {
-    model,
-  });
-  if (!file.content) {
-    console.error(`No test result found at ${file.filename}`);
-    return undefined;
-  }
-  if (evaluation.content && !force) return JSON.parse(evaluation.content);
+  const { file } = await resolveTestEvalPath(files, test);
+  if (file.content && !force) return JSON.parse(file.content);
 
-  const testResult = JSON.parse(file.content);
   const intent = files.intent.content;
   if (!intent) throw new Error("No intent found");
   const rules = files.rules.content;
@@ -458,11 +456,7 @@ export async function evaluateTest(
   );
   if (!args)
     return {
-      ...testResult,
-      model: moptions.model,
-      actualOutput: "invalid test input",
-      status: "invalid-inputs",
-      error: "invalid test input",
+      ...test,
       evaluation: "",
     } satisfies PromptPexTestEval;
 
@@ -486,17 +480,14 @@ export async function evaluateTest(
       label: `evaluate test ${testInput.slice(0, 42)}...`,
     }
   );
-  const testRes = {
-    ...testResult,
+  const testEval = {
+    ...test,
     evaluation: res.text,
   } satisfies PromptPexTestEval;
 
-  await workspace.writeText(
-    evaluation.filename,
-    JSON.stringify(testRes, null, 2)
-  );
+  await workspace.writeText(file.filename, JSON.stringify(testEval, null, 2));
 
-  return testRes;
+  return testEval;
 }
 
 function parseRules(rules: string) {

@@ -1,0 +1,19 @@
+Rule ID,Test ID,Test Input,Expected Output,Reasoning,evaluation
+1,1,The quick brown fox jumps over the lazy dog;fox,NN,Tests noun identification using a classic sentence. Valid input as per specification.,NOUN
+1,2,She swiftly ran towards the finish line;swiftly,RB,"Tests adverb identification. The word is clearly an adverb, ensuring adherence to part of speech tagging rules.",ADVERB
+1,3,Every cloud has a silver lining;Every,DT,Tests determiner identification. Valid sentence and word separation with expected determiner tag.,DET
+2,1,I will go to the park later;will,MD,"Tests for modal verb identification, confirming expected output format compliance.",MD
+2,2,Anna and Mike went to the store;and,CC,"Tests coordinating conjunction identification, checking the concise output requirement.",CONJUNCTION
+2,3,Quickly finish your homework;Quickly,RB,"Tests adverb identification with a straightforward adverb, ensuring correct tag.",RB
+3,1,Xyzzy is not a real word;Xyzzy,Unknown,"Tests handling of nonsensical word, expecting 'Unknown'. Valid input format.",Unknown
+3,2,Her paintings were in vivid colors;vivid,JJ,"Tests adjective recognition, ensuring 'Unknown' is correctly not triggered.",ADJ
+3,3,He felt a sense of deja vu;deja,FW,"Tests foreign word recognition, ensuring correct tagging of foreign words.",Unknown
+4,1,Blorft is the best word ever;Blorft,CantAnswer,"Tests unclear tagging situation with a made-up word, expecting 'CantAnswer'.",UNKNOWN
+4,2,The cat sat on the mat;mat,NN,"Tests clear noun identification, ensuring 'CantAnswer' is not triggered incorrectly.",NOUN
+4,3,She can dance very well;can,MD,"Tests tagging of modal verb, ensuring clear cases are tagged correctly without 'CantAnswer'.",MD
+5,1,An apple a day keeps the doctor away;An,DT,"Tests determiner recognition, ensuring uppercase tag output.",DET
+5,2,Tomorrow will be a brighter day;Tomorrow,NN,Tests correct noun tagging with uppercase output.,NOUN
+5,3,He looked at the beautiful sunset;beautiful,JJ,Tests adjective tag adherence to capitalization rule.,ADJECTIVE
+6,1,"Eat, sleep, repeat;repeat",VB,"Tests verb identification, ensuring no additional text accompanies the tag.",VERB
+6,2,She sang a song;She,PRP,"Tests pronoun identification, confirming singular tag output.",PRONOUN
+6,3,They were walking in the park;in,IN,"Tests preposition identification in a clear context, ensuring correct tag without extra text.",PREPOSITION

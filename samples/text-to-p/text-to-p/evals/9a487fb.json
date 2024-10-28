@@ -1,0 +1,8 @@
+{
+  "Rule ID": "2",
+  "Test ID": "2",
+  "Test Input": "Coffee is hot. Tea is warm. Juice is cold.",
+  "Expected Output": "<p>Coffee is hot. <strong>Coffee</strong> is <em>hot</em>.</p><p>Tea is warm. <strong>Tea</strong> is <em>warm</em>.</p><p>Juice is cold. <strong>Juice</strong> is <em>cold</em>.</p>",
+  "Reasoning": "Verifies separation of sentences into distinct <p> tags.",
+  "evaluation": "```html\n<p>Coffee is <strong>hot</strong>. <em>Coffee</em> is <em>hot</em>.</p>\n<p>Tea is <strong>warm</strong>. <em>Tea</em> is <em>warm</em>.</p>\n<p>Juice is <strong>cold</strong>. <em>Juice</em> is <em>cold</em>.</p>\n```"
+}
