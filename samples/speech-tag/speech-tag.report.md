@@ -171,59 +171,59 @@ sentence: "They found three missing keys." ; word: "three"
 
 ### [test_results.csv](./speech-tag.test_results.csv)
 
-|id|model|error|input|output|
-|-|-|-|-|-|
-|6b915e8|phi3\.5||The quick brown fox jumps over the lazy dog;fox|NNPS \(Proper noun, plural\)|
-|0b47eb2|phi3\.5||She swiftly ran towards the finish line;swiftly|RB \(Adverb\)|
-|9296662|phi3\.5||Every cloud has a silver lining;Every|CD \(Cardinal number\) in the phrase "Every" as it indicates quantity\. However, since there is no clear indication of context or further words to assess grammatical function accurately within this isolated snippet, if ambiguity arises due to lack of information surrounding usage and role herein, return CantAnswer\.<br><br>Here: DT \(Determiner\) because "Every" functions as a determiner specifying each cloud in the general sense being discussed\. It denotes totality or completeness without exclusion before nouns such as 'cloud\.' <br><br>\(Note that this answer assumes basic understanding of English determiners' role and might not account for all nuanced grammatical situations\.\)|
-|62d03d0|phi3\.5||I will go to the park later;will|MD \(Modal\)|
-|d964585|phi3\.5||Anna and Mike went to the store;and|CC \(Coordinating conjunction\)|
-|766cf78|phi3\.5||Quickly finish your homework;Quickly|RB \(Adverb\)|
-|e08d46a|phi3\.5||Xyzzy is not a real word;Xyzzy|Unknown \(Since "Xyzzy" does not match any listed part of speech and cannot be reasonably tagged\)|
-|a22ce25|phi3\.5||Her paintings were in vivid colors;vivid|JJ \(Adjective\)|
-|f43530d|phi3\.5||He felt a sense of deja vu;deja|IDF \(Adverb\) \- Since "deja" is an adverb here describing the feeling experienced by 'he', it's tagged as IDF\. However, I must note that there isn't specific part\-of\-speech code for this exact form of de ja vu in your provided list\. So based on available tags and typical usage, we conclude with "IDF"\. In a more comprehensive analysis toolset though, you might find distinctly accurate tagging elsewhere such as RB \(Adverb\)\. This emphasizes the importance to always refer back to tools or resources that best represent actual linguistic standards for context\-specific parts of speech\.|
-|27c3f4e|phi3\.5||Blorft is the best word ever;Blorft|WRB \(Adverb\)|
-|7f3a7ca|phi3\.5||The cat sat on the mat;mat|DT \(Determiner\)|
-|8c2f4b9|phi3\.5||She can dance very well;can|VBD \(Verb, past tense\)|
-|070861d|phi3\.5||An apple a day keeps the doctor away;An|CD \(Cardinal number\) \- The "1" in "an apple", indicating quantity\. However, since it's part of an idiomatic expression and not directly referenced as having any specific grammatical function other than counting apples, this can also be argued to serve more generally the role of a determiner or article here \(DT\), depending on interpretation context within language analysis frameworks\.|
-|5d1ff70|phi3\.5||Tomorrow will be a brighter day;Tomorrow|TO \(to\)|
-|fea041d|phi3\.5||He looked at the beautiful sunset;beautiful|JJ \(Adjective\)|
-|a833b52|phi3\.5||Eat, sleep, repeat;repeat|VB|
-|4b603f5|phi3\.5||She sang a song;She|PRP \(Personal pronoun\)|
-|8191efc|phi3\.5||They were walking in the park;in|BEZ: Verb, present participle \(VBG\) or past participle \(VBN\), depending on context\. Here without additional context it's ambiguous so I would default to VBG assuming an action happening at this moment \("were walking"\)\. However, if the sentence is referring to a completed action in the past, then BB: Past tense should be used instead \(\`were walked\`\)\. Given no further information though and following standard practice due to potential present context reference, let's go with VBG\.<br><br>Please note that without additional sentences or broader text for clearer temporal understanding it’s difficult to assign a definitive tag — real\-world usage might slightly vary based on nuance in spoken English versus written forms which could change the interpretation from an event happening now \(present participle\) vs one already completed at this point of speech/writing reference timeframe\.<br><br>But for safety and sticking strictly with explicit instructions, I am providing two possibilities accounted by context sensitivity: <br>\- VBG if they are currently walking in present continuous tense usage during the narrative; or<br>\- BB \(Past Tense\) assuming this refers to completed past action at a specific moment when described\. Given typical English syntax and without additional text, I’m leaning towards current activity reference as it's common: VBG|
-|6b915e8|qwen2\.5\-coder:latest||The quick brown fox jumps over the lazy dog;fox|NN|
-|0b47eb2|qwen2\.5\-coder:latest||She swiftly ran towards the finish line;swiftly|RB|
-|9296662|qwen2\.5\-coder:latest||Every cloud has a silver lining;Every|Unknown|
-|62d03d0|qwen2\.5\-coder:latest||I will go to the park later;will|VBP|
-|d964585|qwen2\.5\-coder:latest||Anna and Mike went to the store;and|CC|
-|766cf78|qwen2\.5\-coder:latest||Quickly finish your homework;Quickly|RB|
-|e08d46a|qwen2\.5\-coder:latest||Xyzzy is not a real word;Xyzzy|Unknown|
-|a22ce25|qwen2\.5\-coder:latest||Her paintings were in vivid colors;vivid|JJ|
-|f43530d|qwen2\.5\-coder:latest||He felt a sense of deja vu;deja|NN|
-|27c3f4e|qwen2\.5\-coder:latest||Blorft is the best word ever;Blorft|NNP|
-|7f3a7ca|qwen2\.5\-coder:latest||The cat sat on the mat;mat|NN|
-|8c2f4b9|qwen2\.5\-coder:latest||She can dance very well;can|VBG|
-|070861d|qwen2\.5\-coder:latest||An apple a day keeps the doctor away;An|Unknown|
-|5d1ff70|qwen2\.5\-coder:latest||Tomorrow will be a brighter day;Tomorrow|VBG|
-|fea041d|qwen2\.5\-coder:latest||He looked at the beautiful sunset;beautiful|JJ|
-|a833b52|qwen2\.5\-coder:latest||Eat, sleep, repeat;repeat|VBZ|
-|4b603f5|qwen2\.5\-coder:latest||She sang a song;She|VBG|
-|8191efc|qwen2\.5\-coder:latest||They were walking in the park;in|Unknown|
-|6b915e8|llama3\.2:3b||The quick brown fox jumps over the lazy dog;fox|JJ|
-|0b47eb2|llama3\.2:3b||She swiftly ran towards the finish line;swiftly|RBR|
-|9296662|llama3\.2:3b||Every cloud has a silver lining;Every|RP|
-|62d03d0|llama3\.2:3b||I will go to the park later;will|WRB|
-|d964585|llama3\.2:3b||Anna and Mike went to the store;and|CC|
-|766cf78|llama3\.2:3b||Quickly finish your homework;Quickly|RB|
-|e08d46a|llama3\.2:3b||Xyzzy is not a real word;Xyzzy|FW|
-|a22ce25|llama3\.2:3b||Her paintings were in vivid colors;vivid|VB|
-|f43530d|llama3\.2:3b||He felt a sense of deja vu;deja|Unknown|
-|27c3f4e|llama3\.2:3b||Blorft is the best word ever;Blorft|Unknown|
-|7f3a7ca|llama3\.2:3b||The cat sat on the mat;mat|Unknown|
-|8c2f4b9|llama3\.2:3b||She can dance very well;can|NNP|
-|070861d|llama3\.2:3b||An apple a day keeps the doctor away;An|CC|
-|5d1ff70|llama3\.2:3b||Tomorrow will be a brighter day;Tomorrow|Tomorrow|
-|fea041d|llama3\.2:3b||He looked at the beautiful sunset;beautiful|JJ|
-|a833b52|llama3\.2:3b||Eat, sleep, repeat;repeat|JJR|
-|4b603f5|llama3\.2:3b||She sang a song;She|Unknown|
-|8191efc|llama3\.2:3b||They were walking in the park;in|CC|
+|id|model|input|output|
+|-|-|-|-|
+|6b915e8|phi3\.5|The quick brown fox jumps over the lazy dog;fox|NNPS \(Proper noun, plural\)|
+|0b47eb2|phi3\.5|She swiftly ran towards the finish line;swiftly|RB \(Adverb\)|
+|9296662|phi3\.5|Every cloud has a silver lining;Every|CD \(Cardinal number\) in the phrase "Every" as it indicates quantity\. However, since there is no clear indication of context or further words to assess grammatical function accurately within this isolated snippet, if ambiguity arises due to lack of information surrounding usage and role herein, return CantAnswer\.<br><br>Here: DT \(Determiner\) because "Every" functions as a determiner specifying each cloud in the general sense being discussed\. It denotes totality or completeness without exclusion before nouns such as 'cloud\.' <br><br>\(Note that this answer assumes basic understanding of English determiners' role and might not account for all nuanced grammatical situations\.\)|
+|62d03d0|phi3\.5|I will go to the park later;will|MD \(Modal\)|
+|d964585|phi3\.5|Anna and Mike went to the store;and|CC \(Coordinating conjunction\)|
+|766cf78|phi3\.5|Quickly finish your homework;Quickly|RB \(Adverb\)|
+|e08d46a|phi3\.5|Xyzzy is not a real word;Xyzzy|Unknown \(Since "Xyzzy" does not match any listed part of speech and cannot be reasonably tagged\)|
+|a22ce25|phi3\.5|Her paintings were in vivid colors;vivid|JJ \(Adjective\)|
+|f43530d|phi3\.5|He felt a sense of deja vu;deja|IDF \(Adverb\) \- Since "deja" is an adverb here describing the feeling experienced by 'he', it's tagged as IDF\. However, I must note that there isn't specific part\-of\-speech code for this exact form of de ja vu in your provided list\. So based on available tags and typical usage, we conclude with "IDF"\. In a more comprehensive analysis toolset though, you might find distinctly accurate tagging elsewhere such as RB \(Adverb\)\. This emphasizes the importance to always refer back to tools or resources that best represent actual linguistic standards for context\-specific parts of speech\.|
+|27c3f4e|phi3\.5|Blorft is the best word ever;Blorft|WRB \(Adverb\)|
+|7f3a7ca|phi3\.5|The cat sat on the mat;mat|DT \(Determiner\)|
+|8c2f4b9|phi3\.5|She can dance very well;can|VBD \(Verb, past tense\)|
+|070861d|phi3\.5|An apple a day keeps the doctor away;An|CD \(Cardinal number\) \- The "1" in "an apple", indicating quantity\. However, since it's part of an idiomatic expression and not directly referenced as having any specific grammatical function other than counting apples, this can also be argued to serve more generally the role of a determiner or article here \(DT\), depending on interpretation context within language analysis frameworks\.|
+|5d1ff70|phi3\.5|Tomorrow will be a brighter day;Tomorrow|TO \(to\)|
+|fea041d|phi3\.5|He looked at the beautiful sunset;beautiful|JJ \(Adjective\)|
+|a833b52|phi3\.5|Eat, sleep, repeat;repeat|VB|
+|4b603f5|phi3\.5|She sang a song;She|PRP \(Personal pronoun\)|
+|8191efc|phi3\.5|They were walking in the park;in|BEZ: Verb, present participle \(VBG\) or past participle \(VBN\), depending on context\. Here without additional context it's ambiguous so I would default to VBG assuming an action happening at this moment \("were walking"\)\. However, if the sentence is referring to a completed action in the past, then BB: Past tense should be used instead \(\`were walked\`\)\. Given no further information though and following standard practice due to potential present context reference, let's go with VBG\.<br><br>Please note that without additional sentences or broader text for clearer temporal understanding it’s difficult to assign a definitive tag — real\-world usage might slightly vary based on nuance in spoken English versus written forms which could change the interpretation from an event happening now \(present participle\) vs one already completed at this point of speech/writing reference timeframe\.<br><br>But for safety and sticking strictly with explicit instructions, I am providing two possibilities accounted by context sensitivity: <br>\- VBG if they are currently walking in present continuous tense usage during the narrative; or<br>\- BB \(Past Tense\) assuming this refers to completed past action at a specific moment when described\. Given typical English syntax and without additional text, I’m leaning towards current activity reference as it's common: VBG|
+|6b915e8|qwen2\.5:3b|The quick brown fox jumps over the lazy dog;fox|NN|
+|0b47eb2|qwen2\.5:3b|She swiftly ran towards the finish line;swiftly|RB|
+|9296662|qwen2\.5:3b|Every cloud has a silver lining;Every|Unknown|
+|62d03d0|qwen2\.5:3b|I will go to the park later;will|WP|
+|d964585|qwen2\.5:3b|Anna and Mike went to the store;and|Unknown|
+|766cf78|qwen2\.5:3b|Quickly finish your homework;Quickly|VB|
+|e08d46a|qwen2\.5:3b|Xyzzy is not a real word;Xyzzy|Unknown|
+|a22ce25|qwen2\.5:3b|Her paintings were in vivid colors;vivid|JJ|
+|f43530d|qwen2\.5:3b|He felt a sense of deja vu;deja|NN|
+|27c3f4e|qwen2\.5:3b|Blorft is the best word ever;Blorft|NN|
+|7f3a7ca|qwen2\.5:3b|The cat sat on the mat;mat|NN|
+|8c2f4b9|qwen2\.5:3b|She can dance very well;can|VB|
+|070861d|qwen2\.5:3b|An apple a day keeps the doctor away;An|Unknown|
+|5d1ff70|qwen2\.5:3b|Tomorrow will be a brighter day;Tomorrow|TO|
+|fea041d|qwen2\.5:3b|He looked at the beautiful sunset;beautiful|JJ|
+|a833b52|qwen2\.5:3b|Eat, sleep, repeat;repeat|CantAnswer|
+|4b603f5|qwen2\.5:3b|She sang a song;She|VB|
+|8191efc|qwen2\.5:3b|They were walking in the park;in|IN|
+|6b915e8|llama3\.2:3b|The quick brown fox jumps over the lazy dog;fox|JJ|
+|0b47eb2|llama3\.2:3b|She swiftly ran towards the finish line;swiftly|RBR|
+|9296662|llama3\.2:3b|Every cloud has a silver lining;Every|RP|
+|62d03d0|llama3\.2:3b|I will go to the park later;will|WRB|
+|d964585|llama3\.2:3b|Anna and Mike went to the store;and|CC|
+|766cf78|llama3\.2:3b|Quickly finish your homework;Quickly|RB|
+|e08d46a|llama3\.2:3b|Xyzzy is not a real word;Xyzzy|FW|
+|a22ce25|llama3\.2:3b|Her paintings were in vivid colors;vivid|VB|
+|f43530d|llama3\.2:3b|He felt a sense of deja vu;deja|Unknown|
+|27c3f4e|llama3\.2:3b|Blorft is the best word ever;Blorft|Unknown|
+|7f3a7ca|llama3\.2:3b|The cat sat on the mat;mat|Unknown|
+|8c2f4b9|llama3\.2:3b|She can dance very well;can|NNP|
+|070861d|llama3\.2:3b|An apple a day keeps the doctor away;An|CC|
+|5d1ff70|llama3\.2:3b|Tomorrow will be a brighter day;Tomorrow|Tomorrow|
+|fea041d|llama3\.2:3b|He looked at the beautiful sunset;beautiful|JJ|
+|a833b52|llama3\.2:3b|Eat, sleep, repeat;repeat|JJR|
+|4b603f5|llama3\.2:3b|She sang a song;She|Unknown|
+|8191efc|llama3\.2:3b|They were walking in the park;in|CC|

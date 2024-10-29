@@ -1,4 +1,4 @@
-Rule ID,Test ID,Test Input,Expected Output,Reasoning,model,actualOutput,status,error
+Rule ID,Test ID,Test Input,Expected Output,Reasoning,model,actualOutput,status
 1,1,Amazon offers cloud computing services that provide scalable resources for developers. It also supports machine learning capabilities.,"Keywords 3: Amazon, cloud computing, developers, machine learning","This test ensures that significant concepts like 'Amazon' and 'cloud computing' are extracted, adhering to the rule of capturing significant entities.",phi3.5,"1. Amazon
 2. Cloud Computing Services
 3. Scalable Resources
@@ -6,8 +6,8 @@ Rule ID,Test ID,Test Input,Expected Output,Reasoning,model,actualOutput,status,e
 5. Machine Learning Capabilities
 Keywords: Amazon, Cloud Computing Services, Scalable Resources, Developers Support, Machine Learning Capabilities
 
-These keywords encapsulate the main elements of text provided about AWS's services for developers and its machine learning features.",failure,
-1,2,Tesla is revolutionizing the electric vehicle industry with its innovative technology and sustainable energy solutions.,"Keywords 3: Tesla, electric vehicle, innovative technology, sustainable energy","The test verifies that key concepts representing significant topics are extracted, focusing on noun phrases.",phi3.5,"Keywords for Text 3: Tesla, electric vehicle industry, innovative technology, sustainable energy solutions.",failure,
+These keywords encapsulate the main elements of text provided about AWS's services for developers and its machine learning features.",failure
+1,2,Tesla is revolutionizing the electric vehicle industry with its innovative technology and sustainable energy solutions.,"Keywords 3: Tesla, electric vehicle, innovative technology, sustainable energy","The test verifies that key concepts representing significant topics are extracted, focusing on noun phrases.",phi3.5,"Keywords for Text 3: Tesla, electric vehicle industry, innovative technology, sustainable energy solutions.",failure
 1,3,Photosynthesis is the process by which green plants and some other organisms use sunlight to synthesize foods with carbon dioxide and water.,"Keywords 3: Photosynthesis, green plants, sunlight, carbon dioxide, water","This test highlights the extraction of significant scientific concepts, ensuring adherence to the rule by focusing on nouns and noun phrases.",phi3.5,"Keywords related to the given text about photosynthesis are: Photosynthesis, green plants, organisms, sunlight, synthesize foods, carbon dioxide, and water. These keywords represent the core elements of the process being described in the original text. Here's a breakdown for clarity:
 
 1. Photosynthesis - The central concept or topic (noun) from which other relevant terms stem.
@@ -17,7 +17,7 @@ These keywords encapsulate the main elements of text provided about AWS's servic
 5. Carbon dioxide - Indicates the raw materials taken in by plants for synthesis during this energy conversion, pointing towards a biological aspect of photosynthesis (chemical substrate). 
 6. Water - Another essential input or ingredient required for the chemical reactions involved in producing food through Photosynthesis, thus linking to bio-physicochemistry part of process explanation here(substance used & reactant/product relationship)
 
-These keywords should effectively summarize and capture key information from your provided text about photosynthesis.",failure,
+These keywords should effectively summarize and capture key information from your provided text about photosynthesis.",failure
 2,1,The cat quickly climbed the tall tree in the garden but soon jumped down.,"Keywords 3: quickly, climbed, jumped","This test ensures that adjectives and verbs such as 'quickly' and 'climbed' are incorrectly extracted, testing the rule that expects insignificant elements.",phi3.5,"1. Cat
 2. Climbed
 3. Tall Tree
@@ -25,7 +25,7 @@ These keywords should effectively summarize and capture key information from you
 5. Jumped Down
 Keywords: Cat, Climbed, Tall Tree, Garden, Jumped Down
 
-These keywords were extracted as they represent the main subjects and actions in the given text which provide a summary of what is happening - A cat's action involving climbing and jumping down from a tall tree within a garden setting.",failure,
+These keywords were extracted as they represent the main subjects and actions in the given text which provide a summary of what is happening - A cat's action involving climbing and jumping down from a tall tree within a garden setting.",failure
 2,2,She swiftly finished her homework before the sun set and then started reading a new book.,"Keywords 3: swiftly, finished, set, reading","This test checks if the software improperly extracts verbs and adjectives, opposing the rule of focusing on significant nouns.",phi3.5,"Keywords from Text 3: She, swiftly finished, homework, before, sun set, started, reading, new book
 
 Here I've broken down each keyword as follows:
@@ -39,25 +39,25 @@ Here I've broken down each keyword as follows:
 7. ""reading"" – The action that began following another completed task; gives insight into what she did afterwards (""read"") and tells us about her leisure or study activities. 
 8. ""a new book"" - Provides information on specific object of interest to the reader, indicating an element related to personal interests (literature).
 
-These keywords aim at summarizing key concepts within each text segment while maintaining grammatical integrity and retaining important contextual details about actions performed by a subject.",failure,
+These keywords aim at summarizing key concepts within each text segment while maintaining grammatical integrity and retaining important contextual details about actions performed by a subject.",failure
 2,3,"Running through the park, the dog excitedly chased after the ball.","Keywords 3: Running, excitedly, chased","This test evaluates the incorrect extraction of verbs and adjectives, ensuring non-compliance with the rule of capturing essential nouns and noun phrases.",phi3.5,"1. Park
 2. Dog
 3. Chased
 4. Ball
 
-These keywords represent key elements of the text related to location (park), characters involved (dog), action taking place (chased) and object in motion/relevance within context (ball). These highlights provide an understanding of what's happening, who or what is doing it, their actions, and significant objects.",failure,
-1,1,Amazon offers cloud computing services that provide scalable resources for developers. It also supports machine learning capabilities.,"Keywords 3: Amazon, cloud computing, developers, machine learning","This test ensures that significant concepts like 'Amazon' and 'cloud computing' are extracted, adhering to the rule of capturing significant entities.",qwen2.5-coder:latest,"Keywords 3: Amazon, cloud computing, scalable resources, developers, machine learning",failure,
-1,2,Tesla is revolutionizing the electric vehicle industry with its innovative technology and sustainable energy solutions.,"Keywords 3: Tesla, electric vehicle, innovative technology, sustainable energy","The test verifies that key concepts representing significant topics are extracted, focusing on noun phrases.",qwen2.5-coder:latest,"Keywords 3: Tesla, electric vehicles, industry, innovative technology, sustainable energy solutions.",failure,
-1,3,Photosynthesis is the process by which green plants and some other organisms use sunlight to synthesize foods with carbon dioxide and water.,"Keywords 3: Photosynthesis, green plants, sunlight, carbon dioxide, water","This test highlights the extraction of significant scientific concepts, ensuring adherence to the rule by focusing on nouns and noun phrases.",qwen2.5-coder:latest,"**Keywords 3:** Photosynthesis, green plants, organisms, sunlight, synthesize, foods, carbon dioxide, water.",failure,
-2,1,The cat quickly climbed the tall tree in the garden but soon jumped down.,"Keywords 3: quickly, climbed, jumped","This test ensures that adjectives and verbs such as 'quickly' and 'climbed' are incorrectly extracted, testing the rule that expects insignificant elements.",qwen2.5-coder:latest," Keywords 3: cat, quick climb, tall tree, garden, jump down",failure,
-2,2,She swiftly finished her homework before the sun set and then started reading a new book.,"Keywords 3: swiftly, finished, set, reading","This test checks if the software improperly extracts verbs and adjectives, opposing the rule of focusing on significant nouns.",qwen2.5-coder:latest,"Homework, sunset, reading, book",failure,
-2,3,"Running through the park, the dog excitedly chased after the ball.","Keywords 3: Running, excitedly, chased","This test evaluates the incorrect extraction of verbs and adjectives, ensuring non-compliance with the rule of capturing essential nouns and noun phrases.",qwen2.5-coder:latest,"Keywords 3: running, park, dog, excitedly, chasing, ball",failure,
+These keywords represent key elements of the text related to location (park), characters involved (dog), action taking place (chased) and object in motion/relevance within context (ball). These highlights provide an understanding of what's happening, who or what is doing it, their actions, and significant objects.",failure
+,,,,,qwen2.5:3b,,
+,,,,,qwen2.5:3b,,
+,,,,,qwen2.5:3b,,
+,,,,,qwen2.5:3b,,
+,,,,,qwen2.5:3b,,
+,,,,,qwen2.5:3b,,
 1,1,Amazon offers cloud computing services that provide scalable resources for developers. It also supports machine learning capabilities.,"Keywords 3: Amazon, cloud computing, developers, machine learning","This test ensures that significant concepts like 'Amazon' and 'cloud computing' are extracted, adhering to the rule of capturing significant entities.",llama3.2:3b,"Here are the extracted keywords:
 
 - Amazon
 - Cloud Computing
 - Machine Learning
-- Developers",failure,
+- Developers",failure
 1,2,Tesla is revolutionizing the electric vehicle industry with its innovative technology and sustainable energy solutions.,"Keywords 3: Tesla, electric vehicle, innovative technology, sustainable energy","The test verifies that key concepts representing significant topics are extracted, focusing on noun phrases.",llama3.2:3b,"## Extracted Keywords:
 
 - Tesla
@@ -66,18 +66,18 @@ These keywords represent key elements of the text related to location (park), ch
 - Innovation
 - Technology
 - Sustainable Energy
-- Solutions",failure,
+- Solutions",failure
 1,3,Photosynthesis is the process by which green plants and some other organisms use sunlight to synthesize foods with carbon dioxide and water.,"Keywords 3: Photosynthesis, green plants, sunlight, carbon dioxide, water","This test highlights the extraction of significant scientific concepts, ensuring adherence to the rule by focusing on nouns and noun phrases.",llama3.2:3b,"Here are the extracted keywords:
 
 * Photosynthesis
 * Green plants
 * Sunlight
 * Carbon dioxide
-* Water",failure,
+* Water",failure
 2,1,The cat quickly climbed the tall tree in the garden but soon jumped down.,"Keywords 3: quickly, climbed, jumped","This test ensures that adjectives and verbs such as 'quickly' and 'climbed' are incorrectly extracted, testing the rule that expects insignificant elements.",llama3.2:3b,"## Extracted Keywords
 - **cat**
 - **tree**
-- **garden**",failure,
+- **garden**",failure
 2,2,She swiftly finished her homework before the sun set and then started reading a new book.,"Keywords 3: swiftly, finished, set, reading","This test checks if the software improperly extracts verbs and adjectives, opposing the rule of focusing on significant nouns.",llama3.2:3b,"Here are the extracted keywords:
 
 * Swiftly
@@ -86,10 +86,10 @@ These keywords represent key elements of the text related to location (park), ch
 * Sun
 * Set
 * Reading
-* Book",failure,
+* Book",failure
 2,3,"Running through the park, the dog excitedly chased after the ball.","Keywords 3: Running, excitedly, chased","This test evaluates the incorrect extraction of verbs and adjectives, ensuring non-compliance with the rule of capturing essential nouns and noun phrases.",llama3.2:3b,"## Extracted Keywords
 - dog
 - park
 - ball 
 
-Note that only words with clear meaning in this context were chosen as keywords.",failure,
+Note that only words with clear meaning in this context were chosen as keywords.",failure
