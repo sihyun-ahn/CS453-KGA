@@ -240,22 +240,24 @@
       "reasoning": "Validates exclusion of personal flair"
     },
     {
-      "inverse": true,
       "input": "current date: today, forecast date: 2023-12-04, temperature: 17°C, day: Monday",
       "expected": "Brief weather summary for Monday",
       "reasoning": "Ensures brief summary output"
     },
     {
-      "inverse": true,
       "input": "current date: today, forecast date: 2023-12-05, temperature: 20°C, day: Tuesday",
       "expected": "Concise weather summary for Tuesday",
       "reasoning": "Confirms brevity in output"
     },
     {
-      "inverse": true,
       "input": "current date: today, forecast date: 2023-12-06, temperature: 23°C, day: Wednesday",
       "expected": "Summary of Wednesday's weather",
       "reasoning": "Validates brief forecast requirement"
     }
+  ],
+  "errors": [
+    "test 33 references non-existent rule 12 in samples/prompt-flow-howto/weather.tests.csv",
+    "test 34 references non-existent rule 12 in samples/prompt-flow-howto/weather.tests.csv",
+    "test 35 references non-existent rule 12 in samples/prompt-flow-howto/weather.tests.csv"
   ]
 }

@@ -35,22 +35,24 @@
       "reasoning": "Validates the software's capability to succinctly summarize shared stylistic elements that align with the writer's preferences."
     },
     {
-      "inverse": true,
       "input": "Passage 1: Tone: Formal, Voice: Third-person narrative, Word Choice: Complex, Sentence Structure: Varied, Paragraph Structure: Mixed. Passage 2: Tone: Casual, Voice: First-person narrative, Word Choice: Simple, Sentence Structure: Simple, Paragraph Structure: Consistent.",
       "expected": "The writer dislikes...",
       "reasoning": "Challenges the software to recognize the absence of common stylistic elements and reflect this in multiple ambiguous sentences."
     },
     {
-      "inverse": true,
       "input": "Passage 1: Tone: Dramatic, Voice: First-person, Word Choice: Evocative, Sentence Structure: Complex, Paragraph Structure: Short. Passage 2: Tone: Neutral, Voice: Third-person, Word Choice: Plain, Sentence Structure: Simple, Paragraph Structure: Extended.",
       "expected": "The writer dislikes...",
       "reasoning": "Tests the software's ability to detect disparities in style and express this in an expanded format without justifications."
     },
     {
-      "inverse": true,
       "input": "Passage 1: Tone: Sarcastic, Voice: Informal, Word Choice: Slang, Sentence Structure: Fragmented, Paragraph Structure: Erratic. Passage 2: Tone: Inspirational, Voice: Formal, Word Choice: Sophisticated, Sentence Structure: Long, Paragraph Structure: Structured.",
       "expected": "The writer dislikes...",
       "reasoning": "Examines how the software handles and articulates differences in passages with distinct stylistic features."
     }
+  ],
+  "errors": [
+    "test 3 references non-existent rule 2 in samples/writer-likes/writer_likes.tests.csv",
+    "test 4 references non-existent rule 2 in samples/writer-likes/writer_likes.tests.csv",
+    "test 5 references non-existent rule 2 in samples/writer-likes/writer_likes.tests.csv"
   ]
 }

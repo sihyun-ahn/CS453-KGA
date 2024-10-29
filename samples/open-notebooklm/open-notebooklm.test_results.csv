@@ -1,4 +1,4 @@
-Rule ID,Test ID,Test Input,Expected Output,Reasoning,model,actualOutput,status,error
+Rule ID,Test ID,Test Input,Expected Output,Reasoning,model,actualOutput,status
 1,1,"Text with multiple topics, anecdotes, and irrelevant info.",Dialogue with each line ≤ 100 characters.,"Ensures dialogue lines are concise, adhering to character limit.",phi3.5,"```json
 {
   ""podcast_script"": {
@@ -15,7 +15,7 @@ Rule ID,Test ID,Test Input,Expected Output,Reasoning,model,actualOutput,status,e
       ""round1"": [
         {""host"": """", ""guest"": [{
           ""question"": 'Can you share a mind-blowing invention from history that still influences today?', 
-          ""response"": ""'Dr. Hues smiles and begins, “Absolutely! Have you ever pondered the Antikythera mechanism?'",failure,
+          ""response"": ""'Dr. Hues smiles and begins, “Absolutely! Have you ever pondered the Antikythera mechanism?'",failure
 1,2,Complex topics with potential for lengthy explanations.,"Lines are ≤ 100 characters, brief yet informative.",Tests ability to distill complex info into short lines.,phi3.5,"```json
 {
   ""Jane"": ""Welcome back to another episode of 'Insightful Discussions.' I'm your host, Jane Doe, diving deep into some head-turningly complex subjects today."",
@@ -38,7 +38,7 @@ Rule ID,Test ID,Test Input,Expected Output,Reasoning,model,actualOutput,status,e
 ""Jane"": ""So to recap our discussion on quantum computing – it's not just some futuristic dream but a rapidly evolving technology that could revolutionize everything from medicine to cybersecurity. Truly fascinating, isn’t it?"",
 // Jane would end with an engaging question or call-to-action for listeners: ""So what do you think the impact of quantum computing will be on your daily life in 10 years?""
 }
-```",failure,
+```",failure
 1,3,Text with redundant information and key insights.,Dialogue with concise lines not exceeding 100 chars.,Challenges condensing valuable insights into short dialogue.,phi3.5,"```json
 {
   ""podcast_script"": [
@@ -114,7 +114,7 @@ Rule ID,Test ID,Test Input,Expected Output,Reasoning,model,actualOutput,status,e
   ],
   ""janeSummarizeKeyInsightsLine100charsMax"": true
 }
-```",failure,
+```",failure
 2,1,Unstructured text with historical facts and modern context.,"Host initiates, guides, and summarizes insights.",Validates structure where host leads and concludes discussion.,phi3.5,"```json
 {
   ""Jane"": ""Welcome back to 'Times Past Today,' where history meets nowadays! I'm your host, Jane, diving into the echoes of yesterday that shape our world today."",
@@ -161,7 +161,7 @@ Rule ID,Test ID,Test Input,Expected Output,Reasoning,model,actualOutput,status,e
     ""*Closing Remarks*"": {
       ""Jane’S Parting Thought"": ""[smiles] That was quite the historical journey, wasn't it? Connectivity across ages—it really does make sense. Thanks for sharing your insights today.""
       },
-  }",failure,
+  }",failure
 2,2,Messy input with scientific discoveries and theories.,Conversation starts and ends with host's questions and summaries.,Ensures host's role in maintaining conversation flow.,phi3.5,"```json
 {
   ""Jane"": ""Welcome back to 'Science Simplified', I'm your host Jane Doe diving deep into today's fascinating world of science! We often hear about groundbreaking research, but how does it all really affect us? Joining me is Dr. Alex Rios, a theoretical physicist who helps make sense of the complex jargon."",
@@ -183,7 +183,7 @@ Rule ID,Test ID,Test Input,Expected Output,Reasoning,model,actualOutput,status,e
 ""Jane"": “And that’s why we keep peering deeper into quantum mysteries; they have a way of surprising us all at breakfast table, literally!”
   ""Dr_Alex"": ""'Aptly put! I hope today's talk inspired you as much as it does me. Until next time, here are some thoughts for your day: Why not imagine the universe while having coffee?""
 }
-```",failure,
+```",failure
 2,3,Anecdotes mixed with statistical data.,Dialogue starts with host guiding and summarizing key points.,Confirms host's responsibility in steering and summarizing.,phi3.5,"```json
 {
   ""Jane"": ""Welcome back to 'Insightful Dialogues,' where we blend personal stories and hard facts for a richer understanding of today's world."",
@@ -210,7 +210,7 @@ Rule ID,Test ID,Test Input,Expected Output,Reasoning,model,actualOutput,status,e
   },
   ""Jane"": {""closingStatement"": ""And there we go, another thought-provoking discussion. Until next time—keep connecting the stories in your world to spark a collective journey towards progress!""},
 }
-```",failure,
+```",failure
 3,1,Input containing expert opinions and fictional stories.,Guest responses supported by input without marketing.,Verifies guest's adherence to input and non-promotional content.,phi3.5,"```json
 {
   ""podcast_script"": {
@@ -229,7 +229,7 @@ Rule ID,Test ID,Test Input,Expected Output,Reasoning,model,actualOutput,status,e
     ""guest_questionable"": ""'What’s the next big piece of historical fiction that will keep your listeners on their feet and in awe?'""
   },
 }
-```",failure,
+```",failure
 3,2,Historical events interspersed with fictional elements.,"Responses grounded in input text, avoiding promotions.",Checks guest's alignment with input-derived content.,phi3.5,"```json
 {
   ""dialogue"": [
@@ -280,13 +280,13 @@ Rule ID,Test ID,Test Input,Expected Output,Reasoning,model,actualOutput,status,e
     }
   ]
 }
-```",failure,
+```",failure
 3,3,Mix of scientific data and speculative theories.,"Guest's claims supported by input text, no self-promotion.",Examines guest's commitment to input-based claims.,phi3.5,"```json
 {
   ""Jane"": ""Welcome back to 'Insightful Discoveries,' where we blend hard science with fascinating conjectures! Today's guest, Dr. Emily Nguyen, dives into a mix of empirical data and theoretical possibilities that expand our understanding of the universe."",
   ""Dr.Nguyen"": ""Thank you for having me, Jane. It’s thrilling to explore how cutting-edge research intersects with bold ideas.""
 }
-```",failure,
+```",failure
 1,1,"Text with multiple topics, anecdotes, and irrelevant info.",Dialogue with each line ≤ 100 characters.,"Ensures dialogue lines are concise, adhering to character limit.",qwen2.5-coder:latest,"```json
 {
   ""podcast_script"": {
@@ -313,7 +313,7 @@ Rule ID,Test ID,Test Input,Expected Output,Reasoning,model,actualOutput,status,e
     ""outro"": ""I hope you found this conversation as enlightening as it was interesting. Remember, empathy, flexibility with work, and mindfulness are key tools for a better life. Stay curious, stay kind, and keep exploring your own journey.""
   }
 }
-```",failure,
+```",failure
 1,2,Complex topics with potential for lengthy explanations.,"Lines are ≤ 100 characters, brief yet informative.",Tests ability to distill complex info into short lines.,qwen2.5-coder:latest,"```json
 {
   ""script"": {
@@ -339,7 +339,7 @@ Rule ID,Test ID,Test Input,Expected Output,Reasoning,model,actualOutput,status,e
     ""closing"": ""And there you have it! Quantum entanglement challenges our understanding of reality, while climate change is a pressing issue whose impacts are already being felt around the world. Whether we're talking about science or action, it’s important to stay informed and take steps towards creating a better future.""
   }
 }
-```",failure,
+```",failure
 1,3,Text with redundant information and key insights.,Dialogue with concise lines not exceeding 100 chars.,Challenges condensing valuable insights into short dialogue.,qwen2.5-coder:latest,"```json
 {
   ""script"": {
@@ -360,7 +360,7 @@ Rule ID,Test ID,Test Input,Expected Output,Reasoning,model,actualOutput,status,e
     ""thanks_message"": ""Jane: And that’s all from us today! If you want to learn more about sustainable practices or follow John's work, be sure to check out his website and social media pages.""
   }
 }
-```",failure,
+```",failure
 2,1,Unstructured text with historical facts and modern context.,"Host initiates, guides, and summarizes insights.",Validates structure where host leads and concludes discussion.,qwen2.5-coder:latest,"```json
 {
   ""title"": ""Historical Insights into Modern Life"",
@@ -394,7 +394,7 @@ Rule ID,Test ID,Test Input,Expected Output,Reasoning,model,actualOutput,status,e
   ],
   ""outro"": ""That wraps up this episode! Thank you, Dr. Hart, for sharing your expertise with us. Keep those questions coming, and tune in next time for more fascinating historical insights into modern life. Until then, stay curious!""
 }
-```",failure,
+```",failure
 2,2,Messy input with scientific discoveries and theories.,Conversation starts and ends with host's questions and summaries.,Ensures host's role in maintaining conversation flow.,qwen2.5-coder:latest,"```json
 {
   ""podcast_script"": {
@@ -430,7 +430,7 @@ Rule ID,Test ID,Test Input,Expected Output,Reasoning,model,actualOutput,status,e
     ]
   }
 }
-```",failure,
+```",failure
 2,3,Anecdotes mixed with statistical data.,Dialogue starts with host guiding and summarizing key points.,Confirms host's responsibility in steering and summarizing.,qwen2.5-coder:latest,"{
   ""podcast_script"": {
     ""title"": ""The Power of Anecdotes and Statistics"",
@@ -462,7 +462,7 @@ Rule ID,Test ID,Test Input,Expected Output,Reasoning,model,actualOutput,status,e
     },
     ""outro"": ""Jane: If you have any thoughts or questions about this fascinating topic, feel free to leave them in the comments below. Until next time, keep exploring the world through stories and numbers. Goodbye!""
   }
-}",failure,
+}",failure
 3,1,Input containing expert opinions and fictional stories.,Guest responses supported by input without marketing.,Verifies guest's adherence to input and non-promotional content.,qwen2.5-coder:latest,"```json
 {
   ""title"": ""Podcast Script"",
@@ -515,7 +515,7 @@ Rule ID,Test ID,Test Input,Expected Output,Reasoning,model,actualOutput,status,e
   ],
   ""outro"": ""Jane wraps up the episode with a summary of key insights and invites listener interaction.""
 }
-```",failure,
+```",failure
 3,2,Historical events interspersed with fictional elements.,"Responses grounded in input text, avoiding promotions.",Checks guest's alignment with input-derived content.,qwen2.5-coder:latest,"```json
 {
   ""script"": {
@@ -562,7 +562,7 @@ Rule ID,Test ID,Test Input,Expected Output,Reasoning,model,actualOutput,status,e
     ""text"": ""That’s all for today's episode of The Mists of History and Myth. We've explored how fictional elements can add layers to our understanding of historical events, blending fact with legend in a most intriguing way. Until next time, keep your minds open to the mysteries of history.""
   }
 }
-```",failure,
+```",failure
 3,3,Mix of scientific data and speculative theories.,"Guest's claims supported by input text, no self-promotion.",Examines guest's commitment to input-based claims.,qwen2.5-coder:latest,"{
   ""script"": {
     ""intro"": ""Jane: Hello everyone! Welcome to 'The Curious Mind' podcast. I'm Jane, your host, and today we're diving into a fascinating mix of scientific data and speculative theories. Let’s explore how these seemingly disparate elements can come together to shape our understanding of the world."",
@@ -578,7 +578,7 @@ Rule ID,Test ID,Test Input,Expected Output,Reasoning,model,actualOutput,status,e
     ""closing_thoughts"": ""Dr. Emily Carter: Thanks for having me, Jane. And remember, curiosity is the spark that drives both scientific progress and philosophical inquiry. Stay curious!"",
     ""outro"": ""Jane: Well, folks, that’s all from us today on 'The Curious Mind'. Don’t forget to follow us on social media for more fascinating discussions like this. Until next time, stay curious!""
   }
-}",failure,
+}",failure
 1,1,"Text with multiple topics, anecdotes, and irrelevant info.",Dialogue with each line ≤ 100 characters.,"Ensures dialogue lines are concise, adhering to character limit.",llama3.2:3b,"```
 {
   ""topics"": [
@@ -598,7 +598,7 @@ Rule ID,Test ID,Test Input,Expected Output,Reasoning,model,actualOutput,status,e
     ""The Great Wall of China is not visible from space, despite its reputation as being the longest man-made structure in the world.""
   ]
 }
-```",failure,
+```",failure
 1,2,Complex topics with potential for lengthy explanations.,"Lines are ≤ 100 characters, brief yet informative.",Tests ability to distill complex info into short lines.,llama3.2:3b,"```
 {
   ""podcast_script"": {
@@ -651,7 +651,7 @@ Rule ID,Test ID,Test Input,Expected Output,Reasoning,model,actualOutput,status,e
 }
 ```
 
-Note: The provided output is a JSON representation of a podcast script. It includes an introduction, three segments with dialogue, a summary, and an outro. Each line of dialogue is limited to 100 characters or less, following the rule mentioned earlier.",failure,
+Note: The provided output is a JSON representation of a podcast script. It includes an introduction, three segments with dialogue, a summary, and an outro. Each line of dialogue is limited to 100 characters or less, following the rule mentioned earlier.",failure
 1,3,Text with redundant information and key insights.,Dialogue with concise lines not exceeding 100 chars.,Challenges condensing valuable insights into short dialogue.,llama3.2:3b,"```
 {
   ""title"": ""Unlocking Key Insights from Redundant Text"",
@@ -694,7 +694,7 @@ Note: The provided output is a JSON representation of a podcast script. It inclu
   ],
   ""callToAction"": ""Sign up for our podcast and get exclusive access to in-depth interviews and expert insights!""
 }
-```",failure,
+```",failure
 2,1,Unstructured text with historical facts and modern context.,"Host initiates, guides, and summarizes insights.",Validates structure where host leads and concludes discussion.,llama3.2:3b,"```
 {
   ""podcastTitle"": ""The Evolution of Empires: Past and Present"",
@@ -765,7 +765,7 @@ Note: The provided output is a JSON representation of a podcast script. It inclu
   }
 }
 ```
-Note that I did not fill in all fields, but rather created a basic structure for the podcast script. Please provide more information so I can fill them in with actual content.",failure,
+Note that I did not fill in all fields, but rather created a basic structure for the podcast script. Please provide more information so I can fill them in with actual content.",failure
 2,2,Messy input with scientific discoveries and theories.,Conversation starts and ends with host's questions and summaries.,Ensures host's role in maintaining conversation flow.,llama3.2:3b,"```
 {
   ""title"": ""Unlocking the Secrets of the Universe"",
@@ -854,7 +854,7 @@ Note that I did not fill in all fields, but rather created a basic structure for
     }
   ]
 }
-```",failure,
+```",failure
 2,3,Anecdotes mixed with statistical data.,Dialogue starts with host guiding and summarizing key points.,Confirms host's responsibility in steering and summarizing.,llama3.2:3b,"```
 {
   ""introduction"": {
@@ -908,7 +908,7 @@ Note that I did not fill in all fields, but rather created a basic structure for
     ]
   }
 }
-```",failure,
+```",failure
 3,1,Input containing expert opinions and fictional stories.,Guest responses supported by input without marketing.,Verifies guest's adherence to input and non-promotional content.,llama3.2:3b,"```
 {
   ""title"": ""Unlocking Hidden Insights"",
@@ -971,7 +971,7 @@ Note that I did not fill in all fields, but rather created a basic structure for
     }
   ]
 }
-```",failure,
+```",failure
 3,2,Historical events interspersed with fictional elements.,"Responses grounded in input text, avoiding promotions.",Checks guest's alignment with input-derived content.,llama3.2:3b,"```
 {
   ""title"": ""Unraveling the Threads of Time"",
@@ -1003,7 +1003,7 @@ Note that I did not fill in all fields, but rather created a basic structure for
     }
   ]
 }
-```",failure,
+```",failure
 3,3,Mix of scientific data and speculative theories.,"Guest's claims supported by input text, no self-promotion.",Examines guest's commitment to input-based claims.,llama3.2:3b,"Here is a podcast script based on the input text:
 
 **Episode Title:** ""Unlocking the Secrets of the Universe: A Blend of Science and Speculation""
@@ -1054,4 +1054,4 @@ Dr. [Guest's Name]: Thank you, Jane. I think we're just getting started on this 
 
 Jane: And that's all for today's episode. Join us next time when we explore more wonders of science and speculation. Don't forget to subscribe, rate, and review our podcast if you enjoyed this episode!
 
-Note: The script is designed to be engaging and conversational, with a mix of scientific data and speculative theories. Each line of dialogue should be no more than 100 characters (e.g., can finish within 5-8 seconds).",failure,
+Note: The script is designed to be engaging and conversational, with a mix of scientific data and speculative theories. Each line of dialogue should be no more than 100 characters (e.g., can finish within 5-8 seconds).",failure

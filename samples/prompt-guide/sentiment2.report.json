@@ -158,22 +158,24 @@
       "reasoning": "Verifies minimal negative expression. Adheres to input specification with sentiment."
     },
     {
-      "inverse": true,
       "input": "What a horrible show!",
       "expected": "Negative",
       "reasoning": "Directly tests the rule to see if 'What a horrible show!' is identified as negative. Follows input specification."
     },
     {
-      "inverse": true,
       "input": "Horrible show!",
       "expected": "Negative",
       "reasoning": "Checks consistency in identifying negative sentiment. Adheres to input specification with sentiment and show context."
     },
     {
-      "inverse": true,
       "input": "Horrible!",
       "expected": "Negative",
       "reasoning": "Verifies detection of negativity in minimal expression. Follows input specification with sentiment."
     }
+  ],
+  "errors": [
+    "test 21 references non-existent rule 8 in samples/prompt-guide/sentiment2.tests.csv",
+    "test 22 references non-existent rule 8 in samples/prompt-guide/sentiment2.tests.csv",
+    "test 23 references non-existent rule 8 in samples/prompt-guide/sentiment2.tests.csv"
   ]
 }

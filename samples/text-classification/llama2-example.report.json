@@ -117,22 +117,24 @@
       "reasoning": "Assesses if the software can output multiple categories with 'Other'."
     },
     {
-      "inverse": true,
       "input": "Tech giant unveils ambitious plan: What does it mean for consumers?",
       "expected": "Business - Focus on consumer impact",
       "reasoning": "Tests if additional commentary is incorrectly included."
     },
     {
-      "inverse": true,
       "input": "World Cup 2022: The underdogs and their journey",
       "expected": "Sports - Analysis included",
       "reasoning": "Ensures no extra explanation is added to the category name."
     },
     {
-      "inverse": true,
       "input": "New policy changes: A global perspective with expert insights",
       "expected": "World - Expert insights",
       "reasoning": "Verifies that no additional information follows the category 'World'."
     }
+  ],
+  "errors": [
+    "test 15 references non-existent rule 6 in samples/text-classification/llama2-example.tests.csv",
+    "test 16 references non-existent rule 6 in samples/text-classification/llama2-example.tests.csv",
+    "test 17 references non-existent rule 6 in samples/text-classification/llama2-example.tests.csv"
   ]
 }
