@@ -25,8 +25,10 @@ export interface PromptPexTest {
   ["Reasoning"]: string;
 }
 
-export interface PromptPexTestResult extends PromptPexTest {
+export interface PromptPexTestResult {
+  id: string;
   model: string;
+  input: string;
   output: string;
   error?: string;
 }
@@ -364,26 +366,26 @@ export async function executeTest(
   files: Pick<PromptPexContext, "prompt" | "dir" | "basename">,
   test: PromptPexTest,
   options?: { model?: ModelType; force?: boolean }
-) {
+): Promise<PromptPexTestResult> {
   const { model, force } = options || {};
   const moptions = {
     ...modelOptions(),
   };
-  const { file } = await resolveTestPath(files, test, {
+  const { id, file } = await resolveTestPath(files, test, {
     model,
   });
   if (file.content && !force) return JSON.parse(file.content);
-
   const { inputs, args, testInput, expectedOutput } = resolvePromptArgs(
     files,
     test
   );
   if (!args)
     return {
-      ...test,
-      model: moptions.model,
-      output: "invalid test input",
+      id,
+      model: "",
       error: "invalid test input",
+      input: testInput,
+      output: "invalid test input",
     } satisfies PromptPexTestResult;
 
   const res = await runPrompt(
@@ -400,10 +402,11 @@ export async function executeTest(
   );
   const actualOutput = res.text;
   const testRes = {
-    ...test,
+    id,
     model: res.model,
-    output: actualOutput,
     error: res.error?.message,
+    input: testInput,
+    output: actualOutput,
   } satisfies PromptPexTestResult;
 
   await workspace.writeText(file.filename, JSON.stringify(testRes, null, 2));
