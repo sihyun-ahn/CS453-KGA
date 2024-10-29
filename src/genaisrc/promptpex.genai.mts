@@ -75,5 +75,6 @@ await q.mapAll(prompts, async (files) => {
     });
   } catch (e) {
     console.error(e);
+    console.debug(e.stack);
   }
 });

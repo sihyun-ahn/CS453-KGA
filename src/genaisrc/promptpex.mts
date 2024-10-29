@@ -32,6 +32,7 @@ export interface PromptPexTestResult {
   input: string;
   output: string;
   error?: string;
+  evaluation?: string;
 }
 
 export interface PromptPexTestEval {
@@ -545,6 +546,14 @@ function parseTests(files: Pick<PromptPexContext, "tests">): PromptPexTest[] {
   return tests;
 }
 
+function parseTestResults(
+  files: Pick<PromptPexContext, "testResults">
+): PromptPexTestResult[] {
+  return CSV.parse(files.testResults.content, {
+    delimiter: ",",
+  }) as PromptPexTestResult[];
+}
+
 function parseBaselineTests(tests: string) {
   return tests
     ? tests
@@ -573,6 +582,96 @@ function resolveRule(
   const index = parseInt(test["Rule ID"]) - 1;
   const rule = rules[index];
   return rule;
+}
+
+export async function evaluateTestResults(
+  files: Pick<
+    PromptPexContext,
+    "tests" | "prompt" | "dir" | "basename" | "testResults"
+  >,
+  options?: { force?: boolean; q?: PromiseQueue }
+): Promise<string> {
+  const { force, q = host.promiseQueue(CONCURRENCY) } = options || {};
+  const tests = parseTests(files);
+  if (!tests?.length) throw new Error("No tests found");
+  const existingTestResults = parseTestResults(files);
+
+  const models = Array.from(
+    existingTestResults.reduce(
+      (acc, tr) => acc.add(tr.model),
+      new Set<string>()
+    )
+  );
+
+  console.log(
+    `evaluate ${tests.length} test results with ${models.length} models`
+  );
+  const testResults: PromptPexTestResult[] = [];
+  for (const model of models)
+    await q.mapAll(tests, async (test) => {
+      const testRes = await evaluateTestResult(files, test, { model, force });
+      testResults.push(testRes);
+    });
+  return CSV.stringify(testResults, { header: true });
+}
+
+export async function evaluateTestResult(
+  files: Pick<PromptPexContext, "prompt" | "dir" | "basename">,
+  test: PromptPexTest,
+  options?: { model?: ModelType; force?: boolean }
+): Promise<PromptPexTestResult> {
+  const { model, force } = options || {};
+  const moptions = {
+    ...modelOptions(),
+  };
+  const { file } = await resolveTestPath(files, test, {
+    model,
+  });
+  if (file.content) {
+    const testResult = JSON.parse(file.content) as PromptPexTestResult;
+    if (!testResult.error && testResult.evaluation && !force) return testResult;
+  }
+  const testResult = JSON.parse(file.content) as PromptPexTestResult;
+  if (!testResult) {
+    console.warn(`test result ${file.filename} has invalid content`);
+    return undefined;
+  }
+  if (testResult.error) {
+    console.warn(`test result ${file.filename} has error: ${testResult.error}`);
+    return testResult;
+  }
+
+  const content = MD.content(files.prompt.content);
+  const res = await runPrompt(
+    (ctx) => {
+      // removes frontmatter
+      ctx.importTemplate(
+        "src/prompts/check_violation_with_system_prompt.prompty",
+        {
+          system: content,
+          result: testResult.output,
+        }
+      );
+    },
+    {
+      ...moptions,
+      model: "large",
+      label: `evaluate test result ${testResult.model} ${testResult.input.slice(0, 42)}...`,
+    }
+  );
+  if (res.error)
+    console.warn(
+      `error evaluating test result ${file.filename}: ${res.error.message}`
+    );
+  const testRes = {
+    ...testResult,
+    evaluation: res.text,
+    error: res.error?.message,
+  } satisfies PromptPexTestResult;
+
+  await workspace.writeText(file.filename, JSON.stringify(testRes, null, 2));
+
+  return testRes;
 }
 
 export async function generateJSONReport(files: PromptPexContext) {
@@ -665,6 +764,7 @@ export async function generate(
     forceTests?: boolean;
     forceTestEvals?: boolean;
     forceExecuteTests?: boolean;
+    forceTestResultEvals?: boolean;
     models?: ModelType[];
     q?: PromiseQueue;
   }
@@ -676,6 +776,7 @@ export async function generate(
     forceInputSpec = false,
     forceTests = false,
     forceExecuteTests = false,
+    forceTestResultEvals = false,
     models,
     q = host.promiseQueue(CONCURRENCY),
   } = options || {};
@@ -757,6 +858,13 @@ export async function generate(
       files.testResults.filename,
       files.testResults.content
     );
+  }
+
+  if (files.testResults.content) {
+    files.testResults.content = await evaluateTestResults(files, {
+      force: force || forceTestResultEvals,
+      q,
+    });
   }
 
   // final report
