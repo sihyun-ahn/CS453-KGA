@@ -1,19 +1,26 @@
-Rule ID,Test ID,Test Input,Expected Output,Reasoning,evaluation
-1,1,The quick brown fox jumps over the lazy dog;fox,NN,Tests noun identification using a classic sentence. Valid input as per specification.,NOUN
-1,2,She swiftly ran towards the finish line;swiftly,RB,"Tests adverb identification. The word is clearly an adverb, ensuring adherence to part of speech tagging rules.",ADVERB
-1,3,Every cloud has a silver lining;Every,DT,Tests determiner identification. Valid sentence and word separation with expected determiner tag.,DET
-2,1,I will go to the park later;will,MD,"Tests for modal verb identification, confirming expected output format compliance.",MD
-2,2,Anna and Mike went to the store;and,CC,"Tests coordinating conjunction identification, checking the concise output requirement.",CONJUNCTION
-2,3,Quickly finish your homework;Quickly,RB,"Tests adverb identification with a straightforward adverb, ensuring correct tag.",RB
-3,1,Xyzzy is not a real word;Xyzzy,Unknown,"Tests handling of nonsensical word, expecting 'Unknown'. Valid input format.",Unknown
-3,2,Her paintings were in vivid colors;vivid,JJ,"Tests adjective recognition, ensuring 'Unknown' is correctly not triggered.",ADJ
-3,3,He felt a sense of deja vu;deja,FW,"Tests foreign word recognition, ensuring correct tagging of foreign words.",Unknown
-4,1,Blorft is the best word ever;Blorft,CantAnswer,"Tests unclear tagging situation with a made-up word, expecting 'CantAnswer'.",UNKNOWN
-4,2,The cat sat on the mat;mat,NN,"Tests clear noun identification, ensuring 'CantAnswer' is not triggered incorrectly.",NOUN
-4,3,She can dance very well;can,MD,"Tests tagging of modal verb, ensuring clear cases are tagged correctly without 'CantAnswer'.",MD
-5,1,An apple a day keeps the doctor away;An,DT,"Tests determiner recognition, ensuring uppercase tag output.",DET
-5,2,Tomorrow will be a brighter day;Tomorrow,NN,Tests correct noun tagging with uppercase output.,NOUN
-5,3,He looked at the beautiful sunset;beautiful,JJ,Tests adjective tag adherence to capitalization rule.,ADJECTIVE
-6,1,"Eat, sleep, repeat;repeat",VB,"Tests verb identification, ensuring no additional text accompanies the tag.",VERB
-6,2,She sang a song;She,PRP,"Tests pronoun identification, confirming singular tag output.",PRONOUN
-6,3,They were walking in the park;in,IN,"Tests preposition identification in a clear context, ensuring correct tag without extra text.",PREPOSITION
+id,model,rule,input,evaluation
+6b915e8,gpt-4o-2024-08-06,The output must only contain the part of speech tag and nothing else.,The quick brown fox jumps over the lazy dog;fox,"Output:
+noun"
+0b47eb2,gpt-4o-2024-08-06,The output must only contain the part of speech tag and nothing else.,She swiftly ran towards the finish line;swiftly,"Output:
+swiftly: RB (adverb)"
+9296662,gpt-4o-2024-08-06,The output must only contain the part of speech tag and nothing else.,Every cloud has a silver lining;Every,"In the sentence, the word ""Every"" is a determiner (DET)."
+d964585,gpt-4o-2024-08-06,"If the word cannot be tagged with one of the provided tags, the output must be ""Unknown"".",Anna and Mike went to the store;and,"The word ""and"" in the sentence is a conjunction."
+766cf78,gpt-4o-2024-08-06,"If the word cannot be tagged with one of the provided tags, the output must be ""Unknown"".",Quickly finish your homework;Quickly,Part of Speech: Adverb (RB)
+a22ce25,gpt-4o-2024-08-06,"If the word cannot be tagged and the reason is unclear, the output must be ""CantAnswer"".",Her paintings were in vivid colors;vivid,Adjective
+e08d46a,gpt-4o-2024-08-06,"If the word cannot be tagged and the reason is unclear, the output must be ""CantAnswer"".",Xyzzy is not a real word;Xyzzy,"In the sentence ""Xyzzy is not a real word,"" the word ""Xyzzy"" functions as a noun. 
+
+Tag: Noun"
+27c3f4e,gpt-4o-2024-08-06,The part of speech tag must be in uppercase letters as listed.,Blorft is the best word ever;Blorft,Tag: Noun
+7f3a7ca,gpt-4o-2024-08-06,The part of speech tag must be in uppercase letters as listed.,The cat sat on the mat;mat,Noun
+8c2f4b9,gpt-4o-2024-08-06,The part of speech tag must be in uppercase letters as listed.,She can dance very well;can,Tag: Modal Verb (MD)
+f43530d,gpt-4o-2024-08-06,"If the word cannot be tagged and the reason is unclear, the output must be ""CantAnswer"".",He felt a sense of deja vu;deja,"In the sentence ""He felt a sense of deja vu,"" the word ""deja"" is part of the phrase ""deja vu,"" which is a noun. 
+
+Tag: Noun"
+62d03d0,gpt-4o-2024-08-06,"If the word cannot be tagged with one of the provided tags, the output must be ""Unknown"".",I will go to the park later;will,Modal Verb (MD)
+070861d,gpt-4o-2024-08-06,The output must not include multiple tags or any explanatory text.,An apple a day keeps the doctor away;An,Determiner (DT)
+fea041d,gpt-4o-2024-08-06,The output must not include multiple tags or any explanatory text.,He looked at the beautiful sunset;beautiful,Adjective
+4b603f5,gpt-4o-2024-08-06,The output can contain multiple parts of speech tags from outside the provided list.,She sang a song;She,"Output:
+PRP (Pronoun)"
+8191efc,gpt-4o-2024-08-06,The output can contain multiple parts of speech tags from outside the provided list.,They were walking in the park;in,Preposition
+5d1ff70,gpt-4o-2024-08-06,The output must not include multiple tags or any explanatory text.,Tomorrow will be a brighter day;Tomorrow,Proper Noun (NNP)
+a833b52,gpt-4o-2024-08-06,The output can contain multiple parts of speech tags from outside the provided list.,"Eat, sleep, repeat;repeat","In the given input ""Eat, sleep, repeat; repeat,"" the word ""repeat"" functions as a verb."

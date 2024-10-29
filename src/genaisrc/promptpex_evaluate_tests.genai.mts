@@ -24,14 +24,14 @@ script({
 
 const force = env.vars.force;
 const concurrency = env.vars.concurrency;
-
+const q = host.promiseQueue(concurrency);
 const contexts = await loadPromptContext();
 for (const files of contexts) {
   try {
     // generate tests
     const testEvals = await evaluateTests(files, {
       force,
-      concurrency,
+      q,
     });
     files.testEvals.content = testEvals;
     await workspace.writeText(files.testEvals.filename, testEvals);
