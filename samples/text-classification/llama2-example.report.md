@@ -197,21 +197,21 @@ text: "Olympics postponed due to global pandemic concerns"
 |380a97b|llama3\.1:8b|Tech giant unveils ambitious plan: What does it mean for consumers?|Based on the provided categories, I would classify the given news article as:<br><br>Sci/Tech: "Tech giant unveils ambitious plan: What does it mean for consumers?"<br><br>This classification is due to the primary focus of the article being on a tech\-related development \(a tech giant's announcement\) and its potential implications for technology users\.|
 |aabcde6|llama3\.1:8b|World Cup 2022: The underdogs and their journey|The input text is best classified with the category "Sports"\. It's a news article about the World Cup 2022 and its related stories\.|
 |ab6a398|llama3\.1:8b|New policy changes: A global perspective with expert insights|Based on the provided categories \(World, Sports, Business, Sci/Tech\), I would classify the news article "New policy changes: A global perspective with expert insights" as:<br><br>\* Business|
-|7dc42d7||NASA announces new mission to explore Jupiter's moons||
-|72f2a24||Olympics 2024: Countries gear up for the global sporting event||
-|0ff44a8||Global markets react to trade tensions between US and China||
-|8072dca||Breakthrough in renewable energy as solar efficiency increases||
-|2470041||Premier League results: Chelsea defeats Arsenal||
-|b111012||World leaders discuss climate action at summit||
-|b57e03b||Innovations in AI explained: How technology is changing industries||
-|0f6f932||Economic outlook for 2023: Experts weigh in||
-|969f60b||Champions League: Analysis of the quarter\-final matchups||
-|16fdb69||Ancient ruins discovered in unexplored regions||
-|1fdc787||The rising trend of veganism: A cultural shift||
-|152733e||Exploring the mysteries of the deep ocean||
-|f3ab788||The impact of AI on modern warfare: A dual perspective||
-|36bfa78||Merging art and technology: The future of creativity||
-|d9c24b5||Economics and ethics: Balancing profit and social responsibility||
-|380a97b||Tech giant unveils ambitious plan: What does it mean for consumers?||
-|aabcde6||World Cup 2022: The underdogs and their journey||
-|ab6a398||New policy changes: A global perspective with expert insights||
+|7dc42d7|gemma2:9b|NASA announces new mission to explore Jupiter's moons|Sci/Tech|
+|72f2a24|gemma2:9b|Olympics 2024: Countries gear up for the global sporting event|Sports|
+|0ff44a8|gemma2:9b|Global markets react to trade tensions between US and China|This news article falls under the \*\*Business\*\* category\. <br><br>Here's why:<br><br>\* \*\*Topic:\*\* The article discusses global market reactions to trade tensions between the US and China\. This directly relates to economic and business issues\.<br><br><br>Let me know if you have any other articles you'd like me to classify\!|
+|8072dca|gemma2:9b|Breakthrough in renewable energy as solar efficiency increases|\*\*Sci/Tech\*\* <br><br>The article title "Breakthrough in renewable energy as solar efficiency increases" clearly falls under the Sci/Tech category due to its focus on advancements in solar technology\.|
+|2470041|gemma2:9b|Premier League results: Chelsea defeats Arsenal|\*\*Sports\*\* <br><br>The text mentions a specific sports league \("Premier League"\) and the outcome of a match \("Chelsea defeats Arsenal"\)\.|
+|b111012|gemma2:9b|World leaders discuss climate action at summit|\*\*World\*\* <br><br><br>The phrase "World leaders discuss climate action" strongly indicates a topic related to global affairs\.|
+|b57e03b|gemma2:9b|Innovations in AI explained: How technology is changing industries|Sci/Tech|
+|0f6f932|gemma2:9b|Economic outlook for 2023: Experts weigh in|Business <br><br>The article title "Economic outlook for 2023: Experts weigh in" clearly focuses on business and financial matters\.|
+|969f60b|gemma2:9b|Champions League: Analysis of the quarter\-final matchups|Sports|
+|16fdb69|gemma2:9b|Ancient ruins discovered in unexplored regions|Based on the provided text,  "Ancient ruins discovered in unexplored regions", the most suitable category would be \*\*Sci/Tech\*\*\. <br><br>Here's why:<br><br>\* \*\*Exploration and Discovery:\*\* The phrase "ancient ruins discovered in unexplored regions" suggests archaeological exploration and the uncovering of historical artifacts\. <br>\* \*\*Scientific Interest:\*\*  The discovery likely involves scientific examination, analysis, and potential contributions to our understanding of history and past civilizations\.<br><br><br>Let me know if you have any other text samples you'd like me to classify\!|
+|1fdc787|gemma2:9b|The rising trend of veganism: A cultural shift|Based on the provided text "The rising trend of veganism: A cultural shift",  the most appropriate category would be \*\*Sci/Tech\*\*\. <br><br>Here's why:<br><br>\* The topic delves into a societal change related to food consumption and its impact\. <br>\* This often falls under the umbrella of "social trends" which can be explored within a scientific or technological context\. Examining the reasons behind this shift might involve analyzing data, consumer behavior patterns, and perhaps even the environmental impact of meat production\. <br><br><br><br>Let me know if you'd like to classify another article\!|
+|152733e|gemma2:9b|Exploring the mysteries of the deep ocean|Sci/Tech|
+|f3ab788|gemma2:9b|The impact of AI on modern warfare: A dual perspective|This article likely falls under the \*\*Sci/Tech\*\* category\. <br><br>Here's why:<br><br>\* \*\*Subject Matter:\*\* The title "The impact of AI on modern warfare" directly deals with artificial intelligence, a core topic in science and technology\.  <br><br><br>Let me know if you have any other articles you'd like me to classify\!|
+|36bfa78|gemma2:9b|Merging art and technology: The future of creativity|Sci/Tech|
+|d9c24b5|gemma2:9b|Economics and ethics: Balancing profit and social responsibility|Based on the provided text "Economics and ethics: Balancing profit and social responsibility", the most appropriate category would be \*\*Business\*\*\. <br><br>Here's why:<br><br>\* The title directly relates to economic concepts \(profit, balancing\) and societal considerations \(ethics, social responsibility\)\.<br>\* These themes are often discussed within the realm of business practices, corporate governance, and market impacts\.<br><br><br>Let me know if you have any other examples you'd like me to classify\!|
+|380a97b|gemma2:9b|Tech giant unveils ambitious plan: What does it mean for consumers?|Based on the provided text "Tech giant unveils ambitious plan: What does it mean for consumers?", the most appropriate category is \*\*Sci/Tech\*\*\. <br><br><br>Here's why:<br><br>\* \*\*"Tech giant"\*\* clearly points to a company within the technology sector\.<br>\* \*\*"Unveils ambitious plan"\*\* suggests innovation and development, common themes in tech news\.<br>\* \*\*"What does it mean for consumers?"\*\*  indicates the impact on users of technology, further solidifying the Sci/Tech label\.|
+|aabcde6|gemma2:9b|World Cup 2022: The underdogs and their journey|Sports|
+|ab6a398|gemma2:9b|New policy changes: A global perspective with expert insights|Based on the provided examples and the text "New policy changes: A global perspective with expert insights", the most appropriate category would be \*\*World\*\*\. <br><br>Here's why:<br><br>\* \*\*Global Perspective:\*\* The phrase "A global perspective" suggests a focus on international issues and policies\.<br>\* \*\*Expert Insights:\*\*  This implies discussions on topics of significant global impact, likely involving political, economic, or social changes\.<br><br><br>Let me know if you have any other text samples you'd like me to classify\!|
