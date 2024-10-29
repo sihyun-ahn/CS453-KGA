@@ -374,7 +374,10 @@ export async function executeTest(
   const { id, file } = await resolveTestPath(files, test, {
     model,
   });
-  if (file.content && !force) return JSON.parse(file.content);
+  if (file.content && !force) {
+    const res = JSON.parse(file.content);
+    if (!res.error) return res;
+  }
   const { inputs, args, testInput, expectedOutput } = resolvePromptArgs(
     files,
     test
