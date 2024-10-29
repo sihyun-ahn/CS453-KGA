@@ -134,9 +134,9 @@ text: Climate change refers to long-term shifts and alterations in temperature a
 ||||||llama3\.1:8b|||
 ||||||llama3\.1:8b|||
 ||||||llama3\.1:8b|||
-|||||||||
-|||||||||
-|||||||||
-|||||||||
-|||||||||
-|||||||||
+||||||gemma2:9b|||
+||||||gemma2:9b|||
+||||||gemma2:9b|||
+||||||gemma2:9b|||
+||||||gemma2:9b|||
+||||||gemma2:9b|||
