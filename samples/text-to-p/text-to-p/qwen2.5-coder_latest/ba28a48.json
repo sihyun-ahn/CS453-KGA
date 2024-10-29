@@ -1,10 +1,6 @@
 {
-  "Rule ID": "4",
-  "Test ID": "3",
-  "Test Input": "Art inspires. Science discovers. Literature enlightens.",
-  "Expected Output": "<p>Art inspires. <strong>Art</strong> <em>inspires</em>.</p><p>Science discovers. <strong>Science</strong> <em>discovers</em>.</p><p>Literature enlightens. <strong>Literature</strong> <em>enlightens</em>.</p>",
-  "Reasoning": "Validates presence of multiple <em> tags.",
+  "id": "ba28a48",
   "model": "qwen2.5-coder:latest",
-  "actualOutput": "```html\n<p><strong>Art</strong> <em>inspires</em>. <strong>Science</strong> <em>discovers</em>. <strong>Literature</strong> <em>enlightens</em>.</p>\n```\n\nThis paragraph has been split into individual sentences and each sentence is wrapped with a `<p>` tag. Inside each `<p>` tag, the word \"Art,\" \"Science,\" and \"Literature\" are emphasized with `<strong>` tags, while the words \"inspires,\" \"discovers,\" and \"enlightens\" are emphasized with `<em>` tags.",
-  "status": "failure"
+  "input": "Art inspires. Science discovers. Literature enlightens.",
+  "output": "```html\n<p><strong>Art</strong> <em>inspires</em>. <strong>Science</strong> <em>discovers</em>. <strong>Literature</strong> <em>enlightens</em>.</p>\n<p><strong>Art</strong> <em>inspires</em>. <strong>Science</strong> <em>discovers</em>. <strong>Literature</strong> <em>enlightens</em>.</p>\n```"
 }

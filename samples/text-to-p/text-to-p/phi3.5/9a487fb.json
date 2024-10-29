@@ -1,10 +1,6 @@
 {
-  "Rule ID": "2",
-  "Test ID": "2",
-  "Test Input": "Coffee is hot. Tea is warm. Juice is cold.",
-  "Expected Output": "<p>Coffee is hot. <strong>Coffee</strong> is <em>hot</em>.</p><p>Tea is warm. <strong>Tea</strong> is <em>warm</em>.</p><p>Juice is cold. <strong>Juice</strong> is <em>cold</em>.</p>",
-  "Reasoning": "Verifies separation of sentences into distinct <p> tags.",
+  "id": "9a487fb",
   "model": "phi3.5",
-  "actualOutput": "<p><strong>Coffee</strong> is <em>hot</em>.</p>\n<p><strong>Tea</strong> is <em>warm</em>.</p>\n<p><strong>Juice</strong> is <em>cold</em>.</p>",
-  "status": "failure"
+  "input": "Coffee is hot. Tea is warm. Juice is cold.",
+  "output": "<p>Coffee is <strong>hot</strong></em>.</p>\n<p>Tea is <strong>warm</strong></em>.</p>\n<p>Juice is <strong>cold</strong></em>.</p>\n<p>Coffee is still <strong>hot</strong></em>.</p>\n<p>Tea remains a bit of a mystery, being merely described as <strong>warm</strong></em>.</p>\n<p>And the juice stays consistently at its cool temperatures.</p>"
 }
