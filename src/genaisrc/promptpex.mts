@@ -477,10 +477,10 @@ export async function evaluateTest(
 
   const intent = files.intent.content;
   if (!intent) throw new Error("No intent found");
-  const rules = parseAllRules(files);
-  if (!rules) throw new Error("No rules found");
+  const allRules = parseAllRules(files);
+  if (!allRules) throw new Error("No rules found");
 
-  const rule = resolveRule(rules, test);
+  const rule = resolveRule(allRules, test);
   if (!rule) throw new Error(`No rule found for test ${test["Rule ID"]}`);
 
   const { args, testInput } = resolvePromptArgs(files, test);
@@ -498,10 +498,13 @@ export async function evaluateTest(
     (ctx) => {
       ctx.writeText(
         `Task:
-      ${intent}
+${intent}
 
-      Rules:
-      ${rules}`,
+Rules:
+${allRules
+  .filter((r) => !r.inverse)
+  .map((r) => r.rule)
+  .join("\n")}`,
         { role: "system" }
       );
       ctx.$`Input:
@@ -836,7 +839,7 @@ export async function generate(
     files.testEvals.content = undefined;
   }
 
-  // compute test evals
+  // test exhaustiveness
   if (!files.testEvals.content || force || forceTestEvals) {
     files.testEvals.content = await evaluateTests(files, {
       q,
