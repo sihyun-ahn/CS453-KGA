@@ -648,7 +648,7 @@ export async function evaluateTestResult(
       ctx.importTemplate(
         "src/prompts/check_violation_with_system_prompt.prompty",
         {
-          system: content,
+          system: content.replace(/^(system|user):/gm, ""),
           result: testResult.output,
         }
       );

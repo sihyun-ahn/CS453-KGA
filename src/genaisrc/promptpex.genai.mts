@@ -35,6 +35,11 @@ script({
       description: "Force execute tests",
       default: false,
     },
+    forceTestResultEvals: {
+      type: "boolean",
+      description: "Force overwrite of existing test result evals files",
+      default: false,
+    },
     models: {
       type: "string",
       description: "Semi-column separated list of models to generate",
@@ -54,6 +59,7 @@ const {
   forceTests,
   forceTestEvals,
   forceExecuteTests,
+  forceTestResultEvals,
   concurrency,
 } = env.vars;
 
@@ -70,6 +76,7 @@ await q.mapAll(prompts, async (files) => {
       forceTests,
       forceTestEvals,
       forceExecuteTests,
+      forceTestResultEvals,
       models,
       q,
     });

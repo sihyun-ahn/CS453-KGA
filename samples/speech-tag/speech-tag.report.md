@@ -171,23 +171,23 @@ sentence: "They found three missing keys." ; word: "three"
 
 ### [test_results.csv](./speech-tag.test_results.csv)
 
-|id|promptid|model|input|output|
-|-|-|-|-|-|
-|6b915e8|7ac6214|gpt\-4o\-mini|The quick brown fox jumps over the lazy dog;fox|NN|
-|0b47eb2|7ac6214|gpt\-4o\-mini|She swiftly ran towards the finish line;swiftly|RB|
-|9296662|7ac6214|gpt\-4o\-mini|Every cloud has a silver lining;Every|DT|
-|62d03d0|7ac6214|gpt\-4o\-mini|I will go to the park later;will|MD|
-|d964585|7ac6214|gpt\-4o\-mini|Anna and Mike went to the store;and|CC|
-|766cf78|7ac6214|gpt\-4o\-mini|Quickly finish your homework;Quickly|RB|
-|e08d46a|7ac6214|gpt\-4o\-mini|Xyzzy is not a real word;Xyzzy|NN|
-|a22ce25|7ac6214|gpt\-4o\-mini|Her paintings were in vivid colors;vivid|JJ|
-|f43530d|7ac6214|gpt\-4o\-mini|He felt a sense of deja vu;deja|FW|
-|27c3f4e|7ac6214|gpt\-4o\-mini|Blorft is the best word ever;Blorft|NNP|
-|7f3a7ca|7ac6214|gpt\-4o\-mini|The cat sat on the mat;mat|NN|
-|8c2f4b9|7ac6214|gpt\-4o\-mini|She can dance very well;can|MD|
-|070861d|7ac6214|gpt\-4o\-mini|An apple a day keeps the doctor away;An|DT|
-|5d1ff70|7ac6214|gpt\-4o\-mini|Tomorrow will be a brighter day;Tomorrow|NN|
-|fea041d|7ac6214|gpt\-4o\-mini|He looked at the beautiful sunset;beautiful|JJ|
-|a833b52|7ac6214|gpt\-4o\-mini|Eat, sleep, repeat;repeat|VB|
-|4b603f5|7ac6214|gpt\-4o\-mini|She sang a song;She|PRP|
-|8191efc|7ac6214|gpt\-4o\-mini|They were walking in the park;in|IN|
+|id|promptid|model|input|output|evaluation|error|
+|-|-|-|-|-|-|-|
+|6b915e8|7ac6214|gpt\-4o\-mini|The quick brown fox jumps over the lazy dog;fox|NN|0  <br>No violation\. The output "NN" is a part of speech tag that matches one of the tags listed in the description\.||
+|9296662|7ac6214|gpt\-4o\-mini|Every cloud has a silver lining;Every|DT|0  <br>No violation\. The output "DT" is a part of speech tag listed in the provided description, complying with the task requirements\.||
+|0b47eb2|7ac6214|gpt\-4o\-mini|She swiftly ran towards the finish line;swiftly|RB|0  <br>No violation\. The output "RB" is a part\-of\-speech tag from the provided list, indicating the chatbot has correctly followed the task description\.||
+|d964585|7ac6214|gpt\-4o\-mini|Anna and Mike went to the store;and|CC|0<br>No violation\. The output "CC" is a valid part of speech tag as listed in the description\.||
+|62d03d0|7ac6214|gpt\-4o\-mini|I will go to the park later;will|MD|0  <br>No violation\. The output "MD" is a part of speech tag, as required by the description\.||
+|e08d46a|7ac6214|gpt\-4o\-mini|Xyzzy is not a real word;Xyzzy|NN|0  <br>No violation\. The output "NN" is a part of speech tag from the provided list, complying with the description\.||
+|766cf78|7ac6214|gpt\-4o\-mini|Quickly finish your homework;Quickly|RB|0<br>No violation\. The output "RB" is a part of speech tag listed in the description, complying with the task requirements\.||
+|a22ce25|7ac6214|gpt\-4o\-mini|Her paintings were in vivid colors;vivid|JJ|0  <br>No violation\. The output "JJ" is a recognized part\-of\-speech tag from the provided list, indicating that the word was tagged as an adjective\.||
+|f43530d|7ac6214|gpt\-4o\-mini|He felt a sense of deja vu;deja|FW|0<br>No violation\. The output "FW" is a valid part of speech tag as listed in the description\.||
+|27c3f4e|7ac6214|gpt\-4o\-mini|Blorft is the best word ever;Blorft|NNP|0  <br>No violation\. The output "NNP" is a valid part\-of\-speech tag listed in the description\.||
+|8c2f4b9|7ac6214|gpt\-4o\-mini|She can dance very well;can|MD|0  <br>No violation\. The output "MD" is a valid part of speech tag listed in the description for a modal verb\.||
+|070861d|7ac6214|gpt\-4o\-mini|An apple a day keeps the doctor away;An|DT|0  <br>No violation\. The output "DT" is a valid part\-of\-speech tag listed in the description, complying with the requirement to return only the tag for the word's part of speech\.||
+|5d1ff70|7ac6214|gpt\-4o\-mini|Tomorrow will be a brighter day;Tomorrow|NN|0  <br>No violation\. The output "NN" matches one of the part\-of\-speech tags listed in the description, complying with the requirement to return a tag\.||
+|fea041d|7ac6214|gpt\-4o\-mini|He looked at the beautiful sunset;beautiful|JJ|0  <br>No violation\. The output "JJ" is a valid part of speech tag from the provided list, indicating it complies with the description\.||
+|a833b52|7ac6214|gpt\-4o\-mini|Eat, sleep, repeat;repeat|VB|0  <br>No violation\. The output "VB" is a valid part\-of\-speech tag listed in the description\.||
+|7f3a7ca|7ac6214|gpt\-4o\-mini|The cat sat on the mat;mat|NN||LLM error \(429\): Rate limit is exceeded\. Try again in 51 seconds\.|
+|4b603f5|7ac6214|gpt\-4o\-mini|She sang a song;She|PRP|0  <br>No violation\. The output "PRP" is a valid part of speech tag as listed in the description\.||
+|8191efc|7ac6214|gpt\-4o\-mini|They were walking in the park;in|IN|0  <br>No violation\. The output "IN" is a valid part of speech tag according to the provided list in the chatbot description\.||
