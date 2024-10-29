@@ -31,55 +31,55 @@
   ],
   "tests": [
     {
-      "rule": "Each question must be relevant to the product specified by the variable `{{product}}`.",
+      "rule": "The output must contain a number of questions specified by the variable `{{count}}`.",
       "input": "context: 'online shopping at home', persona: 'tech-savvy young adult', product: 'smartphone', count: 3",
       "expected": "{\"question\":\"What are the standout features of this smartphone?\"}\\n{\"question\":\"How does the battery life compare to other models?\"}\\n{\"question\":\"Are there any current discounts or deals available?\"}",
       "reasoning": "Tests if the software generates exactly three questions aligned with the context and product, empathizing with the tech-savvy persona."
     },
     {
-      "rule": "Each question must be relevant to the product specified by the variable `{{product}}`.",
+      "rule": "The output must contain a number of questions specified by the variable `{{count}}`.",
       "input": "context: 'browsing in a local bookstore', persona: 'avid reader', product: 'e-reader', count: 2",
       "expected": "{\"question\":\"Is this e-reader compatible with various ebook formats?\"}\\n{\"question\":\"Does it offer features to enhance reading, like night mode?\"}",
       "reasoning": "Examines if two questions are generated that reflect bookstore browsing, focusing on product features relevant to an avid reader."
     },
     {
-      "rule": "Each question must be relevant to the product specified by the variable `{{product}}`.",
+      "rule": "The output must contain a number of questions specified by the variable `{{count}}`.",
       "input": "context: 'commuting on a train', persona: 'busy professional', product: 'noise-canceling headphones', count: 1",
       "expected": "{\"question\":\"How effective is the noise cancellation on the train?\"}",
       "reasoning": "Assesses if a single question is generated, specifically targeting the product's feature that would interest a commuting professional."
     },
     {
-      "rule": "Each question must reflect an understanding of the user’s situation as described by the variable `{{context}}`.",
+      "rule": "Each question must be relevant to the product specified by the variable `{{product}}`.",
       "input": "context: 'visiting a pet store', persona: 'first-time pet owner', product: 'dog food', count: 3",
       "expected": "{\"question\":\"What are the nutritional benefits of this dog food?\"}\\n{\"question\":\"Is it suitable for puppies?\"}\\n{\"question\":\"Does it come in different flavors or varieties?\"}",
       "reasoning": "Verifies if three relevant questions about dog food are generated, showing understanding of a first-time pet owner's concerns."
     },
     {
-      "rule": "Each question must reflect an understanding of the user’s situation as described by the variable `{{context}}`.",
+      "rule": "Each question must be relevant to the product specified by the variable `{{product}}`.",
       "input": "context: 'searching online for gifts', persona: 'thoughtful friend', product: 'personalized mug', count: 2",
       "expected": "{\"question\":\"Can I add a custom message or image to the mug?\"}\\n{\"question\":\"What are the shipping options for quick delivery?\"}",
       "reasoning": "Ensures two questions are produced that reflect the thoughtful friend's perspective, addressing customization and shipping."
     },
     {
-      "rule": "Each question must reflect an understanding of the user’s situation as described by the variable `{{context}}`.",
+      "rule": "Each question must be relevant to the product specified by the variable `{{product}}`.",
       "input": "context: 'exploring a tech conference', persona: 'innovative engineer', product: 'AI software tool', count: 1",
       "expected": "{\"question\":\"How can this tool be integrated into existing systems?\"}",
       "reasoning": "Confirms if one question pertinent to an engineer at a tech conference is generated, focusing on integration capabilities."
     },
     {
-      "rule": "Each question must empathize with the user based on the persona described by the variable `{{persona}}`.",
+      "rule": "Each question must reflect an understanding of the user’s situation as described by the variable `{{context}}`.",
       "input": "context: 'attending college', persona: 'budget-conscious student', product: 'laptop', count: 2",
       "expected": "{\"question\":\"What are the best laptop options for students on a budget?\"}\\n{\"question\":\"Are there any student discounts available?\"}",
       "reasoning": "Tests if two questions are crafted, aligned with a budget-conscious student's needs in a college setting."
     },
     {
-      "rule": "Each question must empathize with the user based on the persona described by the variable `{{persona}}`.",
+      "rule": "Each question must reflect an understanding of the user’s situation as described by the variable `{{context}}`.",
       "input": "context: 'working from a café', persona: 'remote worker', product: 'portable charger', count: 3",
       "expected": "{\"question\":\"How long does a full charge last?\"}\\n{\"question\":\"Is it compatible with multiple devices?\"}\\n{\"question\":\"Does it have a fast-charging feature?\"}",
       "reasoning": "Challenges the software to generate three questions that resonate with a remote worker's requirements for a portable charger."
     },
     {
-      "rule": "Each question must empathize with the user based on the persona described by the variable `{{persona}}`.",
+      "rule": "Each question must reflect an understanding of the user’s situation as described by the variable `{{context}}`.",
       "input": "context: 'weekend hiking trip', persona: 'outdoors enthusiast', product: 'backpack', count: 1",
       "expected": "{\"question\":\"What features make this backpack suitable for hiking?\"}",
       "reasoning": "Verifies if a single, focused question is generated, pertinent to a hiking enthusiast looking for specific backpack features."

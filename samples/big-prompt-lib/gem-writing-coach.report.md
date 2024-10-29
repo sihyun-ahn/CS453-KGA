@@ -141,6 +141,23 @@ text: "In 1969, Neil Armstrong took his first step on the moon. However, before 
 |4|2|What do you think about the structure of my essay?|Gives structural suggestions and explains them clearly\.|Tests how well the software offers structural advice\.|
 |4|3|Please provide feedback on this letter's format\.|Offers clear formatting guidance suitable for a letter\.|Checks the software's ability to advise on format based on writing type\.|
 
+### [test_evals.csv](./gem-writing-coach.test_evals.csv)
+
+|id|model|rule|input|evaluation|
+|-|-|-|-|-|
+|2aea15a|gpt\-4o\-2024\-08\-06|The output must provide thorough and specific line\-by\-line edits and feedback on grammar, spelling, tense consistency, dialect, style, and structure\.|I have a essay that needs feedback about grammar and tense consistency\.|Of course\! Please provide the essay text, and I'll help you with grammar and tense consistency\.|
+|b25e654|gpt\-4o\-2024\-08\-06|The output must provide thorough and specific line\-by\-line edits and feedback on grammar, spelling, tense consistency, dialect, style, and structure\.|Here's a piece of fiction\. Please check for dialect and style\.|Of course\! Please provide the piece of fiction you would like me to check\.|
+|6c61e65|gpt\-4o\-2024\-08\-06|The output must provide thorough and specific line\-by\-line edits and feedback on grammar, spelling, tense consistency, dialect, style, and structure\.|This is a letter\. Can you review spelling?|Of course\! Please provide the text of the letter, and I'll review it for spelling and any other improvements needed\.|
+|129173a|gpt\-4o\-2024\-08\-06|The output must review and edit various types of writing, such as essays, fiction, and letters\.|I'd love feedback on this short story\!|Of course\! Please provide the text of your short story, and I'll be happy to give you feedback on grammar, spelling, structure, and style\.|
+|09ba2a2|gpt\-4o\-2024\-08\-06|The output must review and edit various types of writing, such as essays, fiction, and letters\.|Please edit my essay on climate change\.|Of course\! Please provide the essay, and I'll be happy to help with editing\.|
+|c617d0e|gpt\-4o\-2024\-08\-06|The output must review and edit various types of writing, such as essays, fiction, and letters\.|Can you look at my letter to a friend?|Of course\! Please go ahead and share your letter, and I'll provide feedback and suggestions for improvement\.|
+|f221369|gpt\-4o\-2024\-08\-06|The output must give specific line\-by\-line edits explaining the reasoning behind each suggestion\.|This paragraph needs some grammar checks\.|Sure, please provide the paragraph you'd like me to check for grammar\.|
+|cc2afc4|gpt\-4o\-2024\-08\-06|The output must give specific line\-by\-line edits explaining the reasoning behind each suggestion\.|My essay has spelling errors\. Can you highlight them?|Of course\! Please provide the text of your essay, and I'll highlight any spelling errors for you\.|
+|269e238|gpt\-4o\-2024\-08\-06|The output must give specific line\-by\-line edits explaining the reasoning behind each suggestion\.|Could you help me with the tense in this story?|Of course\! Please provide the story, and I'll help you with the tense\.|
+|4728b31|gpt\-4o\-2024\-08\-06|The output must provide comprehensive feedback about how the text was edited and general guidance to improve the text\.|I need overall feedback on this article\.|Of course\! Please provide the article you'd like feedback on, and I'll be happy to help\.|
+|916ed06|gpt\-4o\-2024\-08\-06|The output must provide comprehensive feedback about how the text was edited and general guidance to improve the text\.|What do you think about the structure of my essay?|I'd be happy to help with that\! Could you provide the text of your essay so I can take a look at its structure?|
+|b263a91|gpt\-4o\-2024\-08\-06|The output must provide comprehensive feedback about how the text was edited and general guidance to improve the text\.|Please provide feedback on this letter's format\.|Certainly\! Please provide the letter you'd like feedback on, and I'll be happy to help\.|
+
 ### [test_results.csv](./gem-writing-coach.test_results.csv)
 
 |id|model|error|input|output|

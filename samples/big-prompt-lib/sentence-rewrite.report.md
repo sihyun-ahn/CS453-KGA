@@ -95,6 +95,20 @@ text: "Despite the initial challenges, the new software update has significantly
 |3|2|The discussion on climate change was both enlightening and engaging\.|The talk about climate change was both informative and interesting\.|Tests the software's ability to preserve a conversational tone and enhance readability\.|
 |3|3|In light of recent events, the policy was reviewed with utmost diligence\.|Considering recent events, the policy was carefully reviewed\.|Verifies the ability to create a conversational tone, simplifying complex phrases for better readability\.|
 
+### [test_evals.csv](./sentence-rewrite.test_evals.csv)
+
+|id|model|rule|input|evaluation|
+|-|-|-|-|-|
+|1053f45|gpt\-4o\-2024\-08\-06|The output must be a rewritten version of the input sentence provided by the user\.|The quick brown fox jumps over the lazy dog\.|A speedy brown fox leaps over a sleepy dog\.|
+|5500261|gpt\-4o\-2024\-08\-06|The output must be a rewritten version of the input sentence provided by the user\.|Despite the rain, the match continued to its full duration\.|Even though it rained, the match went on until the end\.|
+|1ff3765|gpt\-4o\-2024\-08\-06|The output must be a rewritten version of the input sentence provided by the user\.|Under the glaring sun, the children played with enthusiasm and laughter\.|The children played with enthusiasm and laughter under the bright sun\.|
+|8ac3418|gpt\-4o\-2024\-08\-06|The rewritten sentence must enhance the readability of the original sentence\.|She meticulously planned every detail of the surprise party\.|She carefully planned every detail of the surprise party\.|
+|ba897b0|gpt\-4o\-2024\-08\-06|The rewritten sentence must enhance the readability of the original sentence\.|During the meeting, the manager expounded on the company's strategic vision\.|During the meeting, the manager explained the company's strategic vision\.|
+|b9b179a|gpt\-4o\-2024\-08\-06|The rewritten sentence must enhance the readability of the original sentence\.|He cogitated deeply before making any major decisions\.|He thought carefully before making any big decisions\.|
+|522ce0a|gpt\-4o\-2024\-08\-06|The rewritten sentence must sound more conversational than the original sentence\.|The scientist elucidated the complex phenomenon to the students\.|The scientist explained the complex phenomenon to the students\.|
+|466829b|gpt\-4o\-2024\-08\-06|The rewritten sentence must sound more conversational than the original sentence\.|The discussion on climate change was both enlightening and engaging\.|The conversation about climate change was not only insightful but also really engaging\.|
+|24e23f5|gpt\-4o\-2024\-08\-06|The rewritten sentence must sound more conversational than the original sentence\.|In light of recent events, the policy was reviewed with utmost diligence\.|Given recent events, we reviewed the policy with great care\.|
+
 ### [test_results.csv](./sentence-rewrite.test_results.csv)
 
 |id|model|error|input|output|

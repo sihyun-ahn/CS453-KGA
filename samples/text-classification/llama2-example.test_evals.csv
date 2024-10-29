@@ -1,19 +1,19 @@
-Rule ID,Test ID,Test Input,Expected Output,Reasoning,evaluation
-1,1,NASA announces new mission to explore Jupiter's moons,Sci/Tech,This test evaluates if the text is correctly classified as Sci/Tech due to the scientific context.,Sci/Tech
-1,2,Olympics 2024: Countries gear up for the global sporting event,Sports,"This input is a typical sports-related article, testing if it is classified as Sports.",Sports
-1,3,Global markets react to trade tensions between US and China,Business,This business-related input assesses the software's ability to classify economic news.,Business
-2,1,Breakthrough in renewable energy as solar efficiency increases,Sci/Tech,Tests if the output consists only of the single category 'Sci/Tech'.,Sci/Tech
-2,2,Premier League results: Chelsea defeats Arsenal,Sports,Ensures that only 'Sports' is returned for a sports-related article.,Sports
-2,3,World leaders discuss climate action at summit,World,Checks if the single category 'World' is returned for global news.,World
-3,1,Innovations in AI explained: How technology is changing industries,Sci/Tech,Verifies that no additional commentary is included in the output beyond 'Sci/Tech'.,Sci/Tech
-3,2,Economic outlook for 2023: Experts weigh in,Business,Ensures the output is constrained to 'Business' with no extra commentary.,Business
-3,3,Champions League: Analysis of the quarter-final matchups,Sports,"Confirms that only 'Sports' is returned, with no explanation or commentary.",Sports
-4,1,Ancient ruins discovered in unexplored regions,Other,Tests if the software can classify an input into a category not listed.,World
-4,2,The rising trend of veganism: A cultural shift,Other,"Ensures classification into a different category, assessing handling of niche topics.",World
-4,3,Exploring the mysteries of the deep ocean,Other,Evaluates classification beyond the standard categories for unique topics.,Sci/Tech
-5,1,The impact of AI on modern warfare: A dual perspective,"Sci/Tech, Other",Tests if the output includes more than one category by including 'Other'.,Sci/Tech
-5,2,Merging art and technology: The future of creativity,"Sci/Tech, Other",Challenges the classification system by requiring multiple categories.,Sci/Tech
-5,3,Economics and ethics: Balancing profit and social responsibility,"Business, Other",Assesses if the software can output multiple categories with 'Other'.,Business
-6,1,Tech giant unveils ambitious plan: What does it mean for consumers?,Business - Focus on consumer impact,Tests if additional commentary is incorrectly included.,Sci/Tech
-6,2,World Cup 2022: The underdogs and their journey,Sports - Analysis included,Ensures no extra explanation is added to the category name.,Sports
-6,3,New policy changes: A global perspective with expert insights,World - Expert insights,Verifies that no additional information follows the category 'World'.,World
+id,model,rule,input,evaluation
+7dc42d7,gpt-4o-2024-08-06,"The output must classify the input text into one of the following categories: World, Sports, Business, or Sci/Tech.",NASA announces new mission to explore Jupiter's moons,Category: Science/Space Exploration
+72f2a24,gpt-4o-2024-08-06,"The output must classify the input text into one of the following categories: World, Sports, Business, or Sci/Tech.",Olympics 2024: Countries gear up for the global sporting event,Category: Sports News
+0ff44a8,gpt-4o-2024-08-06,"The output must classify the input text into one of the following categories: World, Sports, Business, or Sci/Tech.",Global markets react to trade tensions between US and China,Category: Economics/Business
+8072dca,gpt-4o-2024-08-06,"The output must consist of only one category name, which is one of the following: World, Sports, Business, or Sci/Tech.",Breakthrough in renewable energy as solar efficiency increases,Category: Science and Technology News
+2470041,gpt-4o-2024-08-06,"The output must consist of only one category name, which is one of the following: World, Sports, Business, or Sci/Tech.",Premier League results: Chelsea defeats Arsenal,Category: Sports News
+b111012,gpt-4o-2024-08-06,"The output must consist of only one category name, which is one of the following: World, Sports, Business, or Sci/Tech.",World leaders discuss climate action at summit,Category: News/Politics
+b57e03b,gpt-4o-2024-08-06,"The output must not contain any additional information, explanation, or commentary beyond the category name.",Innovations in AI explained: How technology is changing industries,Category: Technology
+0f6f932,gpt-4o-2024-08-06,"The output must not contain any additional information, explanation, or commentary beyond the category name.",Economic outlook for 2023: Experts weigh in,Category: Economy/Economic Analysis
+969f60b,gpt-4o-2024-08-06,"The output must not contain any additional information, explanation, or commentary beyond the category name.",Champions League: Analysis of the quarter-final matchups,Category: Sports Analysis
+16fdb69,gpt-4o-2024-08-06,"The output must classify the input text into any category except World, Sports, Business, or Sci/Tech.",Ancient ruins discovered in unexplored regions,Category: Archaeology
+1fdc787,gpt-4o-2024-08-06,"The output must classify the input text into any category except World, Sports, Business, or Sci/Tech.",The rising trend of veganism: A cultural shift,Category: Lifestyle & Culture
+152733e,gpt-4o-2024-08-06,"The output must classify the input text into any category except World, Sports, Business, or Sci/Tech.",Exploring the mysteries of the deep ocean,Category: Nature/Science Exploration
+f3ab788,gpt-4o-2024-08-06,"The output must consist of more than one category name and include at least one not listed: World, Sports, Business, or Sci/Tech.",The impact of AI on modern warfare: A dual perspective,Category: Technology / Military
+36bfa78,gpt-4o-2024-08-06,"The output must consist of more than one category name and include at least one not listed: World, Sports, Business, or Sci/Tech.",Merging art and technology: The future of creativity,Category: Art and Technology
+d9c24b5,gpt-4o-2024-08-06,"The output must consist of more than one category name and include at least one not listed: World, Sports, Business, or Sci/Tech.",Economics and ethics: Balancing profit and social responsibility,Category: Business and Ethics
+380a97b,gpt-4o-2024-08-06,"The output must contain additional information, explanation, or commentary beyond the category name.",Tech giant unveils ambitious plan: What does it mean for consumers?,Category: Technology News
+aabcde6,gpt-4o-2024-08-06,"The output must contain additional information, explanation, or commentary beyond the category name.",World Cup 2022: The underdogs and their journey,Category: Sports
+ab6a398,gpt-4o-2024-08-06,"The output must contain additional information, explanation, or commentary beyond the category name.",New policy changes: A global perspective with expert insights,Category: News

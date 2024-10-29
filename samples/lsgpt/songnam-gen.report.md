@@ -114,32 +114,32 @@ text: "Write a song title for a song about heartbreak and moving on." === text: 
 |id|model|rule|input|evaluation|
 |-|-|-|-|-|
 |8116dc2|gpt\-4o\-2024\-08\-06|The output must be a creative and unique song title\.|A song about the calmness of the ocean and peace\.|Song Name: "Ocean Whisper"|
-|50779d3|gpt\-4o\-2024\-08\-06|The output must be a creative and unique song title\.|A song describing the beauty of autumn leaves falling\.|"Whispers of Autumn Leaves"|
 |e57e392|gpt\-4o\-2024\-08\-06|The output must be a creative and unique song title\.|A song about friendship and shared adventures\.|Song Name: "Journeys with Friends"|
+|50779d3|gpt\-4o\-2024\-08\-06|The output must be a creative and unique song title\.|A song describing the beauty of autumn leaves falling\.|"Whispers of Autumn Leaves"|
 |4fcc821|gpt\-4o\-2024\-08\-06|The song title must be catchy and memorable\.|A song about a summer road trip\.|Title: "Sunlit Highways"|
 |38f762e|gpt\-4o\-2024\-08\-06|The song title must be catchy and memorable\.|A song about first love\.|"Whispers of First Love"|
+|f3aba4b|gpt\-4o\-2024\-08\-06|The song title must be catchy and memorable\.|A song celebrating freedom and exploration\.|"Boundless Horizons"|
 |e6f8650|gpt\-4o\-2024\-08\-06|The song title must be relevant to the themes or words provided by the user\.|A song about the serenity of a rainy day\.|"Whispers in the Rain"|
 |7acc0b4|gpt\-4o\-2024\-08\-06|The song title must be relevant to the themes or words provided by the user\.|A song about stars and dreams\.|"Starlit Dreams"|
-|f3aba4b|gpt\-4o\-2024\-08\-06|The song title must be catchy and memorable\.|A song celebrating freedom and exploration\.|"Boundless Horizons"|
+|ae9f7e9||The song title must be relevant to the themes or words provided by the user\.|A song reflecting the joy of a family reunion\.||
+|7e3261d||The song title must not be overly long\.|Create a song title about a bustling city\.||
 |c8bcd67|gpt\-4o\-2024\-08\-06|The song title must not be overly long\.|A song about quiet nights\.|"Whispers of the Night"|
+|22b72ba|gpt\-4o\-2024\-08\-06|The song title must not be overly long\.|A song about love and light\.|"Radiant Heartbeat"|
+|5d1afdc||The song title must not be complex or difficult to understand\.|A song about a fantasy world\.||
 |a28b410|gpt\-4o\-2024\-08\-06|The song title must not be complex or difficult to understand\.|A song about morning dew\.|Title: "Whispers of Morning Dew"|
 |70b73f9|gpt\-4o\-2024\-08\-06|The song title must not be complex or difficult to understand\.|A song about life's journey\.|Title: "Pathways and Horizons"|
 |c96fc5b|gpt\-4o\-2024\-08\-06|The song title must be suitable for various music genres\.|A song about dancing in the rain\.|"Dance in the Rain"|
 |e4b97db|gpt\-4o\-2024\-08\-06|The song title must be suitable for various music genres\.|A song about mystery and adventure\.|"Whispers of the Unknown"|
 |d3104d5|gpt\-4o\-2024\-08\-06|The song title must be suitable for various music genres\.|A song about timeless romance\.|"Eternal Heartbeat"|
 |8d92a42|gpt\-4o\-2024\-08\-06|The song title must use culturally appropriate and respectful language\.|A song about unity and peace\.|"Together in Harmony"|
-|22b72ba|gpt\-4o\-2024\-08\-06|The song title must not be overly long\.|A song about love and light\.|"Radiant Heartbeat"|
 |bb00fb8|gpt\-4o\-2024\-08\-06|The song title must use culturally appropriate and respectful language\.|A song about celebration and joy\.|Song Name: "Euphoria in the Air"|
-|7e3261d||The song title must not be overly long\.|Create a song title about a bustling city\.||
-|ae9f7e9||The song title must be relevant to the themes or words provided by the user\.|A song reflecting the joy of a family reunion\.||
 |0d7fa13|gpt\-4o\-2024\-08\-06|The song title must use culturally appropriate and respectful language\.|A song about reflection and growth\.|Song Name: "Mirrors of Change"|
 |ce8505d|gpt\-4o\-2024\-08\-06|The output must be friendly and engaging in tone\.|A song about overcoming challenges\.|"Rising Through the Storm"|
-|5d1afdc||The song title must not be complex or difficult to understand\.|A song about a fantasy world\.||
-|242b5b8|gpt\-4o\-2024\-08\-06|If the user's input is vague or unclear, the output must include a request for clarification\.|A request for music inspiration\.|Song Name: "Whispers of Inspiration"|
-|84f13b5|gpt\-4o\-2024\-08\-06|If the user's input is vague or unclear, the output must include a request for clarification\.|A vague request for a song about things\.|Song Name: "Whispers of Everything"|
-|327917b|gpt\-4o\-2024\-08\-06|If the user's input is vague or unclear, the output must include a request for clarification\.|A song idea about something\.|Song Name: "The Essence of Everything"|
 |cd3ca4f|gpt\-4o\-2024\-08\-06|The output must be friendly and engaging in tone\.|A song about new beginnings\.|"Fresh Horizons"|
 |8c6bff9|gpt\-4o\-2024\-08\-06|The output must be friendly and engaging in tone\.|A song about courage and hope\.|Title: "Brave Hearts, Rising Dreams"|
+|84f13b5|gpt\-4o\-2024\-08\-06|If the user's input is vague or unclear, the output must include a request for clarification\.|A vague request for a song about things\.|Song Name: "Whispers of Everything"|
+|327917b|gpt\-4o\-2024\-08\-06|If the user's input is vague or unclear, the output must include a request for clarification\.|A song idea about something\.|Song Name: "The Essence of Everything"|
+|242b5b8|gpt\-4o\-2024\-08\-06|If the user's input is vague or unclear, the output must include a request for clarification\.|A request for music inspiration\.|Song Name: "Whispers of Inspiration"|
 
 ### [test_results.csv](./songnam-gen.test_results.csv)
 
