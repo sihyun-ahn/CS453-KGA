@@ -285,14 +285,13 @@ export async function executeTests(
     PromptPexContext,
     "tests" | "prompt" | "dir" | "basename" | "testResults"
   >,
-  options?: { models?: ModelType[]; force?: boolean; concurrency?: number }
+  options?: { models?: ModelType[]; force?: boolean; q?: PromiseQueue }
 ): Promise<string> {
-  const { force, models, concurrency = CONCURRENCY } = options || {};
+  const { force, models, q = host.promiseQueue(CONCURRENCY) } = options || {};
   const tests = CSV.parse(files.tests.content) as PromptPexTest[];
   if (!tests?.length) throw new Error("No tests found");
 
   console.log(`executing ${tests.length} tests with ${models.length} models`);
-  const q = host.promiseQueue(concurrency);
   const testResults: PromptPexTestResult[] = [];
   for (const model of models)
     await q.mapAll(tests, async (test) => {
@@ -649,7 +648,9 @@ export async function generate(
     forceInputSpec?: boolean;
     forceTests?: boolean;
     forceTestEvals?: boolean;
-    q: PromiseQueue;
+    forceExecuteTests?: boolean;
+    models?: ModelType[];
+    q?: PromiseQueue;
   }
 ) {
   const {
@@ -658,7 +659,9 @@ export async function generate(
     forceIntent = false,
     forceInputSpec = false,
     forceTests = false,
-    q,
+    forceExecuteTests = false,
+    models,
+    q = host.promiseQueue(CONCURRENCY),
   } = options || {};
 
   console.log(`generating tests for ${files.basename}`);
@@ -725,6 +728,18 @@ export async function generate(
     await workspace.writeText(
       files.testEvals.filename,
       files.testEvals.content
+    );
+  }
+
+  if (models?.length) {
+    files.testResults.content = await executeTests(files, {
+      models,
+      force: force || forceExecuteTests,
+      q,
+    });
+    await workspace.writeText(
+      files.testResults.filename,
+      files.testResults.content
     );
   }
 

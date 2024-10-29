@@ -30,6 +30,15 @@ script({
       description: "Force overwrite of existing test evals files",
       default: false,
     },
+    forceExecuteTests: {
+      type: "boolean",
+      description: "Force execute tests",
+      default: false,
+    },
+    models: {
+      type: "string",
+      description: "Semi-column separated list of models to generate",
+    },
     concurrency: {
       type: "number",
       description: "Number of concurrent prompts to run",
@@ -44,11 +53,14 @@ const {
   forceInputSpec,
   forceTests,
   forceTestEvals,
+  forceExecuteTests,
   concurrency,
 } = env.vars;
 
 const prompts = await loadPromptContext();
 const q = host.promiseQueue(concurrency);
+const models = env.vars.models?.split(/;/g).map((model) => model.trim());
+
 await q.mapAll(prompts, async (files) => {
   try {
     await generate(files, {
@@ -57,6 +69,8 @@ await q.mapAll(prompts, async (files) => {
       forceInputSpec,
       forceTests,
       forceTestEvals,
+      forceExecuteTests,
+      models,
       q,
     });
   } catch (e) {

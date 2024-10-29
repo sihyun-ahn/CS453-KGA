@@ -39,7 +39,6 @@ for (const files of contexts) {
     const testResults = await executeTests(files, {
       force,
       models,
-      concurrency,
     });
     files.testResults.content = testResults;
     await workspace.writeText(files.testResults.filename, testResults);
