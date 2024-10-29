@@ -160,3 +160,27 @@ Text: Amazon and Apple are leading the charge in developing consumer-focused AI 
 |4|1|The launch event at SpaceX highlighted the importance of exploration\. Elon Musk emphasized the theme of pushing boundaries\.|Company names: SpaceX\\nPeople names: Elon Musk\\nSpecific topics: launch event\\nGeneral themes: exploration|Ensures extraction of themes related to exploration and innovation, aligning with input specifications\.|llama3\.2:3b|Company names: SpaceX<br>People names: \-||\- <br>Specific topics: exploration, pushing boundaries<br>General themes: \-||\-|failure|
 |4|2|Apple's annual meeting celebrated creativity and technology\. Tim Cook underscored their vision for the future\.|Company names: Apple\\nPeople names: Tim Cook\\nSpecific topics: annual meeting\\nGeneral themes: creativity, technology|Validly tests the extraction of overarching themes from corporate events, based on input specifications\.|llama3\.2:3b|Company names: Apple<br>People names: \-||\- <br>Specific topics: creativity, technology, future<br>General themes: \-||\-|failure|
 |4|3|The forum on global health, hosted by the WHO, addressed pressing issues\. Leaders focused on cooperation and progress\.|Company names: WHO\\nPeople names: \\nSpecific topics: global health\\nGeneral themes: cooperation, progress|Tests extraction of themes related to global health and cooperation, adhering to input specifications\.|llama3\.2:3b|Company names:<br><br>WHO \(World Health Organization\)<br><br>People names:<br>\- <br><br>Specific topics: global health, cooperation, progress, leaders<br><br>General themes:|failure|
+||||||llama3\.1:8b|||
+||||||llama3\.1:8b|||
+||||||llama3\.1:8b|||
+||||||llama3\.1:8b|||
+||||||llama3\.1:8b|||
+||||||llama3\.1:8b|||
+||||||llama3\.1:8b|||
+||||||llama3\.1:8b|||
+||||||llama3\.1:8b|||
+||||||llama3\.1:8b|||
+||||||llama3\.1:8b|||
+||||||llama3\.1:8b|||
+|||||||||
+|||||||||
+|||||||||
+|||||||||
+|||||||||
+|||||||||
+|||||||||
+|||||||||
+|||||||||
+|||||||||
+|||||||||
+|||||||||

@@ -161,3 +161,33 @@ Text: "I am very disappointed with the quality of the item. It broke within a we
 |5|1|I am thrilled\!|Thrilled with excitement\!|Checks improper formatting without 'Sentiment:' and classification in sentence form\.|llama3\.2:3b|Classification: Positive|failure|
 |5|2|This is disappointing|Disappointing results|Verifies improper format by lacking 'Sentiment:' and using a sentence\.|llama3\.2:3b|Classification:<br><br>\* Sentiment: Negative<br>\* Emotion: Disappointment<br>\* Tone: Somewhat formal and objective \(as if describing a fact rather than expressing a personal feeling\)|failure|
 |5|3|A typical day|Just another day|Tests incorrect sentence\-based feedback without standard labeling\.|llama3\.2:3b|Neutral|failure|
+||||||llama3\.1:8b|||
+||||||llama3\.1:8b|||
+||||||llama3\.1:8b|||
+||||||llama3\.1:8b|||
+||||||llama3\.1:8b|||
+||||||llama3\.1:8b|||
+||||||llama3\.1:8b|||
+||||||llama3\.1:8b|||
+||||||llama3\.1:8b|||
+||||||llama3\.1:8b|||
+||||||llama3\.1:8b|||
+||||||llama3\.1:8b|||
+||||||llama3\.1:8b|||
+||||||llama3\.1:8b|||
+||||||llama3\.1:8b|||
+|||||||||
+|||||||||
+|||||||||
+|||||||||
+|||||||||
+|||||||||
+|||||||||
+|||||||||
+|||||||||
+|||||||||
+|||||||||
+|||||||||
+|||||||||
+|||||||||
+|||||||||

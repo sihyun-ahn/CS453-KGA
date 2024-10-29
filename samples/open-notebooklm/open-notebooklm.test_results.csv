@@ -287,298 +287,15 @@ Rule ID,Test ID,Test Input,Expected Output,Reasoning,model,actualOutput,status
   ""Dr.Nguyen"": ""Thank you for having me, Jane. It’s thrilling to explore how cutting-edge research intersects with bold ideas.""
 }
 ```",failure
-1,1,"Text with multiple topics, anecdotes, and irrelevant info.",Dialogue with each line ≤ 100 characters.,"Ensures dialogue lines are concise, adhering to character limit.",qwen2.5-coder:latest,"```json
-{
-  ""podcast_script"": {
-    ""title"": ""Exploring the Human Condition"",
-    ""intro"": ""Welcome to 'Exploring the Human Condition,' where we dive deep into the complexities of our existence."",
-    ""segment_1"": {
-      ""topic"": ""The Power of Empathy"",
-      ""anecdote"": ""In a small town, a young boy named Alex lost his best friend. He couldn't understand why life had to be so cruel. Until one day, he helped an old woman who was lost in the forest."",
-      ""host_question"": ""How do you think Alex's experience with empathy changed him?"",
-      ""guest_response"": ""Empathy is like a muscle that gets stronger with practice. It's about seeing things from someone else's perspective and feeling their pain as if it were your own.""
-    },
-    ""segment_2"": {
-      ""topic"": ""The Future of Work"",
-      ""anecdote"": ""Meet Sarah, who used to work in an office but now works remotely. She says her job has become more flexible and fulfilling."",
-      ""host_question"": ""What changes do you think remote working will bring in the future?"",
-      ""guest_response"": ""Remote working is just the beginning. The future might include autonomous AI handling basic tasks, leaving humans free to focus on creativity and problem-solving.""
-    },
-    ""segment_3"": {
-      ""topic"": ""Mindfulness and Mental Health"",
-      ""anecdote"": ""John practiced mindfulness every day and noticed a significant improvement in his mental health. He says it helped him manage stress and anxiety."",
-      ""host_question"": ""How can mindfulness benefit our daily lives?"",
-      ""guest_response"": ""Mindfulness teaches us to be present in the moment, reducing stress and improving focus. It's about finding peace amidst the chaos of life.""
-    },
-    ""outro"": ""I hope you found this conversation as enlightening as it was interesting. Remember, empathy, flexibility with work, and mindfulness are key tools for a better life. Stay curious, stay kind, and keep exploring your own journey.""
-  }
-}
-```",failure
-1,2,Complex topics with potential for lengthy explanations.,"Lines are ≤ 100 characters, brief yet informative.",Tests ability to distill complex info into short lines.,qwen2.5-coder:latest,"```json
-{
-  ""script"": {
-    ""intro"": ""Welcome to our podcast! Today's episode delves into some complex topics that can be a bit tricky to understand, but I'm here to break it down in a way that's easy to digest."",
-    ""topic1"": ""First up, we have the concept of quantum entanglement. Imagine if two particles could instantly know what the other is doing no matter how far apart they are. It’s like they’re secretly communicating. But does this mean there might be more to reality than meets the eye? Well, let's explore this mind-bending idea together!"",
-    ""dialogue1"": [
-      {""host"": ""Jane: So, what exactly is quantum entanglement?""},
-      {""guest"": ""Dr. Smith: Quantum entanglement is a phenomenon where pairs or groups of particles become interconnected and the state of one (whether it's their position, momentum, spin, etc.) can depend on the state of another, even when they are separated by large distances.""},
-      {""host"": ""Jane: Wow, that’s so complex. Can you give me an analogy to help understand?""},
-      {""guest"": ""Dr. Smith: Sure! Think of it like having a pair of dice where whatever number one lands on, the other always shows the same number.""},
-      {""host"": ""Jane: That makes sense. But does this have any practical uses?""},
-      {""guest"": ""Dr. Smith: Well, quantum entanglement has led to breakthroughs in areas like cryptography (where it’s used for secure communications) and quantum computing (which could potentially solve certain complex problems much faster than regular computers).""}
-    ],
-    ""topic2"": ""Let's move on to climate change. It’s a topic that affects all of us, but it can be overwhelming with so much information out there. So, let’s take a closer look at what we need to know and do."",
-    ""dialogue2"": [
-      {""host"": ""Jane: So, what are the main causes of climate change?""},
-      {""guest"": ""Dr. Brown: The main causes include the emission of greenhouse gases like carbon dioxide and methane from burning fossil fuels, deforestation, and industrial processes.""},
-      {""host"": ""Jane: I hear a lot about renewable energy sources. What exactly is that?""},
-      {""guest"": ""Dr. Brown: Renewable energy sources are those that can be replenished naturally over time, such as solar, wind, hydro, and biomass. They don’t contribute to the greenhouse gas emissions that cause climate change.""},
-      {""host"": ""Jane: That sounds like a good step! What should we do as individuals?""},
-      {""guest"": ""Dr. Brown: As individuals, we can make small changes in our daily lives, such as using energy-efficient appliances, reducing waste and recycling, and supporting policies that promote renewables.""},
-    ],
-    ""closing"": ""And there you have it! Quantum entanglement challenges our understanding of reality, while climate change is a pressing issue whose impacts are already being felt around the world. Whether we're talking about science or action, it’s important to stay informed and take steps towards creating a better future.""
-  }
-}
-```",failure
-1,3,Text with redundant information and key insights.,Dialogue with concise lines not exceeding 100 chars.,Challenges condensing valuable insights into short dialogue.,qwen2.5-coder:latest,"```json
-{
-  ""script"": {
-    ""intro"": ""Jane: Hi everyone! Welcome back to The Thought Leaders Podcast. We're diving deep into today's fascinating topic."",
-    ""guest_introduction"": ""Jane: Let me introduce our guest, John Doe. John is an expert in sustainable practices and innovation."",
-    ""topic_focus"": ""Jane: Today, we're discussing the impact of renewable energy on global ecosystems. Stay tuned!"",
-    ""interview_begin"": ""Jane: John, could you start by explaining the basics of renewable energy?"",
-    ""guest_answer_1"": ""John: Sure! Renewable energy sources like solar, wind, and hydroelectric power are sustainable because they don't deplete natural resources."",
-    ""thought_provoking_question_1"": ""Jane: That's true. What are some of the biggest challenges facing the adoption of renewable energy?"",
-    ""guest_answer_2"": ""John: Well, one major challenge is the high initial investment in infrastructure for these technologies. Plus, there’s the issue of intermittency with solar and wind power."",
-    ""clarifying_question_1"": ""Jane: Right! So, how can we overcome these challenges to promote more widespread adoption?"",
-    ""guest_answer_3"": ""John: By developing better storage technologies and improving grid management systems. We also need government policies that support the transition."",
-    ""insightful_example_1"": ""Jane: A great example of overcoming these issues is what Germany has done with solar energy. They've invested heavily in research and infrastructure, which has led to a significant increase in adoption."",
-    ""thought_provoking_question_2"": ""Jane: That's inspiring! Do you believe that renewable energy can completely replace fossil fuels?"",
-    ""guest_answer_4"": ""John: It’s ambitious but definitely possible. With continued innovation and global cooperation, we could see a substantial shift away from traditional energy sources."",
-    ""brief_anecdote"": ""Jane: Speaking of innovation, John has been working on a new project to improve the efficiency of solar panels. It’s really exciting to see what they’re up to!"",
-    ""closing_summary"": ""Jane: Thank you, John, for sharing your insights on renewable energy and its impact on our planet. This is just scratching the surface of how technology can help us live more sustainably."",
-    ""thanks_message"": ""Jane: And that’s all from us today! If you want to learn more about sustainable practices or follow John's work, be sure to check out his website and social media pages.""
-  }
-}
-```",failure
-2,1,Unstructured text with historical facts and modern context.,"Host initiates, guides, and summarizes insights.",Validates structure where host leads and concludes discussion.,qwen2.5-coder:latest,"```json
-{
-  ""title"": ""Historical Insights into Modern Life"",
-  ""intro"": ""Hello listeners! Today, we're diving into fascinating historical facts that shed light on our current world. I'm Jane, your host. Joining me is Dr. Emily Hart, a historian with a passion for connecting past and present."",
-  ""segments"": [
-    {
-      ""topic"": ""The Industrial Revolution"",
-      ""host_question"": ""Dr. Hart, can you explain how the Industrial Revolution changed society?"",
-      ""guest_response"": ""Absolutely! The Industrial Revolution, which took place from about 1760 to 1840, transformed economies and societies worldwide. It marked the transition from agrarian to industrial practices.""
-    },
-    {
-      ""topic"": ""Gender Roles"",
-      ""host_question"": ""How did gender roles during the Industrial Revolution differ from what we have today?"",
-      ""guest_response"": ""During the Industrial Revolution, women largely remained in domestic roles while men worked in factories. This shift significantly affected family dynamics and societal expectations.""
-    },
-    {
-      ""topic"": ""Urbanization"",
-      ""host_question"": ""What were some of the challenges faced by urban areas during this time?"",
-      ""guest_response"": ""Urbanization brought many challenges, including poor sanitation, overcrowding, and increased crime rates. There was also a need for new infrastructure like roads and railways.""
-    },
-    {
-      ""topic"": ""Labor Movements"",
-      ""host_question"": ""How did labor movements during the Industrial Revolution impact society?"",
-      ""guest_response"": ""Labor movements emerged to address workers' rights, including better wages, safer working conditions, and shorter work hours. These movements played a crucial role in shaping modern labor laws.""
-    },
-    {
-      ""topic"": ""Modern Applications"",
-      ""host_question"": ""Dr. Hart, how do you see these historical insights applying to our lives today?"",
-      ""guest_response"": ""These insights remind us of the importance of innovation and progress, as well as the need for social justice and equity. They show that many issues we face today have roots in past industrial and societal changes.""
-    }
-  ],
-  ""outro"": ""That wraps up this episode! Thank you, Dr. Hart, for sharing your expertise with us. Keep those questions coming, and tune in next time for more fascinating historical insights into modern life. Until then, stay curious!""
-}
-```",failure
-2,2,Messy input with scientific discoveries and theories.,Conversation starts and ends with host's questions and summaries.,Ensures host's role in maintaining conversation flow.,qwen2.5-coder:latest,"```json
-{
-  ""podcast_script"": {
-    ""title"": ""Unveiling the Secrets of the Cosmos"",
-    ""host"": ""Jane Doe"",
-    ""guest"": ""Dr. Emily Carter, Astrophysicist"",
-    ""dialogue"": [
-      {
-        ""host"": ""Good morning, everyone! Today, we're diving into some fascinating discoveries and theories about our universe. Joining us is Dr. Emily Carter, an astrophysicist with a wealth of knowledge to share."",
-        ""guest"": ""Good morning! Thank you for having me.""
-      },
-      {
-        ""host"": ""Let's start with black holes. It's such a mysterious concept!"",
-        ""guest"": ""Absolutely! Black holes are areas in space where the gravity is so strong that nothing, not even light, can escape from them. They're like cosmic sinks."",
-        ""host"": ""Can you imagine having a sink so powerful it sucks everything in? That's pretty scary."",
-        ""guest"": ""It’s fascinatingly challenging to understand. But scientists are always pushing the boundaries of what we know."",
-        ""host"": ""Speaking of boundaries, what about dark matter and dark energy? These guys are invisible but seem to make up most of our universe!"",
-        ""guest"": ""That's right! Dark matter doesn't interact with light, so it’s hard to see. But its gravitational pull affects how galaxies move around. As for dark energy, it seems to be accelerating the expansion of the universe."",
-        ""host"": ""So, if dark matter isn’t light, what does it look like?"",
-        ""guest"": ""It's more like a ghostly presence, influencing the fabric of space-time. It’s one of those mysterious things that makes physics so exciting!"",
-        ""host"": ""And lastly, there's the theory of relativity. It revolutionized our understanding of time and space."",
-        ""guest"": ""That's correct! Albert Einstein proposed two theories: special relativity, which describes motion at constant speeds, especially near light speed; and general relativity, which describes gravity as a curvature of space-time caused by massive objects."",
-        ""host"": ""Relativity sounds almost like something out of a science fiction book!"",
-        ""guest"": ""It is! It’s like stepping into a different world where the rules are different from what we think. The theory’s predictions have been confirmed experimentally, which is pretty incredible."",
-        ""host"": ""Wow, it’s fascinating to think about how much we’ve learned and how much more there is to discover. Thanks for joining us today, Dr. Carter!"",
-        ""guest"": ""Thank you! It was a pleasure chatting with you.""
-      },
-      {
-        ""host"": ""Thanks, Jane, that wraps up our show for today. We've covered black holes, dark matter, dark energy, and the theory of relativity—some truly mind-bending topics! If you’re curious about any of these subjects or others, be sure to check out the links in your podcast app."",
-        ""guest"": ""You're welcome! Have a great day!"",
-        ""host"": ""Goodnight everyone! Don’t forget to tune in next time for more exciting conversations. Until then, stay curious!""
-      }
-    ]
-  }
-}
-```",failure
-2,3,Anecdotes mixed with statistical data.,Dialogue starts with host guiding and summarizing key points.,Confirms host's responsibility in steering and summarizing.,qwen2.5-coder:latest,"{
-  ""podcast_script"": {
-    ""title"": ""The Power of Anecdotes and Statistics"",
-    ""intro"": ""Jane: Welcome to 'Insightful Insights,' where we explore the fascinating intersection of stories and numbers. I'm Jane, your host, today joined us is Dr. Emily Johnson, a renowned data scientist with a passion for storytelling. Hey, Emily!"",
-    ""greeting"": ""Emily: Hi! Thank you so much for having me, Jane."",
-    ""anecdote_first"": {
-      ""host"": ""Jane: Let's dive into something interesting. You know how numbers can sometimes feel cold and impersonal? Well, have you ever seen how a well-chosen anecdote can transform that?"",
-      ""guest"": ""Emily: Absolutely! Stories have the power to evoke emotions and make abstract concepts relatable.""
-    },
-    ""statistic_example"": {
-      ""host"": ""Jane: For instance, did you know that 70% of people are more likely to remember a story than a list of facts?"",
-      ""guest"": ""Emily: That's right! It’s because stories create neural pathways in our brains that make the information stick.""
-    },
-    ""anecdote_second"": {
-      ""host"": ""Jane: Let me share one of my own. When I was trying to explain complex economic trends, a colleague suggested using a story about a farmer who struggled with droughts. It worked wonders!"",
-      ""guest"": ""Emily: That's an excellent approach. People connect better with narratives that they can understand and relate to.""
-    },
-    ""statistic_explication"": {
-      ""host"": ""Jane: Now, let’s explore this further. According to a study by the University of Chicago, incorporating anecdotes into presentations increases understanding by 60%."",
-      ""guest"": ""Emily: That's incredible! It shows that storytelling isn't just nice to have; it's essential in effective communication.""
-    },
-    ""anecdote_third"": {
-      ""host"": ""Jane: What about when it comes to persuading others? Using a well-told story can be a game-changer. Take, for example, the story of how Volkswagen’s CEO used an anecdote about a family car to convince consumers about their new model."",
-      ""guest"": ""Emily: True! Stories help build empathy and understanding, making arguments more persuasive.""
-    },
-    ""closing_thoughts"": {
-      ""host"": ""Jane: So, in conclusion, while statistics are crucial for backing up our claims, it’s the stories that make the data come alive. Thank you, Emily, for sharing your insights."",
-      ""guest"": ""Emily: You're welcome! It's always a pleasure to share my passion for storytelling and data.""
-    },
-    ""outro"": ""Jane: If you have any thoughts or questions about this fascinating topic, feel free to leave them in the comments below. Until next time, keep exploring the world through stories and numbers. Goodbye!""
-  }
-}",failure
-3,1,Input containing expert opinions and fictional stories.,Guest responses supported by input without marketing.,Verifies guest's adherence to input and non-promotional content.,qwen2.5-coder:latest,"```json
-{
-  ""title"": ""Podcast Script"",
-  ""intro"": ""Jane opens the episode with a warm welcome."",
-  ""segments"": [
-    {
-      ""title"": ""Segment 1: Expert Opinion"",
-      ""host"": ""Jane starts by introducing the guest, an expert on [topic]."",
-      ""guest"": ""The expert discusses their latest findings or insights about [topic], providing clear, accessible explanations even for complex ideas."",
-      ""dialogue"": [
-        ""Jane: Thank you so much for joining us today. We're excited to hear your thoughts on [topic]."",
-        ""Expert: Hi there! I'm thrilled to be here. The recent studies in [field] have shown that..."",
-        ""Jane: That sounds fascinating! Can you explain it to us in a way that's easy to understand?"",
-        ""Expert: Absolutely, let me break it down for you... When you think about it...""
-        // Add more lines as needed
-      ],
-      ""scratchpad"": [
-        ""Use analogies or metaphors to make the topic relatable."",
-        ""Incorporate humorous anecdotes to keep listeners engaged.""
-      ]
-    },
-    {
-      ""title"": ""Segment 2: Fictional Story"",
-      ""host"": ""Jane transitions smoothly into a storytelling segment."",
-      ""guest"": ""The author shares a fictional story that illustrates a key point or insight from the expert's opinion."",
-      ""dialogue"": [
-        ""Jane: Now, let’s dive into a captivating story that demonstrates this in action. [Author's name] has shared a beautiful narrative about..."",
-        ""Author: It all started one day when she met [character]."",
-        // Add more lines as needed
-      ],
-      ""scratchpad"": [
-        ""Use storytelling techniques to make the content relatable and engaging."",
-        ""Ensure the story clearly illustrates a key point from the expert's discussion.""
-      ]
-    },
-    {
-      ""title"": ""Segment 3: Expert Follow-Up"",
-      ""host"": ""Jane returns to interview the expert on a related but tangential topic."",
-      ""guest"": ""The expert shares their thoughts on how [related topic] has influenced or can be applied to [topic]."",
-      ""dialogue"": [
-        ""Jane: I noticed that [related topic] is quite relevant here. What do you think about..."",
-        ""Expert: Well, that’s a great point! By understanding..."",
-        // Add more lines as needed
-      ],
-      ""scratchpad"": [
-        ""Use hypothetical scenarios to explore the implications of the expert's insights."",
-        ""Ensure the discussion remains engaging and informative.""
-      ]
-    }
-  ],
-  ""outro"": ""Jane wraps up the episode with a summary of key insights and invites listener interaction.""
-}
-```",failure
-3,2,Historical events interspersed with fictional elements.,"Responses grounded in input text, avoiding promotions.",Checks guest's alignment with input-derived content.,qwen2.5-coder:latest,"```json
-{
-  ""script"": {
-    ""title"": ""The Mists of History and Myth"",
-    ""host"": ""Jane Doe"",
-    ""guest"": ""Professor Alex Turner""
-  },
-  ""introduction"": {
-    ""text"": ""Welcome to The Mists of History and Myth. I'm Jane Doe, and today we're diving into the fascinating intersection of historical events with fictional elements.""
-  },
-  ""episodes"": [
-    {
-      ""title"": ""The Enchanted Castle"",
-      ""description"": ""Jane visits an old castle that seems to hold secrets from both history and legend."",
-      ""dialogue"": [
-        ""Jane: So, Professor Turner, tell us about this castle you've been studying."",
-        ""Professor Turner: It's a place where the walls supposedly whisper of ancient battles and fairies alike. What do you think?"",
-        ""Jane: Well, let me tell you! This castle has a history that spans centuries, and there's talk of it being haunted. But I heard it might also have been used by pirates in the past."",
-        ""Professor Turner: Ah, yes. It was indeed a strategic location for both military campaigns and maritime adventures. The legends do add an extra layer to its story.""
-      ]
-    },
-    {
-      ""title"": ""The Lost Kingdom"",
-      ""description"": ""Jane travels back in time to witness the rise and fall of an ancient kingdom, blending historical facts with mythical elements."",
-      ""dialogue"": [
-        ""Jane: This place feels... different. Like something from a storybook."",
-        ""Professor Turner: Indeed, it's a period where kingdoms were just beginning to take shape. The blend of myth and reality is fascinating."",
-        ""Jane: I came across this tablet. It speaks of a legendary king who ruled with great power but paid the price of eternal sleep.""
-        ""Professor Turner: That's right. It's an intriguing legend that adds depth to our understanding of the era. Some historians believe it might be based on historical figures.""
-      ]
-    },
-    {
-      ""title"": ""The Dragon and the Phoenix"",
-      ""description"": ""Jane uncovers a hidden treasure, only to discover it's guarded by mythical creatures from different eras."",
-      ""dialogue"": [
-        ""Jane: This is incredible! The treasure chest is locked with what looks like dragon scales, but underneath them, there are phoenix feathers."",
-        ""Professor Turner: What an intriguing combination. Dragons and phoenixes hold significant meanings in both history and mythology. They symbolize the struggle between chaos and order, as well as life and death.""
-        ""Jane: And guess what? Inside is a map leading to another lost city, and it's guarded by a mythical creature that looks like a mix of elements from different civilizations."",
-        ""Professor Turner: Yes, such a convergence helps us understand the cultural exchange during those times. It's not just about battles and conquests but also about the sharing of ideas and beliefs.""
-      ]
-    }
-  ],
-  ""conclusion"": {
-    ""text"": ""That’s all for today's episode of The Mists of History and Myth. We've explored how fictional elements can add layers to our understanding of historical events, blending fact with legend in a most intriguing way. Until next time, keep your minds open to the mysteries of history.""
-  }
-}
-```",failure
-3,3,Mix of scientific data and speculative theories.,"Guest's claims supported by input text, no self-promotion.",Examines guest's commitment to input-based claims.,qwen2.5-coder:latest,"{
-  ""script"": {
-    ""intro"": ""Jane: Hello everyone! Welcome to 'The Curious Mind' podcast. I'm Jane, your host, and today we're diving into a fascinating mix of scientific data and speculative theories. Let’s explore how these seemingly disparate elements can come together to shape our understanding of the world."",
-    ""guest_introduction"": ""Jane: Before we get started, let's welcome our guest, Dr. Emily Carter, an expert in both astrophysics and philosophical inquiry. Thank you for joining us today, Dr. Carter. What are your thoughts on how science and speculation can intersect?"",
-    ""science_first"": ""Jane: To kick things off, Dr. Carter, can you start by explaining what scientific data we have so far, and how it's been interpreted?"",
-    ""speculation_in_science"": ""Dr. Emily Carter: Well, Jane, there’s a lot of compelling evidence from observations like the cosmic microwave background radiation that supports the Big Bang theory. But that doesn’t mean we’re done exploring, as some theories and hypotheses are still speculation."",
-    ""thought_provoking_questions"": ""Jane: That raises an interesting point. How do scientists deal with speculative theories? And how can we keep an open mind without dismissing all non-scientific ideas?"",
-    ""complex_topics_simplified"": ""Dr. Emily Carter: It’s a balance, really. Scientists rely on evidence and peer review to validate their findings. Speculative theories are part of the scientific process, but they need to be falsifiable. If a theory can't be tested or is disproven by evidence, it's not considered part of mainstream science."",
-    ""interactivity"": ""Jane: So, how can listeners like us engage with these speculative ideas in a meaningful way? Should we ignore them, or are there valuable lessons to learn?"",
-    ""guest_experts_view"": ""Dr. Emily Carter: Engaging with speculation is key—it helps drive innovation and new discoveries. Ignoring it risks missing important insights that could change our understanding of the world. It’s all about curiosity and critical thinking."",
-    ""personal_anecdote"": ""Jane: Let me think for a second... I remember reading an interesting story about a physicist who thought deeply about time travel; it got him thinking about paradoxes and the limits of our current theories. That’s something that could challenge our minds!"",
-    ""broadening_horizons"": ""Jane: Thank you, Dr. Carter, for sharing your insights. It’s fascinating to see how science and speculation can complement each other in enriching our view of reality."",
-    ""closing_thoughts"": ""Dr. Emily Carter: Thanks for having me, Jane. And remember, curiosity is the spark that drives both scientific progress and philosophical inquiry. Stay curious!"",
-    ""outro"": ""Jane: Well, folks, that’s all from us today on 'The Curious Mind'. Don’t forget to follow us on social media for more fascinating discussions like this. Until next time, stay curious!""
-  }
-}",failure
+,,,,,qwen2.5:3b,,
+,,,,,qwen2.5:3b,,
+,,,,,qwen2.5:3b,,
+,,,,,qwen2.5:3b,,
+,,,,,qwen2.5:3b,,
+,,,,,qwen2.5:3b,,
+,,,,,qwen2.5:3b,,
+,,,,,qwen2.5:3b,,
+,,,,,qwen2.5:3b,,
 1,1,"Text with multiple topics, anecdotes, and irrelevant info.",Dialogue with each line ≤ 100 characters.,"Ensures dialogue lines are concise, adhering to character limit.",llama3.2:3b,"```
 {
   ""topics"": [
@@ -1055,3 +772,21 @@ Dr. [Guest's Name]: Thank you, Jane. I think we're just getting started on this 
 Jane: And that's all for today's episode. Join us next time when we explore more wonders of science and speculation. Don't forget to subscribe, rate, and review our podcast if you enjoyed this episode!
 
 Note: The script is designed to be engaging and conversational, with a mix of scientific data and speculative theories. Each line of dialogue should be no more than 100 characters (e.g., can finish within 5-8 seconds).",failure
+,,,,,llama3.1:8b,,
+,,,,,llama3.1:8b,,
+,,,,,llama3.1:8b,,
+,,,,,llama3.1:8b,,
+,,,,,llama3.1:8b,,
+,,,,,llama3.1:8b,,
+,,,,,llama3.1:8b,,
+,,,,,llama3.1:8b,,
+,,,,,llama3.1:8b,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,

@@ -128,3 +128,15 @@ text: Climate change refers to long-term shifts and alterations in temperature a
 |2|1|The cat quickly climbed the tall tree in the garden but soon jumped down\.|Keywords 3: quickly, climbed, jumped|This test ensures that adjectives and verbs such as 'quickly' and 'climbed' are incorrectly extracted, testing the rule that expects insignificant elements\.|llama3\.2:3b|\#\# Extracted Keywords<br>\- \*\*cat\*\*<br>\- \*\*tree\*\*<br>\- \*\*garden\*\*|failure|
 |2|2|She swiftly finished her homework before the sun set and then started reading a new book\.|Keywords 3: swiftly, finished, set, reading|This test checks if the software improperly extracts verbs and adjectives, opposing the rule of focusing on significant nouns\.|llama3\.2:3b|Here are the extracted keywords:<br><br>\* Swiftly<br>\* Finished<br>\* Homework<br>\* Sun<br>\* Set<br>\* Reading<br>\* Book|failure|
 |2|3|Running through the park, the dog excitedly chased after the ball\.|Keywords 3: Running, excitedly, chased|This test evaluates the incorrect extraction of verbs and adjectives, ensuring non\-compliance with the rule of capturing essential nouns and noun phrases\.|llama3\.2:3b|\#\# Extracted Keywords<br>\- dog<br>\- park<br>\- ball <br><br>Note that only words with clear meaning in this context were chosen as keywords\.|failure|
+||||||llama3\.1:8b|||
+||||||llama3\.1:8b|||
+||||||llama3\.1:8b|||
+||||||llama3\.1:8b|||
+||||||llama3\.1:8b|||
+||||||llama3\.1:8b|||
+|||||||||
+|||||||||
+|||||||||
+|||||||||
+|||||||||
+|||||||||
