@@ -1,792 +1,773 @@
-Rule ID,Test ID,Test Input,Expected Output,Reasoning,model,actualOutput,status
-1,1,"Text with multiple topics, anecdotes, and irrelevant info.",Dialogue with each line ≤ 100 characters.,"Ensures dialogue lines are concise, adhering to character limit.",phi3.5,"```json
-{
+id,promptid,model,error,input,output
+34b882b,b6cd9a0,gpt-4o-mini,,"Text with multiple topics, anecdotes, and irrelevant info.","{
   ""podcast_script"": {
-    ""intro"": ""Welcome back to 'Insightful Minds' where we unravel the threads of fascinating stories that shape our world! Today, I have a special episode lined up. It’s not just another podcast; it takes us on an adventure through diverse topics with real-world impact."",
-    ""jane"": [""Have you ever found yourself lost in different subjects at once? That's what today feels like as we sift through some intriguing threads of information!""],
-    ""transition_to_topic1"": ""[0.5 sec pause] Let’s dive into the first thread: innovation."",
-    ""jane"": [""Innovation is everywhere, isn't it? From tech startups to ancient inventions that still fascinate us today.""],
-    ""guest"": {
-      ""name"": ""Dr. Emily Hues"",
-      ""field"": ""Historic Inventor Studies""
+    ""intro"": {
+      ""host"": ""Jane"",
+      ""opening"": ""Welcome back to our podcast! Today, we’re diving into some fascinating topics.""
     },
-    ""jane_to_emily"": [""Here's where our guest, Dr. Emily Hues enlightens us."", """"],
-    ""interview"": {
-      ""round1"": [
-        {""host"": """", ""guest"": [{
-          ""question"": 'Can you share a mind-blowing invention from history that still influences today?', 
-          ""response"": ""'Dr. Hues smiles and begins, “Absolutely! Have you ever pondered the Antikythera mechanism?'",failure
-1,2,Complex topics with potential for lengthy explanations.,"Lines are ≤ 100 characters, brief yet informative.",Tests ability to distill complex info into short lines.,phi3.5,"```json
-{
-  ""Jane"": ""Welcome back to another episode of 'Insightful Discussions.' I'm your host, Jane Doe, diving deep into some head-turningly complex subjects today."",
-  ""Guest"": {
-    ""name"": ""<NAME>"",
-    ""response"": ""Thanks for having me, Jane. Complex topics always offer rich soil for exploration.""
-  },
-  ""Jane"": ""Absolutely! Today's subject is Quantum Computing – a field that seems like science fiction but holds real promise."",
-  ""Guest"": {
-    ""name"": ""<NAME>"",
-    ""response"": ""Indeed, Jane. The principles of quantum mechanics can lead to processing power beyond our current capabilities.""
-  },
-  ""Jane"": ""{brief pause for effect} So how exactly does a quantum computer work?"",
-  ""Guest"": {
-    ""name"": ""<NAME>"",
-    ""response"": ""'Well,' I might start, 'traditional computers use bits as the basic unit of information. But in quantum computing...' (continues)"",""brief pause"" : true,""natural_speech_pattern"":true}
-  // Dialogue continues with simple analogies and questions to maintain flow for general audience understanding. Jane asks about practical applications, quirks like superposition or entanglement, while the guest provides digestible explanations without technical jargon spillover.""
-  
-// Example of summary insights weaved into dialogue: 
-""Jane"": ""So to recap our discussion on quantum computing – it's not just some futuristic dream but a rapidly evolving technology that could revolutionize everything from medicine to cybersecurity. Truly fascinating, isn’t it?"",
-// Jane would end with an engaging question or call-to-action for listeners: ""So what do you think the impact of quantum computing will be on your daily life in 10 years?""
-}
-```",failure
-1,3,Text with redundant information and key insights.,Dialogue with concise lines not exceeding 100 chars.,Challenges condensing valuable insights into short dialogue.,phi3.5,"```json
-{
-  ""podcast_script"": [
-    {
-      ""speaker"": ""Jane"",
-      ""line"": ""Welcome to 'Insightful Discussions,' where we unravel the essence of captivating topics! Today, let's talk about something you might not expect: cutting through red tape.""
-    },
-    {
-      ""speaker"": ""Jane"",
-      ""line"": ""Our guest today dives deep into this. Tell me, what really is the essence of navigating corporate protocol?""
-    },
-    {
-      ""speaker"": ""Guest Expert"",
-      ""line"": ""Well, Jane, it's like finding your way through a maze; every step has to be meticulous.""
-    },
-    {
-      ""speaker"": ""Jane"",
-      ""line"": ""A labyrinth of procedures! So what tips can you share with our listeners stuck in the minotaur's den?""
-    },
-    {
-      ""speaker"": ""Guest Expert"",
-      ""line"": ""First, understand your 'minotor,' or be clear on objectives. Then map out steps wisely.""
-    },
-    {
-      ""speaker"": ""Jane"",
-      ""line"": ""Maps can get old though... any shortcuts?""
-    },
-    {
-      ""speaker"": ""Guest Expert"",
-      ""line"": ""Shortcuts are tricky, Jane. Clarity trumps speed to avoid pitfalls.""
-    },
-    {
-      ""speaker"": ""Jane"",
-      ""line"": ""Sound advice! Any interesting stories from your experience?""
-    },
-    {
-      ""speaker"": ""Guest Expert"",
-      ""line"": ""Ah, yes. Once I oversaw a project where miscommunication led to delays...""
-    },
-    {
-      ""speaker"": ""Jane"",
-      ""line"": ""Delays can be crushing... How did you handle that?""
-    },
-    {
-      ""speaker"": ""Guest Expert"",
-      ""line"": ""We had a heart-to-heart, recalibrated our communication. It was enlightening!""
-    },
-    {
-      ""speaker"": ""Jane"",
-      ""line"": ""That's the spirit! Learning through experiences.""
-    },
-    {
-      ""speaker"": ""Guest Expert"",
-      ""line"": ""Absolutely, Jane. And remember—clarity is your torch in these mazes!""
-    },
-    {
-      ""JaneSummarizeKeyInsights"": [
-        {""key_insight1"": ""Understand objectives clearly.""},
-        {""key_insight2"": ""Communication and clarity are vital to navigate protocol effectively.""}
-      ],
-      ""line"": ""To wrap up, Jane: understanding your goals is the key—and never underestimate clear communication. What do you think listeners will take away from today's maze-walk?""
-    },
-    {
-      ""speaker"": ""Jane"",
-      ""line"": ""I hope it empowers them to tackle their own corporate labyrinth with confidence.""
-    },
-    {
-      ""speaker"": ""Guest Expert & Jane"",
-      ""concluding_thoughts"": [
-        {""bothSpeakersInSyncConfidenceBoostingMessage"": ""Armed with clarity, listeners can conquer the corporate world's mazes.""}
+    ""segment_1"": {
+      ""topic"": ""The power of storytelling"",
+      ""dialogue"": [
+        {
+          ""host"": ""Jane"",
+          ""line"": ""So, let’s start with storytelling. Why is it so powerful?""
+        },
+        {
+          ""guest"": ""Expert"",
+          ""line"": ""Well, Jane, storytelling connects us emotionally. It makes ideas relatable.""
+        },
+        {
+          ""host"": ""Jane"",
+          ""line"": ""Absolutely! Can you share an example?""
+        },
+        {
+          ""guest"": ""Expert"",
+          ""line"": ""Sure! Think of a personal experience. It draws listeners in.""
+        }
       ]
+    },
+    ""segment_2"": {
+      ""topic"": ""Impact of digital media"",
+      ""dialogue"": [
+        {
+          ""host"": ""Jane"",
+          ""line"": ""Now, shifting gears, what about digital media?""
+        },
+        {
+          ""guest"": ""Expert"",
+          ""line"": ""Digital media is reshaping how we tell stories. It’s everywhere!""
+        },
+        {
+          ""host"": ""Jane"",
+          ""line"": ""Right! How do you think it affects engagement?""
+        },
+        {
+          ""guest"": ""Expert"",
+          ""line"": ""It allows for interaction. Audiences feel part of the story.""
+        }
+      ]
+    },
+    ""segment_3"": {
+      ""topic"": ""Challenges in communication"",
+      ""dialogue"": [
+        {
+          ""host"": ""Jane"",
+          ""line"": ""Let’s talk challenges. What do you see?""
+        },
+        {
+          ""guest"": ""Expert"",
+          ""line"": ""Miscommunication can arise from digital distractions.""
+        },
+        {
+          ""host"": ""Jane"",
+          ""line"": ""That’s a great point! Any tips on overcoming that?""
+        },
+        {
+          ""guest"": ""Expert"",
+          ""line"": ""Definitely! Clarity is key. Be concise.""
+        }
+      ]
+    },
+    ""closing"": {
+      ""host"": ""Jane"",
+      ""summary"": ""So today, we explored storytelling, digital media, and communication challenges."",
+      ""final_thought"": ""What’s one takeaway for our listeners?""
     }
-  ],
-  ""janeSummarizeKeyInsightsLine100charsMax"": true
-}
-```",failure
-2,1,Unstructured text with historical facts and modern context.,"Host initiates, guides, and summarizes insights.",Validates structure where host leads and concludes discussion.,phi3.5,"```json
-{
-  ""Jane"": ""Welcome back to 'Times Past Today,' where history meets nowadays! I'm your host, Jane, diving into the echoes of yesterday that shape our world today."",
-
-  ""Guest"": ""It's a pleasure to be here, Jane. History is indeed alive in so many ways.""
-
-  ""Jane"": ""Absolutely! Let’s start with something fascinating—did you know ancient Rome had hot bathhouses?"",
-
-  ""Guest"": ""[chuckles] Oh yes, they were quite the social hub. It's not just nostalgia; these practices influence modern wellness trends.""
-
-  ""Jane"": ""That’s a great point! How do you think those ancient traditions connect with what we value today for mental health and community?""
-
-  ""Guest"": ""[thinks] Well, communal activities have always been central to society. They foster connection—something our digital age sometimes lacks.""
-
-  {
-    ""Highlights"": [
-      {""Ancient Rome's Hot Bathhouses as Social Gems and Today’s Community Spaces""},
-      
-      {""Contemporary Connection Between Ancient Practices & Modern Wellness Trends""}
-    ]
   }
-  
-  ""Jane"": ""So, even in our rush to technology-centric lives, we're drawn back by the need for community! Now that’s food for thought. How about more groundbreaking history?""
-
-  {
-    ""Climax"": [
-      {""Revisiting Ancient Rome: Uncovering Communal Essentials""}
-      
-      {""Finding Modern Reflections in Timeless Traditions of Well-being and Connection}
-     ]
-   }
-
-{
-  ""*Conversation Summary*"": {
-    ""The Spirited Convergence between Yonder Ages & Here Now"",
-    ""Jane's Curiosity: Unravel History’s Thread into Today, Listeners""
-  },
-
-  ""Guest"": (Smiling) “In every era lies a lesson for us. It shows that regardless of time or place—community and connection are key.""
-}
-```
-[Conclusion with Jane's closing remarks]:
-{
-    ""*Closing Remarks*"": {
-      ""Jane’S Parting Thought"": ""[smiles] That was quite the historical journey, wasn't it? Connectivity across ages—it really does make sense. Thanks for sharing your insights today.""
-      },
-  }",failure
-2,2,Messy input with scientific discoveries and theories.,Conversation starts and ends with host's questions and summaries.,Ensures host's role in maintaining conversation flow.,phi3.5,"```json
-{
-  ""Jane"": ""Welcome back to 'Science Simplified', I'm your host Jane Doe diving deep into today's fascinating world of science! We often hear about groundbreaking research, but how does it all really affect us? Joining me is Dr. Alex Rios, a theoretical physicist who helps make sense of the complex jargon."",
-  ""Dr_Alex"": ""Thanks for having me on, Jane. It's always great to discuss these amazing discoveries with someone truly curious!"",
-  ""Jane"": ""Absolutely, Dr. Rios! Let’s start small: imagine if your daily life was a science experiment—what would be the control group?""
-  ""Dr_Alex"": ""Ha! I'd say that might become my untouched breakfast pastries – nature does love to keep its constants for us."",
-  ""Jane"": ""And what about our variable today? It seems like we’re discussing quantum physics, correct—quite the leap from biscuits!""
-  ""Dr_Alex"": ""Indeed! Quantum mechanics can feel far removed when you're just thinking breakfast. But these tiny particles are at play in everything around us.""
-  ""Jane"": ""Can we touch upon something like quantum entanglement? I hear it’s mind-bogglingly complex!""
-  ""Dr_Alex"": ""Sure! Think of two spinning tops connected by an invisible thread. No matter how far apart you move them, flipping one instantly affects the other.""
-  ""Jane"": ""Intriguing analogy—so what are implications here for our understanding of reality?""
-  ""Dr_Alex"": ""It challenges us to rethink causality and connections across distance. It’s as if we're closer than ever, even when separated by light-years.""
-  ""Jane"": ""Fascinattricting! And how does this relate day-to-day life?""
-  ""Dr_Alex"": ""Well, it underpins modern technology like GPS and internet security. Without entanglement's subtle dance of particles...""
-    // Here we summarize key insights:
-""Jane"": ""...we wouldn’t be where we are technologically speaking.""
-  ""Dr_Alex"": ""'Exactly, Jane! It shows how intertwined the universe truly is. And remember folks—these phenomena might seem abstract when you're sipping morning joe!""
-    // Conclusion:
-""Jane"": “And that’s why we keep peering deeper into quantum mysteries; they have a way of surprising us all at breakfast table, literally!”
-  ""Dr_Alex"": ""'Aptly put! I hope today's talk inspired you as much as it does me. Until next time, here are some thoughts for your day: Why not imagine the universe while having coffee?""
-}
-```",failure
-2,3,Anecdotes mixed with statistical data.,Dialogue starts with host guiding and summarizing key points.,Confirms host's responsibility in steering and summarizing.,phi3.5,"```json
-{
-  ""Jane"": ""Welcome back to 'Insightful Dialogues,' where we blend personal stories and hard facts for a richer understanding of today's world."",
-  ""Guest_Author"": {
-    ""line1"": ""Today, I want to share something fascinating—a realization that numbers tell us just as much about our society when paired with human experiences.""
-  },
-  ""Jane"": ""That sounds compelling! Could you give us a specific example where statistics and personal stories converge for insight?"",
-  ""Guest_Author"": {
-    ""line1"": ""Absolutely. Take the story of Maria, who grew up in a community with high unemployment rates—9%. It's not just data; it was her reality."",
-    ""line2"": ""Maria found resilience and hope as she started mentoring at-risk youth.""
-  },
-  ""Jane"": ""How did Maria’s personal experience shed light on broader social issues?"",
-  ""Guest_Author"": {
-    ""line1"": ""Well, her story illustrates how systemic unemployment can affect individuals deeply and personally. It's about understanding the human element behind percentages."",
-    ""line2"": ""This personal connection made Maria advocate for educational programs in our own city.""
-  },
-  ""Jane"": ""It’s amazing to hear real action stemming from a shared experience, isn't it?"",
-  ""Guest_Author"": {
-    ""line1"": ""I agree. It shows the power of empathy and how combining data with stories can inspire change.""
-  },
-  ""Jane"": {""summary"": ""Before we wrap up our chat today, let’s revisit Maria's story for a moment - her journey from hardship to advocacy highlighting community strength. Reflect on this fusion of stats and tales in your life anytime now."",},
-  ""Guest_Author"": {
-    ""line1"": ""I hope it resonates with you as much as it did with Maria.""
-  },
-  ""Jane"": {""closingStatement"": ""And there we go, another thought-provoking discussion. Until next time—keep connecting the stories in your world to spark a collective journey towards progress!""},
-}
-```",failure
-3,1,Input containing expert opinions and fictional stories.,Guest responses supported by input without marketing.,Verifies guest's adherence to input and non-promotional content.,phi3.5,"```json
-{
-  ""podcast_script"": {
-    ""introduction"": ""Welcome to 'Insightful Minds,' where we unravel fascinating ideas and explore the world through different lenses. I'm your host, Jane, diving into today's episode with a blend of expert opinions and creative tales."",
-    ""host_line_1"": ""Today, let’s sift through some thought-provoking content that dances between reality and imagination. Why not start us off with Professor Smith, who merges historical facts into compelling narratives?"",
-    ""guest_name"": ""'And hello there, Jane! I'm delighted to join you today."",
-    ""host_line_2"": ""Professor Smith has this incredible talent. Tell me about your latest creation that intertwines history and fiction in a storytelling masterpiece.""
-    ,
-    ""guest_explanation"": ""'It's like stepping into the past, Jane. I constructed life stories of historical figures as if they were characters living beside us today."",
-    ""host_question1"": ""That sounds immersive! How do you ensure your portrayals remain respectful to actual history while adding those fictional elements?""
-    ,
-    ""guest_answer1"": ""'Ah, a balance of research and creative liberty—it's like walking on the tightrope between factual integrity and narrative flair.'""
-  },
-  ""conclusion"": {
-    ""host_line3"": 'Your approach truly brings history to life. Before we wrap up our time here, I have one last burning question for you...',
-    ""guest_questionable"": ""'What’s the next big piece of historical fiction that will keep your listeners on their feet and in awe?'""
-  },
-}
-```",failure
-3,2,Historical events interspersed with fictional elements.,"Responses grounded in input text, avoiding promotions.",Checks guest's alignment with input-derived content.,phi3.5,"```json
-{
-  ""dialogue"": [
-    {
-      ""Jane"": ""Welcome back to 'Echoes of Time,' where history and imagination collide! Today, we're diving into a curious blend—historical events sprinkled with fictional embellishments. Let’s unravel this together.""
-    },
-    {
-      ""Guest"": ""Ah, Jane, the line between fact and fiction can be delightfully obscure at times!""
-    },
-    {
-      ""Jane"": ""Indeed! Take for instance Napoleon's invasion of Russia in 1812. But let’s add a dash: what if he encountered dragons along his retreat instead of snow?""
-    },
-    {
-      ""Guest"": ""Now that would have been quite the tale, perhaps altering history itself! Dragons could symbolize obstacles or fear.""
-    },
-    {
-      ""Jane"": "", bringing a fresh perspective to battles and leaders. But shifting back purely into our reality for just a moment—what other historical events can we flip with fiction?""
-    },
-    {
-      ""Guest"": ""The Boston Tea Party is ripe for mythology, imagine Bostonians dressed as sea creatures protesting against imperial tea!""
-    },
-    {
-      ""Jane"": "", a whimsical twist on colonial defiance. Such stories can make history more approachable and fun.""
-    },
-    {
-      ""Guest"": ""Absolutely, they add color to the monochrome of dates and facts!""
-    },
-    {
-      ""Jane"": "", though it's crucial we don’t lose sight of what truly happened. Bridging fact with fiction can captivate us but should never distort truth.""
-    },
-    {
-      ""Guest"": ""Precisely, Jane! It keeps our memory sharp and entertained yet educated simultaneously!""
-    },
-    {
-      ""Jane"": "": A balance we must strive for. Speaking of education—how can these tales help engage students with history?""
-    },
-    {
-      ""Guest"": ""Stories have always been a cornerstone in learning, drawing listeners into the past's embrace.""
-    },
-    {
-      ""Jane"": "": True! They encourage curiosity and critical thinking. Before we wrap up today’s episode—any final thoughts on this fusion of realities?""
-    },
-    {
-      ""Guest"": ""It reminds us that history is not just about facts; it's also the stories people lived by...""
-    },
-    {
-      ""Jane"": "": A powerful takeaway. Let’s end with a question for you, dear listeners: How do your own imaginations change or enhance historical events? Share in our chat below!""
-    }
-  ]
-}
-```",failure
-3,3,Mix of scientific data and speculative theories.,"Guest's claims supported by input text, no self-promotion.",Examines guest's commitment to input-based claims.,phi3.5,"```json
-{
-  ""Jane"": ""Welcome back to 'Insightful Discoveries,' where we blend hard science with fascinating conjectures! Today's guest, Dr. Emily Nguyen, dives into a mix of empirical data and theoretical possibilities that expand our understanding of the universe."",
-  ""Dr.Nguyen"": ""Thank you for having me, Jane. It’s thrilling to explore how cutting-edge research intersects with bold ideas.""
-}
-```",failure
-,,,,,qwen2.5:3b,,
-,,,,,qwen2.5:3b,,
-,,,,,qwen2.5:3b,,
-,,,,,qwen2.5:3b,,
-,,,,,qwen2.5:3b,,
-,,,,,qwen2.5:3b,,
-,,,,,qwen2.5:3b,,
-,,,,,qwen2.5:3b,,
-,,,,,qwen2.5:3b,,
-1,1,"Text with multiple topics, anecdotes, and irrelevant info.",Dialogue with each line ≤ 100 characters.,"Ensures dialogue lines are concise, adhering to character limit.",llama3.2:3b,"```
-{
-  ""topics"": [
-    ""Science"",
-    ""Technology"",
-    ""Environment"",
-    ""History""
-  ],
-  ""anecdotes"": [
-    ""The first computer bug was an actual insect that got stuck in the Harvard Mark II computer in 1947."",
-    ""The longest word in the English language, according to the Oxford English Dictionary, is pneumonoultramicroscopicsilicovolcanoconiosis, a lung disease caused by inhaling very fine particles of silica."",
-    ""The world's first webcam was created in 1991 at Cambridge University to monitor a coffee pot.""
-  ],
-  ""irrelevant_info"": [
-    ""The average person spends around 4 hours and 20 minutes per day on their phone."",
-    ""The longest recorded flight of a chicken is 13 seconds."",
-    ""The Great Wall of China is not visible from space, despite its reputation as being the longest man-made structure in the world.""
-  ]
-}
-```",failure
-1,2,Complex topics with potential for lengthy explanations.,"Lines are ≤ 100 characters, brief yet informative.",Tests ability to distill complex info into short lines.,llama3.2:3b,"```
-{
+}"
+4ec6724,b6cd9a0,gpt-4o-mini,,Complex topics with potential for lengthy explanations.,"{
   ""podcast_script"": {
     ""title"": ""Exploring Complex Topics"",
-    ""description"": ""Diving into intricate subjects and their practical applications."",
-    ""introduction"": [
-      ""Welcome to our podcast, where we delve into complex topics and explore their potential impact on our daily lives."",
-      ""Today, we're going to tackle a subject that's both fascinating and complex: [topic]."",
-      ""Joining me is [expert's name], who will share their insights and expertise on this multifaceted topic.""
-    ],
-    ""segment1"": [
+    ""host"": ""Jane"",
+    ""guest"": ""Dr. Smith"",
+    ""introduction"": ""Welcome to today's episode! We're diving into some complex topics that affect us daily."",
+    ""segment_1"": {
+      ""topic"": ""Artificial Intelligence"",
+      ""dialogue"": [
+        {
+          ""host"": ""Hey, Dr. Smith! Let’s start with artificial intelligence. It's everywhere now, right?""
+        },
+        {
+          ""guest"": ""Absolutely, Jane! AI is transforming industries but can be quite intricate.""
+        },
+        {
+          ""host"": ""What’s one misconception people have about AI?""
+        },
+        {
+          ""guest"": ""Many believe AI can think like humans; it really operates differently.""
+        },
+        {
+          ""host"": ""Interesting! So, it’s more about data and algorithms than thinking?""
+        },
+        {
+          ""guest"": ""Exactly! AI analyzes patterns in data to make predictions.""
+        }
+      ]
+    },
+    ""segment_2"": {
+      ""topic"": ""Climate Change"",
+      ""dialogue"": [
+        {
+          ""host"": ""Moving on to climate change, why is it such a hot topic these days?""
+        },
+        {
+          ""guest"": ""Well, the science is clear: human activities are driving it at an alarming rate.""
+        },
+        {
+          ""host"": ""What’s something people might not understand about climate science?""
+        },
+        {
+          ""guest"": ""Climate models can seem complex, but they’re crucial for predictions.""
+        },
+        {
+          ""host"": ""Can you give an example of a model?""
+        },
+        {
+          ""guest"": ""Sure! They simulate various scenarios based on greenhouse gas emissions.""
+        }
+      ]
+    },
+    ""segment_3"": {
+      ""topic"": ""Quantum Mechanics"",
+      ""dialogue"": [
+        {
+          ""host"": ""Let’s touch on quantum mechanics. It sounds daunting—why?""
+        },
+        {
+          ""guest"": ""It challenges our classical understanding of physics and reality itself!""
+        },
+        {
+          ""host"": ""What’s a common question people have?""
+        },
+        {
+          ""guest"": ""They often ask, 'How can particles be in two places at once?'""
+        },
+        {
+          ""host"": ""That sounds mind-bending! What’s the basic idea behind that?""
+        },
+        {
+          ""guest"": ""It’s about probabilities, not certainties, in very small scales.""
+        }
+      ]
+    },
+    ""conclusion"": {
+      ""dialogue"": [
+        {
+          ""host"": ""Wow, Dr. Smith! These topics are complex but super interesting.""
+        },
+        {
+          ""guest"": ""Thanks, Jane! It's all about breaking them down into digestible pieces.""
+        },
+        {
+          ""host"": ""Absolutely! For our listeners, keep questioning and exploring!""
+        },
+        {
+          ""guest"": ""Yes! Knowledge is power. Stay curious!""
+        },
+        {
+          ""host"": ""Thanks for joining us today! See you next time!""
+        }
+      ]
+    }
+  }
+}"
+c396d39,b6cd9a0,gpt-4o-mini,,Text with redundant information and key insights.,"{
+  ""podcast_script"": {
+    ""title"": ""Unlocking the Secrets of Productivity"",
+    ""host"": ""Jane"",
+    ""guest"": ""Dr. Emma Carter"",
+    ""introduction"": ""Welcome back, everyone! Today, we're diving into productivity. Join me as I chat with Dr. Emma Carter, an expert in workplace efficiency. So, Emma, what sparked your interest in productivity?"",
+    ""dialogue"": [
       {
-        ""line"": ""So, let's start with the basics. What does [complex topic] mean to you?"",
-        ""speaker"": ""Jane""
+        ""host"": ""Jane"",
+        ""line"": ""What do you think are the biggest barriers to productivity?""
       },
       {
-        ""line"": ""Well, Jane, [briefly explain complex topic]. It's a subject that has many layers and nuances."",
-        ""speaker"": ""Expert""
-      }
-    ],
-    ""segment2"": [
-      {
-        ""line"": ""That's really interesting. Can you elaborate on how this topic affects our daily lives?"",
-        ""speaker"": ""Jane""
+        ""guest"": ""Dr. Emma Carter"",
+        ""line"": ""Well, Jane, distractions are a huge factor. You know, the digital age brings constant notifications.""
       },
       {
-        ""line"": ""Certainly. [Provide detailed explanation of how complex topic impacts daily life]."",
-        ""speaker"": ""Expert""
-      }
-    ],
-    ""segment3"": [
-      {
-        ""line"": ""I see. And what are some potential applications or use cases for this complex topic?"",
-        ""speaker"": ""Jane""
+        ""host"": ""Jane"",
+        ""line"": ""Totally! I find it hard to focus with my phone buzzing all the time. Any tips?""
       },
       {
-        ""line"": ""One area of application is [specific industry or field]. Additionally, there's also [another specific area]."",
-        ""speaker"": ""Expert""
+        ""guest"": ""Dr. Emma Carter"",
+        ""line"": ""Absolutely! Time-blocking is effective. It helps you allocate specific times for tasks.""
+      },
+      {
+        ""host"": ""Jane"",
+        ""line"": ""That sounds interesting! How does someone start with time-blocking?""
+      },
+      {
+        ""guest"": ""Dr. Emma Carter"",
+        ""line"": ""Start by identifying your most important tasks and then block out time for them.""
+      },
+      {
+        ""host"": ""Jane"",
+        ""line"": ""Sounds simple enough! How about breaks? I often feel guilty taking them.""
+      },
+      {
+        ""guest"": ""Dr. Emma Carter"",
+        ""line"": ""Breaks are vital! They actually boost overall productivity.""
+      },
+      {
+        ""host"": ""Jane"",
+        ""line"": ""That’s a relief to hear! What are some effective break strategies?""
+      },
+      {
+        ""guest"": ""Dr. Emma Carter"",
+        ""line"": ""Try the Pomodoro Technique—25 minutes of work followed by a 5-minute break.""
+      },
+      {
+        ""host"": ""Jane"",
+        ""line"": ""I love that! It’s like a mini reward system. Any other strategies you recommend?""
+      },
+      {
+        ""guest"": ""Dr. Emma Carter"",
+        ""line"": ""Yes! Mindfulness and meditation can help reset your focus.""
+      },
+      {
+        ""host"": ""Jane"",
+        ""line"": ""Mindfulness seems to be everywhere lately. How does it connect to productivity?""
+      },
+      {
+        ""guest"": ""Dr. Emma Carter"",
+        ""line"": ""It enhances focus and clarity, reducing stress levels that hinder performance.""
+      },
+      {
+        ""host"": ""Jane"",
+        ""line"": ""That makes so much sense! So, we need to clear our minds to be more effective.""
+      },
+      {
+        ""guest"": ""Dr. Emma Carter"",
+        ""line"": ""Exactly! Even a few deep breaths can reset your mind.""
+      },
+      {
+        ""host"": ""Jane"",
+        ""line"": ""Before we wrap up, what's your one key takeaway for our listeners?""
+      },
+      {
+        ""guest"": ""Dr. Emma Carter"",
+        ""line"": ""Prioritize and focus on one task at a time. Multitasking decreases productivity.""
+      },
+      {
+        ""host"": ""Jane"",
+        ""line"": ""Great advice! Thanks so much for joining us today, Emma.""
+      },
+      {
+        ""guest"": ""Dr. Emma Carter"",
+        ""line"": ""Thank you, Jane! It was a pleasure.""
+      },
+      {
+        ""host"": ""Jane"",
+        ""line"": ""And thank you all for listening! Remember, prioritization and focus are key. Until next time!""
       }
     ],
-    ""summery"": [
-      ""In conclusion, [complex topic] is a multifaceted subject that has the potential to impact many areas of our lives. By understanding its intricacies and exploring its practical applications, we can unlock new possibilities and make informed decisions.""
-    ]
-  },
-  ""outro"": {
-    ""line1"": ""Thank you for tuning in to this episode of our podcast."",
-    ""line2"": ""If you'd like to learn more about [expert's name] or explore related topics, check out the links in our show notes."",
-    ""line3"": ""Don't forget to subscribe and follow us on social media for more engaging conversations.""
+    ""conclusion"": ""So, to recap, productivity thrives on focus, effective breaks, and mindfulness. Keep those in mind!""
   }
-}
-```
-
-Note: The provided output is a JSON representation of a podcast script. It includes an introduction, three segments with dialogue, a summary, and an outro. Each line of dialogue is limited to 100 characters or less, following the rule mentioned earlier.",failure
-1,3,Text with redundant information and key insights.,Dialogue with concise lines not exceeding 100 chars.,Challenges condensing valuable insights into short dialogue.,llama3.2:3b,"```
-{
-  ""title"": ""Unlocking Key Insights from Redundant Text"",
-  ""description"": ""A step-by-step guide to transforming messy text into an engaging podcast script."",
-  ""mainPoints"": [
-    {
-      ""topic"": ""Analyze the Input"",
-      ""keyInsights"": [
-        ""Identify key topics and points for a compelling conversation"",
-        ""Disregard irrelevant information and formatting issues""
-      ],
-      ""thoughtProvokingQuestions"": [
-        ""What makes this topic relevant to our listeners?"",
-        ""How can we make complex ideas accessible?""
-      ]
+}"
+53deb26,b6cd9a0,gpt-4o-mini,,Unstructured text with historical facts and modern context.,"{
+  ""podcast_script"": {
+    ""title"": ""Echoes of History: Lessons for Today"",
+    ""host"": ""Jane"",
+    ""guest"": ""Dr. Emily Carter"",
+    ""introduction"": {
+      ""hook"": ""Welcome to Echoes of History! Today, we're diving into how the past shapes our present."",
+      ""brief_guest_intro"": ""Joining us is Dr. Emily Carter, a historian specializing in social movements.""
     },
-    {
-      ""topic"": ""Craft the Dialogue"",
-      ""keyInsights"": [
-        ""Natural conversation flow between host and guest"",
-        ""Clear explanations of complex topics, balanced with entertainment""
-      ],
-      ""rulesForDialogue"": [
-        ""Host initiates conversation and interviews guest"",
-        ""Thoughtful questions guide discussion""
-      ]
-    },
-    {
-      ""topic"": ""Maintain Authenticity"",
-      ""keyInsights"": [
-        ""Moments of genuine curiosity or surprise"",
-        ""Brief personal anecdotes or examples"",
-        ""Light-hearted moments or humor when appropriate""
-      ],
-      ""authenticityTips"": [
-        ""Use real-life experiences to illustrate points"",
-        ""Show vulnerability to create a connection with listeners""
-      ]
+    ""dialogue"": [
+      {
+        ""host"": ""Jane"",
+        ""line"": ""So, Emily, let’s start with an interesting historical fact you shared with me.""
+      },
+      {
+        ""guest"": ""Dr. Emily Carter"",
+        ""line"": ""Absolutely! Did you know the women's suffrage movement in the U.S. started in 1848?""
+      },
+      {
+        ""host"": ""Jane"",
+        ""line"": ""Wow, that's over 170 years ago! What was the spark that ignited it?""
+      },
+      {
+        ""guest"": ""Dr. Emily Carter"",
+        ""line"": ""It was sparked by the Seneca Falls Convention, where leaders like Elizabeth Cady Stanton spoke.""
+      },
+      {
+        ""host"": ""Jane"",
+        ""line"": ""And how does that connect to today's movements for gender equality?""
+      },
+      {
+        ""guest"": ""Dr. Emily Carter"",
+        ""line"": ""Great question! Many modern movements, like #MeToo, trace their roots back to those early efforts.""
+      },
+      {
+        ""host"": ""Jane"",
+        ""line"": ""That's fascinating! Can you give an example of how history informs current strategies?""
+      },
+      {
+        ""guest"": ""Dr. Emily Carter"",
+        ""line"": ""Sure! Activists today use social media, just like suffragists used pamphlets and rallies.""
+      },
+      {
+        ""host"": ""Jane"",
+        ""line"": ""Social media is the new rallying cry! How does that change the game?""
+      },
+      {
+        ""guest"": ""Dr. Emily Carter"",
+        ""line"": ""It allows for instant communication and mobilization, making movements more dynamic.""
+      },
+      {
+        ""host"": ""Jane"",
+        ""line"": ""I can see that! But are there challenges with this new approach?""
+      },
+      {
+        ""guest"": ""Dr. Emily Carter"",
+        ""line"": ""Definitely. Misinformation spreads quickly, which can undermine genuine movements.""
+      },
+      {
+        ""host"": ""Jane"",
+        ""line"": ""That’s a critical point. Are there any successful tactics we can learn from history?""
+      },
+      {
+        ""guest"": ""Dr. Emily Carter"",
+        ""line"": ""Yes! Building coalitions and focusing on clear messaging were key for early activists.""
+      },
+      {
+        ""host"": ""Jane"",
+        ""line"": ""So collaboration and clarity remain vital even today?""
+      },
+      {
+        ""guest"": ""Dr. Emily Carter"",
+        ""line"": ""Exactly! History shows us that solidarity strengthens movements.""
+      },
+      {
+        ""host"": ""Jane"",
+        ""line"": ""Before we wrap up, what’s one takeaway for our listeners?""
+      },
+      {
+        ""guest"": ""Dr. Emily Carter"",
+        ""line"": ""Remember that understanding history equips us to tackle present challenges.""
+      },
+      {
+        ""host"": ""Jane"",
+        ""line"": ""Thank you, Emily! This has been enlightening. History truly echoes in our lives today.""
+      }
+    ],
+    ""conclusion"": {
+      ""summary"": ""We've explored how past movements shape current struggles for equality."",
+      ""call_to_action"": ""Remember to reflect on our history as we work toward a brighter future!""
     }
-  ],
-  ""callToAction"": ""Sign up for our podcast and get exclusive access to in-depth interviews and expert insights!""
-}
-```",failure
-2,1,Unstructured text with historical facts and modern context.,"Host initiates, guides, and summarizes insights.",Validates structure where host leads and concludes discussion.,llama3.2:3b,"```
-{
-  ""podcastTitle"": ""The Evolution of Empires: Past and Present"",
-  ""introMusic"": ""link to intro music"",
-  ""hostName"": ""Jane"",
-  ""guestName"": ""Dr. John Taylor"",
-  ""introduction"": {
-    ""script"": [
-      ""Welcome to this week's episode of 'Beyond the Headlines.' I'm your host, Jane."",
-      ""Today we're exploring the fascinating topic of empires and their enduring impact on modern society."",
-      ""Joining me is Dr. John Taylor, an expert in ancient history and culture.""
-    ]
-  },
-  ""segment1"": {
-    ""title"": ""Ancient Mesopotamia: The Cradle of Civilization"",
-    ""script"": [
-      ""Jane: Dr. Taylor, let's start with the beginning. Ancient Mesopotamia is often referred to as the cradle of civilization."",
-      ""Dr. Taylor: That's correct, Jane. The region that is now modern-day Iraq was home to some of the earliest cities and empires in human history."",
-      ""From the Sumerians to the Babylonians, these civilizations made significant contributions to law, governance, and architecture.""
-    ],
-    ""points"": [
-      ""Establishment of city-states"",
-      ""Development of writing systems"",
-      ""Creation of sophisticated irrigation systems""
-    ]
-  },
-  ""segment2"": {
-    ""title"": ""The Roman Empire: A Legacy of Expansion and Decline"",
-    ""script"": [
-    ],
-    ""points"": [
-      ""Pax Romana"",
-      ""Expansion through conquest"",
-      ""Decline due to internal corruption and external pressures""
-    ]
-  },
-  ""segment3"": {
-    ""title"": ""Modern-Day Empires: A Study in Global Politics"",
-    ""script"": [
-    ],
-    ""points"": [
-      ""Globalization and trade agreements"",
-      ""The rise of superpowers (USA, China, EU)"",
-      ""The role of international institutions""
-    ]
-  },
-  ""segment4"": {
-    ""title"": ""Lessons from History: Can Empires be Repeated?"",
-    ""script"": [
-      ""Jane: Dr. Taylor, as we look at modern-day empires, are there any lessons we can learn from history?""
-      ""Dr. Taylor: Absolutely, Jane. While the specific circumstances of each empire may differ, some patterns and pitfalls have been consistent throughout history.""
-    ],
-    ""points"": [
-      ""The dangers of imperialism"",
-      ""The importance of adaptability in governance""
-    ]
-  },
-  "" outroMusic"": ""link to outro music"",
-  "" conclusion"": {
-    ""script"": [
-      ""Thanks for joining us on this journey through the evolution of empires, Jane."",
-      ""Dr. Taylor: It's been enlightening to explore these themes with you and your listeners.""
-    ],
-    ""summary"": [
-      ""The impact of ancient civilizations on modern society"",
-      ""Lessons from history in understanding global politics""
-    ]
   }
-}
-```
-Note that I did not fill in all fields, but rather created a basic structure for the podcast script. Please provide more information so I can fill them in with actual content.",failure
-2,2,Messy input with scientific discoveries and theories.,Conversation starts and ends with host's questions and summaries.,Ensures host's role in maintaining conversation flow.,llama3.2:3b,"```
-{
-  ""title"": ""Unlocking the Secrets of the Universe"",
-  ""description"": ""Exploring Groundbreaking Scientific Discoveries and Theories"",
-  ""segments"": [
-    {
-      ""segment_type"": ""intro"",
-      ""start_time"": 0,
-      ""end_time"": 30,
-      ""content"": [
-        ""Welcome to our podcast, where we delve into the most fascinating scientific discoveries and theories."",
-        ""I'm your host, Jane, and I'll be guiding you through the latest findings in various fields of science.""
-      ]
-    },
-    {
-      ""segment_type"": ""guest_introduction"",
-      ""start_time"": 30,
-      ""end_time"": 60,
-      ""content"": [
-        ""Joining me today is Dr. John Smith, a renowned expert in quantum mechanics and cosmology."",
-        ""Dr. Smith has spent years researching the latest theories on black holes, dark matter, and the origins of the universe.""
-      ]
-    },
-    {
-      ""segment_type"": ""main_conversation"",
-      ""start_time"": 60,
-      ""end_time"": 180,
-      ""content"": [
-        {
-          ""speaker"": ""Jane"",
-          ""question"": ""Dr. Smith, let's dive into your research on black holes. Can you explain the concept of Hawking radiation and its implications for our understanding of space-time?""
-        },
-        {
-          ""speaker"": ""Dr. Smith"",
-          ""response"": ""Yes, certainly. Hawking radiation is a theoretical prediction that states that black holes emit radiation due to quantum effects near the event horizon.""
-        },
-        {
-          ""speaker"": ""Jane"",
-          ""question"": ""That's fascinating! How do you think this theory challenges our current understanding of black hole behavior?""
-        },
-        {
-          ""speaker"": ""Dr. Smith"",
-          ""response"": ""Well, it suggests that black holes may not be as rigid as previously thought, and that they could potentially evaporate over time.""
-        }
-      ]
-    },
-    {
-      ""segment_type"": ""break"",
-      ""start_time"": 180,
-      ""end_time"": 210,
-      ""content"": [
-        ""Take a moment to absorb what you've just learned about Hawking radiation. We'll be back after this brief break.""
-      ]
-    },
-    {
-      ""segment_type"": ""main_conversation"",
-      ""start_time"": 210,
-      ""end_time"": 300,
-      ""content"": [
-        {
-          ""speaker"": ""Jane"",
-          ""question"": ""Dr. Smith, let's move on to your research on dark matter. Can you explain the current state of knowledge in this field?""
-        },
-        {
-          ""speaker"": ""Dr. Smith"",
-          ""response"": ""Yes, certainly. Dark matter is a type of matter that doesn't interact with light, making it invisible and detectable only through its gravitational effects.""
-        },
-        {
-          ""speaker"": ""Jane"",
-          ""question"": ""That's really interesting. What are some of the ongoing efforts to detect dark matter directly?""
-        },
-        {
-          ""speaker"": ""Dr. Smith"",
-          ""response"": ""Well, there are several experiments underway, including those using particle colliders and galaxy surveys. These studies aim to shed light on the nature of dark matter.""
-        }
-      ]
-    },
-    {
-      ""segment_type"": ""closing"",
-      ""start_time"": 300,
-      ""end_time"": 330,
-      ""content"": [
-        ""Thank you, Dr. Smith, for sharing your expertise with us today. Before we go, let's summarize the key points from our conversation: Hawking radiation and its implications for black hole behavior, as well as the ongoing efforts to detect dark matter.""
-        ""If you'd like to learn more about these topics, check out the resources listed in our show notes.""
-      ]
-    }
-  ]
-}
-```",failure
-2,3,Anecdotes mixed with statistical data.,Dialogue starts with host guiding and summarizing key points.,Confirms host's responsibility in steering and summarizing.,llama3.2:3b,"```
-{
-  ""introduction"": {
-    ""speaker"": ""Jane"",
-    ""content"": ""Hey everyone, welcome to today's episode of [Show Name]. I'm your host Jane, and joining me is the author of [Book Title], who's here to share some fascinating insights about [Topic]. From personal anecdotes to statistical data, we're going to dive into the world of [Topic] and explore what makes it so compelling. Let's get started!""
-  },
-  ""segment1"": {
-    ""speaker"": ""Jane"",
-    ""content"": [
-      ""Did you know that about 70% of people who try to make a change in their lives give up within the first week? I mean, think about it. You start with the best intentions, but life just gets in the way, and before you know it, you're back to where you started."",
-      ""I remember when I was trying to get into running. I had all these big goals, like completing a marathon, but I just couldn't seem to stick with it. It wasn't until I met my running buddy that things started to click.""
-    ],
-    ""statistical_data"": {
-      ""data"": [
-        { ""title"": ""Percentage of people who give up on their New Year's resolutions"", ""value"": 70 },
-        { ""title"": ""Average number of hours spent exercising per week"", ""value"": 30 }
-      ]
-    }
-  },
-  ""segment2"": {
-    ""speaker"": ""Jane"",
-    ""content"": [
-      ""According to the data, only about 10% of people who start a new exercise routine actually follow through with it. That's right, only 10%! But what if I told you that it's not just about exercising more? It's also about creating habits that last."",
-      ""I started small. Instead of trying to run for an hour every day, I aimed for 30 minutes, three times a week. And slowly but surely, I built up my endurance.""
-    ],
-    ""statistical_data"": {
-      ""data"": [
-        { ""title"": ""Percentage of people who start a new exercise routine"", ""value"": 10 },
-        { ""title"": ""Average increase in running speed over a period of six months"", ""value"": 20 }
-      ]
-    }
-  },
-  ""segment3"": {
-    ""speaker"": ""Jane"",
-    ""content"": [
-      ""So what's the secret to making changes stick? For me, it's all about finding accountability and being kind to myself. When I make a mistake, I don't beat myself up over it. Instead, I learn from it and move forward."",
-      ""I wish more people understood that setbacks are just an opportunity to try again. It's not about being perfect; it's about progress.""
-    ],
-    ""statistical_data"": {
-      ""data"": [
-        { ""title"": ""Percentage of people who report feeling guilty after making a mistake"", ""value"": 60 },
-        { ""title"": ""Average number of attempts it takes to master a new skill"", ""value"": 5 }
-      ]
-    }
-  },
-  ""conclusion"": {
-    ""speaker"": ""Jane"",
-    ""content"": [
-      ""Thanks for tuning in, everyone! Remember, making changes is all about progress, not perfection. And don't be afraid to ask for help along the way."",
-      ""If you liked this episode, be sure to subscribe and follow us on social media for more content.""
+}"
+e6380bc,b6cd9a0,gpt-4o-mini,,Messy input with scientific discoveries and theories.,"{
+  ""podcast_script"": {
+    ""title"": ""Unlocking the Secrets of Science"",
+    ""host"": ""Jane"",
+    ""guest"": ""Dr. Smith"",
+    ""segments"": [
+      {
+        ""type"": ""introduction"",
+        ""content"": ""Welcome to our podcast, where we uncover fascinating scientific discoveries!""
+      },
+      {
+        ""type"": ""transition"",
+        ""content"": ""Today, we have Dr. Smith, a leading expert in quantum physics.""
+      },
+      {
+        ""type"": ""dialogue"",
+        ""lines"": [
+          {
+            ""speaker"": ""Jane"",
+            ""text"": ""Dr. Smith, thanks for joining us! What excites you most about recent scientific discoveries?""
+          },
+          {
+            ""speaker"": ""Dr. Smith"",
+            ""text"": ""Thanks for having me, Jane! I think quantum entanglement is truly thrilling.""
+          },
+          {
+            ""speaker"": ""Jane"",
+            ""text"": ""Quantum entanglement? That sounds complex. Can you explain it simply?""
+          },
+          {
+            ""speaker"": ""Dr. Smith"",
+            ""text"": ""Sure! It’s when particles become linked, so the state of one affects another, no matter the distance.""
+          },
+          {
+            ""speaker"": ""Jane"",
+            ""text"": ""Wow, that’s mind-boggling! How can this impact our daily lives?""
+          },
+          {
+            ""speaker"": ""Dr. Smith"",
+            ""text"": ""It could revolutionize computing and secure communication systems.""
+          },
+          {
+            ""speaker"": ""Jane"",
+            ""text"": ""That’s amazing! I’ve heard theories about parallel universes connected to this.""
+          },
+          {
+            ""speaker"": ""Dr. Smith"",
+            ""text"": ""Yes! Some scientists theorize that entangled particles might connect different realities.""
+          },
+          {
+            ""speaker"": ""Jane"",
+            ""text"": ""That feels like something out of a sci-fi movie! What’s the current research focus?""
+          },
+          {
+            ""speaker"": ""Dr. Smith"",
+            ""text"": ""Researchers are working on practical applications, like quantum computers.""
+          },
+          {
+            ""speaker"": ""Jane"",
+            ""text"": ""And how far away are we from seeing tangible results?""
+          },
+          {
+            ""speaker"": ""Dr. Smith"",
+            ""text"": ""It’s hard to say, but advancements are happening at a rapid pace.""
+          },
+          {
+            ""speaker"": ""Jane"",
+            ""text"": ""That’s reassuring! What other discoveries are you excited about?""
+          },
+          {
+            ""speaker"": ""Dr. Smith"",
+            ""text"": ""The advancements in genetic engineering are also fascinating, like CRISPR technology.""
+          },
+          {
+            ""speaker"": ""Jane"",
+            ""text"": ""CRISPR? That’s the gene-editing tool, right? How does it work?""
+          },
+          {
+            ""speaker"": ""Dr. Smith"",
+            ""text"": ""Exactly! It allows scientists to alter DNA with precision, which can cure diseases.""
+          },
+          {
+            ""speaker"": ""Jane"",
+            ""text"": ""That sounds like it could change medicine forever!""
+          },
+          {
+            ""speaker"": ""Dr. Smith"",
+            ""text"": ""Absolutely! But we must consider ethical implications too.""
+          },
+          {
+            ""speaker"": ""Jane"",
+            ""text"": ""Great point. Balancing innovation with ethics is crucial.""
+          },
+          {
+            ""speaker"": ""Dr. Smith"",
+            ""text"": ""Right! Public discourse is essential as we navigate these breakthroughs.""
+          },
+          {
+            ""speaker"": ""Jane"",
+            ""text"": ""As we wrap up, Dr. Smith, what’s one takeaway for our listeners?""
+          },
+          {
+            ""speaker"": ""Dr. Smith"",
+            ""text"": ""Stay curious! Science is always evolving, and so should we.""
+          },
+          {
+            ""speaker"": ""Jane"",
+            ""text"": ""Thank you, Dr. Smith! It’s been enlightening chatting about these discoveries.""
+          },
+          {
+            ""speaker"": ""Dr. Smith"",
+            ""text"": ""My pleasure, Jane! I enjoyed it.""
+          },
+          {
+            ""speaker"": ""Jane"",
+            ""text"": ""Thanks for listening, everyone! Stay tuned for more scientific explorations!""
+          }
+        ]
+      }
     ]
   }
-}
-```",failure
-3,1,Input containing expert opinions and fictional stories.,Guest responses supported by input without marketing.,Verifies guest's adherence to input and non-promotional content.,llama3.2:3b,"```
-{
-  ""title"": ""Unlocking Hidden Insights"",
-  ""description"": ""Dive into the world of expert opinions and fictional stories that challenge our perceptions."",
-  ""segments"": [
-    {
-      ""id"": 1,
-      ""topic"": ""Expert Opinions"",
-      ""text"": ""Dr. Maria Rodriguez, a renowned psychologist, shares her insights on the power of mindfulness in shaping our relationships."",
-      ""script"": [
-        {
-          ""line"": ""Jane: Dr. Rodriguez, thanks for joining us today. Can you walk us through how mindfulness affects our interactions with others?"",
-          ""response"": ""You know, it's all about being present and aware of your thoughts and emotions. When we're mindful, we can respond rather than react, leading to more authentic connections.""
-        },
-        {
-          ""line"": ""Jane: That makes sense. Can you share an example from your practice where mindfulness had a profound impact?"",
-          ""response"": ""A patient once shared with me how practicing mindfulness helped her recognize and manage stress triggers, ultimately improving her overall well-being and relationships.""
-        }
-      ]
+}"
+f598c9f,b6cd9a0,gpt-4o-mini,,Anecdotes mixed with statistical data.,"{
+  ""podcast_script"": {
+    ""intro"": {
+      ""host"": ""Welcome, everyone, to another episode of 'Curious Minds.'"",
+      ""guest"": ""Thanks for having me, Jane!""
     },
-    {
-      ""id"": 2,
-      ""topic"": ""Fictional Story"",
-      ""text"": ""Meet Emma, a young woman who stumbles upon a mysterious library that holds the secrets of the past."",
-      ""script"": [
-        {
-          ""line"": ""Jane: Emma, tell us about your experience in this enigmatic place. What did you discover?"",
-          ""response"": ""'The shelves seemed to stretch on forever, filled with books that whispered their titles. I found myself lost in the stories, uncovering hidden histories and secrets that changed my perspective on life.'""
-        },
-        {
-          ""line"": ""Jane: That sounds incredible. Did anything specific resonate with you or challenge your views?"",
-          ""response"": ""'One book, titled 'The Weight of Memories,' revealed how our past experiences shape us in ways we never realized. It was both haunting and liberating to read about it.'""
-        }
-      ]
+    ""segment_1"": {
+      ""host"": ""Today, we’re diving into the fascinating world of statistics and personal stories."",
+      ""guest"": ""Absolutely, statistics can really tell a story when you look deeper.""
     },
-    {
-      ""id"": 3,
-      ""topic"": ""Expert Opinions"",
-      ""text"": ""Professor John Lee, a leading expert on sustainable living, shares his thoughts on the impact of climate change on our daily lives."",
-      ""script"": [
-        {
-          ""line"": ""Jane: Professor Lee, how do you think individuals can make a difference in mitigating climate change?"",
-          ""response"": ""'Small changes, like reducing energy consumption or adopting plant-based diets, may seem insignificant, but collectively, they can drive significant change. We must also support policies that prioritize sustainability.'""
-        },
-        {
-          ""line"": ""Jane: What's the most pressing issue you see on the horizon in terms of climate action?"",
-          ""response"": ""'The transition to renewable energy sources and increased investments in sustainable infrastructure are crucial. However, we need governments and corporations to take bold steps towards emissions reduction.'""
-        }
-      ]
+    ""segment_2"": {
+      ""host"": ""Can you share an anecdote that highlights the power of data?"",
+      ""guest"": ""Sure! I once met a teacher who transformed her classroom using data insights."",
+      ""host"": ""Oh? How did that work?"",
+      ""guest"": ""She analyzed her students' test scores and discovered patterns in their learning.""
+    },
+    ""segment_3"": {
+      ""host"": ""That sounds interesting! What happened next?"",
+      ""guest"": ""Using that data, she tailored her lessons to meet their needs. Scores improved by 30%!"",
+      ""host"": ""Wow, that’s impressive! It’s amazing how data can drive change.""
+    },
+    ""segment_4"": {
+      ""host"": ""What statistical data do we often overlook?"",
+      ""guest"": ""Many ignore how data can predict future trends. For example, 70% of businesses fail due to poor data use."",
+      ""host"": ""That’s a staggering statistic. Why do you think that happens?"",
+      ""guest"": ""Often, it’s because they don’t ask the right questions or analyze the wrong data.""
+    },
+    ""segment_5"": {
+      ""host"": ""What steps can people take to improve their data literacy?"",
+      ""guest"": ""Start with the basics: learn to read graphs and understand averages. It’s key!"",
+      ""host"": ""That sounds doable! Any resources you recommend?"",
+      ""guest"": ""Definitely! There are great online courses and workshops available.""
+    },
+    ""conclusion"": {
+      ""host"": ""So, to wrap up, we’ve learned that personal stories and data can unite to drive change."",
+      ""guest"": ""Exactly! Both can empower individuals and organizations to make informed decisions."",
+      ""host"": ""Thanks for sharing your insights today! It’s been a pleasure."",
+      ""guest"": ""Thank you, Jane! Always a joy to discuss these topics.""
     }
-  ],
-  ""closures"": [
-    {
-      ""line"": ""Jane: Thanks for opening our eyes to these fascinating perspectives, Dr. Rodriguez and Emma. Remember, mindfulness is just a step away."",
-      ""response"": ""'Mindfulness isn't about achieving some mythical state; it's about being present and kind to ourselves and others.'""
+  }
+}"
+41ac879,b6cd9a0,gpt-4o-mini,,Input containing expert opinions and fictional stories.,"{
+  ""podcast_script"": {
+    ""host"": ""Jane"",
+    ""guest"": ""Dr. Smith"",
+    ""intro"": {
+      ""hook"": ""Welcome to today's episode! We're diving into the fascinating world of storytelling."",
+      ""overview"": ""Stories shape our understanding of reality. Let's explore why.""
     },
-    {
-      ""line"": ""Jane: Before we go, Professor Lee, what would you like our listeners to take away from today's conversation?"",
-      ""response"": ""'Sustainability is a collective responsibility. By making conscious choices in our daily lives, we can create a ripple effect of positive change for the planet.'""
+    ""dialogue"": [
+      {
+        ""Jane"": ""Hi, Dr. Smith! Thanks for joining us today.""
+      },
+      {
+        ""Dr. Smith"": ""Thanks for having me, Jane! Excited to be here.""
+      },
+      {
+        ""Jane"": ""So, storytelling—why is it so powerful?""
+      },
+      {
+        ""Dr. Smith"": ""Well, stories connect us emotionally. They help us relate.""
+      },
+      {
+        ""Jane"": ""Right! I've noticed how a good story can change your perspective.""
+      },
+      {
+        ""Dr. Smith"": ""Absolutely! It’s like wearing someone else's shoes.""
+      },
+      {
+        ""Jane"": ""Can you share an example of a story that had a big impact?""
+      },
+      {
+        ""Dr. Smith"": ""Sure! Think about the classic tale of 'The Little Engine That Could.'""
+      },
+      {
+        ""Jane"": ""Oh, I love that! It's such a great message about perseverance.""
+      },
+      {
+        ""Dr. Smith"": ""Exactly! It showcases resilience, which resonates with many.""
+      },
+      {
+        ""Jane"": ""So, are there any expert opinions supporting this?""
+      },
+      {
+        ""Dr. Smith"": ""Yes! Studies show stories can enhance memory and empathy.""
+      },
+      {
+        ""Jane"": ""Interesting! How do stories actually influence our behavior?""
+      },
+      {
+        ""Dr. Smith"": ""They create a sense of belonging, encouraging social bonds.""
+      },
+      {
+        ""Jane"": ""Wow! That's profound. Any fictional stories you think are underrated?""
+      },
+      {
+        ""Dr. Smith"": ""Definitely! 'The Alchemist' by Paulo Coelho is a gem.""
+      },
+      {
+        ""Jane"": ""I've heard of it! What's the takeaway from that story?""
+      },
+      {
+        ""Dr. Smith"": ""It explores the pursuit of dreams and following one's path.""
+      },
+      {
+        ""Jane"": ""Sounds inspiring! How can listeners apply this in their lives?""
+      },
+      {
+        ""Dr. Smith"": ""Reflect on your values and pursue what truly matters to you.""
+      },
+      {
+        ""Jane"": ""Great advice! To wrap up, what’s your final thought on storytelling?""
+      },
+      {
+        ""Dr. Smith"": ""Never underestimate the power of a good story—it can change lives.""
+      },
+      {
+        ""Jane"": ""Thank you, Dr. Smith! This has been enlightening.""
+      },
+      {
+        ""Dr. Smith"": ""My pleasure, Jane!""
+      }
+    ],
+    ""closing"": {
+      ""summary"": ""Today, we learned that storytelling connects us and influences our lives."",
+      ""call_to_action"": ""Think about a story that changed your perspective. Share it with us!""
     }
-  ]
-}
-```",failure
-3,2,Historical events interspersed with fictional elements.,"Responses grounded in input text, avoiding promotions.",Checks guest's alignment with input-derived content.,llama3.2:3b,"```
-{
-  ""title"": ""Unraveling the Threads of Time"",
-  ""description"": ""A journey through historical events and fictional worlds"",
-  ""segments"": [
-    {
-      ""title"": ""The Mysterious Disappearance at the Tower of London"",
-      ""text"": ""It was a dark and stormy night in 1536 when King Henry VIII's second wife, Anne Boleyn, vanished from the Tower of London. Some say she was spirited away by a secret society of witches, while others claim she was murdered on orders from the king. But one thing is certain: her disappearance remains one of history's greatest mysteries."",
-      ""next"": ""The Secret Society of Witches""
+  }
+}"
+bfaff7c,b6cd9a0,gpt-4o-mini,,Historical events interspersed with fictional elements.,"{
+  ""podcast_script"": {
+    ""title"": ""History Meets Fiction: Unraveling the Narrative"",
+    ""host"": ""Jane"",
+    ""guest"": ""Dr. Emily Carter, Historian and Author"",
+    ""introduction"": {
+      ""hook"": ""Welcome back to another episode! Today, we dive into a fascinating blend of history and fiction."",
+      ""guest_intro"": ""I'm thrilled to have Dr. Emily Carter here, a renowned historian and author.""
     },
-    {
-      ""title"": ""The Secret Society of Witches"",
-      ""text"": ""Deep within the heart of the Tower, a secret society of witches had been operating in secret for centuries. Led by a powerful and enigmatic leader, they had been manipulating events from behind the scenes to shape the course of history. But as Anne Boleyn's disappearance continued to baffle investigators, the society began to reveal its true intentions."",
-      ""next"": ""The Witches' Prophecy""
-    },
-    {
-      ""title"": ""The Witches' Prophecy"",
-      ""text"": ""According to ancient texts, a great and powerful queen would rise from the ashes of Anne Boleyn's disappearance. This queen would wield the power of the elements and bring about a new era of peace and prosperity. But as the years passed, it became clear that this prophecy was far from fulfilled."",
-      ""next"": ""The Rise of Queen Elizabeth I""
-    },
-    {
-      ""title"": ""The Rise of Queen Elizabeth I"",
-      ""text"": ""Enter our queen, Elizabeth I, a strong and cunning leader who would stop at nothing to claim the throne. But as she navigated the treacherous waters of court politics, she began to realize that her destiny was intertwined with that of the secret society of witches."",
-      ""next"": ""The Witches' Test""
-    },
-    {
-      ""title"": ""The Witches' Test"",
-      ""text"": ""As Elizabeth I faced challenges from within and without, she began to suspect that the secret society was testing her worthiness to rule. But what lay at the heart of this test, and would she emerge victorious or fall prey to its power?""
+    ""conversation"": [
+      {
+        ""host"": ""Emily, thanks for joining us! Can you tell us what sparked your interest in blending history with fiction?""
+      },
+      {
+        ""guest"": ""Absolutely, Jane! I think it's the way stories can breathe life into historical events. They make it relatable.""
+      },
+      {
+        ""host"": ""That’s such a great point! Can you share a historical event you think is often misrepresented?""
+      },
+      {
+        ""guest"": ""Sure! Take the sinking of the Titanic. It's often romanticized, but the real stories of survival are so much richer.""
+      },
+      {
+        ""host"": ""Wow! That’s intriguing. How do you balance factual accuracy with creative storytelling?""
+      },
+      {
+        ""guest"": ""It’s a delicate dance! I aim to stay true to the facts while allowing characters to express human emotions.""
+      },
+      {
+        ""host"": ""Can you give us an example of a character you've created who embodies this balance?""
+      },
+      {
+        ""guest"": ""Definitely! In my latest book, there's a fictional stewardess who represents the real crew's bravery.""
+      },
+      {
+        ""host"": ""That sounds compelling! How do you think fictional characters help readers connect with history?""
+      },
+      {
+        ""guest"": ""Characters provide a lens through which readers can experience events. It makes history feel personal.""
+      },
+      {
+        ""host"": ""I love that idea! Do you think historical fiction can change perceptions of actual events?""
+      },
+      {
+        ""guest"": ""Absolutely! It can challenge misconceptions and prompt deeper discussions about our past.""
+      },
+      {
+        ""host"": ""What’s your favorite historical fiction work that has impacted you?""
+      },
+      {
+        ""guest"": ""I’d say 'The Book Thief' by Markus Zusak. It beautifully showcases human resilience during WWII.""
+      },
+      {
+        ""host"": ""Such a powerful book! How do you see the future of historical fiction evolving?""
+      },
+      {
+        ""guest"": ""I think we’ll see more diverse narratives, highlighting voices that have been overlooked in history.""
+      },
+      {
+        ""host"": ""That’s exciting! Are there any upcoming projects you’re particularly passionate about?""
+      },
+      {
+        ""guest"": ""Yes! I’m working on a novel set during the Civil Rights Movement, focusing on unsung heroes.""
+      },
+      {
+        ""host"": ""That sounds incredible! Before we wrap up, what’s one takeaway you want listeners to remember?""
+      },
+      {
+        ""guest"": ""Never underestimate the power of a story. It can change how we view our past and our future.""
+      }
+    ],
+    ""conclusion"": {
+      ""closing_thoughts"": ""Thank you, Emily! It's been enlightening discussing how history and fiction intertwine."",
+      ""final_words"": ""Listeners, remember to explore history through stories. Until next time, keep questioning!""
     }
-  ]
-}
-```",failure
-3,3,Mix of scientific data and speculative theories.,"Guest's claims supported by input text, no self-promotion.",Examines guest's commitment to input-based claims.,llama3.2:3b,"Here is a podcast script based on the input text:
-
-**Episode Title:** ""Unlocking the Secrets of the Universe: A Blend of Science and Speculation""
-
-**Intro Music**
-
-Jane: Welcome to today's episode of [Podcast Name], where we explore the fascinating realms of science and speculation. I'm your host, Jane. Today, we're joined by Dr. [Guest's Name], a renowned expert in [Field]. Welcome to the show!
-
-Dr. [Guest's Name]: Thank you, Jane. It's great to be here.
-
-**Segment 1: Scientific Breakthroughs**
-
-Jane: Let's start with some recent scientific discoveries. What do you think is the most exciting development in your field right now?
-
-Dr. [Guest's Name]: Well, Jane, one area that's been making headlines is the detection of gravitational waves from black holes. This has opened a whole new window into understanding these cosmic phenomena.
-
-Jane: That's incredible! The implications for our understanding of space-time are enormous. But what about some more speculative theories? Do you think we're on the cusp of a major paradigm shift?
-
-Dr. [Guest's Name]: Ah, now that's where things get interesting. Some researchers have proposed the idea of a multiverse, where our universe is just one of many bubbles in a vast cosmic sea.
-
-**Segment 2: Speculative Theories**
-
-Jane: A multiverse? That sounds like science fiction! What makes you think this could be true?
-
-Dr. [Guest's Name]: Well, Jane, some theories suggest that the fundamental laws of physics may not be universal, but rather apply to specific regions or universes within the multiverse.
-
-Jane: I see what you mean. And what about the concept of eternal inflation? Do you think that's a possibility?
-
-Dr. [Guest's Name]: Yes, eternal inflation is another idea that suggests our universe is just one tiny bubble in an endlessly expanding and contracting multiverse.
-
-**Segment 3: Implications and Speculation**
-
-Jane: These ideas are mind-blowing! What do you think the implications would be if we're living in a multiverse?
-
-Dr. [Guest's Name]: Well, Jane, that's where things get really interesting. If we're not alone in the universe, it raises questions about the probability of intelligent life elsewhere.
-
-Jane: That's a fascinating topic! And what about the possibility of cosmic strings? Do you think those are just science fiction?
-
-Dr. [Guest's Name]: Actually, Jane, some theories suggest that cosmic strings could be real and have a significant impact on our understanding of gravity and space-time.
-
-**Conclusion**
-
-Jane: Thank you so much for sharing your insights with us today, Dr. [Guest's Name]. It's clear that the universe is still full of mysteries waiting to be unraveled.
-
-Dr. [Guest's Name]: Thank you, Jane. I think we're just getting started on this journey into the unknown.
-
-**Outro Music**
-
-Jane: And that's all for today's episode. Join us next time when we explore more wonders of science and speculation. Don't forget to subscribe, rate, and review our podcast if you enjoyed this episode!
-
-Note: The script is designed to be engaging and conversational, with a mix of scientific data and speculative theories. Each line of dialogue should be no more than 100 characters (e.g., can finish within 5-8 seconds).",failure
-,,,,,llama3.1:8b,,
-,,,,,llama3.1:8b,,
-,,,,,llama3.1:8b,,
-,,,,,llama3.1:8b,,
-,,,,,llama3.1:8b,,
-,,,,,llama3.1:8b,,
-,,,,,llama3.1:8b,,
-,,,,,llama3.1:8b,,
-,,,,,llama3.1:8b,,
-,,,,,gemma2:9b,,
-,,,,,gemma2:9b,,
-,,,,,gemma2:9b,,
-,,,,,gemma2:9b,,
-,,,,,gemma2:9b,,
-,,,,,gemma2:9b,,
-,,,,,gemma2:9b,,
-,,,,,gemma2:9b,,
-,,,,,gemma2:9b,,
+  }
+}"
+10140e4,b6cd9a0,gpt-4o-mini,,Mix of scientific data and speculative theories.,"{
+  ""podcast"": {
+    ""title"": ""The Science of Speculation"",
+    ""description"": ""Exploring the fascinating blend of scientific data and speculative theories."",
+    ""script"": [
+      {
+        ""host"": ""Jane"",
+        ""dialogue"": ""Welcome to 'The Science of Speculation!' Today, we're diving into an intriguing mix of science and ideas.""
+      },
+      {
+        ""guest"": ""Dr. Smith"",
+        ""dialogue"": ""Thanks, Jane! It's great to be here. This blend opens up so many exciting discussions!""
+      },
+      {
+        ""host"": ""Jane"",
+        ""dialogue"": ""Absolutely! Let’s start with the scientific data. What’s one compelling finding you’ve encountered?""
+      },
+      {
+        ""guest"": ""Dr. Smith"",
+        ""dialogue"": ""Well, recent studies show that dark matter makes up about 27% of the universe—fascinating, right?""
+      },
+      {
+        ""host"": ""Jane"",
+        ""dialogue"": ""That is fascinating! It’s like the universe has secrets we’re just beginning to uncover.""
+      },
+      {
+        ""guest"": ""Dr. Smith"",
+        ""dialogue"": ""Exactly! And yet, we can only speculate about its nature. Some think it could be particles we haven't discovered.""
+      },
+      {
+        ""host"": ""Jane"",
+        ""dialogue"": ""So, how do scientists balance between established data and those theories?""
+      },
+      {
+        ""guest"": ""Dr. Smith"",
+        ""dialogue"": ""It's a dance! We base theories on data but remain open to new ideas that push boundaries.""
+      },
+      {
+        ""host"": ""Jane"",
+        ""dialogue"": ""I love that! Can you give an example of a speculative theory that came from scientific data?""
+      },
+      {
+        ""guest"": ""Dr. Smith"",
+        ""dialogue"": ""Sure! The multiverse theory suggests our universe is one of many, stemming from quantum physics.""
+      },
+      {
+        ""host"": ""Jane"",
+        ""dialogue"": ""Wow! That sounds like something out of a sci-fi movie. What makes that theory credible?""
+      },
+      {
+        ""guest"": ""Dr. Smith"",
+        ""dialogue"": ""It’s grounded in mathematical models, although we haven't observed other universes yet.""
+      },
+      {
+        ""host"": ""Jane"",
+        ""dialogue"": ""That’s the tricky part, right? Speculations can be captivating but remain unproven.""
+      },
+      {
+        ""guest"": ""Dr. Smith"",
+        ""dialogue"": ""Exactly! But that uncertainty fuels curiosity, which is essential for scientific progress.""
+      },
+      {
+        ""host"": ""Jane"",
+        ""dialogue"": ""So true! Any final thoughts on the importance of blending data with speculation?""
+      },
+      {
+        ""guest"": ""Dr. Smith"",
+        ""dialogue"": ""It's essential! It encourages exploration and innovation, pushing us to think beyond limits.""
+      },
+      {
+        ""host"": ""Jane"",
+        ""dialogue"": ""Thanks, Dr. Smith! This has been an enlightening discussion. Let’s keep questioning and exploring!""
+      },
+      {
+        ""guest"": ""Dr. Smith"",
+        ""dialogue"": ""Thank you, Jane! It's been a pleasure.""
+      },
+      {
+        ""host"": ""Jane"",
+        ""dialogue"": ""And thank you to our listeners for tuning in. Until next time, keep wondering!""
+      }
+    ]
+  }
+}"
