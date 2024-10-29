@@ -33,12 +33,14 @@ const models = env.vars.models.split(/;/g).map((model) => model.trim());
 const concurrency = env.vars.concurrency;
 
 const contexts = await loadPromptContext();
+const q = host.promiseQueue(concurrency)
 for (const files of contexts) {
   try {
     // generate tests
     const testResults = await executeTests(files, {
       force,
       models,
+      q
     });
     files.testResults.content = testResults;
     await workspace.writeText(files.testResults.filename, testResults);
