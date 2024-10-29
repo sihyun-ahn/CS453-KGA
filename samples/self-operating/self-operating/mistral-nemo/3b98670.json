@@ -1,0 +1,7 @@
+{
+  "id": "3b98670",
+  "promptid": "c771fd9",
+  "model": "mistral-nemo",
+  "input": "Objective: Open Twitter",
+  "output": "```python\nimport tweepy\n\n# Replace these with your own credentials obtained from Twitter Developer account\nconsumer_key = 'your_consumer_key'\nconsumer_secret = 'your_consumer_secret'\naccess_token = 'your_access_token'\naccess_token_secret = 'your_access_token_secret'\n\nauth = tweepy.OAuthHandler(consumer_key, consumer_secret)\nauth.set_access_token(access_token, access_token_secret)\n\napi = tweepy.API(auth)\n\ndef open_twitter(username):\n    try:\n        user = api.get_user(screen_name=username)\n        return f\"Opened Twitter account @{user.screen_name}\"\n    except Exception as e:\n        return str(e)\n\nopen_twitter('elonmusk')\n```"
+}

@@ -123,23 +123,23 @@ text: "Olympics postponed due to global pandemic concerns"
 
 ### [test_results.csv](./llama2-example.test_results.csv)
 
-|id|promptid|model|error|input|output|
-|-|-|-|-|-|-|
-|7dc42d7|8a5ddcb|gpt\-4o\-mini||NASA announces new mission to explore Jupiter's moons|The article "NASA announces new mission to explore Jupiter's moons" can be classified as \*\*Sci/Tech\*\*\.|
-|72f2a24|8a5ddcb|gpt\-4o\-mini||Olympics 2024: Countries gear up for the global sporting event|\*\*Category: Sports\*\*|
-|0ff44a8|8a5ddcb|gpt\-4o\-mini||Global markets react to trade tensions between US and China|Business|
-|8072dca|8a5ddcb|gpt\-4o\-mini||Breakthrough in renewable energy as solar efficiency increases|Sci/Tech: "Breakthrough in renewable energy as solar efficiency increases"|
-|2470041|8a5ddcb|gpt\-4o\-mini||Premier League results: Chelsea defeats Arsenal|Sports: "Premier League results: Chelsea defeats Arsenal"|
-|b111012|8a5ddcb|gpt\-4o\-mini||World leaders discuss climate action at summit|Category: World|
-|b57e03b|8a5ddcb|gpt\-4o\-mini||Innovations in AI explained: How technology is changing industries|The article "Innovations in AI explained: How technology is changing industries" can be classified as \*\*Sci/Tech\*\*\.|
-|0f6f932|8a5ddcb|gpt\-4o\-mini||Economic outlook for 2023: Experts weigh in|The news article can be classified as: \*\*Business\*\*\.|
-|969f60b|8a5ddcb|gpt\-4o\-mini||Champions League: Analysis of the quarter\-final matchups|Sports|
-|16fdb69|8a5ddcb|gpt\-4o\-mini||Ancient ruins discovered in unexplored regions|The news article "Ancient ruins discovered in unexplored regions" can be classified as \*\*Sci/Tech\*\*\.|
-|1fdc787|8a5ddcb|gpt\-4o\-mini||The rising trend of veganism: A cultural shift|The news article "The rising trend of veganism: A cultural shift" can be classified as \*\*World\*\*\.|
-|152733e|8a5ddcb|gpt\-4o\-mini||Exploring the mysteries of the deep ocean|This news article can be classified as \*\*Sci/Tech\*\*\.|
-|f3ab788|8a5ddcb|gpt\-4o\-mini||The impact of AI on modern warfare: A dual perspective|The article "The impact of AI on modern warfare: A dual perspective" can be classified as \*\*Sci/Tech\*\*\.|
-|36bfa78|8a5ddcb|gpt\-4o\-mini||Merging art and technology: The future of creativity|The article "Merging art and technology: The future of creativity" can be classified as \*\*Sci/Tech\*\*\.|
-|d9c24b5|8a5ddcb|gpt\-4o\-mini||Economics and ethics: Balancing profit and social responsibility|The news article can be classified as \*\*Business\*\*\.|
-|380a97b|8a5ddcb|gpt\-4o\-mini||Tech giant unveils ambitious plan: What does it mean for consumers?|Business: "Tech giant unveils ambitious plan: What does it mean for consumers?"|
-|aabcde6|8a5ddcb|gpt\-4o\-mini||World Cup 2022: The underdogs and their journey|The news article can be classified as: \*\*Sports\*\*\.|
-|ab6a398|8a5ddcb|gpt\-4o\-mini||New policy changes: A global perspective with expert insights|The news article can be classified as \*\*World\*\*\.|
+|id|promptid|model|input|output|
+|-|-|-|-|-|
+|7dc42d7|8a5ddcb|gpt\-4o\-mini|NASA announces new mission to explore Jupiter's moons|The article "NASA announces new mission to explore Jupiter's moons" can be classified as \*\*Sci/Tech\*\*\.|
+|72f2a24|8a5ddcb|gpt\-4o\-mini|Olympics 2024: Countries gear up for the global sporting event|\*\*Category: Sports\*\*|
+|0ff44a8|8a5ddcb|gpt\-4o\-mini|Global markets react to trade tensions between US and China|Business|
+|8072dca|8a5ddcb|gpt\-4o\-mini|Breakthrough in renewable energy as solar efficiency increases|Sci/Tech: "Breakthrough in renewable energy as solar efficiency increases"|
+|2470041|8a5ddcb|gpt\-4o\-mini|Premier League results: Chelsea defeats Arsenal|Sports: "Premier League results: Chelsea defeats Arsenal"|
+|b111012|8a5ddcb|gpt\-4o\-mini|World leaders discuss climate action at summit|Category: World|
+|b57e03b|8a5ddcb|gpt\-4o\-mini|Innovations in AI explained: How technology is changing industries|The article "Innovations in AI explained: How technology is changing industries" can be classified as \*\*Sci/Tech\*\*\.|
+|0f6f932|8a5ddcb|gpt\-4o\-mini|Economic outlook for 2023: Experts weigh in|The news article can be classified as: \*\*Business\*\*\.|
+|969f60b|8a5ddcb|gpt\-4o\-mini|Champions League: Analysis of the quarter\-final matchups|Sports|
+|16fdb69|8a5ddcb|gpt\-4o\-mini|Ancient ruins discovered in unexplored regions|The news article "Ancient ruins discovered in unexplored regions" can be classified as \*\*Sci/Tech\*\*\.|
+|1fdc787|8a5ddcb|gpt\-4o\-mini|The rising trend of veganism: A cultural shift|The news article "The rising trend of veganism: A cultural shift" can be classified as \*\*World\*\*\.|
+|152733e|8a5ddcb|gpt\-4o\-mini|Exploring the mysteries of the deep ocean|This news article can be classified as \*\*Sci/Tech\*\*\.|
+|f3ab788|8a5ddcb|gpt\-4o\-mini|The impact of AI on modern warfare: A dual perspective|The article "The impact of AI on modern warfare: A dual perspective" can be classified as \*\*Sci/Tech\*\*\.|
+|36bfa78|8a5ddcb|gpt\-4o\-mini|Merging art and technology: The future of creativity|The article "Merging art and technology: The future of creativity" can be classified as \*\*Sci/Tech\*\*\.|
+|d9c24b5|8a5ddcb|gpt\-4o\-mini|Economics and ethics: Balancing profit and social responsibility|The news article can be classified as \*\*Business\*\*\.|
+|380a97b|8a5ddcb|gpt\-4o\-mini|Tech giant unveils ambitious plan: What does it mean for consumers?|Business: "Tech giant unveils ambitious plan: What does it mean for consumers?"|
+|aabcde6|8a5ddcb|gpt\-4o\-mini|World Cup 2022: The underdogs and their journey|The news article can be classified as: \*\*Sports\*\*\.|
+|ab6a398|8a5ddcb|gpt\-4o\-mini|New policy changes: A global perspective with expert insights|The news article can be classified as \*\*World\*\*\.|

@@ -114,20 +114,20 @@ Text: "I am very disappointed with the quality of the item. It broke within a we
 
 ### [test_results.csv](./sentiment1.test_results.csv)
 
-|id|promptid|model|error|input|output|
-|-|-|-|-|-|-|
-|793804e|6b785c2|gpt\-4o\-mini||I love this beautiful day\!|Sentiment: Positive|
-|bf56cfe|6b785c2|gpt\-4o\-mini||The weather is terrible and I hate it\.|Sentiment: Negative|
-|badbbff|6b785c2|gpt\-4o\-mini||This is a book\.|Sentiment: Neutral|
-|5a96cb8|6b785c2|gpt\-4o\-mini||What a wonderful experience|Sentiment: Positive|
-|56bf948|6b785c2|gpt\-4o\-mini||I really dislike this situation|Sentiment: Negative|
-|2be6731|6b785c2|gpt\-4o\-mini||The event was okay|Sentiment: Neutral|
-|36c0fef|6b785c2|gpt\-4o\-mini||I feel happy about the results|Sentiment: Positive|
-|0687ba0|6b785c2|gpt\-4o\-mini||The meal was not satisfying|Sentiment: Negative|
-|b355b98|6b785c2|gpt\-4o\-mini||It's just an ordinary day|Sentiment: Neutral|
-|add50a9|6b785c2|gpt\-4o\-mini||Amazing performance|Sentiment: Positive|
-|fdccccd|6b785c2|gpt\-4o\-mini||I am very upset|Sentiment: Negative|
-|6807cf1|6b785c2|gpt\-4o\-mini||It's raining|Sentiment: Neutral|
-|e65a79d|6b785c2|gpt\-4o\-mini||I am thrilled\!|Sentiment: Positive|
-|8529fb4|6b785c2|gpt\-4o\-mini||This is disappointing|Sentiment: Negative|
-|d8fd4af|6b785c2|gpt\-4o\-mini||A typical day|Sentiment: Neutral|
+|id|promptid|model|input|output|
+|-|-|-|-|-|
+|793804e|6b785c2|gpt\-4o\-mini|I love this beautiful day\!|Sentiment: Positive|
+|bf56cfe|6b785c2|gpt\-4o\-mini|The weather is terrible and I hate it\.|Sentiment: Negative|
+|badbbff|6b785c2|gpt\-4o\-mini|This is a book\.|Sentiment: Neutral|
+|5a96cb8|6b785c2|gpt\-4o\-mini|What a wonderful experience|Sentiment: Positive|
+|56bf948|6b785c2|gpt\-4o\-mini|I really dislike this situation|Sentiment: Negative|
+|2be6731|6b785c2|gpt\-4o\-mini|The event was okay|Sentiment: Neutral|
+|36c0fef|6b785c2|gpt\-4o\-mini|I feel happy about the results|Sentiment: Positive|
+|0687ba0|6b785c2|gpt\-4o\-mini|The meal was not satisfying|Sentiment: Negative|
+|b355b98|6b785c2|gpt\-4o\-mini|It's just an ordinary day|Sentiment: Neutral|
+|add50a9|6b785c2|gpt\-4o\-mini|Amazing performance|Sentiment: Positive|
+|fdccccd|6b785c2|gpt\-4o\-mini|I am very upset|Sentiment: Negative|
+|6807cf1|6b785c2|gpt\-4o\-mini|It's raining|Sentiment: Neutral|
+|e65a79d|6b785c2|gpt\-4o\-mini|I am thrilled\!|Sentiment: Positive|
+|8529fb4|6b785c2|gpt\-4o\-mini|This is disappointing|Sentiment: Negative|
+|d8fd4af|6b785c2|gpt\-4o\-mini|A typical day|Sentiment: Neutral|
