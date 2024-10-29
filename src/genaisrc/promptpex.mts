@@ -40,6 +40,7 @@ export interface PromptPexTestEval {
   inverse?: boolean;
   input: string;
   evaluation: string;
+  error?: string;
 }
 
 export async function loadPromptContext(): Promise<PromptPexContext[]> {
@@ -457,7 +458,11 @@ export async function evaluateTest(
     ...modelOptions(),
   };
   const { id, file } = await resolveTestEvalPath(files, test);
-  if (file.content && !force) return JSON.parse(file.content);
+  if (file.content && !force) {
+    const res = JSON.parse(file.content) as PromptPexTestEval;
+    if (!res.error) return res;
+    return res;
+  }
 
   const intent = files.intent.content;
   if (!intent) throw new Error("No intent found");
@@ -474,6 +479,7 @@ export async function evaluateTest(
       ...rule,
       input: testInput,
       evaluation: "",
+      error: "invalid test input",
     } satisfies PromptPexTestEval;
 
   const res = await runPrompt(
@@ -501,6 +507,7 @@ export async function evaluateTest(
     ...rule,
     input: testInput,
     evaluation: res.text,
+    error: res.error?.message,
   } satisfies PromptPexTestEval;
 
   await workspace.writeText(file.filename, JSON.stringify(testEval, null, 2));

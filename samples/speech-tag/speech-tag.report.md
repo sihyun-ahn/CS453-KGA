@@ -191,24 +191,24 @@ sentence: "They found three missing keys." ; word: "three"
 |a833b52|phi3\.5|Eat, sleep, repeat;repeat|VB|
 |4b603f5|phi3\.5|She sang a song;She|PRP \(Personal pronoun\)|
 |8191efc|phi3\.5|They were walking in the park;in|BEZ: Verb, present participle \(VBG\) or past participle \(VBN\), depending on context\. Here without additional context it's ambiguous so I would default to VBG assuming an action happening at this moment \("were walking"\)\. However, if the sentence is referring to a completed action in the past, then BB: Past tense should be used instead \(\`were walked\`\)\. Given no further information though and following standard practice due to potential present context reference, let's go with VBG\.<br><br>Please note that without additional sentences or broader text for clearer temporal understanding it’s difficult to assign a definitive tag — real\-world usage might slightly vary based on nuance in spoken English versus written forms which could change the interpretation from an event happening now \(present participle\) vs one already completed at this point of speech/writing reference timeframe\.<br><br>But for safety and sticking strictly with explicit instructions, I am providing two possibilities accounted by context sensitivity: <br>\- VBG if they are currently walking in present continuous tense usage during the narrative; or<br>\- BB \(Past Tense\) assuming this refers to completed past action at a specific moment when described\. Given typical English syntax and without additional text, I’m leaning towards current activity reference as it's common: VBG|
-|6b915e8|qwen2\.5\-coder:latest|The quick brown fox jumps over the lazy dog;fox|NN|
-|0b47eb2|qwen2\.5\-coder:latest|She swiftly ran towards the finish line;swiftly|RB|
-|9296662|qwen2\.5\-coder:latest|Every cloud has a silver lining;Every|Unknown|
-|62d03d0|qwen2\.5\-coder:latest|I will go to the park later;will|VBP|
-|d964585|qwen2\.5\-coder:latest|Anna and Mike went to the store;and|CC|
-|766cf78|qwen2\.5\-coder:latest|Quickly finish your homework;Quickly|RB|
-|e08d46a|qwen2\.5\-coder:latest|Xyzzy is not a real word;Xyzzy|Unknown|
-|a22ce25|qwen2\.5\-coder:latest|Her paintings were in vivid colors;vivid|JJ|
-|f43530d|qwen2\.5\-coder:latest|He felt a sense of deja vu;deja|NN|
-|27c3f4e|qwen2\.5\-coder:latest|Blorft is the best word ever;Blorft|NNP|
-|7f3a7ca|qwen2\.5\-coder:latest|The cat sat on the mat;mat|NN|
-|8c2f4b9|qwen2\.5\-coder:latest|She can dance very well;can|VBG|
-|070861d|qwen2\.5\-coder:latest|An apple a day keeps the doctor away;An|Unknown|
-|5d1ff70|qwen2\.5\-coder:latest|Tomorrow will be a brighter day;Tomorrow|VBG|
-|fea041d|qwen2\.5\-coder:latest|He looked at the beautiful sunset;beautiful|JJ|
-|a833b52|qwen2\.5\-coder:latest|Eat, sleep, repeat;repeat|VBZ|
-|4b603f5|qwen2\.5\-coder:latest|She sang a song;She|VBG|
-|8191efc|qwen2\.5\-coder:latest|They were walking in the park;in|Unknown|
+|6b915e8|qwen2\.5:3b|The quick brown fox jumps over the lazy dog;fox|NN|
+|0b47eb2|qwen2\.5:3b|She swiftly ran towards the finish line;swiftly|RB|
+|9296662|qwen2\.5:3b|Every cloud has a silver lining;Every|Unknown|
+|62d03d0|qwen2\.5:3b|I will go to the park later;will|WP|
+|d964585|qwen2\.5:3b|Anna and Mike went to the store;and|Unknown|
+|766cf78|qwen2\.5:3b|Quickly finish your homework;Quickly|VB|
+|e08d46a|qwen2\.5:3b|Xyzzy is not a real word;Xyzzy|Unknown|
+|a22ce25|qwen2\.5:3b|Her paintings were in vivid colors;vivid|JJ|
+|f43530d|qwen2\.5:3b|He felt a sense of deja vu;deja|NN|
+|27c3f4e|qwen2\.5:3b|Blorft is the best word ever;Blorft|NN|
+|7f3a7ca|qwen2\.5:3b|The cat sat on the mat;mat|NN|
+|8c2f4b9|qwen2\.5:3b|She can dance very well;can|VB|
+|070861d|qwen2\.5:3b|An apple a day keeps the doctor away;An|Unknown|
+|5d1ff70|qwen2\.5:3b|Tomorrow will be a brighter day;Tomorrow|TO|
+|fea041d|qwen2\.5:3b|He looked at the beautiful sunset;beautiful|JJ|
+|a833b52|qwen2\.5:3b|Eat, sleep, repeat;repeat|CantAnswer|
+|4b603f5|qwen2\.5:3b|She sang a song;She|VB|
+|8191efc|qwen2\.5:3b|They were walking in the park;in|IN|
 |6b915e8|llama3\.2:3b|The quick brown fox jumps over the lazy dog;fox|JJ|
 |0b47eb2|llama3\.2:3b|She swiftly ran towards the finish line;swiftly|RBR|
 |9296662|llama3\.2:3b|Every cloud has a silver lining;Every|RP|
