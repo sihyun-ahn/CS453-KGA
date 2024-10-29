@@ -201,7 +201,7 @@ export async function generateBaselineTests(
   files: Pick<PromptPexContext, "prompt" | "tests">,
   options?: { num?: number }
 ) {
-  const tests = parseTests(files.tests.content);
+  const tests = parseTests(files);
   const { num = tests.length } = options || {};
   const context = MD.content(files.prompt.content);
   const res = await runPrompt(
@@ -290,7 +290,7 @@ export async function executeTests(
   options?: { models?: ModelType[]; force?: boolean; q?: PromiseQueue }
 ): Promise<string> {
   const { force, models, q = host.promiseQueue(CONCURRENCY) } = options || {};
-  const tests = CSV.parse(files.tests.content) as PromptPexTest[];
+  const tests = parseTests(files);
   if (!tests?.length) throw new Error("No tests found");
 
   console.log(`executing ${tests.length} tests with ${models.length} models`);
@@ -443,7 +443,7 @@ export async function evaluateTests(
   options?: { force?: boolean; q: PromiseQueue }
 ): Promise<string> {
   const { force, q } = options || {};
-  const tests = CSV.parse(files.tests.content) as PromptPexTest[];
+  const tests = parseTests(files);
   if (!tests?.length) throw new Error("No tests found");
 
   console.log(`evaluating ${tests.length} tests`);
@@ -536,10 +536,13 @@ function parseRules(rules: string) {
     : [];
 }
 
-function parseTests(tests: string): PromptPexTest[] {
-  if (isUnassistedResponse(tests)) return [];
-  tests = tests?.replace(/\\"/g, '""');
-  return tests ? (CSV.parse(tests, { delimiter: "," }) as PromptPexTest[]) : [];
+function parseTests(files: Pick<PromptPexContext, "tests">): PromptPexTest[] {
+  if (isUnassistedResponse(files.tests.content)) return [];
+  const content = files.tests.content?.replace(/\\"/g, '""');
+  let tests = content
+    ? (CSV.parse(content, { delimiter: ",", repair: true }) as PromptPexTest[])
+    : [];
+  return tests;
 }
 
 function parseBaselineTests(tests: string) {
@@ -579,7 +582,7 @@ export async function generateJSONReport(files: PromptPexContext) {
   const rules = parseRules(files.rules.content);
   const inverseRules = parseRules(files.inverseRules.content);
   const allRules = parseAllRules(files);
-  const csvTests = parseTests(files.tests.content);
+  const csvTests = parseTests(files);
   const baseLineTests = parseBaselineTests(files.baselineTests.content);
   if (files.tests.content && !csvTests.length) {
     console.warn(`failed to parse tests in ${files.tests.filename}`);
