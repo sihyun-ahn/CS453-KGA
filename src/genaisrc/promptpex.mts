@@ -27,6 +27,7 @@ export interface PromptPexTest {
 
 export interface PromptPexTestResult {
   id: string;
+  promptid: string;
   model: string;
   input: string;
   output: string;
@@ -35,6 +36,7 @@ export interface PromptPexTestResult {
 
 export interface PromptPexTestEval {
   id: string;
+  promptid: string;
   model?: string;
   rule: string;
   inverse?: boolean;
@@ -319,6 +321,7 @@ async function resolveTestPath(
 ) {
   const { model } = options;
   const id = await resolveTestId(files, test);
+  const promptid = await resolvePromptId(files);
   const dir = path.join(
     files.dir,
     files.basename,
@@ -328,7 +331,7 @@ async function resolveTestPath(
       .toLowerCase()
   );
   const file = await workspace.readText(path.join(dir, `${id}.json`));
-  return { id, file };
+  return { id, promptid, file };
 }
 
 async function resolveTestEvalPath(
@@ -336,9 +339,10 @@ async function resolveTestEvalPath(
   test: PromptPexTest
 ) {
   const id = await resolveTestId(files, test);
+  const promptid = await resolvePromptId(files);
   const dir = path.join(files.dir, files.basename, "evals");
   const file = await workspace.readText(path.join(dir, `${id}.json`));
-  return { id, file };
+  return { id, promptid, file };
 }
 
 function resolvePromptArgs(
@@ -362,6 +366,11 @@ function resolvePromptArgs(
   return { inputs, args, testInput, expectedOutput };
 }
 
+async function resolvePromptId(files: Pick<PromptPexContext, "prompt">) {
+  const content = MD.content(files.prompt.content);
+  return parsers.hash(content, { length: 7 });
+}
+
 export async function executeTest(
   files: Pick<PromptPexContext, "prompt" | "dir" | "basename">,
   test: PromptPexTest,
@@ -371,7 +380,7 @@ export async function executeTest(
   const moptions = {
     ...modelOptions(),
   };
-  const { id, file } = await resolveTestPath(files, test, {
+  const { id, promptid, file } = await resolveTestPath(files, test, {
     model,
   });
   if (file.content && !force) {
@@ -385,6 +394,7 @@ export async function executeTest(
   if (!args)
     return {
       id,
+      promptid,
       model: "",
       error: "invalid test input",
       input: testInput,
@@ -406,6 +416,7 @@ export async function executeTest(
   const actualOutput = res.text;
   const testRes = {
     id,
+    promptid,
     model: res.model,
     error: res.error?.message,
     input: testInput,
@@ -456,7 +467,7 @@ export async function evaluateTest(
   const moptions = {
     ...modelOptions(),
   };
-  const { id, file } = await resolveTestEvalPath(files, test);
+  const { id, promptid, file } = await resolveTestEvalPath(files, test);
   if (file.content && !force) {
     const res = JSON.parse(file.content) as PromptPexTestEval;
     if (!res.error) return res;
@@ -475,6 +486,7 @@ export async function evaluateTest(
   if (!args)
     return {
       id,
+      promptid,
       ...rule,
       input: testInput,
       evaluation: "",
@@ -502,6 +514,7 @@ export async function evaluateTest(
   );
   const testEval = {
     id,
+    promptid,
     model: res.model,
     ...rule,
     input: testInput,
