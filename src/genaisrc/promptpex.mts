@@ -461,7 +461,7 @@ export async function evaluateTest(
   const rules = parseAllRules(files);
   if (!rules) throw new Error("No rules found");
 
-  const rule = rules[parseInt(test["Rule ID"])];
+  const rule = resolveRule(rules, test);
   if (!rule) throw new Error(`No rule found for test ${test["Rule ID"]}`);
 
   const { args, testInput } = resolvePromptArgs(files, test);
@@ -541,6 +541,15 @@ function parseAllRules(
   return allRules;
 }
 
+function resolveRule(
+  rules: { rule: string; inverse?: boolean }[],
+  test: PromptPexTest
+) {
+  const index = parseInt(test["Rule ID"]) - 1;
+  const rule = rules[index];
+  return rule;
+}
+
 export async function generateJSONReport(files: PromptPexContext) {
   const prompt = files.prompt.content;
   const inputSpec = files.inputSpec.content;
@@ -556,11 +565,10 @@ export async function generateJSONReport(files: PromptPexContext) {
   }
 
   const tests = csvTests.map((test, index) => {
-    const ruleId = parseInt(test["Rule ID"]);
-    const rule = allRules[ruleId];
+    const rule = resolveRule(allRules, test);
     if (!rule)
       errors.push(
-        `test ${index} references non-existent rule ${ruleId} in ${files.tests.filename}`
+        `test '${test["Test Input"]}' references non-existent rule in ${files.tests.filename}`
       );
     const res: any = {
       ...rule,

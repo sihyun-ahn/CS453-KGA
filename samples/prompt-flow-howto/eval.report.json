@@ -28,91 +28,91 @@
   ],
   "tests": [
     {
-      "rule": "The score value in the output JSON should be a valid integer represented as a string.",
+      "rule": "The score value in the output JSON must be an integer between 1 and 5, inclusive.",
       "input": "question: 'What is 2 + 2?', answer: '4', statement: '4'",
       "expected": "{\"score\": \"5\", \"explanation\": \"The answer is correct as 2 + 2 equals 4\"}",
       "reasoning": "The score should be a valid integer between 1 and 5, and the calculation is correctly answered."
     },
     {
-      "rule": "The score value in the output JSON should be a valid integer represented as a string.",
+      "rule": "The score value in the output JSON must be an integer between 1 and 5, inclusive.",
       "input": "question: 'What is the capital of Italy?', answer: 'Rome', statement: 'Rome'",
       "expected": "{\"score\": \"5\", \"explanation\": \"Rome is the capital of Italy\"}",
       "reasoning": "The response is appropriate, ensuring the score is an integer between 1 and 5."
     },
     {
-      "rule": "The score value in the output JSON should be a valid integer represented as a string.",
+      "rule": "The score value in the output JSON must be an integer between 1 and 5, inclusive.",
       "input": "question: 'Name a primary color.', answer: 'Blue', statement: 'Blue'",
       "expected": "{\"score\": \"5\", \"explanation\": \"Blue is a recognized primary color\"}",
       "reasoning": "Verifies that the correct answer yields a score in the specified range."
     },
     {
-      "rule": "The output must be in valid JSON format.",
+      "rule": "The score value in the output JSON should be a valid integer represented as a string.",
       "input": "question: 'What is the largest planet?', answer: 'Jupiter', statement: 'Jupiter'",
       "expected": "{\"score\": \"5\", \"explanation\": \"Jupiter is the largest planet\"}",
       "reasoning": "The score value should be a stringified integer, ensuring format compliance."
     },
     {
-      "rule": "The output must be in valid JSON format.",
+      "rule": "The score value in the output JSON should be a valid integer represented as a string.",
       "input": "question: 'What is the boiling point of water?', answer: '100', statement: '100'",
       "expected": "{\"score\": \"5\", \"explanation\": \"Water boils at 100 degrees Celsius\"}",
       "reasoning": "Checks that the score is a valid integer as a string."
     },
     {
-      "rule": "The output must be in valid JSON format.",
+      "rule": "The score value in the output JSON should be a valid integer represented as a string.",
       "input": "question: 'Which animal is known as the king of the jungle?', answer: 'Lion', statement: 'Lion'",
       "expected": "{\"score\": \"5\", \"explanation\": \"Lion is often referred to as the king of the jungle\"}",
       "reasoning": "Tests compliance of score being a stringified integer."
     },
     {
-      "rule": "The JSON output must include a key named \"score\".",
+      "rule": "The output must be in valid JSON format.",
       "input": "question: 'What is the speed of light?', answer: '299792458 m/s', statement: '299792458 m/s'",
       "expected": "{\"score\": \"5\", \"explanation\": \"The speed of light is 299792458 m/s\"}",
       "reasoning": "Validates that the output is in JSON format."
     },
     {
-      "rule": "The JSON output must include a key named \"score\".",
+      "rule": "The output must be in valid JSON format.",
       "input": "question: 'Who wrote Macbeth?', answer: 'Shakespeare', statement: 'Shakespeare'",
       "expected": "{\"score\": \"5\", \"explanation\": \"Shakespeare wrote Macbeth\"}",
       "reasoning": "Ensures JSON validity in output format."
     },
     {
-      "rule": "The JSON output must include a key named \"score\".",
+      "rule": "The output must be in valid JSON format.",
       "input": "question: 'What is the square root of 64?', answer: '8', statement: '8'",
       "expected": "{\"score\": \"5\", \"explanation\": \"The square root of 64 is 8\"}",
       "reasoning": "Checks for JSON format compliance."
     },
     {
-      "rule": "The JSON output must include a key named \"explanation\".",
+      "rule": "The JSON output must include a key named \"score\".",
       "input": "question: 'What is the smallest prime number?', answer: '2', statement: '2'",
       "expected": "{\"score\": \"5\", \"explanation\": \"2 is the smallest prime number\"}",
       "reasoning": "Ensures the presence of the key 'score' in JSON."
     },
     {
-      "rule": "The JSON output must include a key named \"explanation\".",
+      "rule": "The JSON output must include a key named \"score\".",
       "input": "question: 'What is the chemical symbol for water?', answer: 'H2O', statement: 'H2O'",
       "expected": "{\"score\": \"5\", \"explanation\": \"H2O is the chemical symbol for water\"}",
       "reasoning": "Checks for the 'score' key presence."
     },
     {
-      "rule": "The JSON output must include a key named \"explanation\".",
+      "rule": "The JSON output must include a key named \"score\".",
       "input": "question: 'What year did the Titanic sink?', answer: '1912', statement: '1912'",
       "expected": "{\"score\": \"5\", \"explanation\": \"The Titanic sank in 1912\"}",
       "reasoning": "Confirms 'score' key existence in JSON."
     },
     {
-      "rule": "The \"explanation\" key must contain a string value describing the reasoning behind the score.",
+      "rule": "The JSON output must include a key named \"explanation\".",
       "input": "question: 'What is the freezing point of water?', answer: '0', statement: '0'",
       "expected": "{\"score\": \"5\", \"explanation\": \"Water freezes at 0 degrees Celsius\"}",
       "reasoning": "Validates the existence of 'explanation' key in JSON."
     },
     {
-      "rule": "The \"explanation\" key must contain a string value describing the reasoning behind the score.",
+      "rule": "The JSON output must include a key named \"explanation\".",
       "input": "question: 'What currency is used in Japan?', answer: 'Yen', statement: 'Yen'",
       "expected": "{\"score\": \"5\", \"explanation\": \"Japan uses Yen\"}",
       "reasoning": "Checks for 'explanation' key presence."
     },
     {
-      "rule": "The \"explanation\" key must contain a string value describing the reasoning behind the score.",
+      "rule": "The JSON output must include a key named \"explanation\".",
       "input": "question: 'What is the main language spoken in Brazil?', answer: 'Portuguese', statement: 'Portuguese'",
       "expected": "{\"score\": \"5\", \"explanation\": \"Portuguese is the main language spoken in Brazil\"}",
       "reasoning": "Ensures the 'explanation' key is present."

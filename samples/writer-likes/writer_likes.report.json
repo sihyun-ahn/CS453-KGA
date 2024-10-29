@@ -14,39 +14,39 @@
   ],
   "tests": [
     {
-      "rule": "The writer dislikes passages that lack a commonality in tone, voice, word choice, sentence structure, and paragraph structure, and this should be expanded into multiple ambiguous sentences without any justifications, beginning with \"The writer dislikes...\".",
-      "inverse": true,
+      "rule": "The writer likes passages that share a commonality in tone, voice, word choice, sentence structure, and paragraph structure, and this should be summarized in one precise sentence incorporating any justifications provided, beginning with \"The writer likes...\".",
       "input": "Passage 1: Tone: Optimistic, Voice: First-person narrative, Word Choice: Simple, Sentence Structure: Complex, Paragraph Structure: Short and concise. Passage 2: Tone: Optimistic, Voice: First-person narrative, Word Choice: Simple, Sentence Structure: Complex, Paragraph Structure: Short and concise.",
       "expected": "The writer likes passages with an optimistic tone, first-person narrative voice, simple word choice, complex sentences, and short paragraph structures.",
       "reasoning": "Tests the software's ability to identify and summarize the common elements between passages."
     },
     {
-      "rule": "The writer dislikes passages that lack a commonality in tone, voice, word choice, sentence structure, and paragraph structure, and this should be expanded into multiple ambiguous sentences without any justifications, beginning with \"The writer dislikes...\".",
-      "inverse": true,
+      "rule": "The writer likes passages that share a commonality in tone, voice, word choice, sentence structure, and paragraph structure, and this should be summarized in one precise sentence incorporating any justifications provided, beginning with \"The writer likes...\".",
       "input": "Passage 1: Tone: Formal, Voice: Third-person objective, Word Choice: Technical, Sentence Structure: Varied, Paragraph Structure: Lengthy and detailed. Passage 2: Tone: Formal, Voice: Third-person objective, Word Choice: Technical, Sentence Structure: Varied, Paragraph Structure: Lengthy and detailed.",
       "expected": "The writer likes passages with a formal tone, third-person objective voice, technical word choice, varied sentence structures, and lengthy, detailed paragraph structures.",
       "reasoning": "Assesses consistency in recognizing shared features between passages and forming precise summaries."
     },
     {
-      "rule": "The writer dislikes passages that lack a commonality in tone, voice, word choice, sentence structure, and paragraph structure, and this should be expanded into multiple ambiguous sentences without any justifications, beginning with \"The writer dislikes...\".",
-      "inverse": true,
+      "rule": "The writer likes passages that share a commonality in tone, voice, word choice, sentence structure, and paragraph structure, and this should be summarized in one precise sentence incorporating any justifications provided, beginning with \"The writer likes...\".",
       "input": "Passage 1: Tone: Humorous, Voice: Conversational, Word Choice: Colloquial, Sentence Structure: Simple, Paragraph Structure: Fragmented. Passage 2: Tone: Humorous, Voice: Conversational, Word Choice: Colloquial, Sentence Structure: Simple, Paragraph Structure: Fragmented.",
       "expected": "The writer likes passages with a humorous tone, conversational voice, colloquial word choice, simple sentence structure, and fragmented paragraphs.",
       "reasoning": "Validates the software's capability to succinctly summarize shared stylistic elements that align with the writer's preferences."
     },
     {
+      "rule": "The writer dislikes passages that lack a commonality in tone, voice, word choice, sentence structure, and paragraph structure, and this should be expanded into multiple ambiguous sentences without any justifications, beginning with \"The writer dislikes...\".",
       "inverse": true,
       "input": "Passage 1: Tone: Formal, Voice: Third-person narrative, Word Choice: Complex, Sentence Structure: Varied, Paragraph Structure: Mixed. Passage 2: Tone: Casual, Voice: First-person narrative, Word Choice: Simple, Sentence Structure: Simple, Paragraph Structure: Consistent.",
       "expected": "The writer dislikes...",
       "reasoning": "Challenges the software to recognize the absence of common stylistic elements and reflect this in multiple ambiguous sentences."
     },
     {
+      "rule": "The writer dislikes passages that lack a commonality in tone, voice, word choice, sentence structure, and paragraph structure, and this should be expanded into multiple ambiguous sentences without any justifications, beginning with \"The writer dislikes...\".",
       "inverse": true,
       "input": "Passage 1: Tone: Dramatic, Voice: First-person, Word Choice: Evocative, Sentence Structure: Complex, Paragraph Structure: Short. Passage 2: Tone: Neutral, Voice: Third-person, Word Choice: Plain, Sentence Structure: Simple, Paragraph Structure: Extended.",
       "expected": "The writer dislikes...",
       "reasoning": "Tests the software's ability to detect disparities in style and express this in an expanded format without justifications."
     },
     {
+      "rule": "The writer dislikes passages that lack a commonality in tone, voice, word choice, sentence structure, and paragraph structure, and this should be expanded into multiple ambiguous sentences without any justifications, beginning with \"The writer dislikes...\".",
       "inverse": true,
       "input": "Passage 1: Tone: Sarcastic, Voice: Informal, Word Choice: Slang, Sentence Structure: Fragmented, Paragraph Structure: Erratic. Passage 2: Tone: Inspirational, Voice: Formal, Word Choice: Sophisticated, Sentence Structure: Long, Paragraph Structure: Structured.",
       "expected": "The writer dislikes...",

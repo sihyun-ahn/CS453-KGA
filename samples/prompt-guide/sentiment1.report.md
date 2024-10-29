@@ -92,6 +92,26 @@ Text: "I am very disappointed with the quality of the item. It broke within a we
 |5|2|This is disappointing|Disappointing results|Verifies improper format by lacking 'Sentiment:' and using a sentence\.|
 |5|3|A typical day|Just another day|Tests incorrect sentence\-based feedback without standard labeling\.|
 
+### [test_evals.csv](./sentiment1.test_evals.csv)
+
+|Rule ID|Test ID|Test Input|Expected Output|Reasoning|evaluation|
+|-|-|-|-|-|-|
+|1|1|I love this beautiful day\!|Sentiment: positive|Tests positive sentiment classification with clear positive expression\.|Sentiment: positive|
+|1|2|The weather is terrible and I hate it\.|Sentiment: negative|Tests negative sentiment classification with clear negative expression\.|Sentiment: negative|
+|1|3|This is a book\.|Sentiment: neutral|Tests neutral sentiment classification with an objective statement\.|Sentiment: neutral|
+|2|1|What a wonderful experience|positive|Ensures that the label 'Sentiment:' is missing, testing improper output format\.|Sentiment: positive|
+|2|2|I really dislike this situation|negative|Checks absence of 'Sentiment:' label, demonstrating incorrect labeling format\.|Sentiment: negative|
+|2|3|The event was okay|neutral|Verifies lack of 'Sentiment:' label, highlighting labeling issue with neutral statement\.|Sentiment: neutral|
+|3|1|I feel happy about the results|Sentiment: This denotes positivity|Tests incorrect classification by using a sentence rather than a single word\.|Sentiment: positive|
+|3|2|The meal was not satisfying|Sentiment: This is negative|Challenges classification by requiring a sentence instead of a single word\.|Sentiment: Negative|
+|3|3|It's just an ordinary day|Sentiment: Neutrality is observed|Examines the response when a sentence is used for neutral classification\.|Sentiment: neutral|
+|4|1|Amazing performance|Sentiment: neutral|Tests incorrect classification by expecting a neutral classification for positive input\.|Sentiment: positive|
+|4|2|I am very upset|Sentiment: positive|Verifies incorrect classification by expecting a positive classification for negative input\.|Sentiment: negative|
+|4|3|It's raining|Sentiment: negative|Challenges classification by expecting a negative output for a neutral statement\.|Sentiment: Neutral|
+||||||Sentiment: Positive|
+||||||Negative|
+||||||Sentiment: Neutral|
+
 ### [test_results.csv](./sentiment1.test_results.csv)
 
 |Rule ID|Test ID|Test Input|Expected Output|Reasoning|model|actualOutput|status|

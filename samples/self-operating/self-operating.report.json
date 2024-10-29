@@ -29,91 +29,91 @@
   ],
   "tests": [
     {
-      "rule": "A CLICK response must include both \"x\" and \"y\" coordinates expressed as percentages.",
+      "rule": "CLICK responses must be formatted as `CLICK {{ \"x\": \"percent\", \"y\": \"percent\", \"description\": \"~description here~\", \"reason\": \"~reason here~\" }}`.",
       "input": "Objective: Open Google Chrome to search for cat pictures",
       "expected": "CLICK {{ \"x\": \"50%\", \"y\": \"55%\", \"description\": \"Click: Chrome Profile Icon\", \"reason\": \"To open Chrome fully\" }}",
       "reasoning": "Tests whether CLICK response includes correctly formatted coordinates, description, and reason."
     },
     {
-      "rule": "A CLICK response must include both \"x\" and \"y\" coordinates expressed as percentages.",
+      "rule": "CLICK responses must be formatted as `CLICK {{ \"x\": \"percent\", \"y\": \"percent\", \"description\": \"~description here~\", \"reason\": \"~reason here~\" }}`.",
       "input": "Objective: Search for recipes in Chrome",
       "expected": "CLICK {{ \"x\": \"50%\", \"y\": \"9%\", \"description\": \"Click: Chrome Address Bar\", \"reason\": \"To enter search query\" }}",
       "reasoning": "Ensures CLICK response uses percentages and provides a logical description and reason."
     },
     {
-      "rule": "A CLICK response must include both \"x\" and \"y\" coordinates expressed as percentages.",
+      "rule": "CLICK responses must be formatted as `CLICK {{ \"x\": \"percent\", \"y\": \"percent\", \"description\": \"~description here~\", \"reason\": \"~reason here~\" }}`.",
       "input": "Objective: Click on the Spotify icon on the desktop",
       "expected": "CLICK {{ \"x\": \"30%\", \"y\": \"40%\", \"description\": \"Click: Spotify Icon\", \"reason\": \"To open Spotify\" }}",
       "reasoning": "Validates the inclusion of all necessary components in CLICK response format."
     },
     {
-      "rule": "A CLICK response must include a \"description\" that describes the action being taken.",
+      "rule": "A CLICK response must include both \"x\" and \"y\" coordinates expressed as percentages.",
       "input": "Objective: Go to Google Docs and start a new document",
       "expected": "CLICK {{ \"x\": \"50%\", \"y\": \"9%\", \"description\": \"Click: Chrome Address Bar\", \"reason\": \"Navigate to Google Docs\" }}",
       "reasoning": "Checks if the CLICK response format includes percentage coordinates."
     },
     {
-      "rule": "A CLICK response must include a \"description\" that describes the action being taken.",
+      "rule": "A CLICK response must include both \"x\" and \"y\" coordinates expressed as percentages.",
       "input": "Objective: Access a bookmarked page in Chrome",
       "expected": "CLICK {{ \"x\": \"45%\", \"y\": \"15%\", \"description\": \"Click: Bookmark Toolbar\", \"reason\": \"Open bookmarked site\" }}",
       "reasoning": "Tests adherence to coordinate formatting requirements in CLICK responses."
     },
     {
-      "rule": "A CLICK response must include a \"description\" that describes the action being taken.",
+      "rule": "A CLICK response must include both \"x\" and \"y\" coordinates expressed as percentages.",
       "input": "Objective: Select a file from the desktop",
       "expected": "CLICK {{ \"x\": \"20%\", \"y\": \"70%\", \"description\": \"Click: File Icon\", \"reason\": \"To open file\" }}",
       "reasoning": "Verifies that CLICK responses contain a reason and description."
     },
     {
-      "rule": "A CLICK response must include a \"reason\" that explains the purpose of the action.",
+      "rule": "A CLICK response must include a \"description\" that describes the action being taken.",
       "input": "Objective: Open Twitter",
       "expected": "SEARCH \"Twitter\"",
       "reasoning": "Tests whether SEARCH responses are correctly formatted as per specification."
     },
     {
-      "rule": "A CLICK response must include a \"reason\" that explains the purpose of the action.",
+      "rule": "A CLICK response must include a \"description\" that describes the action being taken.",
       "input": "Objective: Launch Calculator",
       "expected": "SEARCH \"Calculator\"",
       "reasoning": "Ensures SEARCH response adheres to expected formatting rules."
     },
     {
-      "rule": "A CLICK response must include a \"reason\" that explains the purpose of the action.",
+      "rule": "A CLICK response must include a \"description\" that describes the action being taken.",
       "input": "Objective: Find Visual Studio Code",
       "expected": "SEARCH \"Visual Studio Code\"",
       "reasoning": "Validates correct formatting of SEARCH responses."
     },
     {
-      "rule": "TYPE responses must be formatted as `TYPE \"value you want to type\"`.",
+      "rule": "A CLICK response must include a \"reason\" that explains the purpose of the action.",
       "input": "Objective: Type a message in a chat application",
       "expected": "TYPE \"Hey, how's your day going?\"",
       "reasoning": "Tests correct TYPE response formatting."
     },
     {
-      "rule": "TYPE responses must be formatted as `TYPE \"value you want to type\"`.",
+      "rule": "A CLICK response must include a \"reason\" that explains the purpose of the action.",
       "input": "Objective: Enter a password in a login field",
       "expected": "TYPE \"MySecretPassword1!\"",
       "reasoning": "Ensures adherence to TYPE response formatting rules."
     },
     {
-      "rule": "TYPE responses must be formatted as `TYPE \"value you want to type\"`.",
+      "rule": "A CLICK response must include a \"reason\" that explains the purpose of the action.",
       "input": "Objective: Fill in an online form's email field",
       "expected": "TYPE \"example@test.com\"",
       "reasoning": "Validates the correct format of TYPE responses."
     },
     {
-      "rule": "SEARCH responses must be formatted as `SEARCH \"app you want to search for on Mac\"`.",
+      "rule": "TYPE responses must be formatted as `TYPE \"value you want to type\"`.",
       "input": "Objective: Complete the task of sending an email",
       "expected": "DONE",
       "reasoning": "Tests whether DONE response is formatted correctly with no additional text."
     },
     {
-      "rule": "SEARCH responses must be formatted as `SEARCH \"app you want to search for on Mac\"`.",
+      "rule": "TYPE responses must be formatted as `TYPE \"value you want to type\"`.",
       "input": "Objective: Finish creating a presentation",
       "expected": "DONE",
       "reasoning": "Ensures the DONE response contains only the word DONE as specified."
     },
     {
-      "rule": "SEARCH responses must be formatted as `SEARCH \"app you want to search for on Mac\"`.",
+      "rule": "TYPE responses must be formatted as `TYPE \"value you want to type\"`.",
       "input": "Objective: End the process of editing a document",
       "expected": "DONE",
       "reasoning": "Validates that the DONE response meets the formatting criteria."

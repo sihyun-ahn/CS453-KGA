@@ -18,117 +18,117 @@
   ],
   "tests": [
     {
-      "rule": "The output must consist of only one category name, which is one of the following: World, Sports, Business, or Sci/Tech.",
+      "rule": "The output must classify the input text into one of the following categories: World, Sports, Business, or Sci/Tech.",
       "input": "NASA announces new mission to explore Jupiter's moons",
       "expected": "Sci/Tech",
       "reasoning": "This test evaluates if the text is correctly classified as Sci/Tech due to the scientific context."
     },
     {
-      "rule": "The output must consist of only one category name, which is one of the following: World, Sports, Business, or Sci/Tech.",
+      "rule": "The output must classify the input text into one of the following categories: World, Sports, Business, or Sci/Tech.",
       "input": "Olympics 2024: Countries gear up for the global sporting event",
       "expected": "Sports",
       "reasoning": "This input is a typical sports-related article, testing if it is classified as Sports."
     },
     {
-      "rule": "The output must consist of only one category name, which is one of the following: World, Sports, Business, or Sci/Tech.",
+      "rule": "The output must classify the input text into one of the following categories: World, Sports, Business, or Sci/Tech.",
       "input": "Global markets react to trade tensions between US and China",
       "expected": "Business",
       "reasoning": "This business-related input assesses the software's ability to classify economic news."
     },
     {
-      "rule": "The output must not contain any additional information, explanation, or commentary beyond the category name.",
+      "rule": "The output must consist of only one category name, which is one of the following: World, Sports, Business, or Sci/Tech.",
       "input": "Breakthrough in renewable energy as solar efficiency increases",
       "expected": "Sci/Tech",
       "reasoning": "Tests if the output consists only of the single category 'Sci/Tech'."
     },
     {
-      "rule": "The output must not contain any additional information, explanation, or commentary beyond the category name.",
+      "rule": "The output must consist of only one category name, which is one of the following: World, Sports, Business, or Sci/Tech.",
       "input": "Premier League results: Chelsea defeats Arsenal",
       "expected": "Sports",
       "reasoning": "Ensures that only 'Sports' is returned for a sports-related article."
     },
     {
-      "rule": "The output must not contain any additional information, explanation, or commentary beyond the category name.",
+      "rule": "The output must consist of only one category name, which is one of the following: World, Sports, Business, or Sci/Tech.",
       "input": "World leaders discuss climate action at summit",
       "expected": "World",
       "reasoning": "Checks if the single category 'World' is returned for global news."
     },
     {
-      "rule": "The output must classify the input text into any category except World, Sports, Business, or Sci/Tech.",
-      "inverse": true,
+      "rule": "The output must not contain any additional information, explanation, or commentary beyond the category name.",
       "input": "Innovations in AI explained: How technology is changing industries",
       "expected": "Sci/Tech",
       "reasoning": "Verifies that no additional commentary is included in the output beyond 'Sci/Tech'."
     },
     {
-      "rule": "The output must classify the input text into any category except World, Sports, Business, or Sci/Tech.",
-      "inverse": true,
+      "rule": "The output must not contain any additional information, explanation, or commentary beyond the category name.",
       "input": "Economic outlook for 2023: Experts weigh in",
       "expected": "Business",
       "reasoning": "Ensures the output is constrained to 'Business' with no extra commentary."
     },
     {
-      "rule": "The output must classify the input text into any category except World, Sports, Business, or Sci/Tech.",
-      "inverse": true,
+      "rule": "The output must not contain any additional information, explanation, or commentary beyond the category name.",
       "input": "Champions League: Analysis of the quarter-final matchups",
       "expected": "Sports",
       "reasoning": "Confirms that only 'Sports' is returned, with no explanation or commentary."
     },
     {
-      "rule": "The output must consist of more than one category name and include at least one not listed: World, Sports, Business, or Sci/Tech.",
+      "rule": "The output must classify the input text into any category except World, Sports, Business, or Sci/Tech.",
       "inverse": true,
       "input": "Ancient ruins discovered in unexplored regions",
       "expected": "Other",
       "reasoning": "Tests if the software can classify an input into a category not listed."
     },
     {
-      "rule": "The output must consist of more than one category name and include at least one not listed: World, Sports, Business, or Sci/Tech.",
+      "rule": "The output must classify the input text into any category except World, Sports, Business, or Sci/Tech.",
       "inverse": true,
       "input": "The rising trend of veganism: A cultural shift",
       "expected": "Other",
       "reasoning": "Ensures classification into a different category, assessing handling of niche topics."
     },
     {
-      "rule": "The output must consist of more than one category name and include at least one not listed: World, Sports, Business, or Sci/Tech.",
+      "rule": "The output must classify the input text into any category except World, Sports, Business, or Sci/Tech.",
       "inverse": true,
       "input": "Exploring the mysteries of the deep ocean",
       "expected": "Other",
       "reasoning": "Evaluates classification beyond the standard categories for unique topics."
     },
     {
-      "rule": "The output must contain additional information, explanation, or commentary beyond the category name.",
+      "rule": "The output must consist of more than one category name and include at least one not listed: World, Sports, Business, or Sci/Tech.",
       "inverse": true,
       "input": "The impact of AI on modern warfare: A dual perspective",
       "expected": "Sci/Tech, Other",
       "reasoning": "Tests if the output includes more than one category by including 'Other'."
     },
     {
-      "rule": "The output must contain additional information, explanation, or commentary beyond the category name.",
+      "rule": "The output must consist of more than one category name and include at least one not listed: World, Sports, Business, or Sci/Tech.",
       "inverse": true,
       "input": "Merging art and technology: The future of creativity",
       "expected": "Sci/Tech, Other",
       "reasoning": "Challenges the classification system by requiring multiple categories."
     },
     {
-      "rule": "The output must contain additional information, explanation, or commentary beyond the category name.",
+      "rule": "The output must consist of more than one category name and include at least one not listed: World, Sports, Business, or Sci/Tech.",
       "inverse": true,
       "input": "Economics and ethics: Balancing profit and social responsibility",
       "expected": "Business, Other",
       "reasoning": "Assesses if the software can output multiple categories with 'Other'."
     },
     {
+      "rule": "The output must contain additional information, explanation, or commentary beyond the category name.",
       "inverse": true,
       "input": "Tech giant unveils ambitious plan: What does it mean for consumers?",
       "expected": "Business - Focus on consumer impact",
       "reasoning": "Tests if additional commentary is incorrectly included."
     },
     {
+      "rule": "The output must contain additional information, explanation, or commentary beyond the category name.",
       "inverse": true,
       "input": "World Cup 2022: The underdogs and their journey",
       "expected": "Sports - Analysis included",
       "reasoning": "Ensures no extra explanation is added to the category name."
     },
     {
+      "rule": "The output must contain additional information, explanation, or commentary beyond the category name.",
       "inverse": true,
       "input": "New policy changes: A global perspective with expert insights",
       "expected": "World - Expert insights",

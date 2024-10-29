@@ -39,112 +39,109 @@
   ],
   "tests": [
     {
-      "rule": "The output must only contain the part of speech tag and nothing else.",
+      "rule": "The output must be a single part of speech tag from the provided list.",
       "input": "The quick brown fox jumps over the lazy dog;fox",
       "expected": "NN",
       "reasoning": "Tests noun identification using a classic sentence. Valid input as per specification."
     },
     {
-      "rule": "The output must only contain the part of speech tag and nothing else.",
+      "rule": "The output must be a single part of speech tag from the provided list.",
       "input": "She swiftly ran towards the finish line;swiftly",
       "expected": "RB",
       "reasoning": "Tests adverb identification. The word is clearly an adverb, ensuring adherence to part of speech tagging rules."
     },
     {
-      "rule": "The output must only contain the part of speech tag and nothing else.",
+      "rule": "The output must be a single part of speech tag from the provided list.",
       "input": "Every cloud has a silver lining;Every",
       "expected": "DT",
       "reasoning": "Tests determiner identification. Valid sentence and word separation with expected determiner tag."
     },
     {
-      "rule": "If the word cannot be tagged with one of the provided tags, the output must be \"Unknown\".",
+      "rule": "The output must only contain the part of speech tag and nothing else.",
       "input": "I will go to the park later;will",
       "expected": "MD",
       "reasoning": "Tests for modal verb identification, confirming expected output format compliance."
     },
     {
-      "rule": "If the word cannot be tagged with one of the provided tags, the output must be \"Unknown\".",
+      "rule": "The output must only contain the part of speech tag and nothing else.",
       "input": "Anna and Mike went to the store;and",
       "expected": "CC",
       "reasoning": "Tests coordinating conjunction identification, checking the concise output requirement."
     },
     {
-      "rule": "If the word cannot be tagged with one of the provided tags, the output must be \"Unknown\".",
+      "rule": "The output must only contain the part of speech tag and nothing else.",
       "input": "Quickly finish your homework;Quickly",
       "expected": "RB",
       "reasoning": "Tests adverb identification with a straightforward adverb, ensuring correct tag."
     },
     {
-      "rule": "If the word cannot be tagged and the reason is unclear, the output must be \"CantAnswer\".",
+      "rule": "If the word cannot be tagged with one of the provided tags, the output must be \"Unknown\".",
       "input": "Xyzzy is not a real word;Xyzzy",
       "expected": "Unknown",
       "reasoning": "Tests handling of nonsensical word, expecting 'Unknown'. Valid input format."
     },
     {
-      "rule": "If the word cannot be tagged and the reason is unclear, the output must be \"CantAnswer\".",
+      "rule": "If the word cannot be tagged with one of the provided tags, the output must be \"Unknown\".",
       "input": "Her paintings were in vivid colors;vivid",
       "expected": "JJ",
       "reasoning": "Tests adjective recognition, ensuring 'Unknown' is correctly not triggered."
     },
     {
-      "rule": "If the word cannot be tagged and the reason is unclear, the output must be \"CantAnswer\".",
+      "rule": "If the word cannot be tagged with one of the provided tags, the output must be \"Unknown\".",
       "input": "He felt a sense of deja vu;deja",
       "expected": "FW",
       "reasoning": "Tests foreign word recognition, ensuring correct tagging of foreign words."
     },
     {
-      "rule": "The part of speech tag must be in uppercase letters as listed.",
+      "rule": "If the word cannot be tagged and the reason is unclear, the output must be \"CantAnswer\".",
       "input": "Blorft is the best word ever;Blorft",
       "expected": "CantAnswer",
       "reasoning": "Tests unclear tagging situation with a made-up word, expecting 'CantAnswer'."
     },
     {
-      "rule": "The part of speech tag must be in uppercase letters as listed.",
+      "rule": "If the word cannot be tagged and the reason is unclear, the output must be \"CantAnswer\".",
       "input": "The cat sat on the mat;mat",
       "expected": "NN",
       "reasoning": "Tests clear noun identification, ensuring 'CantAnswer' is not triggered incorrectly."
     },
     {
-      "rule": "The part of speech tag must be in uppercase letters as listed.",
+      "rule": "If the word cannot be tagged and the reason is unclear, the output must be \"CantAnswer\".",
       "input": "She can dance very well;can",
       "expected": "MD",
       "reasoning": "Tests tagging of modal verb, ensuring clear cases are tagged correctly without 'CantAnswer'."
     },
     {
-      "rule": "The output must not include multiple tags or any explanatory text.",
+      "rule": "The part of speech tag must be in uppercase letters as listed.",
       "input": "An apple a day keeps the doctor away;An",
       "expected": "DT",
       "reasoning": "Tests determiner recognition, ensuring uppercase tag output."
     },
     {
-      "rule": "The output must not include multiple tags or any explanatory text.",
+      "rule": "The part of speech tag must be in uppercase letters as listed.",
       "input": "Tomorrow will be a brighter day;Tomorrow",
       "expected": "NN",
       "reasoning": "Tests correct noun tagging with uppercase output."
     },
     {
-      "rule": "The output must not include multiple tags or any explanatory text.",
+      "rule": "The part of speech tag must be in uppercase letters as listed.",
       "input": "He looked at the beautiful sunset;beautiful",
       "expected": "JJ",
       "reasoning": "Tests adjective tag adherence to capitalization rule."
     },
     {
-      "rule": "The output can contain multiple parts of speech tags from outside the provided list.",
-      "inverse": true,
+      "rule": "The output must not include multiple tags or any explanatory text.",
       "input": "Eat, sleep, repeat;repeat",
       "expected": "VB",
       "reasoning": "Tests verb identification, ensuring no additional text accompanies the tag."
     },
     {
-      "rule": "The output can contain multiple parts of speech tags from outside the provided list.",
-      "inverse": true,
+      "rule": "The output must not include multiple tags or any explanatory text.",
       "input": "She sang a song;She",
       "expected": "PRP",
       "reasoning": "Tests pronoun identification, confirming singular tag output."
     },
     {
-      "rule": "The output can contain multiple parts of speech tags from outside the provided list.",
-      "inverse": true,
+      "rule": "The output must not include multiple tags or any explanatory text.",
       "input": "They were walking in the park;in",
       "expected": "IN",
       "reasoning": "Tests preposition identification in a clear context, ensuring correct tag without extra text."

@@ -24,73 +24,73 @@
   ],
   "tests": [
     {
-      "rule": "The output must include the phrase \"People names:\" followed by a comma-separated list of people names extracted from the text.",
+      "rule": "The output must begin with the phrase \"Company names:\" followed by a comma-separated list of company names extracted from the text.",
       "input": "Today, Apple Inc. announced a new product release. The CEO, Tim Cook, stated that the company aims to innovate.",
       "expected": "Company names: Apple Inc.\\nPeople names: Tim Cook\\nSpecific topics: product release\\nGeneral themes: innovation",
       "reasoning": "Tests the extraction of a company name and a person's name, as well as specific topics and general themes. All input specifications are followed."
     },
     {
-      "rule": "The output must include the phrase \"People names:\" followed by a comma-separated list of people names extracted from the text.",
+      "rule": "The output must begin with the phrase \"Company names:\" followed by a comma-separated list of company names extracted from the text.",
       "input": "Microsoft Corporation has been in talks with Google to enhance AI capabilities. Satya Nadella and Sundar Pichai discussed future collaborations.",
       "expected": "Company names: Microsoft Corporation, Google\\nPeople names: Satya Nadella, Sundar Pichai\\nSpecific topics: AI capabilities, collaborations\\nGeneral themes: technology advancement",
       "reasoning": "Valid test case as it includes multiple entities in each category, adhering to the input specifications."
     },
     {
-      "rule": "The output must include the phrase \"People names:\" followed by a comma-separated list of people names extracted from the text.",
+      "rule": "The output must begin with the phrase \"Company names:\" followed by a comma-separated list of company names extracted from the text.",
       "input": "Tesla's latest development in renewable energy was highlighted by Elon Musk. The focus on sustainability continues.",
       "expected": "Company names: Tesla\\nPeople names: Elon Musk\\nSpecific topics: renewable energy\\nGeneral themes: sustainability",
       "reasoning": "Covers a different industry and checks extraction of varied elements, following the input specifications."
     },
     {
-      "rule": "The output must include the phrase \"Specific topics:\" followed by a comma-separated list of specific topics related to the content of the text.",
+      "rule": "The output must include the phrase \"People names:\" followed by a comma-separated list of people names extracted from the text.",
       "input": "The recent conference featured speakers like Jane Doe from ABC Corp and John Smith of XYZ Ltd.",
       "expected": "Company names: ABC Corp, XYZ Ltd\\nPeople names: Jane Doe, John Smith\\nSpecific topics: conference\\nGeneral themes: networking",
       "reasoning": "Ensures extraction of multiple people names and company names, verifying rule adherence through input specifications."
     },
     {
-      "rule": "The output must include the phrase \"Specific topics:\" followed by a comma-separated list of specific topics related to the content of the text.",
+      "rule": "The output must include the phrase \"People names:\" followed by a comma-separated list of people names extracted from the text.",
       "input": "Amazon and Facebook are collaborating on a new project. Jeff Bezos and Mark Zuckerberg were present at the meeting.",
       "expected": "Company names: Amazon, Facebook\\nPeople names: Jeff Bezos, Mark Zuckerberg\\nSpecific topics: project\\nGeneral themes: partnership",
       "reasoning": "Tests robust recognition of people names and company names together, compliant with input specifications."
     },
     {
-      "rule": "The output must include the phrase \"Specific topics:\" followed by a comma-separated list of specific topics related to the content of the text.",
+      "rule": "The output must include the phrase \"People names:\" followed by a comma-separated list of people names extracted from the text.",
       "input": "IBM's recent hiring includes veteran tech leaders Alice Johnson and Bob Lee. The aim is to drive digital transformation.",
       "expected": "Company names: IBM\\nPeople names: Alice Johnson, Bob Lee\\nSpecific topics: hiring, digital transformation\\nGeneral themes: leadership",
       "reasoning": "Checks the extraction of names within the context of a specific industry event, aligning with input specifications."
     },
     {
-      "rule": "The output must include the phrase \"General themes:\" followed by a comma-separated list of general overarching themes related to the text.",
+      "rule": "The output must include the phrase \"Specific topics:\" followed by a comma-separated list of specific topics related to the content of the text.",
       "input": "The discussion on climate change was led by Dr. Susan Green. Experts from Stanford University participated.",
       "expected": "Company names: Stanford University\\nPeople names: Dr. Susan Green\\nSpecific topics: climate change\\nGeneral themes: environmental issues",
       "reasoning": "Validates specific topic extraction related to environmental themes, following the input specification."
     },
     {
-      "rule": "The output must include the phrase \"General themes:\" followed by a comma-separated list of general overarching themes related to the text.",
+      "rule": "The output must include the phrase \"Specific topics:\" followed by a comma-separated list of specific topics related to the content of the text.",
       "input": "The seminar on artificial intelligence included talks from leading researchers. Professor Alan Turing from MIT was a keynote speaker.",
       "expected": "Company names: MIT\\nPeople names: Professor Alan Turing\\nSpecific topics: artificial intelligence\\nGeneral themes: technological innovation",
       "reasoning": "Tests extraction of specific academic topics and notable individuals, respecting input specifications."
     },
     {
-      "rule": "The output must include the phrase \"General themes:\" followed by a comma-separated list of general overarching themes related to the text.",
+      "rule": "The output must include the phrase \"Specific topics:\" followed by a comma-separated list of specific topics related to the content of the text.",
       "input": "Blockchain technology and its applications were the focus of the event at Google HQ. Innovators like Charlie Lee shared insights.",
       "expected": "Company names: Google HQ\\nPeople names: Charlie Lee\\nSpecific topics: blockchain, applications\\nGeneral themes: innovation",
       "reasoning": "Assesses the ability to extract new technology topics and themes, compliant with input specifications."
     },
     {
-      "rule": "Each section (Company names, People names, Specific topics, General themes) must be clearly labeled and separated by line breaks in the order specified.",
+      "rule": "The output must include the phrase \"General themes:\" followed by a comma-separated list of general overarching themes related to the text.",
       "input": "The launch event at SpaceX highlighted the importance of exploration. Elon Musk emphasized the theme of pushing boundaries.",
       "expected": "Company names: SpaceX\\nPeople names: Elon Musk\\nSpecific topics: launch event\\nGeneral themes: exploration",
       "reasoning": "Ensures extraction of themes related to exploration and innovation, aligning with input specifications."
     },
     {
-      "rule": "Each section (Company names, People names, Specific topics, General themes) must be clearly labeled and separated by line breaks in the order specified.",
+      "rule": "The output must include the phrase \"General themes:\" followed by a comma-separated list of general overarching themes related to the text.",
       "input": "Apple's annual meeting celebrated creativity and technology. Tim Cook underscored their vision for the future.",
       "expected": "Company names: Apple\\nPeople names: Tim Cook\\nSpecific topics: annual meeting\\nGeneral themes: creativity, technology",
       "reasoning": "Validly tests the extraction of overarching themes from corporate events, based on input specifications."
     },
     {
-      "rule": "Each section (Company names, People names, Specific topics, General themes) must be clearly labeled and separated by line breaks in the order specified.",
+      "rule": "The output must include the phrase \"General themes:\" followed by a comma-separated list of general overarching themes related to the text.",
       "input": "The forum on global health, hosted by the WHO, addressed pressing issues. Leaders focused on cooperation and progress.",
       "expected": "Company names: WHO\\nPeople names: \\nSpecific topics: global health\\nGeneral themes: cooperation, progress",
       "reasoning": "Tests extraction of themes related to global health and cooperation, adhering to input specifications."

@@ -26,109 +26,109 @@
   ],
   "tests": [
     {
-      "rule": "The output must first include a multiple section outline summarizing the main content according to the original text.",
+      "rule": "The output must be in the same language as the original content provided by the user.",
       "input": "El presidente anunció nuevas medidas económicas para mejorar la situación del país. Estas incluyen la reducción de impuestos y el aumento del gasto en infraestructura.",
       "expected": "All outputs in Spanish, including summaries and analyses.",
       "reasoning": "The input is in Spanish, ensuring the software uses the same language for output."
     },
     {
-      "rule": "The output must first include a multiple section outline summarizing the main content according to the original text.",
+      "rule": "The output must be in the same language as the original content provided by the user.",
       "input": "Le président a annoncé de nouvelles mesures économiques pour améliorer la situation du pays, y compris la réduction des impôts et l'augmentation des dépenses d'infrastructure.",
       "expected": "Tous les résultats en français, y compris les résumés et les analyses.",
       "reasoning": "The input is in French, testing language identification for consistent output."
     },
     {
-      "rule": "The output must first include a multiple section outline summarizing the main content according to the original text.",
+      "rule": "The output must be in the same language as the original content provided by the user.",
       "input": "Der Präsident hat neue wirtschaftliche Maßnahmen angekündigt, um die Lage des Landes zu verbessern. Dazu gehören Steuersenkungen und erhöhte Infrastrukturinvestitionen.",
       "expected": "Alle Ausgaben auf Deutsch, einschließlich Zusammenfassungen und Analysen.",
       "reasoning": "The input is in German, checking consistent language use in output."
     },
     {
-      "rule": "The output must include a one-paragraph summary that condenses all the content for quick understanding.",
+      "rule": "The output must first include a multiple section outline summarizing the main content according to the original text.",
       "input": "The climate conference highlighted the urgent need for global action. Key topics included renewable energy, emissions reduction, and international cooperation.",
       "expected": "## Overview ## Summary ## Deep Dive Analysis",
       "reasoning": "Testing the inclusion of a multi-section outline summarizing the main content."
     },
     {
-      "rule": "The output must include a one-paragraph summary that condenses all the content for quick understanding.",
+      "rule": "The output must first include a multiple section outline summarizing the main content according to the original text.",
       "input": "La conferencia climática destacó la necesidad urgente de una acción global. Se discutieron temas clave como las energías renovables, la reducción de emisiones y la cooperación internacional.",
       "expected": "## Resumen ## Sumario ## Análisis en Profundidad",
       "reasoning": "Ensures the software outputs a structured outline in Spanish as per input language."
     },
     {
-      "rule": "The output must include a one-paragraph summary that condenses all the content for quick understanding.",
+      "rule": "The output must first include a multiple section outline summarizing the main content according to the original text.",
       "input": "La conférence sur le climat a mis en lumière la nécessité d'une action mondiale urgente. Les sujets clés incluaient les énergies renouvelables, la réduction des émissions et la coopération internationale.",
       "expected": "## Aperçu ## Résumé ## Analyse Approfondie",
       "reasoning": "The test checks the creation of a structured outline in French, matching input language."
     },
     {
-      "rule": "The output must perform a deep dive analysis expanding on the content from multiple aspects such as related industry and political economy.",
+      "rule": "The output must include a one-paragraph summary that condenses all the content for quick understanding.",
       "input": "The tech company reported a significant increase in quarterly earnings due to its successful new product launch.",
       "expected": "A one-paragraph summary of the entire content.",
       "reasoning": "Validates that the software condenses the content into a single paragraph for quick understanding."
     },
     {
-      "rule": "The output must perform a deep dive analysis expanding on the content from multiple aspects such as related industry and political economy.",
+      "rule": "The output must include a one-paragraph summary that condenses all the content for quick understanding.",
       "input": "La empresa tecnológica informó un aumento significativo en las ganancias trimestrales gracias al exitoso lanzamiento de su nuevo producto.",
       "expected": "Un resumen en un solo párrafo de todo el contenido.",
       "reasoning": "Ensures the software creates a concise one-paragraph summary in Spanish."
     },
     {
-      "rule": "The output must perform a deep dive analysis expanding on the content from multiple aspects such as related industry and political economy.",
+      "rule": "The output must include a one-paragraph summary that condenses all the content for quick understanding.",
       "input": "La société technologique a rapporté une augmentation significative des bénéfices trimestriels grâce au lancement réussi de son nouveau produit.",
       "expected": "Un résumé en un seul paragraphe de tout le contenu.",
       "reasoning": "Tests the software's ability to create a one-paragraph summary in French."
     },
     {
-      "rule": "The output must ask the user if they require further analysis in the context of specific other information.",
+      "rule": "The output must perform a deep dive analysis expanding on the content from multiple aspects such as related industry and political economy.",
       "input": "The article discusses the impact of renewable energy on global markets, highlighting economic and environmental benefits.",
       "expected": "Detailed analysis on economic impacts, environmental benefits, and market changes.",
       "reasoning": "Checks if the software performs a deep dive analysis on multiple aspects of the content."
     },
     {
-      "rule": "The output must ask the user if they require further analysis in the context of specific other information.",
+      "rule": "The output must perform a deep dive analysis expanding on the content from multiple aspects such as related industry and political economy.",
       "input": "El artículo trata sobre el impacto de las energías renovables en los mercados globales, destacando beneficios económicos y ambientales.",
       "expected": "Análisis detallado sobre impactos económicos, beneficios ambientales y cambios en el mercado.",
       "reasoning": "Verifies deep dive analysis in Spanish, covering multiple aspects."
     },
     {
-      "rule": "The output must ask the user if they require further analysis in the context of specific other information.",
+      "rule": "The output must perform a deep dive analysis expanding on the content from multiple aspects such as related industry and political economy.",
       "input": "L'article traite de l'impact des énergies renouvelables sur les marchés mondiaux, mettant en évidence des avantages économiques et environnementaux.",
       "expected": "Analyse approfondie sur les impacts économiques, les avantages environnementaux et les changements du marché.",
       "reasoning": "Ensures comprehensive deep dive analysis in French."
     },
     {
-      "rule": "The output must be organized using sections and bold font for clarity.",
+      "rule": "The output must ask the user if they require further analysis in the context of specific other information.",
       "input": "The global economy is shifting due to technological advancements. Would you like further analysis in the context of these changes?",
       "expected": "Prompt asking if further analysis is needed, followed by a structured response if required.",
       "reasoning": "Tests the software's ability to inquire about further analysis and provide structured responses."
     },
     {
-      "rule": "The output must be organized using sections and bold font for clarity.",
+      "rule": "The output must ask the user if they require further analysis in the context of specific other information.",
       "input": "La economía global está cambiando debido a los avances tecnológicos. ¿Necesita un análisis adicional en el contexto de estos cambios?",
       "expected": "Pregunta sobre la necesidad de un análisis adicional, seguido de una respuesta estructurada si es necesario.",
       "reasoning": "Validates the inquiry and response mechanism in Spanish."
     },
     {
-      "rule": "The output must be organized using sections and bold font for clarity.",
+      "rule": "The output must ask the user if they require further analysis in the context of specific other information.",
       "input": "L'économie mondiale évolue en raison des avancées technologiques. Souhaitez-vous une analyse supplémentaire dans le contexte de ces changements?",
       "expected": "Demande si une analyse supplémentaire est nécessaire, suivie d'une réponse structurée si nécessaire.",
       "reasoning": "Verifies the software's prompt and response function in French."
     },
     {
-      "rule": "The output must consistently use the language identified from the user content for all responses.",
+      "rule": "The output must be organized using sections and bold font for clarity.",
       "input": "Technology trends are rapidly evolving, influencing various sectors. **Overview** **Summary** **Deep Dive Analysis**",
       "expected": "Organized sections using bold font for clarity.",
       "reasoning": "Checks if the output is organized using sections and bold font for better clarity."
     },
     {
-      "rule": "The output must consistently use the language identified from the user content for all responses.",
+      "rule": "The output must be organized using sections and bold font for clarity.",
       "input": "Las tendencias tecnológicas están evolucionando rápidamente, influyendo en varios sectores. **Descripción General** **Resumen** **Análisis en Profundidad**",
       "expected": "Secciones organizadas con fuente en negrita para mayor claridad.",
       "reasoning": "Ensures section organization and bold font usage in Spanish."
     },
     {
-      "rule": "The output must consistently use the language identified from the user content for all responses.",
+      "rule": "The output must be organized using sections and bold font for clarity.",
       "input": "Les tendances technologiques évoluent rapidement, influençant divers secteurs. **Aperçu** **Résumé** **Analyse Approfondie**",
       "expected": "Sections organisées avec une police en gras pour plus de clarté.",
       "reasoning": "Validates the use of sections and bold font in French."

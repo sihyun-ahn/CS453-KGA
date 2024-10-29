@@ -95,6 +95,17 @@ text: Climate change refers to long-term shifts and alterations in temperature a
 |2|2|She swiftly finished her homework before the sun set and then started reading a new book\.|Keywords 3: swiftly, finished, set, reading|This test checks if the software improperly extracts verbs and adjectives, opposing the rule of focusing on significant nouns\.|
 |2|3|Running through the park, the dog excitedly chased after the ball\.|Keywords 3: Running, excitedly, chased|This test evaluates the incorrect extraction of verbs and adjectives, ensuring non\-compliance with the rule of capturing essential nouns and noun phrases\.|
 
+### [test_evals.csv](./keywords.test_evals.csv)
+
+|id|model|rule|input|evaluation|
+|-|-|-|-|-|
+|36d5488|gpt\-4o\-2024\-08\-06|The chatbot must output a list of keywords extracted from the given text\.|Amazon offers cloud computing services that provide scalable resources for developers\. It also supports machine learning capabilities\.|1\. Subject: Amazon<br>2\. Services: Cloud computing<br>3\. Features: Scalable resources, machine learning capabilities|
+|c61c3d3|gpt\-4o\-2024\-08\-06|Each keyword in the output list must represent a significant concept or entity mentioned in the input text\.|The cat quickly climbed the tall tree in the garden but soon jumped down\.|\- Subject: The cat<br>\- Action: climbed<br>\- Object: the tall tree<br>\- Location: in the garden|
+|b883073|gpt\-4o\-2024\-08\-06|The chatbot must output a list of keywords extracted from the given text\.|Tesla is revolutionizing the electric vehicle industry with its innovative technology and sustainable energy solutions\.|Output:<br>Tesla; electric vehicle industry; innovative technology; sustainable energy solutions|
+|07848c6|gpt\-4o\-2024\-08\-06|The chatbot must output a list of keywords extracted from the given text\.|Photosynthesis is the process by which green plants and some other organisms use sunlight to synthesize foods with carbon dioxide and water\.|Extracted Elements:<br>\- Photosynthesis<br>\- Green plants<br>\- Sunlight<br>\- Synthesize foods<br>\- Carbon dioxide<br>\- Water|
+|237e70c|gpt\-4o\-2024\-08\-06|Each keyword in the output list must represent a significant concept or entity mentioned in the input text\.|She swiftly finished her homework before the sun set and then started reading a new book\.|1\. Action: finished her homework<br>2\. Time: before the sun set<br>3\. Action: started reading a new book|
+|6dd8b27|gpt\-4o\-2024\-08\-06|Each keyword in the output list must represent a significant concept or entity mentioned in the input text\.|Running through the park, the dog excitedly chased after the ball\.|\- Action: Running through the park<br>\- Subject: The dog<br>\- Action: Chased after the ball<br>\- Emotion: Excitedly|
+
 ### [test_results.csv](./keywords.test_results.csv)
 
 |Rule ID|Test ID|Test Input|Expected Output|Reasoning|model|actualOutput|status|error|
