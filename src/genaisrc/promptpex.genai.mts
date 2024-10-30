@@ -52,7 +52,7 @@ script({
     concurrency: {
       type: "number",
       description: "Number of concurrent prompts to run",
-      default: 5,
+      default: 1,
     },
     out: {
       type: "string",
