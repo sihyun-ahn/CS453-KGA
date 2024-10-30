@@ -9,10 +9,10 @@
     "prd": "npx --yes genaiscript run prd -prd",
     "build": "npx --yes genaiscript scripts compile",
     "promptpex": "npx --yes genaiscript run promptpex",
-    "execute_tests:ollama": "npx --yes genaiscript run promptpex_execute_tests --vars \"models=ollama:phi3.5;ollama:qwen2.5:3b;ollama:llama3.2:3b;ollama:llama3.1:8b;ollama:gemma2:9b;ollama:mistral-nemo;ollama:\" --vars concurrency=1 --model ollama:phi3.5",
-    "execute_tests:ollama-12b": "npx --yes genaiscript run promptpex_execute_tests --vars \"models=ollama:mistral-nemo;ollama:mistral-small:22b;ollama:deepseek-coder-v2:16b\" --vars concurrency=1 --model ollama:phi3.5",
-    "execute_tests:azure_serverless": "npx --yes genaiscript run promptpex_execute_tests --vars \"models=azure_serverless:gpt-4o-mini\" --vars concurrency=1 --model azure_serverless:gpt_4o",
-    "execute_tests:github": "npx --yes genaiscript run promptpex_execute_tests --vars \"models=github:gpt-4o-mini\" --vars concurrency=3 --model github:gpt_4o",
-    "evaluate_tests": "npx --yes genaiscript run promptpex_evaluate_tests"
+    "run_tests:ollama": "npx --yes genaiscript run promptpex_run_tests --vars \"models=ollama:phi3.5;ollama:qwen2.5:3b;ollama:llama3.2:3b;ollama:llama3.1:8b;ollama:gemma2:9b;ollama:mistral-nemo;ollama:\" --vars concurrency=1 --model ollama:phi3.5",
+    "run_tests:ollama-12b": "npx --yes genaiscript run promptpex_run_tests --vars \"models=ollama:mistral-nemo;ollama:mistral-small:22b;ollama:deepseek-coder-v2:16b\" --vars concurrency=1 --model ollama:phi3.5",
+    "run_tests:azure_serverless": "npx --yes genaiscript run promptpex_run_tests --vars \"models=azure_serverless:gpt-4o-mini\" --vars concurrency=1 --model azure_serverless:gpt_4o",
+    "run_tests:github": "npx --yes genaiscript run promptpex_run_tests --vars \"models=github:gpt-4o-mini\" --vars concurrency=3 --model github:gpt_4o",
+    "coverage": "npx --yes genaiscript run promptpex_coverage"
   }
 }

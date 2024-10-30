@@ -1,26 +1,10 @@
-id,model,rule,input,evaluation
-6b915e8,gpt-4o-2024-08-06,The output must only contain the part of speech tag and nothing else.,The quick brown fox jumps over the lazy dog;fox,"Output:
-noun"
-0b47eb2,gpt-4o-2024-08-06,The output must only contain the part of speech tag and nothing else.,She swiftly ran towards the finish line;swiftly,"Output:
-swiftly: RB (adverb)"
-9296662,gpt-4o-2024-08-06,The output must only contain the part of speech tag and nothing else.,Every cloud has a silver lining;Every,"In the sentence, the word ""Every"" is a determiner (DET)."
-62d03d0,gpt-4o-2024-08-06,"If the word cannot be tagged with one of the provided tags, the output must be ""Unknown"".",I will go to the park later;will,Modal Verb (MD)
-d964585,gpt-4o-2024-08-06,"If the word cannot be tagged with one of the provided tags, the output must be ""Unknown"".",Anna and Mike went to the store;and,"The word ""and"" in the sentence is a conjunction."
-766cf78,gpt-4o-2024-08-06,"If the word cannot be tagged with one of the provided tags, the output must be ""Unknown"".",Quickly finish your homework;Quickly,Part of Speech: Adverb (RB)
-e08d46a,gpt-4o-2024-08-06,"If the word cannot be tagged and the reason is unclear, the output must be ""CantAnswer"".",Xyzzy is not a real word;Xyzzy,"In the sentence ""Xyzzy is not a real word,"" the word ""Xyzzy"" functions as a noun. 
-
-Tag: Noun"
-a22ce25,gpt-4o-2024-08-06,"If the word cannot be tagged and the reason is unclear, the output must be ""CantAnswer"".",Her paintings were in vivid colors;vivid,Adjective
-27c3f4e,gpt-4o-2024-08-06,The part of speech tag must be in uppercase letters as listed.,Blorft is the best word ever;Blorft,Tag: Noun
-f43530d,gpt-4o-2024-08-06,"If the word cannot be tagged and the reason is unclear, the output must be ""CantAnswer"".",He felt a sense of deja vu;deja,"In the sentence ""He felt a sense of deja vu,"" the word ""deja"" is part of the phrase ""deja vu,"" which is a noun. 
-
-Tag: Noun"
-7f3a7ca,gpt-4o-2024-08-06,The part of speech tag must be in uppercase letters as listed.,The cat sat on the mat;mat,Noun
-070861d,gpt-4o-2024-08-06,The output must not include multiple tags or any explanatory text.,An apple a day keeps the doctor away;An,Determiner (DT)
-8c2f4b9,gpt-4o-2024-08-06,The part of speech tag must be in uppercase letters as listed.,She can dance very well;can,Tag: Modal Verb (MD)
-5d1ff70,gpt-4o-2024-08-06,The output must not include multiple tags or any explanatory text.,Tomorrow will be a brighter day;Tomorrow,Proper Noun (NNP)
-fea041d,gpt-4o-2024-08-06,The output must not include multiple tags or any explanatory text.,He looked at the beautiful sunset;beautiful,Adjective
-a833b52,gpt-4o-2024-08-06,The output can contain multiple parts of speech tags from outside the provided list.,"Eat, sleep, repeat;repeat","In the given input ""Eat, sleep, repeat; repeat,"" the word ""repeat"" functions as a verb."
-4b603f5,gpt-4o-2024-08-06,The output can contain multiple parts of speech tags from outside the provided list.,She sang a song;She,"Output:
-PRP (Pronoun)"
-8191efc,gpt-4o-2024-08-06,The output can contain multiple parts of speech tags from outside the provided list.,They were walking in the park;in,Preposition
+id,promptid,model,rule,input,evaluation,error
+5a6682c,7ac6214,gpt-4o-2024-08-06,The output must consist solely of a part of speech tag or a specific placeholder if tagging is not possible.,The apple is red; apple,Noun,
+11370b0,7ac6214,gpt-4o-2024-08-06,The output must consist solely of a part of speech tag or a specific placeholder if tagging is not possible.,There were seven cats; seven,Number,
+3317ef2,7ac6214,gpt-4o-2024-08-06,The part of speech tag should be selected from the provided list of tags.,She goes quickly; quickly,RB,
+1da2962,7ac6214,gpt-4o-2024-08-06,The part of speech tag should be selected from the provided list of tags.,I can't do it; can't,Verb,
+cd00e42,7ac6214,gpt-4o-2024-08-06,"If the word cannot be tagged with any of the listed tags, the output must be ""Unknown.""",He said hello; hello,Interjection,
+cfd95d4,7ac6214,gpt-4o-2024-08-06,"If the word cannot be tagged with any of the listed tags, the output must be ""Unknown.""",It is a unique book; unique,Adjective,
+d2b0937,7ac6214,gpt-4o-2024-08-06,"If the word cannot be tagged with any of the listed tags, the output must be ""Unknown.""",They are running; running,Verb,
+402a653,7ac6214,gpt-4o-2024-08-06,The output must consist solely of a part of speech tag or a specific placeholder if tagging is not possible.,She thought it was very exciting; exciting,Adjective,
+dccdda7,7ac6214,gpt-4o-2024-08-06,The part of speech tag should be selected from the provided list of tags.,He works on Mondays; Mondays,NNS,

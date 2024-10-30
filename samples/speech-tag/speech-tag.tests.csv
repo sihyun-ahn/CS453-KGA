@@ -1,24 +1,12 @@
 Rule ID, Test ID, Test Input, Expected Output, Reasoning
-1, 1, "The quick brown fox jumps over the lazy dog;fox", "NN", "Tests noun identification using a classic sentence. Valid input as per specification."
-1, 2, "She swiftly ran towards the finish line;swiftly", "RB", "Tests adverb identification. The word is clearly an adverb, ensuring adherence to part of speech tagging rules."
-1, 3, "Every cloud has a silver lining;Every", "DT", "Tests determiner identification. Valid sentence and word separation with expected determiner tag."
+1, 1, "The apple is red; apple", "NN", "The word 'apple' is clearly a noun and should be tagged as 'NN'. Valid input according to the specification."
+1, 2, "There were seven cats; seven", "CD", "The word 'seven' is a cardinal number and should be tagged as 'CD'. Meets input specification with distinct sentence and word separation."
+1, 3, "She thought it was very exciting; exciting", "JJ", "The word 'exciting' is an adjective and should be tagged as 'JJ'. Correctly follows the input format guidelines."
 
-2, 1, "I will go to the park later;will", "MD", "Tests for modal verb identification, confirming expected output format compliance."
-2, 2, "Anna and Mike went to the store;and", "CC", "Tests coordinating conjunction identification, checking the concise output requirement."
-2, 3, "Quickly finish your homework;Quickly", "RB", "Tests adverb identification with a straightforward adverb, ensuring correct tag."
+2, 1, "He works on Mondays; Mondays", "NNS", "The word 'Mondays' is a plural noun and should be tagged as 'NNS'. Adheres to the input specifications."
+2, 2, "I can't do it; can't", "MD", "The contraction 'can't' includes a modal verb 'can', so it should be tagged as 'MD'. Input is valid and word is part of the sentence."
+2, 3, "She goes quickly; quickly", "RB", "The word 'quickly' is an adverb and should be tagged as 'RB'. Proper separation and format as per the input guidelines."
 
-3, 1, "Xyzzy is not a real word;Xyzzy", "Unknown", "Tests handling of nonsensical word, expecting 'Unknown'. Valid input format."
-3, 2, "Her paintings were in vivid colors;vivid", "JJ", "Tests adjective recognition, ensuring 'Unknown' is correctly not triggered."
-3, 3, "He felt a sense of deja vu;deja", "FW", "Tests foreign word recognition, ensuring correct tagging of foreign words."
-
-4, 1, "Blorft is the best word ever;Blorft", "CantAnswer", "Tests unclear tagging situation with a made-up word, expecting 'CantAnswer'."
-4, 2, "The cat sat on the mat;mat", "NN", "Tests clear noun identification, ensuring 'CantAnswer' is not triggered incorrectly."
-4, 3, "She can dance very well;can", "MD", "Tests tagging of modal verb, ensuring clear cases are tagged correctly without 'CantAnswer'."
-
-5, 1, "An apple a day keeps the doctor away;An", "DT", "Tests determiner recognition, ensuring uppercase tag output."
-5, 2, "Tomorrow will be a brighter day;Tomorrow", "NN", "Tests correct noun tagging with uppercase output."
-5, 3, "He looked at the beautiful sunset;beautiful", "JJ", "Tests adjective tag adherence to capitalization rule."
-
-6, 1, "Eat, sleep, repeat;repeat", "VB", "Tests verb identification, ensuring no additional text accompanies the tag."
-6, 2, "She sang a song;She", "PRP", "Tests pronoun identification, confirming singular tag output."
-6, 3, "They were walking in the park;in", "IN", "Tests preposition identification in a clear context, ensuring correct tag without extra text."
+3, 1, "He said hello; hello", "UH", "The word 'hello' is an interjection and should be tagged as 'UH'. Conforms to input specifications with clear sentence and word delineation."
+3, 2, "It is a unique book; unique", "JJ", "The word 'unique' is an adjective and should be tagged as 'JJ'. Meets all input criteria."
+3, 3, "They are running; running", "VBG", "The word 'running' is a verb in gerund form and should be tagged as 'VBG'. Valid input structure."

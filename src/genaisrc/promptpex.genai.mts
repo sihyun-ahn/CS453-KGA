@@ -65,7 +65,9 @@ const {
 
 const prompts = await loadPromptContext();
 const q = host.promiseQueue(concurrency);
-const models = env.vars.models?.split(/;/g).map((model) => model.trim());
+const models = (env.vars.models || "azure_serverless:gpt-4o-mini")
+  ?.split(/;/g)
+  .map((model) => model.trim());
 
 await q.mapAll(prompts, async (files) => {
   try {

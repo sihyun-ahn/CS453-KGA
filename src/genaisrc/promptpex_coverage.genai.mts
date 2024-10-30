@@ -1,11 +1,11 @@
 import {
   loadPromptContext,
   generateReports,
-  evaluateTests,
+  evaluateTestsCoverage,
 } from "./promptpex.mts";
 
 script({
-  title: "PromptPex Test Evaluator",
+  title: "PromptPex Test Coverage Evaluator",
   files: ["samples/speech-tag/speech-tag.prompty"],
   description: "",
   parameters: {
@@ -29,7 +29,7 @@ const contexts = await loadPromptContext();
 for (const files of contexts) {
   try {
     // generate tests
-    const testEvals = await evaluateTests(files, {
+    const testEvals = await evaluateTestsCoverage(files, {
       force,
       q,
     });

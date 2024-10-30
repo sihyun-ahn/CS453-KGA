@@ -1,11 +1,11 @@
 import {
   loadPromptContext,
-  executeTests,
+  runTests,
   generateReports,
 } from "./promptpex.mts";
 
 script({
-  title: "PromptPex Test Executor",
+  title: "PromptPex Test Runner",
   files: ["samples/speech-tag/speech-tag.prompty"],
   description: "",
   parameters: {
@@ -37,7 +37,7 @@ const q = host.promiseQueue(concurrency)
 for (const files of contexts) {
   try {
     // generate tests
-    const testResults = await executeTests(files, {
+    const testResults = await runTests(files, {
       force,
       models,
       q
