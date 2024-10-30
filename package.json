@@ -14,7 +14,7 @@
     "run_tests:azure_serverless": "npx --yes genaiscript run promptpex_run_tests --vars \"models=azure_serverless:gpt-4o-mini\" --vars concurrency=1 --model azure_serverless:gpt_4o",
     "run_tests:github": "npx --yes genaiscript run promptpex_run_tests --vars \"models=github:gpt-4o-mini\" --vars concurrency=3 --model github:gpt_4o",
     "coverage": "npx --yes genaiscript run promptpex_coverage",
-    "promptpex:speech-tag": "npx --yes genaiscript run promptpex \"samples/speech-tag/speech-tag.prompty\" \"samples/speech-tag/speech-tag.prompty\" --vars \"models=azure_serverless:gpt-4o-mini;ollama:qwen2.5:3b;gemma2:9b\" --vars concurrency=1 --vars \"out=evals/v0\"",
-    "promptpex:paper": "npx --yes genaiscript run promptpex \"samples/**/*.prompty\" --vars \"models=azure_serverless:gpt-4o-mini;ollama:qwen2.5:3b;gemma2:9b\" --vars concurrency=1 --vars \"out=evals/v0\""
+    "promptpex:speech-tag": "npx --yes genaiscript run promptpex \"samples/speech-tag/speech-tag.prompty\" \"samples/speech-tag/speech-tag.prompty\" --vars \"models=azure_serverless:gpt-4o-mini;ollama:qwen2.5:3b;gemma2:9b\" --vars concurrency=1 --vars \"out=evals/speech-tag\"",
+    "promptpex:paper": "npx --yes genaiscript run promptpex \"samples/**/*.prompty\" --vars \"models=azure_serverless:gpt-4o-mini;ollama:qwen2.5:3b;gemma2:9b\" --vars concurrency=1 --vars \"out=evals/paper/v0\""
   }
 }
