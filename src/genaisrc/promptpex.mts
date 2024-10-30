@@ -805,7 +805,6 @@ export async function generate(
     forceExecuteTests?: boolean;
     forceTestResultEvals?: boolean;
     models?: ModelType[];
-    out?: string;
   }
 ) {
   const {
@@ -820,7 +819,7 @@ export async function generate(
     models,
   } = options || {};
 
-  console.log(`generating tests for ${files.name}`);
+  console.log(`generating tests for ${files.name} at ${files.dir}`);
 
   // generate baseline tests
   if (!files.baselineTests.content || force || forceBaselineTests) {

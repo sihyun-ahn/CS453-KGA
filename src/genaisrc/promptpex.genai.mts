@@ -52,7 +52,6 @@ script({
     out: {
       type: "string",
       description: "Output directory",
-      default: "out",
     },
   },
 });
@@ -66,7 +65,7 @@ const {
   forceTestEvals,
   forceExecuteTests,
   forceTestResultEvals,
-  out = "results",
+  out,
 } = env.vars;
 
 const prompts = await loadPromptContext(out);
