@@ -682,7 +682,6 @@ function addLineNumbers(text: string, start: number) {
 }
 
 export async function generateMarkdownReport(files: PromptPexContext) {
-  const rules = parseRules(files.rules.content);
   const inverseRules = parseRules(files.inverseRules.content);
 
   const res: string[] = [
@@ -698,7 +697,7 @@ export async function generateMarkdownReport(files: PromptPexContext) {
       }[ext] || ext;
     res.push(
       "",
-      `### [${path.basename(file.filename).slice(files.name.length + 1)}](./${path.basename(file.filename)})`,
+      `### [${path.basename(file.filename)}](./${path.basename(file.filename)})`,
       ""
     );
 
@@ -716,7 +715,7 @@ export async function generateMarkdownReport(files: PromptPexContext) {
       let content = file.content;
       if (file === files.rules) content = addLineNumbers(content, 1);
       else if (file === files.inverseRules)
-        content = addLineNumbers(content, 1 + rules.length);
+        content = addLineNumbers(content, 1 + inverseRules.length);
       res.push(`${fence}${lang}`, content || "", `${fence}`, ``);
     }
   };
