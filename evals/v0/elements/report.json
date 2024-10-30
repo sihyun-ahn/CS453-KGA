@@ -9,7 +9,14 @@
     "The entities in the output should be clearly categorized into company names, people names, specific topics, and general themes, each on a separate line after the respective labels.",
     "If a category (like company names, people names, specific topics, or general themes) has no entries extracted from the text, it should still be present in the output with an empty list following the colon."
   ],
-  "inverseRules": [],
+  "inverseRules": [
+    "Company names must not be included in the output, regardless of their presence in the text.",
+    "People names must not be included in the output, regardless of their presence in the text.",
+    "Specific topics must not be included in the output, regardless of their relevance to the text.",
+    "General themes must not be included in the output, regardless of their relevance to the text.",
+    "The entities in the output should not be categorized into company names, people names, specific topics, and general themes.",
+    "If a category has no entries extracted from the text, it should be omitted entirely from the output."
+  ],
   "baseLineTests": [
     "Company names: Apple, Google\nPeople names: Tim Cook, Sundar Pichai\nSpecific topics: technology innovation, corporate strategy\nGeneral themes: advancements in technology, leadership in tech industry\n\nText: Apple and Google have been at the forefront of technology innovation. Tim Cook, the CEO of Apple, and Sundar Pichai, the CEO of Google, have been pivotal in shaping the corporate strategies of their respective companies."
   ],

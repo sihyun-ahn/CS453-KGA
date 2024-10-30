@@ -7,7 +7,12 @@
     "If unable to tag the word for any reason, the output must be \"CantAnswer\".",
     "The output must not contain any additional information, explanation, or punctuation beyond the tag itself."
   ],
-  "inverseRules": [],
+  "inverseRules": [
+    "The output must not contain any part of speech tags from the provided alphabetical list.",
+    "If the word can be tagged with any of the listed tags, the output must not be \"Unknown\".",
+    "If able to tag the word for any reason, the output must not be \"CantAnswer\".",
+    "The output must contain additional information, explanation, or punctuation beyond the tag itself."
+  ],
   "baseLineTests": [
     "sentence: \"The quick brown fox jumps over the lazy dog.\"; word: \"quick\"",
     "sentence: \"She sells sea shells by the sea shore.\"; word: \"sells\"",

@@ -9,7 +9,14 @@
     "Within each <p> tag, there must be multiple <em> tags used to emphasize key words or phrases.",
     "The formatted HTML must correctly nest <strong> and <em> tags within the <p> tags."
   ],
-  "inverseRules": [],
+  "inverseRules": [
+    "The output must not be a paragraph of text formatted as HTML.",
+    "No sentence in the paragraph should be wrapped in individual <p> tags.",
+    "The output must contain fewer than three <p> tags.",
+    "Within each <p> tag, there must be no <strong> tag used to emphasize a key word or phrase.",
+    "Within each <p> tag, there must be no <em> tags used to emphasize key words or phrases.",
+    "The formatted HTML must incorrectly nest <strong> and <em> tags within the <p> tags."
+  ],
   "baseLineTests": [
     "text: \"The quick brown fox jumps over the lazy dog. This sentence is used as a pangram in English. A pangram is a sentence that contains every letter of the alphabet at least once.\""
   ],

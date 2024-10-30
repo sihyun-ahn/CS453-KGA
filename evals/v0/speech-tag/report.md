@@ -1,7 +1,7 @@
 ## speech-tag ([json](./evals\v0\speech-tag/report.json))
 
 
-### [prompty](./speech-tag.prompty)
+### [speech-tag.prompty](./speech-tag.prompty)
 
 `````md
 ---
@@ -41,14 +41,14 @@ user:
 `````
 
 
-### [](./intent.txt)
+### [intent.txt](./intent.txt)
 
 `````txt
 Determine the part of speech for a given word in a sentence and return the corresponding tag.
 `````
 
 
-### [txt](./input_spec.txt)
+### [input_spec.txt](./input_spec.txt)
 
 `````txt
 The input is a sentence followed by a specific word from that sentence.  
@@ -60,7 +60,7 @@ The sentence and word must be separated by a space following the semicolon.
 `````
 
 
-### [sts.txt](./baseline_tests.txt)
+### [baseline_tests.txt](./baseline_tests.txt)
 
 `````txt
 sentence: "The quick brown fox jumps over the lazy dog."; word: "quick"
@@ -143,7 +143,7 @@ sentence: "This is a once-in-a-lifetime opportunity."; word: "opportunity"
 `````
 
 
-### [](./rules.txt)
+### [rules.txt](./rules.txt)
 
 `````txt
 1: The output must contain only a single part of speech tag from the provided alphabetical list. 
@@ -153,7 +153,17 @@ sentence: "This is a once-in-a-lifetime opportunity."; word: "opportunity"
 `````
 
 
-### [](./tests.csv)
+### [inverse_rules.txt](./inverse_rules.txt)
+
+`````txt
+5: The output must not contain any part of speech tags from the provided alphabetical list.  
+6: If the word can be tagged with any of the listed tags, the output must not be "Unknown".  
+7: If able to tag the word for any reason, the output must not be "CantAnswer".  
+8: The output must contain additional information, explanation, or punctuation beyond the tag itself.
+`````
+
+
+### [tests.csv](./tests.csv)
 
 |Rule ID|Test ID|Test Input|Expected Output|Reasoning|
 |-|-|-|-|-|
@@ -170,7 +180,7 @@ sentence: "This is a once-in-a-lifetime opportunity."; word: "opportunity"
 |4|2|If you could simply decide; decide|VB|Tests correct tagging of 'decide' as a base form verb, ensuring that only 'VB' is returned to adhere to the rule\.|
 |4|3|Cats are adorable animals; adorable|JJ|Verifies that 'adorable' is tagged as an adjective, expecting 'JJ' to affirm rule compliance\.|
 
-### [csv](./test_evals.csv)
+### [test_evals.csv](./test_evals.csv)
 
 |id|promptid|model|rule|input|evaluation|
 |-|-|-|-|-|-|
@@ -187,43 +197,43 @@ sentence: "This is a once-in-a-lifetime opportunity."; word: "opportunity"
 |738ead0|7ac6214|gpt\-4o\-2024\-08\-06|The output must not contain any additional information, explanation, or punctuation beyond the tag itself\.|If you could simply decide; decide|Unknown|
 |baf23ca|7ac6214|gpt\-4o\-2024\-08\-06|The output must not contain any additional information, explanation, or punctuation beyond the tag itself\.|Cats are adorable animals; adorable|JJ|
 
-### [s.csv](./test_results.csv)
+### [test_results.csv](./test_results.csv)
 
-|id|promptid|rule|model|error|input|output|evaluation|
-|-|-|-|-|-|-|-|-|
-|d26a439|7ac6214|The output must contain only a single part of speech tag from the provided alphabetical list\.|gpt\-4o\-mini||The quick brown fox jumps over the lazy dog; fox|NN|OK<br>No violation\.|
-|d26a439|7ac6214|The output must contain only a single part of speech tag from the provided alphabetical list\.|qwen2\.5:3b||The quick brown fox jumps over the lazy dog; fox|NN|OK<br>No violation\.|
-|d26a439|7ac6214|The output must contain only a single part of speech tag from the provided alphabetical list\.|gemma2:9b||The quick brown fox jumps over the lazy dog; fox|NN|OK<br>No violation\.|
-|3c9a1fe|7ac6214|The output must contain only a single part of speech tag from the provided alphabetical list\.|gpt\-4o\-mini||She will quickly finish her homework; quickly|RB|OK<br>No violation\.|
-|3c9a1fe|7ac6214|The output must contain only a single part of speech tag from the provided alphabetical list\.|qwen2\.5:3b||She will quickly finish her homework; quickly|VB️|OK<br>No violation\.|
-|3c9a1fe|7ac6214|The output must contain only a single part of speech tag from the provided alphabetical list\.|gemma2:9b||She will quickly finish her homework; quickly|RB|OK<br>No violation\.|
-|a7c19b8|7ac6214|The output must contain only a single part of speech tag from the provided alphabetical list\.|gpt\-4o\-mini||Wow, such a beautiful painting\!; Wow|UH|OK<br>No violation\.|
-|a7c19b8|7ac6214|The output must contain only a single part of speech tag from the provided alphabetical list\.|qwen2\.5:3b||Wow, such a beautiful painting\!; Wow|WRB|OK<br>No violation\.|
-|a7c19b8|7ac6214|The output must contain only a single part of speech tag from the provided alphabetical list\.|gemma2:9b||Wow, such a beautiful painting\!; Wow|UH  ; Wow, such a beautiful painting\!; Wow|ERR<br>The output should only contain the part of speech tag\. Including the sentence and the word violates the description\.|
-|26730f0|7ac6214|If the word cannot be tagged with any of the listed tags, the output must be "Unknown"\.|gpt\-4o\-mini||The number 42 is significant in the story; 42|CD|OK<br>No violation\.|
-|26730f0|7ac6214|If the word cannot be tagged with any of the listed tags, the output must be "Unknown"\.|qwen2\.5:3b||The number 42 is significant in the story; 42|CD|OK<br>No violation\.|
-|26730f0|7ac6214|If the word cannot be tagged with any of the listed tags, the output must be "Unknown"\.|gemma2:9b||The number 42 is significant in the story; 42|CD|OK<br>The output "CD" is a valid part\-of\-speech tag from the provided list, complying with the description\.|
-|69e632c|7ac6214|If the word cannot be tagged with any of the listed tags, the output must be "Unknown"\.|gpt\-4o\-mini||There are no unicorns in the garden; unicorns|NNS|OK<br>No violation\.|
-|69e632c|7ac6214|If the word cannot be tagged with any of the listed tags, the output must be "Unknown"\.|qwen2\.5:3b||There are no unicorns in the garden; unicorns|Unknown|OK<br>No violation\.|
-|69e632c|7ac6214|If the word cannot be tagged with any of the listed tags, the output must be "Unknown"\.|gemma2:9b||There are no unicorns in the garden; unicorns|NN|OK<br>No violation\.|
-|8dca679|7ac6214|If the word cannot be tagged with any of the listed tags, the output must be "Unknown"\.|gpt\-4o\-mini||They might have left already; might|MD|OK<br>No violation\.|
-|8dca679|7ac6214|If the word cannot be tagged with any of the listed tags, the output must be "Unknown"\.|qwen2\.5:3b||They might have left already; might|MD|OK<br>No violation\.|
-|8dca679|7ac6214|If the word cannot be tagged with any of the listed tags, the output must be "Unknown"\.|gemma2:9b||They might have left already; might|VBZ|OK  <br>The output "VBZ" is a valid part of speech tag listed in the description, thus complying with the chatbot's requirements\.|
-|44f322c|7ac6214|If unable to tag the word for any reason, the output must be "CantAnswer"\.|gpt\-4o\-mini||She called the number yesterday; number|NN|OK<br>No violation\.|
-|44f322c|7ac6214|If unable to tag the word for any reason, the output must be "CantAnswer"\.|qwen2\.5:3b||She called the number yesterday; number|NN|OK<br>No violation\.|
-|44f322c|7ac6214|If unable to tag the word for any reason, the output must be "CantAnswer"\.|gemma2:9b||She called the number yesterday; number|CD|OK<br>No violation\.|
-|7e8a521|7ac6214|If unable to tag the word for any reason, the output must be "CantAnswer"\.|gpt\-4o\-mini||His answers were not understandable; understandable|JJ|OK<br>No violation\.|
-|7e8a521|7ac6214|If unable to tag the word for any reason, the output must be "CantAnswer"\.|qwen2\.5:3b||His answers were not understandable; understandable|VBz|ERR<br>The output does not comply with the chatbot description because the tag "VBz" is not in the list of part\-of\-speech tags provided\. The correct tag should be "VBZ"\.|
-|7e8a521|7ac6214|If unable to tag the word for any reason, the output must be "CantAnswer"\.|gemma2:9b||His answers were not understandable; understandable|understandable \-  JJ|OK<br>No violation\.|
-|715bcb3|7ac6214|If unable to tag the word for any reason, the output must be "CantAnswer"\.|gpt\-4o\-mini||It seems like a quandary; quandary|NN|OK<br>No violation\.|
-|715bcb3|7ac6214|If unable to tag the word for any reason, the output must be "CantAnswer"\.|qwen2\.5:3b||It seems like a quandary; quandary|NN|OK<br>No violation\.|
-|715bcb3|7ac6214|If unable to tag the word for any reason, the output must be "CantAnswer"\.|gemma2:9b||It seems like a quandary; quandary|NN|OK<br>No violation\.|
-|bfab6b6|7ac6214|The output must not contain any additional information, explanation, or punctuation beyond the tag itself\.|gpt\-4o\-mini||The apple was eaten by John; eaten|VBN|OK<br>No violation\.|
-|bfab6b6|7ac6214|The output must not contain any additional information, explanation, or punctuation beyond the tag itself\.|qwen2\.5:3b||The apple was eaten by John; eaten|VBZ|OK<br>No violation\.|
-|bfab6b6|7ac6214|The output must not contain any additional information, explanation, or punctuation beyond the tag itself\.|gemma2:9b||The apple was eaten by John; eaten|VBN|OK<br>No violation\.|
-|738ead0|7ac6214|The output must not contain any additional information, explanation, or punctuation beyond the tag itself\.|gpt\-4o\-mini||If you could simply decide; decide|VB|OK<br>No violation\.|
-|738ead0|7ac6214|The output must not contain any additional information, explanation, or punctuation beyond the tag itself\.|qwen2\.5:3b||If you could simply decide; decide|VB|OK<br>No violation\.|
-|738ead0|7ac6214|The output must not contain any additional information, explanation, or punctuation beyond the tag itself\.|gemma2:9b||If you could simply decide; decide|VB|OK  <br>No violation\.|
-|baf23ca|7ac6214|The output must not contain any additional information, explanation, or punctuation beyond the tag itself\.|gpt\-4o\-mini||Cats are adorable animals; adorable|JJ|OK<br>No violation\.|
-|baf23ca|7ac6214|The output must not contain any additional information, explanation, or punctuation beyond the tag itself\.|qwen2\.5:3b||Cats are adorable animals; adorable|JJ|OK<br>No violation\.|
-|baf23ca|7ac6214|The output must not contain any additional information, explanation, or punctuation beyond the tag itself\.|gemma2:9b||Cats are adorable animals; adorable|JJ|OK<br>No violation\.|
+|id|promptid|rule|model|input|output|evaluation|
+|-|-|-|-|-|-|-|
+|d26a439|7ac6214|The output must contain only a single part of speech tag from the provided alphabetical list\.|gpt\-4o\-mini|The quick brown fox jumps over the lazy dog; fox|NN|OK<br>No violation\.|
+|d26a439|7ac6214|The output must contain only a single part of speech tag from the provided alphabetical list\.|qwen2\.5:3b|The quick brown fox jumps over the lazy dog; fox|NN|OK<br>No violation\.|
+|d26a439|7ac6214|The output must contain only a single part of speech tag from the provided alphabetical list\.|gemma2:9b|The quick brown fox jumps over the lazy dog; fox|NN|OK<br>No violation\.|
+|3c9a1fe|7ac6214|The output must contain only a single part of speech tag from the provided alphabetical list\.|gpt\-4o\-mini|She will quickly finish her homework; quickly|RB|OK<br>No violation\.|
+|3c9a1fe|7ac6214|The output must contain only a single part of speech tag from the provided alphabetical list\.|qwen2\.5:3b|She will quickly finish her homework; quickly|VB️|OK<br>No violation\.|
+|3c9a1fe|7ac6214|The output must contain only a single part of speech tag from the provided alphabetical list\.|gemma2:9b|She will quickly finish her homework; quickly|RB|OK<br>No violation\.|
+|a7c19b8|7ac6214|The output must contain only a single part of speech tag from the provided alphabetical list\.|gpt\-4o\-mini|Wow, such a beautiful painting\!; Wow|UH|OK<br>No violation\.|
+|a7c19b8|7ac6214|The output must contain only a single part of speech tag from the provided alphabetical list\.|qwen2\.5:3b|Wow, such a beautiful painting\!; Wow|WRB|OK<br>No violation\.|
+|a7c19b8|7ac6214|The output must contain only a single part of speech tag from the provided alphabetical list\.|gemma2:9b|Wow, such a beautiful painting\!; Wow|UH  ; Wow, such a beautiful painting\!; Wow|ERR<br>The output should only contain the part of speech tag\. Including the sentence and the word violates the description\.|
+|26730f0|7ac6214|If the word cannot be tagged with any of the listed tags, the output must be "Unknown"\.|gpt\-4o\-mini|The number 42 is significant in the story; 42|CD|OK<br>No violation\.|
+|26730f0|7ac6214|If the word cannot be tagged with any of the listed tags, the output must be "Unknown"\.|qwen2\.5:3b|The number 42 is significant in the story; 42|CD|OK<br>No violation\.|
+|26730f0|7ac6214|If the word cannot be tagged with any of the listed tags, the output must be "Unknown"\.|gemma2:9b|The number 42 is significant in the story; 42|CD|OK<br>The output "CD" is a valid part\-of\-speech tag from the provided list, complying with the description\.|
+|69e632c|7ac6214|If the word cannot be tagged with any of the listed tags, the output must be "Unknown"\.|gpt\-4o\-mini|There are no unicorns in the garden; unicorns|NNS|OK<br>No violation\.|
+|69e632c|7ac6214|If the word cannot be tagged with any of the listed tags, the output must be "Unknown"\.|qwen2\.5:3b|There are no unicorns in the garden; unicorns|Unknown|OK<br>No violation\.|
+|69e632c|7ac6214|If the word cannot be tagged with any of the listed tags, the output must be "Unknown"\.|gemma2:9b|There are no unicorns in the garden; unicorns|NN|OK<br>No violation\.|
+|8dca679|7ac6214|If the word cannot be tagged with any of the listed tags, the output must be "Unknown"\.|gpt\-4o\-mini|They might have left already; might|MD|OK<br>No violation\.|
+|8dca679|7ac6214|If the word cannot be tagged with any of the listed tags, the output must be "Unknown"\.|qwen2\.5:3b|They might have left already; might|MD|OK<br>No violation\.|
+|8dca679|7ac6214|If the word cannot be tagged with any of the listed tags, the output must be "Unknown"\.|gemma2:9b|They might have left already; might|VBZ|OK  <br>The output "VBZ" is a valid part of speech tag listed in the description, thus complying with the chatbot's requirements\.|
+|44f322c|7ac6214|If unable to tag the word for any reason, the output must be "CantAnswer"\.|gpt\-4o\-mini|She called the number yesterday; number|NN|OK<br>No violation\.|
+|44f322c|7ac6214|If unable to tag the word for any reason, the output must be "CantAnswer"\.|qwen2\.5:3b|She called the number yesterday; number|NN|OK<br>No violation\.|
+|44f322c|7ac6214|If unable to tag the word for any reason, the output must be "CantAnswer"\.|gemma2:9b|She called the number yesterday; number|CD|OK<br>No violation\.|
+|7e8a521|7ac6214|If unable to tag the word for any reason, the output must be "CantAnswer"\.|gpt\-4o\-mini|His answers were not understandable; understandable|JJ|OK<br>No violation\.|
+|7e8a521|7ac6214|If unable to tag the word for any reason, the output must be "CantAnswer"\.|qwen2\.5:3b|His answers were not understandable; understandable|VBz|ERR<br>The output does not comply with the chatbot description because the tag "VBz" is not in the list of part\-of\-speech tags provided\. The correct tag should be "VBZ"\.|
+|7e8a521|7ac6214|If unable to tag the word for any reason, the output must be "CantAnswer"\.|gemma2:9b|His answers were not understandable; understandable|understandable \-  JJ|OK<br>No violation\.|
+|715bcb3|7ac6214|If unable to tag the word for any reason, the output must be "CantAnswer"\.|gpt\-4o\-mini|It seems like a quandary; quandary|NN|OK<br>No violation\.|
+|715bcb3|7ac6214|If unable to tag the word for any reason, the output must be "CantAnswer"\.|qwen2\.5:3b|It seems like a quandary; quandary|NN|OK<br>No violation\.|
+|715bcb3|7ac6214|If unable to tag the word for any reason, the output must be "CantAnswer"\.|gemma2:9b|It seems like a quandary; quandary|NN|OK<br>No violation\.|
+|bfab6b6|7ac6214|The output must not contain any additional information, explanation, or punctuation beyond the tag itself\.|gpt\-4o\-mini|The apple was eaten by John; eaten|VBN|OK<br>No violation\.|
+|bfab6b6|7ac6214|The output must not contain any additional information, explanation, or punctuation beyond the tag itself\.|qwen2\.5:3b|The apple was eaten by John; eaten|VBZ|OK<br>No violation\.|
+|bfab6b6|7ac6214|The output must not contain any additional information, explanation, or punctuation beyond the tag itself\.|gemma2:9b|The apple was eaten by John; eaten|VBN|OK<br>No violation\.|
+|738ead0|7ac6214|The output must not contain any additional information, explanation, or punctuation beyond the tag itself\.|gpt\-4o\-mini|If you could simply decide; decide|VB|OK<br>No violation\.|
+|738ead0|7ac6214|The output must not contain any additional information, explanation, or punctuation beyond the tag itself\.|qwen2\.5:3b|If you could simply decide; decide|VB|OK<br>No violation\.|
+|738ead0|7ac6214|The output must not contain any additional information, explanation, or punctuation beyond the tag itself\.|gemma2:9b|If you could simply decide; decide|VB|OK  <br>No violation\.|
+|baf23ca|7ac6214|The output must not contain any additional information, explanation, or punctuation beyond the tag itself\.|gpt\-4o\-mini|Cats are adorable animals; adorable|JJ|OK<br>No violation\.|
+|baf23ca|7ac6214|The output must not contain any additional information, explanation, or punctuation beyond the tag itself\.|qwen2\.5:3b|Cats are adorable animals; adorable|JJ|OK<br>No violation\.|
+|baf23ca|7ac6214|The output must not contain any additional information, explanation, or punctuation beyond the tag itself\.|gemma2:9b|Cats are adorable animals; adorable|JJ|OK<br>No violation\.|
