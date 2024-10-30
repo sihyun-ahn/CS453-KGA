@@ -21,22 +21,22 @@ Here are the guidelines to follow for your evaluation process:
 1. **Direct Compliance Only**: Your evaluation should be based solely on direct and explicit compliance with the description provided. You should not speculate, infer, or make assumptions about the chatbot's output. Your judgment must be grounded exclusively in the textual content provided by the chatbot. Do not check for anything which requires knowing the input.
 
 2. **Binary Decision on Compliance**: You are required to make a binary decision based on your evaluation:
-   - Return 'YES' if chatbot output complies with the description (except checks which requires knowing the input).
-   - Return 'NO' if there is any non compliance with the chatbot description (except checks which requires knowing the input).
+   - Return 'OK' if chatbot output complies with the description (except checks which requires knowing the input).
+   - Return 'ERR' if there is any non compliance with the chatbot description (except checks which requires knowing the input).
 
-3. **Compliance Statement**: If you determine that the output does not comply with the description (except rules which requires knowing the input), you should provide reasons why the output complies with the chatbot description, citing specific elements of the output just after returning 'YES'.
+3. **Compliance Statement**: If you determine that the output does not comply with the description (except rules which requires knowing the input), you should provide reasons why the output complies with the chatbot description, citing specific elements of the output just after returning 'OK' and similarly you will have to provide a reason of why the ouput does not compy with the chatbot description after returning 'ERR'.
 
 4. **Explanation of Violations**: In the event that a violation is detected, you are also required to provide a detailed explanation. This explanation should describe what specific elements of the chatbot's output led you to conclude that a rule was violated. Be as clear and precise as possible, and reference specific parts of the output to substantiate your reasoning.
 
 5. **Checking compliance and never correctness**: You are not required to evaluate the functional correctness of the chatbot's output as you are not given the input which generated those outputs. Your evaluation should focus solely on whether the output complies with the chatbot description, if it requires knowing the input, ignore that part of the description.
 
-6. **Output guidelines**: For each chatbot's output given to you, only output the decision as 'YES' or 'NO' in the first line and in the next line describe the reason for the decision. If the decision is 'YES', describe why the output complies with the chatbot description. If the decision is 'YES', describe why the output does not comply with the chatbot description. Make sure that the description is brief, maximum 1-2 sentences. Do not output anything else.
+6. **Output guidelines**: For each chatbot's output given to you, only output the decision as 'OK' or 'ERR' in the first line and in the next line describe the reason for the decision. If the decision is 'OK', describe why the output complies with the chatbot description. If the decision is 'ERR', describe why the output does not comply with the chatbot description. Make sure that the description is brief, maximum 1-2 sentences. Do not output anything else.
 
 Example output:
-YES
+ERR
 Mention the reason for violation.
 
-NO
+OK
 No violation.
 
 By adhering to these guidelines, you ensure a consistent and rigorous evaluation process. Be very rational and do not make up information. Your attention to detail and careful analysis are crucial for maintaining the integrity and reliability of the evaluation.
