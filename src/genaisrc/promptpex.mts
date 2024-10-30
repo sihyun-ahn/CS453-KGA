@@ -385,8 +385,8 @@ export async function executeTest(
     model,
   });
   if (file.content && !force) {
-    const res = JSON.parse(file.content);
-    if (!res.error) return res;
+    const res = parsers.JSON5(file);
+    if (res && !res.error) return res;
   }
   const { inputs, args, testInput, expectedOutput } = resolvePromptArgs(
     files,
@@ -470,8 +470,8 @@ export async function evaluateTest(
   };
   const { id, promptid, file } = await resolveTestEvalPath(files, test);
   if (file.content && !force) {
-    const res = JSON.parse(file.content) as PromptPexTestEval;
-    if (!res.error) return res;
+    const res = parsers.JSON5(file) as PromptPexTestEval;
+    if (res && !res.error) return res;
     return res;
   }
 
@@ -613,7 +613,7 @@ export async function evaluateTestResults(
   for (const model of models)
     await q.mapAll(tests, async (test) => {
       const testRes = await evaluateTestResult(files, test, { model, force });
-      testResults.push(testRes);
+      if (testRes) testResults.push(testRes);
     });
   return CSV.stringify(testResults, { header: true });
 }
@@ -627,20 +627,23 @@ export async function evaluateTestResult(
   const moptions = {
     ...modelOptions(),
   };
-  const { file } = await resolveTestPath(files, test, {
+  const { file, promptid } = await resolveTestPath(files, test, {
     model,
   });
-  if (file.content) {
-    const testResult = JSON.parse(file.content) as PromptPexTestResult;
-    if (!testResult.error && testResult.evaluation && !force) return testResult;
-  }
-  const testResult = JSON.parse(file.content) as PromptPexTestResult;
+  const testResult = parsers.JSON5(file) as PromptPexTestResult;
   if (!testResult) {
-    console.warn(`test result ${file.filename} has invalid content`);
+    if (file.content)
+      console.warn(`test result ${file.filename} has invalid content`);
+    else
+      console.warn(`test result ${file.filename} not found`);
     return undefined;
   }
   if (testResult.error) {
     console.warn(`test result ${file.filename} has error: ${testResult.error}`);
+    return testResult;
+  }
+  if (!testResult.error && testResult.evaluation && !force) {
+    testResult.promptid = promptid;
     return testResult;
   }
 
