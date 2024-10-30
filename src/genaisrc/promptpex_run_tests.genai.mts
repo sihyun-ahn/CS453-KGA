@@ -16,11 +16,6 @@ script({
       default:
         "github:gpt-4o-mini;azure_serverless_models:Phi-3-5-mini-instruct-uqdii",
     },
-    concurrency: {
-      type: "number",
-      description: "Number of tests to run concurrently",
-      default: 5,
-    },
     out: {
       type: "string",
       description: "Output directory",
@@ -31,23 +26,18 @@ script({
 
 const { force, out } = env.vars;
 const models = env.vars.models.split(/;/g).map((model) => model.trim());
-const concurrency = env.vars.concurrency;
 
 const contexts = await loadPromptContext(out);
-const q = host.promiseQueue(concurrency);
 for (const files of contexts) {
   try {
     // generate tests
     const testResults = await runTests(files, {
       force,
       models,
-      q,
     });
     files.testResults.content = testResults;
     await workspace.writeText(files.testResults.filename, testResults);
   } catch (e) {
-    console.error(`${files.basename}: ${e}`);
+    console.error(`${files.name}: ${e}`);
   }
-  // generate report
-  await generateReports(files);
 }

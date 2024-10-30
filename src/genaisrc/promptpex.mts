@@ -1,19 +1,18 @@
-const CONCURRENCY = 1;
+const CONCURRENCY = 2;
 const RULES_NUM = 0;
 const TESTS_NUM = 3;
-const TEST_COVERAGE_DIR = "evals";
+const TEST_COVERAGE_DIR = "coverage";
 
 /**
  * In memory cache of various files involved with promptpex test generation
  */
 export interface PromptPexContext {
   dir: string;
-  basename: string;
+  name: string;
   intent: WorkspaceFile;
   prompt: WorkspaceFile;
   rules: WorkspaceFile;
   inverseRules: WorkspaceFile;
-  instructions: WorkspaceFile;
   inputSpec: WorkspaceFile;
   baselineTests: WorkspaceFile;
   tests: WorkspaceFile;
@@ -38,8 +37,7 @@ export interface PromptPexTestResult {
   output: string;
   error?: string;
 
-  evaluation?: "passed" | "failed";
-  evaluationReason?: string;
+  evaluation?: string;
 }
 
 export interface PromptPexTestEval {
@@ -70,26 +68,22 @@ export async function loadPromptFiles(
   const basename = path
     .basename(promptFile.filename)
     .slice(0, -path.extname(promptFile.filename).length);
-  const dir = out
-    ? path.join(out, basename)
-    : path.dirname(promptFile.filename);
-  const intent = path.join(dir, basename + ".intent.txt");
-  const rules = path.join(dir, basename + ".rules.txt");
-  const inverseRules = path.join(dir, basename + ".inverse_rules.txt");
-  const instructions = path.join(dir, basename + ".instructions.txt");
-  const inputSpec = path.join(dir, basename + ".input_spec.txt");
-  const baselineTests = path.join(dir, basename + ".baseline_tests.txt");
-  const tests = path.join(dir, basename + ".tests.csv");
-  const testResults = path.join(dir, basename + ".test_results.csv");
-  const testEvals = path.join(dir, basename + ".test_evals.csv");
+  const dir = path.join(out || path.dirname(promptFile.filename), basename);
+  const intent = path.join(dir, "intent.txt");
+  const rules = path.join(dir, "rules.txt");
+  const inverseRules = path.join(dir, "inverse_rules.txt");
+  const inputSpec = path.join(dir, "input_spec.txt");
+  const baselineTests = path.join(dir, "baseline_tests.txt");
+  const tests = path.join(dir, "tests.csv");
+  const testResults = path.join(dir, "test_results.csv");
+  const testEvals = path.join(dir, "test_evals.csv");
 
   return {
     dir,
-    basename,
+    name: basename,
     prompt: promptFile,
     intent: await workspace.readText(intent),
     inputSpec: await workspace.readText(inputSpec),
-    instructions: await workspace.readText(instructions),
     baselineTests: await workspace.readText(baselineTests),
     rules: tidyRulesFile(await workspace.readText(rules)),
     inverseRules: tidyRulesFile(await workspace.readText(inverseRules)),
@@ -299,27 +293,21 @@ function parseInputs(file: WorkspaceFile) {
 export async function runTests(
   files: Pick<
     PromptPexContext,
-    | "tests"
-    | "prompt"
-    | "dir"
-    | "basename"
-    | "testResults"
-    | "rules"
-    | "inverseRules"
+    "tests" | "prompt" | "dir" | "testResults" | "rules" | "inverseRules"
   >,
   options?: { models?: ModelType[]; force?: boolean; q?: PromiseQueue }
 ): Promise<string> {
-  const { force, models, q = host.promiseQueue(CONCURRENCY) } = options || {};
+  const { force, models } = options || {};
   const tests = parseTests(files);
   if (!tests?.length) throw new Error("No tests found");
 
   console.log(`executing ${tests.length} tests with ${models.length} models`);
   const testResults: PromptPexTestResult[] = [];
   for (const model of models)
-    await q.mapAll(tests, async (test) => {
+    for (const test of tests) {
       const testRes = await runTest(files, test, { model, force });
-      testResults.push(testRes);
-    });
+      if (testRes) testResults.push(testRes);
+    }
   return CSV.stringify(testResults, { header: true });
 }
 
@@ -335,7 +323,7 @@ async function resolveTestId(
 }
 
 async function resolveTestPath(
-  files: Pick<PromptPexContext, "prompt" | "dir" | "basename">,
+  files: Pick<PromptPexContext, "prompt" | "dir">,
   test: PromptPexTest,
   options: { model: string }
 ) {
@@ -344,7 +332,6 @@ async function resolveTestPath(
   const promptid = await resolvePromptId(files);
   const dir = path.join(
     files.dir,
-    files.basename,
     model
       .replace(/^[^:]+:/g, "")
       .replace(/:/g, "_")
@@ -355,12 +342,12 @@ async function resolveTestPath(
 }
 
 async function resolveTestEvalPath(
-  files: Pick<PromptPexContext, "prompt" | "dir" | "basename">,
+  files: Pick<PromptPexContext, "prompt" | "dir">,
   test: PromptPexTest
 ) {
   const id = await resolveTestId(files, test);
   const promptid = await resolvePromptId(files);
-  const dir = path.join(files.dir, files.basename, TEST_COVERAGE_DIR);
+  const dir = path.join(files.dir, TEST_COVERAGE_DIR);
   const file = await workspace.readText(path.join(dir, `${id}.json`));
   return { id, promptid, file };
 }
@@ -392,10 +379,7 @@ async function resolvePromptId(files: Pick<PromptPexContext, "prompt">) {
 }
 
 export async function runTest(
-  files: Pick<
-    PromptPexContext,
-    "prompt" | "dir" | "basename" | "rules" | "inverseRules"
-  >,
+  files: Pick<PromptPexContext, "prompt" | "dir" | "rules" | "inverseRules">,
   test: PromptPexTest,
   options?: { model?: ModelType; force?: boolean }
 ): Promise<PromptPexTestResult> {
@@ -458,31 +442,30 @@ export async function evaluateTestsCoverage(
     | "tests"
     | "prompt"
     | "dir"
-    | "basename"
     | "testResults"
     | "intent"
     | "rules"
     | "inverseRules"
   >,
-  options?: { force?: boolean; q: PromiseQueue }
+  options?: { force?: boolean }
 ): Promise<string> {
-  const { force, q } = options || {};
+  const { force } = options || {};
   const tests = parseTests(files);
   if (!tests?.length) throw new Error("No tests found");
 
   console.log(`evaluating coverage of ${tests.length} tests`);
   const testEvals: PromptPexTestEval[] = [];
-  await q.mapAll(tests, async (test) => {
+  for (const test of tests) {
     const testEval = await evaluateTestCoverage(files, test, { force });
     if (testEval) testEvals.push(testEval);
-  });
+  }
   return CSV.stringify(testEvals, { header: true });
 }
 
 export async function evaluateTestCoverage(
   files: Pick<
     PromptPexContext,
-    "prompt" | "rules" | "intent" | "dir" | "basename" | "inverseRules"
+    "prompt" | "rules" | "intent" | "dir" | "inverseRules"
   >,
   test: PromptPexTest,
   options?: { force?: boolean }
@@ -611,38 +594,37 @@ function resolveRule(
 }
 
 export async function evaluateTestResults(
-  files: Pick<
-    PromptPexContext,
-    "tests" | "prompt" | "dir" | "basename" | "testResults"
-  >,
-  options?: { force?: boolean; q?: PromiseQueue }
+  files: Pick<PromptPexContext, "tests" | "prompt" | "dir" | "testResults">,
+  options?: { force?: boolean; q?: PromiseQueue; models?: ModelType[] }
 ): Promise<string> {
-  const { force, q = host.promiseQueue(CONCURRENCY) } = options || {};
+  const { force } = options || {};
   const tests = parseTests(files);
   if (!tests?.length) throw new Error("No tests found");
   const existingTestResults = parseTestResults(files);
 
-  const models = Array.from(
-    existingTestResults.reduce(
-      (acc, tr) => acc.add(tr.model),
-      new Set<string>()
-    )
-  );
+  const models =
+    options?.models ||
+    Array.from(
+      existingTestResults.reduce(
+        (acc, tr) => acc.add(tr.model),
+        new Set<string>()
+      )
+    );
 
   console.log(
     `evaluate ${tests.length} test results with ${models.length} models`
   );
   const testResults: PromptPexTestResult[] = [];
   for (const model of models)
-    await q.mapAll(tests, async (test) => {
+    for (const test of tests) {
       const testRes = await evaluateTestResult(files, test, { model, force });
       if (testRes) testResults.push(testRes);
-    });
+    }
   return CSV.stringify(testResults, { header: true });
 }
 
 export async function evaluateTestResult(
-  files: Pick<PromptPexContext, "prompt" | "dir" | "basename">,
+  files: Pick<PromptPexContext, "prompt" | "dir">,
   test: PromptPexTest,
   options?: { model?: ModelType; force?: boolean }
 ): Promise<PromptPexTestResult> {
@@ -692,18 +674,10 @@ export async function evaluateTestResult(
       `error evaluating test result ${file.filename}: ${res.error.message}`
     );
 
-  const m = /^\s*(yes|no)/i.exec(res.text);
-  const evaluation = /^yes$/i.test(m?.[1])
-    ? "passed"
-    : /^no$/.test(m?.[1])
-      ? "failed"
-      : undefined;
-  const evaluationReason = m ? res.text.slice(m[0].length).trim() : res.text;
-
+  const evaluation = res.text;
   const testRes = {
     ...testResult,
     evaluation,
-    evaluationReason,
     error: res.error?.message,
   } satisfies PromptPexTestResult;
 
@@ -764,7 +738,7 @@ export async function generateMarkdownReport(files: PromptPexContext) {
   const inverseRules = parseRules(files.inverseRules.content);
 
   const res: string[] = [
-    `## ${files.basename} ([json](./${files.basename}.report.json))`,
+    `## ${files.name} ([json](./${files.dir}/report.json))`,
     ``,
   ];
   const fence = "`````";
@@ -776,7 +750,7 @@ export async function generateMarkdownReport(files: PromptPexContext) {
       }[ext] || ext;
     res.push(
       "",
-      `### [${path.basename(file.filename).slice(files.basename.length + 1)}](./${path.basename(file.filename)})`,
+      `### [${path.basename(file.filename).slice(files.name.length + 1)}](./${path.basename(file.filename)})`,
       ""
     );
 
@@ -809,12 +783,12 @@ export async function generateMarkdownReport(files: PromptPexContext) {
 export async function generateReports(files: PromptPexContext) {
   const jsonreport = await generateJSONReport(files);
   await workspace.writeText(
-    path.join(files.dir, files.basename + ".report.json"),
+    path.join(files.dir, "report.json"),
     JSON.stringify(jsonreport, null, 2)
   );
 
   const mdreport = await generateMarkdownReport(files);
-  const fn = path.join(files.dir, files.basename + ".report.md");
+  const fn = path.join(files.dir, "report.md");
   await workspace.writeText(fn, mdreport);
   return fn;
 }
@@ -832,7 +806,6 @@ export async function generate(
     forceTestResultEvals?: boolean;
     models?: ModelType[];
     out?: string;
-    q?: PromiseQueue;
   }
 ) {
   const {
@@ -845,10 +818,9 @@ export async function generate(
     forceExecuteTests = false,
     forceTestResultEvals = false,
     models,
-    q = host.promiseQueue(CONCURRENCY),
   } = options || {};
 
-  console.log(`generating tests for ${files.basename}`);
+  console.log(`generating tests for ${files.name}`);
 
   // generate baseline tests
   if (!files.baselineTests.content || force || forceBaselineTests) {
@@ -906,7 +878,6 @@ export async function generate(
   // test exhaustiveness
   if (!files.testEvals.content || force || forceTestEvals) {
     files.testEvals.content = await evaluateTestsCoverage(files, {
-      q,
       force: force || forceTestEvals,
     });
     await workspace.writeText(
@@ -919,7 +890,6 @@ export async function generate(
     files.testResults.content = await runTests(files, {
       models,
       force: force || forceExecuteTests,
-      q,
     });
     await workspace.writeText(
       files.testResults.filename,
@@ -930,7 +900,7 @@ export async function generate(
   if (files.testResults.content) {
     files.testResults.content = await evaluateTestResults(files, {
       force: force || forceTestResultEvals,
-      q,
+      models,
     });
   }
 

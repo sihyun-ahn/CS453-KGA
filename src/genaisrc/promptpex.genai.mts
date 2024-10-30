@@ -49,11 +49,6 @@ script({
       type: "string",
       description: "Semi-column separated list of models to generate",
     },
-    concurrency: {
-      type: "number",
-      description: "Number of concurrent prompts to run",
-      default: 1,
-    },
     out: {
       type: "string",
       description: "Output directory",
@@ -71,17 +66,15 @@ const {
   forceTestEvals,
   forceExecuteTests,
   forceTestResultEvals,
-  concurrency,
   out = "results",
 } = env.vars;
 
 const prompts = await loadPromptContext(out);
-const q = host.promiseQueue(concurrency);
 const models = (env.vars.models || "azure_serverless:gpt-4o-mini")
   ?.split(/;/g)
   .map((model) => model.trim());
 
-await q.mapAll(prompts, async (files) => {
+for (const files of prompts) {
   try {
     await generate(files, {
       force,
@@ -93,10 +86,9 @@ await q.mapAll(prompts, async (files) => {
       forceExecuteTests,
       forceTestResultEvals,
       models,
-      q,
     });
   } catch (e) {
     console.error(e);
     console.debug(e.stack);
   }
-});
+}
