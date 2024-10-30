@@ -1,4 +1,4 @@
-const CONCURRENCY = 5;
+const CONCURRENCY = 1;
 const RULES_NUM = 0;
 const TESTS_NUM = 3;
 const TEST_COVERAGE_DIR = "evals";
@@ -33,6 +33,7 @@ export interface PromptPexTestResult {
   id: string;
   promptid: string;
   model: string;
+  rule: string;
   input: string;
   output: string;
   error?: string;
@@ -52,21 +53,26 @@ export interface PromptPexTestEval {
   error?: string;
 }
 
-export async function loadPromptContext(): Promise<PromptPexContext[]> {
+export async function loadPromptContext(
+  out?: string
+): Promise<PromptPexContext[]> {
   const q = host.promiseQueue(CONCURRENCY);
   return q.mapAll(
     env.files.filter((f) => /\.(md|txt|prompty)$/i.test(f.filename)),
-    async (f) => await loadPromptFiles(f)
+    async (f) => await loadPromptFiles(f, out)
   );
 }
 
 export async function loadPromptFiles(
-  promptFile: WorkspaceFile
+  promptFile: WorkspaceFile,
+  out?: string
 ): Promise<PromptPexContext> {
-  const dir = path.dirname(promptFile.filename);
   const basename = path
     .basename(promptFile.filename)
     .slice(0, -path.extname(promptFile.filename).length);
+  const dir = out
+    ? path.join(out, basename)
+    : path.dirname(promptFile.filename);
   const intent = path.join(dir, basename + ".intent.txt");
   const rules = path.join(dir, basename + ".rules.txt");
   const inverseRules = path.join(dir, basename + ".inverse_rules.txt");
@@ -83,10 +89,10 @@ export async function loadPromptFiles(
     prompt: promptFile,
     intent: await workspace.readText(intent),
     inputSpec: await workspace.readText(inputSpec),
-    rules: tidyRulesFile(await workspace.readText(rules)),
-    inverseRules: tidyRulesFile(await workspace.readText(inverseRules)),
     instructions: await workspace.readText(instructions),
     baselineTests: await workspace.readText(baselineTests),
+    rules: tidyRulesFile(await workspace.readText(rules)),
+    inverseRules: tidyRulesFile(await workspace.readText(inverseRules)),
     tests: await workspace.readText(tests),
     testEvals: await workspace.readText(testEvals),
     testResults: await workspace.readText(testResults),
@@ -224,7 +230,8 @@ export async function generateBaselineTests(
     }
   );
   checkLLMResponse(res);
-  return res.text;
+  const text = parseBaselineTests(res.text).join("\n===\n");
+  return text;
 }
 
 export async function generateTests(
@@ -292,7 +299,13 @@ function parseInputs(file: WorkspaceFile) {
 export async function runTests(
   files: Pick<
     PromptPexContext,
-    "tests" | "prompt" | "dir" | "basename" | "testResults"
+    | "tests"
+    | "prompt"
+    | "dir"
+    | "basename"
+    | "testResults"
+    | "rules"
+    | "inverseRules"
   >,
   options?: { models?: ModelType[]; force?: boolean; q?: PromiseQueue }
 ): Promise<string> {
@@ -379,7 +392,10 @@ async function resolvePromptId(files: Pick<PromptPexContext, "prompt">) {
 }
 
 export async function runTest(
-  files: Pick<PromptPexContext, "prompt" | "dir" | "basename">,
+  files: Pick<
+    PromptPexContext,
+    "prompt" | "dir" | "basename" | "rules" | "inverseRules"
+  >,
   test: PromptPexTest,
   options?: { model?: ModelType; force?: boolean }
 ): Promise<PromptPexTestResult> {
@@ -394,14 +410,14 @@ export async function runTest(
     const res = parsers.JSON5(file);
     if (res && !res.error) return res;
   }
-  const { inputs, args, testInput, expectedOutput } = resolvePromptArgs(
-    files,
-    test
-  );
+  const { inputs, args, testInput } = resolvePromptArgs(files, test);
+  const allRules = parseAllRules(files);
+  const rule = resolveRule(allRules, test);
   if (!args)
     return {
       id,
       promptid,
+      rule: test["Rule ID"],
       model: "",
       error: "invalid test input",
       input: testInput,
@@ -424,6 +440,7 @@ export async function runTest(
   const testRes = {
     id,
     promptid,
+    ...rule,
     model: res.model,
     error: res.error?.message,
     input: testInput,
@@ -566,8 +583,8 @@ function parseTestResults(
 function parseBaselineTests(tests: string) {
   return tests
     ? tests
-        .split(/\s*===\s*/g)
-        .map((l) => l.trim())
+        .split(/\s+===\s+/g)
+        .map((l) => l.trim().replace(/^#+ test case \d+:?$/gim, ""))
         .filter((l) => !!l)
     : [];
 }
@@ -735,11 +752,22 @@ export async function generateJSONReport(files: PromptPexContext) {
   };
 }
 
+function addLineNumbers(text: string, start: number) {
+  return text
+    .split(/\r?\n/gi)
+    .map((l, i) => `${start + i}: ${l}`)
+    .join("\n");
+}
+
 export async function generateMarkdownReport(files: PromptPexContext) {
+  const rules = parseRules(files.rules.content);
+  const inverseRules = parseRules(files.inverseRules.content);
+
   const res: string[] = [
     `## ${files.basename} ([json](./${files.basename}.report.json))`,
     ``,
   ];
+  const fence = "`````";
   const appendFile = (file: WorkspaceFile) => {
     const ext = path.extname(file.filename).slice(1);
     const lang =
@@ -753,7 +781,22 @@ export async function generateMarkdownReport(files: PromptPexContext) {
     );
 
     if (lang === "csv") res.push(CSV.markdownify(CSV.parse(file.content)));
-    else res.push(`\`\`\`\`\`${lang}`, file.content || "", `\`\`\`\`\``, ``);
+    else if (file === files.baselineTests)
+      res.push(
+        ...parseBaselineTests(file.content).flatMap((l) => [
+          `${fence}txt`,
+          l,
+          fence,
+          "",
+        ])
+      );
+    else {
+      let content = file.content;
+      if (file === files.rules) content = addLineNumbers(content, 1);
+      else if (file === files.inverseRules)
+        content = addLineNumbers(content, 1 + rules.length);
+      res.push(`${fence}${lang}`, content || "", `${fence}`, ``);
+    }
   };
 
   for (const file of Object.values(files))
@@ -780,6 +823,7 @@ export async function generate(
   files: PromptPexContext,
   options?: {
     force?: boolean;
+    forceBaselineTests?: boolean;
     forceIntent?: boolean;
     forceInputSpec?: boolean;
     forceTests?: boolean;
@@ -787,11 +831,13 @@ export async function generate(
     forceExecuteTests?: boolean;
     forceTestResultEvals?: boolean;
     models?: ModelType[];
+    out?: string;
     q?: PromiseQueue;
   }
 ) {
   const {
     force = false,
+    forceBaselineTests = false,
     forceTestEvals = false,
     forceIntent = false,
     forceInputSpec = false,
@@ -805,7 +851,7 @@ export async function generate(
   console.log(`generating tests for ${files.basename}`);
 
   // generate baseline tests
-  if (!files.baselineTests.content || force) {
+  if (!files.baselineTests.content || force || forceBaselineTests) {
     files.baselineTests.content = await generateBaselineTests(files);
     await workspace.writeText(
       files.baselineTests.filename,

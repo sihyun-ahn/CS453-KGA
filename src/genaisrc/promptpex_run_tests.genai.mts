@@ -1,8 +1,4 @@
-import {
-  loadPromptContext,
-  runTests,
-  generateReports,
-} from "./promptpex.mts";
+import { loadPromptContext, runTests, generateReports } from "./promptpex.mts";
 
 script({
   title: "PromptPex Test Runner",
@@ -25,22 +21,27 @@ script({
       description: "Number of tests to run concurrently",
       default: 5,
     },
+    out: {
+      type: "string",
+      description: "Output directory",
+      default: "out",
+    },
   },
 });
 
-const force = env.vars.force;
+const { force, out } = env.vars;
 const models = env.vars.models.split(/;/g).map((model) => model.trim());
 const concurrency = env.vars.concurrency;
 
-const contexts = await loadPromptContext();
-const q = host.promiseQueue(concurrency)
+const contexts = await loadPromptContext(out);
+const q = host.promiseQueue(concurrency);
 for (const files of contexts) {
   try {
     // generate tests
     const testResults = await runTests(files, {
       force,
       models,
-      q
+      q,
     });
     files.testResults.content = testResults;
     await workspace.writeText(files.testResults.filename, testResults);

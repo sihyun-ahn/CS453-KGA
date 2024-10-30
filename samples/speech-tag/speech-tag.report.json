@@ -16,79 +16,88 @@
     "The output must consist of more than just a part of speech tag or a specific placeholder if tagging is not possible."
   ],
   "baseLineTests": [
-    "sentence: She was running quickly to catch the bus; word: running",
-    "sentence: The quick brown fox jumps over the lazy dog; word: fox",
-    "sentence: Can you believe it's already December?; word: December",
-    "sentence: He will arrive at three o'clock; word: three",
-    "sentence: I haven't seen any of those movies; word: movies",
-    "sentence: Despite the rain, they continued playing; word: Despite",
-    "sentence: Wow, that's an amazing view!; word: Wow",
-    "sentence: She has a collection of rare coins; word: rare",
-    "sentence: This is the best cake I've ever had; word: best",
-    "sentence: Either you start now or never; word: Either",
-    "sentence: It seems like a distant memory; word: seems",
-    "sentence: They were discussing the latest news; word: were",
-    "sentence: What are the chances of that happening?; word: What",
-    "sentence: He bought a red, shiny car; word: shiny",
-    "sentence: Please hand me those books; word: those",
-    "sentence: The price increased significantly; word: significantly",
-    "sentence: She quickly finished her homework; word: quickly",
-    "sentence: It's my mother's birthday today; word: mother's"
+    "sentence: The cat sat on the mat; word: cat",
+    "sentence: She quickly ran to the store; word: quickly",
+    "sentence: He is taller than his brother; word: taller",
+    "sentence: They have visited Paris twice; word: Paris",
+    "sentence: The books are on the table; word: books",
+    "sentence: If you go, bring the map; word: if",
+    "sentence: She gave him an apple; word: apple",
+    "sentence: John and Mary are friends; word: and",
+    "sentence: He shouted loudly at the concert; word: loudly"
   ],
   "tests": [
     {
       "rule": "The output must consist solely of a part of speech tag or a specific placeholder if tagging is not possible.",
-      "input": "The apple is red; apple",
-      "expected": "NN",
-      "reasoning": "The word 'apple' is clearly a noun and should be tagged as 'NN'. Valid input according to the specification."
-    },
-    {
-      "rule": "The output must consist solely of a part of speech tag or a specific placeholder if tagging is not possible.",
-      "input": "There were seven cats; seven",
-      "expected": "CD",
-      "reasoning": "The word 'seven' is a cardinal number and should be tagged as 'CD'. Meets input specification with distinct sentence and word separation."
-    },
-    {
-      "rule": "The output must consist solely of a part of speech tag or a specific placeholder if tagging is not possible.",
-      "input": "She thought it was very exciting; exciting",
-      "expected": "JJ",
-      "reasoning": "The word 'exciting' is an adjective and should be tagged as 'JJ'. Correctly follows the input format guidelines."
-    },
-    {
-      "rule": "The part of speech tag should be selected from the provided list of tags.",
-      "input": "He works on Mondays; Mondays",
-      "expected": "NNS",
-      "reasoning": "The word 'Mondays' is a plural noun and should be tagged as 'NNS'. Adheres to the input specifications."
-    },
-    {
-      "rule": "The part of speech tag should be selected from the provided list of tags.",
-      "input": "I can't do it; can't",
-      "expected": "MD",
-      "reasoning": "The contraction 'can't' includes a modal verb 'can', so it should be tagged as 'MD'. Input is valid and word is part of the sentence."
-    },
-    {
-      "rule": "The part of speech tag should be selected from the provided list of tags.",
-      "input": "She goes quickly; quickly",
+      "input": "She swiftly ran to the store;swiftly",
       "expected": "RB",
-      "reasoning": "The word 'quickly' is an adverb and should be tagged as 'RB'. Proper separation and format as per the input guidelines."
+      "reasoning": "Tests if an adverb is correctly identified with the correct tag from the provided list."
     },
     {
-      "rule": "If the word cannot be tagged with any of the listed tags, the output must be \"Unknown.\"",
-      "input": "He said hello; hello",
-      "expected": "UH",
-      "reasoning": "The word 'hello' is an interjection and should be tagged as 'UH'. Conforms to input specifications with clear sentence and word delineation."
+      "rule": "The output must consist solely of a part of speech tag or a specific placeholder if tagging is not possible.",
+      "input": "The cat sat on the mat;cat",
+      "expected": "NN",
+      "reasoning": "Validates that a singular noun is tagged correctly according to the tag list."
     },
     {
-      "rule": "If the word cannot be tagged with any of the listed tags, the output must be \"Unknown.\"",
-      "input": "It is a unique book; unique",
-      "expected": "JJ",
-      "reasoning": "The word 'unique' is an adjective and should be tagged as 'JJ'. Meets all input criteria."
-    },
-    {
-      "rule": "If the word cannot be tagged with any of the listed tags, the output must be \"Unknown.\"",
-      "input": "They are running; running",
+      "rule": "The output must consist solely of a part of speech tag or a specific placeholder if tagging is not possible.",
+      "input": "They have been running for hours;running",
       "expected": "VBG",
-      "reasoning": "The word 'running' is a verb in gerund form and should be tagged as 'VBG'. Valid input structure."
+      "reasoning": "Checks if the verb in gerund form is tagged as per the list."
+    },
+    {
+      "rule": "The part of speech tag should be selected from the provided list of tags.",
+      "input": "Can he do it;he",
+      "expected": "PRP",
+      "reasoning": "Ensures the correct personal pronoun tag is used from the list."
+    },
+    {
+      "rule": "The part of speech tag should be selected from the provided list of tags.",
+      "input": "The tallest building in the city;tallest",
+      "expected": "JJS",
+      "reasoning": "Verifies the use of the superlative adjective tag as per the provided list."
+    },
+    {
+      "rule": "The part of speech tag should be selected from the provided list of tags.",
+      "input": "Although it was sunny, he wore a coat;sunny",
+      "expected": "JJ",
+      "reasoning": "Tests whether an adjective is correctly tagged according to the list."
+    },
+    {
+      "rule": "If the word cannot be tagged with any of the listed tags, the output must be \"Unknown.\"",
+      "input": "He bought three apples;three",
+      "expected": "CD",
+      "reasoning": "Confirms the correct tagging of a cardinal number."
+    },
+    {
+      "rule": "If the word cannot be tagged with any of the listed tags, the output must be \"Unknown.\"",
+      "input": "There was nobody at the park;nobody",
+      "expected": "Unknown",
+      "reasoning": "Validates that an untaggable word is marked as 'Unknown' as per the rules."
+    },
+    {
+      "rule": "If the word cannot be tagged with any of the listed tags, the output must be \"Unknown.\"",
+      "input": "They will have left by now;will",
+      "expected": "MD",
+      "reasoning": "Checks the correct tagging of a modal verb from the list."
+    },
+    {
+      "rule": "If the chatbot is unable to tag the word, the output must be \"CantAnswer.\"",
+      "input": "She was unsure about the results;results",
+      "expected": "NNS",
+      "reasoning": "Ensures plural nouns are correctly tagged from the list."
+    },
+    {
+      "rule": "If the chatbot is unable to tag the word, the output must be \"CantAnswer.\"",
+      "input": "Is it going to rain today;today",
+      "expected": "RB",
+      "reasoning": "Tests whether an adverb is correctly identified with the appropriate tag."
+    },
+    {
+      "rule": "If the chatbot is unable to tag the word, the output must be \"CantAnswer.\"",
+      "input": "The painting was done by Picasso;Picasso",
+      "expected": "NNP",
+      "reasoning": "Validates the tagging of a singular proper noun according to the tag list."
     }
   ]
 }

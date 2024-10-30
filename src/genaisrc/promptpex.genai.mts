@@ -10,6 +10,11 @@ script({
       description: "Force overwrite of existing files",
       default: false,
     },
+    forceBaselineTests: {
+      type: "boolean",
+      description: "Force overwrite of existing baseline tests",
+      default: false,
+    },
     forceIntent: {
       type: "boolean",
       description: "Force overwrite of existing intent files",
@@ -49,11 +54,17 @@ script({
       description: "Number of concurrent prompts to run",
       default: 5,
     },
+    out: {
+      type: "string",
+      description: "Output directory",
+      default: "out",
+    },
   },
 });
 
 const {
   force,
+  forceBaselineTests,
   forceIntent,
   forceInputSpec,
   forceTests,
@@ -61,9 +72,10 @@ const {
   forceExecuteTests,
   forceTestResultEvals,
   concurrency,
+  out = "results",
 } = env.vars;
 
-const prompts = await loadPromptContext();
+const prompts = await loadPromptContext(out);
 const q = host.promiseQueue(concurrency);
 const models = (env.vars.models || "azure_serverless:gpt-4o-mini")
   ?.split(/;/g)
@@ -73,6 +85,7 @@ await q.mapAll(prompts, async (files) => {
   try {
     await generate(files, {
       force,
+      forceBaselineTests,
       forceIntent,
       forceInputSpec,
       forceTests,

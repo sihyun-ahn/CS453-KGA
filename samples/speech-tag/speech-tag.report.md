@@ -59,89 +59,114 @@ The word must be a single, continuous string without punctuation.
 `````
 
 
+### [baseline_tests.txt](./speech-tag.baseline_tests.txt)
+
+`````txt
+sentence: The cat sat on the mat; word: cat
+`````
+
+`````txt
+sentence: She quickly ran to the store; word: quickly
+`````
+
+`````txt
+sentence: He is taller than his brother; word: taller
+`````
+
+`````txt
+sentence: They have visited Paris twice; word: Paris
+`````
+
+`````txt
+sentence: The books are on the table; word: books
+`````
+
+`````txt
+sentence: If you go, bring the map; word: if
+`````
+
+`````txt
+sentence: She gave him an apple; word: apple
+`````
+
+`````txt
+sentence: John and Mary are friends; word: and
+`````
+
+`````txt
+sentence: He shouted loudly at the concert; word: loudly
+`````
+
+
 ### [rules.txt](./speech-tag.rules.txt)
 
 `````txt
-The output must consist solely of a part of speech tag or a specific placeholder if tagging is not possible.
-The part of speech tag should be selected from the provided list of tags.
-If the word cannot be tagged with any of the listed tags, the output must be "Unknown."
-If the chatbot is unable to tag the word, the output must be "CantAnswer."
-The output must not contain any additional text or explanation besides the tag or placeholder.
+1: The output must consist solely of a part of speech tag or a specific placeholder if tagging is not possible.
+2: The part of speech tag should be selected from the provided list of tags.
+3: If the word cannot be tagged with any of the listed tags, the output must be "Unknown."
+4: If the chatbot is unable to tag the word, the output must be "CantAnswer."
+5: The output must not contain any additional text or explanation besides the tag or placeholder.
 `````
 
 
 ### [inverse_rules.txt](./speech-tag.inverse_rules.txt)
 
 `````txt
-The output can include additional text or explanations besides the tag or placeholder.
-The part of speech tag should be selected from outside the provided list of tags.
-If the word cannot be tagged with any of the listed tags, the output must not be "Unknown."
-If the chatbot is unable to tag the word, the output must not be "CantAnswer."
-The output must consist of more than just a part of speech tag or a specific placeholder if tagging is not possible.
+6: The output can include additional text or explanations besides the tag or placeholder.
+7: The part of speech tag should be selected from outside the provided list of tags.
+8: If the word cannot be tagged with any of the listed tags, the output must not be "Unknown."
+9: If the chatbot is unable to tag the word, the output must not be "CantAnswer."
+10: The output must consist of more than just a part of speech tag or a specific placeholder if tagging is not possible.
 `````
 
-
-### [baseline_tests.txt](./speech-tag.baseline_tests.txt)
-
-|input|
-|-|
-|sentence: She was running quickly to catch the bus; word: running|
-|sentence: The quick brown fox jumps over the lazy dog; word: fox|
-|sentence: Can you believe it's already December?; word: December|
-|sentence: He will arrive at three o'clock; word: three|
-|sentence: I haven't seen any of those movies; word: movies|
-|sentence: Despite the rain, they continued playing; word: Despite|
-|sentence: Wow, that's an amazing view\!; word: Wow|
-|sentence: She has a collection of rare coins; word: rare|
-|sentence: This is the best cake I've ever had; word: best|
-|sentence: Either you start now or never; word: Either|
-|sentence: It seems like a distant memory; word: seems|
-|sentence: They were discussing the latest news; word: were|
-|sentence: What are the chances of that happening?; word: What|
-|sentence: He bought a red, shiny car; word: shiny|
-|sentence: Please hand me those books; word: those|
-|sentence: The price increased significantly; word: significantly|
-|sentence: She quickly finished her homework; word: quickly|
-|sentence: It's my mother's birthday today; word: mother's|
 
 ### [tests.csv](./speech-tag.tests.csv)
 
 |Rule ID|Test ID|Test Input|Expected Output|Reasoning|
 |-|-|-|-|-|
-|1|1|The apple is red; apple|NN|The word 'apple' is clearly a noun and should be tagged as 'NN'\. Valid input according to the specification\.|
-|1|2|There were seven cats; seven|CD|The word 'seven' is a cardinal number and should be tagged as 'CD'\. Meets input specification with distinct sentence and word separation\.|
-|1|3|She thought it was very exciting; exciting|JJ|The word 'exciting' is an adjective and should be tagged as 'JJ'\. Correctly follows the input format guidelines\.|
-|2|1|He works on Mondays; Mondays|NNS|The word 'Mondays' is a plural noun and should be tagged as 'NNS'\. Adheres to the input specifications\.|
-|2|2|I can't do it; can't|MD|The contraction 'can't' includes a modal verb 'can', so it should be tagged as 'MD'\. Input is valid and word is part of the sentence\.|
-|2|3|She goes quickly; quickly|RB|The word 'quickly' is an adverb and should be tagged as 'RB'\. Proper separation and format as per the input guidelines\.|
-|3|1|He said hello; hello|UH|The word 'hello' is an interjection and should be tagged as 'UH'\. Conforms to input specifications with clear sentence and word delineation\.|
-|3|2|It is a unique book; unique|JJ|The word 'unique' is an adjective and should be tagged as 'JJ'\. Meets all input criteria\.|
-|3|3|They are running; running|VBG|The word 'running' is a verb in gerund form and should be tagged as 'VBG'\. Valid input structure\.|
+|1|1|She swiftly ran to the store;swiftly|RB|Tests if an adverb is correctly identified with the correct tag from the provided list\.|
+|1|2|The cat sat on the mat;cat|NN|Validates that a singular noun is tagged correctly according to the tag list\.|
+|1|3|They have been running for hours;running|VBG|Checks if the verb in gerund form is tagged as per the list\.|
+|2|1|Can he do it;he|PRP|Ensures the correct personal pronoun tag is used from the list\.|
+|2|2|The tallest building in the city;tallest|JJS|Verifies the use of the superlative adjective tag as per the provided list\.|
+|2|3|Although it was sunny, he wore a coat;sunny|JJ|Tests whether an adjective is correctly tagged according to the list\.|
+|3|1|He bought three apples;three|CD|Confirms the correct tagging of a cardinal number\.|
+|3|2|There was nobody at the park;nobody|Unknown|Validates that an untaggable word is marked as 'Unknown' as per the rules\.|
+|3|3|They will have left by now;will|MD|Checks the correct tagging of a modal verb from the list\.|
+|4|1|She was unsure about the results;results|NNS|Ensures plural nouns are correctly tagged from the list\.|
+|4|2|Is it going to rain today;today|RB|Tests whether an adverb is correctly identified with the appropriate tag\.|
+|4|3|The painting was done by Picasso;Picasso|NNP|Validates the tagging of a singular proper noun according to the tag list\.|
 
 ### [test_evals.csv](./speech-tag.test_evals.csv)
 
 |id|promptid|model|rule|input|evaluation|error|
 |-|-|-|-|-|-|-|
-|5a6682c|7ac6214|gpt\-4o\-2024\-08\-06|The output must consist solely of a part of speech tag or a specific placeholder if tagging is not possible\.|The apple is red; apple|Noun||
-|11370b0|7ac6214|gpt\-4o\-2024\-08\-06|The output must consist solely of a part of speech tag or a specific placeholder if tagging is not possible\.|There were seven cats; seven|Number||
-|3317ef2|7ac6214|gpt\-4o\-2024\-08\-06|The part of speech tag should be selected from the provided list of tags\.|She goes quickly; quickly|RB||
-|1da2962|7ac6214|gpt\-4o\-2024\-08\-06|The part of speech tag should be selected from the provided list of tags\.|I can't do it; can't|Verb||
-|cd00e42|7ac6214|gpt\-4o\-2024\-08\-06|If the word cannot be tagged with any of the listed tags, the output must be "Unknown\."|He said hello; hello|Interjection||
-|cfd95d4|7ac6214|gpt\-4o\-2024\-08\-06|If the word cannot be tagged with any of the listed tags, the output must be "Unknown\."|It is a unique book; unique|Adjective||
-|d2b0937|7ac6214|gpt\-4o\-2024\-08\-06|If the word cannot be tagged with any of the listed tags, the output must be "Unknown\."|They are running; running|Verb||
-|402a653|7ac6214|gpt\-4o\-2024\-08\-06|The output must consist solely of a part of speech tag or a specific placeholder if tagging is not possible\.|She thought it was very exciting; exciting|Adjective||
-|dccdda7|7ac6214|gpt\-4o\-2024\-08\-06|The part of speech tag should be selected from the provided list of tags\.|He works on Mondays; Mondays|NNS||
+|878f567|7ac6214|gpt\-4o\-2024\-08\-06|The output must consist solely of a part of speech tag or a specific placeholder if tagging is not possible\.|She swiftly ran to the store;swiftly|RB||
+|64862cc|7ac6214|gpt\-4o\-2024\-08\-06|The output must consist solely of a part of speech tag or a specific placeholder if tagging is not possible\.|The cat sat on the mat;cat|Noun||
+|0ccc686|7ac6214|gpt\-4o\-2024\-08\-06|The part of speech tag should be selected from the provided list of tags\.|Can he do it;he|PRON||
+|9b844c3|7ac6214|gpt\-4o\-2024\-08\-06|The output must consist solely of a part of speech tag or a specific placeholder if tagging is not possible\.|They have been running for hours;running|Verb||
+|eaa3cd9|7ac6214|gpt\-4o\-2024\-08\-06|The part of speech tag should be selected from the provided list of tags\.|The tallest building in the city;tallest|Adjective||
+|5c2aea3|7ac6214|gpt\-4o\-2024\-08\-06|The part of speech tag should be selected from the provided list of tags\.|Although it was sunny, he wore a coat;sunny|Adjective||
+|f4203a2|7ac6214|gpt\-4o\-2024\-08\-06|If the word cannot be tagged with any of the listed tags, the output must be "Unknown\."|He bought three apples;three|Determiner||
+|353a9bc|7ac6214|gpt\-4o\-2024\-08\-06|If the word cannot be tagged with any of the listed tags, the output must be "Unknown\."|There was nobody at the park;nobody|Pronoun||
+|279a01d|7ac6214|gpt\-4o\-2024\-08\-06|If the word cannot be tagged with any of the listed tags, the output must be "Unknown\."|They will have left by now;will|Auxiliary verb||
+|d937966|7ac6214|gpt\-4o\-2024\-08\-06|If the chatbot is unable to tag the word, the output must be "CantAnswer\."|She was unsure about the results;results|Noun||
+|5bbbd6e|7ac6214|gpt\-4o\-2024\-08\-06|If the chatbot is unable to tag the word, the output must be "CantAnswer\."|Is it going to rain today;today|Noun||
+|d348dd6|7ac6214|gpt\-4o\-2024\-08\-06|If the chatbot is unable to tag the word, the output must be "CantAnswer\."|The painting was done by Picasso;Picasso|Proper noun||
 
 ### [test_results.csv](./speech-tag.test_results.csv)
 
-|id|promptid|model|input|output|evaluationReason|evaluation|
-|-|-|-|-|-|-|-|
-|11370b0|7ac6214|gpt\-4o\-mini|There were seven cats; seven|CD|The output complies with the description by providing a single part of speech tag\.|passed|
-|5a6682c|7ac6214|gpt\-4o\-mini|The apple is red; apple|NN|The output "NN" is a valid part of speech tag according to the given description\.|passed|
-|dccdda7|7ac6214|gpt\-4o\-mini|He works on Mondays; Mondays|NNS|The output "NNS" is a valid part of speech tag from the provided list\.|passed|
-|1da2962|7ac6214|gpt\-4o\-mini|I can't do it; can't|MD|The output "MD" is a valid part\-of\-speech tag according to the given list and complies with the description\.|passed|
-|cd00e42|7ac6214|gpt\-4o\-mini|He said hello; hello|UH|The output "UH" is a valid part\-of\-speech tag according to the list provided\.|passed|
-|3317ef2|7ac6214|gpt\-4o\-mini|She goes quickly; quickly|RB|The output "RB" is a valid part of speech tag as listed in the description\.|passed|
-|d2b0937|7ac6214|gpt\-4o\-mini|They are running; running|VBG|The output "VBG" is a valid part\-of\-speech tag from the provided list\.|passed|
-|402a653|7ac6214|gpt\-4o\-mini|She thought it was very exciting; exciting|JJ|The output "JJ" matches the specified part of speech tag format\.|passed|
-|cfd95d4|7ac6214|gpt\-4o\-mini|It is a unique book; unique|JJ|The output "JJ" is a valid part\-of\-speech tag from the list provided in the description\.|passed|
+|id|promptid|model|input|output|evaluation|evaluationReason|error|
+|-|-|-|-|-|-|-|-|
+|878f567|7ac6214|gpt\-4o\-mini|She swiftly ran to the store;swiftly|RB||No violation\.||
+|64862cc|7ac6214|gpt\-4o\-mini|The cat sat on the mat;cat|NN|passed|No violation\.||
+|9b844c3|7ac6214|gpt\-4o\-mini|They have been running for hours;running|VBG|passed|The output "VBG" complies with the task description as it is a valid part of speech tag from the list provided\.||
+|0ccc686|7ac6214|gpt\-4o\-mini|Can he do it;he|PRP|passed|The output "PRP" is a valid part of speech tag from the provided list, complying with the chatbot description\.||
+|eaa3cd9|7ac6214|gpt\-4o\-mini|The tallest building in the city;tallest|JJS||No violation\.||
+|5c2aea3|7ac6214|gpt\-4o\-mini|Although it was sunny, he wore a coat;sunny|JJ||No violation\.||
+|d937966|7ac6214|gpt\-4o\-mini|She was unsure about the results;results|NN||No violation\.||
+|f4203a2|7ac6214|gpt\-4o\-mini|He bought three apples;three|CD||No violation\.||
+|353a9bc|7ac6214|gpt\-4o\-mini|There was nobody at the park;nobody|PRP|passed|The output "PRP" is a valid part of speech tag from the provided list, complying with the description\.||
+|279a01d|7ac6214|gpt\-4o\-mini|They will have left by now;will|MD|passed|The output "MD" is a valid part of speech tag from the provided list\.||
+|5bbbd6e|7ac6214|gpt\-4o\-mini|Is it going to rain today;today|NN|passed|No violation\.||
+|d348dd6|7ac6214|gpt\-4o\-mini|The painting was done by Picasso;Picasso|NNP|passed|The output "NNP" is a valid part of speech tag from the provided list, complying with the description requirements\.||
