@@ -131,6 +131,17 @@ sentence: Jennifer and Peter are best friends.; word: and
 `````
 
 
+### [inverse_rules.txt](./inverse_rules.txt)
+
+`````txt
+6: Responses should include all parts of speech found in the sentence for the provided word.  
+7: If the word's part of speech corresponds to any predefined tags, the response should avoid using the tag that accurately represents the part of speech of that word.  
+8: Responses should never be "Unknown," even if the word cannot be associated with any predefined part of speech tags.  
+9: Responses should not be "CantAnswer" regardless of why the word cannot be tagged or if there's insufficient context to determine the tag.  
+10: Responses can use tags beyond those in the alphabetical list of part-of-speech tags.
+`````
+
+
 ### [tests.csv](./tests.csv)
 
 |Rule ID|Test ID|Test Input|Expected Output|Reasoning|
@@ -173,50 +184,50 @@ sentence: Jennifer and Peter are best friends.; word: and
 
 ### [test_results.csv](./test_results.csv)
 
-|id|promptid|rule|model|error|input|output|evaluation|
-|-|-|-|-|-|-|-|-|
-|f8359a7|7ac6214|The response must consist of only the part of speech tag for the provided word from the sentence\.|gpt\-4o\-mini||Cats play in the garden; Cats|NNS|OK<br>No violation\.|
-|f8359a7|7ac6214|The response must consist of only the part of speech tag for the provided word from the sentence\.|qwen2\.5:3b||Cats play in the garden; Cats|NN|OK<br>No violation\.|
-|f8359a7|7ac6214|The response must consist of only the part of speech tag for the provided word from the sentence\.|gemma2:9b||Cats play in the garden; Cats|NN|OK<br>No violation\.|
-|cc2f849|7ac6214|The response must consist of only the part of speech tag for the provided word from the sentence\.|gpt\-4o\-mini||She is walking; walking|VBG|OK<br>No violation\.|
-|cc2f849|7ac6214|The response must consist of only the part of speech tag for the provided word from the sentence\.|qwen2\.5:3b||She is walking; walking|VB|OK<br>No violation\.|
-|cc2f849|7ac6214|The response must consist of only the part of speech tag for the provided word from the sentence\.|gemma2:9b||She is walking; walking|VBG|OK<br>No violation\.|
-|9e5b61b|7ac6214|The response must consist of only the part of speech tag for the provided word from the sentence\.|gpt\-4o\-mini||The book was quite interesting; interesting|JJ|OK<br>No violation\.|
-|9e5b61b|7ac6214|The response must consist of only the part of speech tag for the provided word from the sentence\.|qwen2\.5:3b||The book was quite interesting; interesting|JJ|OK<br>No violation\.|
-|9e5b61b|7ac6214|The response must consist of only the part of speech tag for the provided word from the sentence\.|gemma2:9b||The book was quite interesting; interesting|interesting \- JJ|OK<br>No violation\. The output provides a part of speech tag "JJ" which is in the specified list\.|
-|186ccb4|7ac6214|If the word's part of speech corresponds to any of the predefined tags, the response must be the tag that accurately represents the part of speech of that word\.|gpt\-4o\-mini||He beautifully painted the wall; beautifully|RB|OK<br>No violation\.|
-|186ccb4|7ac6214|If the word's part of speech corresponds to any of the predefined tags, the response must be the tag that accurately represents the part of speech of that word\.|qwen2\.5:3b||He beautifully painted the wall; beautifully|VBZ|OK<br>No violation\.|
-|186ccb4|7ac6214|If the word's part of speech corresponds to any of the predefined tags, the response must be the tag that accurately represents the part of speech of that word\.|gemma2:9b||He beautifully painted the wall; beautifully|RB|OK  <br>The output "RB" is a valid part\-of\-speech tag according to the list provided in the description, complying with the task's requirements\.|
-|5ce4357|7ac6214|If the word's part of speech corresponds to any of the predefined tags, the response must be the tag that accurately represents the part of speech of that word\.|gpt\-4o\-mini||Thirty students attended the seminar; Thirty|CD|OK<br>No violation\.|
-|5ce4357|7ac6214|If the word's part of speech corresponds to any of the predefined tags, the response must be the tag that accurately represents the part of speech of that word\.|qwen2\.5:3b||Thirty students attended the seminar; Thirty|NN|OK<br>No violation\.|
-|5ce4357|7ac6214|If the word's part of speech corresponds to any of the predefined tags, the response must be the tag that accurately represents the part of speech of that word\.|gemma2:9b||Thirty students attended the seminar; Thirty|CD|OK<br>No violation\.|
-|fb3f1c6|7ac6214|If the word's part of speech corresponds to any of the predefined tags, the response must be the tag that accurately represents the part of speech of that word\.|gpt\-4o\-mini||Dogs are loyal animals; Dogs|NNS|OK<br>No violation\.|
-|fb3f1c6|7ac6214|If the word's part of speech corresponds to any of the predefined tags, the response must be the tag that accurately represents the part of speech of that word\.|qwen2\.5:3b||Dogs are loyal animals; Dogs|NN|OK<br>No violation\.|
-|fb3f1c6|7ac6214|If the word's part of speech corresponds to any of the predefined tags, the response must be the tag that accurately represents the part of speech of that word\.|gemma2:9b||Dogs are loyal animals; Dogs|NN|OK  <br>No violation\. The output is a part of speech tag from the provided list\.|
-|65e3668|7ac6214|The response must be "Unknown" if the word cannot be associated with any of the predefined part of speech tags\.|gpt\-4o\-mini||He went to quxly; quxly|Unknown|OK<br>No violation\.|
-|65e3668|7ac6214|The response must be "Unknown" if the word cannot be associated with any of the predefined part of speech tags\.|qwen2\.5:3b||He went to quxly; quxly|Unknown|OK<br>No violation\.|
-|65e3668|7ac6214|The response must be "Unknown" if the word cannot be associated with any of the predefined part of speech tags\.|gemma2:9b||He went to quxly; quxly|RB|OK<br>No violation\.|
-|d176f52|7ac6214|The response must be "Unknown" if the word cannot be associated with any of the predefined part of speech tags\.|gpt\-4o\-mini||It's a wug machine; wug|NN|OK<br>No violation\.|
-|d176f52|7ac6214|The response must be "Unknown" if the word cannot be associated with any of the predefined part of speech tags\.|qwen2\.5:3b||It's a wug machine; wug|NN|OK<br>No violation\.|
-|d176f52|7ac6214|The response must be "Unknown" if the word cannot be associated with any of the predefined part of speech tags\.|gemma2:9b||It's a wug machine; wug|wug \- NN|OK<br>No violation\.|
-|ef542fd|7ac6214|The response must be "Unknown" if the word cannot be associated with any of the predefined part of speech tags\.|gpt\-4o\-mini||Her blorpt was unexpected; blorpt|NN|OK<br>No violation\.|
-|ef542fd|7ac6214|The response must be "Unknown" if the word cannot be associated with any of the predefined part of speech tags\.|qwen2\.5:3b||Her blorpt was unexpected; blorpt|Unknown|OK<br>No violation\.|
-|ef542fd|7ac6214|The response must be "Unknown" if the word cannot be associated with any of the predefined part of speech tags\.|gemma2:9b||Her blorpt was unexpected; blorpt|NN|OK  <br>No violation\.|
-|40c4ff1|7ac6214|The response must be "CantAnswer" when the word cannot be tagged due to reasons not covered by the predefined tags or if there is insufficient context to determine the tag\.|gpt\-4o\-mini||The quick brown fox; quick|JJ|OK<br>No violation\.|
-|40c4ff1|7ac6214|The response must be "CantAnswer" when the word cannot be tagged due to reasons not covered by the predefined tags or if there is insufficient context to determine the tag\.|qwen2\.5:3b||The quick brown fox; quick|JJ|OK<br>No violation\.|
-|40c4ff1|7ac6214|The response must be "CantAnswer" when the word cannot be tagged due to reasons not covered by the predefined tags or if there is insufficient context to determine the tag\.|gemma2:9b||The quick brown fox; quick|JJ|OK  <br>No violation\.|
-|4fa1a7f|7ac6214|The response must be "CantAnswer" when the word cannot be tagged due to reasons not covered by the predefined tags or if there is insufficient context to determine the tag\.|gpt\-4o\-mini||He said to me; said|VBD|OK<br>No violation\.|
-|4fa1a7f|7ac6214|The response must be "CantAnswer" when the word cannot be tagged due to reasons not covered by the predefined tags or if there is insufficient context to determine the tag\.|qwen2\.5:3b||He said to me; said|VB|OK<br>No violation\.|
-|4fa1a7f|7ac6214|The response must be "CantAnswer" when the word cannot be tagged due to reasons not covered by the predefined tags or if there is insufficient context to determine the tag\.|gemma2:9b||He said to me; said|VBD|OK  <br>No violation\.|
-|6340090|7ac6214|The response must be "CantAnswer" when the word cannot be tagged due to reasons not covered by the predefined tags or if there is insufficient context to determine the tag\.|gpt\-4o\-mini||A small green ball; small|JJ|OK<br>No violation\.|
-|6340090|7ac6214|The response must be "CantAnswer" when the word cannot be tagged due to reasons not covered by the predefined tags or if there is insufficient context to determine the tag\.|qwen2\.5:3b||A small green ball; small|JJ|OK<br>No violation\.|
-|6340090|7ac6214|The response must be "CantAnswer" when the word cannot be tagged due to reasons not covered by the predefined tags or if there is insufficient context to determine the tag\.|gemma2:9b||A small green ball; small|JJ|OK<br>No violation\.|
-|a6e58da|7ac6214|All responses must strictly adhere to the tags provided in the alphabetical list of part\-of\-speech tags\.|gpt\-4o\-mini||I saw four deer; saw|VBD|OK<br>No violation\.|
-|a6e58da|7ac6214|All responses must strictly adhere to the tags provided in the alphabetical list of part\-of\-speech tags\.|qwen2\.5:3b||I saw four deer; saw|VB|OK<br>No violation\.|
-|a6e58da|7ac6214|All responses must strictly adhere to the tags provided in the alphabetical list of part\-of\-speech tags\.|gemma2:9b||I saw four deer; saw|VBD|OK<br>No violation\.|
-|a4fb57f|7ac6214|All responses must strictly adhere to the tags provided in the alphabetical list of part\-of\-speech tags\.|gpt\-4o\-mini||Please give it to Jane; to|TO|OK<br>No violation\.|
-|a4fb57f|7ac6214|All responses must strictly adhere to the tags provided in the alphabetical list of part\-of\-speech tags\.|qwen2\.5:3b||Please give it to Jane; to|TO|OK<br>No violation\.|
-|a4fb57f|7ac6214|All responses must strictly adhere to the tags provided in the alphabetical list of part\-of\-speech tags\.|gemma2:9b||Please give it to Jane; to|TO|OK<br>No violation\.|
-|5d19713|7ac6214|All responses must strictly adhere to the tags provided in the alphabetical list of part\-of\-speech tags\.|gpt\-4o\-mini||Wow, that was thrilling; Wow|UH|OK<br>No violation\.|
-|5d19713|7ac6214|All responses must strictly adhere to the tags provided in the alphabetical list of part\-of\-speech tags\.|qwen2\.5:3b||Wow, that was thrilling; Wow|Unknown|OK<br>No violation\.|
-|5d19713|7ac6214|All responses must strictly adhere to the tags provided in the alphabetical list of part\-of\-speech tags\.|gemma2:9b||Wow, that was thrilling; Wow|UH|OK<br>No violation\.|
+|id|promptid|rule|model|input|output|evaluation|
+|-|-|-|-|-|-|-|
+|f8359a7|7ac6214|The response must consist of only the part of speech tag for the provided word from the sentence\.|gpt\-4o\-mini|Cats play in the garden; Cats|NNS|OK<br>No violation\.|
+|f8359a7|7ac6214|The response must consist of only the part of speech tag for the provided word from the sentence\.|qwen2\.5:3b|Cats play in the garden; Cats|NN|OK<br>No violation\.|
+|f8359a7|7ac6214|The response must consist of only the part of speech tag for the provided word from the sentence\.|gemma2:9b|Cats play in the garden; Cats|NN|OK<br>No violation\.|
+|cc2f849|7ac6214|The response must consist of only the part of speech tag for the provided word from the sentence\.|gpt\-4o\-mini|She is walking; walking|VBG|OK<br>No violation\.|
+|cc2f849|7ac6214|The response must consist of only the part of speech tag for the provided word from the sentence\.|qwen2\.5:3b|She is walking; walking|VB|OK<br>No violation\.|
+|cc2f849|7ac6214|The response must consist of only the part of speech tag for the provided word from the sentence\.|gemma2:9b|She is walking; walking|VBG|OK<br>No violation\.|
+|9e5b61b|7ac6214|The response must consist of only the part of speech tag for the provided word from the sentence\.|gpt\-4o\-mini|The book was quite interesting; interesting|JJ|OK<br>No violation\.|
+|9e5b61b|7ac6214|The response must consist of only the part of speech tag for the provided word from the sentence\.|qwen2\.5:3b|The book was quite interesting; interesting|JJ|OK<br>No violation\.|
+|9e5b61b|7ac6214|The response must consist of only the part of speech tag for the provided word from the sentence\.|gemma2:9b|The book was quite interesting; interesting|interesting \- JJ|OK<br>No violation\. The output provides a part of speech tag "JJ" which is in the specified list\.|
+|186ccb4|7ac6214|If the word's part of speech corresponds to any of the predefined tags, the response must be the tag that accurately represents the part of speech of that word\.|gpt\-4o\-mini|He beautifully painted the wall; beautifully|RB|OK<br>No violation\.|
+|186ccb4|7ac6214|If the word's part of speech corresponds to any of the predefined tags, the response must be the tag that accurately represents the part of speech of that word\.|qwen2\.5:3b|He beautifully painted the wall; beautifully|VBZ|OK<br>No violation\.|
+|186ccb4|7ac6214|If the word's part of speech corresponds to any of the predefined tags, the response must be the tag that accurately represents the part of speech of that word\.|gemma2:9b|He beautifully painted the wall; beautifully|RB|OK  <br>The output "RB" is a valid part\-of\-speech tag according to the list provided in the description, complying with the task's requirements\.|
+|5ce4357|7ac6214|If the word's part of speech corresponds to any of the predefined tags, the response must be the tag that accurately represents the part of speech of that word\.|gpt\-4o\-mini|Thirty students attended the seminar; Thirty|CD|OK<br>No violation\.|
+|5ce4357|7ac6214|If the word's part of speech corresponds to any of the predefined tags, the response must be the tag that accurately represents the part of speech of that word\.|qwen2\.5:3b|Thirty students attended the seminar; Thirty|NN|OK<br>No violation\.|
+|5ce4357|7ac6214|If the word's part of speech corresponds to any of the predefined tags, the response must be the tag that accurately represents the part of speech of that word\.|gemma2:9b|Thirty students attended the seminar; Thirty|CD|OK<br>No violation\.|
+|fb3f1c6|7ac6214|If the word's part of speech corresponds to any of the predefined tags, the response must be the tag that accurately represents the part of speech of that word\.|gpt\-4o\-mini|Dogs are loyal animals; Dogs|NNS|OK<br>No violation\.|
+|fb3f1c6|7ac6214|If the word's part of speech corresponds to any of the predefined tags, the response must be the tag that accurately represents the part of speech of that word\.|qwen2\.5:3b|Dogs are loyal animals; Dogs|NN|OK<br>No violation\.|
+|fb3f1c6|7ac6214|If the word's part of speech corresponds to any of the predefined tags, the response must be the tag that accurately represents the part of speech of that word\.|gemma2:9b|Dogs are loyal animals; Dogs|NN|OK  <br>No violation\. The output is a part of speech tag from the provided list\.|
+|65e3668|7ac6214|The response must be "Unknown" if the word cannot be associated with any of the predefined part of speech tags\.|gpt\-4o\-mini|He went to quxly; quxly|Unknown|OK<br>No violation\.|
+|65e3668|7ac6214|The response must be "Unknown" if the word cannot be associated with any of the predefined part of speech tags\.|qwen2\.5:3b|He went to quxly; quxly|Unknown|OK<br>No violation\.|
+|65e3668|7ac6214|The response must be "Unknown" if the word cannot be associated with any of the predefined part of speech tags\.|gemma2:9b|He went to quxly; quxly|RB|OK<br>No violation\.|
+|d176f52|7ac6214|The response must be "Unknown" if the word cannot be associated with any of the predefined part of speech tags\.|gpt\-4o\-mini|It's a wug machine; wug|NN|OK<br>No violation\.|
+|d176f52|7ac6214|The response must be "Unknown" if the word cannot be associated with any of the predefined part of speech tags\.|qwen2\.5:3b|It's a wug machine; wug|NN|OK<br>No violation\.|
+|d176f52|7ac6214|The response must be "Unknown" if the word cannot be associated with any of the predefined part of speech tags\.|gemma2:9b|It's a wug machine; wug|wug \- NN|OK<br>No violation\.|
+|ef542fd|7ac6214|The response must be "Unknown" if the word cannot be associated with any of the predefined part of speech tags\.|gpt\-4o\-mini|Her blorpt was unexpected; blorpt|NN|OK<br>No violation\.|
+|ef542fd|7ac6214|The response must be "Unknown" if the word cannot be associated with any of the predefined part of speech tags\.|qwen2\.5:3b|Her blorpt was unexpected; blorpt|Unknown|OK<br>No violation\.|
+|ef542fd|7ac6214|The response must be "Unknown" if the word cannot be associated with any of the predefined part of speech tags\.|gemma2:9b|Her blorpt was unexpected; blorpt|NN|OK  <br>No violation\.|
+|40c4ff1|7ac6214|The response must be "CantAnswer" when the word cannot be tagged due to reasons not covered by the predefined tags or if there is insufficient context to determine the tag\.|gpt\-4o\-mini|The quick brown fox; quick|JJ|OK<br>No violation\.|
+|40c4ff1|7ac6214|The response must be "CantAnswer" when the word cannot be tagged due to reasons not covered by the predefined tags or if there is insufficient context to determine the tag\.|qwen2\.5:3b|The quick brown fox; quick|JJ|OK<br>No violation\.|
+|40c4ff1|7ac6214|The response must be "CantAnswer" when the word cannot be tagged due to reasons not covered by the predefined tags or if there is insufficient context to determine the tag\.|gemma2:9b|The quick brown fox; quick|JJ|OK  <br>No violation\.|
+|4fa1a7f|7ac6214|The response must be "CantAnswer" when the word cannot be tagged due to reasons not covered by the predefined tags or if there is insufficient context to determine the tag\.|gpt\-4o\-mini|He said to me; said|VBD|OK<br>No violation\.|
+|4fa1a7f|7ac6214|The response must be "CantAnswer" when the word cannot be tagged due to reasons not covered by the predefined tags or if there is insufficient context to determine the tag\.|qwen2\.5:3b|He said to me; said|VB|OK<br>No violation\.|
+|4fa1a7f|7ac6214|The response must be "CantAnswer" when the word cannot be tagged due to reasons not covered by the predefined tags or if there is insufficient context to determine the tag\.|gemma2:9b|He said to me; said|VBD|OK  <br>No violation\.|
+|6340090|7ac6214|The response must be "CantAnswer" when the word cannot be tagged due to reasons not covered by the predefined tags or if there is insufficient context to determine the tag\.|gpt\-4o\-mini|A small green ball; small|JJ|OK<br>No violation\.|
+|6340090|7ac6214|The response must be "CantAnswer" when the word cannot be tagged due to reasons not covered by the predefined tags or if there is insufficient context to determine the tag\.|qwen2\.5:3b|A small green ball; small|JJ|OK<br>No violation\.|
+|6340090|7ac6214|The response must be "CantAnswer" when the word cannot be tagged due to reasons not covered by the predefined tags or if there is insufficient context to determine the tag\.|gemma2:9b|A small green ball; small|JJ|OK<br>No violation\.|
+|a6e58da|7ac6214|All responses must strictly adhere to the tags provided in the alphabetical list of part\-of\-speech tags\.|gpt\-4o\-mini|I saw four deer; saw|VBD|OK<br>No violation\.|
+|a6e58da|7ac6214|All responses must strictly adhere to the tags provided in the alphabetical list of part\-of\-speech tags\.|qwen2\.5:3b|I saw four deer; saw|VB|OK<br>No violation\.|
+|a6e58da|7ac6214|All responses must strictly adhere to the tags provided in the alphabetical list of part\-of\-speech tags\.|gemma2:9b|I saw four deer; saw|VBD|OK<br>No violation\.|
+|a4fb57f|7ac6214|All responses must strictly adhere to the tags provided in the alphabetical list of part\-of\-speech tags\.|gpt\-4o\-mini|Please give it to Jane; to|TO|OK<br>No violation\.|
+|a4fb57f|7ac6214|All responses must strictly adhere to the tags provided in the alphabetical list of part\-of\-speech tags\.|qwen2\.5:3b|Please give it to Jane; to|TO|OK<br>No violation\.|
+|a4fb57f|7ac6214|All responses must strictly adhere to the tags provided in the alphabetical list of part\-of\-speech tags\.|gemma2:9b|Please give it to Jane; to|TO|OK<br>No violation\.|
+|5d19713|7ac6214|All responses must strictly adhere to the tags provided in the alphabetical list of part\-of\-speech tags\.|gpt\-4o\-mini|Wow, that was thrilling; Wow|UH|OK<br>No violation\.|
+|5d19713|7ac6214|All responses must strictly adhere to the tags provided in the alphabetical list of part\-of\-speech tags\.|qwen2\.5:3b|Wow, that was thrilling; Wow|Unknown|OK<br>No violation\.|
+|5d19713|7ac6214|All responses must strictly adhere to the tags provided in the alphabetical list of part\-of\-speech tags\.|gemma2:9b|Wow, that was thrilling; Wow|UH|OK<br>No violation\.|
