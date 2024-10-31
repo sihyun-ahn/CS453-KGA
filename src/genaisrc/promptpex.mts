@@ -806,9 +806,8 @@ export async function generate(
 
   // generate inverse rules
   if (!files.inverseRules.content || force) {
-    const inverseRules = await generateInverseRules(files);
-    if (!inverseRules) console.warn("No inverse rules generated");
-    await workspace.writeText(files.inverseRules.filename, inverseRules);
+    files.inverseRules.content = await generateInverseRules(files);
+    await workspace.writeText(files.inverseRules.filename, files.inverseRules.content);
     files.tests.content = undefined;
     files.testResults.content = undefined;
     files.testEvals.content = undefined;
