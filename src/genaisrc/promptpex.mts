@@ -251,7 +251,8 @@ export async function generateTests(
         input_spec: files.inputSpec.content,
         context,
         num,
-        rule: allRules.map((r) => r.rule).join("\n"),
+        rule: allRules.map((r, index) => `${index + 1}. ${r.rule}`).join("\n"),
+        num_rules: allRules.length,
       });
       ctx.defChatParticipant((p, c) => {
         const last = c.at(-1)?.content;
