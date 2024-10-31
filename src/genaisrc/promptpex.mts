@@ -96,6 +96,7 @@ export async function loadPromptFiles(
 function modelOptions(): PromptGeneratorOptions {
   return {
     model: "large",
+    temperature: 1,
     system: ["system.safety_harmful_content", "system.safety_jailbreak"],
   };
 }
