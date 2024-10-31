@@ -40,11 +40,6 @@ script({
       description: "Force execute tests",
       default: false,
     },
-    forceTestResultEvals: {
-      type: "boolean",
-      description: "Force overwrite of existing test result evals files",
-      default: false,
-    },
     models: {
       type: "string",
       description: "Semi-column separated list of models to generate",
@@ -64,7 +59,6 @@ const {
   forceTests,
   forceTestEvals,
   forceExecuteTests,
-  forceTestResultEvals,
   out,
 } = env.vars;
 
@@ -83,7 +77,6 @@ for (const files of prompts) {
       forceTests,
       forceTestEvals,
       forceExecuteTests,
-      forceTestResultEvals,
       models,
     });
   } catch (e) {
