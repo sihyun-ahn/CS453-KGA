@@ -21,11 +21,12 @@ export interface PromptPexContext {
 }
 
 export interface PromptPexTest {
-  ruleid: string;
-  testid: string;
+  ruleid?: number;
+  testid?: number;
+  baseline?: boolean;
   testinput: string;
-  expectedoutput: string;
-  reasoning: string;
+  expectedoutput?: string;
+  reasoning?: string;
 }
 
 export interface PromptPexTestResult {
@@ -76,7 +77,7 @@ export async function loadPromptFiles(
   const rules = path.join(dir, "rules.txt");
   const inverseRules = path.join(dir, "inverse_rules.txt");
   const inputSpec = path.join(dir, "input_spec.txt");
-  const baselineTests = path.join(dir, "baseline_tests.txt");
+  const baselineTests = path.join(dir, "baseline_tests.csv");
   const tests = path.join(dir, "tests.csv");
   const testResults = path.join(dir, "test_results.csv");
   const testCoverageEvals = path.join(dir, "test_coverage.csv");
@@ -209,10 +210,10 @@ export async function generateInverseRules(
 }
 
 export async function generateBaselineTests(
-  files: Pick<PromptPexContext, "prompt" | "tests">,
+  files: Pick<PromptPexContext, "prompt" | "tests" | "baselineTests">,
   options?: { num?: number }
-) {
-  const tests = parseTests(files);
+): Promise<PromptPexTest[]> {
+  const tests = parseRulesTests(files);
   const { num = tests.length } = options || {};
   const context = MD.content(files.prompt.content);
   const res = await runPrompt(
@@ -228,8 +229,15 @@ export async function generateBaselineTests(
     }
   );
   checkLLMResponse(res);
-  const text = parseBaselineTests(res.text).join("\n===\n");
-  return text;
+
+  const bt = parsers
+    .unfence(res.text, "")
+    .split(/\s+===\s+/g)
+    .map((l) => l.trim().replace(/^#+ test case \d+:?$/gim, ""))
+    .filter((l) => !!l)
+    .map((l) => ({ testinput: l, baseline: true }) satisfies PromptPexTest);
+
+  return bt;
 }
 
 export async function generateTests(
@@ -259,7 +267,7 @@ export async function generateTests(
       });
       ctx.defChatParticipant((p, c) => {
         const last = c.at(-1)?.content;
-        const csv = parseTests(last);
+        const csv = parseRulesTests(last);
         if (!csv.length) {
           if (!repaired) {
             console.warn("invalid generated test format, trying to repair");
@@ -305,11 +313,14 @@ export async function runTests(
     | "rules"
     | "inverseRules"
     | "intent"
+    | "baselineTests"
   >,
   options?: { models?: ModelType[]; force?: boolean; q?: PromiseQueue }
 ): Promise<string> {
   const { force, models } = options || {};
-  const tests = parseTests(files);
+  const rulesTests = parseRulesTests(files);
+  const baselineTests = parseBaselineTests(files.baselineTests.content);
+  const tests = [...rulesTests, ...baselineTests];
   if (!tests?.length) throw new Error("No tests found");
 
   console.log(`executing ${tests.length} tests with ${models.length} models`);
@@ -329,9 +340,12 @@ async function resolveTestId(
   test: PromptPexTest
 ) {
   const context = MD.content(files.prompt.content);
-  const testid = await parsers.hash(context + test["testinput"], {
-    length: 7,
-  });
+  const testid = await parsers.hash(
+    context + test.testinput + (test.baseline ? ";baseline" : ""),
+    {
+      length: 7,
+    }
+  );
   return testid;
 }
 
@@ -472,11 +486,12 @@ export async function evaluateTestsCoverage(
     | "intent"
     | "rules"
     | "inverseRules"
+    | "baselineTests"
   >,
   options?: { force?: boolean }
 ): Promise<string> {
   const { force } = options || {};
-  const tests = parseTests(files);
+  const tests = parseRulesTests(files);
   if (!tests?.length) throw new Error("No tests found");
 
   console.log(`evaluating coverage of ${tests.length} tests`);
@@ -513,7 +528,8 @@ export async function evaluateTestCoverage(
   if (!allRules) throw new Error("No rules found");
 
   const rule = resolveRule(allRules, test);
-  if (!rule) throw new Error(`No rule found for test ${test["ruleid"]}`);
+  if (!rule && !test.baseline)
+    throw new Error(`No rule found for test ${test["ruleid"]}`);
 
   const { args, testInput } = resolvePromptArgs(files, test);
   if (!args)
@@ -572,13 +588,15 @@ function parseRules(rules: string) {
     : [];
 }
 
-function parseTests(files: Pick<PromptPexContext, "tests">): PromptPexTest[] {
+function parseRulesTests(
+  files: Pick<PromptPexContext, "tests" | "baselineTests">
+): PromptPexTest[] {
   if (isUnassistedResponse(files.tests.content)) return [];
   const content = files.tests.content?.replace(/\\"/g, '""');
-  let tests = content
+  const rulesTests = content
     ? (CSV.parse(content, { delimiter: ",", repair: true }) as PromptPexTest[])
     : [];
-  return tests;
+  return rulesTests;
 }
 
 function parseTestResults(
@@ -589,14 +607,8 @@ function parseTestResults(
   }) as PromptPexTestResult[];
 }
 
-function parseBaselineTests(tests: string) {
-  return tests
-    ? parsers
-        .unfence(tests, "")
-        .split(/\s+===\s+/g)
-        .map((l) => l.trim().replace(/^#+ test case \d+:?$/gim, ""))
-        .filter((l) => !!l)
-    : [];
+function parseBaselineTests(tests: string): PromptPexTest[] {
+  return CSV.parse(tests, { delimiter: "," }) as PromptPexTest[];
 }
 
 function parseAllRules(
@@ -615,7 +627,7 @@ function resolveRule(
   rules: { rule: string; inverse?: boolean }[],
   test: PromptPexTest
 ) {
-  const index = parseInt(test["ruleid"]) - 1;
+  const index = test.ruleid - 1;
   const rule = rules[index];
   return { ruleid: index + 1, ...rule };
 }
@@ -661,24 +673,22 @@ export async function generateJSONReport(files: PromptPexContext) {
   const rules = parseRules(files.rules.content);
   const inverseRules = parseRules(files.inverseRules.content);
   const allRules = parseAllRules(files);
-  const csvTests = parseTests(files);
+  const rulesTests = parseRulesTests(files);
   const baseLineTests = parseBaselineTests(files.baselineTests.content);
-  if (files.tests.content && !csvTests.length) {
+  if (files.tests.content && !rulesTests.length) {
     console.warn(`failed to parse tests in ${files.tests.filename}`);
     errors.push(`failed to parse tests in ${files.tests.filename}`);
   }
 
-  const tests = csvTests.map((test, index) => {
+  const tests = [...rulesTests, ...baseLineTests].map((test, index) => {
     const rule = resolveRule(allRules, test);
-    if (!rule)
+    if (!rule && !test.baseline)
       errors.push(
-        `test '${test["testinput"]}' references non-existent rule in ${files.tests.filename}`
+        `test '${test.ruleid}' references non-existent rule in ${files.tests.filename}`
       );
     const res: any = {
       ...rule,
-      input: test["testinput"],
-      expected: test["expectedoutput"],
-      reasoning: test["reasoning"],
+      ...test,
     };
     return res;
   });
@@ -688,7 +698,6 @@ export async function generateJSONReport(files: PromptPexContext) {
     inputSpec,
     rules,
     inverseRules,
-    baseLineTests,
     tests,
     errors: errors.length ? errors : undefined,
   };
@@ -702,8 +711,10 @@ function addLineNumbers(text: string, start: number) {
 }
 
 export async function generateMarkdownReport(files: PromptPexContext) {
-  const tests = parseTests(files);
-  const baseLineTests = parseBaselineTests(files.baselineTests.content);
+  const tests = [
+    ...parseRulesTests(files),
+    ...parseBaselineTests(files.baselineTests.content),
+  ];
   const rules = parseRules(files.rules.content);
   const inverseRules = parseRules(files.inverseRules.content);
   const testResults = parseTestResults(files);
@@ -718,9 +729,8 @@ export async function generateMarkdownReport(files: PromptPexContext) {
     ``,
     `- ${rules?.length ?? 0} rules`,
     `- ${inverseRules?.length ?? 0} inverse rules`,
-    `- ${tests?.length ?? 0} tests`,
+    `- ${tests?.length ?? 0} tests, ${tests.filter((t) => t.baseline).length} baseline tests`,
     `- ${testResults?.length ?? 0} test results, ${rp(oks, ts)} oks, ${rp(errs, ts)} errs`,
-    `- ${baseLineTests?.length ?? 0} baseline tests`,
     ``,
   ];
 
@@ -745,16 +755,7 @@ export async function generateMarkdownReport(files: PromptPexContext) {
       ""
     );
 
-    if (file === files.baselineTests)
-      res.push(
-        ...parseBaselineTests(file.content).flatMap((l) => [
-          `${fence}txt`,
-          l,
-          fence,
-          "",
-        ])
-      );
-    else if (lang === "csv")
+    if (lang === "csv")
       res.push(CSV.markdownify(CSV.parse(file.content), { headers }));
     else {
       let content = file.content;
@@ -813,7 +814,10 @@ export async function generate(
 
   // generate baseline tests
   if (!files.baselineTests.content || force || forceBaselineTests) {
-    files.baselineTests.content = await generateBaselineTests(files);
+    files.baselineTests.content = CSV.stringify(
+      await generateBaselineTests(files),
+      { header: true }
+    );
     await workspace.writeText(
       files.baselineTests.filename,
       files.baselineTests.content
