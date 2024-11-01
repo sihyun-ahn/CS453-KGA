@@ -362,7 +362,7 @@ async function resolveTestPath(
     files.dir,
     model
       .replace(/^[^:]+:/g, "")
-      .replace(/[^a-z0-9\.]/g, "_")
+      .replace(/[^a-z0-9\.\-]/g, "_")
       .replace(/_+/g, "_")
       .replace(/^_+|_+$/g, "")
       .toLowerCase()
@@ -614,7 +614,9 @@ function parseTestResults(
 }
 
 function parseBaselineTests(tests: string): PromptPexTest[] {
-  return CSV.parse(tests, { delimiter: "," }) as PromptPexTest[];
+  const res = CSV.parse(tests, { delimiter: "," }) as PromptPexTest[];
+  for (const t of res) t.baseline = true;
+  return res;
 }
 
 function parseAllRules(
@@ -727,8 +729,18 @@ export async function generateMarkdownReport(files: PromptPexContext) {
   const ts = testResults.length;
   const oks = testResults.filter((t) => t.compliance === "ok").length;
   const errs = testResults.filter((t) => t.compliance === "err").length;
-
-  const rp = (n: number, t: number) => `${n} (${Math.floor((n / t) * 100)}%)`;
+  const rp = (n: number, t: number) =>
+    `${n}/${t} (${Math.floor((n / t) * 100)}%)`;
+  const testResultsPerModels = testResults.reduce(
+    (acc, result) => {
+      if (!acc[result.model]) {
+        acc[result.model] = [];
+      }
+      acc[result.model].push(result);
+      return acc;
+    },
+    {} as Record<string, PromptPexTestResult[]>
+  );
 
   const res: string[] = [
     `## ${files.name} ([json](./${files.dir}/report.json))`,
@@ -739,6 +751,17 @@ export async function generateMarkdownReport(files: PromptPexContext) {
     `- ${testResults?.length ?? 0} test results, ${rp(oks, ts)} oks, ${rp(errs, ts)} errs`,
     ``,
   ];
+
+  res.push("### Compliance per model", "");
+  res.push(
+    CSV.markdownify(
+      Object.entries(testResultsPerModels).map(([model, results]) => ({
+        model,
+        tests: results.length,
+        compliant: results.filter((tr) => tr.compliance === "ok").length,
+      }))
+    )
+  );
 
   const fence = "`````";
   const appendFile = (file: WorkspaceFile) => {
