@@ -7,12 +7,12 @@
 
 ### Compliance per model
 
-|model|tests|compliant|
-|-|-|-|
-|llama3\.2:1b|50|4|
-|gpt\-4o\-mini|50|50|
-|qwen2\.5:3b|50|46|
-|gemma2:9b|50|45|
+|model|tests|baseline|baseline compliant|rules|rules compliant|
+|-|-|-|-|-|-|
+|llama3\.2:1b|50|20|2|30|2|
+|gpt\-4o\-mini|50|20|20|30|30|
+|qwen2\.5:3b|50|20|18|30|28|
+|gemma2:9b|50|20|20|30|25|
 
 ### [speech-tag.prompty](./speech-tag.prompty)
 
