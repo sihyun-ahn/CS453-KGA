@@ -31,8 +31,10 @@ export interface PromptPexTest {
 export interface PromptPexTestResult {
   id: string;
   promptid: string;
-  model: string;
+  ruleid: string;
   rule: string;
+  inverse?: boolean;
+  model: string;
   input: string;
   output: string;
   error?: string;
@@ -411,7 +413,8 @@ export async function runTest(
     return {
       id,
       promptid,
-      rule: test["Rule ID"],
+      ruleid: test["Rule ID"],
+      ...rule,
       model: "",
       error: "invalid test input",
       input: testInput,
@@ -434,6 +437,7 @@ export async function runTest(
   const testRes: PromptPexTestResult = {
     id,
     promptid,
+    ruleid: test["Rule ID"],
     ...rule,
     model: res.model,
     error: res.error?.message,
@@ -574,7 +578,8 @@ function parseTestResults(
 
 function parseBaselineTests(tests: string) {
   return tests
-    ? tests
+    ? parsers
+        .unfence(tests, "")
         .split(/\s+===\s+/g)
         .map((l) => l.trim().replace(/^#+ test case \d+:?$/gim, ""))
         .filter((l) => !!l)
@@ -807,7 +812,10 @@ export async function generate(
   // generate inverse rules
   if (!files.inverseRules.content || force) {
     files.inverseRules.content = await generateInverseRules(files);
-    await workspace.writeText(files.inverseRules.filename, files.inverseRules.content);
+    await workspace.writeText(
+      files.inverseRules.filename,
+      files.inverseRules.content
+    );
     files.tests.content = undefined;
     files.testResults.content = undefined;
     files.testEvals.content = undefined;
