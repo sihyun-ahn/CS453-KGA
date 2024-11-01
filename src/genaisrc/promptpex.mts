@@ -762,8 +762,8 @@ export async function generateMarkdownReport(files: PromptPexContext) {
         ["baseline compliant"]: results.filter(
           (tr) => !tr.rule && tr.compliance === "ok"
         ).length,
-        rules: results.filter((tr) => tr.rule).length,
-        ["rules compliant"]: results.filter(
+        promptpex: results.filter((tr) => tr.rule).length,
+        ["promptpex compliant"]: results.filter(
           (tr) => tr.rule && tr.compliance === "ok"
         ).length,
       }))

@@ -7,7 +7,7 @@
 
 ### Compliance per model
 
-|model|tests|baseline|baseline compliant|rules|rules compliant|
+|model|tests|baseline|baseline compliant|promptpex|promptpex compliant|
 |-|-|-|-|-|-|
 |llama3\.2:1b|50|20|2|30|2|
 |gpt\-4o\-mini|50|20|20|30|30|
