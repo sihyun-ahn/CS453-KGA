@@ -21,11 +21,11 @@ export interface PromptPexContext {
 }
 
 export interface PromptPexTest {
-  ["ruleid"]: string;
-  ["testid"]: string;
-  ["testinput"]: string;
-  ["expectedoutput"]: string;
-  ["reasoning"]: string;
+  ruleid: string;
+  testid: string;
+  testinput: string;
+  expectedoutput: string;
+  reasoning: string;
 }
 
 export interface PromptPexTestResult {
