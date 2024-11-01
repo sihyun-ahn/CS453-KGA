@@ -392,9 +392,9 @@ async function resolvePromptId(files: Pick<PromptPexContext, "prompt">) {
 }
 
 function updateTestResultCompliant(testRes: PromptPexTestResult) {
-  testRes.compliance = /(^|\W)ERR($|\W)/.test(testRes.evaluation)
+  testRes.compliance = /(^|\W)ERR\s*$/.test(testRes.evaluation)
     ? "err"
-    : /(^|\W)OK($|\W)/.test(testRes.evaluation)
+    : /(^|\W)OK\s*$/.test(testRes.evaluation)
       ? "ok"
       : undefined;
 }
