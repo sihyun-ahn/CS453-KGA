@@ -21,11 +21,11 @@ export interface PromptPexContext {
 }
 
 export interface PromptPexTest {
-  ["Rule ID"]: string;
-  ["Test ID"]: string;
-  ["Test Input"]: string;
-  ["Expected Output"]: string;
-  ["Reasoning"]: string;
+  ["ruleid"]: string;
+  ["testid"]: string;
+  ["testinput"]: string;
+  ["expectedoutput"]: string;
+  ["reasoning"]: string;
 }
 
 export interface PromptPexTestResult {
@@ -329,7 +329,7 @@ async function resolveTestId(
   test: PromptPexTest
 ) {
   const context = MD.content(files.prompt.content);
-  const testid = await parsers.hash(context + test["Test Input"], {
+  const testid = await parsers.hash(context + test["testinput"], {
     length: 7,
   });
   return testid;
@@ -371,8 +371,8 @@ function resolvePromptArgs(
 ) {
   const inputs = parseInputs(files.prompt);
   const inputKeys = Object.keys(inputs);
-  const expectedOutput = test["Expected Output"];
-  const testInput = test["Test Input"];
+  const expectedOutput = test["expectedoutput"];
+  const testInput = test["testinput"];
   const args: Record<string, any> = {};
   if (inputKeys.length === 1) args[inputKeys[0]] = testInput;
   else if (inputKeys.length > 1) {
@@ -513,7 +513,7 @@ export async function evaluateTestCoverage(
   if (!allRules) throw new Error("No rules found");
 
   const rule = resolveRule(allRules, test);
-  if (!rule) throw new Error(`No rule found for test ${test["Rule ID"]}`);
+  if (!rule) throw new Error(`No rule found for test ${test["ruleid"]}`);
 
   const { args, testInput } = resolvePromptArgs(files, test);
   if (!args)
@@ -615,7 +615,7 @@ function resolveRule(
   rules: { rule: string; inverse?: boolean }[],
   test: PromptPexTest
 ) {
-  const index = parseInt(test["Rule ID"]) - 1;
+  const index = parseInt(test["ruleid"]) - 1;
   const rule = rules[index];
   return { ruleid: index + 1, ...rule };
 }
@@ -672,13 +672,13 @@ export async function generateJSONReport(files: PromptPexContext) {
     const rule = resolveRule(allRules, test);
     if (!rule)
       errors.push(
-        `test '${test["Test Input"]}' references non-existent rule in ${files.tests.filename}`
+        `test '${test["testinput"]}' references non-existent rule in ${files.tests.filename}`
       );
     const res: any = {
       ...rule,
-      input: test["Test Input"],
-      expected: test["Expected Output"],
-      reasoning: test["Reasoning"],
+      input: test["testinput"],
+      expected: test["expectedoutput"],
+      reasoning: test["reasoning"],
     };
     return res;
   });
@@ -731,7 +731,7 @@ export async function generateMarkdownReport(files: PromptPexContext) {
       file === files.testResults
         ? ["rule", "model", "input", "output", "compliance"]
         : file === files.tests
-          ? ["Test Input", "Expected Output", "Reasoning"]
+          ? ["testinput", "expectedoutput", "reasoning"]
           : file === files.testCoverageEvals
             ? ["rule", "input", "evaluation"]
             : undefined;

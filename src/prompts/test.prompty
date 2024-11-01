@@ -29,14 +29,14 @@ Guidelines for generating test cases:
 Each test case should adhere to principles of good software testing practices, emphasizing coverage, specificity and independence. Critically assess potential weaknesses in the software's handling of inputs based on the rule and focus on creating diverse test cases that effectively challenge the software's capabilities.
 
 Format your response in a structured CSV format as follows:
-- "Rule ID": Identifier for the rule being tested.
-- "Test ID": Sequential identifier for each test case under a rule.
-- "Test Input": Detailed input provided to the software.
-- "Expected Output": Output or behavior expected from the software to affirm rule adherence.
-- "Reasoning": Brief explanation of why this test case is relevant and contributes to robust testing of the rule. List the input specification that this test case does not follow.
+- "ruleid": Identifier for the rule being tested.
+- "testid": Sequential identifier for each test case under a rule.
+- "testinput": Detailed input provided to the software.
+- "expectedoutput": Output or behavior expected from the software to affirm rule adherence.
+- "reasoning": Brief explanation of why this test case is relevant and contributes to robust testing of the rule. List the input specification that this test case does not follow.
 
 Example CSV layout:
-Rule ID, Test ID, Test Input, Expected Output, Reasoning
+ruleid, testid, testinput, expectedoutput, reasoning
 1, 1, "input based on rule 1 scenario 1", "expected outcome demonstrating rule adherence", "Explains the relevance and effectiveness of the test and how it follows the input specification"
 1, 2, "input based on rule 1 scenario 2, examples", "expected response confirming rule", "Illustrates how inputs challenge the software and ensure compliance and how is a valid test case based on input specification"
 
