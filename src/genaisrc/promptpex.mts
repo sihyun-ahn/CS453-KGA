@@ -214,7 +214,7 @@ export async function generateBaselineTests(
   options?: { num?: number }
 ): Promise<PromptPexTest[]> {
   const tests = parseRulesTests(files);
-  const { num = tests.length } = options || {};
+  const { num = tests.length} = options || {};
   const context = MD.content(files.prompt.content);
   const res = await runPrompt(
     (ctx) => {
@@ -812,18 +812,6 @@ export async function generate(
 
   console.log(`generating tests for ${files.name} at ${files.dir}`);
 
-  // generate baseline tests
-  if (!files.baselineTests.content || force || forceBaselineTests) {
-    files.baselineTests.content = CSV.stringify(
-      await generateBaselineTests(files),
-      { header: true }
-    );
-    await workspace.writeText(
-      files.baselineTests.filename,
-      files.baselineTests.content
-    );
-  }
-
   // generate intent
   if (!files.intent.content || force || forceIntent) {
     files.intent.content = await generateIntent(files);
@@ -868,6 +856,18 @@ export async function generate(
     files.tests.content = await generateTests(files);
     await workspace.writeText(files.tests.filename, files.tests.content);
     files.testCoverageEvals.content = undefined;
+  }
+
+  // generate baseline tests
+  if (!files.baselineTests.content || force || forceBaselineTests) {
+    files.baselineTests.content = CSV.stringify(
+      await generateBaselineTests(files),
+      { header: true }
+    );
+    await workspace.writeText(
+      files.baselineTests.filename,
+      files.baselineTests.content
+    );
   }
 
   if (models?.length) {
