@@ -27,78 +27,91 @@
   ],
   "tests": [
     {
+      "ruleid": 1,
       "rule": "The output must be a single part-of-speech tag based on the provided list of tags.",
       "input": "I saw a beautiful bird; beautiful",
       "expected": "JJ",
       "reasoning": "Tests if 'beautiful' is correctly tagged as an adjective."
     },
     {
+      "ruleid": 1,
       "rule": "The output must be a single part-of-speech tag based on the provided list of tags.",
       "input": "They ran quickly to the store; ran",
       "expected": "VBD",
       "reasoning": "Ensures 'ran' is recognized as past tense verb."
     },
     {
+      "ruleid": 1,
       "rule": "The output must be a single part-of-speech tag based on the provided list of tags.",
       "input": "She gives her father a hug; gives",
       "expected": "VBZ",
       "reasoning": "Verifies that 'gives' is tagged correctly as a 3rd person singular verb."
     },
     {
+      "ruleid": 2,
       "rule": "If the provided word cannot be tagged with any of the listed part-of-speech tags, the output must be the word \"Unknown\".",
       "input": "I need some grglx; grglx",
       "expected": "Unknown",
       "reasoning": "Tests if a nonsensical word returns 'Unknown'."
     },
     {
+      "ruleid": 2,
       "rule": "If the provided word cannot be tagged with any of the listed part-of-speech tags, the output must be the word \"Unknown\".",
       "input": "He drove a kryzle car; kryzle",
       "expected": "Unknown",
       "reasoning": "Nonsense adjective 'kryzle' should output 'Unknown'."
     },
     {
+      "ruleid": 2,
       "rule": "If the provided word cannot be tagged with any of the listed part-of-speech tags, the output must be the word \"Unknown\".",
       "input": "Enpako is a cool place; Enpako",
       "expected": "Unknown",
       "reasoning": "Properly handles fictional proper noun by returning 'Unknown'."
     },
     {
+      "ruleid": 3,
       "rule": "If the chatbot is unable to determine the part of speech for the provided word for any reason, the output must be the word \"CantAnswer\".",
       "input": "Igloo is melting; is",
       "expected": "CantAnswer",
       "reasoning": "Because 'is' is ambiguous, might test inability to tag, expected 'CantAnswer'."
     },
     {
+      "ruleid": 3,
       "rule": "If the chatbot is unable to determine the part of speech for the provided word for any reason, the output must be the word \"CantAnswer\".",
       "input": "Who can explain this; can",
       "expected": "CantAnswer",
       "reasoning": "Tests modal verb 'can', expecting 'CantAnswer' on failure to tag."
     },
     {
+      "ruleid": 3,
       "rule": "If the chatbot is unable to determine the part of speech for the provided word for any reason, the output must be the word \"CantAnswer\".",
       "input": "Did she lexe yesterday; lexe",
       "expected": "CantAnswer",
       "reasoning": "If 'lexe' is unrecognized, expected failure to tag results in 'CantAnswer'."
     },
     {
+      "ruleid": 4,
       "rule": "The response must not include any additional text, explanations, or formatting other than the single part-of-speech tag, or the words \"Unknown\" or \"CantAnswer\".",
       "input": "A new house was built; house",
       "expected": "NN",
       "reasoning": "Confirm 'house' as a noun, tests that only the tag is returned with no extra output."
     },
     {
+      "ruleid": 4,
       "rule": "The response must not include any additional text, explanations, or formatting other than the single part-of-speech tag, or the words \"Unknown\" or \"CantAnswer\".",
       "input": "Cats love fish; love",
       "expected": "VB",
       "reasoning": "Ensures verb 'love' is tagged correctly without additional tags/comments."
     },
     {
+      "ruleid": 4,
       "rule": "The response must not include any additional text, explanations, or formatting other than the single part-of-speech tag, or the words \"Unknown\" or \"CantAnswer\".",
       "input": "Quickly, they flew; flew",
       "expected": "VBD",
       "reasoning": "Verifies 'flew' is tagged as past tense, checks for prohibited extra text."
     },
     {
+      "ruleid": 5,
       "rule": "The output can be multiple part-of-speech tags based on any available list of tags.",
       "inverse": true,
       "input": "We enjoy ice cream; enjoy",
@@ -106,6 +119,7 @@
       "reasoning": "Tests if multiple valid tags could be supplied, expect VB VBZ or similar valid tags from list."
     },
     {
+      "ruleid": 5,
       "rule": "The output can be multiple part-of-speech tags based on any available list of tags.",
       "inverse": true,
       "input": "They can play; can",
@@ -113,6 +127,7 @@
       "reasoning": "Ensure modal is also tagged for noun form."
     },
     {
+      "ruleid": 5,
       "rule": "The output can be multiple part-of-speech tags based on any available list of tags.",
       "inverse": true,
       "input": "She floats and smiles; floats",
@@ -120,6 +135,7 @@
       "reasoning": "Tests VB validation when there can be an interpretation for VBZ."
     },
     {
+      "ruleid": 6,
       "rule": "If the provided word cannot be tagged with any of the listed part-of-speech tags, the output must be the actual input word itself.",
       "inverse": true,
       "input": "I saw a houx; houx",
@@ -127,6 +143,7 @@
       "reasoning": "Tests output when nonsense word should return input itself."
     },
     {
+      "ruleid": 6,
       "rule": "If the provided word cannot be tagged with any of the listed part-of-speech tags, the output must be the actual input word itself.",
       "inverse": true,
       "input": "The animal glorned through forest; glorned",
@@ -134,6 +151,7 @@
       "reasoning": "Validates outputting the input when word tagging fails."
     },
     {
+      "ruleid": 6,
       "rule": "If the provided word cannot be tagged with any of the listed part-of-speech tags, the output must be the actual input word itself.",
       "inverse": true,
       "input": "They went to mynms; mynms",
@@ -141,6 +159,7 @@
       "reasoning": "Unrecognized location results in word output instead of part-of-speech tag."
     },
     {
+      "ruleid": 7,
       "rule": "If the chatbot is unable to determine the part of speech for the provided word for any reason, the output must be \"Answerable\".",
       "inverse": true,
       "input": "A fast zunker won; zunker",
@@ -148,6 +167,7 @@
       "reasoning": "Forces output to 'Answerable' due to uncommon term causing inability to tag."
     },
     {
+      "ruleid": 7,
       "rule": "If the chatbot is unable to determine the part of speech for the provided word for any reason, the output must be \"Answerable\".",
       "inverse": true,
       "input": "Please grab the skimmf; skimmf",
@@ -155,6 +175,7 @@
       "reasoning": "Tests response when unable to tag uncommon object."
     },
     {
+      "ruleid": 7,
       "rule": "If the chatbot is unable to determine the part of speech for the provided word for any reason, the output must be \"Answerable\".",
       "inverse": true,
       "input": "Is that the latest grimsow?; grimsow",
@@ -162,6 +183,7 @@
       "reasoning": "Inability to classify leads to 'Answerable'."
     },
     {
+      "ruleid": 8,
       "rule": "The response must include additional context, explanations, or formatting beyond the part-of-speech tag.",
       "inverse": true,
       "input": "His favorite color is blue; blue",
@@ -169,6 +191,7 @@
       "reasoning": "Tests forced inclusion of additional explanation."
     },
     {
+      "ruleid": 8,
       "rule": "The response must include additional context, explanations, or formatting beyond the part-of-speech tag.",
       "inverse": true,
       "input": "Laughing, she ran away; ran",
@@ -176,6 +199,7 @@
       "reasoning": "Ensures results include a brief explanation."
     },
     {
+      "ruleid": 8,
       "rule": "The response must include additional context, explanations, or formatting beyond the part-of-speech tag.",
       "inverse": true,
       "input": "A bright light flashed; light",

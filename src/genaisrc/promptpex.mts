@@ -17,7 +17,7 @@ export interface PromptPexContext {
   baselineTests: WorkspaceFile;
   tests: WorkspaceFile;
   testResults: WorkspaceFile;
-  testEvals: WorkspaceFile;
+  testCoverageEvals: WorkspaceFile;
 }
 
 export interface PromptPexTest {
@@ -31,7 +31,7 @@ export interface PromptPexTest {
 export interface PromptPexTestResult {
   id: string;
   promptid: string;
-  ruleid: string;
+  ruleid: number;
   rule: string;
   inverse?: boolean;
   model: string;
@@ -39,6 +39,7 @@ export interface PromptPexTestResult {
   output: string;
   error?: string;
 
+  compliance?: "ok" | "err";
   evaluation?: string;
 }
 
@@ -78,7 +79,7 @@ export async function loadPromptFiles(
   const baselineTests = path.join(dir, "baseline_tests.txt");
   const tests = path.join(dir, "tests.csv");
   const testResults = path.join(dir, "test_results.csv");
-  const testEvals = path.join(dir, "test_evals.csv");
+  const testCoverageEvals = path.join(dir, "test_coverage.csv");
 
   return {
     dir,
@@ -90,8 +91,8 @@ export async function loadPromptFiles(
     rules: tidyRulesFile(await workspace.readText(rules)),
     inverseRules: tidyRulesFile(await workspace.readText(inverseRules)),
     tests: await workspace.readText(tests),
-    testEvals: await workspace.readText(testEvals),
     testResults: await workspace.readText(testResults),
+    testCoverageEvals: await workspace.readText(testCoverageEvals),
   } satisfies PromptPexContext;
 }
 
@@ -390,6 +391,14 @@ async function resolvePromptId(files: Pick<PromptPexContext, "prompt">) {
   return parsers.hash(content, { length: 7 });
 }
 
+function updateTestResultCompliant(testRes: PromptPexTestResult) {
+  testRes.compliance = /(^|\W)ERR($|\W)/.test(testRes.evaluation)
+    ? "err"
+    : /(^|\W)OK($|\W)/.test(testRes.evaluation)
+      ? "ok"
+      : undefined;
+}
+
 export async function runTest(
   files: Pick<PromptPexContext, "prompt" | "dir" | "rules" | "inverseRules">,
   test: PromptPexTest,
@@ -404,7 +413,10 @@ export async function runTest(
   });
   if (file.content && !force) {
     const res = parsers.JSON5(file);
-    if (res && !res.error) return res;
+    if (res && !res.error) {
+      updateTestResultCompliant(res);
+      return res;
+    }
   }
   const { inputs, args, testInput } = resolvePromptArgs(files, test);
   const allRules = parseAllRules(files);
@@ -413,7 +425,6 @@ export async function runTest(
     return {
       id,
       promptid,
-      ruleid: test["Rule ID"],
       ...rule,
       model: "",
       error: "invalid test input",
@@ -437,14 +448,16 @@ export async function runTest(
   const testRes: PromptPexTestResult = {
     id,
     promptid,
-    ruleid: test["Rule ID"],
     ...rule,
     model: res.model,
     error: res.error?.message,
     input: testInput,
     output: actualOutput,
   } satisfies PromptPexTestResult;
+  testRes.compliance = undefined;
   testRes.evaluation = await evaluateTestResult(files, testRes, { model });
+  updateTestResultCompliant(testRes);
+
   await workspace.writeText(file.filename, JSON.stringify(testRes, null, 2));
   return testRes;
 }
@@ -604,7 +617,7 @@ function resolveRule(
 ) {
   const index = parseInt(test["Rule ID"]) - 1;
   const rule = rules[index];
-  return rule;
+  return { ruleid: index + 1, ...rule };
 }
 
 async function evaluateTestResult(
@@ -689,15 +702,39 @@ function addLineNumbers(text: string, start: number) {
 }
 
 export async function generateMarkdownReport(files: PromptPexContext) {
+  const tests = parseTests(files);
+  const baseLineTests = parseBaselineTests(files.baselineTests.content);
+  const rules = parseRules(files.rules.content);
   const inverseRules = parseRules(files.inverseRules.content);
+  const testResults = parseTestResults(files);
+  const ts = testResults.length;
+  const oks = testResults.filter((t) => t.compliance === "ok").length;
+  const errs = testResults.filter((t) => t.compliance === "err").length;
+
+  const rp = (n: number, t: number) => `${n} (${Math.floor((n / t) * 100)}%)`;
 
   const res: string[] = [
     `## ${files.name} ([json](./${files.dir}/report.json))`,
     ``,
+    `- ${rules?.length ?? 0} rules`,
+    `- ${inverseRules?.length ?? 0} inverse rules`,
+    `- ${tests?.length ?? 0} tests`,
+    `- ${testResults?.length ?? 0} test results, ${rp(oks, ts)} oks, ${rp(errs, ts)} errs`,
+    `- ${baseLineTests?.length ?? 0} baseline tests`,
+    ``,
   ];
+
   const fence = "`````";
   const appendFile = (file: WorkspaceFile) => {
     const ext = path.extname(file.filename).slice(1);
+    const headers =
+      file === files.testResults
+        ? ["rule", "model", "input", "output", "compliance"]
+        : file === files.tests
+          ? ["Test Input", "Expected Output", "Reasoning"]
+          : file === files.testCoverageEvals
+            ? ["rule", "input", "evaluation"]
+            : undefined;
     const lang =
       {
         prompty: "md",
@@ -708,8 +745,7 @@ export async function generateMarkdownReport(files: PromptPexContext) {
       ""
     );
 
-    if (lang === "csv") res.push(CSV.markdownify(CSV.parse(file.content)));
-    else if (file === files.baselineTests)
+    if (file === files.baselineTests)
       res.push(
         ...parseBaselineTests(file.content).flatMap((l) => [
           `${fence}txt`,
@@ -718,6 +754,8 @@ export async function generateMarkdownReport(files: PromptPexContext) {
           "",
         ])
       );
+    else if (lang === "csv")
+      res.push(CSV.markdownify(CSV.parse(file.content), { headers }));
     else {
       let content = file.content;
       if (file === files.rules) content = addLineNumbers(content, 1);
@@ -731,7 +769,7 @@ export async function generateMarkdownReport(files: PromptPexContext) {
     if (typeof file === "object" && file.filename && file.content)
       appendFile(file as WorkspaceFile);
 
-  return res.join("\n");
+  return res.filter((l) => l !== undefined).join("\n");
 }
 
 export async function generateReports(files: PromptPexContext) {
@@ -806,7 +844,7 @@ export async function generate(
     files.inverseRules.content = undefined;
     files.tests.content = undefined;
     files.testResults.content = undefined;
-    files.testEvals.content = undefined;
+    files.testCoverageEvals.content = undefined;
   }
 
   // generate inverse rules
@@ -818,14 +856,14 @@ export async function generate(
     );
     files.tests.content = undefined;
     files.testResults.content = undefined;
-    files.testEvals.content = undefined;
+    files.testCoverageEvals.content = undefined;
   }
 
   // generate tests
   if (!files.tests.content || force || forceTests) {
     files.tests.content = await generateTests(files);
     await workspace.writeText(files.tests.filename, files.tests.content);
-    files.testEvals.content = undefined;
+    files.testCoverageEvals.content = undefined;
   }
 
   if (models?.length) {
@@ -840,13 +878,13 @@ export async function generate(
   }
 
   // test exhaustiveness
-  if (!files.testEvals.content || force || forceTestEvals) {
-    files.testEvals.content = await evaluateTestsCoverage(files, {
+  if (!files.testCoverageEvals.content || force || forceTestEvals) {
+    files.testCoverageEvals.content = await evaluateTestsCoverage(files, {
       force: force || forceTestEvals,
     });
     await workspace.writeText(
-      files.testEvals.filename,
-      files.testEvals.content
+      files.testCoverageEvals.filename,
+      files.testCoverageEvals.content
     );
   }
 
