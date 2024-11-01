@@ -35,6 +35,7 @@ export interface PromptPexTestResult {
   ruleid: number;
   rule: string;
   inverse?: boolean;
+  baseline?: boolean;
   model: string;
   input: string;
   output: string;
@@ -214,7 +215,7 @@ export async function generateBaselineTests(
   options?: { num?: number }
 ): Promise<PromptPexTest[]> {
   const tests = parseRulesTests(files);
-  const { num = tests.length} = options || {};
+  const { num = tests.length } = options || {};
   const context = MD.content(files.prompt.content);
   const res = await runPrompt(
     (ctx) => {
@@ -361,7 +362,9 @@ async function resolveTestPath(
     files.dir,
     model
       .replace(/^[^:]+:/g, "")
-      .replace(/:/g, "_")
+      .replace(/[^a-z0-9\.]/g, "_")
+      .replace(/_+/g, "_")
+      .replace(/^_+|_+$/g, "")
       .toLowerCase()
   );
   const file = await workspace.readText(path.join(dir, `${id}.json`));
@@ -429,6 +432,7 @@ export async function runTest(
     const res = parsers.JSON5(file);
     if (res && !res.error) {
       updateTestResultCompliant(res);
+      res.baseline = test.baseline;
       return res;
     }
   }
@@ -440,6 +444,7 @@ export async function runTest(
       id,
       promptid,
       ...rule,
+      baseline: test.baseline,
       model: "",
       error: "invalid test input",
       input: testInput,
@@ -463,6 +468,7 @@ export async function runTest(
     id,
     promptid,
     ...rule,
+    baseline: test.baseline,
     model: res.model,
     error: res.error?.message,
     input: testInput,
