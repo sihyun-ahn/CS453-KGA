@@ -1,7 +1,7 @@
 const CONCURRENCY = 2;
 const RULES_NUM = 0;
 const TESTS_NUM = 3;
-const TEST_COVERAGE_DIR = "coverage";
+const TEST_EVALUATION_DIR = "tests_eval";
 
 /**
  * In memory cache of various files involved with promptpex test generation
@@ -52,7 +52,8 @@ export interface PromptPexTestEval {
   rule: string;
   inverse?: boolean;
   input: string;
-  evaluation: string;
+  coverage?: string;
+  validity?: string;
   error?: string;
 }
 
@@ -315,6 +316,7 @@ export async function runTests(
     | "inverseRules"
     | "intent"
     | "baselineTests"
+    | "inputSpec"
   >,
   options?: { models?: ModelType[]; force?: boolean; q?: PromiseQueue }
 ): Promise<string> {
@@ -327,7 +329,7 @@ export async function runTests(
   console.log(`executing ${tests.length} tests with ${models.length} models`);
   const testResults: PromptPexTestResult[] = [];
   for (const test of tests) {
-    await evaluateTestCoverage(files, test, { force });
+    await evaluateTestQuality(files, test, { force });
     for (const model of models) {
       const testRes = await runTest(files, test, { model, force });
       if (testRes) testResults.push(testRes);
@@ -377,7 +379,7 @@ async function resolveTestEvalPath(
 ) {
   const id = await resolveTestId(files, test);
   const promptid = await resolvePromptId(files);
-  const dir = path.join(files.dir, TEST_COVERAGE_DIR);
+  const dir = path.join(files.dir, TEST_EVALUATION_DIR);
   const file = await workspace.readText(path.join(dir, `${id}.json`));
   return { id, promptid, file };
 }
@@ -486,7 +488,7 @@ export async function runTest(
   return testRes;
 }
 
-export async function evaluateTestsCoverage(
+export async function evaluateTestsQuality(
   files: Pick<
     PromptPexContext,
     | "tests"
@@ -497,6 +499,7 @@ export async function evaluateTestsCoverage(
     | "rules"
     | "inverseRules"
     | "baselineTests"
+    | "inputSpec"
   >,
   options?: { force?: boolean }
 ): Promise<string> {
@@ -504,19 +507,19 @@ export async function evaluateTestsCoverage(
   const tests = parseRulesTests(files);
   if (!tests?.length) throw new Error("No tests found");
 
-  console.log(`evaluating coverage of ${tests.length} tests`);
+  console.log(`evaluating quality of ${tests.length} tests`);
   const testEvals: PromptPexTestEval[] = [];
   for (const test of tests) {
-    const testEval = await evaluateTestCoverage(files, test, { force });
+    const testEval = await evaluateTestQuality(files, test, { force });
     if (testEval) testEvals.push(testEval);
   }
   return CSV.stringify(testEvals, { header: true });
 }
 
-export async function evaluateTestCoverage(
+export async function evaluateTestQuality(
   files: Pick<
     PromptPexContext,
-    "prompt" | "rules" | "intent" | "dir" | "inverseRules"
+    "prompt" | "rules" | "intent" | "dir" | "inverseRules" | "inputSpec"
   >,
   test: PromptPexTest,
   options?: { force?: boolean }
@@ -548,11 +551,10 @@ export async function evaluateTestCoverage(
       promptid,
       ...rule,
       input: testInput,
-      evaluation: "",
       error: "invalid test input",
     } satisfies PromptPexTestEval;
 
-  const res = await runPrompt(
+  const resCoverage = await runPrompt(
     (ctx) => {
       ctx.importTemplate("src/prompts/evaluate_test_coverage.prompty", {
         intent,
@@ -568,14 +570,29 @@ export async function evaluateTestCoverage(
       label: `evaluate coverage of test ${testInput.slice(0, 42)}...`,
     }
   );
+
+  const resValidity = await runPrompt((ctx) => {
+    ctx.importTemplate(
+      "src/prompts/check_violation_with_system_prompt.prompty",
+      {
+        input_spec: files.inputSpec.content,
+        test: test.testinput,
+      }
+    );
+  });
+
+  const error = [resCoverage.error?.message, resValidity?.error?.message]
+    .filter((s) => !!s)
+    .join(" ");
   const testEval = {
     id,
     promptid,
-    model: res.model,
+    model: resCoverage.model,
     ...rule,
     input: testInput,
-    evaluation: res.text,
-    error: res.error?.message,
+    coverage: resCoverage.text,
+    validity: resValidity.text,
+    error: error || undefined,
   } satisfies PromptPexTestEval;
 
   await workspace.writeText(file.filename, JSON.stringify(testEval, null, 2));
@@ -766,6 +783,9 @@ export async function generateMarkdownReport(files: PromptPexContext) {
         ["promptpex compliant"]: results.filter(
           (tr) => tr.rule && tr.compliance === "ok"
         ).length,
+        ["promptpex positive compliant"]: results.filter(
+          (tr) => tr.rule && !tr.inverse && tr.compliance === "ok"
+        ).length,
       }))
     )
   );
@@ -919,7 +939,7 @@ export async function generate(
 
   // test exhaustiveness
   if (!files.testCoverageEvals.content || force || forceTestEvals) {
-    files.testCoverageEvals.content = await evaluateTestsCoverage(files, {
+    files.testCoverageEvals.content = await evaluateTestsQuality(files, {
       force: force || forceTestEvals,
     });
     await workspace.writeText(
