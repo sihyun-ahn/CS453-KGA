@@ -571,15 +571,21 @@ export async function evaluateTestQuality(
     }
   );
 
-  const resValidity = await runPrompt((ctx) => {
-    ctx.importTemplate(
-      "src/prompts/check_violation_with_system_prompt.prompty",
-      {
-        input_spec: files.inputSpec.content,
-        test: test.testinput,
-      }
-    );
-  });
+  const resValidity = await runPrompt(
+    (ctx) => {
+      ctx.importTemplate(
+        "src/prompts/check_violation_with_system_prompt.prompty",
+        {
+          input_spec: files.inputSpec.content,
+          test: test.testinput,
+        }
+      );
+    },
+    {
+      ...moptions,
+      label: `evaluate validity of test ${testInput.slice(0, 42)}...`,
+    }
+  );
 
   const error = [resCoverage.error?.message, resValidity?.error?.message]
     .filter((s) => !!s)
