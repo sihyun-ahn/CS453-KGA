@@ -713,6 +713,8 @@ export async function generateJSONReport(files: PromptPexContext) {
   const allRules = parseAllRules(files);
   const rulesTests = parseRulesTests(files);
   const baseLineTests = parseBaselineTests(files.baselineTests.content);
+  const testEvals = parseTestEvals(files);
+  const testResults = parseTestResults(files);
   if (files.tests.content && !rulesTests.length) {
     console.warn(`failed to parse tests in ${files.tests.filename}`);
     errors.push(`failed to parse tests in ${files.tests.filename}`);
@@ -737,6 +739,8 @@ export async function generateJSONReport(files: PromptPexContext) {
     rules,
     inverseRules,
     tests,
+    testEvals,
+    testResults,
     errors: errors.length ? errors : undefined,
   };
 }
@@ -755,7 +759,6 @@ export async function generateMarkdownReport(files: PromptPexContext) {
   ];
   const rules = parseRules(files.rules.content);
   const inverseRules = parseRules(files.inverseRules.content);
-  const testEvals = parseTestEvals(files);
   const testResults = parseTestResults(files);
   const ts = testResults.length;
   const oks = testResults.filter((t) => t.compliance === "ok").length;
