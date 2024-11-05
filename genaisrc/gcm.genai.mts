@@ -44,7 +44,7 @@ Please generate a concise, one-line commit message for these changes.
 - do NOT add quotes
 ` // TODO: add a better prompt
         },
-        { cache: false, temperature: 0.8 }
+        { label: "generate commit message", cache: false, temperature: 0.8 }
     )
     if (res.error) throw res.error
 
