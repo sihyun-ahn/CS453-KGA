@@ -1,0 +1,20 @@
+---
+name: Evaluate Test Coverage
+inputs:
+    intent:
+        type: string
+    rules:
+        type: string
+    testInput:
+        type: string
+---
+system:
+Task:
+{{intent}}
+
+Rules:
+{{rules}}
+
+user:
+Input:
+{{testInput}}

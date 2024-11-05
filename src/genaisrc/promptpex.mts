@@ -554,20 +554,14 @@ export async function evaluateTestCoverage(
 
   const res = await runPrompt(
     (ctx) => {
-      ctx.writeText(
-        `Task:
-${intent}
-
-Rules:
-${allRules
-  .filter((r) => !r.inverse)
-  .map((r) => r.rule)
-  .join("\n")}`,
-        { role: "system" }
-      );
-      ctx.$`Input:
-      ${testInput}
-      `;
+      ctx.importTemplate("src/prompts/evaluate_test_coverage.prompty", {
+        intent,
+        rules: allRules
+          .filter((r) => !r.inverse)
+          .map((r) => r.rule)
+          .join("\n"),
+        testInput,
+      });
     },
     {
       ...moptions,
