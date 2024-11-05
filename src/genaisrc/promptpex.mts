@@ -556,38 +556,39 @@ export async function evaluateTestQuality(
       error: "invalid test input",
     } satisfies PromptPexTestEval;
 
-  const resCoverage = await runPrompt(
-    (ctx) => {
-      ctx.importTemplate("src/prompts/evaluate_test_coverage.prompty", {
-        intent,
-        rules: allRules
-          .filter((r) => !r.inverse)
-          .map((r) => r.rule)
-          .join("\n"),
-        testInput,
-      });
-    },
-    {
-      ...moptions,
-      label: `evaluate coverage of test ${testInput.slice(0, 42)}...`,
-    }
-  );
-
-  const resValidity = await runPrompt(
-    (ctx) => {
-      ctx.importTemplate(
-        "src/prompts/check_violation_with_input_spec.prompty",
-        {
-          input_spec: inputSpec,
-          test: testInput,
-        }
-      );
-    },
-    {
-      ...moptions,
-      label: `evaluate validity of test ${testInput.slice(0, 42)}...`,
-    }
-  );
+  const [resCoverage, resValidity] = await Promise.all([
+    runPrompt(
+      (ctx) => {
+        ctx.importTemplate("src/prompts/evaluate_test_coverage.prompty", {
+          intent,
+          rules: allRules
+            .filter((r) => !r.inverse)
+            .map((r) => r.rule)
+            .join("\n"),
+          testInput,
+        });
+      },
+      {
+        ...moptions,
+        label: `evaluate coverage of test ${testInput.slice(0, 42)}...`,
+      }
+    ),
+    runPrompt(
+      (ctx) => {
+        ctx.importTemplate(
+          "src/prompts/check_violation_with_input_spec.prompty",
+          {
+            input_spec: inputSpec,
+            test: testInput,
+          }
+        );
+      },
+      {
+        ...moptions,
+        label: `evaluate validity of test ${testInput.slice(0, 42)}...`,
+      }
+    ),
+  ]);
 
   const error = [resCoverage.error?.message, resValidity?.error?.message]
     .filter((s) => !!s)
