@@ -537,6 +537,8 @@ export async function evaluateTestQuality(
 
   const intent = files.intent.content;
   if (!intent) throw new Error("No intent found");
+  const inputSpec = files.inputSpec.content;
+  if (!inputSpec) throw new Error("No input spec found");
   const allRules = parseAllRules(files);
   if (!allRules) throw new Error("No rules found");
 
@@ -571,13 +573,17 @@ export async function evaluateTestQuality(
     }
   );
 
+  console.log({
+    input_spec: inputSpec,
+    test: testInput,
+  });
   const resValidity = await runPrompt(
     (ctx) => {
       ctx.importTemplate(
-        "src/prompts/check_violation_with_system_prompt.prompty",
+        "src/prompts/check_violation_with_input_spec.prompty",
         {
-          input_spec: files.inputSpec.content,
-          test: test.testinput,
+          input_spec: inputSpec,
+          test: testInput,
         }
       );
     },
