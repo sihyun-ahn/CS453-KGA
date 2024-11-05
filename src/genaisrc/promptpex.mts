@@ -573,10 +573,6 @@ export async function evaluateTestQuality(
     }
   );
 
-  console.log({
-    input_spec: inputSpec,
-    test: testInput,
-  });
   const resValidity = await runPrompt(
     (ctx) => {
       ctx.importTemplate(
