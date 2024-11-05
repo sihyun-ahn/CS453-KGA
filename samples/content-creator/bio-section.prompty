@@ -3,5 +3,10 @@ name: "Github Bio Section Generator"
 description: "Generate a Github bio section based on user's skills and interests"
 source: Prompty samples from repository
 url: https://aminblm.github.io/awesome-chatgpt-content-creation-prompts/#act-as-a-content-creation-prompt-generator 
+inputs:
+    keywords:
+        type: "string"
 ---
 I want you to act as a Github bio section generator, providing me with unique, original, funny and compelling bio for my Github profile. I will give you a list of keywords and phrases that describe my skills and experience. Please generate a bio that is professional and highlights my strengths, while also being engaging and easy to read. Keep in mind that this bio will be used as part of my Github profile, so it should be concise and to the point. Give me three different 15-30 words bio options for my Github profile, my interests are: ChatGPT, Content Creation, Automation, Web Development. (Give me bio only)
+user:
+{{keywords}}

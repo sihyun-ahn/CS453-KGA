@@ -393,12 +393,16 @@ function resolvePromptArgs(
   const args: Record<string, any> = {};
   if (inputKeys.length === 1) args[inputKeys[0]] = testInput;
   else if (inputKeys.length > 1) {
+    // not supported yet
+    throw new Error("multiple inputs not supported yet");
+    /*
     const testInputArgs =
       parsers.INI(testInput) ||
       parsers.YAML(testInput) ||
       parsers.JSON5(testInput);
     if (!testInputArgs) return undefined;
     for (const key of inputKeys) args[key] = testInputArgs[key];
+    */
   }
   return { inputs, args, testInput, expectedOutput };
 }

@@ -4,13 +4,10 @@ description: Determine the part of speech for a given word
 source: "modified from 'SAMMO: A general-purpose framework for prompt optimization'"
 url: https://www.microsoft.com/en-us/research/uploads/prod/2024/04/Prompts-As-Programs_A-Structure-Aware-Approach.pdf
 inputs:
-    sentence:
-        type: "string"
-    word:
-        type: "string"
+    sentenceword:
+        type: string
 sample:
-    sentence: "The quick brown fox jumps over the lazy dog."
-    word: "jumps"
+    sentenceword: "The quick brown fox jumps over the lazy dog.; jumps"
 ---
 system:
 In this task, you will be presented with a sentence and a word contained
@@ -31,4 +28,4 @@ TO: to, UH: Interjection, VB: Verb, base form, VBD: Verb, past tense, VBG: Verb,
 past participle, VBP: Verb, non-3rd person singular present, VBZ: Verb, 3rd person singular present, WDT: Wh-determiner, WP:
 Wh-pronoun, WP$: Possessive wh-pronoun, WRB: Wh-adverb
 user:
-{{sentence}}; {{word}}
+{{sentenceword}}
