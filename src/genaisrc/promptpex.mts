@@ -79,7 +79,7 @@ export async function loadPromptFiles(
   const rules = path.join(dir, "rules.txt");
   const inverseRules = path.join(dir, "inverse_rules.txt");
   const inputSpec = path.join(dir, "input_spec.txt");
-  const baselineTests = path.join(dir, "baseline_tests.csv");
+  const baselineTests = path.join(dir, "baseline_tests.txt");
   const tests = path.join(dir, "tests.csv");
   const testResults = path.join(dir, "test_results.csv");
   const testCoverageEvals = path.join(dir, "test_coverage.csv");
@@ -214,7 +214,7 @@ export async function generateInverseRules(
 export async function generateBaselineTests(
   files: Pick<PromptPexContext, "prompt" | "tests" | "baselineTests">,
   options?: { num?: number }
-): Promise<PromptPexTest[]> {
+): Promise<string> {
   const tests = parseRulesTests(files);
   const { num = tests.length } = options || {};
   const context = MD.content(files.prompt.content);
@@ -231,15 +231,7 @@ export async function generateBaselineTests(
     }
   );
   checkLLMResponse(res);
-
-  const bt = parsers
-    .unfence(res.text, "")
-    .split(/\s+===\s+/g)
-    .map((l) => l.trim().replace(/^#+ test case \d+:?$/gim, ""))
-    .filter((l) => !!l)
-    .map((l) => ({ testinput: l, baseline: true }) satisfies PromptPexTest);
-
-  return bt;
+  return res.text;
 }
 
 export async function generateTests(
@@ -322,7 +314,7 @@ export async function runTests(
 ): Promise<string> {
   const { force, models } = options || {};
   const rulesTests = parseRulesTests(files);
-  const baselineTests = parseBaselineTests(files.baselineTests.content);
+  const baselineTests = parseBaselineTests(files);
   const tests = [...rulesTests, ...baselineTests];
   if (!tests?.length) throw new Error("No tests found");
 
@@ -637,10 +629,16 @@ function parseTestResults(
   }) as PromptPexTestResult[];
 }
 
-function parseBaselineTests(tests: string): PromptPexTest[] {
-  const res = CSV.parse(tests, { delimiter: "," }) as PromptPexTest[];
-  for (const t of res) t.baseline = true;
-  return res;
+function parseBaselineTests(
+  files: Pick<PromptPexContext, "baselineTests">
+): PromptPexTest[] {
+  const tests = parsers
+    .unfence(files.baselineTests.content, "")
+    .split(/\s*===\s*/g)
+    .map((l) => l.trim().replace(/^#+ test case \d+:?$/gim, ""))
+    .filter((l) => !!l)
+    .map((l) => ({ testinput: l, baseline: true }) satisfies PromptPexTest);
+  return tests;
 }
 
 function parseTestEvals(files: Pick<PromptPexContext, "testCoverageEvals">) {
@@ -712,7 +710,7 @@ export async function generateJSONReport(files: PromptPexContext) {
   const inverseRules = parseRules(files.inverseRules.content);
   const allRules = parseAllRules(files);
   const rulesTests = parseRulesTests(files);
-  const baseLineTests = parseBaselineTests(files.baselineTests.content);
+  const baseLineTests = parseBaselineTests(files);
   const testEvals = parseTestEvals(files);
   const testResults = parseTestResults(files);
   if (files.tests.content && !rulesTests.length) {
@@ -753,10 +751,7 @@ function addLineNumbers(text: string, start: number) {
 }
 
 export async function generateMarkdownReport(files: PromptPexContext) {
-  const tests = [
-    ...parseRulesTests(files),
-    ...parseBaselineTests(files.baselineTests.content),
-  ];
+  const tests = [...parseRulesTests(files), ...parseBaselineTests(files)];
   const rules = parseRules(files.rules.content);
   const inverseRules = parseRules(files.inverseRules.content);
   const testResults = parseTestResults(files);
@@ -935,10 +930,7 @@ export async function generate(
 
   // generate baseline tests
   if (!files.baselineTests.content || force || forceBaselineTests) {
-    files.baselineTests.content = CSV.stringify(
-      await generateBaselineTests(files),
-      { header: true }
-    );
+    files.baselineTests.content = await generateBaselineTests(files);
     await workspace.writeText(
       files.baselineTests.filename,
       files.baselineTests.content
