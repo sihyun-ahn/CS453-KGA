@@ -781,7 +781,13 @@ export async function generateMarkdownReport(files: PromptPexContext) {
     ``,
   ];
 
-  res.push("### Compliance per model", "");
+
+  res.push("### Overview", "");
+  res.push(`
+
+  TODO: explain how to read the table.
+
+  `)
   res.push(
   // Three more same columns with the same data but only for valid tests 
     CSV.markdownify(
