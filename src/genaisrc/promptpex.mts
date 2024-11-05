@@ -788,6 +788,7 @@ export async function generateMarkdownReport(files: PromptPexContext) {
 
   res.push("### Compliance per model", "");
   res.push(
+  // Three more same columns with the same data but only for valid tests 
     CSV.markdownify(
       Object.entries(testResultsPerModels).map(([model, results]) => ({
         model,
