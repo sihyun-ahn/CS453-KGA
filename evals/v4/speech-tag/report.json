@@ -1,0 +1,425 @@
+{
+  "prompt": "---\nname: Speech Tag\ndescription: Determine the part of speech for a given word\nsource: \"modified from 'SAMMO: A general-purpose framework for prompt optimization'\"\nurl: https://www.microsoft.com/en-us/research/uploads/prod/2024/04/Prompts-As-Programs_A-Structure-Aware-Approach.pdf\ninputs:\n    sentenceword:\n        type: string\nsample:\n    sentenceword: \"The quick brown fox jumps over the lazy dog.; jumps\"\n---\nsystem:\nIn this task, you will be presented with a sentence and a word contained\nin that sentence. You have to determine the part of speech for a given word\nand return just the tag for the word's part of speech. \n\nReturn only the part of speech tag.  If the word cannot be tagged with\nthe listed tags, return Unknown.  If you are unable to tag the word, return\nCantAnswer.\n\nHere is the\nAlphabetical list of part-of-speech tags used in this task: CC: Coordinating conjunction, CD: Cardinal number, DT:\nDeterminer, EX: Existential there, FW: Foreign word, IN: Preposition or subordinating conjunction, JJ: Adjective, JJR:\nAdjective, comparative, JJS: Adjective, superlative, LS: List item marker, MD: Modal, NN: Noun, singular or mass, NNS: Noun,\nplural, NNP: Proper noun, singular, NNPS: Proper noun, plural, PDT: Predeterminer, POS: Possessive ending, PRP: Personal\npronoun, PRP$: Possessive pronoun, RB: Adverb, RBR: Adverb, comparative, RBS: Adverb, superlative, RP: Particle, SYM: Symbol,\nTO: to, UH: Interjection, VB: Verb, base form, VBD: Verb, past tense, VBG: Verb, gerund or present participle, VBN: Verb,\npast participle, VBP: Verb, non-3rd person singular present, VBZ: Verb, 3rd person singular present, WDT: Wh-determiner, WP:\nWh-pronoun, WP$: Possessive wh-pronoun, WRB: Wh-adverb\nuser:\n{{sentenceword}}",
+  "inputSpec": "The input must contain a complete sentence.  \nThe input must include a single specified word from the sentence for analysis.  ",
+  "rules": [
+    "The output should be a single word representing the part of speech tag from the provided list.",
+    "The output must only include the part of speech tag without any additional text or explanation.",
+    "If the provided word does not fit any of the listed part of speech tags, the output should be \"Unknown\".",
+    "If the chatbot is unable to determine the part of speech for the given word for any reason, the output should be \"CantAnswer\".",
+    "All part of speech tags utilized in the output must be from the specified alphabetical list provided."
+  ],
+  "inverseRules": [
+    "The output should include multiple words representing part of speech tags that are not from the provided list.",
+    "The output must contain additional text or explanations along with the part of speech tag.",
+    "If the provided word does not fit any of the listed part of speech tags, the output should be a known category.",
+    "If the chatbot is able to determine the part of speech for the given word for any reason, the output should be \"CanAnswer\".",
+    "All part of speech tags utilized in the output must be from a non-specified list."
+  ],
+  "tests": [
+    {
+      "ruleid": "1",
+      "rule": "The output should be a single word representing the part of speech tag from the provided list.",
+      "testid": "1",
+      "testinput": "sentence: The quick brown fox jumps over the lazy dog. word: jumps",
+      "expectedoutput": "VBZ",
+      "reasoning": "Tests whether the system correctly identifies a third-person singular verb from the input and outputs the correct tag."
+    },
+    {
+      "ruleid": "1",
+      "rule": "The output should be a single word representing the part of speech tag from the provided list.",
+      "testid": "2",
+      "testinput": "sentence: An apple a day keeps the doctor away. word: apple",
+      "expectedoutput": "NN",
+      "reasoning": "Ensures that the software correctly returns the part of speech tag for a noun, adhering to the specified output format."
+    },
+    {
+      "ruleid": "1",
+      "rule": "The output should be a single word representing the part of speech tag from the provided list.",
+      "testid": "3",
+      "testinput": "sentence: She sells seashells by the seashore. word: seashells",
+      "expectedoutput": "NNS",
+      "reasoning": "Verifies that the system outputs the correct tag for a plural noun, following the rule of a single-word output."
+    },
+    {
+      "ruleid": "2",
+      "rule": "The output must only include the part of speech tag without any additional text or explanation.",
+      "testid": "1",
+      "testinput": "sentence: Can you solve the puzzle? word: solve",
+      "expectedoutput": "VB",
+      "reasoning": "Confirms that the output consists only of the tag, without additional text, matching the part of speech of the verb 'solve'."
+    },
+    {
+      "ruleid": "2",
+      "rule": "The output must only include the part of speech tag without any additional text or explanation.",
+      "testid": "2",
+      "testinput": "sentence: What is your name? word: your",
+      "expectedoutput": "PRP$",
+      "reasoning": "Checks that the output is provided without any extra explanation, focusing solely on the possessive pronoun tag of 'your'."
+    },
+    {
+      "ruleid": "2",
+      "rule": "The output must only include the part of speech tag without any additional text or explanation.",
+      "testid": "3",
+      "testinput": "sentence: What time is it? word: time",
+      "expectedoutput": "NN",
+      "reasoning": "Ensures the system outputs just the noun tag for 'time' with no supplementary information, respecting the output format."
+    },
+    {
+      "ruleid": "3",
+      "rule": "If the provided word does not fit any of the listed part of speech tags, the output should be \"Unknown\".",
+      "testid": "1",
+      "testinput": "sentence: She enjoys piña coladas. word: piña",
+      "expectedoutput": "Unknown",
+      "reasoning": "Tests the system's capability to handle foreign words not fitting any specified part of speech tag and return 'Unknown'."
+    },
+    {
+      "ruleid": "3",
+      "rule": "If the provided word does not fit any of the listed part of speech tags, the output should be \"Unknown\".",
+      "testid": "2",
+      "testinput": "sentence: The new dance move is all the rage. word: rage",
+      "expectedoutput": "Unknown",
+      "reasoning": "Verifies that a word like 'rage', which might not fit a standard tag, prompts the correct 'Unknown' output."
+    },
+    {
+      "ruleid": "3",
+      "rule": "If the provided word does not fit any of the listed part of speech tags, the output should be \"Unknown\".",
+      "testid": "3",
+      "testinput": "sentence: He played the bamboozle perfectly. word: bamboozle",
+      "expectedoutput": "Unknown",
+      "reasoning": "Checks if a rare or context-specific word is tagged as 'Unknown' when it doesn't align with any known tag."
+    },
+    {
+      "ruleid": "4",
+      "rule": "If the chatbot is unable to determine the part of speech for the given word for any reason, the output should be \"CantAnswer\".",
+      "testid": "1",
+      "testinput": "sentence: She said something indistinctly. word: indistinctly",
+      "expectedoutput": "CantAnswer",
+      "reasoning": "Tests if the system correctly identifies when it cannot determine the part of speech, triggering a 'CantAnswer' response."
+    },
+    {
+      "ruleid": "4",
+      "rule": "If the chatbot is unable to determine the part of speech for the given word for any reason, the output should be \"CantAnswer\".",
+      "testid": "2",
+      "testinput": "sentence: Bring the zynoid closer. word: zynoid",
+      "expectedoutput": "CantAnswer",
+      "reasoning": "Evaluates the system's ability to declare 'CantAnswer' when the word seems fictional or untaggable."
+    },
+    {
+      "ruleid": "4",
+      "rule": "If the chatbot is unable to determine the part of speech for the given word for any reason, the output should be \"CantAnswer\".",
+      "testid": "3",
+      "testinput": "sentence: John inquired about quoggard. word: quoggard",
+      "expectedoutput": "CantAnswer",
+      "reasoning": "Checks for the system's response when encountering an unrecognizable or nonsensical word."
+    },
+    {
+      "ruleid": "5",
+      "rule": "All part of speech tags utilized in the output must be from the specified alphabetical list provided.",
+      "testid": "1",
+      "testinput": "sentence: Look at history's impact. word: history's",
+      "expectedoutput": "POS",
+      "reasoning": "Challenges the software to use tags strictly from the specified list, detecting possessive endings correctly."
+    },
+    {
+      "ruleid": "5",
+      "rule": "All part of speech tags utilized in the output must be from the specified alphabetical list provided.",
+      "testid": "2",
+      "testinput": "sentence: Her achievements were awe-inspiring. word: awe-inspiring",
+      "expectedoutput": "JJ",
+      "reasoning": "Ensures the use of only listed tags, where 'awe-inspiring' is tested for its adjective form without deviation."
+    },
+    {
+      "ruleid": "5",
+      "rule": "All part of speech tags utilized in the output must be from the specified alphabetical list provided.",
+      "testid": "3",
+      "testinput": "sentence: The concert was incredible. word: incredible",
+      "expectedoutput": "JJ",
+      "reasoning": "Verifies consistent tagging using specified tags, in this case for an adjective."
+    },
+    {
+      "ruleid": "6",
+      "rule": "The output should include multiple words representing part of speech tags that are not from the provided list.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "sentence: Look at the beautiful scenery. word: scenery",
+      "expectedoutput": "LN, Noun Phrase",
+      "reasoning": "Tests an incorrectly constructed rule requiring multiple words not from the provided list."
+    },
+    {
+      "ruleid": "6",
+      "rule": "The output should include multiple words representing part of speech tags that are not from the provided list.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "sentence: His work is truly ground-breaking. word: ground-breaking",
+      "expectedoutput": "ADJ, Compoun",
+      "reasoning": "Validates a failure scenario by using tags not specified and including multiple tags."
+    },
+    {
+      "ruleid": "6",
+      "rule": "The output should include multiple words representing part of speech tags that are not from the provided list.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "sentence: The code failed gracefully. word: gracefully",
+      "expectedoutput": "Adv, Modifier",
+      "reasoning": "Checks a scenario with multiple unlisted tags breaching specified tag rule."
+    },
+    {
+      "ruleid": "7",
+      "rule": "The output must contain additional text or explanations along with the part of speech tag.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "sentence: The cat purred softly, word: purred",
+      "expectedoutput": "VBD, as in past tense verb",
+      "reasoning": "Ensures output is just the tag without extra explanation, which is incorrect according to the rule."
+    },
+    {
+      "ruleid": "7",
+      "rule": "The output must contain additional text or explanations along with the part of speech tag.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "sentence: Everything is magnificent, word: magnificent",
+      "expectedoutput": "JJ, adjective",
+      "reasoning": "Tests whether extraneous text follows the tag, against expectaions for pure output."
+    },
+    {
+      "ruleid": "7",
+      "rule": "The output must contain additional text or explanations along with the part of speech tag.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "sentence: He made a quick decision. word: quick",
+      "expectedoutput": "JJ, a type of adjective",
+      "reasoning": "Combats the additional explanations provided along with tag, undesired in output."
+    },
+    {
+      "ruleid": "8",
+      "rule": "If the provided word does not fit any of the listed part of speech tags, the output should be a known category.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "sentence: Curiosity killed the kraflan. word: kraflan",
+      "expectedoutput": "Error Category",
+      "reasoning": "Force system test to use an alternative known category instead of listed tags."
+    },
+    {
+      "ruleid": "8",
+      "rule": "If the provided word does not fit any of the listed part of speech tags, the output should be a known category.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "sentence: The lodester was unexpected. word: lodester",
+      "expectedoutput": "Miscellaneous",
+      "reasoning": "Reacts to system detour specifying known categorial tag alternative."
+    },
+    {
+      "ruleid": "8",
+      "rule": "If the provided word does not fit any of the listed part of speech tags, the output should be a known category.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "sentence: Engage with folks in a plifdom manner. word: plifdom",
+      "expectedoutput": "General",
+      "reasoning": "Confirms an edge case by guiding the non-confirming tag into a generic category."
+    },
+    {
+      "ruleid": "9",
+      "rule": "If the chatbot is able to determine the part of speech for the given word for any reason, the output should be \"CanAnswer\".",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "sentence: Mastering chess takes time. word: chess",
+      "expectedoutput": "CanAnswer",
+      "reasoning": "Conflict scenario where instead of part-of-speech tag, 'CanAnswer' should appear."
+    },
+    {
+      "ruleid": "9",
+      "rule": "If the chatbot is able to determine the part of speech for the given word for any reason, the output should be \"CanAnswer\".",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "sentence: The rain calmed everyone. word: calmed",
+      "expectedoutput": "CanAnswer",
+      "reasoning": "Software response contradicts intention by asserting 'CanAnswer' instead of specific tag."
+    },
+    {
+      "ruleid": "9",
+      "rule": "If the chatbot is able to determine the part of speech for the given word for any reason, the output should be \"CanAnswer\".",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "sentence: Analyze the zebrafish model. word: zebrafish",
+      "expectedoutput": "CanAnswer",
+      "reasoning": "Explores conversion to 'CanAnswer' where misalignment prompts misaction."
+    },
+    {
+      "ruleid": "10",
+      "rule": "All part of speech tags utilized in the output must be from a non-specified list.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "sentence: They cross the river quickly. word: quickly",
+      "expectedoutput": "Unspecified-Adv",
+      "reasoning": "Test specificity breach by supplying unfamiliar output tags."
+    },
+    {
+      "ruleid": "10",
+      "rule": "All part of speech tags utilized in the output must be from a non-specified list.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "sentence: A turquoise horizon extended. word: turquoise",
+      "expectedoutput": "Unique-Adj",
+      "reasoning": "Assesses deviation by initiating unspecified tag usage."
+    },
+    {
+      "ruleid": "10",
+      "rule": "All part of speech tags utilized in the output must be from a non-specified list.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "sentence: The farewell was bittersweet. word: bittersweet",
+      "expectedoutput": "Other-Desc",
+      "reasoning": "Examines tag provision through aberrant specified options."
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: \"The quick brown fox jumps over the lazy dog.\"  \nWord: \"fox\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: \"She sells sea shells by the sea shore.\"  \nWord: \"sells\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: \"I am reading a fascinating book.\"  \nWord: \"am\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: \"Unfortunately, we could not attend the meeting.\"  \nWord: \"Unfortunately\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: \"Despite the weather, they decided to go camping.\"  \nWord: \"Despite\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: \"This is the best pizza I've ever had!\"  \nWord: \"best\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: \"Where did you put the keys?\"  \nWord: \"Where\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: \"Look at those birds flying freely.\"  \nWord: \"those\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: \"My sister studies in France.\"  \nWord: \"France\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: \"Is there any milk left?\"  \nWord: \"there\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: \"He sings beautifully.\"  \nWord: \"beautifully\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: \"We must leave immediately.\"  \nWord: \"must\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: \"How many apples do you want?\"  \nWord: \"many\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: \"They had a wonderful vacation last year.\"  \nWord: \"vacation\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: \"She is taller than her brother.\"  \nWord: \"taller\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: \"The cat sat under the table.\"  \nWord: \"under\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: \"Please hand me that book.\"  \nWord: \"that\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: \"Ouch! That hurt.\"  \nWord: \"Ouch\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: \"Who will attend the conference?\"  \nWord: \"Who\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: \"She cannot find her glasses.\"  \nWord: \"her\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: \"They'll arrive at 8 PM.\"  \nWord: \"at\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: \"What are you doing tomorrow?\"  \nWord: \"doing\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: \"She moved to New York last year.\"  \nWord: \"New York\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: \"I have completed my project.\"  \nWord: \"completed\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: \"Despite the rain, we enjoyed the picnic.\"  \nWord: \"rain\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: \"Bring your umbrella, just in case.\"  \nWord: \"in case\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: \"He can drive a car.\"  \nWord: \"can\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: \"The baby's toys are scattered everywhere.\"  \nWord: \"baby's\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: \"Wow! That's incredible.\"  \nWord: \"Wow\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: \"I need to write a thank-you note.\"  \nWord: \"thank-you\"",
+      "baseline": true
+    }
+  ]
+}

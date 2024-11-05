@@ -94,8 +94,8 @@ export async function loadPromptFiles(
     rules: tidyRulesFile(await workspace.readText(rules)),
     inverseRules: tidyRulesFile(await workspace.readText(inverseRules)),
     tests: await workspace.readText(tests),
-    testResults: await workspace.readText(testResults),
     testCoverageEvals: await workspace.readText(testCoverageEvals),
+    testResults: await workspace.readText(testResults),
   } satisfies PromptPexContext;
 }
 
@@ -643,6 +643,12 @@ function parseBaselineTests(tests: string): PromptPexTest[] {
   return res;
 }
 
+function parseTestEvals(files: Pick<PromptPexContext, "testCoverageEvals">) {
+  return CSV.parse(files.testCoverageEvals.content, {
+    delimiter: ",",
+  }) as PromptPexTestEval[];
+}
+
 function parseAllRules(
   files: Pick<PromptPexContext, "rules" | "inverseRules">
 ): { rule: string; inverse?: boolean }[] {
@@ -749,6 +755,7 @@ export async function generateMarkdownReport(files: PromptPexContext) {
   ];
   const rules = parseRules(files.rules.content);
   const inverseRules = parseRules(files.inverseRules.content);
+  const testEvals = parseTestEvals(files);
   const testResults = parseTestResults(files);
   const ts = testResults.length;
   const oks = testResults.filter((t) => t.compliance === "ok").length;
@@ -771,7 +778,7 @@ export async function generateMarkdownReport(files: PromptPexContext) {
     ``,
     `- ${rules?.length ?? 0} rules`,
     `- ${inverseRules?.length ?? 0} inverse rules`,
-    `- ${tests?.length ?? 0} tests, ${tests.filter((t) => t.baseline).length} baseline tests`,
+    `- ${tests.length ?? 0} tests, ${tests.filter((t) => t.baseline).length} baseline tests`,
     `- ${testResults?.length ?? 0} test results, ${rp(oks, ts)} oks, ${rp(errs, ts)} errs`,
     ``,
   ];
@@ -807,8 +814,8 @@ export async function generateMarkdownReport(files: PromptPexContext) {
         ? ["rule", "model", "input", "output", "compliance"]
         : file === files.tests
           ? ["testinput", "expectedoutput", "reasoning"]
-          : file === files.testCoverageEvals
-            ? ["rule", "input", "evaluation"]
+          : file === files.baselineTests
+            ? ["testinput"]
             : undefined;
     const lang =
       {
