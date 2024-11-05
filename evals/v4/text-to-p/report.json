@@ -1,0 +1,333 @@
+{
+  "prompt": "---\nname: \"Text to P\"\ndescription: \"Wrap each sentence in a paragraph tag\"\nsource: \"GhostWriter: Augmenting Collaborative Human-AI Writing Experiences Through Personalization and Agency\"\nurl: https://arxiv.org/abs/2402.08855.\ninputs:\n    text:\n        type: \"string\"\n---\nsystem:\nYou are a web developer who is formatting a paragraph of text as HTML.\nFirst, please split the paragraph into individual sentences and wrap each sentence with a <p> tag.\n**Your answer should have at least three <p> tags.**\nThen, inside each <p> tag, add one <strong> tag and multiple <em> tags to emphasize key words and phrases.\nuser:\n{{text}}",
+  "inputSpec": "The input should be a single paragraph of text.  \nThe input paragraph must contain enough sentences to allow for at least three `<p>` tags after splitting.  \nThe input can include key words and phrases suitable for emphasis with `<strong>` and `<em>` tags.  \nThe input is expected to be textual and should not include non-text elements like images or videos.",
+  "rules": [
+    "The output must be a string of HTML formatted text.",
+    "The output must contain multiple sentences from the input text, each enclosed in separate <p> tags.",
+    "Each <p> tag in the output must contain at least one <strong> tag to emphasize a key word or phrase.",
+    "Each <p> tag in the output must contain multiple <em> tags to emphasize key words and phrases.",
+    "The output must include at least three <p> tags to meet the minimum requirement.",
+    "The content within the <strong> and <em> tags must be relevant key words and phrases from the input text."
+  ],
+  "inverseRules": [
+    "The output must not contain any HTML formatted text.",
+    "The output must not contain any sentences from the input text in <p> tags.",
+    "Each <p> tag in the output must not contain any <strong> tags.",
+    "Each <p> tag in the output must not contain any <em> tags.",
+    "The output must not include any <p> tags.",
+    "The content within the <strong> and <em> tags must not be relevant key words and phrases from the input text."
+  ],
+  "tests": [
+    {
+      "ruleid": "1",
+      "rule": "The output must be a string of HTML formatted text.",
+      "testid": "1",
+      "testinput": "The panda is native to China. It is known for its distinct black and white coloring. Pandas are popular animals worldwide.",
+      "expectedoutput": "<p>The panda is native to <strong>China</strong>. <em>It is known</em> for its distinct black and white <em>coloring</em>.</p><p>Pandas are <em>popular animals</em> <strong>worldwide</strong>.</p>",
+      "reasoning": "Tests if the output is correctly formatted as HTML with <p>, <strong>, and <em> tags. The software should output valid HTML."
+    },
+    {
+      "ruleid": "1",
+      "rule": "The output must be a string of HTML formatted text.",
+      "testid": "2",
+      "testinput": "HTML formatting allows for structured document layout. This is useful for web developers. HTML is used widely across the internet.",
+      "expectedoutput": "<p>HTML <em>formatting allows for</em> <strong>structured document layout</strong>.</p><p>This is <strong>useful</strong> for <em>web developers</em>.</p><p>HTML is used <em>widely</em> <strong>across the internet</strong>.</p>",
+      "reasoning": "Ensures multiple sentences are properly wrapped in HTML tags, confirming valid HTML output."
+    },
+    {
+      "ruleid": "1",
+      "rule": "The output must be a string of HTML formatted text.",
+      "testid": "3",
+      "testinput": "Digital transformations are crucial. They improve efficiency and reach. Businesses invest heavily in digital solutions.",
+      "expectedoutput": "<p>Digital <em>transformations are</em> <strong>crucial</strong>.</p><p>They <em>improve efficiency</em> and reach.</p><p>Businesses <strong>invest</strong> heavily in <em>digital solutions</em>.</p>",
+      "reasoning": "Validates the expected HTML output structure by stressing proper HTML wrapping and hierarchy."
+    },
+    {
+      "ruleid": "2",
+      "rule": "The output must contain multiple sentences from the input text, each enclosed in separate <p> tags.",
+      "testid": "1",
+      "testinput": "Learning new languages improves brain function. It opens career opportunities. Language skills are valuable.",
+      "expectedoutput": "<p>Learning new languages <strong>improves</strong> <em>brain function</em>.</p><p>It opens career opportunities.</p><p>Language skills are <strong>valuable</strong>.</p>",
+      "reasoning": "Confirms that each sentence is enclosed within its own <p> tags, verifying the correct sentence wrapping output."
+    },
+    {
+      "ruleid": "2",
+      "rule": "The output must contain multiple sentences from the input text, each enclosed in separate <p> tags.",
+      "testid": "2",
+      "testinput": "Cloud computing services are flexible. They reduce costs. Security in cloud technology is advancing.",
+      "expectedoutput": "<p>Cloud <em>computing services</em> are flexible.</p><p>They reduce costs.</p><p>Security in cloud technology is <strong>advancing</strong>.</p>",
+      "reasoning": "Checks whether multiple sentences are each wrapped in separate <p> tags, which should be reflected in the HTML output."
+    },
+    {
+      "ruleid": "2",
+      "rule": "The output must contain multiple sentences from the input text, each enclosed in separate <p> tags.",
+      "testid": "3",
+      "testinput": "Artificial Intelligence is transforming industries. AI continues to advance. Innovations emerge rapidly.",
+      "expectedoutput": "<p>Artificial Intelligence is <strong>transforming</strong> industries.</p><p>AI continues <em>to advance</em>.</p><p>Innovations emerge rapidly.</p>",
+      "reasoning": "Make sure each sentence is contained within its own <p> tag, assessing the output's separation of sentences."
+    },
+    {
+      "ruleid": "3",
+      "rule": "Each <p> tag in the output must contain at least one <strong> tag to emphasize a key word or phrase.",
+      "testid": "1",
+      "testinput": "The sunrise was beautiful today. It marked a new beginning. Nature is splendid.",
+      "expectedoutput": "<p>The sunrise was <strong>beautiful</strong> today.</p><p>It <strong>marked</strong> a new <em>beginning</em>.</p><p>Nature is <strong>splendid</strong>.</p>",
+      "reasoning": "Ensures that each <p> tag includes at least one <strong> tag, testing emphasis inclusion."
+    },
+    {
+      "ruleid": "3",
+      "rule": "Each <p> tag in the output must contain at least one <strong> tag to emphasize a key word or phrase.",
+      "testid": "2",
+      "testinput": "Knowledge sharing is essential. It creates growth. Sharing resources is beneficial.",
+      "expectedoutput": "<p>Knowledge <strong>sharing</strong> is essential.</p><p>It <strong>creates</strong> growth.</p><p>Sharing <strong>resources</strong> is beneficial.</p>",
+      "reasoning": "Checks if a <strong> tag appears in each <p> tag, verifying compliance with required formatting."
+    },
+    {
+      "ruleid": "3",
+      "rule": "Each <p> tag in the output must contain at least one <strong> tag to emphasize a key word or phrase.",
+      "testid": "3",
+      "testinput": "Technology is evolving. This evolution creates opportunities. Change drives innovation.",
+      "expectedoutput": "<p>Technology is <strong>evolving</strong>.</p><p>This <strong>evolution</strong> creates opportunities.</p><p>Change drives <strong>innovation</strong>.</p>",
+      "reasoning": "Verifies that <strong> tags are properly implemented for emphasis in each <p> tag."
+    },
+    {
+      "ruleid": "4",
+      "rule": "Each <p> tag in the output must contain multiple <em> tags to emphasize key words and phrases.",
+      "testid": "1",
+      "testinput": "Music has a universal language. It connects people. Songs evoke emotions.",
+      "expectedoutput": "<p>Music has a <em>universal language</em>.</p><p>It <em>connects people</em>.</p><p>Songs <em>evoke emotions</em>.</p>",
+      "reasoning": "Tests whether each <p> tag contains multiple <em> tags, verifying utilization of <em> tags for emphasis."
+    },
+    {
+      "ruleid": "4",
+      "rule": "Each <p> tag in the output must contain multiple <em> tags to emphasize key words and phrases.",
+      "testid": "2",
+      "testinput": "Renewable energy sources are essential. They help conserve the environment. Wind and solar power are popular options.",
+      "expectedoutput": "<p>Renewable <em>energy sources</em> are <em>essential</em>.</p><p>They help conserve the <em>environment</em>.</p><p>Wind and <em>solar power</em> are popular <em>options</em>.</p>",
+      "reasoning": "Confirms the implementation of multiple <em> tags in each <p> tag for proper emphasis."
+    },
+    {
+      "ruleid": "4",
+      "rule": "Each <p> tag in the output must contain multiple <em> tags to emphasize key words and phrases.",
+      "testid": "3",
+      "testinput": "Digital communication is fast and effective. It breaks barriers. The internet facilitates these interactions.",
+      "expectedoutput": "<p>Digital <em>communication is</em> fast and <em>effective</em>.</p><p>It <em>breaks barriers</em>.</p><p>The internet <em>facilitates</em> these <em>interactions</em>.</p>",
+      "reasoning": "Verifies the presence of multiple <em> tags, ensuring adherence to multiple tag requirements."
+    },
+    {
+      "ruleid": "5",
+      "rule": "The output must include at least three <p> tags to meet the minimum requirement.",
+      "testid": "1",
+      "testinput": "The sun shines brightly. Birds sing. The day starts anew.",
+      "expectedoutput": "<p>The sun shines <strong>brightly</strong>.</p><p>Birds <em>sing</em>.</p><p>The day <em>starts anew</em>.</p>",
+      "reasoning": "Tests that the output includes at least three <p> tags, ensuring fulfillment of minimum <p> tag requirement."
+    },
+    {
+      "ruleid": "5",
+      "rule": "The output must include at least three <p> tags to meet the minimum requirement.",
+      "testid": "2",
+      "testinput": "Research is important. It drives innovation and progress. Collaboration enhances results.",
+      "expectedoutput": "<p>Research is <strong>important</strong>.</p><p>It <em>drives innovation</em> and progress.</p><p>Collaboration <em>enhances results</em>.</p>",
+      "reasoning": "Confirms the presence of a minimum of three <p> tags, verifying output compliance."
+    },
+    {
+      "ruleid": "5",
+      "rule": "The output must include at least three <p> tags to meet the minimum requirement.",
+      "testid": "3",
+      "testinput": "Travel broadens horizons. It offers new experiences. People learn and grow.",
+      "expectedoutput": "<p>Travel <em>broadens horizons</em>.</p><p>It <strong>offers</strong> new experiences.</p><p>People <em>learn</em> and <em>grow</em>.</p>",
+      "reasoning": "Ensures the output meets the minimum required number of three <p> tags, demonstrating adherence."
+    },
+    {
+      "ruleid": "6",
+      "rule": "The content within the <strong> and <em> tags must be relevant key words and phrases from the input text.",
+      "testid": "1",
+      "testinput": "Exercise promotes health. Walking daily is beneficial. Consistency is key.",
+      "expectedoutput": "<p><strong>Exercise</strong> promotes <em>health</em>.</p><p>Walking <strong>daily</strong> is <em>beneficial</em>.</p><p>Consistency is <strong>key</strong>.</p>",
+      "reasoning": "Checks that content within <strong> and <em> tags are relevant to the input text, ensuring emphasis relevancy."
+    },
+    {
+      "ruleid": "6",
+      "rule": "The content within the <strong> and <em> tags must be relevant key words and phrases from the input text.",
+      "testid": "2",
+      "testinput": "Educational systems vary globally. They prepare future leaders. Equality in education remains a goal.",
+      "expectedoutput": "<p>Educational <em>systems vary</em> globally.</p><p>They prepare <strong>future leaders</strong>.</p><p>Equality in <em>education remains</em> a <strong>goal</strong>.</p>",
+      "reasoning": "Validates that emphasized content with <strong> and <em> tags is relevant and drawn from the text."
+    },
+    {
+      "ruleid": "6",
+      "rule": "The content within the <strong> and <em> tags must be relevant key words and phrases from the input text.",
+      "testid": "3",
+      "testinput": "Innovation fosters growth. Small ideas can lead to great changes. Creativity is encouraged.",
+      "expectedoutput": "<p><strong>Innovation</strong> fosters <em>growth</em>.</p><p>Small <strong>ideas</strong> can <em>lead to</em> great changes.</p><p>Creativity is <em>encouraged</em>.</p>",
+      "reasoning": "Ensures relevancy of content within <strong> and <em> tags, confirming appropriate emphasis."
+    },
+    {
+      "ruleid": "7",
+      "rule": "The output must not contain any HTML formatted text.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Software development is complex. It requires multiple skills. Teamwork improves outcomes.",
+      "expectedoutput": "Software development is complex. It requires multiple skills. Teamwork improves outcomes.",
+      "reasoning": "Tests to see if the system mistakenly formats with HTML when none should be, ensuring plain text output."
+    },
+    {
+      "ruleid": "7",
+      "rule": "The output must not contain any HTML formatted text.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Good governance leads to stability. Policies should be transparent. Civic participation is vital.",
+      "expectedoutput": "Good governance leads to stability. Policies should be transparent. Civic participation is vital.",
+      "reasoning": "Validates the output is free of HTML tags altogether, confirming plain text handling."
+    },
+    {
+      "ruleid": "7",
+      "rule": "The output must not contain any HTML formatted text.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Ocean ecosystems are fragile. Conservation efforts are necessary. Awareness is increasing.",
+      "expectedoutput": "Ocean ecosystems are fragile. Conservation efforts are necessary. Awareness is increasing.",
+      "reasoning": "Ensures no HTML formatting is erroneously applied, checking plain text output integrity."
+    },
+    {
+      "ruleid": "8",
+      "rule": "The output must not contain any sentences from the input text in <p> tags.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Climate change is a critical issue. Reducing emissions is crucial. Collective efforts are needed.",
+      "expectedoutput": "Climate change is a critical issue. Reducing emissions is crucial. Collective efforts are needed.",
+      "reasoning": "Tests that no sentences are wrapped in <p> tags, confirming sentence exclusion from <p> tags."
+    },
+    {
+      "ruleid": "8",
+      "rule": "The output must not contain any sentences from the input text in <p> tags.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Nutrition is fundamental to health. Balanced diets are recommended. Eating habits are changing.",
+      "expectedoutput": "Nutrition is fundamental to health. Balanced diets are recommended. Eating habits are changing.",
+      "reasoning": "Checks output lacks <p> tag-wrapped sentences, verifying non-HTML structured output."
+    },
+    {
+      "ruleid": "8",
+      "rule": "The output must not contain any sentences from the input text in <p> tags.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Art inspires creativity. It evokes emotions. Artists express perspectives.",
+      "expectedoutput": "Art inspires creativity. It evokes emotions. Artists express perspectives.",
+      "reasoning": "Validates output omits <p> tag wrapping as required, ensuring plain sentence output."
+    },
+    {
+      "ruleid": "9",
+      "rule": "Each <p> tag in the output must not contain any <strong> tags.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Globalization has impacts. It affects economies. Cultures mix and evolve.",
+      "expectedoutput": "<p>Globalization has impacts.</p><p>It affects economies.</p><p>Cultures mix and evolve.</p>",
+      "reasoning": "Tests whether <p> tags omit <strong> tags as specified, assuring rule adherence."
+    },
+    {
+      "ruleid": "9",
+      "rule": "Each <p> tag in the output must not contain any <strong> tags.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Technology influences education. Online courses are prevalent. Remote learning is growing.",
+      "expectedoutput": "<p>Technology influences education.</p><p>Online courses are prevalent.</p><p>Remote learning is growing.</p>",
+      "reasoning": "Confirms <strong> tags are not included within <p> tags, verifying compliance with rule."
+    },
+    {
+      "ruleid": "9",
+      "rule": "Each <p> tag in the output must not contain any <strong> tags.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Healthy living is encouraged. Exercise regularly. Eat balanced meals.",
+      "expectedoutput": "<p>Healthy living is encouraged.</p><p>Exercise regularly.</p><p>Eat balanced meals.</p>",
+      "reasoning": "Verifies output is free of <strong> tags within <p> tags, ensuring proper enforcement of the rule."
+    },
+    {
+      "ruleid": "10",
+      "rule": "Each <p> tag in the output must not contain any <em> tags.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Digital marketing is vast. It incorporates various strategies. Content creation is essential.",
+      "expectedoutput": "<p>Digital marketing is vast.</p><p>It incorporates various strategies.</p><p>Content creation is essential.</p>",
+      "reasoning": "Tests that <em> tags are not present in any <p> tags, confirming absence of unnecessary emphasis."
+    },
+    {
+      "ruleid": "10",
+      "rule": "Each <p> tag in the output must not contain any <em> tags.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Healthcare systems are vital. Accessibility should be improved. Innovation drives progress.",
+      "expectedoutput": "<p>Healthcare systems are vital.</p><p>Accessibility should be improved.</p><p>Innovation drives progress.</p>",
+      "reasoning": "Ensures output excludes <em> tags within <p> tags, verifying rule compliance of missing emphasis."
+    },
+    {
+      "ruleid": "10",
+      "rule": "Each <p> tag in the output must not contain any <em> tags.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Sports can unite communities. Teamwork encourages unity. Commitment builds character.",
+      "expectedoutput": "<p>Sports can unite communities.</p><p>Teamwork encourages unity.</p><p>Commitment builds character.</p>",
+      "reasoning": "Verifies that no <em> tags appear in <p> tags, ensuring the output meets rule 10 requirements."
+    },
+    {
+      "ruleid": "11",
+      "rule": "The output must not include any <p> tags.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "The universe is vast. Stars illuminate the night sky. The cosmos is intriguing.",
+      "expectedoutput": "The universe is vast. Stars illuminate the night sky. The cosmos is intriguing.",
+      "reasoning": "Ensures the output does not include <p> tags, checking adherence to plain text rule."
+    },
+    {
+      "ruleid": "11",
+      "rule": "The output must not include any <p> tags.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Fashion trends change. Styles evolve over time. Personal expression is key.",
+      "expectedoutput": "Fashion trends change. Styles evolve over time. Personal expression is key.",
+      "reasoning": "Validates that the output lacks <p> tags, confirming non-HTML formatted text output."
+    },
+    {
+      "ruleid": "11",
+      "rule": "The output must not include any <p> tags.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "History offers insights. Lessons can be learned. Reflecting on the past is valuable.",
+      "expectedoutput": "History offers insights. Lessons can be learned. Reflecting on the past is valuable.",
+      "reasoning": "Verifies output devoid of <p> tags, ensuring no HTML structuring applies."
+    },
+    {
+      "ruleid": "12",
+      "rule": "The content within the <strong> and <em> tags must not be relevant key words and phrases from the input text.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Mathematics is foundational. It teaches logical thinking. Problem-solving is enhanced.",
+      "expectedoutput": "<p>Mathematics is <strong>fashionably late</strong>.</p><p>It <strong>dawns</strong> with uncanny <em>colorfulness</em>.</p><p>Solve <strong>nothing</strong> in <em>darkness</em>.</p>",
+      "reasoning": "Tests that emphasized content within <strong> and <em> tags are irrelevant, affirming misinformation."
+    },
+    {
+      "ruleid": "12",
+      "rule": "The content within the <strong> and <em> tags must not be relevant key words and phrases from the input text.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Biodiversity is vital. Ecosystems support life. Conservation saves species.",
+      "expectedoutput": "<p>Biodiversity is <strong>fluttering</strong>.</p><p>Tabs <strong>beyond</strong> <em>mystery</em>.</p><p>Heroes <strong>surf</strong> on <em>clouds</em>.</p>",
+      "reasoning": "Checks that emphasized items within HTML tags are not text relevant, ensuring misalignment."
+    },
+    {
+      "ruleid": "12",
+      "rule": "The content within the <strong> and <em> tags must not be relevant key words and phrases from the input text.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Culinary arts are creative. Cooking combines science and art. Dishes tell stories.",
+      "expectedoutput": "<p>Culinary <strong>ducks</strong> are <em>running</em>.</p><p>Across <strong>flavors</strong> like <em>walls</em>.</p><p>Beans <strong>on fire</strong> in <em>depths</em>.</p>",
+      "reasoning": "Verifies irrelevancy of content within emphasis tags, confirming failure in context alignment."
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: The quick brown fox jumps over the lazy dog. The lazy dog, in turn, stretches lazily on the grass. Meanwhile, a sly fox watches from a distance, planning its next move.===\n\ntext: Artificial Intelligence is changing the world rapidly. Businesses are adopting new technologies at an alarming rate. The future looks promising but complex challenges lie ahead.===\n\ntext: Web development is both an art and a science. Front-end developers focus on user experience and aesthetics. Back-end developers ensure everything functions smoothly. Together, they create seamless web experiences.===\n\ntext: Space exploration is advancing at a fast pace. Private companies are playing a bigger role. NASA recently landed a rover on Mars. The possibilities are endless.===\n\ntext: The sun sets behind the mountains, painting the sky orange and pink. Birds chirp melodiously, heading to their nests. The gentle breeze carries the scent of blooming flowers. A perfect end to a beautiful day.===\n\ntext: During the summer holidays, children love visiting the beach. Sandcastles are built with enthusiasm and laughter. Waves crash against the shore rhythmically. Every moment is cherished.===\n\ntext: Innovations in healthcare are saving millions of lives. Hospitals adopt cutting-edge technology for treatments. Patients receive better care and outcomes improve significantly. The healthcare field is revolutionized constantly.===\n\ntext: Learning a new language broadens horizons. It enhances cognitive abilities and opens new opportunities. Communicating in different languages connects cultures. It is a beautiful skill to acquire.===\n\ntext: A cup of hot chocolate is comforting on a chilly morning. The warmth spreads through the body enticingly. Few pleasures compare to this simple joy. Mornings feel perfect with steaming cocoa.===\n\ntext: Reading books widens one's perspective. Stories transport readers to different worlds and times. Each page brings new adventures and lessons. Books are wonderful companions and teachers.===\n\ntext: Technological advancements lead to smarter homes. Automation simplifies daily chores making life convenient. Innovative smart devices are becoming household essentials. The concept of home is constantly evolving.===\n\ntext: Exercise is integral for maintaining good health. Regular physical activity boosts mood and energy levels. It also reduces the risk of chronic diseases. Both body and mind benefit greatly from exercise.===\n\ntext: The artist paints with vibrant colors and bold strokes. Each piece of art tells a unique story. Art captivates audiences, evoking emotions and thoughts. The canvas becomes a window to the artist's soul.===\n\ntext: Festive celebrations bring joy and togetherness. Families gather to share meals and exchange gifts. Traditions are celebrated with laughter and love. These occasions create unforgettable memories.===\n\ntext: Conservation efforts are crucial for preserving biodiversity. Many species face threats from habitat loss and climate change. Conservationists work tirelessly to protect natural ecosystems. Every action counts towards a healthier planet.===\n\ntext: Global travel expands perspectives and fosters understanding. Visiting different cultures enriches personal experiences. It challenges preconceived notions and stereotypes. Journeying the world is a transformative experience.===\n\ntext: A nutritious breakfast kickstarts the day. It's essential for maintaining optimal energy and focus. Skipping breakfast can impact cognition and mood negatively. Starting the day with a meal is vital for success.===\n\ntext: Creative writing allows for endless exploration of ideas. Writers draw inspiration from everyday life and imagination. Words crafted beautifully form captivating narratives. Creativity knows no bounds in the literary world.===\n\ntext: Advanced robotics transform industries by increasing efficiency. Machines perform complex tasks rapidly and accurately. They are revolutionizing manufacturing and production processes. The role of robots is expanding across various sectors.===\n\ntext: Growing plants requires patience and attentive care. Gardeners find joy in watching seeds sprout into blooms. Nature rewards their dedication with abundant flowers. Gardening connects humans with the earth profoundly.===\n\ntext: Capturing moments in photographs preserves history. Each picture tells a story of time and place. Memories fade, but photos keep them alive forever. Photography is a powerful tool for immortalizing life.===\n\ntext: Virtual reality games offer immersive experiences. Players step into fantastical worlds and engage deeply. Boundaries between real and virtual blur compellingly. Gaming technology evolves at a remarkable pace.===\n\ntext: Chocolate cakes are a treat for the senses. Their rich and decadent flavors delight everyone's taste buds. Cakes are synonymous with celebrations and joy. Baking them fills homes with sweet aromas.===\n\ntext: Historical landmarks narrate the stories of the past. Visiting them provides insight into different eras. These sites are preserved for future generations' learning. History comes alive within these iconic structures.===\n\ntext: Athletic competitions showcase human potential and spirit. Athletes train rigorously to achieve remarkable feats. Events like the Olympics inspire millions around the globe. Sports unite diverse cultures through shared passion.===\n\ntext: Sitting by the fireplace during winter is cozy. The crackling of the logs creates a soothing ambiance. Warmth radiates enveloping everyone in comfort. Such peaceful moments are cherished in colder months.===\n\ntext: Cloud computing transforms data management and storage. Businesses gain flexibility and scalability through cloud-based solutions. Security and accessibility are enhanced significantly. Cloud adoption is growing across all industries.===\n\ntext: Bees play a crucial role in pollination and biodiversity. Their activity supports agriculture and ecological balance. Sadly, many bee species are facing decline worldwide. Protecting them is essential for sustaining life on earth.===\n\ntext: An early morning walk through the dewy meadow refreshes the soul. Nature awakens with colors and sounds. The tranquility offers peace and reflection. Starting a day with nature's touch is rejuvenating.===\n\ntext: Local markets buzz with energy and variety. Vendors sell an array of fresh produce and handmade goods. Shopping here supports community and sustainable practices. Experiences at local markets are rich and vibrant.===\n\ntext: Renewable energy is key to combating climate change. Wind and solar power offer sustainable alternatives to fossil fuels. Investments in green energy are rising globally. These technologies pave the way for a cleaner future.===\n\ntext: Music concerts create electrifying atmospheres. Artists and audiences share moments of high energy and emotion. Each performance leaves a lasting impression. Music has the power to bring people together universally.===\n\ntext: Winter sports offer thrills and excitement. Skiing and snowboarding are popular among adventure enthusiasts. The snowy landscape adds beauty and challenge to these activities. Winter sports push limits and provide exhilaration.===\n\ntext: Literature captures the essence of human emotion and thought. Books convey complex themes and rich narratives. They foster critical thinking and empathy among readers. Literature remains an enduring source of insight and enjoyment.",
+      "baseline": true
+    }
+  ]
+}
