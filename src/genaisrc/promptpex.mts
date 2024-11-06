@@ -10,7 +10,7 @@ export interface PromptPexContext {
   dir: string;
   name: string;
   intent: WorkspaceFile;
-  prompt: WorkspaceFile;
+  promptUnderTest: WorkspaceFile;
   rules: WorkspaceFile;
   inverseRules: WorkspaceFile;
   inputSpec: WorkspaceFile;
@@ -87,7 +87,7 @@ export async function loadPromptFiles(
   return {
     dir,
     name: basename,
-    prompt: promptFile,
+    promptUnderTest: promptFile,
     intent: await workspace.readText(intent),
     inputSpec: await workspace.readText(inputSpec),
     baselineTests: await workspace.readText(baselineTests),
@@ -133,10 +133,8 @@ function tidyRulesFile(file: WorkspaceFile) {
   return file;
 }
 
-export async function generateInputSpec(
-  files: Pick<PromptPexContext, "prompt">
-) {
-  const context = MD.content(files.prompt.content);
+export async function generateInputSpec(files: PromptPexContext) {
+  const context = MD.content(files.promptUnderTest.content);
   const res = await runPrompt(
     (ctx) => {
       ctx.importTemplate("src/prompts/input_spec.prompty", {
@@ -152,8 +150,8 @@ export async function generateInputSpec(
   return tidyRules(res.text);
 }
 
-export async function generateIntent(files: Pick<PromptPexContext, "prompt">) {
-  const context = MD.content(files.prompt.content);
+export async function generateIntent(files: PromptPexContext) {
+  const context = MD.content(files.promptUnderTest.content);
   const res = await runPrompt(
     (ctx) => {
       ctx.importTemplate("src/prompts/extract_intent.prompty", {
@@ -170,12 +168,12 @@ export async function generateIntent(files: Pick<PromptPexContext, "prompt">) {
 }
 
 export async function generateRules(
-  files: Pick<PromptPexContext, "prompt">,
+  files: PromptPexContext,
   options?: { numRules: number }
 ) {
   const { numRules = RULES_NUM } = options || {};
   // generate rules
-  const input_data = MD.content(files.prompt.content);
+  const input_data = MD.content(files.promptUnderTest.content);
   const res = await runPrompt(
     (ctx) => {
       ctx.importTemplate("src/prompts/rules_global.prompty", {
@@ -192,9 +190,7 @@ export async function generateRules(
   return tidyRules(res.text);
 }
 
-export async function generateInverseRules(
-  files: Pick<PromptPexContext, "prompt" | "rules" | "inverseRules">
-) {
+export async function generateInverseRules(files: PromptPexContext) {
   const rule = MD.content(files.rules.content);
   const res = await runPrompt(
     (ctx) => {
@@ -212,12 +208,12 @@ export async function generateInverseRules(
 }
 
 export async function generateBaselineTests(
-  files: Pick<PromptPexContext, "prompt" | "tests" | "baselineTests">,
+  files: PromptPexContext,
   options?: { num?: number }
 ): Promise<string> {
   const tests = parseRulesTests(files);
   const { num = tests.length } = options || {};
-  const context = MD.content(files.prompt.content);
+  const context = MD.content(files.promptUnderTest.content);
   const res = await runPrompt(
     (ctx) => {
       ctx.importTemplate("src/prompts/baseline_test.prompty", {
@@ -235,10 +231,7 @@ export async function generateBaselineTests(
 }
 
 export async function generateTests(
-  files: Pick<
-    PromptPexContext,
-    "prompt" | "inputSpec" | "rules" | "inverseRules"
-  >,
+  files: PromptPexContext,
   options?: { num?: number }
 ) {
   const { num = TESTS_NUM } = options || {};
@@ -248,7 +241,7 @@ export async function generateTests(
   const allRules = parseAllRules(files);
   if (!allRules) throw new Error("No rules found");
 
-  const context = MD.content(files.prompt.content);
+  const context = MD.content(files.promptUnderTest.content);
   let repaired = false;
   const res = await runPrompt(
     (ctx) => {
@@ -298,18 +291,7 @@ function parseInputs(file: WorkspaceFile) {
 }
 
 export async function runTests(
-  files: Pick<
-    PromptPexContext,
-    | "tests"
-    | "prompt"
-    | "dir"
-    | "testResults"
-    | "rules"
-    | "inverseRules"
-    | "intent"
-    | "baselineTests"
-    | "inputSpec"
-  >,
+  files: PromptPexContext,
   options?: { models?: ModelType[]; force?: boolean; q?: PromiseQueue }
 ): Promise<string> {
   const { force, models } = options || {};
@@ -330,11 +312,8 @@ export async function runTests(
   return CSV.stringify(testResults, { header: true });
 }
 
-async function resolveTestId(
-  files: Pick<PromptPexContext, "prompt">,
-  test: PromptPexTest
-) {
-  const context = MD.content(files.prompt.content);
+async function resolveTestId(files: PromptPexContext, test: PromptPexTest) {
+  const context = MD.content(files.promptUnderTest.content);
   const testid = await parsers.hash(
     context + test.testinput + (test.baseline ? ";baseline" : ""),
     {
@@ -345,7 +324,7 @@ async function resolveTestId(
 }
 
 async function resolveTestPath(
-  files: Pick<PromptPexContext, "prompt" | "dir">,
+  files: PromptPexContext,
   test: PromptPexTest,
   options: { model: string }
 ) {
@@ -366,7 +345,7 @@ async function resolveTestPath(
 }
 
 async function resolveTestEvalPath(
-  files: Pick<PromptPexContext, "prompt" | "dir">,
+  files: PromptPexContext,
   test: PromptPexTest
 ) {
   const id = await resolveTestId(files, test);
@@ -376,11 +355,8 @@ async function resolveTestEvalPath(
   return { id, promptid, file };
 }
 
-function resolvePromptArgs(
-  files: Pick<PromptPexContext, "prompt">,
-  test: PromptPexTest
-) {
-  const inputs = parseInputs(files.prompt);
+function resolvePromptArgs(files: PromptPexContext, test: PromptPexTest) {
+  const inputs = parseInputs(files.promptUnderTest);
   const inputKeys = Object.keys(inputs);
   const expectedOutput = test["expectedoutput"];
   const testInput = test["testinput"];
@@ -401,8 +377,8 @@ function resolvePromptArgs(
   return { inputs, args, testInput, expectedOutput };
 }
 
-async function resolvePromptId(files: Pick<PromptPexContext, "prompt">) {
-  const content = MD.content(files.prompt.content);
+async function resolvePromptId(files: PromptPexContext) {
+  const content = MD.content(files.promptUnderTest.content);
   return parsers.hash(content, { length: 7 });
 }
 
@@ -415,7 +391,7 @@ function updateTestResultCompliant(testRes: PromptPexTestResult) {
 }
 
 export async function runTest(
-  files: Pick<PromptPexContext, "prompt" | "dir" | "rules" | "inverseRules">,
+  files: PromptPexContext,
   test: PromptPexTest,
   options?: { model?: ModelType; force?: boolean }
 ): Promise<PromptPexTestResult> {
@@ -452,7 +428,7 @@ export async function runTest(
   const res = await runPrompt(
     (ctx) => {
       // removes frontmatter
-      ctx.importTemplate(files.prompt.filename, args);
+      ctx.importTemplate(files.promptUnderTest.filename, args);
       if (!inputs.length) ctx.writeText(testInput);
     },
     {
@@ -481,18 +457,7 @@ export async function runTest(
 }
 
 export async function evaluateTestsQuality(
-  files: Pick<
-    PromptPexContext,
-    | "tests"
-    | "prompt"
-    | "dir"
-    | "testResults"
-    | "intent"
-    | "rules"
-    | "inverseRules"
-    | "baselineTests"
-    | "inputSpec"
-  >,
+  files: PromptPexContext,
   options?: { force?: boolean }
 ): Promise<string> {
   const { force } = options || {};
@@ -509,10 +474,7 @@ export async function evaluateTestsQuality(
 }
 
 export async function evaluateTestQuality(
-  files: Pick<
-    PromptPexContext,
-    "prompt" | "rules" | "intent" | "dir" | "inverseRules" | "inputSpec"
-  >,
+  files: PromptPexContext,
   test: PromptPexTest,
   options?: { force?: boolean }
 ): Promise<PromptPexTestEval> {
@@ -610,9 +572,7 @@ function parseRules(rules: string) {
     : [];
 }
 
-function parseRulesTests(
-  files: Pick<PromptPexContext, "tests" | "baselineTests">
-): PromptPexTest[] {
+function parseRulesTests(files: PromptPexContext): PromptPexTest[] {
   if (isUnassistedResponse(files.tests.content)) return [];
   const content = files.tests.content?.replace(/\\"/g, '""');
   const rulesTests = content
@@ -621,17 +581,13 @@ function parseRulesTests(
   return rulesTests;
 }
 
-function parseTestResults(
-  files: Pick<PromptPexContext, "testResults">
-): PromptPexTestResult[] {
+function parseTestResults(files: PromptPexContext): PromptPexTestResult[] {
   return CSV.parse(files.testResults.content, {
     delimiter: ",",
   }) as PromptPexTestResult[];
 }
 
-function parseBaselineTests(
-  files: Pick<PromptPexContext, "baselineTests">
-): PromptPexTest[] {
+function parseBaselineTests(files: PromptPexContext): PromptPexTest[] {
   const tests = parsers
     .unfence(files.baselineTests.content, "")
     .split(/\s*===\s*/g)
@@ -641,14 +597,14 @@ function parseBaselineTests(
   return tests;
 }
 
-function parseTestEvals(files: Pick<PromptPexContext, "testCoverageEvals">) {
+function parseTestEvals(files: PromptPexContext) {
   return CSV.parse(files.testCoverageEvals.content, {
     delimiter: ",",
   }) as PromptPexTestEval[];
 }
 
 function parseAllRules(
-  files: Pick<PromptPexContext, "rules" | "inverseRules">
+  files: PromptPexContext
 ): { rule: string; inverse?: boolean }[] {
   const rules = parseRules(files.rules.content);
   const inverseRules = parseRules(files.inverseRules.content);
@@ -669,7 +625,7 @@ function resolveRule(
 }
 
 async function evaluateTestResult(
-  files: Pick<PromptPexContext, "prompt">,
+  files: PromptPexContext,
   testResult: PromptPexTestResult,
   options?: { model?: ModelType }
 ): Promise<string> {
@@ -678,7 +634,7 @@ async function evaluateTestResult(
     ...modelOptions(),
   };
 
-  const content = MD.content(files.prompt.content);
+  const content = MD.content(files.promptUnderTest.content);
   const res = await runPrompt(
     (ctx) => {
       // removes frontmatter
@@ -703,7 +659,7 @@ async function evaluateTestResult(
 }
 
 export async function generateJSONReport(files: PromptPexContext) {
-  const prompt = files.prompt.content;
+  const prompt = files.promptUnderTest.content;
   const inputSpec = files.inputSpec.content;
   const errors: string[] = [];
   const rules = parseRules(files.rules.content);
