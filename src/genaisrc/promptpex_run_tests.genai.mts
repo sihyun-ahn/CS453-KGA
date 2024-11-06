@@ -35,8 +35,8 @@ for (const files of contexts) {
       force,
       models,
     });
-    files.testResults.content = testResults;
-    await workspace.writeText(files.testResults.filename, testResults);
+    files.testOutputs.content = testResults;
+    await workspace.writeText(files.testOutputs.filename, testResults);
   } catch (e) {
     console.error(`${files.name}: ${e}`);
   }
