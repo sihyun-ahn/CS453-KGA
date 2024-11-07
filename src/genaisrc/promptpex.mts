@@ -266,7 +266,7 @@ export async function generateBaselineTests(
   files: PromptPexContext,
   options?: { num?: number }
 ): Promise<string> {
-  const tests = parseRulesTests(files);
+  const tests = parseRulesTests(files.tests.content);
   const { num = tests.length } = options || {};
   const context = MD.content(files.prompt.content);
   const res = await runPrompt(
@@ -308,7 +308,7 @@ export async function generateTests(
         num_rules: allRules.length,
       });
       ctx.defChatParticipant((p, c) => {
-        const last = c.at(-1)?.content;
+        const last: string = c.at(-1)?.content;
         const csv = parseRulesTests(last);
         if (!csv.length) {
           if (!repaired) {
@@ -350,7 +350,7 @@ export async function runTests(
   options?: { models?: ModelType[]; force?: boolean; q?: PromiseQueue }
 ): Promise<string> {
   const { force, models } = options || {};
-  const rulesTests = parseRulesTests(files);
+  const rulesTests = parseRulesTests(files.tests.content);
   const baselineTests = parseBaselineTests(files);
   const tests = [...rulesTests, ...baselineTests];
   if (!tests?.length) throw new Error("No tests found");
@@ -516,7 +516,7 @@ export async function evaluateTestsQuality(
   options?: { force?: boolean }
 ): Promise<string> {
   const { force } = options || {};
-  const tests = parseRulesTests(files);
+  const tests = parseRulesTests(files.tests.content);
   if (!tests?.length) throw new Error("No tests found");
 
   console.log(`evaluating quality of ${tests.length} tests`);
@@ -627,9 +627,9 @@ function parseRules(rules: string) {
     : [];
 }
 
-function parseRulesTests(files: PromptPexContext): PromptPexTest[] {
-  if (isUnassistedResponse(files.tests?.content)) return [];
-  const content = files.tests?.content?.replace(/\\"/g, '""');
+function parseRulesTests(text: string): PromptPexTest[] {
+  if (isUnassistedResponse(text)) return [];
+  const content = text?.replace(/\\"/g, '""');
   const rulesTests = content
     ? (CSV.parse(content, { delimiter: ",", repair: true }) as PromptPexTest[])
     : [];
@@ -720,7 +720,7 @@ export async function generateJSONReport(files: PromptPexContext) {
   const rules = parseRules(files.rules.content);
   const inverseRules = parseRules(files.inverseRules.content);
   const allRules = parseAllRules(files);
-  const rulesTests = parseRulesTests(files);
+  const rulesTests = parseRulesTests(files.tests.content);
   const baseLineTests = parseBaselineTests(files);
   const testEvals = parseTestEvals(files);
   const testResults = parseTestResults(files);
@@ -762,7 +762,10 @@ function addLineNumbers(text: string, start: number) {
 }
 
 export async function generateMarkdownReport(files: PromptPexContext) {
-  const tests = [...parseRulesTests(files), ...parseBaselineTests(files)];
+  const tests = [
+    ...parseRulesTests(files.tests.content),
+    ...parseBaselineTests(files),
+  ];
   const rules = parseRules(files.rules.content);
   const inverseRules = parseRules(files.inverseRules.content);
   const testResults = parseTestResults(files);
