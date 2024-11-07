@@ -628,8 +628,8 @@ function parseRules(rules: string) {
 }
 
 function parseRulesTests(files: PromptPexContext): PromptPexTest[] {
-  if (isUnassistedResponse(files.tests.content)) return [];
-  const content = files.tests.content?.replace(/\\"/g, '""');
+  if (isUnassistedResponse(files.tests?.content)) return [];
+  const content = files.tests?.content?.replace(/\\"/g, '""');
   const rulesTests = content
     ? (CSV.parse(content, { delimiter: ",", repair: true }) as PromptPexTest[])
     : [];
