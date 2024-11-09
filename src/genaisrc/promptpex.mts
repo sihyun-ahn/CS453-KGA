@@ -594,6 +594,7 @@ export async function evaluateTestQuality(
       },
       {
         ...moptions,
+        choices: ["OK", "ERR"],
         label: `evaluate validity of test ${testInput.slice(0, 42)}...`,
       }
     ),
@@ -703,6 +704,7 @@ async function evaluateTestResult(
     },
     {
       ...moptions,
+      choices: ["OK", "ERR"],
       model: "large",
       label: `evaluate test result ${testResult.model} ${testResult.input.slice(0, 42)}...`,
     }
@@ -796,7 +798,7 @@ export async function generateMarkdownReport(files: PromptPexContext) {
   ];
 
   res.push("### Overview", "");
-  res.push(`
+  res.push(`<details><summary>Glossary</summary>
 - Prompt Under Test (PUT) - like Program Under Test; the prompt
 - Model Under Test (MUT) - Model which we are testing against with specific temperature, etc example: gpt-4o-mini
 - Model Used by PromptPex (MPP) - gpt-4o
@@ -815,7 +817,7 @@ export async function generateMarkdownReport(files: PromptPexContext) {
 
 - Test Output (TO) - Result generated for PPT and BT on PUT with each MUT
 - Test Output Compliance (TOC) - Checking if TO meets the constraints in PUT using MPP
-`);
+</details>`);
   res.push(
     // Three more same columns with the same data but only for valid tests
     CSV.markdownify(
@@ -972,6 +974,8 @@ export async function generate(
     );
   }
 
+  await generateReports(files);
+
   if (models?.length) {
     files.testOutputs.content = await runTests(files, {
       models,
@@ -982,6 +986,8 @@ export async function generate(
       files.testOutputs.content
     );
   }
+
+  await generateReports(files);
 
   // test exhaustiveness
   if (!files.testCoverageEvals.content || force || forceTestEvals) {
