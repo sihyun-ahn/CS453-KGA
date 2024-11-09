@@ -198,6 +198,7 @@ export async function generateInputSpec(files: PromptPexContext) {
     },
     {
       ...modelOptions(),
+      logprobs: true,
       label: "generate input spec",
     }
   );
@@ -215,6 +216,7 @@ export async function generateIntent(files: PromptPexContext) {
     },
     {
       ...modelOptions(),
+      logprobs: true,
       label: "generate intent",
     }
   );
@@ -238,6 +240,7 @@ export async function generateRules(
     },
     {
       ...modelOptions(),
+      logprobs: true,
       label: "generate rules",
     }
   );
@@ -255,6 +258,7 @@ export async function generateInverseRules(files: PromptPexContext) {
     },
     {
       ...modelOptions(),
+      logprobs: true,
       label: "inverse rules",
     }
   );
@@ -278,6 +282,7 @@ export async function generateBaselineTests(
     },
     {
       ...modelOptions(),
+      logprobs: true,
       label: `generate baseline tests`,
     }
   );
@@ -323,6 +328,7 @@ export async function generateTests(
     },
     {
       ...modelOptions(),
+      logprobs: true,
       label: `generate tests`,
     }
   );
@@ -579,6 +585,7 @@ export async function evaluateTestQuality(
       },
       {
         ...moptions,
+        logprobs: true,
         label: `evaluate coverage of test ${testInput.slice(0, 42)}...`,
       }
     ),
@@ -595,6 +602,7 @@ export async function evaluateTestQuality(
       {
         ...moptions,
         choices: ["OK", "ERR"],
+        logprobs: true,
         label: `evaluate validity of test ${testInput.slice(0, 42)}...`,
       }
     ),
@@ -705,7 +713,7 @@ async function evaluateTestResult(
     {
       ...moptions,
       choices: ["OK", "ERR"],
-      model: "large",
+      logprobs: true,
       label: `evaluate test result ${testResult.model} ${testResult.input.slice(0, 42)}...`,
     }
   );
@@ -817,7 +825,8 @@ export async function generateMarkdownReport(files: PromptPexContext) {
 
 - Test Output (TO) - Result generated for PPT and BT on PUT with each MUT
 - Test Output Compliance (TOC) - Checking if TO meets the constraints in PUT using MPP
-</details>`);
+</details>
+`);
   res.push(
     // Three more same columns with the same data but only for valid tests
     CSV.markdownify(
