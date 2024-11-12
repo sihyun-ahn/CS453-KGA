@@ -555,7 +555,6 @@ export async function evaluateTestQuality(
   if (file.content && !force) {
     const res = parsers.JSON5(file) as PromptPexTestEval;
     if (res && !res.error) return res;
-    return res;
   }
 
   const intent = files.intent.content;
@@ -854,18 +853,10 @@ export async function generateMarkdownReport(files: PromptPexContext) {
     CSV.markdownify(
       Object.entries(testResultsPerModels).map(([model, results]) => ({
         model,
-        tests: results.length,
-        ["tests compliant"]: results.filter((r) => r.compliance === "ok")
+        tests: results.filter((tr) => tr.rule).length,
+        ["tests negative"]: results.filter((tr) => tr.rule && tr.inverse)
           .length,
-        baseline: results.filter((tr) => !tr.rule).length,
-        ["baseline compliant"]: results.filter(
-          (tr) => !tr.rule && tr.compliance === "ok"
-        ).length,
-        promptpex: results.filter((tr) => tr.rule).length,
-        ["promptpex compliant"]: results.filter(
-          (tr) => tr.rule && tr.compliance === "ok"
-        ).length,
-        ["promptpex positive compliant"]: results.filter(
+        ["tests compliant"]: results.filter(
           (tr) => tr.rule && !tr.inverse && tr.compliance === "ok"
         ).length,
       }))

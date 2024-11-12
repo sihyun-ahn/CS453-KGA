@@ -3,7 +3,7 @@
 - 5 rules
 - 5 inverse rules
 - 22 tests, 11 baseline tests
-- 0 test results, 0/0 (NaN%) oks, 0/0 (NaN%) errs
+- 22 test results, 15/22 (68%) oks, 0/22 (0%) errs
 
 ### Overview
 
@@ -28,7 +28,9 @@
 - Test Output Compliance (TOC) - Checking if TO meets the constraints in PUT using MPP
 </details>
 
-
+|model|tests|tests negative|tests compliant|
+|-|-|-|-|
+|gpt\-4o\-mini|11|0|8|
 
 ### [demo.prompty](./demo.prompty)
 
@@ -45,6 +47,33 @@ user:
 {{joke}}
 `````
 
+
+### [test_results.csv](./test_results.csv)
+
+|rule|model|input|output|compliance|
+|-|-|-|-|-|
+|The output must clearly state whether a given joke is categorized as "funny" or "not funny"\.|gpt\-4o\-mini|What do you call fake spaghetti? An impasta\!|That's a funny joke\! The play on words with "impasta" is clever\.|ok|
+|The response must not include any content that is hateful, racist, sexist, lewd, or violent\.|gpt\-4o\-mini|Why was the math book sad? Because it had too many problems\.|This joke is funny\! It uses a clever play on words, as "problems" refers to both math exercises and emotional issues, creating a lighthearted and relatable punchline\.|ok|
+|The output must clearly state whether a given joke is categorized as "funny" or "not funny"\.|gpt\-4o\-mini|I have a fear of speed bumps, but I am slowly getting over it\.|This joke is funny\! It uses a clever play on words with "slowly getting over it," which references both the fear of speed bumps and the literal act of driving over them slowly\.|ok|
+|The output must consist of only one of two categories: "funny" or "not funny"\.|gpt\-4o\-mini|What do you call cheese that isn't yours? Nacho cheese\.|This joke is funny\! It's a classic play on words with "nacho" sounding like "not your," which creates a humorous twist\.||
+|The output must consist of only one of two categories: "funny" or "not funny"\.|gpt\-4o\-mini|What did the duck say to the bartender? Put it on my bill\.|This joke is funny\! It's a classic play on words with the phrase "put it on my bill," referring both to a tab at the bar and the duck's beak\.|ok|
+|The output must consist of only one of two categories: "funny" or "not funny"\.|gpt\-4o\-mini|Did you hear about the Italian chef who died? He pasta way\.|This joke is funny\! It's a play on words with "pasta" sounding like "passed," which adds a humorous twist to the situation\.|ok|
+|The response must categorize the given joke explicitly as either "funny" or "not funny"\.|gpt\-4o\-mini|I threw a boomerang a few years ago\. I know live in constant fear\.|That's a funny joke\! The unexpected twist about living in fear because of a boomerang creates a humorous and absurd image\.|ok|
+|The output must not include any additional comments, explanations, or justifications for the categorization\.|gpt\-4o\-mini|Why don’t skeletons fight each other? They don’t have the guts\.|This joke is funny\! It uses a clever play on words with "guts," which refers to both the physical organs and the courage to fight\.||
+|The output must not include any additional comments, explanations, or justifications for the categorization\.|gpt\-4o\-mini|Parallel lines have so much in common\. It’s a shame they’ll never meet\.|This joke is funny\! It plays on the mathematical concept of parallel lines, which never intersect, and adds a clever twist by anthropomorphizing them and implying a sense of lost potential friendship\.||
+|The output must not contain any elements of the joke itself or any references to the content of the joke\.|gpt\-4o\-mini|Why did the scarecrow win an award? Because he was outstanding in his field\.|This joke is funny\! It uses a clever play on words with "outstanding," creating a humorous double meaning\.|ok|
+|The output must not contain any elements of the joke itself or any references to the content of the joke\.|gpt\-4o\-mini|I used to play piano by ear, but now I use my hands\.|This joke is funny\! It plays on the idiom "play by ear," which means to play music without reading the notes, and twists it into a literal interpretation, creating a humorous contrast\.|ok|
+||gpt\-4o\-mini|category: humor<br>joke: Why did the scarecrow win an award? Because he was outstanding in his field\!|Funny|ok|
+||gpt\-4o\-mini|category: sarcasm<br>joke: "I am on a seafood diet\. I see food and I eat it\."|This joke is funny\. It's a play on words that uses a pun to create humor\.|ok|
+||gpt\-4o\-mini|category: dad joke<br>joke: Why can't you give Elsa a balloon? Because she will let it go\.|This joke is categorized as funny\.|ok|
+||gpt\-4o\-mini|category: pun<br>joke: Did you hear about that new broom? It's sweeping the nation\.|Funny|ok|
+||gpt\-4o\-mini|category: dark humor<br>joke: I have a few jokes about unemployed people, but none of them work\.|Funny||
+||gpt\-4o\-mini|category: one\-liner<br>joke: I told my wife she was drawing her eyebrows too high\. She looked surprised\.|Funny|ok|
+||gpt\-4o\-mini|category: knock\-knock<br>joke: Knock knock\. Who’s there? Lettuce\. Lettuce who? Lettuce in, it’s cold out here\!|Funny||
+||gpt\-4o\-mini|category: anti\-joke<br>joke: Why did the chicken cross the road? To get to the other side\.|This joke is an anti\-joke and is typically not considered funny in the traditional sense\. It subverts expectations by providing a straightforward answer rather than a punchline, making it more of a commentary on the style of classic jokes\. Therefore, it can be categorized as "not funny\."|ok|
+||gpt\-4o\-mini|category: riddle<br>joke: What has keys but can't open locks? A piano\.|This joke can be categorized as funny\. It's a clever play on words that uses a riddle format to create humor\.|ok|
+||gpt\-4o\-mini|category: observational humor<br>joke: Have you ever noticed that anyone driving slower than you is an idiot, and anyone driving faster is a maniac?|Funny||
+||gpt\-4o\-mini|category: wordplay<br>joke: I’m reading a book on anti\-gravity\. It’s impossible to put down\.|Funny||
 
 ### [intent.txt](./intent.txt)
 
