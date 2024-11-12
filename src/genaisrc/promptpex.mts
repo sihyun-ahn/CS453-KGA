@@ -821,9 +821,11 @@ export async function generateMarkdownReport(files: PromptPexContext) {
     `- ${rules?.length ?? 0} rules`,
     `- ${inverseRules?.length ?? 0} inverse rules`,
     `- ${tests.length ?? 0} tests, ${tests.filter((t) => t.baseline).length} baseline tests`,
-    `- ${testResults?.length ?? 0} test results, ${rp(oks, ts)} oks, ${rp(errs, ts)} errs`,
+    testResults?.length
+      ? `- ${testResults?.length ?? 0} test results, ${rp(oks, ts)} oks, ${rp(errs, ts)} errs`
+      : undefined,
     ``,
-  ];
+  ].filter((l) => l !== undefined);
 
   res.push("### Overview", "");
   res.push(`<details><summary>Glossary</summary>
