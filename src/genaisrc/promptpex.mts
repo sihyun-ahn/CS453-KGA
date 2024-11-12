@@ -202,7 +202,7 @@ export async function generateInputSpec(files: PromptPexContext) {
     },
     {
       ...modelOptions(),
-      logprobs: true,
+//      logprobs: true,
       label: "generate input spec",
     }
   );
@@ -220,7 +220,7 @@ export async function generateIntent(files: PromptPexContext) {
     },
     {
       ...modelOptions(),
-      logprobs: true,
+//      logprobs: true,
       label: "generate intent",
     }
   );
@@ -244,7 +244,7 @@ export async function generateRules(
     },
     {
       ...modelOptions(),
-      logprobs: true,
+//      logprobs: true,
       label: "generate rules",
     }
   );
@@ -262,7 +262,7 @@ export async function generateInverseRules(files: PromptPexContext) {
     },
     {
       ...modelOptions(),
-      logprobs: true,
+//      logprobs: true,
       label: "inverse rules",
     }
   );
@@ -286,7 +286,7 @@ export async function generateBaselineTests(
     },
     {
       ...modelOptions(),
-      logprobs: true,
+//      logprobs: true,
       label: `generate baseline tests`,
     }
   );
@@ -332,7 +332,7 @@ export async function generateTests(
     },
     {
       ...modelOptions(),
-      logprobs: true,
+//      logprobs: true,
       label: `generate tests`,
     }
   );
@@ -592,7 +592,7 @@ export async function evaluateTestQuality(
       },
       {
         ...moptions,
-        logprobs: true,
+//        logprobs: true,
         label: `evaluate coverage of test ${testInput.slice(0, 42)}...`,
       }
     ),
@@ -609,7 +609,7 @@ export async function evaluateTestQuality(
       {
         ...moptions,
         choices: ["OK", "ERR"],
-        logprobs: true,
+//        logprobs: true,
         label: `evaluate validity of test ${testInput.slice(0, 42)}...`,
       }
     ),
@@ -732,7 +732,7 @@ async function evaluateTestResult(
     {
       ...moptions,
       choices: ["OK", "ERR"],
-      logprobs: true,
+//      logprobs: true,
       label: `evaluate test result ${testResult.model} ${testResult.input.slice(0, 42)}...`,
     }
   );
