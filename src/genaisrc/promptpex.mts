@@ -54,7 +54,10 @@ export interface PromptPexContext {
    */
   testOutputs: WorkspaceFile;
 
-  testCoverageEvals: WorkspaceFile;
+  /**
+   * Coverage and validate test evals
+   */
+  testEvals: WorkspaceFile;
 }
 
 export interface PromptPexTest {
@@ -97,7 +100,7 @@ export interface PromptPexTestResult {
   error?: string;
 
   compliance?: "ok" | "err";
-  evaluation?: string;
+  complianceText?: string;
 }
 
 export interface PromptPexTestEval {
@@ -108,7 +111,8 @@ export interface PromptPexTestEval {
   inverse?: boolean;
   input: string;
   coverage?: string;
-  validity?: string;
+  validity?: "ok" | "err";
+  validityText?: string;
   error?: string;
 }
 
@@ -137,7 +141,7 @@ export async function loadPromptFiles(
   const baselineTests = path.join(dir, "baseline_tests.txt");
   const tests = path.join(dir, "tests.csv");
   const testResults = path.join(dir, "test_results.csv");
-  const testCoverageEvals = path.join(dir, "test_coverage.csv");
+  const testEvals = path.join(dir, "test_evals.csv");
 
   return {
     dir,
@@ -149,7 +153,7 @@ export async function loadPromptFiles(
     rules: tidyRulesFile(await workspace.readText(rules)),
     inverseRules: tidyRulesFile(await workspace.readText(inverseRules)),
     tests: await workspace.readText(tests),
-    testCoverageEvals: await workspace.readText(testCoverageEvals),
+    testEvals: await workspace.readText(testEvals),
     testOutputs: await workspace.readText(testResults),
   } satisfies PromptPexContext;
 }
@@ -287,7 +291,7 @@ export async function generateBaselineTests(
     }
   );
   checkLLMResponse(res);
-  return res.text;
+  return cleanBaselineTests(res.text).join("\n===\n");
 }
 
 export async function generateTests(
@@ -443,12 +447,16 @@ async function resolvePromptId(files: PromptPexContext) {
   return parsers.hash(content, { length: 7 });
 }
 
-function updateTestResultCompliant(testRes: PromptPexTestResult) {
-  testRes.compliance = /(^|\W)ERR\s*$/.test(testRes.evaluation)
+function parseOKERR(text: string): "err" | "ok" | undefined {
+  return /(^|\W)ERR\s*$/.test(text)
     ? "err"
-    : /(^|\W)OK\s*$/.test(testRes.evaluation)
+    : /(^|\W)OK\s*$/.test(text)
       ? "ok"
       : undefined;
+}
+
+function updateTestResultCompliant(testRes: PromptPexTestResult) {
+  testRes.compliance = parseOKERR(testRes.complianceText);
 }
 
 export async function runTest(
@@ -510,7 +518,7 @@ export async function runTest(
     output: actualOutput,
   } satisfies PromptPexTestResult;
   testRes.compliance = undefined;
-  testRes.evaluation = await evaluateTestResult(files, testRes, { model });
+  testRes.complianceText = await evaluateTestResult(files, testRes, { model });
   updateTestResultCompliant(testRes);
 
   await workspace.writeText(file.filename, JSON.stringify(testRes, null, 2));
@@ -618,7 +626,8 @@ export async function evaluateTestQuality(
     ...rule,
     input: testInput,
     coverage: resCoverage.text,
-    validity: resValidity.text,
+    validityText: resValidity.text,
+    validity: parseOKERR(resValidity.text),
     error: error || undefined,
   } satisfies PromptPexTestEval;
 
@@ -651,18 +660,24 @@ function parseTestResults(files: PromptPexContext): PromptPexTestResult[] {
   }) as PromptPexTestResult[];
 }
 
-function parseBaselineTests(files: PromptPexContext): PromptPexTest[] {
+function cleanBaselineTests(content: string) {
   const tests = parsers
-    .unfence(files.baselineTests.content, "")
+    .unfence(content, "")
     .split(/\s*===\s*/g)
-    .map((l) => l.trim().replace(/^#+ test case \d+:?$/gim, ""))
-    .filter((l) => !!l)
-    .map((l) => ({ testinput: l, baseline: true }) satisfies PromptPexTest);
+    .map((l) => l.trim().replace(/^(#+\s+)?(test case)( \d+)?:?$/gim, "").trim())
+    .filter((l) => !!l);
+  return tests;
+}
+
+function parseBaselineTests(files: PromptPexContext): PromptPexTest[] {
+  const tests = cleanBaselineTests(files.baselineTests.content).map(
+    (l) => ({ testinput: l, baseline: true }) satisfies PromptPexTest
+  );
   return tests;
 }
 
 function parseTestEvals(files: PromptPexContext) {
-  return CSV.parse(files.testCoverageEvals.content, {
+  return CSV.parse(files.testEvals.content, {
     delimiter: ",",
   }) as PromptPexTestEval[];
 }
@@ -860,7 +875,9 @@ export async function generateMarkdownReport(files: PromptPexContext) {
           ? ["testinput", "expectedoutput", "reasoning"]
           : file === files.baselineTests
             ? ["testinput"]
-            : undefined;
+            : file === files.testEvals
+              ? ["rule", "model", "input", "coverage", "validity"]
+              : undefined;
     const lang =
       {
         prompty: "md",
@@ -952,7 +969,7 @@ export async function generate(
     files.inverseRules.content = undefined;
     files.tests.content = undefined;
     files.testOutputs.content = undefined;
-    files.testCoverageEvals.content = undefined;
+    files.testEvals.content = undefined;
   }
 
   // generate inverse rules
@@ -964,14 +981,14 @@ export async function generate(
     );
     files.tests.content = undefined;
     files.testOutputs.content = undefined;
-    files.testCoverageEvals.content = undefined;
+    files.testEvals.content = undefined;
   }
 
   // generate tests
   if (!files.tests.content || force || forceTests) {
     files.tests.content = await generateTests(files);
     await workspace.writeText(files.tests.filename, files.tests.content);
-    files.testCoverageEvals.content = undefined;
+    files.testEvals.content = undefined;
   }
 
   // generate baseline tests
@@ -985,6 +1002,20 @@ export async function generate(
 
   await generateReports(files);
 
+  // test exhaustiveness
+  if (!files.testEvals.content || force || forceTestEvals) {
+    files.testEvals.content = await evaluateTestsQuality(files, {
+      force: force || forceTestEvals,
+    });
+    await workspace.writeText(
+      files.testEvals.filename,
+      files.testEvals.content
+    );
+  }
+
+
+  await generateReports(files);
+
   if (models?.length) {
     files.testOutputs.content = await runTests(files, {
       models,
@@ -993,19 +1024,6 @@ export async function generate(
     await workspace.writeText(
       files.testOutputs.filename,
       files.testOutputs.content
-    );
-  }
-
-  await generateReports(files);
-
-  // test exhaustiveness
-  if (!files.testCoverageEvals.content || force || forceTestEvals) {
-    files.testCoverageEvals.content = await evaluateTestsQuality(files, {
-      force: force || forceTestEvals,
-    });
-    await workspace.writeText(
-      files.testCoverageEvals.filename,
-      files.testCoverageEvals.content
     );
   }
 

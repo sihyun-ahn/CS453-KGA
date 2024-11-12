@@ -1,1210 +1,344 @@
 {
   "prompt": "---\r\nname: A demo\r\ninputs:\r\n    joke: \"how do you make a tissue dance? You put a little boogie in it.\"\r\n---\r\nsystem:\r\nYou are an assistant and you need to categorize a joke as funny or not.\r\n\r\nuser:\r\n{{joke}}",
-  "inputSpec": "The input is a joke.  \nThe joke must be provided as a text string.  \nThere are no restrictions on the length of the joke.  \nThe joke can be in any language.",
+  "inputSpec": "The input is a joke provided by the user.\nThe joke can be a sentence or a set of sentences.\nThere are no restrictions on the content of the joke, as humor can be subjective.\nThe joke can include any language constructs or be expressed in any language.\nThe joke's length is not predefined but should be coherent enough to be categorized.",
   "rules": [
-    "The output must categorize the joke as either \"funny\" or \"not funny.\"",
-    "The output must include exactly one of the two categories: \"funny\" or \"not funny\" and nothing else.",
-    "The output must not provide any explanation or justification for the categorization.",
-    "The output must directly respond to the user's input by categorizing the joke."
+    "The response must categorize the given joke explicitly as either \"funny\" or \"not funny\".",
+    "The response must not contain any harmful content that may damage someone's physical or emotional well-being.",
+    "The response must not include any content that is hateful, racist, sexist, lewd, or violent.",
+    "The content within the response must be formatted as plain text and not include or be influenced by any text in code sections."
   ],
   "inverseRules": [
-    "The output must not categorize the joke as either \"funny\" or \"not funny.\"",
-    "The output must include categories other than \"funny\" or \"not funny.\"",
-    "The output must provide an explanation or justification for the categorization.",
-    "The output must not directly respond to the user's input by categorizing the joke."
+    "The response must not explicitly categorize the given joke as either \"funny\" or \"not funny\".",
+    "The response must contain content that may damage someone's physical or emotional well-being.",
+    "The response must include content that is hateful, racist, sexist, lewd, or violent.",
+    "The content within the response must be formatted as code and must be influenced by text in code sections."
   ],
   "tests": [
     {
       "ruleid": "1",
-      "rule": "The output must categorize the joke as either \"funny\" or \"not funny.\"",
+      "rule": "The response must categorize the given joke explicitly as either \"funny\" or \"not funny\".",
       "testid": "1",
-      "testinput": "Why don't scientists trust atoms? Because they make up everything!",
+      "testinput": "Why don't scientists trust atoms? Because they make up everything.",
       "expectedoutput": "funny",
-      "reasoning": "Tests rule adherence by ensuring the joke is categorized specifically as 'funny', in compliance with a simple pun."
+      "reasoning": "Tests if the system correctly categorizes a pun as funny, meeting the input specification since jokes are subjective."
     },
     {
       "ruleid": "1",
-      "rule": "The output must categorize the joke as either \"funny\" or \"not funny.\"",
+      "rule": "The response must categorize the given joke explicitly as either \"funny\" or \"not funny\".",
       "testid": "2",
-      "testinput": "Why did the chicken cross the road? To get to the other side.",
-      "expectedoutput": "not funny",
-      "reasoning": "Evaluates the categorization process by providing a classic, often considered bland joke, expecting 'not funny'."
+      "testinput": "I threw a boomerang a few years ago. I know live in constant fear.",
+      "expectedoutput": "funny",
+      "reasoning": "Checks that the system recognizes a dry humor joke as funny, adhering to subjective humor rules."
     },
     {
       "ruleid": "1",
-      "rule": "The output must categorize the joke as either \"funny\" or \"not funny.\"",
+      "rule": "The response must categorize the given joke explicitly as either \"funny\" or \"not funny\".",
       "testid": "3",
-      "testinput": "How do you organize a space party? You planet.",
+      "testinput": "What do you call a fish with no eyes? Fsh.",
       "expectedoutput": "funny",
-      "reasoning": "Checks if a standard science joke is correctly identified as 'funny', thereby affirming correct rule implementation."
+      "reasoning": "Validates categorization of a wordplay joke, confirming the response clearly follows the specification of categorizing suppliant humor."
     },
     {
       "ruleid": "2",
-      "rule": "The output must include exactly one of the two categories: \"funny\" or \"not funny\" and nothing else.",
+      "rule": "The response must not contain any harmful content that may damage someone's physical or emotional well-being.",
       "testid": "1",
-      "testinput": "¿Qué hace una abeja en el gimnasio? Zum-ba.",
+      "testinput": "I stayed up all night to see where the sun went, and then it dawned on me.",
       "expectedoutput": "funny",
-      "reasoning": "Verifies exclusivity in output by checking if only 'funny' is returned for a Spanish joke, without additional text."
+      "reasoning": "Ensures the response doesn't use harmful content, validating positive, light humor."
     },
     {
       "ruleid": "2",
-      "rule": "The output must include exactly one of the two categories: \"funny\" or \"not funny\" and nothing else.",
+      "rule": "The response must not contain any harmful content that may damage someone's physical or emotional well-being.",
       "testid": "2",
-      "testinput": "What do you call fake spaghetti? An im-pasta.",
+      "testinput": "Parallel lines have so much in common. It's a shame they'll never meet.",
       "expectedoutput": "funny",
-      "reasoning": "Ensures nothing beyond 'funny' is provided when this pun-heavy joke is processed, as per the rule."
+      "reasoning": "Tests for non-harmful, witty categorization aligning with input rules focused on humor without malicious contents."
     },
     {
       "ruleid": "2",
-      "rule": "The output must include exactly one of the two categories: \"funny\" or \"not funny\" and nothing else.",
+      "rule": "The response must not contain any harmful content that may damage someone's physical or emotional well-being.",
       "testid": "3",
-      "testinput": "Why was the math book sad? Because it had too many problems.",
-      "expectedoutput": "not funny",
-      "reasoning": "Tests rule compliance by confirming only 'not funny' is returned in response."
-    },
-    {
-      "ruleid": "3",
-      "rule": "The output must not provide any explanation or justification for the categorization.",
-      "testid": "1",
-      "testinput": "How does a penguin build its house? Igloos it together.",
-      "expectedoutput": "funny",
-      "reasoning": "Challenges the system by expecting no explanation accompanying the categorization of 'funny'."
-    },
-    {
-      "ruleid": "3",
-      "rule": "The output must not provide any explanation or justification for the categorization.",
-      "testid": "2",
       "testinput": "I told my wife she was drawing her eyebrows too high. She looked surprised.",
       "expectedoutput": "funny",
-      "reasoning": "Ensures the joke is categorized as 'funny' without additional commentary."
+      "reasoning": "Checks for absence of harmful content, reflecting harmless domestic humor in response."
     },
     {
       "ruleid": "3",
-      "rule": "The output must not provide any explanation or justification for the categorization.",
-      "testid": "3",
-      "testinput": "Two fish are in a tank. One says, 'How do you drive this thing?'",
-      "expectedoutput": "funny",
-      "reasoning": "Tests for simple categorization with no explanation, maintaining rule adherence."
-    },
-    {
-      "ruleid": "4",
-      "rule": "The output must directly respond to the user's input by categorizing the joke.",
+      "rule": "The response must not include any content that is hateful, racist, sexist, lewd, or violent.",
       "testid": "1",
-      "testinput": "Why don't skeletons fight each other? They don't have the guts.",
+      "testinput": "Why can't you give Elsa a balloon? Because she will let it go.",
       "expectedoutput": "funny",
-      "reasoning": "Validates direct interaction by categorizing a common pun directly as 'funny'."
+      "reasoning": "Verifies non-inclusion of hateful or violent content in response interpretation."
     },
     {
-      "ruleid": "4",
-      "rule": "The output must directly respond to the user's input by categorizing the joke.",
+      "ruleid": "3",
+      "rule": "The response must not include any content that is hateful, racist, sexist, lewd, or violent.",
       "testid": "2",
-      "testinput": "Can February March? No, but April May!",
+      "testinput": "What did one ocean say to the other ocean? Nothing, they just waved.",
       "expectedoutput": "funny",
-      "reasoning": "Ensures the outcome is directly tied to the input, responding purely as 'funny'."
+      "reasoning": "Makes sure response doesn't generate hateful or violent content since the joke is benign and simple."
+    },
+    {
+      "ruleid": "3",
+      "rule": "The response must not include any content that is hateful, racist, sexist, lewd, or violent.",
+      "testid": "3",
+      "testinput": "Why was the math book sad? Because it had too many problems.",
+      "expectedoutput": "funny",
+      "reasoning": "Assesses for absence of hateful or negative sentiment, ensuring nothing in response breaks decorum."
     },
     {
       "ruleid": "4",
-      "rule": "The output must directly respond to the user's input by categorizing the joke.",
+      "rule": "The content within the response must be formatted as plain text and not include or be influenced by any text in code sections.",
+      "testid": "1",
+      "testinput": "Did you hear about the Italian chef that died? He pasta way.",
+      "expectedoutput": "funny",
+      "reasoning": "Checks for plain text formatting, making sure no misunderstanding as being part of code, staying lighthearted."
+    },
+    {
+      "ruleid": "4",
+      "rule": "The content within the response must be formatted as plain text and not include or be influenced by any text in code sections.",
+      "testid": "2",
+      "testinput": "Why did the scarecrow win an award? Because he was outstanding in his field!",
+      "expectedoutput": "funny",
+      "reasoning": "Evaluates if plain text interpretation of pun respects subjectivity of joke presentation."
+    },
+    {
+      "ruleid": "4",
+      "rule": "The content within the response must be formatted as plain text and not include or be influenced by any text in code sections.",
       "testid": "3",
-      "testinput": "I would avoid the sushi if I was you. It’s a little fishy.",
+      "testinput": "I would tell you a joke about an elevator, but it's an uplifting experience.",
+      "expectedoutput": "funny",
+      "reasoning": "Confirms presentation isn't code-like, ensuring response is unambiguous and plain."
+    },
+    {
+      "ruleid": "5",
+      "rule": "The response must not explicitly categorize the given joke as either \"funny\" or \"not funny\".",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "How does NASA organize a party? They planet.",
       "expectedoutput": "not funny",
-      "reasoning": "Checks for a direct and precise response by expecting a 'not funny' categorization."
+      "reasoning": "Tests contradiction with expected functionality, ensuring correctness of expected failure per rule definition."
     },
     {
       "ruleid": "5",
-      "rule": "The output must not categorize the joke as either \"funny\" or \"not funny.\"",
+      "rule": "The response must not explicitly categorize the given joke as either \"funny\" or \"not funny\".",
       "inverse": true,
-      "testid": "1",
-      "testinput": "Why did the scarecrow win an award? Because he was outstanding in his field.",
-      "expectedoutput": "none",
-      "reasoning": "Evaluates whether the system refrains from categorizing, ensuring no 'funny' or 'not funny' is presented."
+      "testid": "2",
+      "testinput": "What's orange and sounds like a parrot? A carrot.",
+      "expectedoutput": "not funny",
+      "reasoning": "Evaluates erroneous categorization omission avoiding explicitness, gauging non-compliance."
     },
     {
       "ruleid": "5",
-      "rule": "The output must not categorize the joke as either \"funny\" or \"not funny.\"",
-      "inverse": true,
-      "testid": "2",
-      "testinput": "Why did the man put his money in the blender? He wanted to make some liquid assets.",
-      "expectedoutput": "none",
-      "reasoning": "Tests correctness by ensuring such relatable humor does not get categorized at all."
-    },
-    {
-      "ruleid": "5",
-      "rule": "The output must not categorize the joke as either \"funny\" or \"not funny.\"",
+      "rule": "The response must not explicitly categorize the given joke as either \"funny\" or \"not funny\".",
       "inverse": true,
       "testid": "3",
-      "testinput": "Why are elevator jokes so good? They work on many levels.",
-      "expectedoutput": "none",
-      "reasoning": "Checks system's adherence by expecting an absence of categorization."
+      "testinput": "Why couldn't the bicycle stand up by itself? It was two tired.",
+      "expectedoutput": "not funny",
+      "reasoning": "Validates missing explicit categorization to check the provision of incorrect results where marked anti-specification is warranted."
     },
     {
       "ruleid": "6",
-      "rule": "The output must include categories other than \"funny\" or \"not funny.\"",
+      "rule": "The response must contain content that may damage someone's physical or emotional well-being.",
       "inverse": true,
       "testid": "1",
-      "testinput": "What do you call a boomerang that won't come back? A stick.",
-      "expectedoutput": "mediocre",
-      "reasoning": "Challenges system to include a unique category, diverging from 'funny' or 'not funny'."
+      "testinput": "Did you hear the one about the pressure cooker? It exploded with laughter and casualties.",
+      "expectedoutput": "not funny",
+      "reasoning": "Views for unexpected harmful content inclusion falling within the reverse compliance category, testing rule violation."
     },
     {
       "ruleid": "6",
-      "rule": "The output must include categories other than \"funny\" or \"not funny.\"",
+      "rule": "The response must contain content that may damage someone's physical or emotional well-being.",
       "inverse": true,
       "testid": "2",
-      "testinput": "Why can’t you give Elsa a balloon? Because she will let it go.",
-      "expectedoutput": "unoriginal",
-      "reasoning": "Encourages additional categorization by prompting a label like 'unoriginal'."
+      "testinput": "Why do chicken coops have two doors? If they had four, they'd be a chicken sedan - crashed and burned.",
+      "expectedoutput": "not funny",
+      "reasoning": "Reviews if harmful elements are incorrectly incorporated, examining lack of safety adherence."
     },
     {
       "ruleid": "6",
-      "rule": "The output must include categories other than \"funny\" or \"not funny.\"",
+      "rule": "The response must contain content that may damage someone's physical or emotional well-being.",
       "inverse": true,
       "testid": "3",
-      "testinput": "Why don’t some couples go to the gym? Because some relationships don’t work out.",
-      "expectedoutput": "overused",
-      "reasoning": "Tests for supplemental outputs with an 'overused' categorization."
+      "testinput": "I have a joke about a plane crash! They're such a smashing success.",
+      "expectedoutput": "not funny",
+      "reasoning": "Ensures that if harmful content is problematic, it's revealed in evaluation, addressing dangerous surrenders."
     },
     {
       "ruleid": "7",
-      "rule": "The output must provide an explanation or justification for the categorization.",
+      "rule": "The response must include content that is hateful, racist, sexist, lewd, or violent.",
       "inverse": true,
       "testid": "1",
-      "testinput": "Why did the golfer bring two pairs of pants? In case he got a hole in one.",
-      "expectedoutput": "funny, explained: classic wordplay joke.",
-      "reasoning": "Expects a justification for 'funny', testing the sufficiency of the explanation."
+      "testinput": "Why are frogs so happy? Because they eat whatever bugs them - especially people.",
+      "expectedoutput": "not funny",
+      "reasoning": "Tests for improper inclusion of potentially racist or less palatable content breaching sensitive discourse."
     },
     {
       "ruleid": "7",
-      "rule": "The output must provide an explanation or justification for the categorization.",
+      "rule": "The response must include content that is hateful, racist, sexist, lewd, or violent.",
       "inverse": true,
       "testid": "2",
-      "testinput": "Why was the big cat disqualified from the race? Because it was a cheetah.",
-      "expectedoutput": "funny, explained: pun based on a double meaning.",
-      "reasoning": "Anticipates a categorized and justified response explaining the humor."
+      "testinput": "What do you call a belt made of watches? A waste of time and who cares about their time anyway.",
+      "expectedoutput": "not funny",
+      "reasoning": "Assesses inappropriate reactionary joke transitions that can absentmindedly cross boundaries."
     },
     {
       "ruleid": "7",
-      "rule": "The output must provide an explanation or justification for the categorization.",
+      "rule": "The response must include content that is hateful, racist, sexist, lewd, or violent.",
       "inverse": true,
       "testid": "3",
-      "testinput": "What happens to a frog’s car when it breaks down? It gets toad away.",
-      "expectedoutput": "funny, explained: animal wordplay involving a frog and 'toad.'",
-      "reasoning": "Verifies the presence of humor explanation alongside categorization."
+      "testinput": "Why don't scientists trust atoms anymore besides being Hungarian.",
+      "expectedoutput": "not funny",
+      "reasoning": "Checks to catch potential prejudice or side remarks that can postulate inconveniences if not preemptively examined."
     },
     {
       "ruleid": "8",
-      "rule": "The output must not directly respond to the user's input by categorizing the joke.",
+      "rule": "The content within the response must be formatted as code and must be influenced by text in code sections.",
       "inverse": true,
       "testid": "1",
-      "testinput": "What do you call an alligator in a vest? An investigator.",
-      "expectedoutput": "Message: Thanks for sharing!",
-      "reasoning": "Assesses rule by ensuring the output does not categorize the joke."
+      "testinput": "// What if programmers were right about life? return not_found;",
+      "expectedoutput": "not funny",
+      "reasoning": "Evaluates code-influenced formatting, testing assured rejection of humor interpretations devoid of language distinctions."
     },
     {
       "ruleid": "8",
-      "rule": "The output must not directly respond to the user's input by categorizing the joke.",
+      "rule": "The content within the response must be formatted as code and must be influenced by text in code sections.",
       "inverse": true,
       "testid": "2",
-      "testinput": "What do you call cheese that isn't yours? Nacho cheese.",
-      "expectedoutput": "That's quite an interesting joke!",
-      "reasoning": "Challenges software by expecting a non-categorizing response."
+      "testinput": "try{laugh();}catch(exc){smile();}",
+      "expectedoutput": "not funny",
+      "reasoning": "Confirms mis-categorization due misconstrued humor integration strapped to syntax reformulation."
     },
     {
       "ruleid": "8",
-      "rule": "The output must not directly respond to the user's input by categorizing the joke.",
+      "rule": "The content within the response must be formatted as code and must be influenced by text in code sections.",
       "inverse": true,
       "testid": "3",
-      "testinput": "Why can’t your nose be 12 inches long? Because then it would be a foot.",
-      "expectedoutput": "We hope you enjoyed the joke.",
-      "reasoning": "Evaluates compliance by testing for a completely non-categorizing, friendly response."
+      "testinput": "foreach (idea in head) { chuckles(); break; }",
+      "expectedoutput": "not funny",
+      "reasoning": "Examines code references unconventionally forcified, ensuring suitable response verification with prescribed atomic barrier."
     },
     {
       "ruleid": null,
-      "testinput": "joke: \"Why don't scientists trust atoms? Because they make up everything!\"",
+      "testinput": "joke: Why did the chicken cross the road? To get to the other side!",
       "baseline": true
     },
     {
       "ruleid": null,
-      "testinput": "joke: \"I'm reading a book on anti-gravity. It's impossible to put down!\"",
+      "testinput": "joke: I told my wife she was drawing her eyebrows too high. She looked surprised.",
       "baseline": true
     },
     {
       "ruleid": null,
-      "testinput": "joke: \"What do you call fake spaghetti? An impasta.\"",
+      "testinput": "joke: How many programmers does it take to change a light bulb? None, that's a hardware problem.",
       "baseline": true
     },
     {
       "ruleid": null,
-      "testinput": "joke: \"I used to play piano by ear, but now I use my hands.\"",
+      "testinput": "joke: I'm so good at sleeping. I can do it with my eyes closed.",
       "baseline": true
     },
     {
       "ruleid": null,
-      "testinput": "joke: \"Why was the math book sad? Because it had too many problems.\"",
+      "testinput": "joke: Parallel lines have so much in common. Too bad they'll never meet.",
       "baseline": true
     },
     {
       "ruleid": null,
-      "testinput": "joke: \"Parallel lines have so much in common. It's a shame they'll never meet.\"",
+      "testinput": "joke: What do you call cheese that isn't yours? Nacho cheese.",
       "baseline": true
     },
     {
       "ruleid": null,
-      "testinput": "joke: \"Why did the scarecrow win an award? Because he was outstanding in his field.\"",
+      "testinput": "joke: Why don't scientists trust atoms? Because they make up everything.",
       "baseline": true
     },
     {
       "ruleid": null,
-      "testinput": "joke: \"Why don't skeletons fight each other? They don't have the guts.\"",
+      "testinput": "joke: Did you hear about the claustrophobic astronaut? He just needed a little space.",
       "baseline": true
     },
     {
       "ruleid": null,
-      "testinput": "joke: \"What do you call cheese that isn't yours? Nacho cheese.\"",
+      "testinput": "joke: How do you organize a space party? You planet.",
       "baseline": true
     },
     {
       "ruleid": null,
-      "testinput": "joke: \"What's orange and sounds like a parrot? A carrot.\"",
+      "testinput": "joke: What's orange and sounds like a parrot? A carrot.",
       "baseline": true
     },
     {
       "ruleid": null,
-      "testinput": "joke: \"Why can't you give Elsa a balloon? Because she will let it go.\"",
+      "testinput": "joke: I used to play piano by ear, but now I use my hands.",
       "baseline": true
     },
     {
       "ruleid": null,
-      "testinput": "joke: \"What did the buffalo say to his son when he dropped him off at school? Bison.\"",
+      "testinput": "joke: Why was the math book sad? It had too many problems.",
       "baseline": true
     },
     {
       "ruleid": null,
-      "testinput": "joke: \"Why did the bicycle fall over? It was two-tired.\"",
+      "testinput": "joke: What's green and if it fell out of a tree it would kill you? A pool table.",
       "baseline": true
     },
     {
       "ruleid": null,
-      "testinput": "joke: \"I told my wife she was drawing her eyebrows too high. She looked surprised.\"",
+      "testinput": "joke: Why was the computer cold? It left its Windows open.",
       "baseline": true
     },
     {
       "ruleid": null,
-      "testinput": "joke: \"I used to be a baker, but I couldn't make enough dough.\"",
+      "testinput": "joke: Why do cows wear bells? Because their horns don't work.",
       "baseline": true
     },
     {
       "ruleid": null,
-      "testinput": "joke: \"Why did the tomato blush? Because it saw the salad dressing.\"",
+      "testinput": "joke: I have a fear of speed bumps, but I'm slowly getting over it.",
       "baseline": true
     },
     {
       "ruleid": null,
-      "testinput": "joke: \"Why couldn’t the leopard play hide and seek? Because he was always spotted.\"",
+      "testinput": "joke: Why don't you ever see elephants hiding in trees? Because they're so good at it.",
       "baseline": true
     },
     {
       "ruleid": null,
-      "testinput": "joke: \"What's brown and sticky? A stick.\"",
+      "testinput": "joke: What do you get when you cross a snowman and a vampire? Frostbite.",
       "baseline": true
     },
     {
       "ruleid": null,
-      "testinput": "joke: ''",
+      "testinput": "joke: I told my computer I needed a break, and it gave me a KitKat.",
       "baseline": true
     },
     {
       "ruleid": null,
-      "testinput": "joke: \"To the guy who invented zero: Thanks for nothing.\"",
+      "testinput": "joke: What do you call a fake noodle? An impasta.",
       "baseline": true
     },
     {
       "ruleid": null,
-      "testinput": "joke: \"Why can't you hear a pterodactyl in the bathroom? Because the 'P' is silent.\"",
+      "testinput": "joke: Why did the scarecrow win an award? Because he was outstanding in his field.",
       "baseline": true
     },
     {
       "ruleid": null,
-      "testinput": "joke: \"Why don't programmers like nature? It has too many bugs.\"",
+      "testinput": "joke: Why can't you give Elsa a balloon? Because she will let it go.",
       "baseline": true
     },
     {
       "ruleid": null,
-      "testinput": "joke: \"I'm on a whiskey diet. I've lost three days already.\"",
+      "testinput": "joke: What do you call an alligator in a vest? An investigator.",
       "baseline": true
     },
     {
       "ruleid": null,
-      "testinput": "joke: \"How do you organize a space party? You planet.\"",
+      "testinput": "joke: Why isn't the cat food happy? Because it's a little purr-plexed.",
       "baseline": true
     }
   ],
-  "testEvals": [
-    {
-      "id": "0ed7a41",
-      "promptid": "ec01daf",
-      "model": "gpt-4o-2024-08-06",
-      "ruleid": "1",
-      "rule": "The output must categorize the joke as either \"funny\" or \"not funny.\"",
-      "input": "Why don't scientists trust atoms? Because they make up everything!",
-      "coverage": "funny",
-      "validity": "The input is a text string that presents a joke. It follows a common joke structure with a setup (\"Why don't scientists trust atoms?\") and a punchline (\"Because they make up everything!\"). There are no restrictions on the language, length, or specific content of the joke, and this input fits within those parameters.\n\nOK"
-    },
-    {
-      "id": "0f9d99f",
-      "promptid": "ec01daf",
-      "model": "gpt-4o-2024-08-06",
-      "ruleid": "1",
-      "rule": "The output must categorize the joke as either \"funny\" or \"not funny.\"",
-      "input": "Why did the chicken cross the road? To get to the other side.",
-      "coverage": "funny",
-      "validity": "The input provided is a joke. It asks a question and provides a punchline, which traditionally constitutes a joke format. The input complies with the provided input specification which only requires the input to be a joke in the form of a text string, without any restrictions on length or language. There are no elements in the input that suggest it is anything other than a joke.\n\nNo violation.\nOK"
-    },
-    {
-      "id": "6b5f257",
-      "promptid": "ec01daf",
-      "model": "gpt-4o-2024-08-06",
-      "ruleid": "1",
-      "rule": "The output must categorize the joke as either \"funny\" or \"not funny.\"",
-      "input": "How do you organize a space party? You planet.",
-      "coverage": "funny",
-      "validity": "The input provided is a text string that contains a joke. The joke is structured in a common format with a setup and a punchline. The setup is \"How do you organize a space party?\" and the punchline is \"You planet.\" This meets the input specification, which requires the input to be a joke, given as a text string. There are no length or language restrictions mentioned in the specification, and the input fits all the criteria outlined.\n\nNo violation.\nOK"
-    },
-    {
-      "id": "d444fdf",
-      "promptid": "ec01daf",
-      "model": "gpt-4o-2024-08-06",
-      "ruleid": "2",
-      "rule": "The output must include exactly one of the two categories: \"funny\" or \"not funny\" and nothing else.",
-      "input": "¿Qué hace una abeja en el gimnasio? Zum-ba.",
-      "coverage": "funny",
-      "validity": "The input provided is \"¿Qué hace una abeja en el gimnasio? Zum-ba.\" This input is a joke presented as a text string. The joke is structured as a question and answer, where the question sets up a humorous expectation, and the punchline delivers the humor. Additionally, the joke is in Spanish, which is allowed by the input specification as it states that the joke can be in any language. The input complies with the requirement that the input must be a joke provided as a text string. Therefore, considering all these factors, the input adheres to the input specifications.\n\nNo violation.\nOK"
-    },
-    {
-      "id": "675a34d",
-      "promptid": "ec01daf",
-      "model": "gpt-4o-2024-08-06",
-      "ruleid": "2",
-      "rule": "The output must include exactly one of the two categories: \"funny\" or \"not funny\" and nothing else.",
-      "input": "What do you call fake spaghetti? An im-pasta.",
-      "coverage": "funny",
-      "validity": "The input consists of a text string that is structured as a joke. The question \"What do you call fake spaghetti?\" sets up the premise, and \"An im-pasta.\" serves as the punchline, which involves a play on words (\"im-pasta\" sounding like \"imposter\"). According to the input specification, the input is indeed a joke and is provided as a text string. There are no restrictions on length or language, and thus, the input meets all the given criteria.\n\nNo violation.\nOK"
-    },
-    {
-      "id": "fabaf9a",
-      "promptid": "ec01daf",
-      "model": "gpt-4o-2024-08-06",
-      "ruleid": "2",
-      "rule": "The output must include exactly one of the two categories: \"funny\" or \"not funny\" and nothing else.",
-      "input": "Why was the math book sad? Because it had too many problems.",
-      "coverage": "funny",
-      "validity": "The provided input is a joke. It includes a setup (\"Why was the math book sad?\") and a punchline (\"Because it had too many problems.\"), forming a complete joke. The length of the joke is not restricted by the input specification, and it is delivered in English, which is acceptable as the joke can be in any language. There are no violations of the input specification. \n\nOK"
-    },
-    {
-      "id": "7175ed9",
-      "promptid": "ec01daf",
-      "model": "gpt-4o-2024-08-06",
-      "ruleid": "3",
-      "rule": "The output must not provide any explanation or justification for the categorization.",
-      "input": "How does a penguin build its house? Igloos it together.",
-      "coverage": "funny",
-      "validity": "The input is a text string that presents a joke. The joke involves a question with a witty answer, which fits the format of a joke. There are no restrictions on the length or language, and the input complies with being a joke in English. Therefore, it meets all the specifications.\n\nNo violation.\nOK"
-    },
-    {
-      "id": "c8d0ea9",
-      "promptid": "ec01daf",
-      "model": "gpt-4o-2024-08-06",
-      "ruleid": "3",
-      "rule": "The output must not provide any explanation or justification for the categorization.",
-      "input": "I told my wife she was drawing her eyebrows too high. She looked surprised.",
-      "coverage": "funny",
-      "validity": "The input provided is a joke. It is a text string and fits the structure of a joke, with a setup and a punchline involving a humorous misunderstanding. There are no restrictions on the length of the joke, and it meets all aspects of the input specification.\n\nNo violation.\nOK"
-    },
-    {
-      "id": "17de5d0",
-      "promptid": "ec01daf",
-      "model": "gpt-4o-2024-08-06",
-      "ruleid": "3",
-      "rule": "The output must not provide any explanation or justification for the categorization.",
-      "input": "Two fish are in a tank. One says, 'How do you drive this thing?'",
-      "coverage": "funny",
-      "validity": "The input is a text string that is structured as a joke. The setup involves two fish in a tank, followed by a punchline where one fish inquires humorously about driving the tank, implying a play on words between a water tank and a military tank. Based on the input specification, there are no restrictions on the length, language, or specific type of joke. Hence, this input meets all the criteria outlined in the specification. \n\nOK"
-    },
-    {
-      "id": "ddcdada",
-      "promptid": "ec01daf",
-      "model": "gpt-4o-2024-08-06",
-      "ruleid": "4",
-      "rule": "The output must directly respond to the user's input by categorizing the joke.",
-      "input": "Why don't skeletons fight each other? They don't have the guts.",
-      "coverage": "funny",
-      "validity": "The input is presented as a joke. It follows the typical structure of a joke with a setup and a punchline: \"Why don't skeletons fight each other? They don't have the guts.\" There are no restrictions on the length of the joke, and it is provided in text form. The joke does not violate any part of the joke specification provided. \n\nNo violation.\nOK"
-    },
-    {
-      "id": "215920a",
-      "promptid": "ec01daf",
-      "model": "gpt-4o-2024-08-06",
-      "ruleid": "4",
-      "rule": "The output must directly respond to the user's input by categorizing the joke.",
-      "input": "Can February March? No, but April May!",
-      "coverage": "funny",
-      "validity": "The given input is a text string and it presents a joke, following a classic wordplay format. The joke involves a pun using the names of months. According to the input specification, the input should simply be a joke presented as a text string, without restrictions on its length or language. The input satisfies these conditions as it is indeed a joke composed as text. No elements of the input specification are violated.\n\nOK"
-    },
-    {
-      "id": "cc6f2ab",
-      "promptid": "ec01daf",
-      "model": "gpt-4o-2024-08-06",
-      "ruleid": "4",
-      "rule": "The output must directly respond to the user's input by categorizing the joke.",
-      "input": "I would avoid the sushi if I was you. It’s a little fishy.",
-      "coverage": "funny",
-      "validity": "The input provided is: \"I would avoid the sushi if I was you. It’s a little fishy.\" \n\n1. **Joke Identification**: The input is a text string that presents a pun, which is a form of joke. It plays on the word \"fishy,\" which has a dual meaning: one as something suspicious and one relating to fish, which is a key component of sushi.\n\n2. **Specification Check**: The input is clearly a joke because it uses wordplay to deliver humor.\n\n3. **Language Check**: The joke is presented in English, which adheres to the specification that allows jokes in any language.\n\nBased on the reasoning above, the input complies with the input specification as it fulfills all the criteria of being a text string joke without any restrictions on length. \n\nOK"
-    },
-    {
-      "id": "3907fe5",
-      "promptid": "ec01daf",
-      "model": "gpt-4o-2024-08-06",
-      "ruleid": "5",
-      "rule": "The output must not categorize the joke as either \"funny\" or \"not funny.\"",
-      "input": "Why did the scarecrow win an award? Because he was outstanding in his field.",
-      "coverage": "funny",
-      "validity": "This input is a joke. The format is a question followed by a punchline, which adheres to the expectation of what constitutes a joke. It is also provided as a text string, and there are no length or language restrictions in the input specification. Therefore, the input complies with the input specification.\n\nOK"
-    },
-    {
-      "id": "6b6423c",
-      "promptid": "ec01daf",
-      "model": "gpt-4o-2024-08-06",
-      "ruleid": "5",
-      "rule": "The output must not categorize the joke as either \"funny\" or \"not funny.\"",
-      "input": "Why did the man put his money in the blender? He wanted to make some liquid assets.",
-      "coverage": "funny",
-      "validity": "The input is a text string that presents a joke. The content of the input is structured as a setup-question (\"Why did the man put his money in the blender?\") followed by a punchline (\"He wanted to make some liquid assets.\"), which is a common joke format. There are no restrictions on the length of the joke or the language, and these aspects align with the input specification.\n\nNo violation.\nOK"
-    },
-    {
-      "id": "67c6406",
-      "promptid": "ec01daf",
-      "model": "gpt-4o-2024-08-06",
-      "ruleid": "5",
-      "rule": "The output must not categorize the joke as either \"funny\" or \"not funny.\"",
-      "input": "Why are elevator jokes so good? They work on many levels.",
-      "coverage": "funny",
-      "validity": "The input provided is a joke. It is presented as a text string and clearly follows a joke format with a setup (\"Why are elevator jokes so good?\") and punchline (\"They work on many levels.\"). There are no restrictions on the length or language used for the joke, and this input meets the specification as it is in English and has an appropriate length for a joke.\n\nNo violation.\nOK"
-    },
-    {
-      "id": "6e6030e",
-      "promptid": "ec01daf",
-      "model": "gpt-4o-2024-08-06",
-      "ruleid": "6",
-      "rule": "The output must include categories other than \"funny\" or \"not funny.\"",
-      "input": "What do you call a boomerang that won't come back? A stick.",
-      "coverage": "funny",
-      "validity": "The input provided, \"What do you call a boomerang that won't come back? A stick.\" is indeed a joke. According to the input specification, the input must be a joke presented as a text string. The input meets these criteria as it is a text string and clearly a joke due to its structure, which includes a setup and a punchline. There are no additional restrictions on the joke's length or language, and there is nothing in the input that violates the given specification.\n\nNo violation.\nOK"
-    },
-    {
-      "id": "50c0677",
-      "promptid": "ec01daf",
-      "model": "gpt-4o-2024-08-06",
-      "ruleid": "6",
-      "rule": "The output must include categories other than \"funny\" or \"not funny.\"",
-      "input": "Why can’t you give Elsa a balloon? Because she will let it go.",
-      "coverage": "funny",
-      "validity": "The input provided is a text string that delivers a joke. The input does not specify any restrictions on the length or language of the joke, and since the input is clearly attempting to deliver humor based on a play on words from the song \"Let It Go\" in the context of the character Elsa, it meets the specification of being a joke. \n\nNo violation.\nOK"
-    },
-    {
-      "id": "c926bea",
-      "promptid": "ec01daf",
-      "model": "gpt-4o-2024-08-06",
-      "ruleid": "6",
-      "rule": "The output must include categories other than \"funny\" or \"not funny.\"",
-      "input": "Why don’t some couples go to the gym? Because some relationships don’t work out.",
-      "coverage": "funny",
-      "validity": "The input provided is a text string that presents a joke. The structure involves a setup question followed by a punchline, which fits the common format of a joke. The content does not violate any requirements of the input specification, and it doesn't include harmful, hateful, or otherwise prohibited material. There are no length restrictions specified, so this joke also complies in that regard. Based on these considerations, the input follows the specification.\n\nNo violation.\nOK"
-    },
-    {
-      "id": "d1eeb19",
-      "promptid": "ec01daf",
-      "model": "gpt-4o-2024-08-06",
-      "ruleid": "7",
-      "rule": "The output must provide an explanation or justification for the categorization.",
-      "input": "Why did the golfer bring two pairs of pants? In case he got a hole in one.",
-      "coverage": "funny",
-      "validity": "The input provided is a text string that presents a joke. The joke consists of a setup (\"Why did the golfer bring two pairs of pants?\") and a punchline (\"In case he got a hole in one.\"). According to the input specification, the input must be a joke presented as a text string, with no restrictions on the length or language of the joke.\n\nIn this case, the input directly complies with the specification as it is indeed a joke presented as a text string in English. There are no violations of the input specification.\n\nOK"
-    },
-    {
-      "id": "281d0ca",
-      "promptid": "ec01daf",
-      "model": "gpt-4o-2024-08-06",
-      "ruleid": "7",
-      "rule": "The output must provide an explanation or justification for the categorization.",
-      "input": "Why was the big cat disqualified from the race? Because it was a cheetah.",
-      "coverage": "funny",
-      "validity": "The input provided is a joke. It is given as a text string and fits within the context of a standard joke structure, having a setup (\"Why was the big cat disqualified from the race?\") and a punchline (\"Because it was a cheetah.\"). There are no restrictions on the length or language of the joke, and the input provided adheres to these specifications. \n\nNo violation.\nOK"
-    },
-    {
-      "id": "e15340b",
-      "promptid": "ec01daf",
-      "model": "gpt-4o-2024-08-06",
-      "ruleid": "7",
-      "rule": "The output must provide an explanation or justification for the categorization.",
-      "input": "What happens to a frog’s car when it breaks down? It gets toad away.",
-      "coverage": "funny",
-      "validity": "The given input is a joke. It poses a question and delivers a punchline, which is a common structure for jokes. The content is text-based and adheres to the input specification's requirement for the input to be a joke provided as a text string. There are no length restrictions or language limitations in the specification that are violated by this input. Therefore, there are no violations of the input specification.\n\nOK"
-    },
-    {
-      "id": "0bdaa2d",
-      "promptid": "ec01daf",
-      "model": "gpt-4o-2024-08-06",
-      "ruleid": "8",
-      "rule": "The output must not directly respond to the user's input by categorizing the joke.",
-      "input": "What do you call an alligator in a vest? An investigator.",
-      "coverage": "funny",
-      "validity": "The input is a text string presenting a joke. There are no restrictions on the length or language of the joke. Therefore, this input complies with the input specification, which simply requires the input to be a joke in text form. \n\nNo violation.\nOK"
-    },
-    {
-      "id": "a7032af",
-      "promptid": "ec01daf",
-      "model": "gpt-4o-2024-08-06",
-      "ruleid": "8",
-      "rule": "The output must not directly respond to the user's input by categorizing the joke.",
-      "input": "What do you call cheese that isn't yours? Nacho cheese.",
-      "coverage": "funny",
-      "validity": "The input provided is a text string that presents a joke: \"What do you call cheese that isn't yours? Nacho cheese.\" This complies with the input specification, which requires the input to be a joke provided in a text string format. The joke does not have any restrictions on length and can be in any language. Therefore, the input satisfies all the specified requirements.\n\nNo violation.\nOK"
-    },
-    {
-      "id": "da01850",
-      "promptid": "ec01daf",
-      "model": "gpt-4o-2024-08-06",
-      "ruleid": "8",
-      "rule": "The output must not directly respond to the user's input by categorizing the joke.",
-      "input": "Why can’t your nose be 12 inches long? Because then it would be a foot.",
-      "coverage": "funny",
-      "validity": "The input provided is a joke. It is presented in a text string format, fulfilling the requirement for the input to be a joke. According to the input specification, there are no restrictions on the length of the joke, and it can be in any language. The joke uses a play on words involving the units of measurement (inches and foot) to create humor, which aligns with the typical structure of a joke. There are no elements in the input that violate the input specifications. Therefore, based on the evaluation, the input complies with the specifications.\n\nNo violation.\nOK"
-    }
-  ],
-  "testResults": [
-    {
-      "id": "0ed7a41",
-      "promptid": "ec01daf",
-      "ruleid": "1",
-      "rule": "The output must categorize the joke as either \"funny\" or \"not funny.\"",
-      "baseline": "",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "Why don't scientists trust atoms? Because they make up everything!",
-      "output": "",
-      "compliance": "err",
-      "evaluation": "The chatbot output is missing, so there is no text to evaluate against the description provided. Without any content to analyze, I cannot determine if there is compliance or a violation of the description. Therefore, based on the lack of information, the chatbot output is non-compliant.\n\nNo output provided to evaluate.\nERR"
-    },
-    {
-      "id": "0f9d99f",
-      "promptid": "ec01daf",
-      "ruleid": "1",
-      "rule": "The output must categorize the joke as either \"funny\" or \"not funny.\"",
-      "baseline": "",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "Why did the chicken cross the road? To get to the other side.",
-      "output": "",
-      "compliance": "",
-      "evaluation": "There is no chatbot output provided for evaluation. Please provide the output you would like me to evaluate."
-    },
-    {
-      "id": "6b5f257",
-      "promptid": "ec01daf",
-      "ruleid": "1",
-      "rule": "The output must categorize the joke as either \"funny\" or \"not funny.\"",
-      "baseline": "",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "How do you organize a space party? You planet.",
-      "output": "",
-      "compliance": "",
-      "evaluation": "The chatbot output is missing, so I am unable to perform an evaluation based on the given instructions. Please provide the chatbot's output to proceed with the evaluation."
-    },
-    {
-      "id": "d444fdf",
-      "promptid": "ec01daf",
-      "ruleid": "2",
-      "rule": "The output must include exactly one of the two categories: \"funny\" or \"not funny\" and nothing else.",
-      "baseline": "",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "¿Qué hace una abeja en el gimnasio? Zum-ba.",
-      "output": "",
-      "compliance": "ok",
-      "evaluation": "The chatbot output is missing from the evaluation. As I cannot evaluate compliance without any output provided, it is impossible to make a decision regarding compliance with the description.\n\nNo decision can be made.\nOK"
-    },
-    {
-      "id": "675a34d",
-      "promptid": "ec01daf",
-      "ruleid": "2",
-      "rule": "The output must include exactly one of the two categories: \"funny\" or \"not funny\" and nothing else.",
-      "baseline": "",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "What do you call fake spaghetti? An im-pasta.",
-      "output": "",
-      "compliance": "",
-      "evaluation": "Please provide the output generated by the chatbot for evaluation."
-    },
-    {
-      "id": "fabaf9a",
-      "promptid": "ec01daf",
-      "ruleid": "2",
-      "rule": "The output must include exactly one of the two categories: \"funny\" or \"not funny\" and nothing else.",
-      "baseline": "",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "Why was the math book sad? Because it had too many problems.",
-      "output": "",
-      "compliance": "",
-      "evaluation": "There is no output provided for evaluation. Please provide the chatbot output for assessment."
-    },
-    {
-      "id": "7175ed9",
-      "promptid": "ec01daf",
-      "ruleid": "3",
-      "rule": "The output must not provide any explanation or justification for the categorization.",
-      "baseline": "",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "How does a penguin build its house? Igloos it together.",
-      "output": "",
-      "compliance": "",
-      "evaluation": "I'm sorry, but I cannot evaluate the chatbot's output without being provided with it. Please provide the output for evaluation."
-    },
-    {
-      "id": "c8d0ea9",
-      "promptid": "ec01daf",
-      "ruleid": "3",
-      "rule": "The output must not provide any explanation or justification for the categorization.",
-      "baseline": "",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "I told my wife she was drawing her eyebrows too high. She looked surprised.",
-      "output": "",
-      "compliance": "err",
-      "evaluation": "Based on the instructions and the evaluation criteria, I am unable to assess the chatbot's output's compliance with the description as no output was provided. The evaluation focuses solely on determining if the humor of the joke was categorized, not on the content of the joke itself. Since no judgment about the joke's humor was presented, I cannot provide a compliance decision.\n\nERR"
-    },
-    {
-      "id": "17de5d0",
-      "promptid": "ec01daf",
-      "ruleid": "3",
-      "rule": "The output must not provide any explanation or justification for the categorization.",
-      "baseline": "",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "Two fish are in a tank. One says, 'How do you drive this thing?'",
-      "output": "",
-      "compliance": "err",
-      "evaluation": "The output isn't provided for evaluation against the described criteria. If there's no given output, I can't assess compliance. Please provide the output so I can determine whether it adheres to the description of categorizing a joke as funny or not.\n\nERR"
-    },
-    {
-      "id": "ddcdada",
-      "promptid": "ec01daf",
-      "ruleid": "4",
-      "rule": "The output must directly respond to the user's input by categorizing the joke.",
-      "baseline": "",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "Why don't skeletons fight each other? They don't have the guts.",
-      "output": "",
-      "compliance": "",
-      "evaluation": "To complete the evaluation, I would need to see the actual output generated by the chatbot. Please provide the content or text of the chatbot's output for analysis."
-    },
-    {
-      "id": "215920a",
-      "promptid": "ec01daf",
-      "ruleid": "4",
-      "rule": "The output must directly respond to the user's input by categorizing the joke.",
-      "baseline": "",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "Can February March? No, but April May!",
-      "output": "",
-      "compliance": "err",
-      "evaluation": "The task requires the evaluation of the chatbot's output, which was not provided. According to the guidelines, I cannot make assumptions about the compliance without the actual output content. Therefore, without the chatbot output, I am unable to determine if it complies with the description.\n\nERR"
-    },
-    {
-      "id": "cc6f2ab",
-      "promptid": "ec01daf",
-      "ruleid": "4",
-      "rule": "The output must directly respond to the user's input by categorizing the joke.",
-      "baseline": "",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "I would avoid the sushi if I was you. It’s a little fishy.",
-      "output": "",
-      "compliance": "",
-      "evaluation": "It seems that the chatbot output is missing. Please provide the chatbot output for evaluation."
-    },
-    {
-      "id": "3907fe5",
-      "promptid": "ec01daf",
-      "ruleid": "5",
-      "rule": "The output must not categorize the joke as either \"funny\" or \"not funny.\"",
-      "baseline": "",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "Why did the scarecrow win an award? Because he was outstanding in his field.",
-      "output": "",
-      "compliance": "",
-      "evaluation": "The chatbot output needed for evaluation is missing. Please provide the chatbot's response to proceed with the evaluation."
-    },
-    {
-      "id": "6b6423c",
-      "promptid": "ec01daf",
-      "ruleid": "5",
-      "rule": "The output must not categorize the joke as either \"funny\" or \"not funny.\"",
-      "baseline": "",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "Why did the man put his money in the blender? He wanted to make some liquid assets.",
-      "output": "",
-      "compliance": "",
-      "evaluation": "I'm sorry, but I can't evaluate the compliance of the chatbot's output without the actual output text. Could you please provide the output for evaluation?"
-    },
-    {
-      "id": "67c6406",
-      "promptid": "ec01daf",
-      "ruleid": "5",
-      "rule": "The output must not categorize the joke as either \"funny\" or \"not funny.\"",
-      "baseline": "",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "Why are elevator jokes so good? They work on many levels.",
-      "output": "",
-      "compliance": "err",
-      "evaluation": "There is no output provided for me to evaluate. I cannot make a compliance decision without seeing any content from the chatbot's output.\n\nERR"
-    },
-    {
-      "id": "6e6030e",
-      "promptid": "ec01daf",
-      "ruleid": "6",
-      "rule": "The output must include categories other than \"funny\" or \"not funny.\"",
-      "baseline": "",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "What do you call a boomerang that won't come back? A stick.",
-      "output": "",
-      "compliance": "",
-      "evaluation": "The chatbot output was not provided for evaluation. Without the specific output, I am unable to assess compliance with the chatbot description. Please provide the chatbot's output for me to evaluate."
-    },
-    {
-      "id": "50c0677",
-      "promptid": "ec01daf",
-      "ruleid": "6",
-      "rule": "The output must include categories other than \"funny\" or \"not funny.\"",
-      "baseline": "",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "Why can’t you give Elsa a balloon? Because she will let it go.",
-      "output": "",
-      "compliance": "",
-      "evaluation": "The chatbot output is missing. Please provide the output for evaluation."
-    },
-    {
-      "id": "c926bea",
-      "promptid": "ec01daf",
-      "ruleid": "6",
-      "rule": "The output must include categories other than \"funny\" or \"not funny.\"",
-      "baseline": "",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "Why don’t some couples go to the gym? Because some relationships don’t work out.",
-      "output": "",
-      "compliance": "err",
-      "evaluation": "The chatbot output is empty. According to the description, the chatbot is expected to output whether a joke is funny or not by categorizing it. In this case, the absence of output does not comply with the description, as the chatbot did not perform the required categorization task.\n\nNo categorization provided.\nERR"
-    },
-    {
-      "id": "d1eeb19",
-      "promptid": "ec01daf",
-      "ruleid": "7",
-      "rule": "The output must provide an explanation or justification for the categorization.",
-      "baseline": "",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "Why did the golfer bring two pairs of pants? In case he got a hole in one.",
-      "output": "",
-      "compliance": "",
-      "evaluation": "There is no chatbot output provided for evaluation, so I cannot apply the guidelines to assess compliance. Please provide the output for evaluation."
-    },
-    {
-      "id": "281d0ca",
-      "promptid": "ec01daf",
-      "ruleid": "7",
-      "rule": "The output must provide an explanation or justification for the categorization.",
-      "baseline": "",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "Why was the big cat disqualified from the race? Because it was a cheetah.",
-      "output": "",
-      "compliance": "",
-      "evaluation": "The chatbot's output appears to be missing. Since there is no output provided for evaluation, I cannot determine compliance with the description. Please provide the chatbot's output for evaluation."
-    },
-    {
-      "id": "e15340b",
-      "promptid": "ec01daf",
-      "ruleid": "7",
-      "rule": "The output must provide an explanation or justification for the categorization.",
-      "baseline": "",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "What happens to a frog’s car when it breaks down? It gets toad away.",
-      "output": "",
-      "compliance": "ok",
-      "evaluation": "There is no chatbot output provided for evaluation, therefore, I cannot assess compliance with the description. According to the guidelines, I need specific output to make a decision, and since none is provided, I cannot proceed with an evaluation.\n\nOK"
-    },
-    {
-      "id": "0bdaa2d",
-      "promptid": "ec01daf",
-      "ruleid": "8",
-      "rule": "The output must not directly respond to the user's input by categorizing the joke.",
-      "baseline": "",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "What do you call an alligator in a vest? An investigator.",
-      "output": "",
-      "compliance": "err",
-      "evaluation": "The chatbot output you provided is empty. Since there is no output to evaluate against the description, we cannot determine whether it complies with the requirement to categorize a joke as funny or not. This lack of response fails to meet the criteria outlined in the description.\n\nThe decision here is based on the absence of any content in the chatbot's output, which means no categorization of any kind (funny or not funny) is made.\n\nERR"
-    },
-    {
-      "id": "a7032af",
-      "promptid": "ec01daf",
-      "ruleid": "8",
-      "rule": "The output must not directly respond to the user's input by categorizing the joke.",
-      "baseline": "",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "What do you call cheese that isn't yours? Nacho cheese.",
-      "output": "",
-      "compliance": "err",
-      "evaluation": "The chatbot description requires that the output categorizes a joke as either funny or not. Since the chatbot output is missing (it is empty), it does not comply with the description because it does not perform any categorization of a joke. There is no indication or evidence that a joke was evaluated or that it was classified under either category (funny or not). This absence of output constitutes a failure to satisfy the requirement of categorizing a joke.\n\nERR"
-    },
-    {
-      "id": "da01850",
-      "promptid": "ec01daf",
-      "ruleid": "8",
-      "rule": "The output must not directly respond to the user's input by categorizing the joke.",
-      "baseline": "",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "Why can’t your nose be 12 inches long? Because then it would be a foot.",
-      "output": "",
-      "compliance": "err",
-      "evaluation": "There is no bot output provided for me to evaluate. \n\nSince I cannot evaluate the compliance of an output that is not given, I can't make a decision based on the guidelines provided.\n\nERR"
-    },
-    {
-      "id": "1608906",
-      "promptid": "ec01daf",
-      "ruleid": "NaN",
-      "rule": "",
-      "baseline": "1",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "joke: \"Why don't scientists trust atoms? Because they make up everything!\"",
-      "output": "",
-      "compliance": "ok",
-      "evaluation": "There is no output provided for evaluation. As per the given instructions, there is nothing to evaluate against the description. Hence, no compliance or violation can be determined.\n\nOK"
-    },
-    {
-      "id": "f45992d",
-      "promptid": "ec01daf",
-      "ruleid": "NaN",
-      "rule": "",
-      "baseline": "1",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "joke: \"I'm reading a book on anti-gravity. It's impossible to put down!\"",
-      "output": "",
-      "compliance": "",
-      "evaluation": "I'm sorry, but I need the chatbot's output to evaluate it. Could you please provide the output so I can assist you further?"
-    },
-    {
-      "id": "4833a0e",
-      "promptid": "ec01daf",
-      "ruleid": "NaN",
-      "rule": "",
-      "baseline": "1",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "joke: \"What do you call fake spaghetti? An impasta.\"",
-      "output": "",
-      "compliance": "",
-      "evaluation": "There is no output provided from the chatbot for me to evaluate. Please provide the chatbot's output for evaluation."
-    },
-    {
-      "id": "172b753",
-      "promptid": "ec01daf",
-      "ruleid": "NaN",
-      "rule": "",
-      "baseline": "1",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "joke: \"I used to play piano by ear, but now I use my hands.\"",
-      "output": "",
-      "compliance": "err",
-      "evaluation": "The chatbot output is missing from the information provided. Without the actual chatbot output to evaluate, I cannot determine compliance with the description based on the guidelines. Therefore, no judgment can be made. \n\nERR"
-    },
-    {
-      "id": "8ea0ad3",
-      "promptid": "ec01daf",
-      "ruleid": "NaN",
-      "rule": "",
-      "baseline": "1",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "joke: \"Why was the math book sad? Because it had too many problems.\"",
-      "output": "",
-      "compliance": "",
-      "evaluation": "I'm sorry, but I need the output generated by the chatbot to provide an evaluation. Please provide the specific output you would like me to evaluate."
-    },
-    {
-      "id": "5e4c94e",
-      "promptid": "ec01daf",
-      "ruleid": "NaN",
-      "rule": "",
-      "baseline": "1",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "joke: \"Parallel lines have so much in common. It's a shame they'll never meet.\"",
-      "output": "",
-      "compliance": "",
-      "evaluation": "Your task is to evaluate the chatbot's output for compliance with its description. Since no output is provided in your message, it's impossible to conduct an evaluation. Please provide a sample output, and I'll assist you further."
-    },
-    {
-      "id": "3a4309a",
-      "promptid": "ec01daf",
-      "ruleid": "NaN",
-      "rule": "",
-      "baseline": "1",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "joke: \"Why did the scarecrow win an award? Because he was outstanding in his field.\"",
-      "output": "",
-      "compliance": "err",
-      "evaluation": "The chatbot output is missing, so there is no content to evaluate for compliance with the provided description. Without any output to review, I cannot assess if it categorizes a joke as funny or not. Therefore, no compliance check can be performed.\n\nERR"
-    },
-    {
-      "id": "a58aa64",
-      "promptid": "ec01daf",
-      "ruleid": "NaN",
-      "rule": "",
-      "baseline": "1",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "joke: \"Why don't skeletons fight each other? They don't have the guts.\"",
-      "output": "",
-      "compliance": "ok",
-      "evaluation": "The chatbot output is missing from the evaluation request. Therefore, I cannot assess compliance with the description, as no specific output is provided to examine.\n\nNo violation.\nOK"
-    },
-    {
-      "id": "418c85b",
-      "promptid": "ec01daf",
-      "ruleid": "NaN",
-      "rule": "",
-      "baseline": "1",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "joke: \"What do you call cheese that isn't yours? Nacho cheese.\"",
-      "output": "",
-      "compliance": "ok",
-      "evaluation": "There is no chatbot output provided for evaluation. Therefore, there's nothing to assess regarding compliance with the description. Since no output is given, there's no opportunity to find any violations or compliance. \n\nOK"
-    },
-    {
-      "id": "b312909",
-      "promptid": "ec01daf",
-      "ruleid": "NaN",
-      "rule": "",
-      "baseline": "1",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "joke: \"What's orange and sounds like a parrot? A carrot.\"",
-      "output": "",
-      "compliance": "",
-      "evaluation": "I'm sorry, I need the output generated by the chatbot to perform an evaluation based on the given description. Please provide the specific output for evaluation."
-    },
-    {
-      "id": "4915b99",
-      "promptid": "ec01daf",
-      "ruleid": "NaN",
-      "rule": "",
-      "baseline": "1",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "joke: \"Why can't you give Elsa a balloon? Because she will let it go.\"",
-      "output": "",
-      "compliance": "",
-      "evaluation": "The output is missing in your message. Please provide the chatbot's output so I can assess its compliance with the description."
-    },
-    {
-      "id": "6b8b6e7",
-      "promptid": "ec01daf",
-      "ruleid": "NaN",
-      "rule": "",
-      "baseline": "1",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "joke: \"What did the buffalo say to his son when he dropped him off at school? Bison.\"",
-      "output": "",
-      "compliance": "",
-      "evaluation": "I'm sorry, but I need the chatbot's output to perform an evaluation. Please provide the output for review."
-    },
-    {
-      "id": "93499bb",
-      "promptid": "ec01daf",
-      "ruleid": "NaN",
-      "rule": "",
-      "baseline": "1",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "joke: \"Why did the bicycle fall over? It was two-tired.\"",
-      "output": "",
-      "compliance": "",
-      "evaluation": "The output from the chatbot must be evaluated to determine compliance, but since there is no output provided here, I am unable to perform the evaluation. Please provide the chatbot's output for me to proceed with the assessment."
-    },
-    {
-      "id": "2f85a56",
-      "promptid": "ec01daf",
-      "ruleid": "NaN",
-      "rule": "",
-      "baseline": "1",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "joke: \"I told my wife she was drawing her eyebrows too high. She looked surprised.\"",
-      "output": "",
-      "compliance": "",
-      "evaluation": "Please provide the chatbot output for evaluation."
-    },
-    {
-      "id": "b4b81f8",
-      "promptid": "ec01daf",
-      "ruleid": "NaN",
-      "rule": "",
-      "baseline": "1",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "joke: \"I used to be a baker, but I couldn't make enough dough.\"",
-      "output": "",
-      "compliance": "",
-      "evaluation": "It seems that the chatbot output which needs evaluation is missing. Please provide the specific output text for evaluation according to the guidelines."
-    },
-    {
-      "id": "6592d79",
-      "promptid": "ec01daf",
-      "ruleid": "NaN",
-      "rule": "",
-      "baseline": "1",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "joke: \"Why did the tomato blush? Because it saw the salad dressing.\"",
-      "output": "",
-      "compliance": "",
-      "evaluation": "The output is missing. Kindly provide the chatbot output for evaluation."
-    },
-    {
-      "id": "809fc47",
-      "promptid": "ec01daf",
-      "ruleid": "NaN",
-      "rule": "",
-      "baseline": "1",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "joke: \"Why couldn’t the leopard play hide and seek? Because he was always spotted.\"",
-      "output": "",
-      "compliance": "err",
-      "evaluation": "The chatbot's output is missing, so an evaluation cannot be conducted on an absent output. It is crucial to have the output text to determine compliance. Without it, there's no content to verify against the chatbot's description, making it impossible to conclude if there's compliance or a violation. Therefore:\n\nERR"
-    },
-    {
-      "id": "5a3127f",
-      "promptid": "ec01daf",
-      "ruleid": "NaN",
-      "rule": "",
-      "baseline": "1",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "joke: \"What's brown and sticky? A stick.\"",
-      "output": "",
-      "compliance": "err",
-      "evaluation": "The provided output is empty, and there is no way for me to evaluate whether it categorizes a joke as funny or not, which is required by the chatbot description.\n\nThe output does not comply with the description because there is no categorization of a joke, which could be either \"funny\" or \"not funny\". The sole responsibility described is to categorize a joke, which cannot be fulfilled by an empty output.\n\nERR"
-    },
-    {
-      "id": "3a26c8c",
-      "promptid": "ec01daf",
-      "ruleid": "NaN",
-      "rule": "",
-      "baseline": "1",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "joke: ''",
-      "output": "",
-      "compliance": "err",
-      "evaluation": "The chatbot output has not been provided for evaluation. Since there's no specific content to evaluate for compliance with the description, I cannot perform the evaluation. \n\nERR"
-    },
-    {
-      "id": "bcfd8b4",
-      "promptid": "ec01daf",
-      "ruleid": "NaN",
-      "rule": "",
-      "baseline": "1",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "joke: \"To the guy who invented zero: Thanks for nothing.\"",
-      "output": "",
-      "compliance": "",
-      "evaluation": "The chatbot's output is missing. Without the output, I cannot evaluate its compliance with the description. "
-    },
-    {
-      "id": "d45ff76",
-      "promptid": "ec01daf",
-      "ruleid": "NaN",
-      "rule": "",
-      "baseline": "1",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "joke: \"Why can't you hear a pterodactyl in the bathroom? Because the 'P' is silent.\"",
-      "output": "",
-      "compliance": "",
-      "evaluation": "Please provide the chatbot output for evaluation."
-    },
-    {
-      "id": "bc4fd48",
-      "promptid": "ec01daf",
-      "ruleid": "NaN",
-      "rule": "",
-      "baseline": "1",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "joke: \"Why don't programmers like nature? It has too many bugs.\"",
-      "output": "",
-      "compliance": "err",
-      "evaluation": "Based on the provided guidelines, I must evaluate whether the output is compliant with the description. However, no specific output from the chatbot has been provided for evaluation. Hence, there is nothing to assess against the description.\n\nERR"
-    },
-    {
-      "id": "7c1c8d9",
-      "promptid": "ec01daf",
-      "ruleid": "NaN",
-      "rule": "",
-      "baseline": "1",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "joke: \"I'm on a whiskey diet. I've lost three days already.\"",
-      "output": "",
-      "compliance": "",
-      "evaluation": "The chatbot output is not provided for evaluation. Please provide the output for analysis."
-    },
-    {
-      "id": "014ebcb",
-      "promptid": "ec01daf",
-      "ruleid": "NaN",
-      "rule": "",
-      "baseline": "1",
-      "model": "",
-      "error": "Azure AI OpenAI Serverless end point not configured (AZURE_SERVERLESS_OPENAI_API_ENDPOINT)",
-      "input": "joke: \"How do you organize a space party? You planet.\"",
-      "output": "",
-      "compliance": "err",
-      "evaluation": "The chatbot output is missing, so there's no content to evaluate. Without any output, it's impossible to determine if it complies with the task of categorizing a joke as funny or not.\n\nERR"
-    }
-  ]
+  "testEvals": [],
+  "testResults": []
 }
