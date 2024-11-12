@@ -1,3 +1,4 @@
+sudo apt install texlive texlive-science texlive-latex-extra latexmk
 pip install -r requirements.txt
 
 # # ollama install and pull models 
