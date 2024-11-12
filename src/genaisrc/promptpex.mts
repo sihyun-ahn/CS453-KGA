@@ -147,14 +147,14 @@ export async function loadPromptFiles(
     dir,
     name: basename,
     prompt: promptFile,
+    testOutputs: await workspace.readText(testResults),
     intent: await workspace.readText(intent),
     inputSpec: await workspace.readText(inputSpec),
-    baselineTests: await workspace.readText(baselineTests),
     rules: tidyRulesFile(await workspace.readText(rules)),
     inverseRules: tidyRulesFile(await workspace.readText(inverseRules)),
     tests: await workspace.readText(tests),
     testEvals: await workspace.readText(testEvals),
-    testOutputs: await workspace.readText(testResults),
+    baselineTests: await workspace.readText(baselineTests),
   } satisfies PromptPexContext;
 }
 
@@ -162,7 +162,7 @@ function modelOptions(): PromptGeneratorOptions {
   return {
     model: "large",
     temperature: 1,
-    system: ["system.safety_harmful_content", "system.safety_jailbreak"],
+    system: ["system.safety_jailbreak"],
   };
 }
 
@@ -664,7 +664,12 @@ function cleanBaselineTests(content: string) {
   const tests = parsers
     .unfence(content, "")
     .split(/\s*===\s*/g)
-    .map((l) => l.trim().replace(/^(#+\s+)?(test case)( \d+)?:?$/gim, "").trim())
+    .map((l) =>
+      l
+        .trim()
+        .replace(/^(#+\s+)?(test case)( \d+)?:?$/gim, "")
+        .trim()
+    )
     .filter((l) => !!l);
   return tests;
 }
@@ -1012,7 +1017,6 @@ export async function generate(
       files.testEvals.content
     );
   }
-
 
   await generateReports(files);
 
