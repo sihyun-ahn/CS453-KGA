@@ -202,7 +202,7 @@ export async function generateInputSpec(files: PromptPexContext) {
     },
     {
       ...modelOptions(),
-//      logprobs: true,
+      //      logprobs: true,
       label: "generate input spec",
     }
   );
@@ -220,7 +220,7 @@ export async function generateIntent(files: PromptPexContext) {
     },
     {
       ...modelOptions(),
-//      logprobs: true,
+      //      logprobs: true,
       label: "generate intent",
     }
   );
@@ -244,7 +244,7 @@ export async function generateRules(
     },
     {
       ...modelOptions(),
-//      logprobs: true,
+      //      logprobs: true,
       label: "generate rules",
     }
   );
@@ -262,7 +262,7 @@ export async function generateInverseRules(files: PromptPexContext) {
     },
     {
       ...modelOptions(),
-//      logprobs: true,
+      //      logprobs: true,
       label: "inverse rules",
     }
   );
@@ -286,7 +286,7 @@ export async function generateBaselineTests(
     },
     {
       ...modelOptions(),
-//      logprobs: true,
+      //      logprobs: true,
       label: `generate baseline tests`,
     }
   );
@@ -332,7 +332,7 @@ export async function generateTests(
     },
     {
       ...modelOptions(),
-//      logprobs: true,
+      //      logprobs: true,
       label: `generate tests`,
     }
   );
@@ -367,7 +367,11 @@ export async function runTests(
 
   console.log(`executing ${tests.length} tests with ${models.length} models`);
   const testResults: PromptPexTestResult[] = [];
-  for (const test of tests) {
+  for (let testi = 0; testi < tests.length; ++testi) {
+    const test = tests[testi];
+    console.log(
+      `run test ${testi + 1}/${tests.length} ${test.testinput.slice(0, 42)}...`
+    );
     await evaluateTestQuality(files, test, { force });
     for (const model of models) {
       const testRes = await runTest(files, test, { model, force });
@@ -592,7 +596,7 @@ export async function evaluateTestQuality(
       },
       {
         ...moptions,
-//        logprobs: true,
+        //        logprobs: true,
         label: `evaluate coverage of test ${testInput.slice(0, 42)}...`,
       }
     ),
@@ -609,7 +613,7 @@ export async function evaluateTestQuality(
       {
         ...moptions,
         choices: ["OK", "ERR"],
-//        logprobs: true,
+        //        logprobs: true,
         label: `evaluate validity of test ${testInput.slice(0, 42)}...`,
       }
     ),
@@ -654,9 +658,14 @@ function parseRulesTests(text: string): PromptPexTest[] {
 }
 
 function parseTestResults(files: PromptPexContext): PromptPexTestResult[] {
-  return CSV.parse(files.testOutputs.content, {
+  const rules = parseRules(files.rules.content);
+  const res = CSV.parse(files.testOutputs.content, {
     delimiter: ",",
   }) as PromptPexTestResult[];
+  res?.forEach((r) => {
+    r.inverse = r.ruleid !== null && parseInt(r.ruleid as any) > rules.length;
+  });
+  return res;
 }
 
 function cleanBaselineTests(content: string) {
@@ -732,7 +741,7 @@ async function evaluateTestResult(
     {
       ...moptions,
       choices: ["OK", "ERR"],
-//      logprobs: true,
+      //      logprobs: true,
       label: `evaluate test result ${testResult.model} ${testResult.input.slice(0, 42)}...`,
     }
   );
@@ -849,14 +858,19 @@ export async function generateMarkdownReport(files: PromptPexContext) {
 </details>
 `);
   res.push(
+    "",
+    `### [${path.basename(files.testOutputs.filename)}](./${path.basename(files.testOutputs.filename)})`,
+    "",
     // Three more same columns with the same data but only for valid tests
     CSV.markdownify(
       Object.entries(testResultsPerModels).map(([model, results]) => ({
         model,
         tests: results.filter((tr) => tr.rule).length,
+        ["tests positive"]: results.filter((tr) => tr.rule && !tr.inverse)
+          .length,
         ["tests negative"]: results.filter((tr) => tr.rule && tr.inverse)
           .length,
-        ["tests compliant"]: results.filter(
+        ["tests positive compliant"]: results.filter(
           (tr) => tr.rule && !tr.inverse && tr.compliance === "ok"
         ).length,
       }))
@@ -868,7 +882,7 @@ export async function generateMarkdownReport(files: PromptPexContext) {
     const ext = path.extname(file.filename).slice(1);
     const headers =
       file === files.testOutputs
-        ? ["rule", "model", "input", "output", "compliance"]
+        ? ["model", "rule", "input", "output", "compliance"]
         : file === files.tests
           ? ["testinput", "expectedoutput", "reasoning"]
           : file === files.baselineTests
@@ -987,6 +1001,7 @@ export async function generate(
     files.tests.content = await generateTests(files);
     await workspace.writeText(files.tests.filename, files.tests.content);
     files.testEvals.content = undefined;
+    files.testOutputs.content = undefined;
   }
 
   // generate baseline tests
@@ -996,6 +1011,8 @@ export async function generate(
       files.baselineTests.filename,
       files.baselineTests.content
     );
+    files.testEvals.content = undefined;
+    files.testOutputs.content = undefined;
   }
 
   await generateReports(files);

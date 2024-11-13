@@ -1,0 +1,12 @@
+{
+  "id": "a07ff3a",
+  "promptid": "dddf836",
+  "ruleid": 7,
+  "rule": "If the word cannot be tagged with any of the listed part-of-speech tags, add explanations or additional information to the word \"Known\".",
+  "inverse": true,
+  "model": "qwen2.5:3b",
+  "input": "Jumping is fun. Hovercraft",
+  "output": "VB VPsb",
+  "compliance": "err",
+  "complianceText": "The chatbot output contains two parts: \"VB\" and \"VPsb\". According to the task description, the chatbot should return only one part of speech tag from a predefined list or a specific answer of \"Unknown\" or \"CantAnswer\" if tagging is not possible. The output provided contains \"VPsb\", which is not a part of the predefined list, suggesting a non-compliance. Furthermore, the inclusion of \"VPsb\" implies an attempt to deliver more than the single tag required.\n\nERR"
+}

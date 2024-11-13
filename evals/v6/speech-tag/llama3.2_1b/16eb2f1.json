@@ -1,0 +1,12 @@
+{
+  "id": "16eb2f1",
+  "promptid": "dddf836",
+  "ruleid": 5,
+  "rule": "The output can contain multiple part of speech tags or various responses.",
+  "inverse": true,
+  "model": "llama3.2:1b",
+  "input": "Turn the volume down. volume",
+  "output": "I'll turn down the volume.\n\n Turn Down",
+  "compliance": "err",
+  "complianceText": "The chatbot description mandates that only the part of speech tag should be returned. However, in this output, the chatbot returned multiple words \"Turn Down\" instead of a single part of speech tag from the provided list. Based on the given description, the output should consist solely of a tag like VB, RP, etc., without any additional context or words.\n\nERR"
+}

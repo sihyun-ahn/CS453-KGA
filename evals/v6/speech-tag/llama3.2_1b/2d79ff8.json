@@ -1,0 +1,11 @@
+{
+  "id": "2d79ff8",
+  "promptid": "dddf836",
+  "ruleid": null,
+  "baseline": true,
+  "model": "llama3.2:1b",
+  "input": "sentence: Could you please scoot over a bit?  \nword: over",
+  "output": "CC: CD: \nScoot -> JJ\nOver -> JJR",
+  "compliance": "err",
+  "complianceText": "The chatbot description specifies that the output should be only a single part of speech tag (or 'Unknown'/'CantAnswer' where applicable). In the provided output, multiple tags are listed before the actual evaluation of \"Scoot\" and \"Over\". This inclusion of \"CC: CD:\" is not in compliance with the requirement for a singular part of speech tag. Instead, at most, there should be one tag for each analyzed word, or 'Unknown'/'CantAnswer' if appropriate. Therefore, the output does not adhere to the requirement of returning just the tag.\n\nERR"
+}

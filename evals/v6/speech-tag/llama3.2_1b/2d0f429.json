@@ -1,0 +1,12 @@
+{
+  "id": "2d0f429",
+  "promptid": "dddf836",
+  "ruleid": 5,
+  "rule": "The output can contain multiple part of speech tags or various responses.",
+  "inverse": true,
+  "model": "llama3.2:1b",
+  "input": "She can ski very well if she wants. well",
+  "output": "## Determiner DT: A\nUnknown",
+  "compliance": "err",
+  "complianceText": "The chatbot output lists two different results: \"## Determiner DT: A\" and \"Unknown\". This does not comply with the instruction to return only the part of speech tag, which should be a singular, straightforward output. Multiple outputs are confusing and do not align with the directive to give only one response. Therefore, the output is in violation of the requirement to return a single tag or response.\n\nERR"
+}
