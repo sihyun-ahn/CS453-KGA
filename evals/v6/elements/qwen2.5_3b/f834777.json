@@ -1,0 +1,12 @@
+{
+  "id": "f834777",
+  "promptid": "fdc5c4c",
+  "ruleid": 11,
+  "rule": "Company names:",
+  "inverse": true,
+  "model": "qwen2.5:3b",
+  "input": "Just a mention of Google.",
+  "output": "```json\n{\n  \"Company names\": \"Google\",\n  \"People names\": \"-||-\",\n  \"Specific topics\": \"-||-\",\n  \"General themes\": \"Search Engine\"\n}\n```",
+  "compliance": "err",
+  "complianceText": "The output format does not fully comply with the desired format specified in the description. The expected output format requires the values to be in the format of `<comma_separated_list_of_items>`, but some of the fields are using `-||-` to indicate absence of items (e.g., \"People names\" and \"Specific topics\"). Additionally, \"General themes\" does not use the `<comma_separated_list_of_items>` format, though it only contains one item. The output should adhere strictly to the format specified in the description.\n\nERR"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "9b17f47",
+  "promptid": "fdc5c4c",
+  "ruleid": 8,
+  "rule": "Terms for people names refer to individual human beings identified by names or titles.",
+  "model": "gpt-4o-mini",
+  "input": "John Doe and Jane Smith participated in the conference.",
+  "output": "Company names: \nPeople names: John Doe, Jane Smith\nSpecific topics: conference\nGeneral themes: participation, events",
+  "compliance": "ok",
+  "complianceText": "The task is to evaluate whether the chatbot's output complies with the specified format and ordering as described. The description requires that the output should:\n\n1. Extract important entities mentioned in the text in a specific order: company names, people names, specific topics, and general themes.\n2. Each category should have a comma-separated list of items or a hyphen-separated list (-||-) for each type.\n3. Ensure no entities are missed or misplaced.\n\nUpon examining the chatbot output:\n\n- \"Company names:\" is positioned correctly. It is listed first, but it appears to be empty. However, without the input, it's impossible to conclusively determine if this is compliant. Since there's no violation stated in terms of format here, this should be treated as compliant within the scope that doesn't require checking against input.\n- \"People names:\" is correctly followed with a comma-separated list of names.\n- \"Specific topics:\" and \"General themes:\" follow the required format and sequence.\n- The format used by the chatbot output follows the order: company names, people names, specific topics, general themes.\n\nSince the output adheres to the order and format as described in the specification without considering the need for input verification, the output is compliant.\n\nOK"
+}

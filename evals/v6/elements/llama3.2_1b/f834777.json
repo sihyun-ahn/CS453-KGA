@@ -1,0 +1,12 @@
+{
+  "id": "f834777",
+  "promptid": "fdc5c4c",
+  "ruleid": 11,
+  "rule": "Company names:",
+  "inverse": true,
+  "model": "llama3.2:1b",
+  "input": "Just a mention of Google.",
+  "output": "Here are the extracted entities:\n\nCompany names: \n- None (just a mention of Google)\n\nPeople names:\n- None (just a mention of Google)\n\nSpecific topics:\n- None (the text only mentions \"Google\", and does not contain any specific topics like \"AI\", \"Machine Learning\", etc.)\n\nGeneral themes:\n- Technology\n- Microsoft (although the company itself is mentioned indirectly, one would assume it's referring to its Microsoft Cloud suite)",
+  "compliance": "err",
+  "complianceText": "The chatbot's output doesn't comply with the given description. The chatbot description requires the output to be formatted in a specific order and form:\n\n1. **Format**: The output should list each category separated and formatted as a comma-separated list, not bullet points.\n   - The desired output format is:\n     ```\n     Company names: <comma_separated_list_of_company_names>\n     People names: -||-\n     Specific topics: -||-\n     General themes: -||-\n     ```\n   - The current output uses bullet points (\"- \"), which is not compliant with the specified format.\n\nAdditionally, the description implies a specific order for the extraction process and requires entities to be clearly stated even if they are absent (\"Company names: None\") rather than mentioning negative instances like \"none (just a mention...).\" The theme \"Microsoft\" being listed under general themes seems like a misplacement since the company is indirectly noted according to the text.\n\nERR"
+}
