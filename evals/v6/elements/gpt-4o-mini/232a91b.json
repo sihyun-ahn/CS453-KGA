@@ -1,0 +1,12 @@
+{
+  "id": "232a91b",
+  "promptid": "fdc5c4c",
+  "ruleid": 16,
+  "rule": "The next line must not include a list of people names.",
+  "inverse": true,
+  "model": "gpt-4o-mini",
+  "input": "Steve Jobs was renowned yet not labeled here.",
+  "output": "Company names: \nPeople names: Steve Jobs\nSpecific topics: \nGeneral themes: Renown, Reputation",
+  "compliance": "err",
+  "complianceText": "The chatbot output includes the sections required by the description: Company names, People names, Specific topics, and General themes. However, the \"Company names\" and \"Specific topics\" lists are empty and should follow the format given, even if empty. Specifically, they should be represented as \"<comma_separated_list_of_company_names>\" and \"<comma_separated_list_of_specific_topics>\" respectively. The output does not comply with this desired format as the lists for these sections are completely omitted, leaving empty lines. Also, all elements must be placed after the text \"Company names:\", \"People names:\", etc., but in this case \"Company names:\" and \"Specific topics:\" do not have placeholders or commas to indicate an empty list.\n\nERR"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "ee4da34",
+  "promptid": "fdc5c4c",
+  "ruleid": 13,
+  "rule": "Specific topics:",
+  "inverse": true,
+  "model": "llama3.2:1b",
+  "input": "Conversations about space travel innovations.",
+  "output": "Extracted information:\n\nCompany names:\nNULL\n\nPeople names:\n- Eric Chauvin\n- David Murray\n\nSpecific topics:\n- Space Travel Innovations\n- Space Exploration\n\nGeneral themes:\n- Space Travel, Innovation, Improvements",
+  "compliance": "err",
+  "complianceText": "The chatbot's output is supposed to match a specific format described in the documentation. According to the description, the desired format is explicitly stated as:\n\n```\nCompany names: <comma_separated_list_of_company_names>\nPeople names: -||-\nSpecific topics: -||-\nGeneral themes: -||-\n```\n\n1. **Company Names Section**: The output uses \"NULL\" instead of an empty string or just leaving it blank. The description does not specify using \"NULL\" for no entries. This is a deviation from the expected format.\n   \n2. **People Names, Specific Topics, General Themes Sections**: These sections appear to adhere to the format given in the description. The section titles are correctly used, and the items are listed after them.\n\nDue to the use of \"NULL\" in the Company Names section, the output does not fully comply with the description according to the desired format.\n\nERR"
+}
