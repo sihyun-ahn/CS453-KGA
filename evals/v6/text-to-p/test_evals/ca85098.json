@@ -1,0 +1,12 @@
+{
+  "id": "ca85098",
+  "promptid": "b70fdc4",
+  "model": "gpt-4o-2024-08-06",
+  "ruleid": 13,
+  "rule": "Inside every `<p>` tag, there should be no multiple words or phrases wrapped in `<em>` tags.",
+  "inverse": true,
+  "input": "Dreams motivate action. Passion fuels success. Believe in endless possibilities.",
+  "coverage": "```html\n<p><em>Dreams</em> motivate <strong>action</strong>. They drive us to <em>aim</em> higher and <em>achieve</em> our <em>goals</em>.</p>\n<p><strong>Passion</strong> fuels <em>success</em>. It ignites the <em>determination</em> needed to overcome <em>challenges</em>.</p>\n<p>Believe in <strong>endless possibilities</strong>. This mindset opens the door to countless <em>opportunities</em> and <em>growth</em>.</p>\n```",
+  "validityText": "The given input consists of a paragraph with three sentences: \"Dreams motivate action. Passion fuels success. Believe in endless possibilities.\" To evaluate compliance with the input specification, let's consider:\n\n1. **Minimum Sentence Requirement**: The input needs to contain at least three sentences. The input provided meets this requirement as it contains exactly three sentences.\n\n2. **Grammatical Correctness**: Each sentence should be complete and grammatically correct. Upon evaluation, all three sentences are complete and grammatically correct, as they each form a complete idea and are correctly punctuated.\n\n3. **Sufficient Textual Content for Tags**: The input must contain sufficient textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags within each sentence. The sentences in the input are short and lack complexity and structure to insert both a <strong> tag and multiple <em> tags within each one. For instance, the sentence \"Dreams motivate action.\" is so brief that inserting multiple <em> tags would not be feasible without disrupting the grammatical structure or meaning.\n\nGiven the limited length and simplicity of each sentence, criteria for sufficient textual content to insert a <strong> tag and multiple <em> tags within each sentence is not met.\n\nERR",
+  "validity": "err"
+}

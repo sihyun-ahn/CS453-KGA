@@ -1,0 +1,12 @@
+{
+  "id": "8f9a142",
+  "promptid": "b70fdc4",
+  "model": "gpt-4o-2024-08-06",
+  "ruleid": 10,
+  "rule": "Each individual sentence of the provided paragraph must not be wrapped in a separate `<p>` tag.",
+  "inverse": true,
+  "input": "Autumn leaves fall gracefully. Trees prepare for winter. The cycle continues.",
+  "coverage": "<p><strong>Autumn</strong> leaves <em>fall</em> <em>gracefully</em>.</p>\n<p><strong>Trees</strong> <em>prepare</em> for <em>winter</em>.</p>\n<p>The <em>cycle</em> <strong>continues</strong>.</p>",
+  "validityText": "The input consists of three sentences: \"Autumn leaves fall gracefully.\", \"Trees prepare for winter.\", and \"The cycle continues.\" Each sentence is complete and grammatically correct, satisfying the requirement for complete sentences. However, the input does not contain sufficient textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags within each sentence. Each sentence is too short to accommodate such tags meaningfully. According to the specification, the input must contain enough content for these tag insertions within each sentence.\n\nERR",
+  "validity": "err"
+}

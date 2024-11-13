@@ -1,0 +1,12 @@
+{
+  "id": "2cc6403",
+  "promptid": "b70fdc4",
+  "model": "gpt-4o-2024-08-06",
+  "ruleid": 14,
+  "rule": "The tags `<strong>` and `<em>` must not be used to emphasize key words and phrases within each `<p>` tag.",
+  "inverse": true,
+  "input": "Fires warm the cold nights. Logs crackle in the hearth. The glow is comforting.",
+  "coverage": "```html\n<p><em>Fires</em> <strong>warm</strong> the cold nights.</p>\n<p>Logs <em>crackle</em> in the <strong>hearth</strong>.</p>\n<p>The <strong>glow</strong> is <em>comforting</em>.</p>\n```",
+  "validityText": "The input consists of a paragraph with three sentences: \"Fires warm the cold nights.\" \"Logs crackle in the hearth.\" and \"The glow is comforting.\" The input specification requires the paragraph to contain at least three sentences, which this input does. \n\nHowever, the sentences are quite brief, and even though they are grammatically correct and complete, the input specification requires that \"Input should contain sufficient textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags within each sentence.\" These sentences are too short to logically allow for the insertion of the specified tags, as introducing such tags would make the sentences awkward or nonsensical due to their brevity.\n\nERR",
+  "validity": "err"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "6c57d25",
+  "promptid": "b70fdc4",
+  "model": "gpt-4o-2024-08-06",
+  "ruleid": 14,
+  "rule": "The tags `<strong>` and `<em>` must not be used to emphasize key words and phrases within each `<p>` tag.",
+  "inverse": true,
+  "input": "The forest is dense. Birds sing sweet songs. A walk calms the soul.",
+  "coverage": "```html\n<p>The <strong>forest</strong> is <em>dense</em>. Trees stand <em>tall</em> and <em>proud</em>, creating a <em>canopy</em> that <em>filters</em> the sunlight.</p>\n<p><strong>Birds</strong> sing <em>sweet</em> songs, filling the <em>air</em> with their <em>melodies</em>. Each note <em>resonates</em> through the <em>branches</em>, echoing the <em>harmony</em> of nature.</p>\n<p>A walk <strong>calms</strong> the <em>soul</em>. The rhythmic <em>crunch</em> of leaves underfoot <em>soothes</em> the mind and <em>body</em>.</p>\n```",
+  "validityText": "The input paragraph contains three sentences: \"The forest is dense.\", \"Birds sing sweet songs.\", and \"A walk calms the soul.\" While the paragraph does meet the requirement of containing at least three sentences and each sentence is complete and grammatically correct, the specification also mandates sufficient textual content in each sentence to allow for the insertion of at least one <strong> tag and multiple <em> tags. \n\nEach sentence in the input is too short to accommodate multiple <em> tags or even one <strong> tag without potentially disrupting the grammatical or semantic integrity of the sentence. The brevity and simplicity of the sentences present a limitation in terms of being able to insert these tags as specified. Therefore, these sentences violate the requirement for sufficient textual content per the specification.\n\nERR",
+  "validity": "err"
+}

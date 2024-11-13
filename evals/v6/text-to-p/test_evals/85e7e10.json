@@ -1,0 +1,12 @@
+{
+  "id": "85e7e10",
+  "promptid": "b70fdc4",
+  "model": "gpt-4o-2024-08-06",
+  "ruleid": 13,
+  "rule": "Inside every `<p>` tag, there should be no multiple words or phrases wrapped in `<em>` tags.",
+  "inverse": true,
+  "input": "Dogs are loyal companions. Pets bring joy to life. They are part of the family.",
+  "coverage": "```html\n<p><strong>Dogs</strong> are <em>loyal</em> <em>companions</em>.</p>\n<p><strong>Pets</strong> bring <em>joy</em> to <em>life</em>.</p>\n<p>They are part of the <strong>family</strong>.</p>\n```",
+  "validityText": "The input provided is a paragraph consisting of exactly three sentences: \"Dogs are loyal companions.\", \"Pets bring joy to life.\", and \"They are part of the family.\" Each sentence is complete and grammatically correct. However, the input specification requires that each sentence must contain sufficient textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags. The sentences in the input are short and lack the complexity and textual content needed to add multiple <em> tags as required. Particularly, the second and third sentences are too brief to support multiple <em> tags and do not offer sufficient contextual richness for meaningful tag insertion. Therefore, the input does not comply with the input specification.\n\nERR",
+  "validity": "err"
+}

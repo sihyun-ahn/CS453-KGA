@@ -1,0 +1,11 @@
+{
+  "id": "95172be",
+  "promptid": "b70fdc4",
+  "ruleid": 3,
+  "rule": "There must be at least three `<p>` tags in the output.",
+  "model": "llama3.2:1b",
+  "input": "Books transport you to different worlds. They are windows to knowledge. Reading is a powerful tool.",
+  "output": "<p><strong>Books</Strong> <em>treat</Em> <em>you</Em> <em>like</Em> <em>a</Em> <strong>companion</Strong> in <em>the</Em> <em>unknown territories</Ems of <em>opportunities</Ems. They are windows to knowledge.</p><br/>\n<p><strong>Books</Strong> <em>transport</Em> <em>you</Em> <em>to</Ems faraway places.<Em>Weak</Em> men are those who are not informed of the world around us.</Ems> <strong>Reading</Strong> is a powerful tool</p><br/>\n<p><strong>Books</strong>/em>/em>/em>/strong>treat</Em>/eEm>-you<Em>e<Em>/Em>/eM<Em>/Ems/a/<strong>/EEm>/comP<Em>/EmEmP</Em>anion<Em>/Ems/Ea/En in <Em/the</Em>/<ShEm>/Em/nEwOp<pbrkE/>",
+  "compliance": "err",
+  "complianceText": "The output violates several rules from the description:\n\n1. **Tag Errors**: The HTML tags are not used correctly. Many tags are not properly closed, and there are cases with mismatched tag case sensitivity (e.g., `<Strong>` instead of `<strong>`). Proper and matching opening and closing tag usage is critical in HTML.\n\n2. **Minimum Paragraphs Requirement**: The description specifies at least three `<p>` tags. While there seems to be three `<p>` tags in the output, the third paragraph is malformed and appears to mix syntax, making it unclear and structurally invalid. Therefore, it does not fulfill the requirement to have at least three coherent and correctly structured `<p>` tags.\n\n3. **Proper Use of <em> and <strong>**: The output uses `<em>` and `<strong>` tags haphazardly and inconsistently, with several `<em>` tags not being closed correctly. Moreover, the third example seems to have arbitrary and non-keyword emphasis due to malformed tags.\n\nEach of these points shows a failure to comply with the structure requirements specified in the description, particularly in terms of ensuring tag correctness and formatting. The major issues are related to the usage of malformed HTML and lack of proper closure for tags, as well as the requirement for three valid paragraphs.\n\nERR"
+}

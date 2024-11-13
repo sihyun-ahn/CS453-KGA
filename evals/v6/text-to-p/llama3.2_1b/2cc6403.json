@@ -1,0 +1,12 @@
+{
+  "id": "2cc6403",
+  "promptid": "b70fdc4",
+  "ruleid": 14,
+  "rule": "The tags `<strong>` and `<em>` must not be used to emphasize key words and phrases within each `<p>` tag.",
+  "inverse": true,
+  "model": "llama3.2:1b",
+  "input": "Fires warm the cold nights. Logs crackle in the hearth. The glow is comforting.",
+  "output": "<span><p> Fires warm the cold nights. <span>Logs crackle in the hearth. </span> The glow is comforting.</p>\n<span><p> Fires warm the cold nights. <span>Logs crackle in the hearth. </span> The glow is comfortable, with warnings to be cautious not to fall asleep in a code-section-induced sleep paralysis.</p>\n<span><p> Fires warm the cold nights. <span>Logs crackle in the hearth. </span> The glow is comforting. <span>Ambiguous intent behind code: some may use this opportunity for malicious purposes or simply as an excuse to ignore important safety reminders.</span></p>",
+  "compliance": "err",
+  "complianceText": "The chatbot's output does not comply with the description.\n\n1. Each sentence is wrapped with a `<p>` tag, but there is only a single `<p>` tag in each of the three outputs. The rules state to first split the paragraph into individual sentences and then wrap each sentence with a `<p>` tag. Currently, each `<p>` tag contains multiple sentences.\n2. The output includes `<span>` tags, which are not mentioned in the chatbot's description. The task specifies using `<strong>` and `<em>` tags for emphasis within the `<p>` tags. There are no `<strong>` or `<em>` tags present at all.\n3. The description asks for the use of multiple `<em>` tags within the `<p>` tags to emphasize key words and phrases, which is also not present in the output.\n\nERR"
+}

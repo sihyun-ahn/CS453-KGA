@@ -1,0 +1,11 @@
+{
+  "id": "be80b81",
+  "promptid": "b70fdc4",
+  "ruleid": null,
+  "baseline": true,
+  "model": "qwen2.5:3b",
+  "input": "text: \"Robotics is a fascinating field. Robots can perform various tasks. Artificial intelligence aids decision-making.\"",
+  "output": "```html\n<p><strong>Robotics</strong> is a <em>fascinating</em> field.</p>\n<p><strong>Robots</strong> can perform various <em>tasks</em>.</p>\n<p><strong>Artificial</strong> intelligence aids <em>decision-making</em>.</p>\n```",
+  "compliance": "ok",
+  "complianceText": "The output contains three separate `<p>` tags, each containing a sentence that is wrapped properly. Each sentence also includes one `<strong>` tag to emphasize a key word or phrase and multiple `<em>` tags for additional emphasis on different keywords within the sentences. This aligns with the chatbot description, which specifies splitting the paragraph into individual sentences, wrapping them with `<p>` tags, and including both `<strong>` and `<em>` tags within each `<p>` tag. \n\nNo violations.\nOK"
+}

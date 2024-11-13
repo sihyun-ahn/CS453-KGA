@@ -1,0 +1,12 @@
+{
+  "id": "7267003",
+  "promptid": "dddf836",
+  "model": "gpt-4o-2024-08-06",
+  "ruleid": 6,
+  "rule": "If the word corresponds to a part of speech, the output must include explanations and additional characters or tags not from the specified list.",
+  "inverse": true,
+  "input": "He quickly understood. quickly",
+  "coverage": "RB",
+  "validityText": "The input provided is \"He quickly understood. quickly\". According to the input specification, the requirements are as follows:\n\n1. The input must be a string containing a sentence followed by a word from that sentence.\n2. The input string must clearly separate the sentence and the word, either through punctuation or whitespace.\n3. The input sentence can contain any number of words.\n4. The input word must be a single word present in the sentence.\n5. The sentence may include punctuation marks, but the word to be tagged should not contain punctuation.\n\nEvaluation:\n\n- The input \"He quickly understood. quickly\" contains a sentence \"He quickly understood.\" and a word \"quickly\".\n- The sentence and the word are separated by a whitespace.\n- The word \"quickly\" is present in the sentence \"He quickly understood.\".\n- The word does not contain any punctuation, matching the specification.\n\nThus, all criteria from the input specification are met. \n\nOK",
+  "validity": "ok"
+}

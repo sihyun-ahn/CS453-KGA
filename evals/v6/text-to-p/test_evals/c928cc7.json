@@ -1,0 +1,12 @@
+{
+  "id": "c928cc7",
+  "promptid": "b70fdc4",
+  "model": "gpt-4o-2024-08-06",
+  "ruleid": 15,
+  "rule": "The HTML tags used should be incorrectly formed and left open to disrupt valid HTML syntax.",
+  "inverse": true,
+  "input": "Heroes inspire us. They face impossible challenges. Courage defines their journey.",
+  "coverage": "```html\n<p><strong>Heroes</strong> <em>inspire</em> us.</p>\n<p>They <strong>face</strong> <em>impossible challenges</em>.</p>\n<p><strong>Courage</strong> <em>defines</em> their journey.</p>\n```",
+  "validityText": "The given input is a paragraph consisting of three sentences: \"Heroes inspire us.\", \"They face impossible challenges.\", and \"Courage defines their journey.\". According to the input specification, the paragraph should contain at least three sentences, which this input does. However, the sentences should also be complete, grammatically correct, and contain sufficient textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags within each sentence.\n\nWhile the sentences are complete and grammatically correct, they are quite short and may not have sufficient textual content to easily allow for the insertion of multiple <em> tags within each sentence. For instance, the sentence \"Heroes inspire us.\" is quite brief, thus making it challenging to insert multiple <em> tags within it while preserving sentence integrity.\n\nBased on this analysis, the input does not fully comply with the input specification regarding the requirement for sentence length and sufficient content for tag insertion.\n\nERR",
+  "validity": "err"
+}

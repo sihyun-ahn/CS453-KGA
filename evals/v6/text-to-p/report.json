@@ -1,0 +1,1253 @@
+{
+  "prompt": "---\nname: \"Text to P\"\ndescription: \"Wrap each sentence in a paragraph tag\"\nsource: \"GhostWriter: Augmenting Collaborative Human-AI Writing Experiences Through Personalization and Agency\"\nurl: https://arxiv.org/abs/2402.08855.\ninputs:\n    text:\n        type: \"string\"\n---\nsystem:\nYou are a web developer who is formatting a paragraph of text as HTML.\nFirst, please split the paragraph into individual sentences and wrap each sentence with a <p> tag.\n**Your answer should have at least three <p> tags.**\nThen, inside each <p> tag, add one <strong> tag and multiple <em> tags to emphasize key words and phrases.\nuser:\n{{text}}",
+  "inputSpec": "The input is a paragraph of text consisting of multiple sentences. Each input must be a paragraph containing at least three sentences. Sentences should be complete and grammatically correct. Input should contain sufficient textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags within each sentence.",
+  "rules": [
+    "The output must consist of HTML formatted text.",
+    "Each individual sentence of the provided paragraph must be wrapped in a separate `<p>` tag.",
+    "There must be at least three `<p>` tags in the output.",
+    "Inside every `<p>` tag, there should be at least one word or phrase wrapped in a `<strong>` tag.",
+    "Inside every `<p>` tag, there should be multiple words or phrases wrapped in `<em>` tags.",
+    "The tags `<strong>` and `<em>` must be used to emphasize key words and phrases within each `<p>` tag.",
+    "The HTML tags used should be correctly formed and closed to maintain valid HTML syntax.",
+    "The output should only include the HTML formatted paragraph and should not include any additional text or commentary."
+  ],
+  "inverseRules": [
+    "The output must not consist of HTML formatted text.",
+    "Each individual sentence of the provided paragraph must not be wrapped in a separate `<p>` tag.",
+    "There must be less than three `<p>` tags in the output.",
+    "Inside every `<p>` tag, there should be no word or phrase wrapped in a `<strong>` tag.",
+    "Inside every `<p>` tag, there should be no multiple words or phrases wrapped in `<em>` tags.",
+    "The tags `<strong>` and `<em>` must not be used to emphasize key words and phrases within each `<p>` tag.",
+    "The HTML tags used should be incorrectly formed and left open to disrupt valid HTML syntax.",
+    "The output should include additional text or commentary and should not consist only of the HTML formatted paragraph."
+  ],
+  "tests": [
+    {
+      "ruleid": "1",
+      "rule": "The output must consist of HTML formatted text.",
+      "testid": "1",
+      "testinput": "Cats are fascinating animals. They have peculiar behaviors. Many people love keeping them as pets.",
+      "expectedoutput": "<p>Cats are <strong>fascinating</strong> <em>animals</em>.</p><p>They have <strong>peculiar</strong> <em>behaviors</em>.</p><p>Many people <strong>love</strong> keeping them as <em>pets</em>.</p>",
+      "reasoning": "This test verifies that the output is correctly formatted in HTML with proper use of tags."
+    },
+    {
+      "ruleid": "1",
+      "rule": "The output must consist of HTML formatted text.",
+      "testid": "2",
+      "testinput": "The sky is blue. Birds are flying high. The sun is a beautiful sight.",
+      "expectedoutput": "<p>The <strong>sky</strong> is <em>blue</em>.</p><p>Birds are <strong>flying</strong> <em>high</em>.</p><p>The sun is a <strong>beautiful</strong> <em>sight</em>.</p>",
+      "reasoning": "Ensures the HTML is generated properly for a simple descriptive paragraph."
+    },
+    {
+      "ruleid": "1",
+      "rule": "The output must consist of HTML formatted text.",
+      "testid": "3",
+      "testinput": "Programming is fun. It challenges your mind. Solve problems creatively.",
+      "expectedoutput": "<p>Programming is <strong>fun</strong>.</p><p>It <strong>challenges</strong> your <em>mind</em>.</p><p><strong>Solve</strong> problems <em>creatively</em>.</p>",
+      "reasoning": "Tests basic HTML structure for formatting sentences."
+    },
+    {
+      "ruleid": "2",
+      "rule": "Each individual sentence of the provided paragraph must be wrapped in a separate `<p>` tag.",
+      "testid": "1",
+      "testinput": "This is a beautiful day. We've never seen such weather. Amazing to experience.",
+      "expectedoutput": "<p>This is a <strong>beautiful</strong> <em>day</em>.</p><p>We've <strong>never</strong> seen such <em>weather</em>.</p><p>Amazing to <strong>experience</strong>.</p>",
+      "reasoning": "Validates sentence separation by <p> tags."
+    },
+    {
+      "ruleid": "2",
+      "rule": "Each individual sentence of the provided paragraph must be wrapped in a separate `<p>` tag.",
+      "testid": "2",
+      "testinput": "A car is a complex machine. Every component has a specific function. Engineering is an art.",
+      "expectedoutput": "<p>A car is a <strong>complex</strong> <em>machine</em>.</p><p>Every <strong>component</strong> has a specific <em>function</em>.</p><p>Engineering is an <strong>art</strong>.</p>",
+      "reasoning": "Checks all sentences are wrapped in <p> tags."
+    },
+    {
+      "ruleid": "2",
+      "rule": "Each individual sentence of the provided paragraph must be wrapped in a separate `<p>` tag.",
+      "testid": "3",
+      "testinput": "The mountains are tall. Rivers flow with grace. Nature is mesmerizing.",
+      "expectedoutput": "<p>The <strong>mountains</strong> are <em>tall</em>.</p><p>Rivers <strong>flow</strong> with <em>grace</em>.</p><p>Nature is <strong>mesmerizing</strong>.</p>",
+      "reasoning": "Ensures each sentence is in its own <p> tag."
+    },
+    {
+      "ruleid": "3",
+      "rule": "There must be at least three `<p>` tags in the output.",
+      "testid": "1",
+      "testinput": "Life is unpredictable. Embrace every moment. Find joy in simplicity.",
+      "expectedoutput": "<p>Life is <strong>unpredictable</strong>.</p><p>Embrace every <strong>moment</strong>.</p><p>Find <strong>joy</strong> in <em>simplicity</em>.</p>",
+      "reasoning": "Confirms there are at least three <p> tags."
+    },
+    {
+      "ruleid": "3",
+      "rule": "There must be at least three `<p>` tags in the output.",
+      "testid": "2",
+      "testinput": "Books transport you to different worlds. They are windows to knowledge. Reading is a powerful tool.",
+      "expectedoutput": "<p>Books <strong>transport</strong> you to different <em>worlds</em>.</p><p>They are <strong>windows</strong> to <em>knowledge</em>.</p><p>Reading is a <strong>powerful</strong> <em>tool</em>.</p>",
+      "reasoning": "Verifies the presence of the required number of <p> tags."
+    },
+    {
+      "ruleid": "3",
+      "rule": "There must be at least three `<p>` tags in the output.",
+      "testid": "3",
+      "testinput": "Winter brings snow. Cozy fires warm the evenings. Hot cocoa comforts the soul.",
+      "expectedoutput": "<p>Winter brings <strong>snow</strong>.</p><p>Cozy <strong>fires</strong> warm the <em>evenings</em>.</p><p>Hot <strong>cocoa</strong> comforts the <em>soul</em>.</p>",
+      "reasoning": "Checks for a minimum number of <p> tags in the output."
+    },
+    {
+      "ruleid": "4",
+      "rule": "Inside every `<p>` tag, there should be at least one word or phrase wrapped in a `<strong>` tag.",
+      "testid": "1",
+      "testinput": "Stars shine brightly. They illuminate the night sky. Stargazing is relaxing.",
+      "expectedoutput": "<p>Stars <strong>shine</strong> <em>brightly</em>.</p><p>They <strong>illuminate</strong> the <em>night</em> sky.</p><p>Stargazing is <strong>relaxing</strong>.</p>",
+      "reasoning": "Verifies each sentence has a <strong> tag within its <p>."
+    },
+    {
+      "ruleid": "4",
+      "rule": "Inside every `<p>` tag, there should be at least one word or phrase wrapped in a `<strong>` tag.",
+      "testid": "2",
+      "testinput": "Music has the power to heal. Notes create harmony. Listening brings peace.",
+      "expectedoutput": "<p>Music has the <strong>power</strong> to <em>heal</em>.</p><p>Notes <strong>create</strong> <em>harmony</em>.</p><p>Listening brings <strong>peace</strong>.</p>",
+      "reasoning": "Ensures <strong> tags are present in all <p> tags."
+    },
+    {
+      "ruleid": "4",
+      "rule": "Inside every `<p>` tag, there should be at least one word or phrase wrapped in a `<strong>` tag.",
+      "testid": "3",
+      "testinput": "The wind whispers secrets. Leaves dance in the breeze. Quiet moments speak volumes.",
+      "expectedoutput": "<p>The wind <strong>whispers</strong> <em>secrets</em>.</p><p>Leaves <strong>dance</strong> in the <em>breeze</em>.</p><p>Quiet <strong>moments</strong> speak <em>volumes</em>.</p>",
+      "reasoning": "Confirms that <strong> emphasis is used properly within the <p> tags."
+    },
+    {
+      "ruleid": "5",
+      "rule": "Inside every `<p>` tag, there should be multiple words or phrases wrapped in `<em>` tags.",
+      "testid": "1",
+      "testinput": "Innovation drives progress. New ideas challenge norms. Creativity fuels discovery.",
+      "expectedoutput": "<p>Innovation <strong>drives</strong> <em>progress</em>.</p><p>New ideas <strong>challenge</strong> <em>norms</em>.</p><p>Creativity <strong>fuels</strong> <em>discovery</em>.</p>",
+      "reasoning": "Checks multiple <em> tags are used in each <p>."
+    },
+    {
+      "ruleid": "5",
+      "rule": "Inside every `<p>` tag, there should be multiple words or phrases wrapped in `<em>` tags.",
+      "testid": "2",
+      "testinput": "Sunrises inspire hope. The horizon changes hue. Each dawn is unique.",
+      "expectedoutput": "<p>Sunrises <strong>inspire</strong> <em>hope</em>.</p><p>The horizon <strong>changes</strong> <em>hue</em>.</p><p>Each <strong>dawn</strong> is <em>unique</em>.</p>",
+      "reasoning": "Ensures multiple <em> tags are in every <p> tag."
+    },
+    {
+      "ruleid": "5",
+      "rule": "Inside every `<p>` tag, there should be multiple words or phrases wrapped in `<em>` tags.",
+      "testid": "3",
+      "testinput": "Gardens bloom in spring. Colors burst into view. Life renews itself naturally.",
+      "expectedoutput": "<p>Gardens <strong>bloom</strong> in <em>spring</em>.</p><p>Colors <strong>burst</strong> into <em>view</em>.</p><p>Life <strong>renews</strong> itself <em>naturally</em>.</p>",
+      "reasoning": "Validates the requirement of several <em> tags within each <p> tag."
+    },
+    {
+      "ruleid": "6",
+      "rule": "The tags `<strong>` and `<em>` must be used to emphasize key words and phrases within each `<p>` tag.",
+      "testid": "1",
+      "testinput": "Adventure awaits at every turn. Exploration reveals new paths. Wander with curiosity.",
+      "expectedoutput": "<p>Adventure <strong>awaits</strong> at every <em>turn</em>.</p><p>Exploration <strong>reveals</strong> new <em>paths</em>.</p><p>Wander with <strong>curiosity</strong>.</p>",
+      "reasoning": "Tests the use of both <strong> and <em> for emphasis within <p> tags."
+    },
+    {
+      "ruleid": "6",
+      "rule": "The tags `<strong>` and `<em>` must be used to emphasize key words and phrases within each `<p>` tag.",
+      "testid": "2",
+      "testinput": "Technology evolves swiftly. Gadgets connect people globally. Innovation shapes the future.",
+      "expectedoutput": "<p>Technology <strong>evolves</strong> <em>swiftly</em>.</p><p>Gadgets <strong>connect</strong> people <em>globally</em>.</p><p>Innovation <strong>shapes</strong> the <em>future</em>.</p>",
+      "reasoning": "Ensures proper emphasis with both tag types."
+    },
+    {
+      "ruleid": "6",
+      "rule": "The tags `<strong>` and `<em>` must be used to emphasize key words and phrases within each `<p>` tag.",
+      "testid": "3",
+      "testinput": "The ocean is vast. Waves dance on the surface. Depths hold mysteries unknown.",
+      "expectedoutput": "<p>The <strong>ocean</strong> is <em>vast</em>.</p><p>Waves <strong>dance</strong> on the <em>surface</em>.</p><p>Depths hold <strong>mysteries</strong> <em>unknown</em>.</p>",
+      "reasoning": "Confirms <strong> and <em> tags emphasize key parts of the sentence."
+    },
+    {
+      "ruleid": "7",
+      "rule": "The HTML tags used should be correctly formed and closed to maintain valid HTML syntax.",
+      "testid": "1",
+      "testinput": "Butterflies flutter by. Flowers sway in the breeze. Nature sings a silent song.",
+      "expectedoutput": "<p>Butterflies <strong>flutter</strong> by.</p><p>Flowers <strong>sway</strong> in the <em>breeze</em>.</p><p>Nature <strong>sings</strong> a <em>silent</em> song.</p>",
+      "reasoning": "Tests HTML tags are correctly formed and closed."
+    },
+    {
+      "ruleid": "7",
+      "rule": "The HTML tags used should be correctly formed and closed to maintain valid HTML syntax.",
+      "testid": "2",
+      "testinput": "Snowflakes blanket the ground. Winter's hush is everywhere. Serenity in white.",
+      "expectedoutput": "<p>Snowflakes <strong>blanket</strong> the ground.</p><p>Winter's <strong>hush</strong> is <em>everywhere</em>.</p><p>Serenity in <strong>white</strong>.</p>",
+      "reasoning": "Ensures no missing or unclosed tags."
+    },
+    {
+      "ruleid": "7",
+      "rule": "The HTML tags used should be correctly formed and closed to maintain valid HTML syntax.",
+      "testid": "3",
+      "testinput": "Music fills the air. Melodies resonate through time. The heart hears the notes.",
+      "expectedoutput": "<p>Music <strong>fills</strong> the <em>air</em>.</p><p>Melodies <strong>resonate</strong> through <em>time</em>.</p><p>The <strong>heart</strong> hears the <em>notes</em>.</p>",
+      "reasoning": "Verifies correct HTML syntax and closure."
+    },
+    {
+      "ruleid": "8",
+      "rule": "The output should only include the HTML formatted paragraph and should not include any additional text or commentary.",
+      "testid": "1",
+      "testinput": "Cities bustle with life. Streets echo stories of people. An orchestra of human activity.",
+      "expectedoutput": "<p>Cities <strong>bustle</strong> with <em>life</em>.</p><p>Streets <strong>echo</strong> stories of <em>people</em>.</p><p>An <strong>orchestra</strong> of <em>human activity</em>.</p>",
+      "reasoning": "Ensures only HTML paragraph is included without extra text."
+    },
+    {
+      "ruleid": "8",
+      "rule": "The output should only include the HTML formatted paragraph and should not include any additional text or commentary.",
+      "testid": "2",
+      "testinput": "Rain gardens thrive in cities. Storms nourish these green oases. Balance within urban environments.",
+      "expectedoutput": "<p>Rain <strong>gardens</strong> thrive in cities.</p><p>Storms <strong>nourish</strong> these green <em>oases</em>.</p><p>Balance within <strong>urban</strong> <em>environments</em>.</p>",
+      "reasoning": "Validates that no additional commentary is present."
+    },
+    {
+      "ruleid": "8",
+      "rule": "The output should only include the HTML formatted paragraph and should not include any additional text or commentary.",
+      "testid": "3",
+      "testinput": "Artists paint with colors of emotion. Canvas tells tales untold. Creativity knows no limits.",
+      "expectedoutput": "<p>Artists <strong>paint</strong> with colors of <em>emotion</em>.</p><p>Canvas <strong>tells</strong> <em>tales untold</em>.</p><p>Creativity <strong>knows</strong> no <em>limits</em>.</p>",
+      "reasoning": "Checks for exclusive presence of HTML without commentaries."
+    },
+    {
+      "ruleid": "9",
+      "rule": "The output must not consist of HTML formatted text.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Rainbows are colorful. They appear after rain showers. Kids love chasing them.",
+      "expectedoutput": "Rainbows are colorful. They appear after rain showers. Kids love chasing them.",
+      "reasoning": "Tests software outputs plain text without HTML formatting."
+    },
+    {
+      "ruleid": "9",
+      "rule": "The output must not consist of HTML formatted text.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Birds chirp in the morning. They signal a fresh start. It's a joy to hear.",
+      "expectedoutput": "Birds chirp in the morning. They signal a fresh start. It's a joy to hear.",
+      "reasoning": "Ensures output does not mistakenly apply HTML formatting."
+    },
+    {
+      "ruleid": "9",
+      "rule": "The output must not consist of HTML formatted text.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Books are portals to new worlds. Stories can change perspectives. Reading expands the mind.",
+      "expectedoutput": "Books are portals to new worlds. Stories can change perspectives. Reading expands the mind.",
+      "reasoning": "Validates that the output is plain text, not HTML."
+    },
+    {
+      "ruleid": "10",
+      "rule": "Each individual sentence of the provided paragraph must not be wrapped in a separate `<p>` tag.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "The car is fast. It zooms past the highway. Exciting to watch.",
+      "expectedoutput": "The car is fast. It zooms past the highway. Exciting to watch.",
+      "reasoning": "Ensures sentences are not wrapped individually in <p> tags."
+    },
+    {
+      "ruleid": "10",
+      "rule": "Each individual sentence of the provided paragraph must not be wrapped in a separate `<p>` tag.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Mountains touch the sky. Birds soar above crests. Valleys treasure hidden secrets.",
+      "expectedoutput": "Mountains touch the sky. Birds soar above crests. Valleys treasure hidden secrets.",
+      "reasoning": "Confirms absence of <p> tags in output."
+    },
+    {
+      "ruleid": "10",
+      "rule": "Each individual sentence of the provided paragraph must not be wrapped in a separate `<p>` tag.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Autumn leaves fall gracefully. Trees prepare for winter. The cycle continues.",
+      "expectedoutput": "Autumn leaves fall gracefully. Trees prepare for winter. The cycle continues.",
+      "reasoning": "Verifies no <p> tag is wrapping the sentences."
+    },
+    {
+      "ruleid": "11",
+      "rule": "There must be less than three `<p>` tags in the output.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Art inspires creativity. Expression is limitless. Imagination knows no bounds.",
+      "expectedoutput": "<p>Art inspires creativity.</p>",
+      "reasoning": "Checks output with less than three <p> tags."
+    },
+    {
+      "ruleid": "11",
+      "rule": "There must be less than three `<p>` tags in the output.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "The moon glows at night. Stars twinkle alongside. A canvas of the universe.",
+      "expectedoutput": "<p>The moon glows at night.</p><p>Stars twinkle alongside.</p>",
+      "reasoning": "Ensures output features fewer than three <p> tags in total."
+    },
+    {
+      "ruleid": "11",
+      "rule": "There must be less than three `<p>` tags in the output.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Summer days are long. Sunsets are beautiful. Beaches invite relaxation.",
+      "expectedoutput": "<p>Summer days are long.</p>",
+      "reasoning": "Validates output fails to include the minimum number of <p> tags."
+    },
+    {
+      "ruleid": "12",
+      "rule": "Inside every `<p>` tag, there should be no word or phrase wrapped in a `<strong>` tag.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Languages express cultures. They hold identities. Communication is vital.",
+      "expectedoutput": "<p>Languages express cultures.</p><p>They hold identities.</p><p>Communication is vital.</p>",
+      "reasoning": "Tests <p> tags have no <strong> emphasized text."
+    },
+    {
+      "ruleid": "12",
+      "rule": "Inside every `<p>` tag, there should be no word or phrase wrapped in a `<strong>` tag.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Chefs create flavors. Meals are made with passion. Cuisine connects us all.",
+      "expectedoutput": "<p>Chefs create flavors.</p><p>Meals are made with passion.</p><p>Cuisine connects us all.</p>",
+      "reasoning": "Verifies <p> tags without <strong> elements."
+    },
+    {
+      "ruleid": "12",
+      "rule": "Inside every `<p>` tag, there should be no word or phrase wrapped in a `<strong>` tag.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Gardens bloom in different colors. Bees buzz around flowers. Life thrives naturally.",
+      "expectedoutput": "<p>Gardens bloom in different colors.</p><p>Bees buzz around flowers.</p><p>Life thrives naturally.</p>",
+      "reasoning": "Confirms <p> tags lack <strong> tags."
+    },
+    {
+      "ruleid": "13",
+      "rule": "Inside every `<p>` tag, there should be no multiple words or phrases wrapped in `<em>` tags.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Dreams motivate action. Passion fuels success. Believe in endless possibilities.",
+      "expectedoutput": "<p>Dreams motivate action.</p><p>Passion fuels success.</p><p>Believe in endless possibilities.</p>",
+      "reasoning": "Ensures no <em> tags are within the <p> tags."
+    },
+    {
+      "ruleid": "13",
+      "rule": "Inside every `<p>` tag, there should be no multiple words or phrases wrapped in `<em>` tags.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Windmills harness energy. They stand against time. Renewable sources are critical.",
+      "expectedoutput": "<p>Windmills harness energy.</p><p>They stand against time.</p><p>Renewable sources are critical.</p>",
+      "reasoning": "Verifies absence of <em> tags in each <p>."
+    },
+    {
+      "ruleid": "13",
+      "rule": "Inside every `<p>` tag, there should be no multiple words or phrases wrapped in `<em>` tags.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Dogs are loyal companions. Pets bring joy to life. They are part of the family.",
+      "expectedoutput": "<p>Dogs are loyal companions.</p><p>Pets bring joy to life.</p><p>They are part of the family.</p>",
+      "reasoning": "Validation of missing <em> tags in output."
+    },
+    {
+      "ruleid": "14",
+      "rule": "The tags `<strong>` and `<em>` must not be used to emphasize key words and phrases within each `<p>` tag.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "The forest is dense. Birds sing sweet songs. A walk calms the soul.",
+      "expectedoutput": "<p>The forest is dense.</p><p>Birds sing sweet songs.</p><p>A walk calms the soul.</p>",
+      "reasoning": "Confirms no use of <strong> or <em> tags in each <p>."
+    },
+    {
+      "ruleid": "14",
+      "rule": "The tags `<strong>` and `<em>` must not be used to emphasize key words and phrases within each `<p>` tag.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Exercise is important. It strengthens the body. Health is wealth.",
+      "expectedoutput": "<p>Exercise is important.</p><p>It strengthens the body.</p><p>Health is wealth.</p>",
+      "reasoning": "Verifies no <strong> and <em> tags are used."
+    },
+    {
+      "ruleid": "14",
+      "rule": "The tags `<strong>` and `<em>` must not be used to emphasize key words and phrases within each `<p>` tag.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Fires warm the cold nights. Logs crackle in the hearth. The glow is comforting.",
+      "expectedoutput": "<p>Fires warm the cold nights.</p><p>Logs crackle in the hearth.</p><p>The glow is comforting.</p>",
+      "reasoning": "Ensures neither <strong> nor <em> tags are present."
+    },
+    {
+      "ruleid": "15",
+      "rule": "The HTML tags used should be incorrectly formed and left open to disrupt valid HTML syntax.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Music lifts the spirit. Harmony touches the heart. Rhythm ties us together.",
+      "expectedoutput": "<p>Music <strong>lifts</strong> the <em>spirit</strong<p><em>Harmony</em> touches the <strong>heart.</em><p>Rhythm <strong>ties</strong> us <em>together<p>",
+      "reasoning": "Tests HTML syntax errors by intentionally leaving tags unclosed."
+    },
+    {
+      "ruleid": "15",
+      "rule": "The HTML tags used should be incorrectly formed and left open to disrupt valid HTML syntax.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "The snow falls silently. Blankets of white cover the land. A peaceful winter scene.",
+      "expectedoutput": "<p>The <strong>snow <em>falls silently<p><strong>Blankets</strong> of <em>white</em> cover the <em>land</p><p>A <strong>peaceful</p>",
+      "reasoning": "Ensures HTML is incorrectly formed with missing tag closures."
+    },
+    {
+      "ruleid": "15",
+      "rule": "The HTML tags used should be incorrectly formed and left open to disrupt valid HTML syntax.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Heroes inspire us. They face impossible challenges. Courage defines their journey.",
+      "expectedoutput": "<strong><p>Heroes <em>inspire us</p></em><p><strong>They face</strong> impossible <em>challenges</em<p>Courage defines <strong>their journey</strong></p>",
+      "reasoning": "Deliberately malformed HTML for testing unclosed tags."
+    },
+    {
+      "ruleid": "16",
+      "rule": "The output should include additional text or commentary and should not consist only of the HTML formatted paragraph.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "It rains often in autumn. The smell of wet earth is refreshing. Clouds pass swiftly overhead.",
+      "expectedoutput": "<p>It <strong>rains often</strong> in <em>autumn</em>.</p><p>The smell of <strong>wet earth</strong> is <em>refreshing</em>.</p><p>Clouds pass <strong>swiftly</strong> overhead.</p>Note: The above tags illustrate expected HTML output.",
+      "reasoning": "Tests that unnecessary commentary is added."
+    },
+    {
+      "ruleid": "16",
+      "rule": "The output should include additional text or commentary and should not consist only of the HTML formatted paragraph.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Paintings evoke emotions. Colors and brush strokes tell a story. Art is timeless.",
+      "expectedoutput": "<p>Paintings <strong>evoke</strong> <em>emotions</em>.</p><p>Colors and <strong>brush strokes</strong> tell a <em>story</em>.</p><p>Art is <strong>timeless</strong>.</p>HTML formatting is demonstrated here,",
+      "reasoning": "Validates additional text presence post-output."
+    },
+    {
+      "ruleid": "16",
+      "rule": "The output should include additional text or commentary and should not consist only of the HTML formatted paragraph.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Bridges connect places. They symbolize unity and collaboration. Engineering marvels.",
+      "expectedoutput": "<p>Bridges <strong>connect</strong> <em>places</em>.</p><p>They symbolize <strong>unity</strong> and <em>collaboration</em>.</p><p>Engineering <strong>marvels</strong>.</p>End of formatted paragraph.",
+      "reasoning": "Confirms added commentary after HTML output."
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"This is a test sentence. Another example sentence is here. Please ignore this placeholder.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"The sun shines brightly today. Birds are chirping everywhere. It is a perfect day for a walk.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"HTML is a markup language for creating web pages. It provides the structure for page content. CSS is used for styling.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Software development is a creative process. It involves writing code to solve problems. Debugging is often necessary.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"A healthy diet consists of various nutrients. Fruits and vegetables are essential. Protein is also important.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Traveling broadens the mind. Visiting new places is exciting. Meeting new people is enriching.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Technology is rapidly evolving. Smartphones are widely used. The Internet of Things is growing.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Reading books is a great hobby. It improves vocabulary. Fiction and non-fiction are both enjoyable.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Exercise is crucial for maintaining health. Cardiovascular activities strengthen the heart. Strength training builds muscles.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Music has a universal appeal. Different genres cater to varied tastes. Live concerts are exhilarating.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Art expresses creativity. Painting and sculpture are classic forms. Modern art includes various mediums.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Education shapes future generations. Schools provide foundational knowledge. Higher education focuses on specialization.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Cooking is a valuable skill. It can be both practical and enjoyable. Trying new recipes is rewarding.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Climate change is an urgent issue. Renewable energy sources are gaining attention. Conservation efforts are essential.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Social media connects people worldwide. It is a platform for sharing information. Privacy concerns are rising.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Gardening can be a relaxing hobby. Plants enhance the environment. Growing vegetables offers fresh produce.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Mindfulness promotes mental well-being. Meditation helps reduce stress. Positive thinking impacts overall health.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Photography captures moments in time. It is both an art and a science. Digital cameras offer versatility.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Space exploration is a frontier of science. Satellites orbit the Earth. Humans have landed on the moon.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Robotics is a fascinating field. Robots can perform various tasks. Artificial intelligence aids decision-making.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"History teaches lessons from the past. Ancient civilizations had unique cultures. Historical preservation is important.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Fashion trends change frequently. Styles vary by season and region. Personal expression is reflected in clothing.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Oceanography explores marine environments. The vast oceans are full of life. Conservation efforts protect marine biodiversity.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Philosophy delves into fundamental questions. It examines ethics, logic, and existence. Diverse branches offer different perspectives.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Programming languages enable software creation. Each language has unique features. Selecting the right one depends on the project.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Artificial intelligence is transforming industries. Machine learning models analyze data. Automation is becoming more common.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Renewable energy sources are vital. Solar and wind power are sustainable. These alternatives can reduce pollution.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Nutrition impacts health significantly. Balanced diets support well-being. Macronutrients and micronutrients are essential.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Human anatomy is complex and intricate. Each organ has a specific function. The study of anatomy aids medical knowledge.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"The animal kingdom is diverse. Each species plays a role in its ecosystem. Conservation efforts are crucial for protection.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"The human brain is remarkable. It governs body functions and processes thoughts. Neuroscience studies its complexities.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Astronomy explores celestial bodies. Telescopes reveal distant galaxies. Space missions expand our understanding.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Mathematics is foundational to many disciplines. It offers tools for problem-solving. Algebra and calculus are fundamental branches.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Chemistry studies matter and its interactions. Chemical reactions drive many processes. Organic chemistry focuses on carbon compounds.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Physics explains natural phenomena. It covers topics from mechanics to quantum theory. Experiments validate physical principles.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Biology explores life in various forms. Genetics examines heredity and variation. Ecology focuses on organisms in their environments.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Geology studies the Earth. It examines rocks, minerals, and landforms. Plate tectonics explains the movement of continents.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Economics analyzes resource distribution. It considers supply and demand. Fiscal policies influence economic growth.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Psychology examines human behavior. It considers emotions, cognition, and motivation. Various therapies address mental health issues.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Political science studies governance systems. It considers policy analysis and public opinion. Democracy and authoritarianism are types of governance.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Sociology examines societies and interactions. It considers social structures and institutions. Cultural norms shape behavior.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Anthropology explores human societies and cultures. It includes archaeology and cultural anthropology. Research provides insights into human evolution.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Language is a powerful communication tool. It varies across cultures and communities. Linguistics studies language structure and evolution.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Literature enriches culture and education. Novels, poetry, and plays offer diverse narratives. Literary analysis explores themes and symbolism.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Engineering applies scientific principles. It designs solutions to technical challenges. Civil, mechanical, and electrical are major branches.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Environmental science examines ecosystems. It addresses pollution and climate change. Sustainable practices are increasingly important.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Business studies organizational operations. It considers management, marketing, and finance. Strategic planning guides business growth.\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Architecture is both art and science. It designs functional and aesthetic structures. Urban planning addresses city development.\"",
+      "baseline": true
+    }
+  ],
+  "testEvals": [
+    {
+      "id": "5a325e4",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "1",
+      "rule": "The output must consist of HTML formatted text.",
+      "input": "Cats are fascinating animals. They have peculiar behaviors. Many people love keeping them as pets.",
+      "coverage": "```html\n<p>Cats are <strong>fascinating</strong> animals. They have <em>unique</em> and <em>curious</em> qualities that attract many admirers.</p>\n<p>They have <strong>peculiar</strong> behaviors, often <em>mesmerizing</em> and <em>delightful</em> to observe.</p>\n<p>Many people <strong>love</strong> keeping them as pets due to their <em>independent</em> and <em>affectionate</em> nature.</p>\n```",
+      "validityText": "The given input is a paragraph consisting of three sentences which fulfills the requirement of having \"at least three sentences.\"\n\n1. **Complete and Grammatically Correct Sentences**: Each sentence is complete and grammatically correct. \n   - \"Cats are fascinating animals.\"\n   - \"They have peculiar behaviors.\"\n   - \"Many people love keeping them as pets.\"\n\n2. **Sufficient Textual Content for Tags**:\n    - Each sentence contains sufficient textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags. For example:\n      - In the sentence \"Cats are fascinating animals.\", you could apply <strong> to \"Cats\" and <em> to \"are fascinating\".\n      - In the sentence \"They have peculiar behaviors.\", \"They\" can be within a <strong> tag, and \"peculiar behaviors\" could have <em> tags.\n      - In the sentence \"Many people love keeping them as pets.\", \"Many people\" could be strongly emphasized, with \"keeping\" and \"as pets\" in em tags.\n\nGiven these considerations, the input adheres to all aspects of the input specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "dc02fe1",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "1",
+      "rule": "The output must consist of HTML formatted text.",
+      "input": "The sky is blue. Birds are flying high. The sun is a beautiful sight.",
+      "coverage": "```html\n<p>The <strong>sky</strong> is <em>blue</em>.</p>\n<p><strong>Birds</strong> are <em>flying</em> high.</p>\n<p>The <em>sun</em> is a <strong>beautiful</strong> sight.</p>\n```",
+      "validityText": "Upon evaluating the provided input according to the input specification, the input consists of a paragraph with three sentences: \"The sky is blue.\", \"Birds are flying high.\", and \"The sun is a beautiful sight.\" These sentences are complete and grammatically correct, satisfying the condition of having at least three sentences. \n\nHowever, the specification also requires that each sentence should contain sufficient textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags. The sentences provided are very short and may not have sufficient content to appropriately insert a <strong> tag and multiple <em> tags without altering the meaning significantly or awkwardly breaking the sentence structure.\n\nExamples of how one might envision inserting tags:\n- \"<strong>The sky</strong> is <em>blue</em>.\"\n- \"<em>Birds</em> are <strong>flying</strong> <em>high</em>.\"\n- \"The <em>sun</em> is a <strong>beautiful</strong> <em>sight</em>.\"\n\nThese modified sentences demonstrate that it could be awkward to place the tags without disrupting the simple sentence structure or requiring additional content. This suggests that the provided sentences may lack the required sufficiency of content to comply entirely with the specification, particularly the part that necessitates the flexibility for tag inclusions naturally in each sentence.\n\nHence, the shortness and simplicity limit the content scope needed for compliance.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "2ec92d6",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "1",
+      "rule": "The output must consist of HTML formatted text.",
+      "input": "Programming is fun. It challenges your mind. Solve problems creatively.",
+      "coverage": "```html\n<p><strong>Programming</strong> is <em>fun</em>.</p>\n<p>It <strong>challenges</strong> your <em>mind</em>.</p>\n<p>Solve <em>problems</em> <strong>creatively</strong>.</p>\n```",
+      "validityText": "The input consists of three sentences, which meets the requirement of having at least three sentences. However, let's analyze the sentences individually:\n\n1. \"Programming is fun.\" - This is a complete and grammatically correct sentence. However, it is very short, making it challenging to insert multiple <em> tags and at least one <strong> tag within the sentence. \n\n2. \"It challenges your mind.\" - Similarly, this is a complete sentence, but it is also short in length. It would be difficult to incorporate multiple <em> tags and one <strong> tag without disrupting the grammatical structure of the sentence.\n\n3. \"Solve problems creatively.\" - This sentence is an imperative sentence and is grammatically correct. Nevertheless, it is short and does not provide ample textual content to insert multiple <em> tags and at least one <strong> tag adequately.\n\nThe input specification requires that each sentence should contain sufficient textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags. All three sentences in the provided input are too brief to meet this requirement, as they lack the necessary length and complexity to insert such tags without affecting grammatical correctness.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "50c8da9",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "2",
+      "rule": "Each individual sentence of the provided paragraph must be wrapped in a separate `<p>` tag.",
+      "input": "This is a beautiful day. We've never seen such weather. Amazing to experience.",
+      "coverage": "```html\n<p>This is a <strong>beautiful</strong> day. We've never <em>seen</em> such <em>weather</em>.</p>\n<p>Amazing to <strong>experience</strong>.</p>\n```\n",
+      "validityText": "Upon evaluating the given input, let's verify its compliance with the input specification:\n\n1. **Paragraph Requirement**: The input must be a paragraph. A paragraph typically consists of multiple sentences grouped together to convey a single idea or theme. The input indeed looks like a paragraph as it contains multiple sentences.\n\n2. **Sentence Requirement**: The input must contain at least three sentences. The given input consists of three sentences: \"This is a beautiful day.\", \"We've never seen such weather.\", and \"Amazing to experience.\" It satisfies the requirement for the number of sentences.\n\n3. **Grammatical Completeness**: The sentences should be complete and grammatically correct. The first two sentences (\"This is a beautiful day.\" and \"We've never seen such weather.\") are complete and grammatically correct. However, the third sentence \"Amazing to experience.\" is a fragment and lacks a subject and verb, making it grammatically incomplete.\n\n4. **Sufficient Content for Tags**: Each sentence should have sufficient content to allow for the insertion of at least one `<strong>` tag and multiple `<em>` tags. The third sentence is too short and does not provide sufficient content for such tag insertions.\n\nBecause the third sentence is grammatically incomplete and does not allow for multiple tag insertions, the input does not meet the input specification. \n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "f8b18c5",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "2",
+      "rule": "Each individual sentence of the provided paragraph must be wrapped in a separate `<p>` tag.",
+      "input": "A car is a complex machine. Every component has a specific function. Engineering is an art.",
+      "coverage": "```html\n<p>A <strong>car</strong> is a <em>complex</em> machine.</p>\n<p>Every <strong>component</strong> has a <em>specific</em> function.</p>\n<p><strong>Engineering</strong> is an <em>art</em>.</p>\n```",
+      "validityText": "The input consists of three sentences: \"A car is a complex machine.\", \"Every component has a specific function.\", and \"Engineering is an art.\" All three sentences are complete and grammatically correct, complying with the requirement of containing at least three sentences. However, each sentence is relatively short, and it doesn't provide sufficient textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags within each sentence, as required by the specification. Since this requirement is not met, the input does not fully comply with the input specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "ad6b9e4",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "2",
+      "rule": "Each individual sentence of the provided paragraph must be wrapped in a separate `<p>` tag.",
+      "input": "The mountains are tall. Rivers flow with grace. Nature is mesmerizing.",
+      "coverage": "```html\n<p>The <strong>mountains</strong> are <em>tall</em>.</p>\n<p><strong>Rivers</strong> flow with <em>grace</em>.</p>\n<p>Nature is <em>mesmerizing</em> and <strong>beautiful</strong>.</p>\n```",
+      "validityText": "The input consists of three sentences: \"The mountains are tall.\", \"Rivers flow with grace.\", and \"Nature is mesmerizing.\". Each sentence is complete and grammatically correct, meeting that part of the specification. However, the input specification requires that each sentence contain enough textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags. The sentences provided are too short and lack sufficient complexity for these tags to be meaningfully inserted. For example, in the sentence \"The mountains are tall.\", it is difficult to insert a <strong> tag and multiple <em> tags without altering the sentence structure or meaning significantly. Therefore, the input does not comply with the specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "637764b",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "3",
+      "rule": "There must be at least three `<p>` tags in the output.",
+      "input": "Life is unpredictable. Embrace every moment. Find joy in simplicity.",
+      "coverage": "<p><strong>Life</strong> is <em>unpredictable</em>.</p>\n<p><strong>Embrace</strong> <em>every</em> moment.</p>\n<p>Find <strong>joy</strong> in <em>simplicity</em>.</p>",
+      "validityText": "The input provided is a paragraph of text consisting of three sentences: \"Life is unpredictable.\", \"Embrace every moment.\", and \"Find joy in simplicity.\" While it does meet the minimum requirement of consisting of three sentences, each sentence is quite short and lacks complexity and depth. Moreover, each sentence does not provide sufficient textual content to allow for the insertion of multiple <em> tags, as required by the input specification. Additionally, there is no content that lends itself to the insertion of a <strong> tag in each sentence. \n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "95172be",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "3",
+      "rule": "There must be at least three `<p>` tags in the output.",
+      "input": "Books transport you to different worlds. They are windows to knowledge. Reading is a powerful tool.",
+      "coverage": "```html\n<p><strong>Books</strong> <em>transport</em> you to <em>different worlds</em>.</p>\n<p>They are <strong>windows</strong> to <em>knowledge</em>.</p>\n<p><strong>Reading</strong> is a <em>powerful tool</em>.</p>\n```",
+      "validityText": "The input provided is a paragraph of text consisting of three sentences. Let's evaluate this against the input specification:\n\n1. **Paragraph containing at least three sentences**: The input clearly contains three sentences: \"Books transport you to different worlds.\", \"They are windows to knowledge.\", and \"Reading is a powerful tool.\" Hence, this part complies with the specification.\n\n2. **Complete and grammatically correct sentences**: Each sentence is both complete and grammatically correct. The subject and verb agreement is intact, and there are no obvious grammatical errors.\n\n3. **Sufficient textual content for <strong> and <em> tag insertion**: In terms of textual content, each sentence is concise but contains enough elements to allow for simple emphasis through `<strong>` and `<em>` tags, though the specification does not provide explicit criteria on what quantifies as \"sufficient\" for these tags. For example, tags could be applied to words like \"Books\", \"different worlds\", \"windows\", \"knowledge\", \"Reading\", and \"powerful tool\".\n\nGiven these considerations, the input complies with all elements of the input specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "0373269",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "3",
+      "rule": "There must be at least three `<p>` tags in the output.",
+      "input": "Winter brings snow. Cozy fires warm the evenings. Hot cocoa comforts the soul.",
+      "coverage": "```html\n<p>Winter brings <em>snow</em>. The <strong>winter</strong> season can be both <em>beautiful</em> and <em>challenging</em>.</p>\n<p>Cozy fires <strong>warm</strong> the <em>evenings</em>. This creates a <em>gentle</em> and <em>soothing</em> atmosphere.</p>\n<p>Hot cocoa <strong>comforts</strong> the <em>soul</em>. It provides a <em>delightful</em> and <em>warming</em> experience.</p>\n```",
+      "validityText": "The input provided consists of a paragraph with three sentences: \"Winter brings snow.\", \"Cozy fires warm the evenings.\", and \"Hot cocoa comforts the soul.\". \n\nAccording to the input specification, the input must be a paragraph containing at least three sentences. The provided input does indeed have three sentences, so it meets this part of the specification. Additionally, each sentence must be complete and grammatically correct. All three sentences are complete and grammatically correct. \n\nHowever, the specification also requires that there should be sufficient textual content in the paragraph to allow for the insertion of at least one <strong> tag and multiple <em> tags within each sentence. The input sentences are very short and simplistic. There might not be enough content in each sentence to justify the insertion of multiple <em> tags in each or a <strong> tag, as they lack complexity or additional context. Therefore, the input does not seem to allow for this level of HTML tag insertion, violating the specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "2b5a3cb",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "4",
+      "rule": "Inside every `<p>` tag, there should be at least one word or phrase wrapped in a `<strong>` tag.",
+      "input": "Stars shine brightly. They illuminate the night sky. Stargazing is relaxing.",
+      "coverage": "```html\n<p><strong>Stars</strong> <em>shine</em> <em>brightly</em>.</p>\n<p>They <em>illuminate</em> the <strong>night</strong> <em>sky</em>.</p>\n<p><strong>Stargazing</strong> is <em>relaxing</em>.</p>\n```",
+      "validityText": "The input is a paragraph containing three sentences, which satisfies the requirement of having at least three sentences. Each sentence appears to be complete and grammatically correct, as they follow proper sentence structure with appropriate punctuation and syntax.\n\nThe specification also mandates that the input must contain sufficient textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags within each sentence. However, these sentences are concise and lack complexity, meaning that the opportunity to insert multiple <em> tags within each sentence is severely limited. The sentences are too short and simplistic to allow meaningful use of multiple <em> tags without disrupting the sentence flow or meaning. Each sentence does not provide significant textual content that makes the insertion of multiple <em> tags feasible within them.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "85b21ef",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "4",
+      "rule": "Inside every `<p>` tag, there should be at least one word or phrase wrapped in a `<strong>` tag.",
+      "input": "Music has the power to heal. Notes create harmony. Listening brings peace.",
+      "coverage": "```html\n<p>Music has the <strong>power</strong> to <em>heal</em>.</p>\n<p>Notes <strong>create</strong> <em>harmony</em>.</p>\n<p><em>Listening</em> brings <strong>peace</strong>.</p>\n```",
+      "validityText": "The input paragraph contains exactly three sentences: \"Music has the power to heal.\", \"Notes create harmony.\", and \"Listening brings peace.\". Each sentence is grammatically correct and complete. However, the input specification requires that there should be \"sufficient textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags within each sentence\". The sentences here are too brief to reasonably allow for the insertion of these tags without potentially compromising their structural integrity or intended meaning. Therefore, the input does not meet the requirement for sufficient textual content for tag insertion.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "cb33c28",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "4",
+      "rule": "Inside every `<p>` tag, there should be at least one word or phrase wrapped in a `<strong>` tag.",
+      "input": "The wind whispers secrets. Leaves dance in the breeze. Quiet moments speak volumes.",
+      "coverage": "```html\n<p>The <strong>wind</strong> whispers <em>secrets</em>.</p>\n<p><strong>Leaves</strong> <em>dance</em> in the <em>breeze</em>.</p>\n<p>Quiet <strong>moments</strong> <em>speak volumes</em>.</p>\n```",
+      "validityText": "The input consists of three sentences, which satisfies the requirement of the paragraph containing at least three sentences. Each sentence is complete and grammatically correct. However, the input does not contain sufficient textual content within each sentence to allow for the insertion of at least one <strong> tag and multiple <em> tags, as required by the specification. Each sentence is quite short and does not provide enough content to naturally incorporate these tags without disrupting the coherence or balance of the sentence.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "5bbb4da",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "5",
+      "rule": "Inside every `<p>` tag, there should be multiple words or phrases wrapped in `<em>` tags.",
+      "input": "Innovation drives progress. New ideas challenge norms. Creativity fuels discovery.",
+      "coverage": "```html\n<p><strong>Innovation</strong> drives <em>progress</em>.</p>\n<p><em>New ideas</em> challenge <strong>norms</strong>.</p>\n<p><strong>Creativity</strong> fuels <em>discovery</em>.</p>\n```",
+      "validityText": "The given input is a paragraph consisting of three sentences: \"Innovation drives progress.\", \"New ideas challenge norms.\", and \"Creativity fuels discovery.\" According to the input specification, the paragraph must contain at least three sentences, which the input does. However, the sentences need to be complete and grammatically correct, which they are. The crucial point in the specification is that each sentence must contain sufficient textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags within each sentence.\n\nUpon closely examining the sentences, they are short and lack sufficient textual content to accommodate multiple <em> tags within each one. The <em> tag is typically used to emphasize text, suggesting there should be enough words to meaningfully apply these tags multiple times within the sentence. Given the brevity and simplicity of the sentences, it is difficult to envision inserting multiple <em> tags in a meaningful way. This aspect does not comply with the specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "5960460",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "5",
+      "rule": "Inside every `<p>` tag, there should be multiple words or phrases wrapped in `<em>` tags.",
+      "input": "Sunrises inspire hope. The horizon changes hue. Each dawn is unique.",
+      "coverage": "```html\n<p><strong>Sunrises</strong> <em>inspire</em> <em>hope</em>.</p>\n<p>The <strong>horizon</strong> changes <em>hue</em>.</p>\n<p>Each <em>dawn</em> is <strong>unique</strong>.</p>\n```",
+      "validityText": "The given input consists of three sentences: \"Sunrises inspire hope.\", \"The horizon changes hue.\", and \"Each dawn is unique.\". Each sentence is complete and grammatically correct, adhering to the requirement of having at least three sentences. However, the input does not meet the requirement for containing sufficient textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags within each sentence. The sentences are too short and lack the complexity or length that would typically allow for multiple <em> tags to be inserted without being overly repetitive or awkward.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "c78a71f",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "5",
+      "rule": "Inside every `<p>` tag, there should be multiple words or phrases wrapped in `<em>` tags.",
+      "input": "Gardens bloom in spring. Colors burst into view. Life renews itself naturally.",
+      "coverage": "```html\n<p><strong>Gardens</strong> <em>bloom</em> in <em>spring</em>.</p>\n<p><strong>Colors</strong> <em>burst</em> into <em>view</em>.</p>\n<p><strong>Life</strong> <em>renews itself</em> <em>naturally</em>.</p>\n```",
+      "validityText": "The input consists of a paragraph of text which includes three sentences: \"Gardens bloom in spring.\", \"Colors burst into view.\", and \"Life renews itself naturally.\" Each sentence is complete and grammatically correct. However, when assessing against the part of the specification that mentions the necessity for sufficient textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags within each sentence, the input fails to comply. The sentences are too brief and lack the complexity or sufficient content to credibly accommodate the insertion of multiple HTML tags as specified. There is simply not enough content in each sentence for such modifications without altering the integrity of the sentences.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "211a0dd",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "6",
+      "rule": "The tags `<strong>` and `<em>` must be used to emphasize key words and phrases within each `<p>` tag.",
+      "input": "Adventure awaits at every turn. Exploration reveals new paths. Wander with curiosity.",
+      "coverage": "```html\n<p>Adventure <strong>awaits</strong> at every <em>turn</em>.</p>\n<p><em>Exploration</em> reveals new <strong>paths</strong>.</p>\n<p><strong>Wander</strong> with <em>curiosity</em>.</p>\n```",
+      "validityText": "The input consists of three sentences: \"Adventure awaits at every turn.\", \"Exploration reveals new paths.\", and \"Wander with curiosity.\" Each sentence is complete and grammatically correct. \n\nHowever, the input specification requires \"sufficient textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags within each sentence.\" The sentences provided are quite short and do not provide enough textual content for inserting multiple <em> tags within each sentence, as this would involve emphasizing multiple parts of each sentence. Also, there must be sufficient content for at least one <strong> tag per sentence. \n\nDue to the lack of sufficient textual content for inserting the required HTML tags, the input does not comply with the input specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "805efe5",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "6",
+      "rule": "The tags `<strong>` and `<em>` must be used to emphasize key words and phrases within each `<p>` tag.",
+      "input": "Technology evolves swiftly. Gadgets connect people globally. Innovation shapes the future.",
+      "coverage": "```html\n<p><strong>Technology</strong> <em>evolves</em> <em>swiftly</em>.</p>\n<p><strong>Gadgets</strong> <em>connect</em> people <em>globally</em>.</p>\n<p><strong>Innovation</strong> <em>shapes</em> the <em>future</em>.</p>\n```",
+      "validityText": "The input consists of three sentences: \"Technology evolves swiftly.\", \"Gadgets connect people globally.\", and \"Innovation shapes the future.\". Each of these sentences is complete and grammatically correct, complying with the sentence structure requirements. However, the specification requires that each sentence should allow for the insertion of at least one <strong> tag and multiple <em> tags, indicating a need for sufficient textual content within each sentence. The sentences are very concise, with limited content, making it challenging to insert multiple <em> tags without overly fragmenting the structure or meaning of the sentences. Specifically, the brevity and simplicity of the sentences leave minimal room for meaningful emphasis and strong text formatting using tags, as required by the specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "08d4a5e",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "6",
+      "rule": "The tags `<strong>` and `<em>` must be used to emphasize key words and phrases within each `<p>` tag.",
+      "input": "The ocean is vast. Waves dance on the surface. Depths hold mysteries unknown.",
+      "coverage": "```html\n<p>The <strong>ocean</strong> is <em>vast</em>.</p>\n<p><strong>Waves</strong> <em>dance</em> on the <em>surface</em>.</p>\n<p><em>Depths</em> hold <strong>mysteries</strong> <em>unknown</em>.</p>\n```",
+      "validityText": "The given input is a paragraph consisting of three sentences: \"The ocean is vast.\", \"Waves dance on the surface.\", and \"Depths hold mysteries unknown.\". I will evaluate the compliance with the input specification.\n\nFirstly, the paragraph does indeed contain three sentences, therefore meeting the requirement for \"at least three sentences.\"\n\nSecondly, I evaluated the grammatical correctness of each sentence:\n- \"The ocean is vast.\" is a complete sentence with a subject (\"The ocean\") and a predicate (\"is vast\").\n- \"Waves dance on the surface.\" is a complete sentence with a subject (\"Waves\") and a predicate (\"dance on the surface\").\n- \"Depths hold mysteries unknown.\" is also a complete sentence with a subject (\"Depths\") and a predicate (\"hold mysteries unknown\").\n\nAll sentences are complete and grammatically correct.\n\nNext, I considered whether the input contains sufficient textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags within each sentence. Each sentence is short and simple, which severely limits the opportunities for incorporating multiple <em> tags within each. Additionally, fitting at least one <strong> tag into these minimally expressed sentences without compromising their grammatical structure is also challenging.\n\nGiven the input specification's requirement for sufficient textual content for these tag insertions, none of the sentences possess the necessary length or complexity to support multiple <em> tags within each sentence and at least one <strong> tag.\n\nThus, while the sentences are grammatically correct, the paragraph does not satisfy the specification's requirements for textual content allowing specific tags.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "0bd8173",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "7",
+      "rule": "The HTML tags used should be correctly formed and closed to maintain valid HTML syntax.",
+      "input": "Butterflies flutter by. Flowers sway in the breeze. Nature sings a silent song.",
+      "coverage": "```html\n<p><strong>Butterflies</strong> <em>flutter</em> by.</p>\n<p><strong>Flowers</strong> <em>sway</em> in the <em>breeze</em>.</p>\n<p><strong>Nature</strong> <em>sings</em> a <em>silent</em> song.</p>\n```",
+      "validityText": "The input consists of a paragraph containing three sentences: \"Butterflies flutter by.\", \"Flowers sway in the breeze.\", and \"Nature sings a silent song.\". According to the input specification, the paragraph must contain at least three sentences. This input satisfies that requirement as it has exactly three sentences.\n\nNext, each sentence should be complete and grammatically correct. Each sentence here expresses a complete thought and is grammatically correct.\n\nLastly, the input should contain sufficient textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags within each sentence. The sentences are quite short and do not have much complexity or additional elements, which limits the possibility of inserting multiple <em> tags in each sentence under normal circumstances without awkwardness or redundancy. The same issue arises with inserting a <strong> tag. \n\nThe ability to insert multiple <em> tags in each sentence is questionable due to the brevity and simplicity of the sentences provided. Thus, this input does not fully meet the specification regarding the textual content requirement.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "34ae15b",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "7",
+      "rule": "The HTML tags used should be correctly formed and closed to maintain valid HTML syntax.",
+      "input": "Snowflakes blanket the ground. Winter's hush is everywhere. Serenity in white.",
+      "coverage": "```html\n<p><strong>Snowflakes</strong> <em>blanket</em> the <em>ground</em>.</p>\n<p><strong>Winter's</strong> <em>hush</em> is <em>everywhere</em>.</p>\n<p><strong>Serenity</strong> in <em>white</em>.</p>\n```",
+      "validityText": "The input consists of three sentences: \"Snowflakes blanket the ground.\", \"Winter's hush is everywhere.\", and \"Serenity in white.\" While this meets the requirement of containing at least three sentences, I will analyze the grammatical and completeness criteria as well. \n\n1. **Complete and Grammatically Correct Sentences**:\n    - The first sentence \"Snowflakes blanket the ground.\" is a complete and grammatically correct sentence.\n    - The second sentence \"Winter's hush is everywhere.\" is also a complete and grammatically correct sentence.\n    - The third sentence \"Serenity in white.\" is not a complete sentence. It lacks a verb, making it an incomplete sentence, which violates the requirement for complete and grammatically correct sentences.\n\n2. **Textual Content for Tag Insertion**:\n    - Each sentence should allow for insertion of at least one <strong> tag and multiple <em> tags. In \"Snowflakes blanket the ground.\", and \"Winter's hush is everywhere.\", there is sufficient textual content to allow such insertions. However, \"Serenity in white.\" does not provide sufficient content to accommodate multiple <em> tags due to its brevity.\n\nTaking these reasons into account, the input violates the specification due to the presence of an incomplete sentence and inability to allow for sufficient tag insertion.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "6317fc1",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "7",
+      "rule": "The HTML tags used should be correctly formed and closed to maintain valid HTML syntax.",
+      "input": "Music fills the air. Melodies resonate through time. The heart hears the notes.",
+      "coverage": "```html\n<p>Music fills the <em>air</em>. Melodies <strong>resonate</strong> through time.</p>\n<p>The <strong>heart</strong> hears the <em>notes</em>.</p>\n```",
+      "validityText": "The input consists of a paragraph that contains three sentences: \"Music fills the air.\" \"Melodies resonate through time.\" and \"The heart hears the notes.\" According to the input specification, the paragraph must have at least three sentences, and they must be complete and grammatically correct. The provided sentences meet this requirement as they are complete and do not contain any grammatical errors.\n\nHowever, the paragraph must also contain sufficient textual content to allow for the insertion of at least one `<strong>` tag and multiple `<em>` tags within each sentence. Each sentence is quite short and lacks the complexity or length required to insert multiple `<em>` tags without disrupting sentence structure or meaning. Additionally, obtaining multiple `<em>` tags distinctly placed within a single sentence is challenging given the brevity of these sentences. This lack of sufficient content represents non-compliance.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "25aafcd",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "8",
+      "rule": "The output should only include the HTML formatted paragraph and should not include any additional text or commentary.",
+      "input": "Cities bustle with life. Streets echo stories of people. An orchestra of human activity.",
+      "coverage": "```html\n<p>The <em>cities</em> <strong>bustle</strong> with <em>life</em>.</p>\n<p><em>Streets</em> echo <strong>stories</strong> of <em>people</em>.</p>\n<p>An <strong>orchestra</strong> of <em>human</em> <em>activity</em>.</p>\n```",
+      "validityText": "The input consists of three components. Firstly, the input appears to be structured as three separate parts, which are meant to form a paragraph consisting of sentences: \"Cities bustle with life.\", \"Streets echo stories of people.\", and \"An orchestra of human activity.\". Upon evaluating the compliance of these parts against the input specification:\n\n1. The specification mandates that the input be a paragraph containing at least three sentences. While there are three parts, only the first two are complete sentences as the third part \"An orchestra of human activity\" lacks a verb, making it a sentence fragment rather than a complete sentence.\n   \n2. The input specification also requires sentences to be complete and grammatically correct, which the third part fails in being due to the absence of a verb or predicate, making it a sentence fragment.\n\n3. Furthermore, each sentence should contain sufficient textual content for embedding at least one <strong> tag and multiple <em> tags. Given the brevity of these parts, especially the sentence fragment, there isn't enough content to apply multiple <em> tags per sentence.\n\nHence, due to the third part not being a complete and grammatically correct sentence and the insufficiency of content for tag insertion, the input does not meet the specification requirements.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "eea27ce",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "8",
+      "rule": "The output should only include the HTML formatted paragraph and should not include any additional text or commentary.",
+      "input": "Rain gardens thrive in cities. Storms nourish these green oases. Balance within urban environments.",
+      "coverage": "```html\n<p><strong>Rain gardens</strong> <em>thrive</em> in <em>cities</em>.</p>\n<p><em>Storms</em> nourish these <strong>green oases</strong>.</p>\n<p><strong>Balance</strong> within <em>urban environments</em>.</p>\n```",
+      "validityText": "The given input consists of three sentences: \"Rain gardens thrive in cities.\", \"Storms nourish these green oases.\", and \"Balance within urban environments.\" However, upon analysis, the third sentence \"Balance within urban environments.\" is not a complete sentence. It lacks a subject and verb, which does not meet the criterion of complete and grammatically correct sentences as required by the input specification. Additionally, the brevity and structure of the sentences do not support inserting at least one <strong> tag and multiple <em> tags within each sentence, as there is insufficient textual content per sentence to allow meaningful insertion of these tags. Therefore, the input does not comply with several key aspects of the input specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "35dd94d",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "8",
+      "rule": "The output should only include the HTML formatted paragraph and should not include any additional text or commentary.",
+      "input": "Artists paint with colors of emotion. Canvas tells tales untold. Creativity knows no limits.",
+      "coverage": "```html\n<p><strong>Artists</strong> paint with <em>colors</em> of <em>emotion</em>.</p>\n<p><strong>Canvas</strong> tells <em>tales</em> <em>untold</em>.</p>\n<p><strong>Creativity</strong> knows no <em>limits</em>.</p>\n```",
+      "validityText": "The input consists of three sentences, which fulfills the requirement of being a paragraph containing at least three sentences. Each sentence is complete and grammatically correct, which complies with the requirement for complete and grammatically correct sentences. However, the input specification also requires that each sentence contain sufficient textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags. The input text provided does not have sufficiently lengthy sentences or complex content to support multiple <em> tags in each sentence, nor is there clear justification for where a <strong> tag could be inserted.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "c862230",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "9",
+      "rule": "The output must not consist of HTML formatted text.",
+      "input": "Rainbows are colorful. They appear after rain showers. Kids love chasing them.",
+      "coverage": "```html\n<p><strong>Rainbows</strong> are <em>colorful</em> and are a <em>beautiful sight</em> in the sky.</p>\n<p>They <em>often</em> appear <strong>after</strong> rain <em>showers</em>, stretching across the sky.</p>\n<p><strong>Kids</strong> love <em>chasing</em> them, filled with <em>excitement</em> and wonder.</p>\n```",
+      "validityText": "The input consists of a paragraph with three sentences: \"Rainbows are colorful.\", \"They appear after rain showers.\", and \"Kids love chasing them.\" Each sentence is complete and grammatically correct. \n\nHowever, when considering the requirement that each sentence must contain sufficient textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags, there seems to be an issue. Each sentence is quite short, consisting of only a few words, which might not provide ample content for the insertion of the specified tags, especially multiple <em> tags. \n\nBy the specification, each sentence should be rich enough to meaningfully insert such tags without compromising its completeness and grammatical correctness. Given the brevity and simplicity of these sentences, they lack sufficient complexity for multiple tag insertions.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "06c7d72",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "9",
+      "rule": "The output must not consist of HTML formatted text.",
+      "input": "Birds chirp in the morning. They signal a fresh start. It's a joy to hear.",
+      "coverage": "```html\n<p><strong>Birds</strong> <em>chirp</em> in the <em>morning</em>.</p>\n<p><strong>They</strong> <em>signal</em> a <em>fresh start</em>.</p>\n<p>It's a <strong>joy</strong> to <em>hear</em>.</p>\n```",
+      "validityText": "The input consists of a paragraph containing three sentences: \"Birds chirp in the morning. They signal a fresh start. It's a joy to hear.\" This meets the criteria of being a paragraph with at least three sentences.\n\nHowever, upon examining the requirement that sentences should contain sufficient textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags within each sentence, the input falls short. Each sentence is too concise to accommodate such tags without disrupting the structure of the sentences or making them awkward. Therefore, the input does not satisfy the specification regarding the length and complexity needed for proper tag insertion.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "0c28375",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "9",
+      "rule": "The output must not consist of HTML formatted text.",
+      "input": "Books are portals to new worlds. Stories can change perspectives. Reading expands the mind.",
+      "coverage": "```html\n<p>Books are <strong>portals</strong> to <em>new worlds</em>.</p>\n<p>Stories can <strong>change</strong> <em>perspectives</em>.</p>\n<p><strong>Reading</strong> expands the <em>mind</em>.</p>\n```",
+      "validityText": "The input consists of three sentences: \"Books are portals to new worlds.\", \"Stories can change perspectives.\", and \"Reading expands the mind.\" Each sentence is complete and grammatically correct, fulfilling the minimum requirement for three sentences in the input specification. However, the sentences in the input are quite short and lack sufficient textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags within each sentence. \n\nThe input specification requires each sentence to have enough content for such tags to be inserted effectively, and these sentences do not provide enough material to do so without disrupting the grammatical structure. \n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "3c10a4c",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "10",
+      "rule": "Each individual sentence of the provided paragraph must not be wrapped in a separate `<p>` tag.",
+      "input": "The car is fast. It zooms past the highway. Exciting to watch.",
+      "coverage": "```html\n<p>The <strong>car</strong> is <em>fast</em>.</p>\n<p>It <strong>zooms</strong> <em>past the highway</em>.</p>\n<p><em>Exciting</em> to <strong>watch</strong>.</p>\n```",
+      "validityText": "The given input consists of three sentences. However, upon examination, the third sentence \"Exciting to watch.\" is not a complete sentence as it lacks a subject and verb; it's a fragment. According to the input specification, sentences should be complete and grammatically correct, which means they must have a subject and a verb. Additionally, there isn't enough textual content in each of these sentences to allow for the insertion of at least one <strong> tag and multiple <em> tags within each sentence. These issues lead me to conclude that the input does not comply with the input specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "884d948",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "10",
+      "rule": "Each individual sentence of the provided paragraph must not be wrapped in a separate `<p>` tag.",
+      "input": "Mountains touch the sky. Birds soar above crests. Valleys treasure hidden secrets.",
+      "coverage": "```html\n<p><strong>Mountains</strong> <em>touch</em> the <em>sky</em>.</p>\n<p><strong>Birds</strong> <em>soar</em> above <em>crests</em>.</p>\n<p><strong>Valleys</strong> <em>treasure</em> hidden <em>secrets</em>.</p>\n```",
+      "validityText": "The given input consists of three sentences: \"Mountains touch the sky.\", \"Birds soar above crests.\", and \"Valleys treasure hidden secrets.\" Each sentence is complete and appears to be grammatically correct. However, the specification requires that the text contains sufficient content for the insertion of at least one <strong> tag and multiple <em> tags within each sentence. Each of these sentences is quite short, and inserting multiple <em> tags within each would not be feasible due to the lack of sufficient textual content. Thus, the input does not comply with the input specification concerning the requirement for textual content to allow for the insertion of the specified tags.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "8f9a142",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "10",
+      "rule": "Each individual sentence of the provided paragraph must not be wrapped in a separate `<p>` tag.",
+      "input": "Autumn leaves fall gracefully. Trees prepare for winter. The cycle continues.",
+      "coverage": "<p><strong>Autumn</strong> leaves <em>fall</em> <em>gracefully</em>.</p>\n<p><strong>Trees</strong> <em>prepare</em> for <em>winter</em>.</p>\n<p>The <em>cycle</em> <strong>continues</strong>.</p>",
+      "validityText": "The input consists of three sentences: \"Autumn leaves fall gracefully.\", \"Trees prepare for winter.\", and \"The cycle continues.\" Each sentence is complete and grammatically correct, satisfying the requirement for complete sentences. However, the input does not contain sufficient textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags within each sentence. Each sentence is too short to accommodate such tags meaningfully. According to the specification, the input must contain enough content for these tag insertions within each sentence.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "74f5250",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "11",
+      "rule": "There must be less than three `<p>` tags in the output.",
+      "input": "Art inspires creativity. Expression is limitless. Imagination knows no bounds.",
+      "coverage": "```html\n<p>Art <strong>inspires</strong> <em>creativity</em>.</p>\n<p><strong>Expression</strong> is <em>limitless</em>.</p>\n<p><strong>Imagination</strong> <em>knows</em> no <em>bounds</em>.</p>\n```",
+      "validityText": "The input consists of three sentences: \"Art inspires creativity.\", \"Expression is limitless.\", and \"Imagination knows no bounds.\". All sentences are complete and grammatically correct, fulfilling the requirement for at least three sentences. However, the input violates the specification that each sentence \"contain sufficient textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags within each sentence.\" Each sentence, while complete, is very short and lacks complexity and additional elements that would accommodate the insertion of multiple <em> tags. For example, the sentence \"Art inspires creativity.\" has no additional elements beyond the core message to insert these tags meaningfully. The same limitation applies to the other two sentences, meaning the input does not comply with the specification about the sufficient textual content for tag insertion.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "73cab5f",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "11",
+      "rule": "There must be less than three `<p>` tags in the output.",
+      "input": "The moon glows at night. Stars twinkle alongside. A canvas of the universe.",
+      "coverage": "```html\n<p>The <strong>moon</strong> <em>glows</em> at <em>night</em>.</p>\n<p><strong>Stars</strong> <em>twinkle</em> alongside.</p>\n<p>A <strong>canvas</strong> of the <em>universe</em>.</p>\n```",
+      "validityText": "The input provided is a paragraph consisting of three sentences. Let’s evaluate it against the input specification:\n\n1. **Number of Sentences**: The input must contain at least three sentences. The input provided has three sentences: \"The moon glows at night.\", \"Stars twinkle alongside.\", and \"A canvas of the universe.\"\n\n2. **Complete and Grammatically Correct Sentences**: Each sentence should be complete and grammatically correct. \"The moon glows at night.\" and \"Stars twinkle alongside.\" are complete and grammatically correct. However, \"A canvas of the universe.\" is a fragment lacking a verb and is not a complete sentence. Therefore, it does not comply with the specification requiring complete sentences.\n\n3. **Sufficient Textual Content**: The input should allow for inserting at least one <strong> tag and multiple <em> tags within each sentence. The short and simplistic nature of the sentences makes it difficult to naturally fit these tags meaningfully. This further suggests insufficiency in textual content for the specified requirement.\n\nConsidering the violation of the complete sentence requirement as well as the requirement for sufficient textual content for meaningful tag insertion, the input does not comply with the specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "c0249bb",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "11",
+      "rule": "There must be less than three `<p>` tags in the output.",
+      "input": "Summer days are long. Sunsets are beautiful. Beaches invite relaxation.",
+      "coverage": "<p><strong>Summer</strong> days are <em>long</em> and <em>sunny</em>.</p>\n<p><strong>Sunsets</strong> are exceptionally <em>beautiful</em> in the <em>evening</em>.</p>\n<p><em>Beaches</em> invite <strong>relaxation</strong> and <em>enjoyment</em>.</p>",
+      "validityText": "The input consists of three sentences: \"Summer days are long.\", \"Sunsets are beautiful.\", and \"Beaches invite relaxation.\" According to the specification, each input must be a paragraph containing at least three sentences. This input meets the minimum sentence requirement, as it contains exactly three sentences. Furthermore, the sentences are complete and grammatically correct, thereby fulfilling the specification requirement for grammatical correctness.\n\nHowever, the input does not comply with the requirement that the input should contain sufficient textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags within each sentence. The given sentences are too short and lack the complexity or length necessary for the meaningful inclusion of such tags within each sentence. \n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "6f743a9",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "12",
+      "rule": "Inside every `<p>` tag, there should be no word or phrase wrapped in a `<strong>` tag.",
+      "input": "Languages express cultures. They hold identities. Communication is vital.",
+      "coverage": "```html\n<p><strong>Languages</strong> express <em>cultures</em>.</p>\n<p>They hold <strong>identities</strong>.</p>\n<p><strong>Communication</strong> is <em>vital</em>.</p>\n```",
+      "validityText": "The input provided consists of three sentences: \"Languages express cultures.\", \"They hold identities.\", and \"Communication is vital.\". The input specification requires a paragraph of text containing at least three sentences, which is satisfied here.\n\nHowever, the input specification also requires that sentences should be complete, grammatically correct, and should contain sufficient textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags within each sentence. The sentences provided are grammatically correct and complete, but they do not have sufficient textual content to allow for the insertion of multiple <em> tags within each sentence. The sentences are too short and concise for meaningful insertion of these tags, particularly multiple <em> tags. Therefore, this input does not fully comply with the input specification regarding the amount of textual content.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "4fd1381",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "12",
+      "rule": "Inside every `<p>` tag, there should be no word or phrase wrapped in a `<strong>` tag.",
+      "input": "Chefs create flavors. Meals are made with passion. Cuisine connects us all.",
+      "coverage": "<p>Chefs create <strong>flavors</strong>. <em>Flavors</em> are the heart of every dish, and <em>great chefs</em> know how to balance them.</p>\n<p>Meals are made with <strong>passion</strong>. Each dish reflects the <em>dedication</em> and <em>effort</em> put into crafting it.</p>\n<p>Cuisine connects us <strong>all</strong>. It's a <em>universal language</em> that brings people from <em>different cultures</em> together.</p>",
+      "validityText": "The input consists of a paragraph of text with three sentences: \"Chefs create flavors.\", \"Meals are made with passion.\", and \"Cuisine connects us all.\" According to the input specification, the paragraph must contain at least three sentences, which is satisfied in this case. \n\nHowever, each sentence must be complete and grammatically correct, and while the sentences are indeed complete and grammatically correct, the input specification also states that the input should contain sufficient textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags within each sentence. In this input, each sentence is quite short and lacks sufficient complexity or additional clauses that might be found in longer sentences, which would allow for the insertion of multiple tags. Therefore, it does not fulfill this specific requirement of having sufficient content for the insertion of the required HTML tags in each sentence.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "28803a4",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "12",
+      "rule": "Inside every `<p>` tag, there should be no word or phrase wrapped in a `<strong>` tag.",
+      "input": "Gardens bloom in different colors. Bees buzz around flowers. Life thrives naturally.",
+      "coverage": "<p>Gardens <strong>bloom</strong> in <em>different</em> <em>colors</em>.</p>\n<p>Bees <strong>buzz</strong> around <em>flowers</em>.</p>\n<p>Life <strong>thrives</strong> <em>naturally</em>.</p>",
+      "validityText": "The task is to assess the provided input against the input specification. The input is a paragraph of text, and according to the specification, it should contain at least three sentences, each complete and grammatically correct. In this case, the input consists of three sentences: \"Gardens bloom in different colors.\", \"Bees buzz around flowers.\", and \"Life thrives naturally.\" All sentences appear to be complete and grammatically correct.\n\nAdditionally, the specification requires that each sentence should contain sufficient textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags within each sentence. \n\nLet's analyze the sentences:\n\n1. \"Gardens bloom in different colors.\" This sentence is five words long. It might be challenging to place multiple <em> tags without rendering the text awkward or overly emphasized. However, a <strong> tag could be placed on a word like \"bloom\". \n\n2. \"Bees buzz around flowers.\" This sentence is also around five words long and could pose similar challenges for the insertion of multiple <em> tags while maintaining readability. A <strong> tag could be emphasized on \"Bees\" or \"buzz\".\n\n3. \"Life thrives naturally.\" This sentence is three words long. Placing multiple <em> tags while preserving the grammatical structure and readability is problematic. You might be able to place a <strong> tag on \"Life\".\n\nThe specification's need for sufficient content for tag insertions seems to indicate longer or more complex sentences. Given the brevity of these sentences, particularly the last one, they may not fully meet the criteria of having sufficient content for multiple <em> tags within them.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "ca85098",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "13",
+      "rule": "Inside every `<p>` tag, there should be no multiple words or phrases wrapped in `<em>` tags.",
+      "input": "Dreams motivate action. Passion fuels success. Believe in endless possibilities.",
+      "coverage": "```html\n<p><em>Dreams</em> motivate <strong>action</strong>. They drive us to <em>aim</em> higher and <em>achieve</em> our <em>goals</em>.</p>\n<p><strong>Passion</strong> fuels <em>success</em>. It ignites the <em>determination</em> needed to overcome <em>challenges</em>.</p>\n<p>Believe in <strong>endless possibilities</strong>. This mindset opens the door to countless <em>opportunities</em> and <em>growth</em>.</p>\n```",
+      "validityText": "The given input consists of a paragraph with three sentences: \"Dreams motivate action. Passion fuels success. Believe in endless possibilities.\" To evaluate compliance with the input specification, let's consider:\n\n1. **Minimum Sentence Requirement**: The input needs to contain at least three sentences. The input provided meets this requirement as it contains exactly three sentences.\n\n2. **Grammatical Correctness**: Each sentence should be complete and grammatically correct. Upon evaluation, all three sentences are complete and grammatically correct, as they each form a complete idea and are correctly punctuated.\n\n3. **Sufficient Textual Content for Tags**: The input must contain sufficient textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags within each sentence. The sentences in the input are short and lack complexity and structure to insert both a <strong> tag and multiple <em> tags within each one. For instance, the sentence \"Dreams motivate action.\" is so brief that inserting multiple <em> tags would not be feasible without disrupting the grammatical structure or meaning.\n\nGiven the limited length and simplicity of each sentence, criteria for sufficient textual content to insert a <strong> tag and multiple <em> tags within each sentence is not met.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "e3511fe",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "13",
+      "rule": "Inside every `<p>` tag, there should be no multiple words or phrases wrapped in `<em>` tags.",
+      "input": "Windmills harness energy. They stand against time. Renewable sources are critical.",
+      "coverage": "```html\n<p><strong>Windmills</strong> <em>harness</em> <em>energy</em>.</p>\n<p>They <strong>stand</strong> <em>against</em> <em>time</em>.</p>\n<p><strong>Renewable</strong> sources are <em>critical</em>.</p>\n```",
+      "validityText": "The input consists of three sentences. According to the input specification, the input must contain multiple sentences, with at least three complete and grammatically correct sentences. This requirement is met as the input includes: \"Windmills harness energy.\", \"They stand against time.\", and \"Renewable sources are critical.\"\n\nHowever, the specification also requires that the input should contain sufficient textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags within each sentence. Each sentence provided here is very short and lacks the textual depth and complexity required to allow for the insertion of multiple <em> tags within each sentence. For example, the sentence \"Windmills harness energy.\" is too terse to add multiple <em> tags meaningfully.\n\nTherefore, while the input meets the basic requirement of having at least three sentences, it does not comply with the specification in terms of having enough textual content for the required tags.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "85e7e10",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "13",
+      "rule": "Inside every `<p>` tag, there should be no multiple words or phrases wrapped in `<em>` tags.",
+      "input": "Dogs are loyal companions. Pets bring joy to life. They are part of the family.",
+      "coverage": "```html\n<p><strong>Dogs</strong> are <em>loyal</em> <em>companions</em>.</p>\n<p><strong>Pets</strong> bring <em>joy</em> to <em>life</em>.</p>\n<p>They are part of the <strong>family</strong>.</p>\n```",
+      "validityText": "The input provided is a paragraph consisting of exactly three sentences: \"Dogs are loyal companions.\", \"Pets bring joy to life.\", and \"They are part of the family.\" Each sentence is complete and grammatically correct. However, the input specification requires that each sentence must contain sufficient textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags. The sentences in the input are short and lack the complexity and textual content needed to add multiple <em> tags as required. Particularly, the second and third sentences are too brief to support multiple <em> tags and do not offer sufficient contextual richness for meaningful tag insertion. Therefore, the input does not comply with the input specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "6c57d25",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "14",
+      "rule": "The tags `<strong>` and `<em>` must not be used to emphasize key words and phrases within each `<p>` tag.",
+      "input": "The forest is dense. Birds sing sweet songs. A walk calms the soul.",
+      "coverage": "```html\n<p>The <strong>forest</strong> is <em>dense</em>. Trees stand <em>tall</em> and <em>proud</em>, creating a <em>canopy</em> that <em>filters</em> the sunlight.</p>\n<p><strong>Birds</strong> sing <em>sweet</em> songs, filling the <em>air</em> with their <em>melodies</em>. Each note <em>resonates</em> through the <em>branches</em>, echoing the <em>harmony</em> of nature.</p>\n<p>A walk <strong>calms</strong> the <em>soul</em>. The rhythmic <em>crunch</em> of leaves underfoot <em>soothes</em> the mind and <em>body</em>.</p>\n```",
+      "validityText": "The input paragraph contains three sentences: \"The forest is dense.\", \"Birds sing sweet songs.\", and \"A walk calms the soul.\" While the paragraph does meet the requirement of containing at least three sentences and each sentence is complete and grammatically correct, the specification also mandates sufficient textual content in each sentence to allow for the insertion of at least one <strong> tag and multiple <em> tags. \n\nEach sentence in the input is too short to accommodate multiple <em> tags or even one <strong> tag without potentially disrupting the grammatical or semantic integrity of the sentence. The brevity and simplicity of the sentences present a limitation in terms of being able to insert these tags as specified. Therefore, these sentences violate the requirement for sufficient textual content per the specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "01da502",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "14",
+      "rule": "The tags `<strong>` and `<em>` must not be used to emphasize key words and phrases within each `<p>` tag.",
+      "input": "Exercise is important. It strengthens the body. Health is wealth.",
+      "coverage": "```html\n<p>Exercise is <em>important</em>. It <strong>strengthens</strong> the <em>body</em>.</p>\n<p>It strengthens the <em>body</em>.</p>\n<p>Health is <strong>wealth</strong>.</p>\n```",
+      "validityText": "The given input is a paragraph of text consisting of three sentences: \"Exercise is important.\", \"It strengthens the body.\", and \"Health is wealth.\" All three sentences are complete and grammatically correct, fulfilling the requirement for multiple sentences. However, they are quite short, which may affect the sufficiency of textual content needed to allow for the insertion of at least one <strong> tag and multiple <em> tags within each sentence.\n\nTo analyze for compliance, let's break it down against the specifications:\n\n- **Paragraph Requirement**: The input contains exactly three sentences, which is the minimum number to qualify as a paragraph according to the specification.\n- **Complete Sentences**: All sentences are complete and grammatically correct.\n- **Textual Content for Tags**: This is the critical part. The sentences are very short, and it is unclear if they have sufficient length or complexity to allow for the insertion of at least one <strong> tag and multiple <em> tags within each sentence. Each sentence is concise and straightforward, with limited words to logically incorporate such HTML tags while maintaining grammatical correctness and coherence.\n\nThe last point suggests a potential non-compliance with the specifications because the explicit requirement is that each sentence should be capable of containing multiple <em> tags. While technically possible by simply inserting tags, doing so may lead to awkward or forced usage given the brevity of these sentences, thus violating the intent of \"sufficient textual content.\"\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "2cc6403",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "14",
+      "rule": "The tags `<strong>` and `<em>` must not be used to emphasize key words and phrases within each `<p>` tag.",
+      "input": "Fires warm the cold nights. Logs crackle in the hearth. The glow is comforting.",
+      "coverage": "```html\n<p><em>Fires</em> <strong>warm</strong> the cold nights.</p>\n<p>Logs <em>crackle</em> in the <strong>hearth</strong>.</p>\n<p>The <strong>glow</strong> is <em>comforting</em>.</p>\n```",
+      "validityText": "The input consists of a paragraph with three sentences: \"Fires warm the cold nights.\" \"Logs crackle in the hearth.\" and \"The glow is comforting.\" The input specification requires the paragraph to contain at least three sentences, which this input does. \n\nHowever, the sentences are quite brief, and even though they are grammatically correct and complete, the input specification requires that \"Input should contain sufficient textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags within each sentence.\" These sentences are too short to logically allow for the insertion of the specified tags, as introducing such tags would make the sentences awkward or nonsensical due to their brevity.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "76bc02f",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "15",
+      "rule": "The HTML tags used should be incorrectly formed and left open to disrupt valid HTML syntax.",
+      "input": "Music lifts the spirit. Harmony touches the heart. Rhythm ties us together.",
+      "coverage": "```html\n<p>Music <strong>lifts</strong> the <em>spirit</em>.</p>\n<p><strong>Harmony</strong> touches the <em>heart</em>.</p>\n<p>Rhythm <em>ties</em> us <strong>together</strong>.</p>\n```",
+      "validityText": "The input consists of three sentences, each of which appears to be complete and grammatically correct. However, according to the input specification, the paragraph should contain \"sufficient textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags within each sentence.\" The input provided is a total of three short sentences, each consisting of only three to five words. This brevity likely limits opportunities for the required insertion of a <strong> tag and multiple <em> tags within each sentence, thus potentially violating the requirement for sufficient textual content. Consequently, despite the minimum sentence requirement being met, the content length criterion is not fully satisfied.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "960782a",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "15",
+      "rule": "The HTML tags used should be incorrectly formed and left open to disrupt valid HTML syntax.",
+      "input": "The snow falls silently. Blankets of white cover the land. A peaceful winter scene.",
+      "coverage": "```html\n<p>The snow <strong>falls</strong> <em>silently</em>.</p>\n<p><strong>Blankets</strong> of white <em>cover</em> the <em>land</em>.</p>\n<p>A <em>peaceful</em> <strong>winter</strong> <em>scene</em>.</p>\n```",
+      "validityText": "The given input consists of three separate sentences: \"The snow falls silently.\" \"Blankets of white cover the land.\" \"A peaceful winter scene.\"\n\n1. The first sentence, \"The snow falls silently,\" is a complete and grammatically correct sentence.\n2. The second sentence, \"Blankets of white cover the land,\" is also a complete and grammatically correct sentence.\n3. However, the third \"sentence,\" \"A peaceful winter scene,\" is a fragment and is not a complete sentence. A complete sentence should have both a subject and a predicate, whereas this fragment lacks a verb.\n\nAdditionally, the input should allow for the insertion of at least one <strong> tag and multiple <em> tags within each sentence. Considering the third \"sentence\" is a fragment, it limits opportunities for such insertions, though it is important to note that the fragment issue itself is sufficient for non-compliance. \n\nDue to the presence of a sentence fragment, the input does not meet the requirement of consisting of complete and grammatically correct sentences.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "c928cc7",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "15",
+      "rule": "The HTML tags used should be incorrectly formed and left open to disrupt valid HTML syntax.",
+      "input": "Heroes inspire us. They face impossible challenges. Courage defines their journey.",
+      "coverage": "```html\n<p><strong>Heroes</strong> <em>inspire</em> us.</p>\n<p>They <strong>face</strong> <em>impossible challenges</em>.</p>\n<p><strong>Courage</strong> <em>defines</em> their journey.</p>\n```",
+      "validityText": "The given input is a paragraph consisting of three sentences: \"Heroes inspire us.\", \"They face impossible challenges.\", and \"Courage defines their journey.\". According to the input specification, the paragraph should contain at least three sentences, which this input does. However, the sentences should also be complete, grammatically correct, and contain sufficient textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags within each sentence.\n\nWhile the sentences are complete and grammatically correct, they are quite short and may not have sufficient textual content to easily allow for the insertion of multiple <em> tags within each sentence. For instance, the sentence \"Heroes inspire us.\" is quite brief, thus making it challenging to insert multiple <em> tags within it while preserving sentence integrity.\n\nBased on this analysis, the input does not fully comply with the input specification regarding the requirement for sentence length and sufficient content for tag insertion.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "a29d287",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "16",
+      "rule": "The output should include additional text or commentary and should not consist only of the HTML formatted paragraph.",
+      "input": "It rains often in autumn. The smell of wet earth is refreshing. Clouds pass swiftly overhead.",
+      "coverage": "```html\n<p>It <strong>rains</strong> often in <em>autumn</em>.</p>\n<p>The <strong>smell</strong> of wet <em>earth</em> is <em>refreshing</em>.</p>\n<p><strong>Clouds</strong> pass <em>swiftly</em> overhead.</p>\n```",
+      "validityText": "The input provided consists of a paragraph with three sentences. Let's evaluate each part of the input specification:\n\n1. **Paragraph Requirement**: The input is in paragraph form and it consists of three sentences. Therefore, it meets the requirement of containing at least three sentences.\n\n2. **Complete and Grammatically Correct Sentences**: Each sentence in the paragraph is complete and grammatically correct.\n   - \"It rains often in autumn.\"\n   - \"The smell of wet earth is refreshing.\"\n   - \"Clouds pass swiftly overhead.\"\n\n3. **Sufficient Textual Content**: For the input to be valid, each sentence must contain sufficient textual content to allow for:\n   - At least one `<strong>` tag\n   - Multiple `<em>` tags\n\nEvaluating the content of the sentences:\n- The sentence \"It rains often in autumn.\" is relatively short and might not be easily enriched with both a `<strong>` tag and multiple `<em>` tags without disrupting the sentence or repeating tags.\n- \"The smell of wet earth is refreshing.\" has a more complex structure that could support the insertion of these tags, but only for a portion, possibly not fulfilling the 'multiple' requirement for each tag.\n- \"Clouds pass swiftly overhead.\" also might not support the extensive insertion of tags based on its length, potentially making it difficult to apply multiple `<em>` tags.\n\nThe sentences, while complete, do not provide enough length or content to confidently fulfill the requirement for the inclusion of these HTML tags in the manner specified. Thus, there is a violation of the input specification regarding the textual content requirement for tag insertion.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "64f2751",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "16",
+      "rule": "The output should include additional text or commentary and should not consist only of the HTML formatted paragraph.",
+      "input": "Paintings evoke emotions. Colors and brush strokes tell a story. Art is timeless.",
+      "coverage": "```html\n<p><strong>Paintings</strong> evoke <em>emotions</em>.</p>\n<p><strong>Colors</strong> and <em>brush strokes</em> tell a story.</p>\n<p><strong>Art</strong> is <em>timeless</em>.</p>\n```",
+      "validityText": "The input is a paragraph of text consisting of multiple sentences. Upon examination, I identify that the input contains three sentences: \"Paintings evoke emotions.\", \"Colors and brush strokes tell a story.\", and \"Art is timeless.\" Each sentence is complete and grammatically correct, complying with the requirement of containing at least three sentences. However, the specifications also require that each sentence must contain sufficient textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags, which implies a degree of sentence complexity or length beyond simple statements. The sentences provided are quite short and simplistic with limited opportunities for meaningful insertion of <strong> or <em> tags multiple times in each sentence. This indicates non-compliance with the specification regarding sentence content sufficiency for tag insertion.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "ce11072",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "16",
+      "rule": "The output should include additional text or commentary and should not consist only of the HTML formatted paragraph.",
+      "input": "Bridges connect places. They symbolize unity and collaboration. Engineering marvels.",
+      "coverage": "```html\n<p>Bridges <em>connect</em> <strong>places</strong>.</p>\n<p>They <em>symbolize</em> <strong>unity</strong> and <em>collaboration</em>.</p>\n<p><strong>Engineering</strong> <em>marvels</em>.</p>\n```",
+      "validityText": "The input provided consists of three separate sentences: \"Bridges connect places.\", \"They symbolize unity and collaboration.\", and \"Engineering marvels.\". To comply with the input specification, each sentence should be complete and grammatically correct. Upon evaluation, the sentence \"Engineering marvels.\" is not a complete sentence as it lacks a verb and is more of a sentence fragment. The input specification explicitly requires complete sentences. \n\nMoreover, the specification requires sentences to contain sufficient textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags within each sentence. The provided sentences are too brief to accommodate such tags effectively within each sentence.\n\nERR",
+      "validity": "err",
+      "error": ""
+    }
+  ],
+  "testResults": []
+}

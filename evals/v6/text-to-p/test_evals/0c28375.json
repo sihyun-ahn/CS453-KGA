@@ -1,0 +1,12 @@
+{
+  "id": "0c28375",
+  "promptid": "b70fdc4",
+  "model": "gpt-4o-2024-08-06",
+  "ruleid": 9,
+  "rule": "The output must not consist of HTML formatted text.",
+  "inverse": true,
+  "input": "Books are portals to new worlds. Stories can change perspectives. Reading expands the mind.",
+  "coverage": "```html\n<p>Books are <strong>portals</strong> to <em>new worlds</em>.</p>\n<p>Stories can <strong>change</strong> <em>perspectives</em>.</p>\n<p><strong>Reading</strong> expands the <em>mind</em>.</p>\n```",
+  "validityText": "The input consists of three sentences: \"Books are portals to new worlds.\", \"Stories can change perspectives.\", and \"Reading expands the mind.\" Each sentence is complete and grammatically correct, fulfilling the minimum requirement for three sentences in the input specification. However, the sentences in the input are quite short and lack sufficient textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags within each sentence. \n\nThe input specification requires each sentence to have enough content for such tags to be inserted effectively, and these sentences do not provide enough material to do so without disrupting the grammatical structure. \n\nERR",
+  "validity": "err"
+}

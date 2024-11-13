@@ -1,0 +1,12 @@
+{
+  "id": "4fd1381",
+  "promptid": "b70fdc4",
+  "ruleid": 12,
+  "rule": "Inside every `<p>` tag, there should be no word or phrase wrapped in a `<strong>` tag.",
+  "inverse": true,
+  "model": "gpt-4o-mini",
+  "input": "Chefs create flavors. Meals are made with passion. Cuisine connects us all.",
+  "output": "```html\n<p><strong>Chefs</strong> <em>create</em> <em>flavors</em>.</p>\n<p><strong>Meals</strong> are made with <em>passion</em>.</p>\n<p><strong>Cuisine</strong> <em>connects</em> us <em>all</em>.</p>\n<p><strong>Chefs</strong> <em>create</em> <em>flavors</em>.</p>\n<p><strong>Meals</strong> are made with <em>passion</em>.</p>\n<p><strong>Cuisine</strong> <em>connects</em> us <em>all</em>.</p>\n```",
+  "compliance": "ok",
+  "complianceText": "The output contains six `<p>` tags, which satisfies the requirement of having at least three `<p>` tags. Each `<p>` tag contains at least one `<strong>` tag and multiple `<em>` tags, which aligns with the description's instructions to emphasize key words and phrases. All structural requirements (using <p>, <strong>, and <em> tags) are met directly in the output, and there aren't any signs of speculation or influence by unseen input.\n\nOK"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "0c28375",
+  "promptid": "b70fdc4",
+  "ruleid": 9,
+  "rule": "The output must not consist of HTML formatted text.",
+  "inverse": true,
+  "model": "gpt-4o-mini",
+  "input": "Books are portals to new worlds. Stories can change perspectives. Reading expands the mind.",
+  "output": "```html\n<p><strong>Books</strong> are <em>portals</em> to <em>new worlds</em>.</p>\n<p><strong>Stories</strong> can <em>change</em> <em>perspectives</em>.</p>\n<p><strong>Reading</strong> <em>expands</em> the <em>mind</em>.</p>\n```",
+  "compliance": "ok",
+  "complianceText": "The chatbot output contains three sentences, each enclosed within its own `<p>` tag, thus meeting the requirement for the answer to have at least three `<p>` tags. Each sentence also includes one `<strong>` tag and multiple `<em>` tags as required. The presence of these tags indicates formatting of key words and phrases. Hence, the output meets the compliance criteria described. \n\nOK"
+}

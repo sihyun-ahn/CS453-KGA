@@ -1,0 +1,12 @@
+{
+  "id": "ca85098",
+  "promptid": "b70fdc4",
+  "ruleid": 13,
+  "rule": "Inside every `<p>` tag, there should be no multiple words or phrases wrapped in `<em>` tags.",
+  "inverse": true,
+  "model": "qwen2.5:3b",
+  "input": "Dreams motivate action. Passion fuels success. Believe in endless possibilities.",
+  "output": "<p><strong> Dreams </strong></p>\n<em> motivate </em>\n<em> action. </em>\n<p><strong> Passion </strong></p>\n<em> fuels </em>\n<em> success. </em>\n<p><strong> Believe </strong></p>\n<em> in endless </em>\n<em> possibilities. </em>",
+  "compliance": "err",
+  "complianceText": "The chatbot output does not comply with the description. \n\n1. The output is missing the correct structure of the tags. According to the description, each sentence should be wrapped inside a <p> tag, and within each <p> tag, there should be a <strong> tag and multiple <em> tags emphasizing key words and phrases.\n\n2. In the output provided, the <strong> tags are correctly placed inside <p> tags, but the <em> tags are outside the <p> tags, which is not in compliance with the guidelines. All tags should be correctly nested within their respective <p> tags.\n\nERR"
+}

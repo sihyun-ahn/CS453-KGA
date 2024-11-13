@@ -1,0 +1,12 @@
+{
+  "id": "74f5250",
+  "promptid": "b70fdc4",
+  "model": "gpt-4o-2024-08-06",
+  "ruleid": 11,
+  "rule": "There must be less than three `<p>` tags in the output.",
+  "inverse": true,
+  "input": "Art inspires creativity. Expression is limitless. Imagination knows no bounds.",
+  "coverage": "```html\n<p>Art <strong>inspires</strong> <em>creativity</em>.</p>\n<p><strong>Expression</strong> is <em>limitless</em>.</p>\n<p><strong>Imagination</strong> <em>knows</em> no <em>bounds</em>.</p>\n```",
+  "validityText": "The input consists of three sentences: \"Art inspires creativity.\", \"Expression is limitless.\", and \"Imagination knows no bounds.\". All sentences are complete and grammatically correct, fulfilling the requirement for at least three sentences. However, the input violates the specification that each sentence \"contain sufficient textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags within each sentence.\" Each sentence, while complete, is very short and lacks complexity and additional elements that would accommodate the insertion of multiple <em> tags. For example, the sentence \"Art inspires creativity.\" has no additional elements beyond the core message to insert these tags meaningfully. The same limitation applies to the other two sentences, meaning the input does not comply with the specification about the sufficient textual content for tag insertion.\n\nERR",
+  "validity": "err"
+}

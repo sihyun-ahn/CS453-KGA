@@ -1,0 +1,11 @@
+{
+  "id": "cb33c28",
+  "promptid": "b70fdc4",
+  "model": "gpt-4o-2024-08-06",
+  "ruleid": 4,
+  "rule": "Inside every `<p>` tag, there should be at least one word or phrase wrapped in a `<strong>` tag.",
+  "input": "The wind whispers secrets. Leaves dance in the breeze. Quiet moments speak volumes.",
+  "coverage": "```html\n<p>The <strong>wind</strong> whispers <em>secrets</em>.</p>\n<p><strong>Leaves</strong> <em>dance</em> in the <em>breeze</em>.</p>\n<p>Quiet <strong>moments</strong> <em>speak volumes</em>.</p>\n```",
+  "validityText": "The input consists of three sentences, which satisfies the requirement of the paragraph containing at least three sentences. Each sentence is complete and grammatically correct. However, the input does not contain sufficient textual content within each sentence to allow for the insertion of at least one <strong> tag and multiple <em> tags, as required by the specification. Each sentence is quite short and does not provide enough content to naturally incorporate these tags without disrupting the coherence or balance of the sentence.\n\nERR",
+  "validity": "err"
+}

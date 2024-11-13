@@ -1,0 +1,12 @@
+{
+  "id": "e3511fe",
+  "promptid": "b70fdc4",
+  "model": "gpt-4o-2024-08-06",
+  "ruleid": 13,
+  "rule": "Inside every `<p>` tag, there should be no multiple words or phrases wrapped in `<em>` tags.",
+  "inverse": true,
+  "input": "Windmills harness energy. They stand against time. Renewable sources are critical.",
+  "coverage": "```html\n<p><strong>Windmills</strong> <em>harness</em> <em>energy</em>.</p>\n<p>They <strong>stand</strong> <em>against</em> <em>time</em>.</p>\n<p><strong>Renewable</strong> sources are <em>critical</em>.</p>\n```",
+  "validityText": "The input consists of three sentences. According to the input specification, the input must contain multiple sentences, with at least three complete and grammatically correct sentences. This requirement is met as the input includes: \"Windmills harness energy.\", \"They stand against time.\", and \"Renewable sources are critical.\"\n\nHowever, the specification also requires that the input should contain sufficient textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags within each sentence. Each sentence provided here is very short and lacks the textual depth and complexity required to allow for the insertion of multiple <em> tags within each sentence. For example, the sentence \"Windmills harness energy.\" is too terse to add multiple <em> tags meaningfully.\n\nTherefore, while the input meets the basic requirement of having at least three sentences, it does not comply with the specification in terms of having enough textual content for the required tags.\n\nERR",
+  "validity": "err"
+}

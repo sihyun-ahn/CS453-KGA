@@ -1,0 +1,12 @@
+{
+  "id": "6c57d25",
+  "promptid": "b70fdc4",
+  "ruleid": 14,
+  "rule": "The tags `<strong>` and `<em>` must not be used to emphasize key words and phrases within each `<p>` tag.",
+  "inverse": true,
+  "model": "gpt-4o-mini",
+  "input": "The forest is dense. Birds sing sweet songs. A walk calms the soul.",
+  "output": "```html\n<p><strong>The forest</strong> is <em>dense</em>.</p>\n<p><strong>Birds</strong> <em>sing</em> <em>sweet</em> <em>songs</em>.</p>\n<p>A <strong>walk</strong> <em>calms</em> the <em>soul</em>.</p>\n```",
+  "compliance": "ok",
+  "complianceText": "The chatbot output consists of three sentences, each wrapped inside a `<p>` tag, which complies with the requirement of having at least three `<p>` tags. Within each `<p>` tag, a `<strong>` tag is used to emphasize one key word, and multiple `<em>` tags are used to highlight additional words or phrases. This matches the requirement to include one `<strong>` tag and multiple `<em>` tags inside each `<p>` tag. \n\nThere are no violations in the given output as all the structural demands from the description are met, such as wrapping individual sentences in `<p>` tags and including the required emphasis with `<strong>` and `<em>` tags.\n\nOK"
+}

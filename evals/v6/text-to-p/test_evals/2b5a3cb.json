@@ -1,0 +1,11 @@
+{
+  "id": "2b5a3cb",
+  "promptid": "b70fdc4",
+  "model": "gpt-4o-2024-08-06",
+  "ruleid": 4,
+  "rule": "Inside every `<p>` tag, there should be at least one word or phrase wrapped in a `<strong>` tag.",
+  "input": "Stars shine brightly. They illuminate the night sky. Stargazing is relaxing.",
+  "coverage": "```html\n<p><strong>Stars</strong> <em>shine</em> <em>brightly</em>.</p>\n<p>They <em>illuminate</em> the <strong>night</strong> <em>sky</em>.</p>\n<p><strong>Stargazing</strong> is <em>relaxing</em>.</p>\n```",
+  "validityText": "The input is a paragraph containing three sentences, which satisfies the requirement of having at least three sentences. Each sentence appears to be complete and grammatically correct, as they follow proper sentence structure with appropriate punctuation and syntax.\n\nThe specification also mandates that the input must contain sufficient textual content to allow for the insertion of at least one <strong> tag and multiple <em> tags within each sentence. However, these sentences are concise and lack complexity, meaning that the opportunity to insert multiple <em> tags within each sentence is severely limited. The sentences are too short and simplistic to allow meaningful use of multiple <em> tags without disrupting the sentence flow or meaning. Each sentence does not provide significant textual content that makes the insertion of multiple <em> tags feasible within them.\n\nERR",
+  "validity": "err"
+}

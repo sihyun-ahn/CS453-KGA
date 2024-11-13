@@ -1,0 +1,11 @@
+{
+  "id": "9aa7ad2",
+  "promptid": "b70fdc4",
+  "ruleid": null,
+  "baseline": true,
+  "model": "qwen2.5:3b",
+  "input": "text: \"Exercise is crucial for maintaining health. Cardiovascular activities strengthen the heart. Strength training builds muscles.\"",
+  "output": "<p><strong>Exercise</strong> is crucial for <em>maintaining</em> <em>health</em>. Cardiovascular activities strengthen the <em>heart</em>. Strength training builds muscles.</p>\n<p><strong>Exercise</strong> is crucial for <em>maintaining</em> <em>health</em>. Cardiovascular activities strengthen the <em>heart</em>. Strength training builds muscles.</p>",
+  "compliance": "err",
+  "complianceText": "The output provided by the chatbot does not comply with the description. According to the description, the paragraph should be split into individual sentences, with each sentence wrapped in a separate `<p>` tag. The chatbot output shows all the sentences within a single `<p>` tag, repeated twice. This indicates that the sentences are not split into individual `<p>` tags as required. Additionally, there is a requirement for at least three `<p>` tags, but the output contains only two `<p>` tags. \n\nERR"
+}

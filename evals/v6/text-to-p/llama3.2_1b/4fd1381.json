@@ -1,0 +1,12 @@
+{
+  "id": "4fd1381",
+  "promptid": "b70fdc4",
+  "ruleid": 12,
+  "rule": "Inside every `<p>` tag, there should be no word or phrase wrapped in a `<strong>` tag.",
+  "inverse": true,
+  "model": "llama3.2:1b",
+  "input": "Chefs create flavors. Meals are made with passion. Cuisine connects us all.",
+  "output": "<p>\n  <strong>Chefs</strong> create flavours. <em>Missions</em> start with a plan, as passionate cooks put their craft into every dish they make.</p>\n\n<p>\n  <strong>Cuisine</strong> connects us all. <em>Flavours</em> and <em>rhythms</em> form the heartbeat of our global culinary traditions.</p>\n\n<p>\n  <strong>Meals</strong> are made with passion. <em>Talent</em> shines in every kitchen where cooks craft dishes that ignite the senses.</p>",
+  "compliance": "ok",
+  "complianceText": "The chatbot output consists of three `<p>` tags, which satisfies the requirement of having at least three `<p>` tags. Within each of those `<p>` tags, there is one `<strong>` tag used to emphasize specific keywords or phrases, such as \"Chefs,\" \"Cuisine,\" and \"Meals.\" There are multiple `<em>` tags present in each paragraph to emphasize additional key words or phrases. This fulfills the guidelines of adding one `<strong>` tag and multiple `<em>` tags in each `<p>` tag.\n\nOK"
+}
