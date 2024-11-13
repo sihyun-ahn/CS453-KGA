@@ -1,0 +1,11 @@
+{
+  "id": "262a98c",
+  "promptid": "fdc5c4c",
+  "ruleid": 1,
+  "rule": "The output must start with the label \"Company names:\" followed by a list of company names extracted from the input text in a comma-separated format.",
+  "model": "qwen2.5:3b",
+  "input": "We discussed Amazon's latest policies.",
+  "output": "Based on the provided text:\n\n- Company names: Amazon\n\nPeople names: -||-\n\nSpecific topics: latest policies of Amazon\n\nGeneral themes: discussion about a company's policies",
+  "compliance": "err",
+  "complianceText": "The chatbot output follows most of the specified format. However, there is a compliance issue with the list of company names. According to the guideline, company names should be separated by commas and listed on one line following the label \"Company names:\". In the output, the company name is on a separate line without a comma when there could be more than one name, as the format uses \"<comma_separated_list_of_company_names>\" to specify the required format. The other sections (\"People names\", \"Specific topics\", \"General themes\") are correctly formatted following their labels with the correct style.\n\nERR"
+}

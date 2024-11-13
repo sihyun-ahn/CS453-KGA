@@ -1,0 +1,11 @@
+{
+  "id": "9c389d6",
+  "promptid": "fdc5c4c",
+  "ruleid": 5,
+  "rule": "If there are no entities to list for any category, it should still display the label followed by a blank space, indicating the absence of entities, but still maintain the format.",
+  "model": "qwen2.5:3b",
+  "input": "The research was conducted in several domains without specific names mentioned.",
+  "output": "Company names: \nPeople names: -||-\nSpecific topics: -||-\nGeneral themes: Research in multiple domains",
+  "compliance": "err",
+  "complianceText": "The chatbot output does not comply fully with the description. The desired format specified in the description requires that, for each section (company names, people names, specific topics, and general themes), there be a comma-separated list of relevant items. In this case, the \"Company names\" field is empty without even a placeholder indicator. Additionally, the \"Specific topics\" section does not contain any content. However, without the input text, it's not possible to confirm if there should be content in these sections, so we must ignore this aspect.\n\nHowever, the format issue with \"Company names\" is clear. Therefore, the problem here lies in not following the format for listing company names properly—specifically, not including the \"-||-\" to indicate an empty list like is done for other sections.\n\nERR"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "c730093",
+  "promptid": "fdc5c4c",
+  "ruleid": 6,
+  "rule": "Each label, followed by a colon, must be present in the output even if no corresponding data is extracted.",
+  "model": "gpt-4o-mini",
+  "input": "A glimpse into innovative environmental practices.",
+  "output": "Company names: \nPeople names: -||-\nSpecific topics: innovative environmental practices\nGeneral themes: environmental sustainability, innovation",
+  "compliance": "err",
+  "complianceText": "The chatbot output needs to follow a specific desired format, which includes extracting elements like company names, people names, specific topics, and general overarching themes from a text. The expected format is: \n\n- Company names: <comma_separated_list_of_company_names>\n- People names: <comma_separated_list_of_people_names>\n- Specific topics: <comma_separated_list_of_specific_topics>\n- General themes: <comma_separated_list_of_general_themes>\n\nIn the provided output:\n\n1. For \"Company names\", the output is empty. This is acceptable since the format still holds as there could be scenarios where no company names are present in the text, and the format only requires extracting if any are present.\n\n2. \"People names\" is correctly formatted as '-||-', indicating an empty list. This is in line with the format outlined in the description, which allows for no people names to be extracted.\n\n3. \"Specific topics\" lists \"innovative environmental practices\" but does not use a comma-separated format. Since we don't know the input, we're unable to confirm the plurality of topics or whether it matches the extracted topics. However, this doesn't break format rules as there could be a single specific topic.\n\n4. \"General themes\" provides a list with themes: \"environmental sustainability\" and \"innovation\" without using commas, thus not matching the desired comma-separated list format.\n\nThere is a formatting inconsistency with \"General themes\" as a comma-separated list is not used for the themes. This violates the explicit required format stated in the description.\n\nERR"
+}
