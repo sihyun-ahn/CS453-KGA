@@ -1,4 +1,4 @@
-import { loadPromptContext, generate } from "./promptpex.mts";
+import { loadPromptContext, generate, computeOverview } from "./promptpex.mts";
 
 script({
   title: "PromptPex Test Generator",
@@ -67,9 +67,10 @@ const models = (env.vars.models || "azure:gpt-4o-mini")
   ?.split(/;/g)
   .map((model) => model.trim());
 
+const res = [];
 for (const files of prompts) {
   try {
-    await generate(files, {
+    const ctx = await generate(files, {
       force,
       forceBaselineTests,
       forceIntent,
@@ -79,8 +80,28 @@ for (const files of prompts) {
       forceExecuteTests,
       models,
     });
+    const { testEvals, overview } = computeOverview(ctx);
+    res.push({
+      prompt: files.name,
+      tests: testEvals.length,
+      ...Object.fromEntries(
+        overview.map((o) => [
+          o.model,
+          Math.round((o["tests compliant"] / o.tests) * 100) + "%",
+        ])
+      ),
+    });
   } catch (e) {
     console.error(e);
     console.debug(e.stack);
   }
 }
+await workspace.writeText(
+  "evals/README.md",
+  `# Test Results
+
+- % represent compliance rate
+
+${CSV.markdownify(res)}
+`
+);

@@ -393,7 +393,7 @@ function toLatexTable(
   const latexTable = `
   \\begin{table}[h!]
   \\centering
-  \\begin{tabular}{|${headers.map((h) => `c`).join("|")}|}
+  \\begin{tabular}{|${headers.map(() => `c`).join("|")}|}
   \\hline
   ${headers.join(" & ")} \\\\
   \\hline
@@ -688,7 +688,6 @@ function parseRulesTests(text: string): PromptPexTest[] {
 
 function parseTestResults(files: PromptPexContext): PromptPexTestResult[] {
   const rules = parseRules(files.rules.content);
-  const tests = parseTestEvals(files);
   const res = CSV.parse(files.testOutputs.content, {
     delimiter: ",",
   }) as PromptPexTestResult[];
@@ -797,7 +796,7 @@ export async function generateJSONReport(files: PromptPexContext) {
     errors.push(`failed to parse tests in ${files.tests.filename}`);
   }
 
-  const tests = [...rulesTests, ...baseLineTests].map((test, index) => {
+  const tests = [...rulesTests, ...baseLineTests].map((test) => {
     const rule = resolveRule(allRules, test);
     if (!rule && !test.baseline)
       errors.push(
@@ -829,20 +828,9 @@ function addLineNumbers(text: string, start: number) {
     .join("\n");
 }
 
-export async function generateMarkdownReport(files: PromptPexContext) {
-  const tests = [
-    ...parseRulesTests(files.tests.content),
-    ...parseBaselineTests(files),
-  ];
-  const rules = parseRules(files.rules.content);
-  const inverseRules = parseRules(files.inverseRules.content);
+export function computeOverview(files: PromptPexContext) {
   const testResults = parseTestResults(files);
   const testEvals = parseTestEvals(files);
-  const ts = testResults.length;
-  const oks = testResults.filter((t) => t.compliance === "ok").length;
-  const errs = testResults.filter((t) => t.compliance === "err").length;
-  const rp = (n: number, t: number) =>
-    `${n}/${t} (${Math.floor((n / t) * 100)}%)`;
   const testResultsPerModels = testResults.reduce(
     (acc, result) => {
       if (!acc[result.model]) {
@@ -853,6 +841,57 @@ export async function generateMarkdownReport(files: PromptPexContext) {
     },
     {} as Record<string, PromptPexTestResult[]>
   );
+  const overview = Object.entries(testResultsPerModels).map(
+    ([model, results]) => ({
+      model,
+      tests: results.filter((tr) => tr.rule).length,
+      ["tests compliant"]: results.filter(
+        (tr) => tr.rule && tr.compliance === "ok"
+      ).length,
+      ["tests positive"]: results.filter((tr) => tr.rule && !tr.inverse).length,
+      ["tests positive compliant"]: results.filter(
+        (tr) => tr.rule && !tr.inverse && tr.compliance === "ok"
+      ).length,
+      ["tests negative"]: results.filter((tr) => tr.rule && tr.inverse).length,
+      ["tests negative compliant"]: results.filter(
+        (tr) => tr.rule && tr.inverse && tr.compliance === "ok"
+      ).length,
+      baseline: results.filter((tr) => !tr.rule).length,
+      ["baseline compliant"]: results.filter(
+        (tr) => !tr.rule && tr.compliance === "ok"
+      ).length,
+      ["tests valid"]: results.filter(
+        (tr) =>
+          tr.rule && testEvals.find((te) => te.id === tr.id)?.validity === "ok"
+      ).length,
+      ["tests valid compliant"]: results.filter(
+        (tr) =>
+          tr.rule &&
+          tr.compliance === "ok" &&
+          testEvals.find((te) => te.id === tr.id)?.validity === "ok"
+      ).length,
+    })
+  );
+  return {
+    testResults,
+    testEvals,
+    overview,
+  };
+}
+
+export async function generateMarkdownReport(files: PromptPexContext) {
+  const tests = [
+    ...parseRulesTests(files.tests.content),
+    ...parseBaselineTests(files),
+  ];
+  const rules = parseRules(files.rules.content);
+  const inverseRules = parseRules(files.inverseRules.content);
+  const testResults = parseTestResults(files);
+  const ts = testResults.length;
+  const oks = testResults.filter((t) => t.compliance === "ok").length;
+  const errs = testResults.filter((t) => t.compliance === "err").length;
+  const rp = (n: number, t: number) =>
+    `${n}/${t} (${Math.floor((n / t) * 100)}%)`;
 
   const res: string[] = [
     `## ${files.name} ([json](./${files.dir}/report.json))`,
@@ -888,37 +927,7 @@ export async function generateMarkdownReport(files: PromptPexContext) {
 - Test Output Compliance (TOC) - Checking if TO meets the constraints in PUT using MPP
 </details>
 `);
-  const overview = Object.entries(testResultsPerModels).map(
-    ([model, results]) => ({
-      model,
-      tests: results.filter((tr) => tr.rule).length,
-      ["tests compliant"]: results.filter(
-        (tr) => tr.rule && tr.compliance === "ok"
-      ).length,
-      ["tests positive"]: results.filter((tr) => tr.rule && !tr.inverse).length,
-      ["tests positive compliant"]: results.filter(
-        (tr) => tr.rule && !tr.inverse && tr.compliance === "ok"
-      ).length,
-      ["tests negative"]: results.filter((tr) => tr.rule && tr.inverse).length,
-      ["tests negative compliant"]: results.filter(
-        (tr) => tr.rule && tr.inverse && tr.compliance === "ok"
-      ).length,
-      baseline: results.filter((tr) => !tr.rule).length,
-      ["baseline compliant"]: results.filter(
-        (tr) => !tr.rule && tr.compliance === "ok"
-      ).length,
-      ["tests valid"]: results.filter(
-        (tr) =>
-          tr.rule && testEvals.find((te) => te.id === tr.id)?.validity === "ok"
-      ).length,
-      ["tests valid compliant"]: results.filter(
-        (tr) =>
-          tr.rule &&
-          tr.compliance === "ok" &&
-          testEvals.find((te) => te.id === tr.id)?.validity === "ok"
-      ).length,
-    })
-  );
+  const { overview } = computeOverview(files);
   await workspace.writeText(
     path.join(files.dir, "overview.csv"),
     CSV.stringify(overview, { header: true })
@@ -1108,4 +1117,6 @@ export async function generate(
   // final report
   const report = await generateReports(files);
   console.log(`  report: ${report}`);
+
+  return files;
 }
