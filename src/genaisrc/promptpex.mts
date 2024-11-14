@@ -378,7 +378,33 @@ export async function runTests(
       if (testRes) testResults.push(testRes);
     }
   }
+
   return CSV.stringify(testResults, { header: true });
+}
+
+function toLatexTable(
+  data: any[],
+  options?: { headers?: string[]; label?: string; caption?: string }
+) {
+  const { headers = Object.keys(data[0]), label, caption } = options || {};
+  const latexTable = `
+  \\begin{table}[h!]
+  \\centering
+  \\begin{tabular}{|${headers.map((h) => `c`).join("|")}|}
+  \\hline
+  ${headers.join(" & ")} \\\\
+  \\hline
+  ${data
+    .map((raw) =>
+      headers.map((k) => ("" + raw[k]).replace(/&/g, "\\&")).join(" & ")
+    )
+    .join(`\\\\\n\\hline\n`)}
+  \\end{tabular}
+  ${caption ? `\\caption{${caption}}` : ""}
+  ${label ? `\\label{${label}}` : ""}
+  \\end{table}
+  `;
+  return latexTable;
 }
 
 async function resolveTestId(files: PromptPexContext, test: PromptPexTest) {
@@ -882,6 +908,10 @@ export async function generateMarkdownReport(files: PromptPexContext) {
     path.join(files.dir, "overview.csv"),
     CSV.stringify(overview, { header: true })
   );
+  await workspace.writeText(
+    path.join(files.dir, "overview.tex"),
+    toLatexTable(overview, { caption: "Test results overview" })
+  );
   res.push(
     "",
     `### [${path.basename(files.testOutputs.filename)}](./${path.basename(files.testOutputs.filename)})`,
@@ -1051,6 +1081,12 @@ export async function generate(
     await workspace.writeText(
       files.testOutputs.filename,
       files.testOutputs.content
+    );
+    await workspace.writeText(
+      files.testOutputs.filename + ".tex",
+      toLatexTable(CSV.parse(files.testOutputs.content), {
+        caption: "Test results and compliance",
+      })
     );
   }
 
