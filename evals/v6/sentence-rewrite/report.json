@@ -1,0 +1,330 @@
+{
+  "prompt": "---\nname: Sentence Rewrite\ndescription: Takes a sentence and rewrites it with a particular style or tone.\nsource: The Big Prompt Library\nurl: https://github.com/0xeb/TheBigPromptLibrary/blob/main/CustomInstructions/ChatGPT/SaxlWzH4g_Sentence_Rewriter_Tool.md\ninputs: \n  text:\n    type: string\nsample:\n    text: \"I visited Norway last summer, and the breathtaking landscapes left me in awe.\"\n---\nsystem:\nRewrite the following sentence to enhance its readability and make it sound more conversational. Ensure that the original meaning and factual accuracy are preserved. Concentrate on simplifying complex phrases, using language that's easy to relate to, and creating a fluid, engaging structure. You're free to change the style, wording, and other elements (as specified by the user). Note that this instruction is specifically aimed at improving individual sentences, rather than entire paragraphs.\n\nFor example:\nInput: Under the shimmering twilight sky, a curious cat ventured onto the ancient cobblestone path, its whiskers twitching with each whisper of the gentle evening breeze.\n\nResponse: In the enchanting twilight sky, an inquisitive feline embarked on the time-honored cobblestone pathway, its whiskers quivering at every murmur of the serene evening wind.\n\nInput: \nuser:\n{{text}}",
+  "inputSpec": "The input is a sentence provided by the user.\nThe sentence can be composed of any combination of words, punctuation, and common grammatical structures.\nThe sentence must represent a complete thought and be understandable on its own.\nThere are no explicit length constraints mentioned for the sentence input.",
+  "rules": [
+    "The output must be a rewritten version of the input sentence provided by the user in the placeholder {{text}}, enhancing its readability and making it sound more conversational than the original sentence.",
+    "The original meaning and factual accuracy of the input sentence must be preserved in the rewritten sentence.",
+    "The rewritten sentence must simplify complex phrases present in the input sentence, using language that's easy to relate to, to improve readability.",
+    "The output must create a fluid and engaging structure for the rewritten sentence, enhancing its readability and appeal.",
+    "The output should reflect changes in style, wording, and other elements that facilitate a more conversational tone without altering the original intent or information of the input sentence.",
+    "The output is specifically aimed at improving individual sentences rather than entire paragraphs, such that the focus is only on the immediate sentence provided in the input."
+  ],
+  "inverseRules": [
+    "The output may distort or alter the original sentence provided by the user, making it harder to understand or less conversational than the original sentence.",
+    "The original meaning and factual accuracy of the input sentence may be disregarded, leading to potential misinterpretations in the rewritten sentence.",
+    "The rewritten sentence can use complex language, ignoring efforts to simplify phrases and improve readability.",
+    "The output may create a disjointed and unappealing structure for the rewritten sentence, detracting from its readability and engagement.",
+    "The output should alter the style, wording, and other elements to create a less conversational tone, potentially changing the original intent or information of the input sentence.",
+    "The output can degrade entire paragraphs even if the focus is only on the immediate sentence provided in the input."
+  ],
+  "tests": [
+    {
+      "ruleid": "1",
+      "rule": "The output must be a rewritten version of the input sentence provided by the user in the placeholder {{text}}, enhancing its readability and making it sound more conversational than the original sentence.",
+      "testid": "1",
+      "testinput": "Beneath the canopy of stars, a silent owl watched over the dark forest.",
+      "expectedoutput": "Under the starry sky, a quiet owl kept an eye on the shadowy woods.",
+      "reasoning": "Tests if the output enhances readability and conversational tone while maintaining meaning and factual accuracy."
+    },
+    {
+      "ruleid": "1",
+      "rule": "The output must be a rewritten version of the input sentence provided by the user in the placeholder {{text}}, enhancing its readability and making it sound more conversational than the original sentence.",
+      "testid": "2",
+      "testinput": "The sun dipped below the horizon as waves gently kissed the shore.",
+      "expectedoutput": "As the sun set, the waves softly touched the beach.",
+      "reasoning": "Checks for improved readability and a conversational style that maintains the original sentence's essence."
+    },
+    {
+      "ruleid": "1",
+      "rule": "The output must be a rewritten version of the input sentence provided by the user in the placeholder {{text}}, enhancing its readability and making it sound more conversational than the original sentence.",
+      "testid": "3",
+      "testinput": "Despite the heavy rain, the marathon continued with unyielding fervor.",
+      "expectedoutput": "Even though it rained hard, the marathon went on with relentless passion.",
+      "reasoning": "Tests whether the input is simplified and made more conversational without losing factual content."
+    },
+    {
+      "ruleid": "2",
+      "rule": "The original meaning and factual accuracy of the input sentence must be preserved in the rewritten sentence.",
+      "testid": "1",
+      "testinput": "The ancient castle stood as a testament to the forgotten era, untouched by time.",
+      "expectedoutput": "The old castle was a symbol of a bygone age, unchanged by the years.",
+      "reasoning": "Ensures that meaning and factual accuracy are preserved while rewording for clarity and style."
+    },
+    {
+      "ruleid": "2",
+      "rule": "The original meaning and factual accuracy of the input sentence must be preserved in the rewritten sentence.",
+      "testid": "2",
+      "testinput": "On the bustling streets, vendors sold an array of vibrant goods.",
+      "expectedoutput": "Vendors hawked brightly colored wares on the busy streets.",
+      "reasoning": "The rewritten sentence retains the original meaning and facts, ensuring communication of the same message."
+    },
+    {
+      "ruleid": "2",
+      "rule": "The original meaning and factual accuracy of the input sentence must be preserved in the rewritten sentence.",
+      "testid": "3",
+      "testinput": "His decision to leave marked the end of an era for the organization.",
+      "expectedoutput": "His choice to depart signaled the close of a chapter for the organization.",
+      "reasoning": "Validates that the original meaning and facts are intact in a more conversational output."
+    },
+    {
+      "ruleid": "3",
+      "rule": "The rewritten sentence must simplify complex phrases present in the input sentence, using language that's easy to relate to, to improve readability.",
+      "testid": "1",
+      "testinput": "The quick brown fox gracefully leapt over the lethargic canine.",
+      "expectedoutput": "The fast brown fox effortlessly jumped over the lazy dog.",
+      "reasoning": "Checks simplification of complex phrasing while preserving meaning for improved readability."
+    },
+    {
+      "ruleid": "3",
+      "rule": "The rewritten sentence must simplify complex phrases present in the input sentence, using language that's easy to relate to, to improve readability.",
+      "testid": "2",
+      "testinput": "With meticulous precision, the artist crafted a portrait of great detail.",
+      "expectedoutput": "The artist carefully created a detailed portrait.",
+      "reasoning": "Assesses the ability to simplify to improve readability while retaining the sentence's core intention."
+    },
+    {
+      "ruleid": "3",
+      "rule": "The rewritten sentence must simplify complex phrases present in the input sentence, using language that's easy to relate to, to improve readability.",
+      "testid": "3",
+      "testinput": "The report delved into an exhaustive analysis of multifaceted socio-economic dynamics.",
+      "expectedoutput": "The report thoroughly explored complex socio-economic factors.",
+      "reasoning": "Tests the simplification of complex language to enhance readability while preserving meaning."
+    },
+    {
+      "ruleid": "4",
+      "rule": "The output must create a fluid and engaging structure for the rewritten sentence, enhancing its readability and appeal.",
+      "testid": "1",
+      "testinput": "Amidst the chaos, the leader's voice resonated with calm authority.",
+      "expectedoutput": "In the midst of the turmoil, the leader spoke with calm authority.",
+      "reasoning": "Evaluates structuring improvements for fluid engagement while maintaining core meaning."
+    },
+    {
+      "ruleid": "4",
+      "rule": "The output must create a fluid and engaging structure for the rewritten sentence, enhancing its readability and appeal.",
+      "testid": "2",
+      "testinput": "The explorer navigated the dense jungle with unwavering determination.",
+      "expectedoutput": "The explorer moved through the thick jungle with steady resolve.",
+      "reasoning": "Assesses fluidity and engagement enhancement in the rewritten output while preserving the original message."
+    },
+    {
+      "ruleid": "4",
+      "rule": "The output must create a fluid and engaging structure for the rewritten sentence, enhancing its readability and appeal.",
+      "testid": "3",
+      "testinput": "Her laughter filled the room with a warmth that melted the cold silence.",
+      "expectedoutput": "Her laughter warmed the room and broke the cold silence.",
+      "reasoning": "Tests whether the output creates a more engaging structure while keeping the original meaning."
+    },
+    {
+      "ruleid": "5",
+      "rule": "The output should reflect changes in style, wording, and other elements that facilitate a more conversational tone without altering the original intent or information of the input sentence.",
+      "testid": "1",
+      "testinput": "Driven by ambition, he climbed the corporate ladder with unmatched agility.",
+      "expectedoutput": "Fueled by ambition, he rose quickly up the corporate ranks.",
+      "reasoning": "Validates style and wording changes for conversational tone without altering intent or facts."
+    },
+    {
+      "ruleid": "5",
+      "rule": "The output should reflect changes in style, wording, and other elements that facilitate a more conversational tone without altering the original intent or information of the input sentence.",
+      "testid": "2",
+      "testinput": "The landscape was breathtaking, a symphony of colors and textures.",
+      "expectedoutput": "The scenery was stunning, with a blend of vibrant colors and textures.",
+      "reasoning": "Ensures conversational tone and style adaptation without compromising original information."
+    },
+    {
+      "ruleid": "5",
+      "rule": "The output should reflect changes in style, wording, and other elements that facilitate a more conversational tone without altering the original intent or information of the input sentence.",
+      "testid": "3",
+      "testinput": "In an act of sheer bravery, she confronted the fears that had plagued her.",
+      "expectedoutput": "In an incredibly brave move, she faced the fears that had haunted her.",
+      "reasoning": "Checks that the output changes style effectively while preserving intent and content."
+    },
+    {
+      "ruleid": "6",
+      "rule": "The output is specifically aimed at improving individual sentences rather than entire paragraphs, such that the focus is only on the immediate sentence provided in the input.",
+      "testid": "1",
+      "testinput": "The cat napped on the windowsill, basking in the afternoon sun.",
+      "expectedoutput": "The cat slept on the windowsill in the warm afternoon sunlight.",
+      "reasoning": "Tests focus on sentence improvement without altering surrounding paragraph context."
+    },
+    {
+      "ruleid": "6",
+      "rule": "The output is specifically aimed at improving individual sentences rather than entire paragraphs, such that the focus is only on the immediate sentence provided in the input.",
+      "testid": "2",
+      "testinput": "The river flowed peacefully, reflecting the clear blue of the sky.",
+      "expectedoutput": "The river ran gently, mirroring the clear blue sky.",
+      "reasoning": "Assesses if the focus remains on the individual sentence while improving readability."
+    },
+    {
+      "ruleid": "6",
+      "rule": "The output is specifically aimed at improving individual sentences rather than entire paragraphs, such that the focus is only on the immediate sentence provided in the input.",
+      "testid": "3",
+      "testinput": "A gentle breeze rustled the leaves, whispering secrets of the forest.",
+      "expectedoutput": "A soft breeze stirred the leaves, quietly sharing the forest's secrets.",
+      "reasoning": "Validates improvement on a standalone sentence without affecting the broader context."
+    },
+    {
+      "ruleid": "7",
+      "rule": "The output may distort or alter the original sentence provided by the user, making it harder to understand or less conversational than the original sentence.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Under the golden sun, the fields stretched endlessly.",
+      "expectedoutput": "In the bright yellow sun, the fields seemed to shrink.",
+      "reasoning": "Challenges the software by altering meaning and conversational tone negatively."
+    },
+    {
+      "ruleid": "7",
+      "rule": "The output may distort or alter the original sentence provided by the user, making it harder to understand or less conversational than the original sentence.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "A harmonious melody played by the brook enthralled the passersby.",
+      "expectedoutput": "A discordant tune from the brook confused the passersby.",
+      "reasoning": "Tests degradation of meaning and readability contrary to the rule's aim."
+    },
+    {
+      "ruleid": "7",
+      "rule": "The output may distort or alter the original sentence provided by the user, making it harder to understand or less conversational than the original sentence.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "The chef's signature dish blended flavors with exquisite precision.",
+      "expectedoutput": "The chef's special dish mixed flavors in a haphazard way.",
+      "reasoning": "Assesses if the software outputs undesirable changes contrary to enhancing effectiveness."
+    },
+    {
+      "ruleid": "8",
+      "rule": "The original meaning and factual accuracy of the input sentence may be disregarded, leading to potential misinterpretations in the rewritten sentence.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "The lighthouse stood as a beacon for lost ships along the coast.",
+      "expectedoutput": "A small house flickered in the night, confusing the ships.",
+      "reasoning": "Checks if meaning and factual accuracy are discarded, leading to misinterpretation."
+    },
+    {
+      "ruleid": "8",
+      "rule": "The original meaning and factual accuracy of the input sentence may be disregarded, leading to potential misinterpretations in the rewritten sentence.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "The serene garden provided a perfect escape from the bustling city.",
+      "expectedoutput": "An ordinary yard buzzed with the chaos of city life.",
+      "reasoning": "Tests whether the software can shift the intended meaning and accuracy."
+    },
+    {
+      "ruleid": "8",
+      "rule": "The original meaning and factual accuracy of the input sentence may be disregarded, leading to potential misinterpretations in the rewritten sentence.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Her smile held the promise of a bright future.",
+      "expectedoutput": "Her frown hinted at bleak days ahead.",
+      "reasoning": "Validates disregard for original meaning and facts, against maintaining comprehension."
+    },
+    {
+      "ruleid": "9",
+      "rule": "The rewritten sentence can use complex language, ignoring efforts to simplify phrases and improve readability.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "During the presentation, the audience listened intently to his complex theories.",
+      "expectedoutput": "Throughout the demonstration, the crowd attentively absorbed his intricate postulations.",
+      "reasoning": "Tests the usage of complex language and reduced readability and accessibility."
+    },
+    {
+      "ruleid": "9",
+      "rule": "The rewritten sentence can use complex language, ignoring efforts to simplify phrases and improve readability.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "The quaint village remained untouched by modern life, a window into the past.",
+      "expectedoutput": "The unpretentious hamlet stayed unaffected by contemporary civilization, an aperture into antiquity.",
+      "reasoning": "Checks the introduction of complex phrasing that complicates understanding."
+    },
+    {
+      "ruleid": "9",
+      "rule": "The rewritten sentence can use complex language, ignoring efforts to simplify phrases and improve readability.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "With each passing season, the tree grew stronger and more resilient.",
+      "expectedoutput": "As every quarter went by, the arboreal entity manifested augmented fortitude and robustness.",
+      "reasoning": "Assesses usage of unnecessarily complex language, increasing difficulty."
+    },
+    {
+      "ruleid": "10",
+      "rule": "The output may create a disjointed and unappealing structure for the rewritten sentence, detracting from its readability and engagement.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "In the heat of the moment, clarity was elusive.",
+      "expectedoutput": "There was confusion awkwardly waving in the intense instant.",
+      "reasoning": "Evaluates structural degradation for readability and engagement negatively."
+    },
+    {
+      "ruleid": "10",
+      "rule": "The output may create a disjointed and unappealing structure for the rewritten sentence, detracting from its readability and engagement.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "With a heart full of passion, she pursued her dreams relentlessly.",
+      "expectedoutput": "She awkwardly chased her dreams with an uncomfortably passionate heart.",
+      "reasoning": "Tests disjointed structuring that detracts from readability contrary to expectations."
+    },
+    {
+      "ruleid": "10",
+      "rule": "The output may create a disjointed and unappealing structure for the rewritten sentence, detracting from its readability and engagement.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "The dawn broke gently, painting the sky in hues of pink and gold.",
+      "expectedoutput": "The morning suddenly appeared, clumsily splashing colors of dawn.",
+      "reasoning": "Checks if structural integrity is compromised, rendering the sentence less engaging."
+    },
+    {
+      "ruleid": "11",
+      "rule": "The output should alter the style, wording, and other elements to create a less conversational tone, potentially changing the original intent or information of the input sentence.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "The majestic waterfall cascaded into a crystal-clear pool.",
+      "expectedoutput": "The unremarkable waterfall toppled into a muddy puddle.",
+      "reasoning": "Tests how the software might alter style and tone to lose conversational appeal."
+    },
+    {
+      "ruleid": "11",
+      "rule": "The output should alter the style, wording, and other elements to create a less conversational tone, potentially changing the original intent or information of the input sentence.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "In her eyes, I saw hope and a longing for adventure.",
+      "expectedoutput": "I saw in her eyes, a bleak view contrary to anticipation.",
+      "reasoning": "Assesses if changes in style result in an unexplained depersonalization or miscommunication."
+    },
+    {
+      "ruleid": "11",
+      "rule": "The output should alter the style, wording, and other elements to create a less conversational tone, potentially changing the original intent or information of the input sentence.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Amidst tall skyscrapers, birds chirped their morning songs.",
+      "expectedoutput": "Among the high buildings, the birds croaked discordantly in the dawn.",
+      "reasoning": "Ensures output does not detract from conversational tone nor alter original intent."
+    },
+    {
+      "ruleid": "12",
+      "rule": "The output can degrade entire paragraphs even if the focus is only on the immediate sentence provided in the input.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "He tapped rhythmically on the table, lost in thought.",
+      "expectedoutput": "The large room was filled with ominous fog as he rhythmically tapped.",
+      "reasoning": "Challenges the focus by introducing unnecessary complexity to the paragraph."
+    },
+    {
+      "ruleid": "12",
+      "rule": "The output can degrade entire paragraphs even if the focus is only on the immediate sentence provided in the input.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Bent over his books, he hardly noticed the world outside.",
+      "expectedoutput": "The long lecture hall buzzed with arguments, overshadowing the scene of his study.",
+      "reasoning": "Tests if irrelevant information alters the focus from intention to an unnecessary scope."
+    },
+    {
+      "ruleid": "12",
+      "rule": "The output can degrade entire paragraphs even if the focus is only on the immediate sentence provided in the input.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "A rainbow appeared, arching over the lush meadow.",
+      "expectedoutput": "As the debate raged on, a fierce hailstorm replaced the meadow's tranquility.",
+      "reasoning": "Ensures the rewritten output doesn't degrade understanding by altering unrelated details."
+    }
+  ],
+  "testEvals": [],
+  "testResults": []
+}

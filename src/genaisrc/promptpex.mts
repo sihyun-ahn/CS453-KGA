@@ -167,7 +167,7 @@ function modelOptions(): PromptGeneratorOptions {
 }
 
 function isUnassistedResponse(text: string) {
-  return /i can't assist with that/i.test(text);
+  return /i can't assist with that|i'm sorry/i.test(text);
 }
 
 function checkLLMResponse(res: RunPromptResult) {
@@ -290,6 +290,8 @@ export async function generateBaselineTests(
       label: `generate baseline tests`,
     }
   );
+
+  if (isUnassistedResponse(res.text)) return "";
   checkLLMResponse(res);
   return cleanBaselineTests(res.text).join("\n===\n");
 }
