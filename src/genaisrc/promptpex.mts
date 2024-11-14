@@ -866,12 +866,18 @@ export async function generateMarkdownReport(files: PromptPexContext) {
       Object.entries(testResultsPerModels).map(([model, results]) => ({
         model,
         tests: results.filter((tr) => tr.rule).length,
+        ["tests compliant"]: results.filter(
+          (tr) => tr.rule && tr.compliance === "ok"
+        ).length,
         ["tests positive"]: results.filter((tr) => tr.rule && !tr.inverse)
           .length,
         ["tests negative"]: results.filter((tr) => tr.rule && tr.inverse)
           .length,
         ["tests positive compliant"]: results.filter(
           (tr) => tr.rule && !tr.inverse && tr.compliance === "ok"
+        ).length,
+        ["tests negative compliant"]: results.filter(
+          (tr) => tr.rule && tr.inverse && tr.compliance === "ok"
         ).length,
       }))
     )

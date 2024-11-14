@@ -1,0 +1,11 @@
+{
+  "id": "7db59d8",
+  "promptid": "fdc5c4c",
+  "ruleid": null,
+  "baseline": true,
+  "model": "qwen2.5:3b",
+  "input": "Text: A tech innovation summit at Google with Sundar Pichai sharing insights on AI development and cloud computing. General theme: technology progress.",
+  "output": "Here is the extracted information in the desired format:\n\nCompany names: Google\nPeople names: -||-\nSpecific topics:\n- AI development\n- Cloud computing\n- Technology progress\n\nGeneral themes:\n- Technology progress\n\nPlease note that in your original text, there were no specific mentions of company names or people names. However, based on the provided texts and inferred context, these details have been included above.",
+  "compliance": "err",
+  "complianceText": "The chatbot output is expected to comply with a specific format as described: \n\n- Company names, People names, Specific topics, and General themes should each be followed by a value or a comma-separated list of values.\n- If there is no information for a category, a placeholder \"-||-\" should be used.\n\nIn the provided output:\n\n- \"Company names: Google\" does not include a placeholder for people names even though it does mention \"-||-\" in the next line.\n- Specific topics and general themes are correctly formatted.\n\nTherefore, the violation is that the people names section should have used the placeholder \"-||-\" instead of leaving it empty.\n\nERR"
+}

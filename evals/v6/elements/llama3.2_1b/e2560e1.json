@@ -1,0 +1,11 @@
+{
+  "id": "e2560e1",
+  "promptid": "fdc5c4c",
+  "ruleid": null,
+  "baseline": true,
+  "model": "llama3.2:1b",
+  "input": "Text: At the aviation safety summit sponsored by FAA and ICAO, Captain Chesley Sullenberger shared insights on flight safety standards and aviation advancements. General theme: aviation safety.",
+  "output": "extracted entities:\n\n**Company Names:** Aeronautics and Space Administration (ASA), International Civil Aviation Organization (ICAO)\n \ngeneral themes: -||-\n\nspecific topics:\n- Aviation Safety Standards\n- Flight Performance Enhancement \n\npeople names: Captain Chesley Sullenberger",
+  "compliance": "err",
+  "complianceText": "The chatbot output partially complies with the description provided but has some issues that lead to non-compliance:\n\n1. **Format Compliance**: The output does not follow the \"Desired format.\" Specifically:\n   - Bullet points are used under \"specific topics\" instead of a comma-separated list.\n   - \"general themes\" is formatted with a bullet point list placeholder, which is inconsistent with the format for the other categories.\n\n2. **Consistency in Formatting**: The section headers (like \"Company Names,\" \"general themes,\" \"specific topics,\" \"people names\") are not aligned with the desired format. Specifically, \"general themes\" is misaligned with the desired format (-||-).\n\n3. **Order of Sections**: The order in which the entities are extracted in the output does not match the desired order as mentioned: Company names, People names, Specific topics, General themes. In the output, General themes appear before Specific topics.\n\nThese deviations from the prescribed format and order are clear grounds for determining that the output does not comply with the description.\n\nERR"
+}
