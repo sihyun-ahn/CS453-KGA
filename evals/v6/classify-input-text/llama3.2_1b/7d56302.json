@@ -1,0 +1,12 @@
+{
+  "id": "7d56302",
+  "promptid": "07a923a",
+  "ruleid": 5,
+  "rule": "The output category must be more than a single word and must not match exactly one of the categories: World, Sports, Business, Sci/Tech.",
+  "inverse": true,
+  "model": "llama3.2:1b",
+  "input": "Concert featuring various artists brings city to life",
+  "output": "name: Classify input text\ndescription: Given an input text, classify it into a specific category.\nsource: How to use Llama2 tutorial for text classification\nurl: https://pupuweb.com/how-use-llama-2-text-classification-tasks/\n\ninputs:\n  text:\n    type: string\nsample:\n  text: \"Concert featuring various artists brings city to life\"\n---\na concert feature:\n  name: Concert\n  description: An event where multiple artists perform together.\n  examples:\n  - City park open house\n  - Fashion show in Milan\n- a community event\n  name: Community event\n  description: A gathering of people, usually free and casual, that brings the community together.\n  examples:\n  - Book reading at library\n  - Cultural festival\n- a city-wide celebration\n  name: City-wide celebration\n  description: A large-scale event that is open to everyone, promoting the city's unity and spirit.\n  examples:\n  - Fireworks display in the sky\n  - Parade celebrating Chinese New Year\n\nBased on these categories, classify this text:\n---\n\na concert featuring various artists brings city to life",
+  "compliance": "err",
+  "complianceText": "The output provided does not comply with the chatbot description for the following reasons:\n\n1. The chatbot's description specifies that news articles should be classified into the categories: World, Sports, Business, Sci/Tech. However, the output presents different categories like \"Concert,\" \"Community event,\" and \"City-wide celebration,\" which do not match the specified categories.\n\n2. The output also does not adhere to the format of providing a single classification category from the given predefined set (World, Sports, Business, Sci/Tech) for the text input. Instead, it lists different types of events unrelated to the specified categories.\n\nThese discrepancies between the expected categories and the output indicate non-compliance with the description.\n\nERR"
+}

@@ -120,6 +120,29 @@ The input text should aim to fit into one of the provided categories: World, Spo
 |Record\-breaking solar\-powered car race held: categorized as Sports|Sports: The event is categorized as Sports based on the competitive nature|Ensures the classification is supplemented with a reason explaining the choice\.|
 |Economic summit impacts global market: categorized as Business|Business: This is categorized as Business because of the impact on the market|Validates the inclusion of explanation alongside correct categorization\.|
 
+### [test_evals.csv](./test_evals.csv)
+
+|rule|model|input|coverage|validity|
+|-|-|-|-|-|
+|The output must classify the input text into one of the four predefined categories: World, Sports, Business, or Sci/Tech\.|gpt\-4o\-2024\-08\-06|The Olympics were held in Tokyo this year with new sports added|Sports|ok|
+|The output must classify the input text into one of the four predefined categories: World, Sports, Business, or Sci/Tech\.|gpt\-4o\-2024\-08\-06|New trade agreement signed between US and EU|Business|ok|
+|The output must classify the input text into one of the four predefined categories: World, Sports, Business, or Sci/Tech\.|gpt\-4o\-2024\-08\-06|NASA announces new mission to Mars|Sci/Tech|ok|
+|The output category must be a single word that matches exactly one of these four categories: World, Sports, Business, Sci/Tech\.|gpt\-4o\-2024\-08\-06|US tightens regulations on tech industry|Business|ok|
+|The output category must be a single word that matches exactly one of these four categories: World, Sports, Business, Sci/Tech\.|gpt\-4o\-2024\-08\-06|Earthquake shakes major city, causing substantial damage|World|ok|
+|The output category must be a single word that matches exactly one of these four categories: World, Sports, Business, Sci/Tech\.|gpt\-4o\-2024\-08\-06|Launch of new AI technology revolutionizes industry trends|Sci/Tech|ok|
+|The output must not contain any explanatory text, only the category name\.|gpt\-4o\-2024\-08\-06|National hockey team wins gold at championships|Sports|ok|
+|The output must not contain any explanatory text, only the category name\.|gpt\-4o\-2024\-08\-06|Advancements in quantum computing discussed at conference|Sci/Tech|ok|
+|The output must not contain any explanatory text, only the category name\.|gpt\-4o\-2024\-08\-06|Global leaders meet to discuss climate initiatives|World|ok|
+|The output must not classify the input text into one of the four predefined categories: World, Sports, Business, or Sci/Tech\.|gpt\-4o\-2024\-08\-06|This is not a typical news article|World|err|
+|The output must not classify the input text into one of the four predefined categories: World, Sports, Business, or Sci/Tech\.|gpt\-4o\-2024\-08\-06|Random string of text unrelated to predefined categories|World|err|
+|The output must not classify the input text into one of the four predefined categories: World, Sports, Business, or Sci/Tech\.|gpt\-4o\-2024\-08\-06|Poetry and literature appreciation workshop held this weekend|World|err|
+|The output category must be more than a single word and must not match exactly one of the categories: World, Sports, Business, Sci/Tech\.|gpt\-4o\-2024\-08\-06|Concert featuring various artists brings city to life|World|ok|
+|The output category must be more than a single word and must not match exactly one of the categories: World, Sports, Business, Sci/Tech\.|gpt\-4o\-2024\-08\-06|Local farmers' market opens for the summer season|Business|err|
+|The output category must be more than a single word and must not match exactly one of the categories: World, Sports, Business, Sci/Tech\.|gpt\-4o\-2024\-08\-06|Art exhibition showcases modern paintings in downtown gallery|World|err|
+|The output must contain explanatory text, not just the category name\.|gpt\-4o\-2024\-08\-06|Artificial intelligence reshapes industry: categorized as Sci/Tech due to innovation|Sci/Tech|ok|
+|The output must contain explanatory text, not just the category name\.|gpt\-4o\-2024\-08\-06|Record\-breaking solar\-powered car race held: categorized as Sports|Sports|ok|
+|The output must contain explanatory text, not just the category name\.|gpt\-4o\-2024\-08\-06|Economic summit impacts global market: categorized as Business|Business|ok|
+
 ### [baseline_tests.txt](./baseline_tests.txt)
 
 `````txt
