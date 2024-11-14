@@ -67,7 +67,12 @@ const models = (env.vars.models || "azure:gpt-4o-mini")
   ?.split(/;/g)
   .map((model) => model.trim());
 
-const res = [];
+const res: any[] = [
+  { model: "tests" },
+  ...models.map((model) => ({
+    model: model.replace(/^[^:]+:/, "").toLowerCase(),
+  })),
+];
 for (const files of prompts) {
   try {
     const ctx = await generate(files, {
@@ -81,7 +86,16 @@ for (const files of prompts) {
       models,
     });
     const { testEvals, overview } = computeOverview(ctx);
-    res.push({
+    res[0][files.name] = testEvals.length;
+    for (const r of res.slice(1)) {
+      r[files.name] =
+        Math.round(
+          (overview.find((o) => o.model === r.model)["tests compliant"] /
+            overview.find((o) => o.model === r.model).tests) *
+            100
+        ) + "%";
+    }
+    /*    res.push({
       prompt: files.name,
       tests: testEvals.length,
       ...Object.fromEntries(
@@ -90,7 +104,7 @@ for (const files of prompts) {
           Math.round((o["tests compliant"] / o.tests) * 100) + "%",
         ])
       ),
-    });
+    });*/
   } catch (e) {
     console.error(e);
     console.debug(e.stack);
