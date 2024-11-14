@@ -939,7 +939,7 @@ export async function generateReports(files: PromptPexContext) {
   );
 
   const mdreport = await generateMarkdownReport(files);
-  const fn = path.join(files.dir, "report.md");
+  const fn = path.join(files.dir, "README.md");
   await workspace.writeText(fn, mdreport);
   return fn;
 }
