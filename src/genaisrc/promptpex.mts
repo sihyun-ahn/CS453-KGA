@@ -688,6 +688,7 @@ function parseRulesTests(text: string): PromptPexTest[] {
 
 function parseTestResults(files: PromptPexContext): PromptPexTestResult[] {
   const rules = parseRules(files.rules.content);
+  const tests = parseTestEvals(files);
   const res = CSV.parse(files.testOutputs.content, {
     delimiter: ",",
   }) as PromptPexTestResult[];
@@ -836,6 +837,7 @@ export async function generateMarkdownReport(files: PromptPexContext) {
   const rules = parseRules(files.rules.content);
   const inverseRules = parseRules(files.inverseRules.content);
   const testResults = parseTestResults(files);
+  const testEvals = parseTestEvals(files);
   const ts = testResults.length;
   const oks = testResults.filter((t) => t.compliance === "ok").length;
   const errs = testResults.filter((t) => t.compliance === "err").length;
@@ -904,6 +906,16 @@ export async function generateMarkdownReport(files: PromptPexContext) {
       baseline: results.filter((tr) => !tr.rule).length,
       ["baseline compliant"]: results.filter(
         (tr) => !tr.rule && tr.compliance === "ok"
+      ).length,
+      ["tests valid"]: results.filter(
+        (tr) =>
+          tr.rule && testEvals.find((te) => te.id === tr.id)?.validity === "ok"
+      ).length,
+      ["tests valid compliant"]: results.filter(
+        (tr) =>
+          tr.rule &&
+          tr.compliance === "ok" &&
+          testEvals.find((te) => te.id === tr.id)?.validity === "ok"
       ).length,
     })
   );

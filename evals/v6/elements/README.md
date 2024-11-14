@@ -31,12 +31,12 @@
 
 ### [test_results.csv](./test_results.csv)
 
-|model|tests|tests compliant|tests positive|tests positive compliant|tests negative|tests negative compliant|baseline|baseline compliant|
-|-|-|-|-|-|-|-|-|-|
-|llama3\.2:1b|66|4|30|3|36|1|67|15|
-|gpt\-4o\-mini|66|33|30|13|36|20|67|65|
-|qwen2\.5:3b|66|19|30|7|36|12|67|22|
-|gemma2:9b|66|28|30|12|36|16|67|45|
+|model|tests|tests compliant|tests positive|tests positive compliant|tests negative|tests negative compliant|baseline|baseline compliant|tests valid|tests valid compliant|
+|-|-|-|-|-|-|-|-|-|-|-|
+|llama3\.2:1b|66|4|30|3|36|1|67|15|57|4|
+|gpt\-4o\-mini|66|33|30|13|36|20|67|65|57|29|
+|qwen2\.5:3b|66|19|30|7|36|12|67|22|57|15|
+|gemma2:9b|66|28|30|12|36|16|67|45|57|24|
 
 ### [elements.prompty](./elements.prompty)
 

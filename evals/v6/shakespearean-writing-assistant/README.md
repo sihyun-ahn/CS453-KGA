@@ -31,12 +31,12 @@
 
 ### [test_results.csv](./test_results.csv)
 
-|model|tests|tests compliant|tests positive|tests positive compliant|tests negative|tests negative compliant|baseline|baseline compliant|
-|-|-|-|-|-|-|-|-|-|
-|llama3\.2:1b|6|4|3|3|3|1|6|4|
-|gpt\-4o\-mini|6|5|3|3|3|2|6|6|
-|qwen2\.5:3b|6|5|3|3|3|2|6|6|
-|gemma2:9b|6|3|3|3|3|0|6|6|
+|model|tests|tests compliant|tests positive|tests positive compliant|tests negative|tests negative compliant|baseline|baseline compliant|tests valid|tests valid compliant|
+|-|-|-|-|-|-|-|-|-|-|-|
+|llama3\.2:1b|6|4|3|3|3|1|6|4|3|3|
+|gpt\-4o\-mini|6|5|3|3|3|2|6|6|3|3|
+|qwen2\.5:3b|6|5|3|3|3|2|6|6|3|3|
+|gemma2:9b|6|3|3|3|3|0|6|6|3|3|
 
 ### [shakespearean-writing-assistant.prompty](./shakespearean-writing-assistant.prompty)
 
