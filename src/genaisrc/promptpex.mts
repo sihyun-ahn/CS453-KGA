@@ -857,34 +857,37 @@ export async function generateMarkdownReport(files: PromptPexContext) {
 - Test Output Compliance (TOC) - Checking if TO meets the constraints in PUT using MPP
 </details>
 `);
+  const overview = Object.entries(testResultsPerModels).map(
+    ([model, results]) => ({
+      model,
+      tests: results.filter((tr) => tr.rule).length,
+      ["tests compliant"]: results.filter(
+        (tr) => tr.rule && tr.compliance === "ok"
+      ).length,
+      ["tests positive"]: results.filter((tr) => tr.rule && !tr.inverse).length,
+      ["tests positive compliant"]: results.filter(
+        (tr) => tr.rule && !tr.inverse && tr.compliance === "ok"
+      ).length,
+      ["tests negative"]: results.filter((tr) => tr.rule && tr.inverse).length,
+      ["tests negative compliant"]: results.filter(
+        (tr) => tr.rule && tr.inverse && tr.compliance === "ok"
+      ).length,
+      baseline: results.filter((tr) => !tr.rule).length,
+      ["baseline compliant"]: results.filter(
+        (tr) => !tr.rule && tr.compliance === "ok"
+      ).length,
+    })
+  );
+  await workspace.writeText(
+    path.join(files.dir, "overview.csv"),
+    CSV.stringify(overview, { header: true })
+  );
   res.push(
     "",
     `### [${path.basename(files.testOutputs.filename)}](./${path.basename(files.testOutputs.filename)})`,
     "",
     // Three more same columns with the same data but only for valid tests
-    CSV.markdownify(
-      Object.entries(testResultsPerModels).map(([model, results]) => ({
-        model,
-        tests: results.filter((tr) => tr.rule).length,
-        ["tests compliant"]: results.filter(
-          (tr) => tr.rule && tr.compliance === "ok"
-        ).length,
-        ["tests positive"]: results.filter((tr) => tr.rule && !tr.inverse)
-          .length,
-        ["tests positive compliant"]: results.filter(
-          (tr) => tr.rule && !tr.inverse && tr.compliance === "ok"
-        ).length,
-        ["tests negative"]: results.filter((tr) => tr.rule && tr.inverse)
-          .length,
-        ["tests negative compliant"]: results.filter(
-          (tr) => tr.rule && tr.inverse && tr.compliance === "ok"
-        ).length,
-        "baseline": results.filter((tr) => !tr.rule).length,
-        ["baseline compliant"]: results.filter(
-          (tr) => !tr.rule && tr.compliance === "ok"
-        ).length,
-      }))
-    )
+    CSV.markdownify(overview)
   );
 
   const fence = "`````";
