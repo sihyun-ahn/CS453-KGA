@@ -386,6 +386,7 @@ function toLatexTable(
   data: any[],
   options?: { headers?: string[]; label?: string; caption?: string }
 ) {
+  if (!data?.length) return "no data";
   const { headers = Object.keys(data[0]), label, caption } = options || {};
   const latexTable = `
   \\begin{table}[h!]

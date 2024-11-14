@@ -1,0 +1,261 @@
+{
+  "prompt": "\n---\nname: Classify input text\ndescription: Given an input text, classify it into a specific category.\nsource: How to use Llama2 tutorial for text classification\nurl: https://pupuweb.com/how-use-llama-2-text-classification-tasks/\ninputs: \n  text:\n    type: string\nsample:\n    text: \"UN chief urges action on climate change as report warns of 'catastrophe'\"\n---\nsystem:\nA news article can be classified as one of the following categories: World, Sports, Business, Sci/Tech.\nExamples:\n- World: \"UN chief urges action on climate change as report warns of 'catastrophe'\"\n- Sports: \"Ronaldo scores twice in Manchester United return\"\n- Business: \"Apple delays plan to scan iPhones for child abuse images\"\n- Sci/Tech: \"SpaceX launches first all-civilian crew into orbit\"'\n\nBased on these categories, classify this news article: \nuser:\n{{text}}\n    ",
+  "inputSpec": "The input must be a string.  \nThe input should generally represent a news article.  \nThe input text can pertain to world events, sports, business, or science/technology topics.  \nThe input text should aim to fit into one of the provided categories: World, Sports, Business, or Sci/Tech.",
+  "rules": [
+    "The output must classify the input text into one of the four predefined categories: World, Sports, Business, or Sci/Tech.",
+    "The output category must be a single word that matches exactly one of these four categories: World, Sports, Business, Sci/Tech.",
+    "The output must not contain any explanatory text, only the category name."
+  ],
+  "inverseRules": [
+    "The output must not classify the input text into one of the four predefined categories: World, Sports, Business, or Sci/Tech.",
+    "The output category must be more than a single word and must not match exactly one of the categories: World, Sports, Business, Sci/Tech.",
+    "The output must contain explanatory text, not just the category name."
+  ],
+  "tests": [
+    {
+      "ruleid": "1",
+      "rule": "The output must classify the input text into one of the four predefined categories: World, Sports, Business, or Sci/Tech.",
+      "testid": "1",
+      "testinput": "The Olympics were held in Tokyo this year with new sports added",
+      "expectedoutput": "Sports",
+      "reasoning": "This test verifies that the software classifies sports-related events under the 'Sports' category."
+    },
+    {
+      "ruleid": "1",
+      "rule": "The output must classify the input text into one of the four predefined categories: World, Sports, Business, or Sci/Tech.",
+      "testid": "2",
+      "testinput": "New trade agreement signed between US and EU",
+      "expectedoutput": "Business",
+      "reasoning": "Challenges the proper classification of economic or trade texts into the 'Business' category."
+    },
+    {
+      "ruleid": "1",
+      "rule": "The output must classify the input text into one of the four predefined categories: World, Sports, Business, or Sci/Tech.",
+      "testid": "3",
+      "testinput": "NASA announces new mission to Mars",
+      "expectedoutput": "Sci/Tech",
+      "reasoning": "Confirms that scientific announcements are correctly classified under 'Sci/Tech'."
+    },
+    {
+      "ruleid": "2",
+      "rule": "The output category must be a single word that matches exactly one of these four categories: World, Sports, Business, Sci/Tech.",
+      "testid": "1",
+      "testinput": "US tightens regulations on tech industry",
+      "expectedoutput": "Business",
+      "reasoning": "Ensures the output category does not deviate to multiple words or an incorrect category, testing precision in a single-word output."
+    },
+    {
+      "ruleid": "2",
+      "rule": "The output category must be a single word that matches exactly one of these four categories: World, Sports, Business, Sci/Tech.",
+      "testid": "2",
+      "testinput": "Earthquake shakes major city, causing substantial damage",
+      "expectedoutput": "World",
+      "reasoning": "Checks if the system outputs only the exact category 'World' without additional words, verifying strict adherence to output format."
+    },
+    {
+      "ruleid": "2",
+      "rule": "The output category must be a single word that matches exactly one of these four categories: World, Sports, Business, Sci/Tech.",
+      "testid": "3",
+      "testinput": "Launch of new AI technology revolutionizes industry trends",
+      "expectedoutput": "Sci/Tech",
+      "reasoning": "Evaluates the precise single-word output needed for tech-related content without deviating from specified categories."
+    },
+    {
+      "ruleid": "3",
+      "rule": "The output must not contain any explanatory text, only the category name.",
+      "testid": "1",
+      "testinput": "National hockey team wins gold at championships",
+      "expectedoutput": "Sports",
+      "reasoning": "Ensures the software provides just the output category 'Sports' without any descriptive text."
+    },
+    {
+      "ruleid": "3",
+      "rule": "The output must not contain any explanatory text, only the category name.",
+      "testid": "2",
+      "testinput": "Advancements in quantum computing discussed at conference",
+      "expectedoutput": "Sci/Tech",
+      "reasoning": "Validates that the result is only 'Sci/Tech' as a single word, confirming the absence of explanation."
+    },
+    {
+      "ruleid": "3",
+      "rule": "The output must not contain any explanatory text, only the category name.",
+      "testid": "3",
+      "testinput": "Global leaders meet to discuss climate initiatives",
+      "expectedoutput": "World",
+      "reasoning": "Checks if the system maintains restraints on explanatory output by only using the category 'World'."
+    },
+    {
+      "ruleid": "4",
+      "rule": "The output must not classify the input text into one of the four predefined categories: World, Sports, Business, or Sci/Tech.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "This is not a typical news article",
+      "expectedoutput": "Not classified",
+      "reasoning": "Ensures that content not falling into any of the four defined categories is properly unclassified."
+    },
+    {
+      "ruleid": "4",
+      "rule": "The output must not classify the input text into one of the four predefined categories: World, Sports, Business, or Sci/Tech.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Random string of text unrelated to predefined categories",
+      "expectedoutput": "Not classified",
+      "reasoning": "Tests that irrelevant or non-news content correctly receives a 'Not classified' output."
+    },
+    {
+      "ruleid": "4",
+      "rule": "The output must not classify the input text into one of the four predefined categories: World, Sports, Business, or Sci/Tech.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Poetry and literature appreciation workshop held this weekend",
+      "expectedoutput": "Not classified",
+      "reasoning": "Confirms that non-relevant text types like cultural events are accurately not categorized."
+    },
+    {
+      "ruleid": "5",
+      "rule": "The output category must be more than a single word and must not match exactly one of the categories: World, Sports, Business, Sci/Tech.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Concert featuring various artists brings city to life",
+      "expectedoutput": "Cultural Event",
+      "reasoning": "Checks the software’s ability to correctly identify events that are unrelated to predefined categories into something broader and descriptive."
+    },
+    {
+      "ruleid": "5",
+      "rule": "The output category must be more than a single word and must not match exactly one of the categories: World, Sports, Business, Sci/Tech.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Local farmers' market opens for the summer season",
+      "expectedoutput": "Community News",
+      "reasoning": "Ensures multi-word categories are given for non-classifiable local community stories."
+    },
+    {
+      "ruleid": "5",
+      "rule": "The output category must be more than a single word and must not match exactly one of the categories: World, Sports, Business, Sci/Tech.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Art exhibition showcases modern paintings in downtown gallery",
+      "expectedoutput": "Arts and Culture",
+      "reasoning": "Evaluates the software's response to non-predefined categories with broader descriptive outputs."
+    },
+    {
+      "ruleid": "6",
+      "rule": "The output must contain explanatory text, not just the category name.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Artificial intelligence reshapes industry: categorized as Sci/Tech due to innovation",
+      "expectedoutput": "Sci/Tech: This falls under Sci/Tech due to the innovative aspect",
+      "reasoning": "Tests that the correct categorization includes an explanatory note, breaking the single-word rule."
+    },
+    {
+      "ruleid": "6",
+      "rule": "The output must contain explanatory text, not just the category name.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Record-breaking solar-powered car race held: categorized as Sports",
+      "expectedoutput": "Sports: The event is categorized as Sports based on the competitive nature",
+      "reasoning": "Ensures the classification is supplemented with a reason explaining the choice."
+    },
+    {
+      "ruleid": "6",
+      "rule": "The output must contain explanatory text, not just the category name.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Economic summit impacts global market: categorized as Business",
+      "expectedoutput": "Business: This is categorized as Business because of the impact on the market",
+      "reasoning": "Validates the inclusion of explanation alongside correct categorization."
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"NASA's new rover successfully lands on Mars for groundbreaking mission\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"The World Bank raises forecast for global economic growth in 2023\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Olympic Games set to take place in Paris with new sports added to the lineup\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Google unveils AI technology to improve search engine functionality\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Protests erupt in global capitals over climate change inaction\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Tesla's stock prices surge after announcement of new electric truck model\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Samsung announces its latest smartphone with advanced camera features\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Germany wins the FIFA World Cup in a thrilling final match\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Astronomers discover a potentially habitable exoplanet in nearby star system\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"European Union prepares to implement stricter data privacy regulations\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Novak Djokovic clinches record-breaking Grand Slam title\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Facebook faces scrutiny over its management of user data privacy concerns\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Amazon reports record profits amid increase in online shopping trends\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Chinese lunar mission returns to Earth with samples from the moon's far side\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Barcelona beats Real Madrid to win El Clasico in dramatic fashion\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"New study reveals the economic impact of telecommuting post-pandemic\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Russia and Ukraine begin peace talks to resolve ongoing conflict\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Apple unveils new mixed reality headset at annual developer conference\"",
+      "baseline": true
+    }
+  ],
+  "testEvals": [],
+  "testResults": []
+}
