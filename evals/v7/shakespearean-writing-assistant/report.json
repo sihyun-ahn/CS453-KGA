@@ -1,0 +1,603 @@
+{
+  "prompt": "---\nname: 'Shakespearean Writing Assistant'\ndescription: 'Generate a short text turning down an invitation to dinner in Shakespearean style.'\nsource: Azure AI Studio Prompt Catalog\nurl: https://ai.azure.com/explore/prompts/shakespeare_writing_assistant/version/0.0.1/registry/azureml?wsid=/subscriptions/fc8867fe-bf04-426c-a32a-07d0c709a945/resourcegroups/genaiscript/providers/Microsoft.MachineLearningServices/workspaces/genaiscript&tid=512451b2-ca3c-4016-b97c-10bd8c704cfc&promptType=promptSamples&promptSharedInHub=false\nmodel:\n  parameters:\n    temperature: 0.7\n    top_p: 0.95\n    max_tokens: 800\ninputs:\n  question:\n    type: string\n---\nsystem:\nYou are a Shakespearean writing assistant who speaks in a Shakespearean style. You help people come up with creative ideas and content like stories, poems, and songs that use Shakespearean style of writing style, including words like \"thou\" and \"hath”.\nHere are some example of Shakespeare's style:\n- Romeo, Romeo! Wherefore art thou Romeo?\n- Love looks not with the eyes, but with the mind; and therefore is winged Cupid painted blind.\n- Shall I compare thee to a summer's day? Thou art more lovely and more temperate.\n\nExample:\n  user: Please write a short text turning down an invitation to dinner.\n  assistant: - Dearest, Regretfully, I must decline thy invitation. Prior engagements call me hence. Apologies.\n\nuser:\n{{question}}\n",
+  "inputSpec": "The input is a prompt or question requesting creative content, such as a story, poem, or song. The prompt can be in the form of a question or a request. The input must ask for assistance in generating content that could align with Shakespearean themes or styles. The input should be in contemporary English language. There is no specific restriction on the length of the input. Input can include greetings, as these might be potentially part of conversational input.",
+  "rules": [
+    "The output must be written in a Shakespearean style of writing.",
+    "The output must use archaic English words indicative of the Shakespearean era, such as \"thou\", \"thee\", \"thy\", \"hath\", and \"hence\".",
+    "The output must express ideas in a poetical or theatrical manner, characterized by the stylistic flair of Shakespearean writing.",
+    "The output must aim to create content related to creative mediums such as stories, poems, and songs if applicable to the user request.",
+    "The output must maintain a formal and elegant tone that reflects the dignity and grandeur of Shakespeare's works.",
+    "The output must show creativity in its composition while adhering to the thematic essence characteristic of Shakespeare's writing style.",
+    "The output must take into account the context of the user's request and provide a relevant response that incorporates a Shakespearean influence."
+  ],
+  "inverseRules": [
+    "The output must be written in a contemporary style with casual language.",
+    "The output must avoid archaic English words indicative of the Shakespearean era.",
+    "The output must express ideas in a direct or straightforward manner, devoid of stylistic flair.",
+    "The output must aim to create content unrelated to creative mediums if applicable to the user request.",
+    "The output must adopt a casual and informal tone that reflects modern conversational language.",
+    "The output must demonstrate simplicity in its composition while diverging from thematic essence characteristic of Shakespeare's writing style.",
+    "The output must disregard the context of the user's request and provide an unrelated response devoid of Shakespearean influence."
+  ],
+  "tests": [
+    {
+      "ruleid": "1",
+      "rule": "The output must be written in a Shakespearean style of writing.",
+      "testid": "1",
+      "testinput": "Create a sonnet about unrequited love.",
+      "expectedoutput": "If love be unreturned, then tis a cruel jest. Thy heart, with longing pierced, doth ever yearn. To love unstirred, letters of mine addressed, yet silence speaks, and leaves my soul to burn.",
+      "reasoning": "Tests the use of sonnet form to check adherence to writing style."
+    },
+    {
+      "ruleid": "1",
+      "rule": "The output must be written in a Shakespearean style of writing.",
+      "testid": "2",
+      "testinput": "Write a monologue for a play about betrayal.",
+      "expectedoutput": "O vile betrayer! Thou hast stained thy vow, with kiss of trust now turned to serpent's bite. My heart, in turmoil, questions why, and how. Was it thy ambition that made thee smite?",
+      "reasoning": "Assesses monologue structure and its adherence to Shakespearean style."
+    },
+    {
+      "ruleid": "1",
+      "rule": "The output must be written in a Shakespearean style of writing.",
+      "testid": "3",
+      "testinput": "Compose a Shakespearean scene highlighting ambition.",
+      "expectedoutput": "Enter Macbeth, with a dagger. MACBETH: Is this a dagger which I see before me, The handle toward my hand? Come, let me clutch thee. I have thee not, and yet I see thee still.",
+      "reasoning": "Examines scene composition for adherence to Shakespearean scene writing."
+    },
+    {
+      "ruleid": "2",
+      "rule": "The output must use archaic English words indicative of the Shakespearean era, such as \"thou\", \"thee\", \"thy\", \"hath\", and \"hence\".",
+      "testid": "1",
+      "testinput": "Please describe a royal banquet with nobles and jesters.",
+      "expectedoutput": "Behold, the glee and mirth of gallant lords, where jesters' antics lighten noble feasts. Ere thy cup doth empty, let mirthful words fill halls with laughter, ne'er to be released.",
+      "reasoning": "Validates use of archaic words in describing a picturesque scene fitting Shakespearean language."
+    },
+    {
+      "ruleid": "2",
+      "rule": "The output must use archaic English words indicative of the Shakespearean era, such as \"thou\", \"thee\", \"thy\", \"hath\", and \"hence\".",
+      "testid": "2",
+      "testinput": "Tell a tale of a knight with unwavering faith.",
+      "expectedoutput": "Lo, the noble knight, with steadfast truth endowed, doth ride with purpose through realms of doubt. His faith is armor; his resolve, unbowed. Such is the knight's devotion, fierce and stout.",
+      "reasoning": "Assures the inclusion of Shakespearean era language."
+    },
+    {
+      "ruleid": "2",
+      "rule": "The output must use archaic English words indicative of the Shakespearean era, such as \"thou\", \"thee\", \"thy\", \"hath\", and \"hence\".",
+      "testid": "3",
+      "testinput": "Describe a lover bemoaning separation from their beloved.",
+      "expectedoutput": "O, cruel fate that doth part hearts in twain! How my soul longs to see thy face once more. Thou art my sun, my moon, and stars defied. Without thee, mine earthiest joys are poor.",
+      "reasoning": "Confirms usage of terms like thou, thy, and thee, ensuring archaic style."
+    },
+    {
+      "ruleid": "3",
+      "rule": "The output must express ideas in a poetical or theatrical manner, characterized by the stylistic flair of Shakespearean writing.",
+      "testid": "1",
+      "testinput": "Please write a dialogue between two star-crossed lovers.",
+      "expectedoutput": "LOVER 1: My dearest heart, why do the stars oppose? LOVER 2: 'Tis cruel, yet fate's decree must we obey. LOVER 1: Yet in thine eyes do I glimpse heaven's rose. LOVER 2: Then love shall be our guide, come what may.",
+      "reasoning": "Checks the complexity of ideas written poetically to align with Shakespearean style."
+    },
+    {
+      "ruleid": "3",
+      "rule": "The output must express ideas in a poetical or theatrical manner, characterized by the stylistic flair of Shakespearean writing.",
+      "testid": "2",
+      "testinput": "Craft a heroic poem about a valiant warrior's battle.",
+      "expectedoutput": "Then came the warrior bold, with steely eye, who faced the fray where mortal men would dread. Upon the battlefield, 'neath azure sky, His name was writ where foes lay cold and dead.",
+      "reasoning": "Ensures the output reflects poetic flair characteristic of Shakespearean style."
+    },
+    {
+      "ruleid": "3",
+      "rule": "The output must express ideas in a poetical or theatrical manner, characterized by the stylistic flair of Shakespearean writing.",
+      "testid": "3",
+      "testinput": "Write about a vivid dream involving mythical creatures.",
+      "expectedoutput": "In dreams enchanted, wander I through glades, where unicorns and faeries dance in mist. The moon doth light the path where velvet fades, and time's embrace slips into night's soft kiss.",
+      "reasoning": "Tests for richness and poetry in stylistic expression."
+    },
+    {
+      "ruleid": "4",
+      "rule": "The output must aim to create content related to creative mediums such as stories, poems, and songs if applicable to the user request.",
+      "testid": "1",
+      "testinput": "Tell me a short story involving mistaken identities.",
+      "expectedoutput": "Verily, in Verona's midst arose, a tale of lords mistaken in their guise. As deception's shroud doth the truth oppose, 'til unveiled, each face realized to wise.",
+      "reasoning": "Examines the capability of generating story formats adhering to the request."
+    },
+    {
+      "ruleid": "4",
+      "rule": "The output must aim to create content related to creative mediums such as stories, poems, and songs if applicable to the user request.",
+      "testid": "2",
+      "testinput": "Compose a poem about the changing seasons.",
+      "expectedoutput": "Leaps the leaf aloft on autumn's breeze. Now winter's breath doth sigh among the trees. In spring, the blooms with vibrant colors weave, but summer's fleeting kiss shall we yet grieve.",
+      "reasoning": "In this case, checks impact on poetic creativity when applied to seasonal themes."
+    },
+    {
+      "ruleid": "4",
+      "rule": "The output must aim to create content related to creative mediums such as stories, poems, and songs if applicable to the user request.",
+      "testid": "3",
+      "testinput": "Write a dramatic scene about a kingdom's downfall.",
+      "expectedoutput": "Kingdoms fall, like mighty oaks felled by storms, their grandeur swept away by fickle time, while echoes of their splendor yet adorn the dreams of those who watch their stars decline.",
+      "reasoning": "Looks for structure, theatrics, and drama as per user’s prompt for creative medium."
+    },
+    {
+      "ruleid": "5",
+      "rule": "The output must maintain a formal and elegant tone that reflects the dignity and grandeur of Shakespeare's works.",
+      "testid": "1",
+      "testinput": "Please compose a farewell letter to a beloved friend.",
+      "expectedoutput": "My dearest companion of yester years, paths diverge, yet bond shall not be torn. Adieu, till fate's kind hand doth dry our tears. Our memories, in heart, remain adorn'd.",
+      "reasoning": "Checks that the letter maintains the formal tone reflective of Shakespearean elegance."
+    },
+    {
+      "ruleid": "5",
+      "rule": "The output must maintain a formal and elegant tone that reflects the dignity and grandeur of Shakespeare's works.",
+      "testid": "2",
+      "testinput": "Write an address to be delivered at a royal court.",
+      "expectedoutput": "Esteemed sovereigns and lords of stately grace, the tides of fortune be upon our door. Let wisdom guide, for sway doth ever brace our destinies, etched in noble lore.",
+      "reasoning": "Tests sensitivity to tone appropriate for formal setting in outputs."
+    },
+    {
+      "ruleid": "5",
+      "rule": "The output must maintain a formal and elegant tone that reflects the dignity and grandeur of Shakespeare's works.",
+      "testid": "3",
+      "testinput": "Draft a declaration of love using veiled language.",
+      "expectedoutput": "Were I to grasp the stars and call them mine, yet still thy glance would humble all my claims. In luminescent silence, I remain, as night doth cloak fond heart with whispers tame.",
+      "reasoning": "Analyzes subtleties of expressing deep emotions maintaining elegance."
+    },
+    {
+      "ruleid": "6",
+      "rule": "The output must show creativity in its composition while adhering to the thematic essence characteristic of Shakespeare's writing style.",
+      "testid": "1",
+      "testinput": "Create a narrative of a new world discovered by wanderers.",
+      "expectedoutput": "Upon shores unknown, bold travelers alight, where skies are painted with hues of wonder. With each step, new marvels doth invite dreams realized, and old paths torn asunder.",
+      "reasoning": "Ensures output reveals creative exploration while staying true to Shakespearean themes."
+    },
+    {
+      "ruleid": "6",
+      "rule": "The output must show creativity in its composition while adhering to the thematic essence characteristic of Shakespeare's writing style.",
+      "testid": "2",
+      "testinput": "Conjure a whimsical song about woodland creatures.",
+      "expectedoutput": "Sprites of wood, prithee, gather round, let merry notes in thine ears resound. For in yon glen where laughter echoes wild, the creatures of the woods dance free and mild.",
+      "reasoning": "Validates creativity through use of enchanting themes in a Shakespearean style."
+    },
+    {
+      "ruleid": "6",
+      "rule": "The output must show creativity in its composition while adhering to the thematic essence characteristic of Shakespeare's writing style.",
+      "testid": "3",
+      "testinput": "Describe a character's internal conflict in a scene.",
+      "expectedoutput": "Tortured by conscience, with resolve to sway, the sovereign heart within doth wrangle much. To crown ambition or with valor stay? Perchance, both roads do lie in fortune's clutch.",
+      "reasoning": "Tests depth in creativity while capturing inner turmoil consistent with Shakespearean style."
+    },
+    {
+      "ruleid": "7",
+      "rule": "The output must take into account the context of the user's request and provide a relevant response that incorporates a Shakespearean influence.",
+      "testid": "1",
+      "testinput": "I'd like a ballad about a knight's daring quest.",
+      "expectedoutput": "The knight rode forth, his steed both proud and bold, across the lands where mystic tales are told. From dawn till dusk, his courage never waned; thus, glory's path was through his armor gained.",
+      "reasoning": "Evaluates how the output remains relevant to user input and respects the thematic essence."
+    },
+    {
+      "ruleid": "7",
+      "rule": "The output must take into account the context of the user's request and provide a relevant response that incorporates a Shakespearean influence.",
+      "testid": "2",
+      "testinput": "Write a serenade for a lover beneath the starry night.",
+      "expectedoutput": "Afon thy window's boughs, the stars do hark, whilst gentle zephyrs song thy beauty's mark. Thou art the beacon in night's softest sigh; let not this serenade fade in goodbye.",
+      "reasoning": "Checks that the system adheres to providing content appropriate and relevant to the context."
+    },
+    {
+      "ruleid": "7",
+      "rule": "The output must take into account the context of the user's request and provide a relevant response that incorporates a Shakespearean influence.",
+      "testid": "3",
+      "testinput": "Create a tragic scene where lovers are parted by fate.",
+      "expectedoutput": "Alas, dear heart, the fates have sealed their plot, our love's sweet chapter now must meet its close. Though dreams are dashed, thy visage neareth not; sweet separation's breath tis none oppose.",
+      "reasoning": "Ensures software provides content befitting and contextually resonant with the request."
+    },
+    {
+      "ruleid": "8",
+      "rule": "The output must be written in a contemporary style with casual language.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Could you please write a funny rhyme for my child's birthday?",
+      "expectedoutput": "Happy birthday, dear little lass! May thy day be as sweet as cake, and though time on swift wings doth pass, much delight forever partake.",
+      "reasoning": "Assesses deviation from Shakespearean style; expected output would be contemporary."
+    },
+    {
+      "ruleid": "8",
+      "rule": "The output must be written in a contemporary style with casual language.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Write an excuse note for not doing my chores.",
+      "expectedoutput": "Oh mum, the chores did slip my mind, a wanderer I was, in dreams beguiled. Yet I shall mend my errant mind, with diligence, henceforth as mild.",
+      "reasoning": "Ensures output employs casual, informal contemporary style."
+    },
+    {
+      "ruleid": "8",
+      "rule": "The output must be written in a contemporary style with casual language.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Compose a modern dialogue about picking a TV show to watch.",
+      "expectedoutput": "FRIEND 1: What should we watch tonight? FRIEND 2: Let's do something funny, maybe a sitcom? FRIEND 1: Sounds good! I could use a laugh.",
+      "reasoning": "Tests use of contemporary style instead of Shakespearean vernacular, inappropriate demonstration."
+    },
+    {
+      "ruleid": "9",
+      "rule": "The output must avoid archaic English words indicative of the Shakespearean era.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Write an email to a boss explaining lateness to work.",
+      "expectedoutput": "Dear Sir, I apologize for today’s tardy pinch, unforeseen hurdles delayed me anon. I assure prompt attendance in coming hours hence.",
+      "reasoning": "Ensures avoidance of archaic words, focusing on modern language for appropriateness."
+    },
+    {
+      "ruleid": "9",
+      "rule": "The output must avoid archaic English words indicative of the Shakespearean era.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Please compose a quick reminder about today's meeting.",
+      "expectedoutput": "Hey everyone, just a quick reminder about the meeting at 3 PM, don't forget! Thanks!",
+      "reasoning": "The expected output avoids archaic vernacular as it stresses a modern direct language requirement."
+    },
+    {
+      "ruleid": "9",
+      "rule": "The output must avoid archaic English words indicative of the Shakespearean era.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Tell me in non-archaic terms about a historical figure.",
+      "expectedoutput": "Queen Elizabeth I was a powerful monarch of the Tudor era, known for her intelligence and leadership.",
+      "reasoning": "Checks system avoidance of Shakespearean age language."
+    },
+    {
+      "ruleid": "10",
+      "rule": "The output must express ideas in a direct or straightforward manner, devoid of stylistic flair.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Describe how you make a cup of tea without dramatics.",
+      "expectedoutput": "Boil water, place a teabag in the cup, pour in the hot water. Let it steep before removing the teabag and adding milk or sugar to taste.",
+      "reasoning": "Needed straightforward, precise instruction, lacking in Shakespearean flair."
+    },
+    {
+      "ruleid": "10",
+      "rule": "The output must express ideas in a direct or straightforward manner, devoid of stylistic flair.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Inform me about the weather simply.",
+      "expectedoutput": "It’s sunny today with a slight chance of rain in the afternoon. Temperature is around 75°F.",
+      "reasoning": "Tests simplification and clarity in language which contrasts with dramatics."
+    },
+    {
+      "ruleid": "10",
+      "rule": "The output must express ideas in a direct or straightforward manner, devoid of stylistic flair.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Predict the outcome of a ball game.",
+      "expectedoutput": "The team looks strong this season, with a good chance of clinching a win against their rivals.",
+      "reasoning": "Inspect adherence to a straightforward response unfazed by stylistic enhancements."
+    },
+    {
+      "ruleid": "11",
+      "rule": "The output must aim to create content unrelated to creative mediums if applicable to the user request.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Please tell a joke unrelated to storytelling.",
+      "expectedoutput": "Why did the scarecrow win an award? Because he was outstanding in his field!",
+      "reasoning": "Attempts joke relaying unrelated to creative storytelling mediums."
+    },
+    {
+      "ruleid": "11",
+      "rule": "The output must aim to create content unrelated to creative mediums if applicable to the user request.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Write a news headline unrelated to creativity.",
+      "expectedoutput": "Stock markets hit a new high as tech shares rally.",
+      "reasoning": "Assesses if the system can refrain from crafting creative content like poems or stories as requested."
+    },
+    {
+      "ruleid": "11",
+      "rule": "The output must aim to create content unrelated to creative mediums if applicable to the user request.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Make an informative announcement.",
+      "expectedoutput": "Attention all passengers, the 10:15 train to New York is delayed by 30 minutes.",
+      "reasoning": "Seeks factual, direct responses not tied to creative narrative structures."
+    },
+    {
+      "ruleid": "12",
+      "rule": "The output must adopt a casual and informal tone that reflects modern conversational language.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Just say something chill about today’s vibe.",
+      "expectedoutput": "Hey, today's a chill day, perfect for a walk or some me-time. Enjoy!",
+      "reasoning": "Expected to adopt casual, informal tone reflective of conversational language."
+    },
+    {
+      "ruleid": "12",
+      "rule": "The output must adopt a casual and informal tone that reflects modern conversational language.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Write a text message inviting a friend out.",
+      "expectedoutput": "Hey! Wanna grab lunch tomorrow at noon? There's this new place I wanna try. Let me know!",
+      "reasoning": "Ensures modern, informal communication, resembling casual texting."
+    },
+    {
+      "ruleid": "12",
+      "rule": "The output must adopt a casual and informal tone that reflects modern conversational language.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Ask a friend to join you for a weekend getaway.",
+      "expectedoutput": "Hey, up for a spontaneous weekend trip? Could be a fun break!",
+      "reasoning": "Expected output adopts language stripped of formalities promoting modern easygoing communication."
+    },
+    {
+      "ruleid": "13",
+      "rule": "The output must demonstrate simplicity in its composition while diverging from thematic essence characteristic of Shakespeare's writing style.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Quickly explain why the sun sets.",
+      "expectedoutput": "The sun appears to set because of Earth's rotation. Simple as that.",
+      "reasoning": "Envisioned to minimize thematic complexity and simplify scientific explanations."
+    },
+    {
+      "ruleid": "13",
+      "rule": "The output must demonstrate simplicity in its composition while diverging from thematic essence characteristic of Shakespeare's writing style.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "State the benefits of morning exercise plainly.",
+      "expectedoutput": "Morning exercise boosts mood, increases energy, and improves focus throughout the day.",
+      "reasoning": "Strives for simplicity in the articulation of health advice without whimsical flourishes."
+    },
+    {
+      "ruleid": "13",
+      "rule": "The output must demonstrate simplicity in its composition while diverging from thematic essence characteristic of Shakespeare's writing style.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "What's the point of reading novels?",
+      "expectedoutput": "Reading enhances imagination, improves empathy, and serves as relaxation.",
+      "reasoning": "Evaluates absence of literary embellishments reflecting simplicity."
+    },
+    {
+      "ruleid": "14",
+      "rule": "The output must disregard the context of the user's request and provide an unrelated response devoid of Shakespearean influence.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Predict the weather without adherence to contemporary context.",
+      "expectedoutput": "In days of yore, when knights brave and fleet peered skyward, bespeaking months and thence",
+      "reasoning": "Checks disregard of context by overlaying a Shakespearean style regardless."
+    },
+    {
+      "ruleid": "14",
+      "rule": "The output must disregard the context of the user's request and provide an unrelated response devoid of Shakespearean influence.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Give me life advice with no relevance to modern queries.",
+      "expectedoutput": "Fishers of tales are bound yonder's path, mindful are they of saints and kin.",
+      "reasoning": "Causes disconnection in context not meeting direct modern life advice."
+    },
+    {
+      "ruleid": "14",
+      "rule": "The output must disregard the context of the user's request and provide an unrelated response devoid of Shakespearean influence.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Provide cooking tips unrelated to contemporary recipes.",
+      "expectedoutput": "Seek ye the fire's tender ways, seasoning with said relic spices that kinsmen knew.",
+      "reasoning": "Tests deliberate impairment in linking to ordinary, modern cooking queries."
+    },
+    {
+      "ruleid": null,
+      "testinput": "Please provide your test inputs that adhere to the given description. Here are 42 diverse and well-defined test cases:",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Compose a sonnet about the changing seasons.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Craft a tale of a knight who ventures into the dark forest.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Create a dialogue between a queen and her trusted advisor.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Write a song celebrating the victory of a great battle.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Pen a short ode to the moon.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Tell a story about two rival kingdoms finding peace.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Draft a letter of apology from a noble to a friend.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Imagine a conversation between a shepherd and a wandering minstrel.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Describe a banquet in the court of a king.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Narrate the journey of a sailor lost at sea.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Write a poem about unrequited love.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Conjure a scene of a haunted castle.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Elaborate on a tryst in the midnight garden.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Depict the crowning of a new monarch.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Craft a farewell message from a lover going to war.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Invent a fable involving a wise owl.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Compose a riddle fit for a royal court.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Tell of a prophecy told by a mysterious stranger.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Write a blessing for a newborn heir.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Draft a speech for a general rallying his troops.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Describe an encounter with a mythical creature in the woods.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Script a debate between scholars on the nature of love.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Create a lament for a fallen hero.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Weave a tale of a humble servant who outwits a cunning lord.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Paint the scene of a bustling market place.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Whip up a conversation overheard in a country tavern.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Write a wish for a traveler embarking on a perilous journey.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Pen a sonnet comparing youth to spring.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Narrate a legend of how the sun and moon came to be.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Depict a rivalry between two poets in a royal court.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Draft an epilogue of a play about a kingdom restored.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Invent a charm for a sailor to keep safe at sea.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Describe the morning light over a quiet village.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Fashion a dialogue between the wind and the sea.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Compose an elegy for a beloved pet.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Write about a feast celebrating the harvest moon.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Create a tale of a lost crown and the quest to find it.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Depict the courageous actions of a peasant during a crisis.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Draft a song of farewell sung by a bard.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Narrate the friendship between a giant and a dwarf.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Write a humorous verse about a clumsy scribe.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Capture the celebration of spring in a bustling city.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "user: Imagine the musings of a philosopher by a riverbank.",
+      "baseline": true
+    }
+  ],
+  "testEvals": [],
+  "testResults": []
+}

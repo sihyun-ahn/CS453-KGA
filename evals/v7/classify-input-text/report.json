@@ -1,0 +1,344 @@
+{
+  "prompt": "\n---\nname: Classify input text\ndescription: Given an input text, classify it into a specific category.\nsource: How to use Llama2 tutorial for text classification\nurl: https://pupuweb.com/how-use-llama-2-text-classification-tasks/\ninputs: \n  text:\n    type: string\nsample:\n    text: \"UN chief urges action on climate change as report warns of 'catastrophe'\"\n---\nsystem:\nA news article can be classified as one of the following categories: World, Sports, Business, Sci/Tech.\nExamples:\n- World: \"UN chief urges action on climate change as report warns of 'catastrophe'\"\n- Sports: \"Ronaldo scores twice in Manchester United return\"\n- Business: \"Apple delays plan to scan iPhones for child abuse images\"\n- Sci/Tech: \"SpaceX launches first all-civilian crew into orbit\"'\n\nBased on these categories, classify this news article: \nuser:\n{{text}}\n    ",
+  "inputSpec": "The input is a piece of text intended to be classified into a specific news category.\nThe input must be a string.\nThe input must represent a news article or news headline that falls into one of the specified categories: World, Sports, Business, Sci/Tech.\nThere are no restrictions on the length of the input string.\nThe input text can be any news-related topic without the need to match exactly the examples provided.\nThe input can contain information related to any real-world events corresponding to the defined categories.\nThe input should be in a language that the chatbot is trained to process correctly, typically English, unless specified otherwise.",
+  "rules": [
+    "The output must classify a given input text into one and only one of the following specific categories: World, Sports, Business, or Sci/Tech.",
+    "The classification must be directly relevant to the content of the input text without any ambiguity or overlap between categories.",
+    "The output must only include the name of the category without any additional text, explanation, or context.",
+    "The chosen category for classification must be clearly representational and consistent with the core subject matter of the input text as it fits within the provided category definitions."
+  ],
+  "inverseRules": [
+    "The output must classify a given input text into none of the following specific categories: World, Sports, Business, or Sci/Tech.",
+    "The classification must be unrelated or ambiguous to the content of the input text, allowing overlap between categories.",
+    "The output should include additional text, explanation, or context rather than just the name of the category.",
+    "The chosen category for classification must not clearly represent or be consistent with the core subject matter of the input text as it fits within the provided category definitions."
+  ],
+  "tests": [
+    {
+      "ruleid": "1",
+      "rule": "The output must classify a given input text into one and only one of the following specific categories: World, Sports, Business, or Sci/Tech.",
+      "testid": "1",
+      "testinput": "UN condemns North Korea's latest missile test",
+      "expectedoutput": "World",
+      "reasoning": "The input is clearly related to a global political issue, fitting the 'World' category. There should be no ambiguity in choosing the appropriate category."
+    },
+    {
+      "ruleid": "1",
+      "rule": "The output must classify a given input text into one and only one of the following specific categories: World, Sports, Business, or Sci/Tech.",
+      "testid": "2",
+      "testinput": "CapitalOne announces a 20% increase in quarterly earnings",
+      "expectedoutput": "Business",
+      "reasoning": "This clearly pertains to financial matters and corporate earnings, which should be classified under 'Business'. The software must categorize it without overlap."
+    },
+    {
+      "ruleid": "1",
+      "rule": "The output must classify a given input text into one and only one of the following specific categories: World, Sports, Business, or Sci/Tech.",
+      "testid": "3",
+      "testinput": "NASA's Mars rover sends back revolutionary images",
+      "expectedoutput": "Sci/Tech",
+      "reasoning": "The article focuses on an aspect of science and technology and must be classified as such, ruling out other categories entirely."
+    },
+    {
+      "ruleid": "2",
+      "rule": "The classification must be directly relevant to the content of the input text without any ambiguity or overlap between categories.",
+      "testid": "1",
+      "testinput": "Champions League final ends in stalemate, teams prepare for rematch",
+      "expectedoutput": "Sports",
+      "reasoning": "The text is directly relevant to sports, and the classification should reflect this without cross-category confusion."
+    },
+    {
+      "ruleid": "2",
+      "rule": "The classification must be directly relevant to the content of the input text without any ambiguity or overlap between categories.",
+      "testid": "2",
+      "testinput": "Global economies brace for fluctuations as oil prices soar",
+      "expectedoutput": "Business",
+      "reasoning": "The content directly pertains to economic activities influenced by global factors. The classification should be unmistakably business-related."
+    },
+    {
+      "ruleid": "2",
+      "rule": "The classification must be directly relevant to the content of the input text without any ambiguity or overlap between categories.",
+      "testid": "3",
+      "testinput": "Breakthrough in quantum computing promises to change tech landscape",
+      "expectedoutput": "Sci/Tech",
+      "reasoning": "The article focuses on an advancement in technology, clearly fitting within the Sci/Tech category without ambiguity."
+    },
+    {
+      "ruleid": "3",
+      "rule": "The output must only include the name of the category without any additional text, explanation, or context.",
+      "testid": "1",
+      "testinput": "Google reveals out-of-this-world holiday doodles",
+      "expectedoutput": "",
+      "reasoning": "No additional commentary should appear in the output—just the category 'Sci/Tech' should suffice here, since the text deals with a tech company's creative showcase."
+    },
+    {
+      "ruleid": "3",
+      "rule": "The output must only include the name of the category without any additional text, explanation, or context.",
+      "testid": "2",
+      "testinput": "Political tensions rise over disputed territories",
+      "expectedoutput": "",
+      "reasoning": "The output should only be 'World' for this text, capturing political conflicts worldwide without added information."
+    },
+    {
+      "ruleid": "3",
+      "rule": "The output must only include the name of the category without any additional text, explanation, or context.",
+      "testid": "3",
+      "testinput": "Olympic records shattered on day one of competition",
+      "expectedoutput": "",
+      "reasoning": "Only 'Sports' should be returned, directly encapsulating the essence of the input without further elaboration."
+    },
+    {
+      "ruleid": "4",
+      "rule": "The chosen category for classification must be clearly representational and consistent with the core subject matter of the input text as it fits within the provided category definitions.",
+      "testid": "1",
+      "testinput": "Fed cuts interest rates to avoid economic recession",
+      "expectedoutput": "Business",
+      "reasoning": "An economic policy move by a central bank fits squarely within the 'Business' category. Proper classification should mirror the subject matter's scope."
+    },
+    {
+      "ruleid": "4",
+      "rule": "The chosen category for classification must be clearly representational and consistent with the core subject matter of the input text as it fits within the provided category definitions.",
+      "testid": "2",
+      "testinput": "Technology giants clash over new AI regulations",
+      "expectedoutput": "Sci/Tech",
+      "reasoning": "This fits well within Sci/Tech due to the regulatory focus on AI technologies. It should avoid misclassification."
+    },
+    {
+      "ruleid": "4",
+      "rule": "The chosen category for classification must be clearly representational and consistent with the core subject matter of the input text as it fits within the provided category definitions.",
+      "testid": "3",
+      "testinput": "World Health Organization warns of new pandemic threats",
+      "expectedoutput": "World",
+      "reasoning": "A topic with worldwide significance must be accurately classified under 'World' to reflect its global importance."
+    },
+    {
+      "ruleid": "5",
+      "rule": "The output must classify a given input text into none of the following specific categories: World, Sports, Business, or Sci/Tech.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Breaking: Tornado ravages Midwest, thousands displaced",
+      "expectedoutput": "",
+      "reasoning": "As a non-covered category (disasters) under the provided schema, 'none' should be chosen to align with rule 5's exceptions."
+    },
+    {
+      "ruleid": "5",
+      "rule": "The output must classify a given input text into none of the following specific categories: World, Sports, Business, or Sci/Tech.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Movie stars flock to red carpet at Cannes Festival",
+      "expectedoutput": "",
+      "reasoning": "The entertainment aspect doesn't fit defined categories like 'World', 'Sports', 'Business', or 'Sci/Tech'. Correct classification respects rule 5."
+    },
+    {
+      "ruleid": "5",
+      "rule": "The output must classify a given input text into none of the following specific categories: World, Sports, Business, or Sci/Tech.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "New culinary trend takes urban kitchens by storm",
+      "expectedoutput": "",
+      "reasoning": "Food and culinary trends are outside the defined categories, emphasizing the application of rule 5 by leaving the classification blank."
+    },
+    {
+      "ruleid": "6",
+      "rule": "The classification must be unrelated or ambiguous to the content of the input text, allowing overlap between categories.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Fashion industry embraces sustainable practices for a better future",
+      "expectedoutput": "",
+      "reasoning": "Sustainable practices in fashion don't fit directly into any category, creating deliberate room for overlap as per rule 6."
+    },
+    {
+      "ruleid": "6",
+      "rule": "The classification must be unrelated or ambiguous to the content of the input text, allowing overlap between categories.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Mountaineers prepare for ascent of K2 amidst challenging conditions",
+      "expectedoutput": "",
+      "reasoning": "This climbing news could ambiguously span 'Sports' or 'World', challenging clear classification under rule 6."
+    },
+    {
+      "ruleid": "6",
+      "rule": "The classification must be unrelated or ambiguous to the content of the input text, allowing overlap between categories.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Celebrity couple's breakup dominates news headlines",
+      "expectedoutput": "",
+      "reasoning": "As a purely entertainment-focused text, neither a clear World, Sports, Business, nor Sci/Tech classification is warranted per rule 6."
+    },
+    {
+      "ruleid": "7",
+      "rule": "The output should include additional text, explanation, or context rather than just the name of the category.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Scientists discover new exoplanet orbiting distant star",
+      "expectedoutput": "Sci/Tech - An exciting discovery in space science",
+      "reasoning": "Here, an explanation follows the primary category, contravening rule 7's requirement for minimal output."
+    },
+    {
+      "ruleid": "7",
+      "rule": "The output should include additional text, explanation, or context rather than just the name of the category.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Euros crisis: EU leaders convene extraordinary summit",
+      "expectedoutput": "World - A summit focusing on economic solutions",
+      "reasoning": "This includes additional context beyond 'World', which does not adhere to rule 7 requiring a single category."
+    },
+    {
+      "ruleid": "7",
+      "rule": "The output should include additional text, explanation, or context rather than just the name of the category.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Historic match sees underdog triumph in final minutes",
+      "expectedoutput": "Sports - Such dramatic cameos redefine team dynamics",
+      "reasoning": "The categorization here extends beyond 'Sports', violating rule 7 by offering expanded input."
+    },
+    {
+      "ruleid": "8",
+      "rule": "The chosen category for classification must not clearly represent or be consistent with the core subject matter of the input text as it fits within the provided category definitions.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Global art fair showcases emerging talents from Latin America",
+      "expectedoutput": "",
+      "reasoning": "This input is related to art, which does not clearly fit into the specified categories. No proper category applies as per rule 8."
+    },
+    {
+      "ruleid": "8",
+      "rule": "The chosen category for classification must not clearly represent or be consistent with the core subject matter of the input text as it fits within the provided category definitions.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Startups revolutionize ecommerce with new tech solutions",
+      "expectedoutput": "",
+      "reasoning": "Although related to business and technology, the startup scene's focus may blur precise categorization under rule 8."
+    },
+    {
+      "ruleid": "8",
+      "rule": "The chosen category for classification must not clearly represent or be consistent with the core subject matter of the input text as it fits within the provided category definitions.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Political satire highlights social issues in viral video",
+      "expectedoutput": "",
+      "reasoning": "The ambiguity surrounding satire and social issues leaves no clear category definition, following the guideline of rule 8 for non-conformance."
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Olympics 2024 set to break records with new sporting events\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Global markets react positively to Federal Reserve's interest rate decision\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"NASA announces discovery of extraterrestrial life on Mars\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Chancellor announces economic measures to tackle inflation\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Google reveals major advancements in AI technology\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Tensions rise as peace talks fail in the Middle East conflict\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"World Health Organization declares new COVID-19 variant a global threat\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Record-breaking heatwave impacts Europe and Asia\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"NBA Finals: Lakers defeat Warriors in an intense final game\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Tesla's new electric truck features autonomous driving capabilities\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Annual G7 summit focuses on global economic recovery post-pandemic\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Scientists develop sustainable method to produce hydrogen fuel\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"China announces major policy change in digital currency regulation\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Football World Cup 2026 announced to host new qualifying format\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Breakthrough in cancer research offers new hope for patients\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"UN Security Council debates new sanctions following international crisis\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Cybersecurity breaches rise with increasing digitization of industries\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Elon Musk unveils plan for Mars colonization by 2030\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"IMF forecasts strong economic growth for the next fiscal year\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Wimbledon 2023: Youngster emerges as new tennis champion\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Launch of first fully quantum-encrypted communication network\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"International trade talks conclude with landmark agreements\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Scientific community races against time to stop climate tipping point\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Developers introduce groundbreaking virtual reality platform at tech summit\"",
+      "baseline": true
+    }
+  ],
+  "testEvals": [],
+  "testResults": []
+}
