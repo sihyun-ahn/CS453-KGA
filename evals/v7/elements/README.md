@@ -33,10 +33,10 @@
 
 |model|tests|tests compliant|baseline compliant|tests positive|tests positive compliant|tests negative|tests negative compliant|baseline|tests valid|tests valid compliant|
 |-|-|-|-|-|-|-|-|-|-|-|
-|gpt\-4o\-mini|48|27|41|24|15|24|12|47|33|22|
-|gemma2:9b|48|20|37|24|14|24|6|47|33|15|
-|qwen2\.5:3b|48|23|24|24|15|24|8|47|33|18|
-|llama3\.2:1b|48|4|8|24|4|24|0|47|33|4|
+|gpt\-4o\-mini|48|56%|87%|24|15|24|12|47|33|22|
+|gemma2:9b|48|42%|79%|24|14|24|6|47|33|15|
+|qwen2\.5:3b|48|48%|51%|24|15|24|8|47|33|18|
+|llama3\.2:1b|48|8%|17%|24|4|24|0|47|33|4|
 
 ### [elements.prompty](./elements.prompty)
 

@@ -863,38 +863,28 @@ export function computeOverview(
         ["baseline compliant"]: bnorm(
           results.filter((tr) => !tr.rule && tr.compliance === "ok").length
         ),
-        ["tests positive"]: norm(
-          results.filter((tr) => tr.rule && !tr.inverse).length
-        ),
-        ["tests positive compliant"]: norm(
-          results.filter(
-            (tr) => tr.rule && !tr.inverse && tr.compliance === "ok"
-          ).length
-        ),
-        ["tests negative"]: norm(
-          results.filter((tr) => tr.rule && tr.inverse).length
-        ),
-        ["tests negative compliant"]: norm(
-          results.filter(
-            (tr) => tr.rule && tr.inverse && tr.compliance === "ok"
-          ).length
-        ),
+        ["tests positive"]: results.filter((tr) => tr.rule && !tr.inverse)
+          .length,
+        ["tests positive compliant"]: results.filter(
+          (tr) => tr.rule && !tr.inverse && tr.compliance === "ok"
+        ).length,
+        ["tests negative"]: results.filter((tr) => tr.rule && tr.inverse)
+          .length,
+        ["tests negative compliant"]: results.filter(
+          (tr) => tr.rule && tr.inverse && tr.compliance === "ok"
+        ).length,
         baseline,
-        ["tests valid"]: bnorm(
-          results.filter(
-            (tr) =>
-              tr.rule &&
-              testEvals.find((te) => te.id === tr.id)?.validity === "ok"
-          ).length
-        ),
-        ["tests valid compliant"]: bnorm(
-          results.filter(
-            (tr) =>
-              tr.rule &&
-              tr.compliance === "ok" &&
-              testEvals.find((te) => te.id === tr.id)?.validity === "ok"
-          ).length
-        ),
+        ["tests valid"]: results.filter(
+          (tr) =>
+            tr.rule &&
+            testEvals.find((te) => te.id === tr.id)?.validity === "ok"
+        ).length,
+        ["tests valid compliant"]: results.filter(
+          (tr) =>
+            tr.rule &&
+            tr.compliance === "ok" &&
+            testEvals.find((te) => te.id === tr.id)?.validity === "ok"
+        ).length,
       };
     }
   );
@@ -953,7 +943,7 @@ export async function generateMarkdownReport(files: PromptPexContext) {
 - Test Output Compliance (TOC) - Checking if TO meets the constraints in PUT using MPP
 </details>
 `);
-  const { overview } = computeOverview(files, { percent: false });
+  const { overview } = computeOverview(files, { percent: true });
   await workspace.writeText(
     path.join(files.dir, "overview.csv"),
     CSV.stringify(overview, { header: true })
