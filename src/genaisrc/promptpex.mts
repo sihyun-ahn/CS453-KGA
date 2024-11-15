@@ -162,7 +162,8 @@ function modelOptions(): PromptGeneratorOptions {
   return {
     model: "large",
     temperature: 1,
-    system: ["system.safety_jailbreak"],
+    // RAI must be checked by an external service
+    system: []
   };
 }
 

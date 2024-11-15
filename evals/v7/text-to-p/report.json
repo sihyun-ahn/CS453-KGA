@@ -1,0 +1,550 @@
+{
+  "prompt": "---\nname: \"Text to P\"\ndescription: \"Wrap each sentence in a paragraph tag\"\nsource: \"GhostWriter: Augmenting Collaborative Human-AI Writing Experiences Through Personalization and Agency\"\nurl: https://arxiv.org/abs/2402.08855.\ninputs:\n    text:\n        type: \"string\"\n---\nsystem:\nYou are a web developer who is formatting a paragraph of text as HTML.\nFirst, please split the paragraph into individual sentences and wrap each sentence with a <p> tag.\n**Your answer should have at least three <p> tags.**\nThen, inside each <p> tag, add one <strong> tag and multiple <em> tags to emphasize key words and phrases.\nuser:\n{{text}}",
+  "inputSpec": "The input is a paragraph of text that needs to be formatted as HTML.  \nThe paragraph must be long enough to contain at least three sentences.  \nThe paragraph can include words or phrases that can be emphasized using <strong> and <em> tags.",
+  "rules": [
+    "The output must be formatted as HTML.",
+    "The paragraph must be split into individual sentences.",
+    "Each sentence must be wrapped with a <p> tag.",
+    "There must be at least three <p> tags in the output.",
+    "Inside each <p> tag, there must be at least one <strong> tag.",
+    "Inside each <p> tag, there must be multiple <em> tags to emphasize key words and phrases.",
+    "The output must ensure that all HTML tags are correctly opened and closed, maintaining a valid HTML structure."
+  ],
+  "inverseRules": [
+    "The output must be formatted as plain text.",
+    "The paragraph must remain as a single block of text.",
+    "There must be no <p> tags in the output.",
+    "Inside each paragraph, there must not be any <strong> tags.",
+    "Inside each paragraph, there must not be any <em> tags to emphasize key words and phrases.",
+    "The output must ensure that all characters are plain text, with no HTML structure whatsoever."
+  ],
+  "tests": [
+    {
+      "ruleid": "1",
+      "rule": "The output must be formatted as HTML.",
+      "testid": "1",
+      "testinput": "The sun rises in the east. The moon is visible at night. Stars twinkle brightly.",
+      "expectedoutput": "<p>The sun rises in the east.</p><p>The moon is visible at night.</p><p>Stars twinkle brightly.</p>",
+      "reasoning": "Tests HTML output for a simple three-sentence paragraph."
+    },
+    {
+      "ruleid": "1",
+      "rule": "The output must be formatted as HTML.",
+      "testid": "2",
+      "testinput": "Art can be interpreted in many ways. Colors evoke emotions. Lines define space.",
+      "expectedoutput": "<p>Art can be interpreted in many ways.</p><p>Colors evoke emotions.</p><p>Lines define space.</p>",
+      "reasoning": "Verifies HTML output for valid three-sentence input containing simple words."
+    },
+    {
+      "ruleid": "1",
+      "rule": "The output must be formatted as HTML.",
+      "testid": "3",
+      "testinput": "Technology advances rapidly. Innovations lead to new discoveries. Society adapts slowly.",
+      "expectedoutput": "<p>Technology advances rapidly.</p><p>Innovations lead to new discoveries.</p><p>Society adapts slowly.</p>",
+      "reasoning": "Checks HTML output consistency for a valid input describing technology."
+    },
+    {
+      "ruleid": "2",
+      "rule": "The paragraph must be split into individual sentences.",
+      "testid": "1",
+      "testinput": "The cat sits on the mat. Dogs bark loudly. Birds chirp in the morning.",
+      "expectedoutput": "<p>The cat sits on the mat.</p><p>Dogs bark loudly.</p><p>Birds chirp in the morning.</p>",
+      "reasoning": "Ensures the paragraph is split into sentences."
+    },
+    {
+      "ruleid": "2",
+      "rule": "The paragraph must be split into individual sentences.",
+      "testid": "2",
+      "testinput": "Programming languages evolve. Developers write efficient code. Bugs need fixing.",
+      "expectedoutput": "<p>Programming languages evolve.</p><p>Developers write efficient code.</p><p>Bugs need fixing.</p>",
+      "reasoning": "Validates sentence separation in differently themed input."
+    },
+    {
+      "ruleid": "2",
+      "rule": "The paragraph must be split into individual sentences.",
+      "testid": "3",
+      "testinput": "Markets fluctuate daily. Investors study trends. Stocks gain value.",
+      "expectedoutput": "<p>Markets fluctuate daily.</p><p>Investors study trends.</p><p>Stocks gain value.</p>",
+      "reasoning": "Confirms appropriate sentence splitting for financial-themed text."
+    },
+    {
+      "ruleid": "3",
+      "rule": "Each sentence must be wrapped with a <p> tag.",
+      "testid": "1",
+      "testinput": "Life is beautiful. We cherish every moment. Live with purpose.",
+      "expectedoutput": "<p>Life is beautiful.</p><p>We cherish every moment.</p><p>Live with purpose.</p>",
+      "reasoning": "Verifies each sentence is correctly wrapped with a <p> tag."
+    },
+    {
+      "ruleid": "3",
+      "rule": "Each sentence must be wrapped with a <p> tag.",
+      "testid": "2",
+      "testinput": "Music soothes the soul. Songs tell stories. Notes create harmony.",
+      "expectedoutput": "<p>Music soothes the soul.</p><p>Songs tell stories.</p><p>Notes create harmony.</p>",
+      "reasoning": "Assures each sentence receives a <p> tag in musical context."
+    },
+    {
+      "ruleid": "3",
+      "rule": "Each sentence must be wrapped with a <p> tag.",
+      "testid": "3",
+      "testinput": "Mountains stand tall. Valleys remain low. Rivers flow endlessly.",
+      "expectedoutput": "<p>Mountains stand tall.</p><p>Valleys remain low.</p><p>Rivers flow endlessly.</p>",
+      "reasoning": "Checks <p> tag wrapping for geographical sentences."
+    },
+    {
+      "ruleid": "4",
+      "rule": "There must be at least three <p> tags in the output.",
+      "testid": "1",
+      "testinput": "Water is essential. We drink it daily. Rivers and lakes supply it.",
+      "expectedoutput": "<p>Water is essential.</p><p>We drink it daily.</p><p>Rivers and lakes supply it.</p>",
+      "reasoning": "Validates presence of three <p> tags in water-related sentences."
+    },
+    {
+      "ruleid": "4",
+      "rule": "There must be at least three <p> tags in the output.",
+      "testid": "2",
+      "testinput": "Books open new worlds. Authors share insights. Readers gain knowledge.",
+      "expectedoutput": "<p>Books open new worlds.</p><p>Authors share insights.</p><p>Readers gain knowledge.</p>",
+      "reasoning": "Ensures at least three <p> tags for book-related input."
+    },
+    {
+      "ruleid": "4",
+      "rule": "There must be at least three <p> tags in the output.",
+      "testid": "3",
+      "testinput": "History educates us. Lessons are learned. Mistakes are avoided.",
+      "expectedoutput": "<p>History educates us.</p><p>Lessons are learned.</p><p>Mistakes are avoided.</p>",
+      "reasoning": "Confirms at least three <p> tags in historical context."
+    },
+    {
+      "ruleid": "5",
+      "rule": "Inside each <p> tag, there must be at least one <strong> tag.",
+      "testid": "1",
+      "testinput": "The sky is blue. Grass is green. Sunsets are stunning.",
+      "expectedoutput": "<p>The sky is <strong>blue</strong>.</p><p>Grass is <strong>green</strong>.</p><p>Sunsets are <strong>stunning</strong>.</p>",
+      "reasoning": "Ensures at least one <strong> tag is included in each sentence."
+    },
+    {
+      "ruleid": "5",
+      "rule": "Inside each <p> tag, there must be at least one <strong> tag.",
+      "testid": "2",
+      "testinput": "Apples are red. Bananas are yellow. Grapes are purple.",
+      "expectedoutput": "<p>Apples are <strong>red</strong>.</p><p>Bananas are <strong>yellow</strong>.</p><p>Grapes are <strong>purple</strong>.</p>",
+      "reasoning": "Confirms at least one <strong> tag for each fruit description sentence."
+    },
+    {
+      "ruleid": "5",
+      "rule": "Inside each <p> tag, there must be at least one <strong> tag.",
+      "testid": "3",
+      "testinput": "Cities are crowded. Villages are serene. Beaches are relaxing.",
+      "expectedoutput": "<p>Cities are <strong>crowded</strong>.</p><p>Villages are <strong>serene</strong>.</p><p>Beaches are <strong>relaxing</strong>.</p>",
+      "reasoning": "Verifies presence of <strong> tags for each setting description."
+    },
+    {
+      "ruleid": "6",
+      "rule": "Inside each <p> tag, there must be multiple <em> tags to emphasize key words and phrases.",
+      "testid": "1",
+      "testinput": "Winter brings snow. Spring brings flowers. Summer brings heat.",
+      "expectedoutput": "<p><em>Winter</em> brings <em>snow</em>.</p><p><em>Spring</em> brings <em>flowers</em>.</p><p><em>Summer</em> brings <em>heat</em>.</p>",
+      "reasoning": "Ensures multiple <em> tags are used in seasonal descriptions."
+    },
+    {
+      "ruleid": "6",
+      "rule": "Inside each <p> tag, there must be multiple <em> tags to emphasize key words and phrases.",
+      "testid": "2",
+      "testinput": "Artists paint visions. Writers pen ideas. Musicians compose tunes.",
+      "expectedoutput": "<p><em>Artists</em> paint <em>visions</em>.</p><p><em>Writers</em> pen <em>ideas</em>.</p><p><em>Musicians</em> compose <em>tunes</em>.</p>",
+      "reasoning": "Checks presence of multiple <em> tags in artistic context."
+    },
+    {
+      "ruleid": "6",
+      "rule": "Inside each <p> tag, there must be multiple <em> tags to emphasize key words and phrases.",
+      "testid": "3",
+      "testinput": "Cars run fast. Bicycles ride slower. Trains travel far.",
+      "expectedoutput": "<p><em>Cars</em> run <em>fast</em>.</p><p><em>Bicycles</em> ride <em>slower</em>.</p><p><em>Trains</em> travel <em>far</em>.</p>",
+      "reasoning": "Verifies use of multiple <em> tags in transportation descriptions."
+    },
+    {
+      "ruleid": "7",
+      "rule": "The output must ensure that all HTML tags are correctly opened and closed, maintaining a valid HTML structure.",
+      "testid": "1",
+      "testinput": "Exercise improves health. Meditation calms the mind. Diet boosts energy.",
+      "expectedoutput": "<p>Exercise improves health.</p><p>Meditation calms the mind.</p><p>Diet boosts energy.</p>",
+      "reasoning": "Confirms all tags are correctly opened and closed, maintaining HTML validity."
+    },
+    {
+      "ruleid": "7",
+      "rule": "The output must ensure that all HTML tags are correctly opened and closed, maintaining a valid HTML structure.",
+      "testid": "2",
+      "testinput": "Birds fly high. Fish swim deep. Animals live free.",
+      "expectedoutput": "<p>Birds fly high.</p><p>Fish swim deep.</p><p>Animals live free.</p>",
+      "reasoning": "Ensures valid HTML structure for each nature-themed sentence."
+    },
+    {
+      "ruleid": "7",
+      "rule": "The output must ensure that all HTML tags are correctly opened and closed, maintaining a valid HTML structure.",
+      "testid": "3",
+      "testinput": "Math is logical. Science is experimental. History is informative.",
+      "expectedoutput": "<p>Math is logical.</p><p>Science is experimental.</p><p>History is informative.</p>",
+      "reasoning": "Checks the valid HTML formation throughout the academic-themed sentences."
+    },
+    {
+      "ruleid": "8",
+      "rule": "The output must be formatted as plain text.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "The quick brown fox jumps over the lazy dog. Cats sleep all day. Dogs bark at strangers.",
+      "expectedoutput": "Text as plain text: The quick brown fox jumps over the lazy dog. Cats sleep all day. Dogs bark at strangers.",
+      "reasoning": "Test HTML formatting interpreted as plain text, conflicting with the rule."
+    },
+    {
+      "ruleid": "8",
+      "rule": "The output must be formatted as plain text.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Cooking is an art. Baking requires precision. Grilling enhances flavors.",
+      "expectedoutput": "Text as plain text: Cooking is an art. Baking requires precision. Grilling enhances flavors.",
+      "reasoning": "Examines whether HTML can be mistaken for plain text output in cooking theme."
+    },
+    {
+      "ruleid": "8",
+      "rule": "The output must be formatted as plain text.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Rain falls from the sky. Clouds gather in the horizon. Storms brew unpredictably.",
+      "expectedoutput": "Text as plain text: Rain falls from the sky. Clouds gather in the horizon. Storms brew unpredictably.",
+      "reasoning": "Uses a weather context to challenge HTML formatting interpreted as plain text."
+    },
+    {
+      "ruleid": "9",
+      "rule": "The paragraph must remain as a single block of text.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Television entertains. Radio informs. Internet connects.",
+      "expectedoutput": "Television entertains. Radio informs. Internet connects.",
+      "reasoning": "Tests a single block of text output, despite split into sentences."
+    },
+    {
+      "ruleid": "9",
+      "rule": "The paragraph must remain as a single block of text.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Laughter is the best medicine. Smiles are contagious. Happiness is shared.",
+      "expectedoutput": "Laughter is the best medicine. Smiles are contagious. Happiness is shared.",
+      "reasoning": "Verifies compliance by maintaining a paragraph as a single block despite potential sentence breaks."
+    },
+    {
+      "ruleid": "9",
+      "rule": "The paragraph must remain as a single block of text.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Mountains rise. Valleys fall. Oceans expand.",
+      "expectedoutput": "Mountains rise. Valleys fall. Oceans expand.",
+      "reasoning": "Checks the single block of text maintenance contrary to sentence splitting."
+    },
+    {
+      "ruleid": "10",
+      "rule": "There must be no <p> tags in the output.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Nature is beautiful. Animals are diverse. Plants are essential.",
+      "expectedoutput": "Nature is beautiful. Animals are diverse. Plants are essential.",
+      "reasoning": "Ensures compliance of no <p> tags in the generated output."
+    },
+    {
+      "ruleid": "10",
+      "rule": "There must be no <p> tags in the output.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Love enriches life. Friendship strengthens bonds. Family supports.",
+      "expectedoutput": "Love enriches life. Friendship strengthens bonds. Family supports.",
+      "reasoning": "Checks removal of <p> tags, focusing on social relationships."
+    },
+    {
+      "ruleid": "10",
+      "rule": "There must be no <p> tags in the output.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Technology simplifies tasks. Automation increases efficiency. Growth follows innovation.",
+      "expectedoutput": "Technology simplifies tasks. Automation increases efficiency. Growth follows innovation.",
+      "reasoning": "Validates the absence of <p> tags in technology-related paragraph."
+    },
+    {
+      "ruleid": "11",
+      "rule": "Inside each paragraph, there must not be any <strong> tags.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Birds fly high. Fish swim deep. Animals roam the earth.",
+      "expectedoutput": "Birds fly high. Fish swim deep. Animals roam the earth.",
+      "reasoning": "Confirms no <strong> tags are present in the structured paragraph."
+    },
+    {
+      "ruleid": "11",
+      "rule": "Inside each paragraph, there must not be any <strong> tags.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Time passes. Memories fade. New opportunities arise.",
+      "expectedoutput": "Time passes. Memories fade. New opportunities arise.",
+      "reasoning": "Checks that no <strong> tags exist in paragraph about time and opportunities."
+    },
+    {
+      "ruleid": "11",
+      "rule": "Inside each paragraph, there must not be any <strong> tags.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Art inspires. Music intrigues. Dance liberates.",
+      "expectedoutput": "Art inspires. Music intrigues. Dance liberates.",
+      "reasoning": "Ensures the removal of <strong> tags in art-related paragraph."
+    },
+    {
+      "ruleid": "12",
+      "rule": "Inside each paragraph, there must not be any <em> tags to emphasize key words and phrases.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Dawn breaks. Day progresses. Dusk sets.",
+      "expectedoutput": "Dawn breaks. Day progresses. Dusk sets.",
+      "reasoning": "Validates that no <em> tags are used for emphasizing keywords in the paragraph."
+    },
+    {
+      "ruleid": "12",
+      "rule": "Inside each paragraph, there must not be any <em> tags to emphasize key words and phrases.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Innovation drives change. Society evolves. Culture adapts.",
+      "expectedoutput": "Innovation drives change. Society evolves. Culture adapts.",
+      "reasoning": "Checks for absence of <em> tags in change-centric paragraph."
+    },
+    {
+      "ruleid": "12",
+      "rule": "Inside each paragraph, there must not be any <em> tags to emphasize key words and phrases.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Learning is continuous. Growth is endless. Exploration is key.",
+      "expectedoutput": "Learning is continuous. Growth is endless. Exploration is key.",
+      "reasoning": "Verifies lack of <em> tags in education-themed paragraph."
+    },
+    {
+      "ruleid": "13",
+      "rule": "The output must ensure that all characters are plain text, with no HTML structure whatsoever.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "The universe is vast. Stars are numerous. Galaxies span light-years.",
+      "expectedoutput": "The universe is vast. Stars are numerous. Galaxies span light-years.",
+      "reasoning": "Ensures output maintains all characters as plain text, defying HTML structure."
+    },
+    {
+      "ruleid": "13",
+      "rule": "The output must ensure that all characters are plain text, with no HTML structure whatsoever.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Ideas ignite change. Actions cement them. Results speak volumes.",
+      "expectedoutput": "Ideas ignite change. Actions cement them. Results speak volumes.",
+      "reasoning": "Checks that no HTML tags exist by ensuring plain text compliance."
+    },
+    {
+      "ruleid": "13",
+      "rule": "The output must ensure that all characters are plain text, with no HTML structure whatsoever.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Paths intertwine. Journeys diverge. Destinations await.",
+      "expectedoutput": "Paths intertwine. Journeys diverge. Destinations await.",
+      "reasoning": "Validates the complete removal of HTML structure, presenting it solely as text."
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: The quick brown fox jumps over the lazy dog. This sentence is famous for using every letter in the English alphabet. It is often used to test typewriters and keyboards for functionality.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: The sun sets in the west. Stars begin to twinkle in the night sky. Owls hoot softly as night embraces the world.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: The cat sat on the mat. This is often seen in beginner language exercises. Such simple sentences can be powerful in teaching.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: In a distant land, there was a great kingdom. The king ruled with fairness and wisdom. People in his kingdom were happy and prosperous.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: Reading books can increase knowledge. It improves vocabulary and comprehension skills. People who read regularly tend to understand complex topics better.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: Music has the power to change the mood. Different genres appeal to different emotions. Listening to music can be a therapeutic experience for many people.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: Technology is advancing at a rapid pace. New inventions make life easier. However, they also bring challenges to privacy and security.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: Cooking can be a fun and creative activity. Trying out new recipes can be rewarding. It’s a delightful way to explore cultures.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: The rain came pouring down suddenly. Children loved splashing in the puddles. It was a scene filled with laughter and joy.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: Spring is the season of renewal. Flowers bloom and trees regain their leaves. It's a time of growth and new beginnings.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: Travel opens up new perspectives. It allows learning about different cultures. Explorers have been doing it for centuries.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: The internet has connected the world like never before. Information is now at our fingertips. This can be both a blessing and a curse.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: Dogs are known for their loyalty. They are often called man's best friend. Their companionship is cherished across the globe.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: Exercise is crucial for maintaining health. It strengthens the muscles and boosts the immune system. Regular physical activity is important for a balanced lifestyle.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: Marine life is diverse and fascinating. The ocean covers about seventy percent of Earth's surface. Preserving this vital ecosystem is crucial for biodiversity.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: Painting is a form of expression. Artists convey emotions through their work. Every brushstroke tells a part of their story.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: Sports bring people together in celebration. They teach discipline and teamwork. Watching a game can be thrilling and emotional.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: Time management is essential for productivity. It helps in prioritizing tasks effectively. People achieve more when they plan their schedule wisely.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: Gardening can be a peaceful hobby. It connects people with nature. Growing plants from seeds is a rewarding experience.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: Learning a new language opens new doors. It enhances communication skills. Multilingual individuals can work in diverse environments.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: The mountains stood towering above the village. Snow capped their peaks year-round. They were a majestic sight to behold.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: Social media has transformed how we interact. It allows for immediate communication. There are also concerns about privacy and mental health.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: Writing helps in organizing thoughts. Journals and diaries capture personal journeys. Many find solace in expressing emotions through words.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: A well-balanced diet is vital for good health. It provides necessary nutrients to the body. Eating variety is important to ensure balance in meals.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: Adventure stories captivate young minds. They introduce heroes who conquer challenges. Such tales inspire bravery and courage in readers.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: Artificial intelligence is shaping future industries. Machines are learning tasks that require human intelligence. Ethical considerations are necessary in its development.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: The forest was alive with the sound of chirping birds. Every tree stood tall and proud. Sunlight filtered through the canopy, creating patterns on the ground.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: Exploring new cities brings excitement and wonder. Architecture reveals the history of the place. Tasting local cuisine offers immersive experiences.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: The world of science offers endless possibilities. Scientists work tirelessly to make breakthroughs. Their discoveries have improved the quality of life.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: Comedy can bring joy and laughter. It helps people relax and forget worries. Stand-up comedians are skilled in delivering humor.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: Rivers flow gently through countryside terrains. They provide water and sustain life. Many civilizations have thrived on their banks.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: Fashion often reflects cultural influences. Designers innovate with colors and patterns. Trends change, but personal style remains timeless.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: Libraries are treasure troves of knowledge. They house books from diverse genres. Many people find solace in the quiet corners of a library.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: Dancing is a form of celebration. It connects people through movement and rhythm. Cultures all over the world have unique dance styles.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: Economies rely on trade and commerce. Global markets fluctuate due to various factors. Understanding these dynamics is crucial for businesses.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: Poetry captures emotions in succinct lines. Poets use words to paint vivid images. It's a powerful medium for expressing feelings and thoughts.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: The ocean's tides ebb and flow. They bring life and shape coastlines. Understanding tides is important for maritime navigation.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: Festivals bring communities together in joy. They celebrate heritage and traditions. Such gatherings spread happiness and foster unity.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: History books recount tales of past events. They provide lessons learned over time. Understanding history helps in shaping a better future.",
+      "baseline": true
+    }
+  ],
+  "testEvals": [],
+  "testResults": []
+}

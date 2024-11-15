@@ -1,0 +1,50 @@
+{
+  "prompt": "---\nname: \"Extract Names from Text\"\ndescription: \"Extract names from an input text\"\nsource: Prompt examples from the website (slightly modified)\nurl: https://www.promptingguide.ai/prompts/information-extraction/extract-models\nsample:\n    input: \"The model uses a transformer architecture with a BERT base model.\"\ninputs:\n    input:\n        type: \"string\"\n---\nsystem:\nYour task is to extract model names from machine learning paper abstracts. Your response is an array of the model names in the format [\\\"model_name\\\"]. If you don't find model names in the abstract or you are not sure, return [\\\"NA\\\"]\nuser:\nAbstract: {{input}}",
+  "inputSpec": "The input is a machine learning paper abstract.  \nThe input must be a textual string comprised of sentences and phrases from an academic paper abstract.  \nThe input can include technical terms, acronyms, and specific model names.",
+  "rules": [
+    "The output must be structured as an array with the specific format [\"model_name\"], where \"model_name\" represents the name of a machine learning model extracted from the abstract.",
+    "Each element within the output array should be a distinct string representing an extracted model name.",
+    "If no model names are found in the provided abstract or there is uncertainty regarding the identification of a model name, the output must be [\"NA\"], using exactly this format including the square brackets and quotation marks.",
+    "The output must only contain model names extracted from the abstract or [\"NA\"] if no model names are identified, without any additional text, explanations, or context.",
+    "The array must only contain correctly identified machine learning model names from the abstract as individual strings, ensuring precision in the identification process.",
+    "The order of model names in the array should reflect their order of appearance in the abstract, but this does not affect the requirement that the structure and format of the array are correct."
+  ],
+  "inverseRules": [
+    "[\"unstructured_output_must_not_use_specific_format\"]",
+    "[\"each_element_in_output_can_be_repeated_and_is_not_distinct\"]",
+    "[\"output_can_be_an_empty_list_if_no_model_names_are_found\"]",
+    "[\"output_may_contain_any_text_explanation_or_context\"]",
+    "[\"output_array_must_include_non_machine_learning_names_as_well\"]",
+    "[\"model_names_order_can_be_random_and_structure_format_is_non_essential\"]"
+  ],
+  "tests": [
+    {
+      "ruleid": "1",
+      "rule": "The output must be structured as an array with the specific format [\"model_name\"], where \"model_name\" represents the name of a machine learning model extracted from the abstract.",
+      "testid": "1",
+      "testinput": "Abstract: We introduce NeuralMachineModel, a robust framework for image processing tasks.",
+      "expectedoutput": "[\"NeuralMachineModel\"]",
+      "reasoning": "Tests the basic functionality by including one clear model name. Ensures the correct format of a single model name is used."
+    },
+    {
+      "ruleid": "1",
+      "rule": "The output must be structured as an array with the specific format [\"model_name\"], where \"model_name\" represents the name of a machine learning model extracted from the abstract.",
+      "testid": "2",
+      "testinput": "Abstract: This paper proposes a novel architecture called QuantumNet for quantum computing applications.",
+      "expectedoutput": "[\"QuantumNet\"]",
+      "reasoning": "Includes another model name to verify the extraction and correct output structure with a distinct model name."
+    },
+    {
+      "ruleid": null,
+      "testinput": "Abstract: In this paper, we introduce a novel architecture called \"DeepVisionNet\" that significantly improves image classification accuracy. Unlike traditional convolutional neural networks, our model utilizes a fusion of transformer and residual networks, which we refer to as \"FusionTransformerNet\", to enhance feature extraction. Comparative studies with models such as \"ResNet50\" and \"EfficientNet\" demonstrate the superiority of our proposed models.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Abstract: The new \"GeoBERT\" model is presented, offering groundbreaking outcomes in geospatial data interpretation. In contrast, existing solutions like \"GeoSentimentNet\" are limited in processing multilingual datasets. We also benchmark against \"SpatialTransformer\" and \"GeoMLP\" to validate performance enhancements. The experimental results depict GeoBERT’s exceptional ability over \"GeoSentimentNet\".",
+      "baseline": true
+    }
+  ],
+  "testEvals": [],
+  "testResults": []
+}
