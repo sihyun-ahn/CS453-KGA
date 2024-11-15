@@ -7,6 +7,7 @@
 ### Overview
 
 <details><summary>Glossary</summary>
+    
 - Prompt Under Test (PUT) - like Program Under Test; the prompt
 - Model Under Test (MUT) - Model which we are testing against with specific temperature, etc example: gpt-4o-mini
 - Model Used by PromptPex (MPP) - gpt-4o
@@ -25,6 +26,7 @@
 
 - Test Output (TO) - Result generated for PPT and BT on PUT with each MUT
 - Test Output Compliance (TOC) - Checking if TO meets the constraints in PUT using MPP
+
 </details>
 
 
