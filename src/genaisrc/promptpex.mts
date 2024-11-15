@@ -163,7 +163,7 @@ function modelOptions(): PromptGeneratorOptions {
     model: "large",
     temperature: 1,
     // RAI must be checked by an external service
-    system: []
+    system: [],
   };
 }
 
@@ -860,6 +860,9 @@ export function computeOverview(
         ["tests compliant"]: norm(
           results.filter((tr) => tr.rule && tr.compliance === "ok").length
         ),
+        ["baseline compliant"]: bnorm(
+          results.filter((tr) => !tr.rule && tr.compliance === "ok").length
+        ),
         ["tests positive"]: norm(
           results.filter((tr) => tr.rule && !tr.inverse).length
         ),
@@ -877,9 +880,6 @@ export function computeOverview(
           ).length
         ),
         baseline,
-        ["baseline compliant"]: bnorm(
-          results.filter((tr) => !tr.rule && tr.compliance === "ok").length
-        ),
         ["tests valid"]: bnorm(
           results.filter(
             (tr) =>
@@ -953,7 +953,7 @@ export async function generateMarkdownReport(files: PromptPexContext) {
 - Test Output Compliance (TOC) - Checking if TO meets the constraints in PUT using MPP
 </details>
 `);
-  const { overview } = computeOverview(files, { percent: true });
+  const { overview } = computeOverview(files, { percent: false });
   await workspace.writeText(
     path.join(files.dir, "overview.csv"),
     CSV.stringify(overview, { header: true })

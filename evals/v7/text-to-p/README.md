@@ -31,12 +31,12 @@
 
 ### [test_results.csv](./test_results.csv)
 
-|model|tests|tests compliant|tests positive|tests positive compliant|tests negative|tests negative compliant|baseline|baseline compliant|tests valid|tests valid compliant|
+|model|tests|tests compliant|baseline compliant|tests positive|tests positive compliant|tests negative|tests negative compliant|baseline|tests valid|tests valid compliant|
 |-|-|-|-|-|-|-|-|-|-|-|
-|gpt\-4o\-mini|39|85%|54%|46%|46%|38%|39|95%|82%|72%|
-|gemma2:9b|39|77%|54%|46%|46%|31%|39|62%|82%|62%|
-|qwen2\.5:3b|39|28%|54%|21%|46%|8%|39|31%|82%|23%|
-|llama3\.2:1b|39|5%|54%|5%|46%|0%|39|3%|82%|5%|
+|gpt\-4o\-mini|39|33|37|21|18|18|15|39|32|28|
+|gemma2:9b|39|30|24|21|18|18|12|39|32|24|
+|qwen2\.5:3b|39|11|12|21|8|18|3|39|32|9|
+|llama3\.2:1b|39|2|1|21|2|18|0|39|32|2|
 
 ### [text-to-p.prompty](./text-to-p.prompty)
 
