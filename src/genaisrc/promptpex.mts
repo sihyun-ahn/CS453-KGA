@@ -828,7 +828,11 @@ function addLineNumbers(text: string, start: number) {
     .join("\n");
 }
 
-export function computeOverview(files: PromptPexContext) {
+export function computeOverview(
+  files: PromptPexContext,
+  options?: { percent?: boolean }
+) {
+  const { percent } = options || {};
   const testResults = parseTestResults(files);
   const testEvals = parseTestEvals(files);
   const testResultsPerModels = testResults.reduce(
@@ -842,35 +846,56 @@ export function computeOverview(files: PromptPexContext) {
     {} as Record<string, PromptPexTestResult[]>
   );
   const overview = Object.entries(testResultsPerModels).map(
-    ([model, results]) => ({
-      model,
-      tests: results.filter((tr) => tr.rule).length,
-      ["tests compliant"]: results.filter(
-        (tr) => tr.rule && tr.compliance === "ok"
-      ).length,
-      ["tests positive"]: results.filter((tr) => tr.rule && !tr.inverse).length,
-      ["tests positive compliant"]: results.filter(
-        (tr) => tr.rule && !tr.inverse && tr.compliance === "ok"
-      ).length,
-      ["tests negative"]: results.filter((tr) => tr.rule && tr.inverse).length,
-      ["tests negative compliant"]: results.filter(
-        (tr) => tr.rule && tr.inverse && tr.compliance === "ok"
-      ).length,
-      baseline: results.filter((tr) => !tr.rule).length,
-      ["baseline compliant"]: results.filter(
-        (tr) => !tr.rule && tr.compliance === "ok"
-      ).length,
-      ["tests valid"]: results.filter(
-        (tr) =>
-          tr.rule && testEvals.find((te) => te.id === tr.id)?.validity === "ok"
-      ).length,
-      ["tests valid compliant"]: results.filter(
-        (tr) =>
-          tr.rule &&
-          tr.compliance === "ok" &&
-          testEvals.find((te) => te.id === tr.id)?.validity === "ok"
-      ).length,
-    })
+    ([model, results]) => {
+      const tests = results.filter((tr) => tr.rule).length;
+      const norm = (v: number) =>
+        percent ? Math.round((v / tests) * 100) + "%" : v;
+      const baseline = results.filter((tr) => !tr.rule).length;
+      const bnorm = (v: number) =>
+        percent ? Math.round((v / baseline) * 100) + "%" : v;
+      return {
+        model,
+        tests,
+        ["tests compliant"]: norm(
+          results.filter((tr) => tr.rule && tr.compliance === "ok").length
+        ),
+        ["tests positive"]: norm(
+          results.filter((tr) => tr.rule && !tr.inverse).length
+        ),
+        ["tests positive compliant"]: norm(
+          results.filter(
+            (tr) => tr.rule && !tr.inverse && tr.compliance === "ok"
+          ).length
+        ),
+        ["tests negative"]: norm(
+          results.filter((tr) => tr.rule && tr.inverse).length
+        ),
+        ["tests negative compliant"]: norm(
+          results.filter(
+            (tr) => tr.rule && tr.inverse && tr.compliance === "ok"
+          ).length
+        ),
+        baseline,
+        ["baseline compliant"]: bnorm(
+          results.filter((tr) => !tr.rule && tr.compliance === "ok").length
+        ),
+        ["tests valid"]: bnorm(
+          results.filter(
+            (tr) =>
+              tr.rule &&
+              testEvals.find((te) => te.id === tr.id)?.validity === "ok"
+          ).length
+        ),
+        ["tests valid compliant"]: bnorm(
+          results.filter(
+            (tr) =>
+              tr.rule &&
+              tr.compliance === "ok" &&
+              testEvals.find((te) => te.id === tr.id)?.validity === "ok"
+          ).length
+        ),
+      };
+    }
   );
   return {
     testResults,
@@ -927,7 +952,7 @@ export async function generateMarkdownReport(files: PromptPexContext) {
 - Test Output Compliance (TOC) - Checking if TO meets the constraints in PUT using MPP
 </details>
 `);
-  const { overview } = computeOverview(files);
+  const { overview } = computeOverview(files, { percent: true });
   await workspace.writeText(
     path.join(files.dir, "overview.csv"),
     CSV.stringify(overview, { header: true })

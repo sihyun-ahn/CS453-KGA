@@ -80,15 +80,12 @@ for (const files of prompts) {
       forceExecuteTests,
       models,
     });
-    const { testEvals, overview } = computeOverview(ctx);
+    const { testEvals, overview } = computeOverview(ctx, { percent: true });
     res.push({
       prompt: files.name,
       tests: testEvals.length,
       ...Object.fromEntries(
-        overview.map((o) => [
-          o.model,
-          Math.round((o["tests compliant"] / o.tests) * 100) + "%",
-        ])
+        overview.map((o) => [o.model, o["tests compliant"]])
       ),
     });
   } catch (e) {
