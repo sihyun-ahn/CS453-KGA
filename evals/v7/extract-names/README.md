@@ -3,10 +3,12 @@
 - 6 rules
 - 6 inverse rules
 - 4 tests, 2 baseline tests
+- 16 test results, 13/16 (81%) oks, 3/16 (18%) errs
 
 ### Overview
 
 <details><summary>Glossary</summary>
+    
 - Prompt Under Test (PUT) - like Program Under Test; the prompt
 - Model Under Test (MUT) - Model which we are testing against with specific temperature, etc example: gpt-4o-mini
 - Model Used by PromptPex (MPP) - gpt-4o
@@ -25,12 +27,18 @@
 
 - Test Output (TO) - Result generated for PPT and BT on PUT with each MUT
 - Test Output Compliance (TOC) - Checking if TO meets the constraints in PUT using MPP
+
 </details>
 
 
 ### [test_results.csv](./test_results.csv)
 
-
+|model|tests|tests compliant|baseline compliant|tests positive|tests positive compliant|tests negative|tests negative compliant|baseline|tests valid|tests valid compliant|
+|-|-|-|-|-|-|-|-|-|-|-|
+|gpt\-4o\-mini|2|100%|100%|2|2|0|0|2|2|2|
+|gemma2:9b|2|100%|100%|2|2|0|0|2|2|2|
+|qwen2\.5:3b|2|100%|100%|2|2|0|0|2|2|2|
+|llama3\.2:1b|2|0%|50%|2|0|0|0|2|2|0|
 
 ### [extract-names.prompty](./extract-names.prompty)
 
@@ -52,6 +60,27 @@ user:
 Abstract: {{input}}
 `````
 
+
+### [test_results.csv](./test_results.csv)
+
+|model|rule|input|output|compliance|
+|-|-|-|-|-|
+|gpt\-4o\-mini|The output must be structured as an array with the specific format \["model\_name"\], where "model\_name" represents the name of a machine learning model extracted from the abstract\.|Abstract: We introduce NeuralMachineModel, a robust framework for image processing tasks\.|\["NeuralMachineModel"\]|ok|
+|gemma2:9b|The output must be structured as an array with the specific format \["model\_name"\], where "model\_name" represents the name of a machine learning model extracted from the abstract\.|Abstract: We introduce NeuralMachineModel, a robust framework for image processing tasks\.|\["NeuralMachineModel", "NeuralMachineModel"\]|ok|
+|qwen2\.5:3b|The output must be structured as an array with the specific format \["model\_name"\], where "model\_name" represents the name of a machine learning model extracted from the abstract\.|Abstract: We introduce NeuralMachineModel, a robust framework for image processing tasks\.|\[\["NeuralMachineModel"\]\]|ok|
+|llama3\.2:1b|The output must be structured as an array with the specific format \["model\_name"\], where "model\_name" represents the name of a machine learning model extracted from the abstract\.|Abstract: We introduce NeuralMachineModel, a robust framework for image processing tasks\.|\[\]|err|
+|gpt\-4o\-mini|The output must be structured as an array with the specific format \["model\_name"\], where "model\_name" represents the name of a machine learning model extracted from the abstract\.|Abstract: This paper proposes a novel architecture called QuantumNet for quantum computing applications\.|\["QuantumNet"\]|ok|
+|gemma2:9b|The output must be structured as an array with the specific format \["model\_name"\], where "model\_name" represents the name of a machine learning model extracted from the abstract\.|Abstract: This paper proposes a novel architecture called QuantumNet for quantum computing applications\.|\["QuantumNet"\]|ok|
+|qwen2\.5:3b|The output must be structured as an array with the specific format \["model\_name"\], where "model\_name" represents the name of a machine learning model extracted from the abstract\.|Abstract: This paper proposes a novel architecture called QuantumNet for quantum computing applications\.|\[\["QuantumNet"\]\]|ok|
+|llama3\.2:1b|The output must be structured as an array with the specific format \["model\_name"\], where "model\_name" represents the name of a machine learning model extracted from the abstract\.|Abstract: This paper proposes a novel architecture called QuantumNet for quantum computing applications\.|\[\]|err|
+|gpt\-4o\-mini||Abstract: In this paper, we introduce a novel architecture called "DeepVisionNet" that significantly improves image classification accuracy\. Unlike traditional convolutional neural networks, our model utilizes a fusion of transformer and residual networks, which we refer to as "FusionTransformerNet", to enhance feature extraction\. Comparative studies with models such as "ResNet50" and "EfficientNet" demonstrate the superiority of our proposed models\.|\["DeepVisionNet", "FusionTransformerNet", "ResNet50", "EfficientNet"\]|ok|
+|gemma2:9b||Abstract: In this paper, we introduce a novel architecture called "DeepVisionNet" that significantly improves image classification accuracy\. Unlike traditional convolutional neural networks, our model utilizes a fusion of transformer and residual networks, which we refer to as "FusionTransformerNet", to enhance feature extraction\. Comparative studies with models such as "ResNet50" and "EfficientNet" demonstrate the superiority of our proposed models\.|\["DeepVisionNet", "FusionTransformerNet", "ResNet50", "EfficientNet"\]|ok|
+|qwen2\.5:3b||Abstract: In this paper, we introduce a novel architecture called "DeepVisionNet" that significantly improves image classification accuracy\. Unlike traditional convolutional neural networks, our model utilizes a fusion of transformer and residual networks, which we refer to as "FusionTransformerNet", to enhance feature extraction\. Comparative studies with models such as "ResNet50" and "EfficientNet" demonstrate the superiority of our proposed models\.|\["DeepVisionNet", "FusionTransformerNet"\]|ok|
+|llama3\.2:1b||Abstract: In this paper, we introduce a novel architecture called "DeepVisionNet" that significantly improves image classification accuracy\. Unlike traditional convolutional neural networks, our model utilizes a fusion of transformer and residual networks, which we refer to as "FusionTransformerNet", to enhance feature extraction\. Comparative studies with models such as "ResNet50" and "EfficientNet" demonstrate the superiority of our proposed models\.|Here are the model names extracted from the abstracts in the format \[\\"model\_name\\"\]:<br><br>\[\\"DeepVisionNet\\"\]<br>\[\\"FusionTransformerNet\\"\]<br>\[N/A\]|err|
+|gpt\-4o\-mini||Abstract: The new "GeoBERT" model is presented, offering groundbreaking outcomes in geospatial data interpretation\. In contrast, existing solutions like "GeoSentimentNet" are limited in processing multilingual datasets\. We also benchmark against "SpatialTransformer" and "GeoMLP" to validate performance enhancements\. The experimental results depict GeoBERT’s exceptional ability over "GeoSentimentNet"\.|\["GeoBERT", "GeoSentimentNet", "SpatialTransformer", "GeoMLP"\]|ok|
+|gemma2:9b||Abstract: The new "GeoBERT" model is presented, offering groundbreaking outcomes in geospatial data interpretation\. In contrast, existing solutions like "GeoSentimentNet" are limited in processing multilingual datasets\. We also benchmark against "SpatialTransformer" and "GeoMLP" to validate performance enhancements\. The experimental results depict GeoBERT’s exceptional ability over "GeoSentimentNet"\.|\["GeoBERT", "GeoSentimentNet", "SpatialTransformer", "GeoMLP"\]|ok|
+|qwen2\.5:3b||Abstract: The new "GeoBERT" model is presented, offering groundbreaking outcomes in geospatial data interpretation\. In contrast, existing solutions like "GeoSentimentNet" are limited in processing multilingual datasets\. We also benchmark against "SpatialTransformer" and "GeoMLP" to validate performance enhancements\. The experimental results depict GeoBERT’s exceptional ability over "GeoSentimentNet"\.|\[\["GeoBERT", "GeoSentimentNet", "SpatialTransformer", "GeoMLP"\]\]|ok|
+|llama3\.2:1b||Abstract: The new "GeoBERT" model is presented, offering groundbreaking outcomes in geospatial data interpretation\. In contrast, existing solutions like "GeoSentimentNet" are limited in processing multilingual datasets\. We also benchmark against "SpatialTransformer" and "GeoMLP" to validate performance enhancements\. The experimental results depict GeoBERT’s exceptional ability over "GeoSentimentNet"\.|Here is the extracted model names from the paper abstracts:<br><br>\["GeoBERT", "Geo SentimentNet"\]|ok|
 
 ### [intent.txt](./intent.txt)
 
@@ -99,6 +128,13 @@ The input can include technical terms, acronyms, and specific model names.
 |-|-|-|
 |Abstract: We introduce NeuralMachineModel, a robust framework for image processing tasks\.|\["NeuralMachineModel"\]|Tests the basic functionality by including one clear model name\. Ensures the correct format of a single model name is used\.|
 |Abstract: This paper proposes a novel architecture called QuantumNet for quantum computing applications\.|\["QuantumNet"\]|Includes another model name to verify the extraction and correct output structure with a distinct model name\.|
+
+### [test_evals.csv](./test_evals.csv)
+
+|rule|model|input|coverage|validity|
+|-|-|-|-|-|
+|The output must be structured as an array with the specific format \["model\_name"\], where "model\_name" represents the name of a machine learning model extracted from the abstract\.|gpt\-4o\-2024\-08\-06|Abstract: We introduce NeuralMachineModel, a robust framework for image processing tasks\.|\["NeuralMachineModel"\]|ok|
+|The output must be structured as an array with the specific format \["model\_name"\], where "model\_name" represents the name of a machine learning model extracted from the abstract\.|gpt\-4o\-2024\-08\-06|Abstract: This paper proposes a novel architecture called QuantumNet for quantum computing applications\.|\["QuantumNet"\]|ok|
 
 ### [baseline_tests.txt](./baseline_tests.txt)
 
