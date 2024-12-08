@@ -1,0 +1,510 @@
+{
+  "prompt": "---\nname: Speech Tag\ndescription: Determine the part of speech for a given word\nsource: \"modified from 'SAMMO: A general-purpose framework for prompt optimization'\"\nurl: https://www.microsoft.com/en-us/research/uploads/prod/2024/04/Prompts-As-Programs_A-Structure-Aware-Approach.pdf\ninputs:\n    sentenceword:\n        type: string\nsample:\n    sentenceword: \"The quick brown fox jumps over the lazy dog.; jumps\"\n---\nsystem:\nIn this task, you will be presented with a sentence and a word contained\nin that sentence. You have to determine the part of speech for a given word\nand return just the tag for the word's part of speech. \n\nReturn only the part of speech tag.  If the word cannot be tagged with\nthe listed tags, return Unknown.  If you are unable to tag the word, return\nCantAnswer.\n\nHere is the\nAlphabetical list of part-of-speech tags used in this task: CC: Coordinating conjunction, CD: Cardinal number, DT:\nDeterminer, EX: Existential there, FW: Foreign word, IN: Preposition or subordinating conjunction, JJ: Adjective, JJR:\nAdjective, comparative, JJS: Adjective, superlative, LS: List item marker, MD: Modal, NN: Noun, singular or mass, NNS: Noun,\nplural, NNP: Proper noun, singular, NNPS: Proper noun, plural, PDT: Predeterminer, POS: Possessive ending, PRP: Personal\npronoun, PRP$: Possessive pronoun, RB: Adverb, RBR: Adverb, comparative, RBS: Adverb, superlative, RP: Particle, SYM: Symbol,\nTO: to, UH: Interjection, VB: Verb, base form, VBD: Verb, past tense, VBG: Verb, gerund or present participle, VBN: Verb,\npast participle, VBP: Verb, non-3rd person singular present, VBZ: Verb, 3rd person singular present, WDT: Wh-determiner, WP:\nWh-pronoun, WP$: Possessive wh-pronoun, WRB: Wh-adverb\nuser:\n{{sentenceword}}",
+  "inputSpec": "The input is a sentence and a word contained in that sentence.\nThe sentence can be any string of words.\nThe sentence may include punctuation and symbols.\nThe word is a word present in the sentence.\nThere is no restriction on the length of the sentence.\nThere is no restriction on the length of the word.",
+  "rules": [
+    "The output is a single string containing only the part-of-speech tag corresponding to the given word in the provided sentence.",
+    "The part-of-speech tag must be one of the predefined uppercase abbreviations provided in the list, such as 'NN', 'VBD', 'JJ', etc.",
+    "If the given word cannot be tagged with any of the predefined part-of-speech tags, the output is the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters.",
+    "If the assistant is unable to determine the part-of-speech tag for the word for any reason, the output is the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters.",
+    "The output contains only the required part-of-speech tag or the words 'Unknown' or 'CantAnswer', with no additional text, punctuation, or formatting.",
+    "All outputs must be exactly as specified, without any additional spaces, explanations, or characters."
+  ],
+  "inverseRules": [
+    "The output is not a single string containing only the part-of-speech tag corresponding to the given word in the provided sentence.",
+    "The part-of-speech tag must not be one of the predefined uppercase abbreviations provided in the list, such as 'NN', 'VBD', 'JJ', etc.",
+    "If the given word cannot be tagged with any of the predefined part-of-speech tags, the output is not the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters.",
+    "If the assistant is unable to determine the part-of-speech tag for the word for any reason, the output is not the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters.",
+    "The output may contain additional text, punctuation, or formatting beyond the required part-of-speech tag or the words 'Unknown' or 'CantAnswer'.",
+    "Outputs may include additional spaces, explanations, or characters, and may not be exactly as specified."
+  ],
+  "tests": [
+    {
+      "ruleid": "1",
+      "rule": "The output is a single string containing only the part-of-speech tag corresponding to the given word in the provided sentence.",
+      "testid": "1",
+      "testinput": "Sentence: 'The cat sat on the mat.' Word: 'cat'",
+      "expectedoutput": "NN",
+      "reasoning": "This test checks that the software outputs only the POS tag 'NN' for the word 'cat', adhering to Rule 1."
+    },
+    {
+      "ruleid": "1",
+      "rule": "The output is a single string containing only the part-of-speech tag corresponding to the given word in the provided sentence.",
+      "testid": "2",
+      "testinput": "Sentence: 'He is running fast.' Word: 'running'",
+      "expectedoutput": "VBG",
+      "reasoning": "This test ensures the software outputs only 'VBG' for 'running', complying with Rule 1."
+    },
+    {
+      "ruleid": "1",
+      "rule": "The output is a single string containing only the part-of-speech tag corresponding to the given word in the provided sentence.",
+      "testid": "3",
+      "testinput": "Sentence: 'Wow, that is amazing!' Word: 'Wow'",
+      "expectedoutput": "UH",
+      "reasoning": "This test verifies that only the POS tag 'UH' is returned for 'Wow', as per Rule 1."
+    },
+    {
+      "ruleid": "2",
+      "rule": "The part-of-speech tag must be one of the predefined uppercase abbreviations provided in the list, such as 'NN', 'VBD', 'JJ', etc.",
+      "testid": "1",
+      "testinput": "Sentence: 'She reads books every day.' Word: 'reads'",
+      "expectedoutput": "VBZ",
+      "reasoning": "This test confirms that 'reads' is tagged as 'VBZ', a predefined tag, following Rule 2."
+    },
+    {
+      "ruleid": "2",
+      "rule": "The part-of-speech tag must be one of the predefined uppercase abbreviations provided in the list, such as 'NN', 'VBD', 'JJ', etc.",
+      "testid": "2",
+      "testinput": "Sentence: 'He has a red apple.' Word: 'red'",
+      "expectedoutput": "JJ",
+      "reasoning": "This test checks that 'red' is correctly tagged as 'JJ', a predefined POS tag, adhering to Rule 2."
+    },
+    {
+      "ruleid": "2",
+      "rule": "The part-of-speech tag must be one of the predefined uppercase abbreviations provided in the list, such as 'NN', 'VBD', 'JJ', etc.",
+      "testid": "3",
+      "testinput": "Sentence: 'They are going to school.' Word: 'to'",
+      "expectedoutput": "TO",
+      "reasoning": "This test ensures that 'to' is tagged as 'TO', one of the predefined tags, complying with Rule 2."
+    },
+    {
+      "ruleid": "3",
+      "rule": "If the given word cannot be tagged with any of the predefined part-of-speech tags, the output is the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters.",
+      "testid": "1",
+      "testinput": "Sentence: 'He said blorf yesterday.' Word: 'blorf'",
+      "expectedoutput": "Unknown",
+      "reasoning": "This test checks that for an untaggable word 'blorf', the software outputs 'Unknown', as specified in Rule 3."
+    },
+    {
+      "ruleid": "3",
+      "rule": "If the given word cannot be tagged with any of the predefined part-of-speech tags, the output is the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters.",
+      "testid": "2",
+      "testinput": "Sentence: 'The qwerty jumped over the lazy dog.' Word: 'qwerty'",
+      "expectedoutput": "Unknown",
+      "reasoning": "This test ensures that 'qwerty', an unknown word, results in 'Unknown', following Rule 3."
+    },
+    {
+      "ruleid": "3",
+      "rule": "If the given word cannot be tagged with any of the predefined part-of-speech tags, the output is the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters.",
+      "testid": "3",
+      "testinput": "Sentence: 'She smiled :) after hearing the news.' Word: ':)'",
+      "expectedoutput": "Unknown",
+      "reasoning": "This test verifies that an emoticon ':)' is tagged as 'Unknown', adhering to Rule 3."
+    },
+    {
+      "ruleid": "4",
+      "rule": "If the assistant is unable to determine the part-of-speech tag for the word for any reason, the output is the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters.",
+      "testid": "1",
+      "testinput": "Sentence: '' Word: 'hello'",
+      "expectedoutput": "CantAnswer",
+      "reasoning": "This test checks that with an empty sentence, the output is 'CantAnswer', as the POS tag cannot be determined, per Rule 4."
+    },
+    {
+      "ruleid": "4",
+      "rule": "If the assistant is unable to determine the part-of-speech tag for the word for any reason, the output is the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters.",
+      "testid": "2",
+      "testinput": "Sentence: 'He said привет yesterday.' Word: 'привет'",
+      "expectedoutput": "CantAnswer",
+      "reasoning": "This test ensures that non-English word 'привет' results in 'CantAnswer', complying with Rule 4."
+    },
+    {
+      "ruleid": "4",
+      "rule": "If the assistant is unable to determine the part-of-speech tag for the word for any reason, the output is the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters.",
+      "testid": "3",
+      "testinput": "Sentence: 'He whispered something quietly.' Word: 'some~thing'",
+      "expectedoutput": "CantAnswer",
+      "reasoning": "This test verifies that the irregular word 'some~thing' leads to 'CantAnswer', as specified in Rule 4."
+    },
+    {
+      "ruleid": "5",
+      "rule": "The output contains only the required part-of-speech tag or the words 'Unknown' or 'CantAnswer', with no additional text, punctuation, or formatting.",
+      "testid": "1",
+      "testinput": "Sentence: 'She sings beautifully.' Word: 'sings'",
+      "expectedoutput": "VBZ",
+      "reasoning": "This test confirms that only 'VBZ' is output for 'sings', with no extra text, adhering to Rule 5."
+    },
+    {
+      "ruleid": "5",
+      "rule": "The output contains only the required part-of-speech tag or the words 'Unknown' or 'CantAnswer', with no additional text, punctuation, or formatting.",
+      "testid": "2",
+      "testinput": "Sentence: 'They quickly ran away.' Word: 'quickly'",
+      "expectedoutput": "RB",
+      "reasoning": "This test ensures the output is 'RB' for 'quickly', without additional text, following Rule 5."
+    },
+    {
+      "ruleid": "5",
+      "rule": "The output contains only the required part-of-speech tag or the words 'Unknown' or 'CantAnswer', with no additional text, punctuation, or formatting.",
+      "testid": "3",
+      "testinput": "Sentence: 'I will call you tomorrow.' Word: 'tomorrow'",
+      "expectedoutput": "NN",
+      "reasoning": "This test verifies that only 'NN' is returned for 'tomorrow', complying with Rule 5."
+    },
+    {
+      "ruleid": "6",
+      "rule": "All outputs must be exactly as specified, without any additional spaces, explanations, or characters.",
+      "testid": "1",
+      "testinput": "Sentence: 'This is a test.' Word: 'test'",
+      "expectedoutput": "NN",
+      "reasoning": "This test checks that the output is exactly 'NN', with no extra spaces or characters, as per Rule 6."
+    },
+    {
+      "ruleid": "6",
+      "rule": "All outputs must be exactly as specified, without any additional spaces, explanations, or characters.",
+      "testid": "2",
+      "testinput": "Sentence: 'He arrived late.' Word: 'late'",
+      "expectedoutput": "RB",
+      "reasoning": "This test ensures that 'late' is tagged as 'RB' precisely, adhering to Rule 6."
+    },
+    {
+      "ruleid": "6",
+      "rule": "All outputs must be exactly as specified, without any additional spaces, explanations, or characters.",
+      "testid": "3",
+      "testinput": "Sentence: 'The book is interesting.' Word: 'interesting'",
+      "expectedoutput": "JJ",
+      "reasoning": "This test confirms that only 'JJ' is output for 'interesting', following Rule 6."
+    },
+    {
+      "ruleid": "7",
+      "rule": "The output is not a single string containing only the part-of-speech tag corresponding to the given word in the provided sentence.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Sentence: 'She is reading a book.' Word: 'reading'",
+      "expectedoutput": "The POS tag for 'reading' is VBG.",
+      "reasoning": "This test checks that the output includes additional text, not just the POS tag, complying with Rule 7."
+    },
+    {
+      "ruleid": "7",
+      "rule": "The output is not a single string containing only the part-of-speech tag corresponding to the given word in the provided sentence.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Sentence: 'They arrived late.' Word: 'late'",
+      "expectedoutput": "RB (adverb)",
+      "reasoning": "This test ensures the output provides more information than just 'RB', adhering to Rule 7."
+    },
+    {
+      "ruleid": "7",
+      "rule": "The output is not a single string containing only the part-of-speech tag corresponding to the given word in the provided sentence.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Sentence: 'He bought apples.' Word: 'apples'",
+      "expectedoutput": "The word 'apples' is a plural noun (NNS).",
+      "reasoning": "This test verifies that the output is not a single POS tag, as specified in Rule 7."
+    },
+    {
+      "ruleid": "8",
+      "rule": "The part-of-speech tag must not be one of the predefined uppercase abbreviations provided in the list, such as 'NN', 'VBD', 'JJ', etc.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Sentence: 'She sings beautifully.' Word: 'sings'",
+      "expectedoutput": "Verb",
+      "reasoning": "This test checks that 'sings' is tagged as 'Verb' instead of 'VBZ', complying with Rule 8."
+    },
+    {
+      "ruleid": "8",
+      "rule": "The part-of-speech tag must not be one of the predefined uppercase abbreviations provided in the list, such as 'NN', 'VBD', 'JJ', etc.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Sentence: 'He has a red car.' Word: 'red'",
+      "expectedoutput": "Adjective",
+      "reasoning": "This test ensures that 'red' is labeled 'Adjective' rather than 'JJ', following Rule 8."
+    },
+    {
+      "ruleid": "8",
+      "rule": "The part-of-speech tag must not be one of the predefined uppercase abbreviations provided in the list, such as 'NN', 'VBD', 'JJ', etc.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Sentence: 'They play soccer every weekend.' Word: 'play'",
+      "expectedoutput": "Verb",
+      "reasoning": "This test confirms that 'play' is tagged as 'Verb', not 'VBP', adhering to Rule 8."
+    },
+    {
+      "ruleid": "9",
+      "rule": "If the given word cannot be tagged with any of the predefined part-of-speech tags, the output is not the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Sentence: 'He said blorf yesterday.' Word: 'blorf'",
+      "expectedoutput": "Unrecognized word",
+      "reasoning": "This test checks that the output is not 'Unknown' for 'blorf', complying with Rule 9."
+    },
+    {
+      "ruleid": "9",
+      "rule": "If the given word cannot be tagged with any of the predefined part-of-speech tags, the output is not the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Sentence: 'Please fix the asdkjfh.' Word: 'asdkjfh'",
+      "expectedoutput": "Word cannot be tagged",
+      "reasoning": "This test ensures a different message than 'Unknown' is returned, following Rule 9."
+    },
+    {
+      "ruleid": "9",
+      "rule": "If the given word cannot be tagged with any of the predefined part-of-speech tags, the output is not the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Sentence: 'She smiled :).' Word: ':)'",
+      "expectedoutput": "Not applicable",
+      "reasoning": "This test verifies that the output is not 'Unknown' for ':)', as specified in Rule 9."
+    },
+    {
+      "ruleid": "10",
+      "rule": "If the assistant is unable to determine the part-of-speech tag for the word for any reason, the output is not the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Sentence: '' Word: 'hello'",
+      "expectedoutput": "No sentence provided",
+      "reasoning": "This test checks that 'CantAnswer' is not output when the sentence is empty, complying with Rule 10."
+    },
+    {
+      "ruleid": "10",
+      "rule": "If the assistant is unable to determine the part-of-speech tag for the word for any reason, the output is not the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Sentence: 'He said привет.' Word: 'привет'",
+      "expectedoutput": "Unable to process non-English characters",
+      "reasoning": "This test ensures a different output than 'CantAnswer' for 'привет', following Rule 10."
+    },
+    {
+      "ruleid": "10",
+      "rule": "If the assistant is unable to determine the part-of-speech tag for the word for any reason, the output is not the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Sentence: 'The value is 100%.' Word: '100%'",
+      "expectedoutput": "Cannot tag symbols",
+      "reasoning": "This test verifies that 'CantAnswer' is not returned for '100%', adhering to Rule 10."
+    },
+    {
+      "ruleid": "11",
+      "rule": "The output may contain additional text, punctuation, or formatting beyond the required part-of-speech tag or the words 'Unknown' or 'CantAnswer'.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Sentence: 'She sang a song.' Word: 'sang'",
+      "expectedoutput": "VBD!",
+      "reasoning": "This test checks that the output includes punctuation, complying with Rule 11."
+    },
+    {
+      "ruleid": "11",
+      "rule": "The output may contain additional text, punctuation, or formatting beyond the required part-of-speech tag or the words 'Unknown' or 'CantAnswer'.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Sentence: 'He is fast.' Word: 'fast'",
+      "expectedoutput": "[RB]",
+      "reasoning": "This test ensures the output has additional formatting, following Rule 11."
+    },
+    {
+      "ruleid": "11",
+      "rule": "The output may contain additional text, punctuation, or formatting beyond the required part-of-speech tag or the words 'Unknown' or 'CantAnswer'.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Sentence: 'They are running.' Word: 'running'",
+      "expectedoutput": "VBG - Verb, gerund",
+      "reasoning": "This test verifies that extra explanation is included, adhering to Rule 11."
+    },
+    {
+      "ruleid": "12",
+      "rule": "Outputs may include additional spaces, explanations, or characters, and may not be exactly as specified.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Sentence: 'It's a beautiful day.' Word: 'beautiful'",
+      "expectedoutput": "JJ ",
+      "reasoning": "This test checks that the output includes an extra space, complying with Rule 12."
+    },
+    {
+      "ruleid": "12",
+      "rule": "Outputs may include additional spaces, explanations, or characters, and may not be exactly as specified.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Sentence: 'Time flies.' Word: 'Time'",
+      "expectedoutput": " NN",
+      "reasoning": "This test ensures there is an additional space before 'NN', following Rule 12."
+    },
+    {
+      "ruleid": "12",
+      "rule": "Outputs may include additional spaces, explanations, or characters, and may not be exactly as specified.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Sentence: 'He will arrive soon.' Word: 'will'",
+      "expectedoutput": "MD (modal)",
+      "reasoning": "This test verifies that extra characters are included in the output, adhering to Rule 12."
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: She likes tea and coffee.\nWord: and",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: He has three dogs.\nWord: three",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: This is important.\nWord: This",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: There is a problem.\nWord: There",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: She said, 'adiós' and left.\nWord: adiós",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: He went before me.\nWord: before",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: The tall man.\nWord: tall",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: She is taller than me.\nWord: taller",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: She is the tallest.\nWord: tallest",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: First, wash your hands.\nWord: First",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: He can swim.\nWord: can",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: The cat sleeps.\nWord: cat",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: Cats are cute.\nWord: Cats",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: Mary went to Paris.\nWord: Mary",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: The Smiths are here.\nWord: Smiths",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: Both options are good.\nWord: Both",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: John's book is on the table.\nWord: 's",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: She is here.\nWord: She",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: Her car is red.\nWord: Her",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: She runs quickly.\nWord: quickly",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: She runs faster than him.\nWord: faster",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: She runs fastest.\nWord: fastest",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: He gave up smoking.\nWord: up",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: The equation is E=mc^2.\nWord: =",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: I want to go.\nWord: to",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: Wow, that's great!\nWord: Wow",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: I like to eat.\nWord: eat",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: She walked home.\nWord: walked",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: She is swimming.\nWord: swimming",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: She has eaten.\nWord: eaten",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: I go home.\nWord: go",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: He eats an apple.\nWord: eats",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: I know which car is yours.\nWord: which",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: Who are you?\nWord: Who",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: Whose book is this?\nWord: Whose",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sentence: When will you arrive?\nWord: When",
+      "baseline": true
+    }
+  ],
+  "testEvals": [],
+  "testResults": []
+}
