@@ -1,0 +1,3083 @@
+{
+  "prompt": "\n---\nname: Classify input text\ndescription: Given an input text, classify it into a specific category.\nsource: How to use Llama2 tutorial for text classification\nurl: https://pupuweb.com/how-use-llama-2-text-classification-tasks/\ninputs: \n  text:\n    type: string\nsample:\n    text: \"UN chief urges action on climate change as report warns of 'catastrophe'\"\n---\nsystem:\nA news article can be classified as one of the following categories: World, Sports, Business, Sci/Tech.\nExamples:\n- World: \"UN chief urges action on climate change as report warns of 'catastrophe'\"\n- Sports: \"Ronaldo scores twice in Manchester United return\"\n- Business: \"Apple delays plan to scan iPhones for child abuse images\"\n- Sci/Tech: \"SpaceX launches first all-civilian crew into orbit\"'\n\nBased on these categories, classify this news article: \nuser:\n{{text}}\n    ",
+  "inputSpec": "The input must be a string containing the text of a news article.\nThe input text should represent a complete news article suitable for classification into one of the specified categories.",
+  "rules": [
+    "The chatbot must classify any provided input text into one of four predefined categories: World, Sports, Business, or Sci/Tech.",
+    "The category \"World\" is defined as news articles related to international affairs, global events, diplomatic relations, or political developments.",
+    "The category \"Sports\" is defined as news articles that pertain to athletic events, sports teams, individual athletes, competitions, or related sports activities.",
+    "The category \"Business\" is defined as news articles concerning commerce, economic markets, corporate activities, financial developments, or business-related issues.",
+    "The category \"Sci/Tech\" is defined as news articles involving scientific discoveries, technological advancements, space exploration, or technical innovations.",
+    "The chatbot's output must consist solely of one of the four category names: World, Sports, Business, or Sci/Tech.",
+    "The output must not include any additional text, explanations, or information beyond the specified category name.",
+    "The input text provided to the chatbot will always be a string representing a news article.",
+    "The chatbot must accurately determine the most appropriate category based on the content of the input text without relying on provided examples.",
+    "Each classification decision must be mutually exclusive, meaning the input text should only be assigned to one single category.",
+    "The category definitions must be strictly adhered to, ensuring consistency and clarity in classification across different inputs.",
+    "The output must be correctly spelled and match exactly one of the category names: World, Sports, Business, or Sci/Tech.",
+    "No assumptions or external information outside the input text should influence the chatbot’s classification decision.",
+    "The chatbot must perform the classification based solely on the content and context of the provided input text.",
+    "The chatbot must ensure that every entity involved in the classification process is clearly defined within these rules.",
+    "The chatbot must not include any instructions, questions, or prompts in its output—only the category name as the response.",
+    "The classification must be based on the content's primary focus, determining which category best represents the main topic of the input text.",
+    "The chatbot must maintain consistency in classification regardless of variations in input text length, style, or complexity.",
+    "The chatbot's response should allow for easy validation by checking if the output matches one of the four specified categories based on the input text's content.",
+    "Each rule must comprehensively cover all aspects of the output requirements to ensure accurate and reliable classification."
+  ],
+  "inverseRules": [
+    "The chatbot must not classify any provided input text into one of four predefined categories: World, Sports, Business, or Sci/Tech.",
+    "The category \"World\" should not include news articles related to international affairs, global events, diplomatic relations, or political developments.",
+    "The category \"Sports\" should not encompass news articles that pertain to athletic events, sports teams, individual athletes, competitions, or related sports activities.",
+    "The category \"Business\" should not cover news articles concerning commerce, economic markets, corporate activities, financial developments, or business-related issues.",
+    "The category \"Sci/Tech\" should not involve news articles related to scientific discoveries, technological advancements, space exploration, or technical innovations.",
+    "The chatbot's output may include text beyond the four category names: World, Sports, Business, or Sci/Tech.",
+    "The output can include additional text, explanations, or information beyond the specified category name.",
+    "The input text provided to the chatbot may not always be a string representing a news article.",
+    "The chatbot may rely on provided examples to determine the appropriate category based on the content of the input text.",
+    "Each classification decision does not have to be mutually exclusive, allowing the input text to be assigned to multiple categories.",
+    "The category definitions can be loosely interpreted, allowing for flexibility and variation in classification across different inputs.",
+    "The output may include misspellings and does not need to match exactly one of the category names: World, Sports, Business, or Sci/Tech.",
+    "Assumptions or external information outside the input text can influence the chatbot’s classification decision.",
+    "The chatbot may consider factors beyond the content and context of the provided input text in performing the classification.",
+    "The chatbot does not need to clearly define every entity involved in the classification process within these rules.",
+    "The chatbot may include instructions, questions, or prompts in its output alongside the category name.",
+    "The classification can be based on secondary aspects of the content, allowing multiple categories to represent the input text's topics.",
+    "The chatbot may vary in classification consistency depending on variations in input text length, style, or complexity.",
+    "The chatbot's response does not need to allow for easy validation by matching the output to one of the four specified categories based on the input text's content.",
+    "Each rule does not need to comprehensively cover all aspects of the output requirements, allowing for potential inaccuracies in classification."
+  ],
+  "tests": [
+    {
+      "ruleid": "1",
+      "rule": "The chatbot must classify any provided input text into one of four predefined categories: World, Sports, Business, or Sci/Tech.",
+      "testid": "1",
+      "testinput": "The United Nations meets to discuss escalating trade tensions between major economies.",
+      "expectedoutput": "World",
+      "reasoning": "Article pertains to international affairs, fitting the 'World' category."
+    },
+    {
+      "ruleid": "1",
+      "rule": "The chatbot must classify any provided input text into one of four predefined categories: World, Sports, Business, or Sci/Tech.",
+      "testid": "2",
+      "testinput": "Manchester United wins the Premier League after a thrilling final game.",
+      "expectedoutput": "Sports",
+      "reasoning": "Article pertains to sports events, fitting the 'Sports' category."
+    },
+    {
+      "ruleid": "1",
+      "rule": "The chatbot must classify any provided input text into one of four predefined categories: World, Sports, Business, or Sci/Tech.",
+      "testid": "3",
+      "testinput": "New breakthrough in quantum computing promises faster processing speeds.",
+      "expectedoutput": "Sci/Tech",
+      "reasoning": "Article pertains to scientific discoveries, fitting the 'Sci/Tech' category."
+    },
+    {
+      "ruleid": "2",
+      "rule": "The category \"World\" is defined as news articles related to international affairs, global events, diplomatic relations, or political developments.",
+      "testid": "1",
+      "testinput": "Global leaders convene to address climate change.",
+      "expectedoutput": "World",
+      "reasoning": "Article relates to global events and international affairs."
+    },
+    {
+      "ruleid": "2",
+      "rule": "The category \"World\" is defined as news articles related to international affairs, global events, diplomatic relations, or political developments.",
+      "testid": "2",
+      "testinput": "Diplomatic relations between Country A and Country B reach new heights.",
+      "expectedoutput": "World",
+      "reasoning": "Article pertains to diplomatic relations."
+    },
+    {
+      "ruleid": "2",
+      "rule": "The category \"World\" is defined as news articles related to international affairs, global events, diplomatic relations, or political developments.",
+      "testid": "3",
+      "testinput": "Elections in Country X lead to significant political changes.",
+      "expectedoutput": "World",
+      "reasoning": "Article discusses political developments."
+    },
+    {
+      "ruleid": "3",
+      "rule": "The category \"Sports\" is defined as news articles that pertain to athletic events, sports teams, individual athletes, competitions, or related sports activities.",
+      "testid": "1",
+      "testinput": "The Lakers secure a spot in the NBA finals with a last-second victory.",
+      "expectedoutput": "Sports",
+      "reasoning": "Article pertains to an athletic event and competition."
+    },
+    {
+      "ruleid": "3",
+      "rule": "The category \"Sports\" is defined as news articles that pertain to athletic events, sports teams, individual athletes, competitions, or related sports activities.",
+      "testid": "2",
+      "testinput": "Serena Williams announces her retirement from professional tennis.",
+      "expectedoutput": "Sports",
+      "reasoning": "Article concerns an individual athlete."
+    },
+    {
+      "ruleid": "3",
+      "rule": "The category \"Sports\" is defined as news articles that pertain to athletic events, sports teams, individual athletes, competitions, or related sports activities.",
+      "testid": "3",
+      "testinput": "The upcoming Olympics face challenges due to global health concerns.",
+      "expectedoutput": "Sports",
+      "reasoning": "Article relates to sports events and global sports activities."
+    },
+    {
+      "ruleid": "4",
+      "rule": "The category \"Business\" is defined as news articles concerning commerce, economic markets, corporate activities, financial developments, or business-related issues.",
+      "testid": "1",
+      "testinput": "Apple releases its latest iPhone model with innovative features.",
+      "expectedoutput": "Business",
+      "reasoning": "Article concerns corporate activities in commerce."
+    },
+    {
+      "ruleid": "4",
+      "rule": "The category \"Business\" is defined as news articles concerning commerce, economic markets, corporate activities, financial developments, or business-related issues.",
+      "testid": "2",
+      "testinput": "Stock markets experience a significant downturn amid economic uncertainty.",
+      "expectedoutput": "Business",
+      "reasoning": "Article relates to economic markets."
+    },
+    {
+      "ruleid": "4",
+      "rule": "The category \"Business\" is defined as news articles concerning commerce, economic markets, corporate activities, financial developments, or business-related issues.",
+      "testid": "3",
+      "testinput": "A new startup secures funding to expand its operations internationally.",
+      "expectedoutput": "Business",
+      "reasoning": "Article pertains to financial developments and business-related issues."
+    },
+    {
+      "ruleid": "5",
+      "rule": "The category \"Sci/Tech\" is defined as news articles involving scientific discoveries, technological advancements, space exploration, or technical innovations.",
+      "testid": "1",
+      "testinput": "NASA announces a new mission to explore Mars.",
+      "expectedoutput": "Sci/Tech",
+      "reasoning": "Article involves space exploration."
+    },
+    {
+      "ruleid": "5",
+      "rule": "The category \"Sci/Tech\" is defined as news articles involving scientific discoveries, technological advancements, space exploration, or technical innovations.",
+      "testid": "2",
+      "testinput": "Researchers develop a new biodegradable material to reduce pollution.",
+      "expectedoutput": "Sci/Tech",
+      "reasoning": "Article pertains to scientific discoveries and technical innovations."
+    },
+    {
+      "ruleid": "5",
+      "rule": "The category \"Sci/Tech\" is defined as news articles involving scientific discoveries, technological advancements, space exploration, or technical innovations.",
+      "testid": "3",
+      "testinput": "Breakthrough in artificial intelligence enhances machine learning capabilities.",
+      "expectedoutput": "Sci/Tech",
+      "reasoning": "Article relates to technological advancements."
+    },
+    {
+      "ruleid": "6",
+      "rule": "The chatbot's output must consist solely of one of the four category names: World, Sports, Business, or Sci/Tech.",
+      "testid": "1",
+      "testinput": "International Affairs",
+      "expectedoutput": "International Affairs",
+      "reasoning": "The chatbot correctly assigns the category name."
+    },
+    {
+      "ruleid": "6",
+      "rule": "The chatbot's output must consist solely of one of the four category names: World, Sports, Business, or Sci/Tech.",
+      "testid": "2",
+      "testinput": "SPORTS",
+      "expectedoutput": "SPORTS",
+      "reasoning": "Testing case sensitivity and formatting."
+    },
+    {
+      "ruleid": "6",
+      "rule": "The chatbot's output must consist solely of one of the four category names: World, Sports, Business, or Sci/Tech.",
+      "testid": "3",
+      "testinput": "Business",
+      "expectedoutput": "Business",
+      "reasoning": "Ensures correct category names are used without additional text."
+    },
+    {
+      "ruleid": "7",
+      "rule": "The output must not include any additional text, explanations, or information beyond the specified category name.",
+      "testid": "1",
+      "testinput": "World",
+      "expectedoutput": "World",
+      "reasoning": "Output consists solely of the category name."
+    },
+    {
+      "ruleid": "7",
+      "rule": "The output must not include any additional text, explanations, or information beyond the specified category name.",
+      "testid": "2",
+      "testinput": "Sports",
+      "expectedoutput": "Sports",
+      "reasoning": "Ensures no additional explanations are included."
+    },
+    {
+      "ruleid": "7",
+      "rule": "The output must not include any additional text, explanations, or information beyond the specified category name.",
+      "testid": "3",
+      "testinput": "Sci/Tech",
+      "expectedoutput": "Sci/Tech",
+      "reasoning": "Verifies that only the category name is output."
+    },
+    {
+      "ruleid": "8",
+      "rule": "The input text provided to the chatbot will always be a string representing a news article.",
+      "testid": "1",
+      "testinput": "The economic summit discusses trade agreements and tariffs.",
+      "expectedoutput": "World",
+      "reasoning": "Valid input as a string representing a news article."
+    },
+    {
+      "ruleid": "8",
+      "rule": "The input text provided to the chatbot will always be a string representing a news article.",
+      "testid": "2",
+      "testinput": "The championship game ends in a surprising upset.",
+      "expectedoutput": "Sports",
+      "reasoning": "Valid input complying with input specifications."
+    },
+    {
+      "ruleid": "8",
+      "rule": "The input text provided to the chatbot will always be a string representing a news article.",
+      "testid": "3",
+      "testinput": "Innovations in renewable energy are accelerating the green transition.",
+      "expectedoutput": "Sci/Tech",
+      "reasoning": "Valid input fitting the input specification."
+    },
+    {
+      "ruleid": "9",
+      "rule": "The chatbot must accurately determine the most appropriate category based on the content of the input text without relying on provided examples.",
+      "testid": "1",
+      "testinput": "The European Union negotiates new trade deals amid rising tensions.",
+      "expectedoutput": "World",
+      "reasoning": "Chatbot determines category based on content without examples."
+    },
+    {
+      "ruleid": "9",
+      "rule": "The chatbot must accurately determine the most appropriate category based on the content of the input text without relying on provided examples.",
+      "testid": "2",
+      "testinput": "A major league baseball team drafts a promising young pitcher.",
+      "expectedoutput": "Sports",
+      "reasoning": "Accurate determination without relying on provided examples."
+    },
+    {
+      "ruleid": "9",
+      "rule": "The chatbot must accurately determine the most appropriate category based on the content of the input text without relying on provided examples.",
+      "testid": "3",
+      "testinput": "New financial regulations aim to stabilize the banking sector.",
+      "expectedoutput": "Business",
+      "reasoning": "Chatbot classifies correctly based solely on input content."
+    },
+    {
+      "ruleid": "10",
+      "rule": "Each classification decision must be mutually exclusive, meaning the input text should only be assigned to one single category.",
+      "testid": "1",
+      "testinput": "World",
+      "expectedoutput": "World",
+      "reasoning": "Ensures mutual exclusivity by assigning to only one category."
+    },
+    {
+      "ruleid": "10",
+      "rule": "Each classification decision must be mutually exclusive, meaning the input text should only be assigned to one single category.",
+      "testid": "2",
+      "testinput": "Sports",
+      "expectedoutput": "Sports",
+      "reasoning": "Verifies that the input is not assigned to multiple categories."
+    },
+    {
+      "ruleid": "10",
+      "rule": "Each classification decision must be mutually exclusive, meaning the input text should only be assigned to one single category.",
+      "testid": "3",
+      "testinput": "Business",
+      "expectedoutput": "Business",
+      "reasoning": "Confirms exclusive classification."
+    },
+    {
+      "ruleid": "11",
+      "rule": "The category definitions must be strictly adhered to, ensuring consistency and clarity in classification across different inputs.",
+      "testid": "1",
+      "testinput": "Global summit addresses international security concerns.",
+      "expectedoutput": "World",
+      "reasoning": "Strict adherence to category definitions related to global events."
+    },
+    {
+      "ruleid": "11",
+      "rule": "The category definitions must be strictly adhered to, ensuring consistency and clarity in classification across different inputs.",
+      "testid": "2",
+      "testinput": "Local team wins national championship, sparking celebrations.",
+      "expectedoutput": "Sports",
+      "reasoning": "Consistent classification based on sports-related content."
+    },
+    {
+      "ruleid": "11",
+      "rule": "The category definitions must be strictly adhered to, ensuring consistency and clarity in classification across different inputs.",
+      "testid": "3",
+      "testinput": "Tech giant announces merger to expand market reach.",
+      "expectedoutput": "Business",
+      "reasoning": "Ensures category definitions for business are strictly followed."
+    },
+    {
+      "ruleid": "12",
+      "rule": "The output must be correctly spelled and match exactly one of the category names: World, Sports, Business, or Sci/Tech.",
+      "testid": "1",
+      "testinput": "World",
+      "expectedoutput": "World",
+      "reasoning": "Ensures correct spelling of the category name."
+    },
+    {
+      "ruleid": "12",
+      "rule": "The output must be correctly spelled and match exactly one of the category names: World, Sports, Business, or Sci/Tech.",
+      "testid": "2",
+      "testinput": "Sports",
+      "expectedoutput": "Sports",
+      "reasoning": "Verifies exact match of category names."
+    },
+    {
+      "ruleid": "12",
+      "rule": "The output must be correctly spelled and match exactly one of the category names: World, Sports, Business, or Sci/Tech.",
+      "testid": "3",
+      "testinput": "Sci/Tech",
+      "expectedoutput": "Sci/Tech",
+      "reasoning": "Confirms correct spelling and format of category."
+    },
+    {
+      "ruleid": "13",
+      "rule": "No assumptions or external information outside the input text should influence the chatbot’s classification decision.",
+      "testid": "1",
+      "testinput": "The trade agreement benefits both countries involved.",
+      "expectedoutput": "World",
+      "reasoning": "Classification based solely on input text without external information."
+    },
+    {
+      "ruleid": "13",
+      "rule": "No assumptions or external information outside the input text should influence the chatbot’s classification decision.",
+      "testid": "2",
+      "testinput": "Legendary athlete breaks long-standing records.",
+      "expectedoutput": "Sports",
+      "reasoning": "Determines category based only on provided content."
+    },
+    {
+      "ruleid": "13",
+      "rule": "No assumptions or external information outside the input text should influence the chatbot’s classification decision.",
+      "testid": "3",
+      "testinput": "Innovative startups drive economic growth in the region.",
+      "expectedoutput": "Business",
+      "reasoning": "Classification based purely on input without external influences."
+    },
+    {
+      "ruleid": "14",
+      "rule": "The chatbot must perform the classification based solely on the content and context of the provided input text.",
+      "testid": "1",
+      "testinput": "Global economic policies are shifting in response to market demands.",
+      "expectedoutput": "World",
+      "reasoning": "Classification based solely on content and context."
+    },
+    {
+      "ruleid": "14",
+      "rule": "The chatbot must perform the classification based solely on the content and context of the provided input text.",
+      "testid": "2",
+      "testinput": "The national team prepares for the upcoming international tournament.",
+      "expectedoutput": "Sports",
+      "reasoning": "Based on content without additional context."
+    },
+    {
+      "ruleid": "14",
+      "rule": "The chatbot must perform the classification based solely on the content and context of the provided input text.",
+      "testid": "3",
+      "testinput": "Advancements in biotechnology offer new medical treatments.",
+      "expectedoutput": "Sci/Tech",
+      "reasoning": "Classification relies only on input text content."
+    },
+    {
+      "ruleid": "15",
+      "rule": "The chatbot must ensure that every entity involved in the classification process is clearly defined within these rules.",
+      "testid": "1",
+      "testinput": "Chatbot must classify any provided input text.",
+      "expectedoutput": "World",
+      "reasoning": "Ensures entities in rules are clearly defined and applied."
+    },
+    {
+      "ruleid": "15",
+      "rule": "The chatbot must ensure that every entity involved in the classification process is clearly defined within these rules.",
+      "testid": "2",
+      "testinput": "Chatbot must not include explanations in output.",
+      "expectedoutput": "Sports",
+      "reasoning": "Defines behavior of entities involved in classification process."
+    },
+    {
+      "ruleid": "15",
+      "rule": "The chatbot must ensure that every entity involved in the classification process is clearly defined within these rules.",
+      "testid": "3",
+      "testinput": "Category names must be exactly one of the four specified.",
+      "expectedoutput": "Business",
+      "reasoning": "Entities and their definitions are clearly outlined."
+    },
+    {
+      "ruleid": "16",
+      "rule": "The chatbot must not include any instructions, questions, or prompts in its output—only the category name as the response.",
+      "testid": "1",
+      "testinput": "World",
+      "expectedoutput": "World",
+      "reasoning": "Ensures no instructions or prompts are included in output."
+    },
+    {
+      "ruleid": "16",
+      "rule": "The chatbot must not include any instructions, questions, or prompts in its output—only the category name as the response.",
+      "testid": "2",
+      "testinput": "Sports",
+      "expectedoutput": "Sports",
+      "reasoning": "Verifies output contains only the category name."
+    },
+    {
+      "ruleid": "16",
+      "rule": "The chatbot must not include any instructions, questions, or prompts in its output—only the category name as the response.",
+      "testid": "3",
+      "testinput": "Sci/Tech",
+      "expectedoutput": "Sci/Tech",
+      "reasoning": "Confirms exclusion of any additional text in output."
+    },
+    {
+      "ruleid": "17",
+      "rule": "The classification must be based on the content's primary focus, determining which category best represents the main topic of the input text.",
+      "testid": "1",
+      "testinput": "The primary focus of the article is on diplomatic negotiations.",
+      "expectedoutput": "World",
+      "reasoning": "Classification based on main topic adhering to category."
+    },
+    {
+      "ruleid": "17",
+      "rule": "The classification must be based on the content's primary focus, determining which category best represents the main topic of the input text.",
+      "testid": "2",
+      "testinput": "The article primarily discusses the strategies of a football team.",
+      "expectedoutput": "Sports",
+      "reasoning": "Main focus determines correct category assignment."
+    },
+    {
+      "ruleid": "17",
+      "rule": "The classification must be based on the content's primary focus, determining which category best represents the main topic of the input text.",
+      "testid": "3",
+      "testinput": "The main topic revolves around a new financial policy.",
+      "expectedoutput": "Business",
+      "reasoning": "Primary focus ensures correct categorization."
+    },
+    {
+      "ruleid": "18",
+      "rule": "The chatbot must maintain consistency in classification regardless of variations in input text length, style, or complexity.",
+      "testid": "1",
+      "testinput": "World",
+      "expectedoutput": "World",
+      "reasoning": "Maintains classification consistency regardless of article length."
+    },
+    {
+      "ruleid": "18",
+      "rule": "The chatbot must maintain consistency in classification regardless of variations in input text length, style, or complexity.",
+      "testid": "2",
+      "testinput": "Sports",
+      "expectedoutput": "Sports",
+      "reasoning": "Consistent classification irrespective of writing style."
+    },
+    {
+      "ruleid": "18",
+      "rule": "The chatbot must maintain consistency in classification regardless of variations in input text length, style, or complexity.",
+      "testid": "3",
+      "testinput": "Business",
+      "expectedoutput": "Business",
+      "reasoning": "Ensures consistent output despite input complexity."
+    },
+    {
+      "ruleid": "19",
+      "rule": "The chatbot's response should allow for easy validation by checking if the output matches one of the four specified categories based on the input text's content.",
+      "testid": "1",
+      "testinput": "World",
+      "expectedoutput": "World",
+      "reasoning": "Output matches one of the specified categories for easy validation."
+    },
+    {
+      "ruleid": "19",
+      "rule": "The chatbot's response should allow for easy validation by checking if the output matches one of the four specified categories based on the input text's content.",
+      "testid": "2",
+      "testinput": "Sports",
+      "expectedoutput": "Sports",
+      "reasoning": "Allows for straightforward verification against defined categories."
+    },
+    {
+      "ruleid": "19",
+      "rule": "The chatbot's response should allow for easy validation by checking if the output matches one of the four specified categories based on the input text's content.",
+      "testid": "3",
+      "testinput": "Sci/Tech",
+      "expectedoutput": "Sci/Tech",
+      "reasoning": "Facilitates easy checking of classification accuracy."
+    },
+    {
+      "ruleid": "20",
+      "rule": "Each rule must comprehensively cover all aspects of the output requirements to ensure accurate and reliable classification.",
+      "testid": "1",
+      "testinput": "World",
+      "expectedoutput": "World",
+      "reasoning": "Comprehensive coverage ensures reliable classification."
+    },
+    {
+      "ruleid": "20",
+      "rule": "Each rule must comprehensively cover all aspects of the output requirements to ensure accurate and reliable classification.",
+      "testid": "2",
+      "testinput": "Sports",
+      "expectedoutput": "Sports",
+      "reasoning": "Ensures all aspects of output requirements are met."
+    },
+    {
+      "ruleid": "20",
+      "rule": "Each rule must comprehensively cover all aspects of the output requirements to ensure accurate and reliable classification.",
+      "testid": "3",
+      "testinput": "Business",
+      "expectedoutput": "Business",
+      "reasoning": "Accurate and reliable classification adhering to all rule aspects."
+    },
+    {
+      "ruleid": "21",
+      "rule": "The chatbot must not classify any provided input text into one of four predefined categories: World, Sports, Business, or Sci/Tech.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "The economic policies will change significantly next year.",
+      "expectedoutput": "Business",
+      "reasoning": "Ensures the chatbot does not classify into predefined categories if not allowed by the rule."
+    },
+    {
+      "ruleid": "21",
+      "rule": "The chatbot must not classify any provided input text into one of four predefined categories: World, Sports, Business, or Sci/Tech.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "A new art exhibition opens downtown.",
+      "expectedoutput": "World",
+      "reasoning": "Validates that non-specified categories are not used."
+    },
+    {
+      "ruleid": "21",
+      "rule": "The chatbot must not classify any provided input text into one of four predefined categories: World, Sports, Business, or Sci/Tech.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Local community gathers for annual fair.",
+      "expectedoutput": "Sports",
+      "reasoning": "Ensures input not related to predefined categories is not classified."
+    },
+    {
+      "ruleid": "22",
+      "rule": "The category \"World\" should not include news articles related to international affairs, global events, diplomatic relations, or political developments.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Local festival attracts tourists from around the world.",
+      "expectedoutput": "World",
+      "reasoning": "Ensures 'World' category does not include unrelated events."
+    },
+    {
+      "ruleid": "22",
+      "rule": "The category \"World\" should not include news articles related to international affairs, global events, diplomatic relations, or political developments.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "The president announces new healthcare reforms.",
+      "expectedoutput": "World",
+      "reasoning": "Validates exclusion of non-political content from 'World'."
+    },
+    {
+      "ruleid": "22",
+      "rule": "The category \"World\" should not include news articles related to international affairs, global events, diplomatic relations, or political developments.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "International sports event held in the city.",
+      "expectedoutput": "World",
+      "reasoning": "Checks that sports-related 'World' category is excluded."
+    },
+    {
+      "ruleid": "23",
+      "rule": "The category \"Sports\" should not encompass news articles that pertain to athletic events, sports teams, individual athletes, competitions, or related sports activities.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "The championship game ends in a tie.",
+      "expectedoutput": "Sports",
+      "reasoning": "Ensures 'Sports' does not include unrelated events."
+    },
+    {
+      "ruleid": "23",
+      "rule": "The category \"Sports\" should not encompass news articles that pertain to athletic events, sports teams, individual athletes, competitions, or related sports activities.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "An athlete wins an award for community service.",
+      "expectedoutput": "Sports",
+      "reasoning": "Validates exclusion of non-sports related content from 'Sports'."
+    },
+    {
+      "ruleid": "23",
+      "rule": "The category \"Sports\" should not encompass news articles that pertain to athletic events, sports teams, individual athletes, competitions, or related sports activities.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Sports team conducts a charity event.",
+      "expectedoutput": "Sports",
+      "reasoning": "Checks that non-competitive activities are excluded from 'Sports'."
+    },
+    {
+      "ruleid": "24",
+      "rule": "The category \"Business\" should not cover news articles concerning commerce, economic markets, corporate activities, financial developments, or business-related issues.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "New art museum opens downtown.",
+      "expectedoutput": "Business",
+      "reasoning": "Ensures 'Business' does not include unrelated news."
+    },
+    {
+      "ruleid": "24",
+      "rule": "The category \"Business\" should not cover news articles concerning commerce, economic markets, corporate activities, financial developments, or business-related issues.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Local market sees a surge in organic produce sales.",
+      "expectedoutput": "Business",
+      "reasoning": "Validates exclusion of non-economic content from 'Business'."
+    },
+    {
+      "ruleid": "24",
+      "rule": "The category \"Business\" should not cover news articles concerning commerce, economic markets, corporate activities, financial developments, or business-related issues.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Business conference focuses on sustainable practices.",
+      "expectedoutput": "Business",
+      "reasoning": "Ensures only business-related issues are included."
+    },
+    {
+      "ruleid": "25",
+      "rule": "The category \"Sci/Tech\" should not involve news articles related to scientific discoveries, technological advancements, space exploration, or technical innovations.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Community garden project helps reduce urban heat.",
+      "expectedoutput": "Sci/Tech",
+      "reasoning": "Ensures 'Sci/Tech' does not include unrelated environmental news."
+    },
+    {
+      "ruleid": "25",
+      "rule": "The category \"Sci/Tech\" should not involve news articles related to scientific discoveries, technological advancements, space exploration, or technical innovations.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "The city council approves new parklands.",
+      "expectedoutput": "Sci/Tech",
+      "reasoning": "Validates exclusion of non-technical content from 'Sci/Tech'."
+    },
+    {
+      "ruleid": "25",
+      "rule": "The category \"Sci/Tech\" should not involve news articles related to scientific discoveries, technological advancements, space exploration, or technical innovations.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Cultural festival celebrates local heritage.",
+      "expectedoutput": "Sci/Tech",
+      "reasoning": "Checks that cultural events are excluded from 'Sci/Tech'."
+    },
+    {
+      "ruleid": "26",
+      "rule": "The chatbot's output may include text beyond the four category names: World, Sports, Business, or Sci/Tech.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "World news: The global economy is changing rapidly.",
+      "expectedoutput": "World",
+      "reasoning": "Tests if output contains text beyond category name, which it should not."
+    },
+    {
+      "ruleid": "26",
+      "rule": "The chatbot's output may include text beyond the four category names: World, Sports, Business, or Sci/Tech.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Sports update: The annual marathon was held yesterday.",
+      "expectedoutput": "Sports",
+      "reasoning": "Ensures output may improperly include additional text."
+    },
+    {
+      "ruleid": "26",
+      "rule": "The chatbot's output may include text beyond the four category names: World, Sports, Business, or Sci/Tech.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Business insights: Market trends are shifting.",
+      "expectedoutput": "Business",
+      "reasoning": "Validates that output can include unwanted additional information."
+    },
+    {
+      "ruleid": "27",
+      "rule": "The output can include additional text, explanations, or information beyond the specified category name.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "The latest advancements in AI technology are impressive.",
+      "expectedoutput": "Sci/Tech",
+      "reasoning": "Tests inclusion of explanations beyond category name."
+    },
+    {
+      "ruleid": "27",
+      "rule": "The output can include additional text, explanations, or information beyond the specified category name.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Breaking: The stock market hits a new high.",
+      "expectedoutput": "Business",
+      "reasoning": "Ensures additional information is present in the output."
+    },
+    {
+      "ruleid": "27",
+      "rule": "The output can include additional text, explanations, or information beyond the specified category name.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Sports highlight: The game was intense and exciting.",
+      "expectedoutput": "Sports",
+      "reasoning": "Checks for extra text accompanying category."
+    },
+    {
+      "ruleid": "28",
+      "rule": "The input text provided to the chatbot may not always be a string representing a news article.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "This is not a news article but a fictional story.",
+      "expectedoutput": "World",
+      "reasoning": "Tests handling of inputs not strictly news articles."
+    },
+    {
+      "ruleid": "28",
+      "rule": "The input text provided to the chatbot may not always be a string representing a news article.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "12345",
+      "expectedoutput": "Sports",
+      "reasoning": "Ensures chatbot processes non-string inputs appropriately."
+    },
+    {
+      "ruleid": "28",
+      "rule": "The input text provided to the chatbot may not always be a string representing a news article.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "",
+      "expectedoutput": "Business",
+      "reasoning": "Validates behavior with empty string inputs."
+    },
+    {
+      "ruleid": "29",
+      "rule": "The chatbot may rely on provided examples to determine the appropriate category based on the content of the input text.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "World news: The global summit was postponed.",
+      "expectedoutput": "World",
+      "reasoning": "Checks if chatbot relies on provided examples, which it should not."
+    },
+    {
+      "ruleid": "29",
+      "rule": "The chatbot may rely on provided examples to determine the appropriate category based on the content of the input text.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Sports update: Team A defeats Team B.",
+      "expectedoutput": "Sports",
+      "reasoning": "Ensures classification without example dependency."
+    },
+    {
+      "ruleid": "29",
+      "rule": "The chatbot may rely on provided examples to determine the appropriate category based on the content of the input text.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "New tech gadget released today.",
+      "expectedoutput": "Sci/Tech",
+      "reasoning": "Verifies accurate classification based solely on input content."
+    },
+    {
+      "ruleid": "30",
+      "rule": "Each classification decision does not have to be mutually exclusive, allowing the input text to be assigned to multiple categories.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "The global conference covers multiple international topics.",
+      "expectedoutput": "World",
+      "reasoning": "Tests if input can be assigned to multiple categories, which it should not."
+    },
+    {
+      "ruleid": "30",
+      "rule": "Each classification decision does not have to be mutually exclusive, allowing the input text to be assigned to multiple categories.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "A player scores in both football and basketball games.",
+      "expectedoutput": "Sports",
+      "reasoning": "Ensures mutual exclusivity in classification."
+    },
+    {
+      "ruleid": "30",
+      "rule": "Each classification decision does not have to be mutually exclusive, allowing the input text to be assigned to multiple categories.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Tech company expands into financial services.",
+      "expectedoutput": "Business",
+      "reasoning": "Validates that multiple categories are not assigned."
+    },
+    {
+      "ruleid": "31",
+      "rule": "The category definitions can be loosely interpreted, allowing for flexibility and variation in classification across different inputs.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "International relations and economic policies are discussed.",
+      "expectedoutput": "World",
+      "reasoning": "Checks for loose interpretation of category definitions."
+    },
+    {
+      "ruleid": "31",
+      "rule": "The category definitions can be loosely interpreted, allowing for flexibility and variation in classification across different inputs.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "The athlete also invests in tech startups.",
+      "expectedoutput": "Sports",
+      "reasoning": "Ensures flexibility in classification without strict adherence."
+    },
+    {
+      "ruleid": "31",
+      "rule": "The category definitions can be loosely interpreted, allowing for flexibility and variation in classification across different inputs.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Business leaders attend a tech innovation summit.",
+      "expectedoutput": "Business",
+      "reasoning": "Validates varied classification based on secondary aspects."
+    },
+    {
+      "ruleid": "32",
+      "rule": "The output may include misspellings and does not need to match exactly one of the category names: World, Sports, Business, or Sci/Tech.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Wrold",
+      "expectedoutput": "World",
+      "reasoning": "Tests handling of misspelled category names."
+    },
+    {
+      "ruleid": "32",
+      "rule": "The output may include misspellings and does not need to match exactly one of the category names: World, Sports, Business, or Sci/Tech.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Sportsss",
+      "expectedoutput": "Sports",
+      "reasoning": "Ensures misspellings are identified and handled."
+    },
+    {
+      "ruleid": "32",
+      "rule": "The output may include misspellings and does not need to match exactly one of the category names: World, Sports, Business, or Sci/Tech.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Sci-Tech",
+      "expectedoutput": "Sci/Tech",
+      "reasoning": "Validates recognition despite format variations."
+    },
+    {
+      "ruleid": "33",
+      "rule": "Assumptions or external information outside the input text can influence the chatbot’s classification decision.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Experts believe external market factors will influence classification.",
+      "expectedoutput": "World",
+      "reasoning": "Tests if external information influences classification."
+    },
+    {
+      "ruleid": "33",
+      "rule": "Assumptions or external information outside the input text can influence the chatbot’s classification decision.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Athlete's performance may be affected by sponsorships.",
+      "expectedoutput": "Sports",
+      "reasoning": "Ensures classification is not influenced by external sponsorship info."
+    },
+    {
+      "ruleid": "33",
+      "rule": "Assumptions or external information outside the input text can influence the chatbot’s classification decision.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Global tech trends influenced by consumer behavior.",
+      "expectedoutput": "Sci/Tech",
+      "reasoning": "Validates that external factors do not affect category assignment."
+    },
+    {
+      "ruleid": "34",
+      "rule": "The chatbot may consider factors beyond the content and context of the provided input text in performing the classification.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "The chatbot uses previous conversations to determine the category.",
+      "expectedoutput": "World",
+      "reasoning": "Checks if chatbot relies on factors beyond input text."
+    },
+    {
+      "ruleid": "34",
+      "rule": "The chatbot may consider factors beyond the content and context of the provided input text in performing the classification.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "User preferences influence the classification of articles.",
+      "expectedoutput": "Sports",
+      "reasoning": "Ensures classification is based solely on input content."
+    },
+    {
+      "ruleid": "34",
+      "rule": "The chatbot may consider factors beyond the content and context of the provided input text in performing the classification.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Chatbot considers browsing history when classifying news.",
+      "expectedoutput": "Business",
+      "reasoning": "Validates restriction to input text only."
+    },
+    {
+      "ruleid": "35",
+      "rule": "The chatbot does not need to clearly define every entity involved in the classification process within these rules.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Entities in the classification process are undefined.",
+      "expectedoutput": "World",
+      "reasoning": "Tests if undefined entities are handled correctly."
+    },
+    {
+      "ruleid": "35",
+      "rule": "The chatbot does not need to clearly define every entity involved in the classification process within these rules.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Chatbot does not clarify category definitions.",
+      "expectedoutput": "Sports",
+      "reasoning": "Ensures entities involved are clearly defined."
+    },
+    {
+      "ruleid": "35",
+      "rule": "The chatbot does not need to clearly define every entity involved in the classification process within these rules.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Lacks clear boundaries for category assignments.",
+      "expectedoutput": "Business",
+      "reasoning": "Validates that classification entities are defined within rules."
+    },
+    {
+      "ruleid": "36",
+      "rule": "The chatbot may include instructions, questions, or prompts in its output alongside the category name.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Please classify the following article.",
+      "expectedoutput": "World",
+      "reasoning": "Ensures no instructions are included in output."
+    },
+    {
+      "ruleid": "36",
+      "rule": "The chatbot may include instructions, questions, or prompts in its output alongside the category name.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "What category does this article belong to?",
+      "expectedoutput": "Sports",
+      "reasoning": "Verifies exclusion of prompts in output."
+    },
+    {
+      "ruleid": "36",
+      "rule": "The chatbot may include instructions, questions, or prompts in its output alongside the category name.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Here is the news article, classify it accordingly.",
+      "expectedoutput": "Business",
+      "reasoning": "Checks that only category name is output without additional text."
+    },
+    {
+      "ruleid": "37",
+      "rule": "The classification can be based on secondary aspects of the content, allowing multiple categories to represent the input text's topics.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "The article discusses both international trade and environmental policies.",
+      "expectedoutput": "World",
+      "reasoning": "Tests classification based on primary focus despite multiple topics."
+    },
+    {
+      "ruleid": "37",
+      "rule": "The classification can be based on secondary aspects of the content, allowing multiple categories to represent the input text's topics.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Coverage of both athletic achievements and team management.",
+      "expectedoutput": "Sports",
+      "reasoning": "Ensures classification based on primary topic."
+    },
+    {
+      "ruleid": "37",
+      "rule": "The classification can be based on secondary aspects of the content, allowing multiple categories to represent the input text's topics.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "The text covers both financial markets and technological innovations.",
+      "expectedoutput": "Business",
+      "reasoning": "Checks that primary focus determines category."
+    },
+    {
+      "ruleid": "38",
+      "rule": "The chatbot may vary in classification consistency depending on variations in input text length, style, or complexity.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "World news: Short article.",
+      "expectedoutput": "World",
+      "reasoning": "Maintains consistency with input text length variation."
+    },
+    {
+      "ruleid": "38",
+      "rule": "The chatbot may vary in classification consistency depending on variations in input text length, style, or complexity.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Sports update: Detailed and complex analysis of game strategies.",
+      "expectedoutput": "Sports",
+      "reasoning": "Ensures consistency despite complexity."
+    },
+    {
+      "ruleid": "38",
+      "rule": "The chatbot may vary in classification consistency depending on variations in input text length, style, or complexity.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Business report: Comprehensive overview of market trends.",
+      "expectedoutput": "Business",
+      "reasoning": "Maintains consistent classification regardless of input style."
+    },
+    {
+      "ruleid": "39",
+      "rule": "The chatbot's response does not need to allow for easy validation by matching the output to one of the four specified categories based on the input text's content.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "World",
+      "expectedoutput": "World",
+      "reasoning": "Ensures output matches one of the specified categories for easy validation."
+    },
+    {
+      "ruleid": "39",
+      "rule": "The chatbot's response does not need to allow for easy validation by matching the output to one of the four specified categories based on the input text's content.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Sports",
+      "expectedoutput": "Sports",
+      "reasoning": "Facilitates quick verification against defined categories."
+    },
+    {
+      "ruleid": "39",
+      "rule": "The chatbot's response does not need to allow for easy validation by matching the output to one of the four specified categories based on the input text's content.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Sci/Tech",
+      "expectedoutput": "Sci/Tech",
+      "reasoning": "Allows for straightforward checking of classification accuracy."
+    },
+    {
+      "ruleid": "40",
+      "rule": "Each rule does not need to comprehensively cover all aspects of the output requirements, allowing for potential inaccuracies in classification.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "World",
+      "expectedoutput": "World",
+      "reasoning": "Checks for comprehensive coverage to prevent inaccuracies."
+    },
+    {
+      "ruleid": "40",
+      "rule": "Each rule does not need to comprehensively cover all aspects of the output requirements, allowing for potential inaccuracies in classification.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Sports",
+      "expectedoutput": "Sports",
+      "reasoning": "Ensures all aspects of output requirements are included to avoid misclassification."
+    },
+    {
+      "ruleid": "40",
+      "rule": "Each rule does not need to comprehensively cover all aspects of the output requirements, allowing for potential inaccuracies in classification.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Business",
+      "expectedoutput": "Business",
+      "reasoning": "Validates thorough adherence to output rules for accurate classification."
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Global markets react to unexpected economic downturn in Europe\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Championship finals see record-breaking attendance this year\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Tech giants release joint statement on data privacy concerns\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Historic peace agreement signed between neighboring countries\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Olympic committee announces new sports to be included in the games\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Startups surge in Silicon Valley as venture capital flows in\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"New species of dinosaur discovered in remote excavation site\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Presidential elections show surprising shifts in voter preferences\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Local team clinches playoff spot after thrilling last-minute win\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Major merger between leading telecom companies reshapes industry\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Breakthrough in renewable energy technology promises cleaner future\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"International summit addresses global water scarcity issues\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Star athlete announces retirement after illustrious career\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Stock prices soar following positive quarterly earnings reports\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Innovative AI application revolutionizes healthcare diagnostics\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Conflict arises as trade tariffs impose strain on international relations\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Record number of users join new social media platform overnight\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Government unveils new infrastructure plan to boost economic growth\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Historic sports figure inducted into the national hall of fame\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Cryptocurrency market experiences significant fluctuations amid regulatory debates\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Space agency plans mission to explore outer asteroid belt\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Civil unrest in capital city leads to calls for reform\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Breakthrough gene therapy offers hope for rare genetic disorders\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Underdog team triumphs in unexpected sports upset\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Leading automobile manufacturer announces shift to electric vehicles\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Scientific community celebrates milestone in quantum computing\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Major hurricane makes landfall, causing widespread damage\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Legendary coach steps down after decades of success\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Global oil prices decline following surplus inventory reports\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"New virtual reality headset set to transform gaming experience\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"United nations promotes initiatives for sustainable development\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Young prodigy wins international chess championship\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Tech startup secures patent for innovative blockchain solution\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Diplomatic talks aim to resolve long-standing territorial disputes\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"National league sets new records for television viewership\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Investment firms adjust strategies in response to market volatility\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Researchers develop advanced materials for space exploration\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Peaceful protests highlight demands for social justice reforms\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"International sports federation introduces new regulations for fair play\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Major retailer reports significant growth in online sales\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Scientists achieve major advancement in cancer treatment research\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Historic building restored and repurposed for community use\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Youth league expands programs to encourage sports participation\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Financial sector adapts to emerging fintech innovations\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Astronomers detect potential signs of extraterrestrial life\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Government faces scrutiny over handling of economic policies\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Record-breaking athlete sets new world record in sprint event\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Biotech firms collaborate on groundbreaking genetic research\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Tensions escalate as nations dispute maritime boundaries\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Entertainment industry sees surge in streaming service subscriptions\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Electric scooter usage increases in urban areas, impacting traffic\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Trade negotiations reach impasse as tariffs remain contentious\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Eco-friendly startups gain traction in green technology sector\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"International marathon attracts participants from over 50 countries\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Leading smartphone manufacturer unveils next-generation device\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Historians uncover significant artifacts at ancient site\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"College basketball team advances to national semifinals\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Major airline announces plans to expand fleet with sustainable aircraft\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Innovators create wearable tech to monitor health metrics\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Political leaders gather for emergency climate change summit\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Local sports club celebrates championship victory with parade\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Venture capitalists invest heavily in artificial intelligence startups\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Robotics technology advances with new automation solutions\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Peace initiative gains support from multiple countries\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"National team qualifies for upcoming international tournament\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Global supply chain disruptions affect manufacturing industries\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Healthcare sector embraces telemedicine for patient consultations\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Historic treaty signed to protect endangered wildlife species\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Youth athletes receive scholarships to pursue sports careers\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Financial markets respond to unexpected policy changes\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Space exploration missions planned for deep space objectives\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Community rallies to support local sports programs\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Tech firms announce breakthroughs in machine learning algorithms\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"International relations improve with new diplomatic agreements\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Professional league expands by adding new franchises\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Economic indicators show signs of recovery post-recession\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Renewable energy projects receive significant government funding\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Championship series attracts record television ratings\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Startups launch innovative solutions for urban transportation\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Scientific team publishes findings on climate change impacts\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Government implements new regulations for financial institutions\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Athlete overcomes adversity to win major tournament\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Tech conference showcases advancements in virtual collaboration tools\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Diplomats negotiate trade deals to enhance bilateral relations\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Sports league introduces new safety measures for players\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Market analysts predict trends for the upcoming fiscal year\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Researchers discover potential cure for chronic illness\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Civic organizations promote sports as tools for youth development\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Investors show increased interest in green bonds and sustainable assets\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Space tourism becomes more accessible with new private ventures\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"City council approves plans for new sports complex\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Biotechnology breakthroughs open doors to personalized medicine\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"International sporting events bolster local economies\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Financial experts advise on portfolio diversification strategies\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Engineers develop next-gen batteries for electric vehicles\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Peacekeeping forces deployed to conflict zones under new mandate\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Under-21 league produces standout talents for national team\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Tech startups navigate challenges in competitive markets\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Global summit addresses cybersecurity threats and solutions\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Major esport tournament draws global audience and sponsorships\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Economic policies aim to reduce unemployment rates\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Scientific collaborations lead to significant technological innovations\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Local heroes from sports inspire community initiatives\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Investment in renewable resources accelerates industry transformation\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Astronauts train for upcoming missions to the International Space Station\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Sports sponsorships boost brand visibility for major companies\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Financial markets adapt to changes in global trade dynamics\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Breakthrough in nanotechnology paves way for medical advancements\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Diplomatic efforts focus on easing trade tensions between nations\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Youth leagues emphasize inclusivity and diversity in sports participation\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Tech industry leaders discuss future of artificial intelligence at conference\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Economic reforms introduced to stimulate small business growth\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"International athletes collaborate on charity initiatives\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Renewable energy sector experiences unprecedented investment surge\"",
+      "baseline": true
+    }
+  ],
+  "testEvals": [
+    {
+      "id": "dc199a5",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "1",
+      "rule": "The chatbot must classify any provided input text into one of four predefined categories: World, Sports, Business, or Sci/Tech.",
+      "input": "The United Nations meets to discuss escalating trade tensions between major economies.",
+      "coverage": "Business",
+      "validityText": "The input provided is a single sentence that serves as a headline or a brief summary rather than a complete news article. According to the input specification, the input must be a string containing the text of a news article and should represent a complete news article suitable for classification into one of the specified categories. Since the input does not constitute a full article with sufficient detail, it does not comply with the specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "0ac8424",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "1",
+      "rule": "The chatbot must classify any provided input text into one of four predefined categories: World, Sports, Business, or Sci/Tech.",
+      "input": "Manchester United wins the Premier League after a thrilling final game.",
+      "coverage": "Sports",
+      "validityText": "The provided input is a single sentence summarizing an event rather than a complete news article. According to the input specification, the input must be a string containing the text of a complete news article suitable for classification into specified categories.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "88f0a47",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "1",
+      "rule": "The chatbot must classify any provided input text into one of four predefined categories: World, Sports, Business, or Sci/Tech.",
+      "input": "New breakthrough in quantum computing promises faster processing speeds.",
+      "coverage": "Sci/Tech",
+      "validityText": "The input provided consists of a single sentence and does not constitute a complete news article. According to the input specification, the input must be a string containing the text of a news article suitable for classification into one of the specified categories.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "75c69cd",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "2",
+      "rule": "The category \"World\" is defined as news articles related to international affairs, global events, diplomatic relations, or political developments.",
+      "input": "Global leaders convene to address climate change.",
+      "coverage": "World",
+      "validityText": "The input provided is \"Global leaders convene to address climate change.\" This input does not comply with the input specification because it is not a complete news article; instead, it appears to be a headline or a title. The specification clearly states that the input must be a string containing the text of a news article and should represent a complete news article suitable for classification into one of the specified categories. Since the input lacks the necessary content to be considered a full news article, it violates the specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "60fdbd2",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "2",
+      "rule": "The category \"World\" is defined as news articles related to international affairs, global events, diplomatic relations, or political developments.",
+      "input": "Diplomatic relations between Country A and Country B reach new heights.",
+      "coverage": "World",
+      "validityText": "The input consists of a single sentence, \"Diplomatic relations between Country A and Country B reach new heights.\" According to the input specification, the input must be \"a string containing the text of a news article\" and should \"represent a complete news article suitable for classification into one of the specified categories.\" A complete news article typically includes multiple paragraphs, details, context, and possibly quotes, which are all absent in the provided input. Therefore, the input does not comply with the input specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "6e81262",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "2",
+      "rule": "The category \"World\" is defined as news articles related to international affairs, global events, diplomatic relations, or political developments.",
+      "input": "Elections in Country X lead to significant political changes.",
+      "coverage": "World",
+      "validityText": "The input provided is a single sentence that resembles a headline rather than a complete news article. According to the input specification, the input must be a string containing the text of a complete news article suitable for classification. The given input lacks the necessary depth, structure, and detail that would characterize a full news article.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "b6d8dbf",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "3",
+      "rule": "The category \"Sports\" is defined as news articles that pertain to athletic events, sports teams, individual athletes, competitions, or related sports activities.",
+      "input": "The Lakers secure a spot in the NBA finals with a last-second victory.",
+      "coverage": "Sports",
+      "validityText": "The input provided is a single headline rather than a complete news article containing detailed information, which does not comply with the input specification requiring a complete news article suitable for classification.\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "e8d35a3",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "3",
+      "rule": "The category \"Sports\" is defined as news articles that pertain to athletic events, sports teams, individual athletes, competitions, or related sports activities.",
+      "input": "Serena Williams announces her retirement from professional tennis.",
+      "coverage": "Sports",
+      "validityText": "The input appears to be a single headline rather than a complete news article as required by the input specification.\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "56d11a7",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "3",
+      "rule": "The category \"Sports\" is defined as news articles that pertain to athletic events, sports teams, individual athletes, competitions, or related sports activities.",
+      "input": "The upcoming Olympics face challenges due to global health concerns.",
+      "coverage": "Sports",
+      "validityText": "The input provided is a single sentence that serves as a headline rather than a complete news article. According to the input specification, the input must be a string containing the text of a complete news article suitable for classification into one of the specified categories.\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "5837bc1",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "4",
+      "rule": "The category \"Business\" is defined as news articles concerning commerce, economic markets, corporate activities, financial developments, or business-related issues.",
+      "input": "Apple releases its latest iPhone model with innovative features.",
+      "coverage": "Sci/Tech",
+      "validityText": "The input provided consists of a single sentence: \"Apple releases its latest iPhone model with innovative features.\" According to the input specification, the input must be a string containing the text of a **complete news article** suitable for classification into one of the specified categories. The given input is not a complete news article but rather resembles a headline or a brief announcement, lacking the depth and detail expected in a full news article.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "26b4dfd",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "4",
+      "rule": "The category \"Business\" is defined as news articles concerning commerce, economic markets, corporate activities, financial developments, or business-related issues.",
+      "input": "Stock markets experience a significant downturn amid economic uncertainty.",
+      "coverage": "Business",
+      "validityText": "The input provided is a single sentence that appears to be a headline or summary rather than a complete news article. According to the input specification, the input must be a string containing the text of a **complete news article** suitable for classification into one of the specified categories. Since the input does not fulfill the requirement of being a complete news article, it does not comply with the input specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "9beb800",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "4",
+      "rule": "The category \"Business\" is defined as news articles concerning commerce, economic markets, corporate activities, financial developments, or business-related issues.",
+      "input": "A new startup secures funding to expand its operations internationally.",
+      "coverage": "Business",
+      "validityText": "The input provided is a single sentence that does not constitute a complete news article. It appears to be a headline or a brief summary rather than a full article suitable for classification into specific categories as required by the input specification.\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "5b68f0e",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "5",
+      "rule": "The category \"Sci/Tech\" is defined as news articles involving scientific discoveries, technological advancements, space exploration, or technical innovations.",
+      "input": "NASA announces a new mission to explore Mars.",
+      "coverage": "Sci/Tech",
+      "validityText": "The input provided is a single sentence: \"NASA announces a new mission to explore Mars.\" While it conveys a newsworthy event, it lacks the depth and detail typically expected of a complete news article. According to the input specification, the text should represent a complete news article suitable for classification, which generally includes multiple paragraphs with comprehensive information. Therefore, this input does not fully comply with the input specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "609e31f",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "5",
+      "rule": "The category \"Sci/Tech\" is defined as news articles involving scientific discoveries, technological advancements, space exploration, or technical innovations.",
+      "input": "Researchers develop a new biodegradable material to reduce pollution.",
+      "coverage": "Sci/Tech",
+      "validityText": "The input provided is a single sentence that appears to be a headline rather than a complete news article. According to the input specification, the input must be a string containing the text of a complete news article suitable for classification into one of the specified categories. A complete news article generally includes multiple paragraphs with detailed information, context, and supporting details, which are absent in the given input.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "8a6e65b",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "5",
+      "rule": "The category \"Sci/Tech\" is defined as news articles involving scientific discoveries, technological advancements, space exploration, or technical innovations.",
+      "input": "Breakthrough in artificial intelligence enhances machine learning capabilities.",
+      "coverage": "Sci/Tech",
+      "validityText": "The input provided is a single sentence, likely serving as a headline, and does not constitute a complete news article as required by the input specification. A complete news article typically includes multiple paragraphs with detailed information, context, and supporting details, which are absent in this input.\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "82b2e9f",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "6",
+      "rule": "The chatbot's output must consist solely of one of the four category names: World, Sports, Business, or Sci/Tech.",
+      "input": "International Affairs",
+      "coverage": "World",
+      "validityText": "The input provided is \"International Affairs,\" which does not contain the text of a news article. According to the input specification, the input must be a string containing the text of a news article suitable for classification into one of the specified categories. Since \"International Affairs\" is merely a title or category label and lacks the substantive content of a complete news article, it does not comply with the input specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "66b8f9d",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "6",
+      "rule": "The chatbot's output must consist solely of one of the four category names: World, Sports, Business, or Sci/Tech.",
+      "input": "SPORTS",
+      "coverage": "Sports",
+      "validityText": "The input \"SPORTS\" does not comply with the input specification because it is a single word and does not constitute a complete news article. The specification clearly states that the input must be a string containing the text of a news article suitable for classification into one of the specified categories. \"SPORTS\" lacks the necessary content and structure of a full news article as required by the specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "133b33f",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "6",
+      "rule": "The chatbot's output must consist solely of one of the four category names: World, Sports, Business, or Sci/Tech.",
+      "input": "Business",
+      "coverage": "Business",
+      "validityText": "The input provided is the single word \"Business,\" which does not constitute the text of a complete news article. According to the input specification, the input must be a string containing the text of a news article suitable for classification. Therefore, it does not comply with the specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "5f2a476",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "7",
+      "rule": "The output must not include any additional text, explanations, or information beyond the specified category name.",
+      "input": "World",
+      "coverage": "World",
+      "validityText": "The input provided is a single word, \"World,\" which does not constitute a complete news article. According to the input specification, the input must be a string containing the text of a news article and should represent a complete news article suitable for classification into one of the specified categories. Since \"World\" is merely a single word and lacks the necessary content and structure of a full news article, it does not comply with the input specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "9e19664",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "7",
+      "rule": "The output must not include any additional text, explanations, or information beyond the specified category name.",
+      "input": "Sports",
+      "coverage": "Sports",
+      "validityText": "The input provided is a single keyword \"Sports,\" which does not constitute a complete news article as required by the input specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "1b00d05",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "7",
+      "rule": "The output must not include any additional text, explanations, or information beyond the specified category name.",
+      "input": "Sci/Tech",
+      "coverage": "Sci/Tech",
+      "validityText": "The input provided is \"Sci/Tech\", which is a category label rather than the text of a complete news article. According to the input specification, the input must be a string containing the text of a news article that represents a complete news article suitable for classification into one of the specified categories.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "1e7b50a",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "8",
+      "rule": "The input text provided to the chatbot will always be a string representing a news article.",
+      "input": "The economic summit discusses trade agreements and tariffs.",
+      "coverage": "Business",
+      "validityText": "The provided input appears to be a headline or a brief summary rather than a complete news article. It does not constitute a full article suitable for classification as specified.\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "aa355c9",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "8",
+      "rule": "The input text provided to the chatbot will always be a string representing a news article.",
+      "input": "The championship game ends in a surprising upset.",
+      "coverage": "Sports",
+      "validityText": "The input provided is a single sentence that appears to be a headline rather than a complete news article. According to the input specification, the input must be a string containing the text of a news article and should represent a complete news article suitable for classification. Since the input does not constitute a full article, it does not comply with the specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "c61f9a4",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "8",
+      "rule": "The input text provided to the chatbot will always be a string representing a news article.",
+      "input": "Innovations in renewable energy are accelerating the green transition.",
+      "coverage": "Sci/Tech",
+      "validityText": "The provided input consists of a single sentence: \"Innovations in renewable energy are accelerating the green transition.\" According to the input specification, the input must be a string containing the text of a complete news article suitable for classification into specified categories. Since the input does not represent a full news article but rather a brief statement, it does not comply with the specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "a3ccc89",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "9",
+      "rule": "The chatbot must accurately determine the most appropriate category based on the content of the input text without relying on provided examples.",
+      "input": "The European Union negotiates new trade deals amid rising tensions.",
+      "coverage": "Business",
+      "validityText": "The input provided consists of a single sentence that appears to be a headline rather than a complete news article. According to the input specification, the input must be a string containing the text of a news article and should represent a complete news article suitable for classification. Since the input does not constitute a complete news article, it does not comply with the input specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "a7b2f64",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "9",
+      "rule": "The chatbot must accurately determine the most appropriate category based on the content of the input text without relying on provided examples.",
+      "input": "A major league baseball team drafts a promising young pitcher.",
+      "coverage": "Sports",
+      "validityText": "The input text is not a complete news article as required by the specification. It appears to be just a headline or a title, lacking the necessary content to be considered a full news article.\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "fe715c3",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "9",
+      "rule": "The chatbot must accurately determine the most appropriate category based on the content of the input text without relying on provided examples.",
+      "input": "New financial regulations aim to stabilize the banking sector.",
+      "coverage": "Business",
+      "validityText": "The input provided is a single sentence that resembles a news headline. However, according to the input specification, the input must be the text of a complete news article suitable for classification into one of the specified categories. A complete news article typically consists of multiple sentences or paragraphs providing detailed information, background, and context, which the given input lacks.\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "5f2a476",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "7",
+      "rule": "The output must not include any additional text, explanations, or information beyond the specified category name.",
+      "input": "World",
+      "coverage": "World",
+      "validityText": "The input provided is a single word, \"World,\" which does not constitute a complete news article. According to the input specification, the input must be a string containing the text of a news article and should represent a complete news article suitable for classification into one of the specified categories. Since \"World\" is merely a single word and lacks the necessary content and structure of a full news article, it does not comply with the input specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "9e19664",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "7",
+      "rule": "The output must not include any additional text, explanations, or information beyond the specified category name.",
+      "input": "Sports",
+      "coverage": "Sports",
+      "validityText": "The input provided is a single keyword \"Sports,\" which does not constitute a complete news article as required by the input specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "133b33f",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "6",
+      "rule": "The chatbot's output must consist solely of one of the four category names: World, Sports, Business, or Sci/Tech.",
+      "input": "Business",
+      "coverage": "Business",
+      "validityText": "The input provided is the single word \"Business,\" which does not constitute the text of a complete news article. According to the input specification, the input must be a string containing the text of a news article suitable for classification. Therefore, it does not comply with the specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "13b4209",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "11",
+      "rule": "The category definitions must be strictly adhered to, ensuring consistency and clarity in classification across different inputs.",
+      "input": "Global summit addresses international security concerns.",
+      "coverage": "World",
+      "validityText": "The input provided appears to be a headline rather than a complete news article. According to the input specification, the input must be a string containing the text of a complete news article suitable for classification into one of the specified categories. Since the input does not constitute a full article, it does not comply with the specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "6d57c3b",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "11",
+      "rule": "The category definitions must be strictly adhered to, ensuring consistency and clarity in classification across different inputs.",
+      "input": "Local team wins national championship, sparking celebrations.",
+      "coverage": "Sports",
+      "validityText": "The input provided is not a complete news article, as it consists of only a single sentence resembling a headline rather than the full text required by the specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "c1a340e",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "11",
+      "rule": "The category definitions must be strictly adhered to, ensuring consistency and clarity in classification across different inputs.",
+      "input": "Tech giant announces merger to expand market reach.",
+      "coverage": "Business",
+      "validityText": "The input provided is not a complete news article; it appears to be only a headline. According to the input specification, the input must contain the text of a complete news article suitable for classification into specific categories.\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "5f2a476",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "7",
+      "rule": "The output must not include any additional text, explanations, or information beyond the specified category name.",
+      "input": "World",
+      "coverage": "World",
+      "validityText": "The input provided is a single word, \"World,\" which does not constitute a complete news article. According to the input specification, the input must be a string containing the text of a news article and should represent a complete news article suitable for classification into one of the specified categories. Since \"World\" is merely a single word and lacks the necessary content and structure of a full news article, it does not comply with the input specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "9e19664",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "7",
+      "rule": "The output must not include any additional text, explanations, or information beyond the specified category name.",
+      "input": "Sports",
+      "coverage": "Sports",
+      "validityText": "The input provided is a single keyword \"Sports,\" which does not constitute a complete news article as required by the input specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "1b00d05",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "7",
+      "rule": "The output must not include any additional text, explanations, or information beyond the specified category name.",
+      "input": "Sci/Tech",
+      "coverage": "Sci/Tech",
+      "validityText": "The input provided is \"Sci/Tech\", which is a category label rather than the text of a complete news article. According to the input specification, the input must be a string containing the text of a news article that represents a complete news article suitable for classification into one of the specified categories.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "5ffebee",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "13",
+      "rule": "No assumptions or external information outside the input text should influence the chatbot’s classification decision.",
+      "input": "The trade agreement benefits both countries involved.",
+      "coverage": "Business",
+      "validityText": "The input provided consists of a single sentence: \"The trade agreement benefits both countries involved.\" According to the input specification, the input must be a complete news article suitable for classification into a specified category. A complete news article typically includes multiple sentences that provide detailed information, context, and coverage of a news event or topic. The given input lacks sufficient content to be considered a complete news article.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "22cf9c0",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "13",
+      "rule": "No assumptions or external information outside the input text should influence the chatbot’s classification decision.",
+      "input": "Legendary athlete breaks long-standing records.",
+      "coverage": "Sports",
+      "validityText": "The input provided is a headline rather than a complete news article, which does not comply with the specification that requires the input to be a complete news article.\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "f303b19",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "13",
+      "rule": "No assumptions or external information outside the input text should influence the chatbot’s classification decision.",
+      "input": "Innovative startups drive economic growth in the region.",
+      "coverage": "Business",
+      "validityText": "The input consists of a single sentence: \"Innovative startups drive economic growth in the region.\" According to the input specification, the input must be a complete news article, which typically includes multiple sentences and paragraphs providing detailed information. This input does not meet the requirement of being a complete news article suitable for classification into one of the specified categories.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "284e021",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "14",
+      "rule": "The chatbot must perform the classification based solely on the content and context of the provided input text.",
+      "input": "Global economic policies are shifting in response to market demands.",
+      "coverage": "Business",
+      "validityText": "The input provided is a single sentence and does not constitute a complete news article as required by the input specification. A complete news article typically contains multiple paragraphs, provides detailed information on the topic, and is suitable for classification into specific categories.\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "6428483",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "14",
+      "rule": "The chatbot must perform the classification based solely on the content and context of the provided input text.",
+      "input": "The national team prepares for the upcoming international tournament.",
+      "coverage": "Sports",
+      "validityText": "The provided input consists of a single sentence: \"The national team prepares for the upcoming international tournament.\" According to the input specification, the input must be a string containing the text of a complete news article suitable for classification into specified categories. Since the input is only one sentence and does not constitute a complete news article, it does not comply with the input specification.\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "537fac2",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "14",
+      "rule": "The chatbot must perform the classification based solely on the content and context of the provided input text.",
+      "input": "Advancements in biotechnology offer new medical treatments.",
+      "coverage": "Sci/Tech",
+      "validityText": "The provided input consists of a single sentence, which does not qualify as a complete news article. According to the input specification, the input must be a string containing the text of a news article suitable for classification into one of the specified categories.\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "8b26203",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "15",
+      "rule": "The chatbot must ensure that every entity involved in the classification process is clearly defined within these rules.",
+      "input": "Chatbot must classify any provided input text.",
+      "coverage": "Sci/Tech",
+      "validityText": "The provided input does not contain the text of a news article. Instead, it appears to be an instruction or directive for a chatbot to classify input text, which does not align with the requirement that the input must be a complete news article suitable for classification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "0b369f6",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "15",
+      "rule": "The chatbot must ensure that every entity involved in the classification process is clearly defined within these rules.",
+      "input": "Chatbot must not include explanations in output.",
+      "coverage": "Sci/Tech",
+      "validityText": "The input does not contain a complete news article and does not align with the requirement of being suitable for classification into specified categories.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "e0c9574",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "15",
+      "rule": "The chatbot must ensure that every entity involved in the classification process is clearly defined within these rules.",
+      "input": "Category names must be exactly one of the four specified.",
+      "coverage": "Sci/Tech",
+      "validityText": "The input does not contain a complete news article. It consists of a single sentence regarding category names, which does not fulfill the requirement of being a complete news article suitable for classification.\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "5f2a476",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "7",
+      "rule": "The output must not include any additional text, explanations, or information beyond the specified category name.",
+      "input": "World",
+      "coverage": "World",
+      "validityText": "The input provided is a single word, \"World,\" which does not constitute a complete news article. According to the input specification, the input must be a string containing the text of a news article and should represent a complete news article suitable for classification into one of the specified categories. Since \"World\" is merely a single word and lacks the necessary content and structure of a full news article, it does not comply with the input specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "9e19664",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "7",
+      "rule": "The output must not include any additional text, explanations, or information beyond the specified category name.",
+      "input": "Sports",
+      "coverage": "Sports",
+      "validityText": "The input provided is a single keyword \"Sports,\" which does not constitute a complete news article as required by the input specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "1b00d05",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "7",
+      "rule": "The output must not include any additional text, explanations, or information beyond the specified category name.",
+      "input": "Sci/Tech",
+      "coverage": "Sci/Tech",
+      "validityText": "The input provided is \"Sci/Tech\", which is a category label rather than the text of a complete news article. According to the input specification, the input must be a string containing the text of a news article that represents a complete news article suitable for classification into one of the specified categories.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "b3346cc",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "17",
+      "rule": "The classification must be based on the content's primary focus, determining which category best represents the main topic of the input text.",
+      "input": "The primary focus of the article is on diplomatic negotiations.",
+      "coverage": "World",
+      "validityText": "The input provided is a single sentence that does not constitute a complete news article. According to the input specification, the input must be a string containing the text of a news article that is complete and suitable for classification into specified categories. The given input lacks the necessary details, structure, and comprehensive information typically found in a full news article.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "d9c080f",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "17",
+      "rule": "The classification must be based on the content's primary focus, determining which category best represents the main topic of the input text.",
+      "input": "The article primarily discusses the strategies of a football team.",
+      "coverage": "Sports",
+      "validityText": "The input provided consists of a single sentence that describes the content of an article but does not constitute a complete news article. According to the input specification, the input must be a string containing the text of a news article and should represent a complete news article suitable for classification into one of the specified categories. Since the input is only a brief description and not an entire news article, it does not comply with the specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "6db2bb7",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "17",
+      "rule": "The classification must be based on the content's primary focus, determining which category best represents the main topic of the input text.",
+      "input": "The main topic revolves around a new financial policy.",
+      "coverage": "Business",
+      "validityText": "The input provided consists of a single sentence and does not represent a complete news article. It lacks the necessary detail, structure, and comprehensiveness required to be suitable for classification into specific categories as specified in the input specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "5f2a476",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "7",
+      "rule": "The output must not include any additional text, explanations, or information beyond the specified category name.",
+      "input": "World",
+      "coverage": "World",
+      "validityText": "The input provided is a single word, \"World,\" which does not constitute a complete news article. According to the input specification, the input must be a string containing the text of a news article and should represent a complete news article suitable for classification into one of the specified categories. Since \"World\" is merely a single word and lacks the necessary content and structure of a full news article, it does not comply with the input specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "9e19664",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "7",
+      "rule": "The output must not include any additional text, explanations, or information beyond the specified category name.",
+      "input": "Sports",
+      "coverage": "Sports",
+      "validityText": "The input provided is a single keyword \"Sports,\" which does not constitute a complete news article as required by the input specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "133b33f",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "6",
+      "rule": "The chatbot's output must consist solely of one of the four category names: World, Sports, Business, or Sci/Tech.",
+      "input": "Business",
+      "coverage": "Business",
+      "validityText": "The input provided is the single word \"Business,\" which does not constitute the text of a complete news article. According to the input specification, the input must be a string containing the text of a news article suitable for classification. Therefore, it does not comply with the specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "5f2a476",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "7",
+      "rule": "The output must not include any additional text, explanations, or information beyond the specified category name.",
+      "input": "World",
+      "coverage": "World",
+      "validityText": "The input provided is a single word, \"World,\" which does not constitute a complete news article. According to the input specification, the input must be a string containing the text of a news article and should represent a complete news article suitable for classification into one of the specified categories. Since \"World\" is merely a single word and lacks the necessary content and structure of a full news article, it does not comply with the input specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "9e19664",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "7",
+      "rule": "The output must not include any additional text, explanations, or information beyond the specified category name.",
+      "input": "Sports",
+      "coverage": "Sports",
+      "validityText": "The input provided is a single keyword \"Sports,\" which does not constitute a complete news article as required by the input specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "1b00d05",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "7",
+      "rule": "The output must not include any additional text, explanations, or information beyond the specified category name.",
+      "input": "Sci/Tech",
+      "coverage": "Sci/Tech",
+      "validityText": "The input provided is \"Sci/Tech\", which is a category label rather than the text of a complete news article. According to the input specification, the input must be a string containing the text of a news article that represents a complete news article suitable for classification into one of the specified categories.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "5f2a476",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "7",
+      "rule": "The output must not include any additional text, explanations, or information beyond the specified category name.",
+      "input": "World",
+      "coverage": "World",
+      "validityText": "The input provided is a single word, \"World,\" which does not constitute a complete news article. According to the input specification, the input must be a string containing the text of a news article and should represent a complete news article suitable for classification into one of the specified categories. Since \"World\" is merely a single word and lacks the necessary content and structure of a full news article, it does not comply with the input specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "9e19664",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "7",
+      "rule": "The output must not include any additional text, explanations, or information beyond the specified category name.",
+      "input": "Sports",
+      "coverage": "Sports",
+      "validityText": "The input provided is a single keyword \"Sports,\" which does not constitute a complete news article as required by the input specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "133b33f",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "6",
+      "rule": "The chatbot's output must consist solely of one of the four category names: World, Sports, Business, or Sci/Tech.",
+      "input": "Business",
+      "coverage": "Business",
+      "validityText": "The input provided is the single word \"Business,\" which does not constitute the text of a complete news article. According to the input specification, the input must be a string containing the text of a news article suitable for classification. Therefore, it does not comply with the specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "159dd78",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "21",
+      "rule": "The chatbot must not classify any provided input text into one of four predefined categories: World, Sports, Business, or Sci/Tech.",
+      "input": "The economic policies will change significantly next year.",
+      "coverage": "Business",
+      "validityText": "The input provided is not a complete news article; it consists of only a single sentence rather than a full article as required by the input specification.\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "7c2566d",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "21",
+      "rule": "The chatbot must not classify any provided input text into one of four predefined categories: World, Sports, Business, or Sci/Tech.",
+      "input": "A new art exhibition opens downtown.",
+      "coverage": "World",
+      "validityText": "The input provided is a single sentence that appears to be a headline or a brief announcement. According to the input specification, the input must be a string containing the **text of a news article** and should represent a **complete news article** suitable for classification into one of the specified categories. Since the input is not a complete article but rather a brief statement, it does not meet the required criteria.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "f29a958",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "21",
+      "rule": "The chatbot must not classify any provided input text into one of four predefined categories: World, Sports, Business, or Sci/Tech.",
+      "input": "Local community gathers for annual fair.",
+      "coverage": "World",
+      "validityText": "The input provided is \"Local community gathers for annual fair.\" This input appears to be a brief headline rather than a complete news article. According to the input specification, the input must be a string containing the text of a news article and should represent a complete news article suitable for classification into one of the specified categories. Since the input lacks the depth and detail of a full news article, it does not comply with the given specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "bb245e6",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "22",
+      "rule": "The category \"World\" should not include news articles related to international affairs, global events, diplomatic relations, or political developments.",
+      "input": "Local festival attracts tourists from around the world.",
+      "coverage": "World",
+      "validityText": "The input provided is only a headline and does not constitute a complete news article. A complete article typically includes multiple paragraphs with detailed information, context, and relevant details necessary for proper classification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "d2c419d",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "22",
+      "rule": "The category \"World\" should not include news articles related to international affairs, global events, diplomatic relations, or political developments.",
+      "input": "The president announces new healthcare reforms.",
+      "coverage": "World",
+      "validityText": "The input consists of a single sentence and does not constitute a complete news article as required by the input specification.\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "b3d5107",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "22",
+      "rule": "The category \"World\" should not include news articles related to international affairs, global events, diplomatic relations, or political developments.",
+      "input": "International sports event held in the city.",
+      "coverage": "Sports",
+      "validityText": "The input provided is not a complete news article; it is a brief phrase that does not fulfill the requirement of being a string containing the text of a complete news article suitable for classification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "a454504",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "23",
+      "rule": "The category \"Sports\" should not encompass news articles that pertain to athletic events, sports teams, individual athletes, competitions, or related sports activities.",
+      "input": "The championship game ends in a tie.",
+      "coverage": "Sports",
+      "validityText": "The input provided is a single sentence and does not constitute a complete news article. A complete news article typically includes multiple sentences, detailed information, context, and structure necessary for classification into specific categories.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "829d22e",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "23",
+      "rule": "The category \"Sports\" should not encompass news articles that pertain to athletic events, sports teams, individual athletes, competitions, or related sports activities.",
+      "input": "An athlete wins an award for community service.",
+      "coverage": "Sports",
+      "validityText": "The input provided is a brief statement that lacks the depth, detail, and structure expected of a complete news article. A full news article typically includes additional information such as the name of the athlete, the specific award received, context about the community service, quotes, and other relevant details that provide a comprehensive view of the event. Therefore, the input does not comply with the specification requiring a complete news article suitable for classification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "d10f53a",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "23",
+      "rule": "The category \"Sports\" should not encompass news articles that pertain to athletic events, sports teams, individual athletes, competitions, or related sports activities.",
+      "input": "Sports team conducts a charity event.",
+      "coverage": "Sports",
+      "validityText": "The input provided is \"Sports team conducts a charity event.\" While it is a string and relates to a newsworthy topic, it does not constitute a complete news article. The input lacks the necessary details, structure, and depth expected of a full news article, such as background information, quotes, and comprehensive coverage of the event. According to the input specification, the text should represent a complete news article suitable for classification into one of the specified categories. Therefore, the input does not fully comply with the specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "3fbd8c5",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "24",
+      "rule": "The category \"Business\" should not cover news articles concerning commerce, economic markets, corporate activities, financial developments, or business-related issues.",
+      "input": "New art museum opens downtown.",
+      "coverage": "Business",
+      "validityText": "The input \"New art museum opens downtown.\" appears to be a headline rather than a complete news article. According to the input specification, the input must be a string containing the text of a news article and should represent a complete news article suitable for classification. Since the provided input lacks the depth and detail of a full article, it does not comply with the specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "4970575",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "24",
+      "rule": "The category \"Business\" should not cover news articles concerning commerce, economic markets, corporate activities, financial developments, or business-related issues.",
+      "input": "Local market sees a surge in organic produce sales.",
+      "coverage": "Business",
+      "validityText": "The input provided consists of a single sentence that functions as a headline rather than a complete news article. According to the input specification, the input must be a string containing the text of a news article and should represent a complete news article suitable for classification. Since the input does not fulfill the requirement of being a complete article, it does not comply with the specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "95f6a78",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "24",
+      "rule": "The category \"Business\" should not cover news articles concerning commerce, economic markets, corporate activities, financial developments, or business-related issues.",
+      "input": "Business conference focuses on sustainable practices.",
+      "coverage": "Business",
+      "validityText": "The input provided is only a headline and does not constitute a complete news article. According to the input specification, the input must be a string containing the text of a news article that represents a complete news article suitable for classification. The provided input lacks the necessary detail and structure of a full news article.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "4c2d939",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "25",
+      "rule": "The category \"Sci/Tech\" should not involve news articles related to scientific discoveries, technological advancements, space exploration, or technical innovations.",
+      "input": "Community garden project helps reduce urban heat.",
+      "coverage": "Sci/Tech",
+      "validityText": "The input provided consists of a single sentence that appears to be a headline rather than a complete news article. According to the input specification, the input must be a string containing the text of a complete news article suitable for classification into specified categories. Since the input does not represent a full article, it does not comply with the specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "835d7dc",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "25",
+      "rule": "The category \"Sci/Tech\" should not involve news articles related to scientific discoveries, technological advancements, space exploration, or technical innovations.",
+      "input": "The city council approves new parklands.",
+      "coverage": "World",
+      "validityText": "The input provided is only a single sentence and does not represent a complete news article as required by the input specification. A complete news article typically includes multiple paragraphs with detailed information.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "9b7477a",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "25",
+      "rule": "The category \"Sci/Tech\" should not involve news articles related to scientific discoveries, technological advancements, space exploration, or technical innovations.",
+      "input": "Cultural festival celebrates local heritage.",
+      "coverage": "World",
+      "validityText": "The input provided consists of a single sentence: \"Cultural festival celebrates local heritage.\" According to the input specification, the input must be a string containing the text of a complete news article suitable for classification. This sentence appears to be a headline or title rather than a full news article, as it lacks the necessary content and depth expected from a complete article.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "f18deb4",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "26",
+      "rule": "The chatbot's output may include text beyond the four category names: World, Sports, Business, or Sci/Tech.",
+      "input": "World news: The global economy is changing rapidly.",
+      "coverage": "Business",
+      "validityText": "The input provides only a headline and does not contain the full text of a news article, which is required by the input specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "be2cf05",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "26",
+      "rule": "The chatbot's output may include text beyond the four category names: World, Sports, Business, or Sci/Tech.",
+      "input": "Sports update: The annual marathon was held yesterday.",
+      "coverage": "Sports",
+      "validityText": "The input provided is \"Sports update: The annual marathon was held yesterday.\" While it indicates a sports-related event, it is very brief and lacks the depth and detail typically expected of a complete news article. According to the input specification, the input must be a string containing the text of a complete news article suitable for classification into one of the specified categories. This input does not fulfill the requirement of representing a complete news article.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "33f1eb3",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "26",
+      "rule": "The chatbot's output may include text beyond the four category names: World, Sports, Business, or Sci/Tech.",
+      "input": "Business insights: Market trends are shifting.",
+      "coverage": "Business",
+      "validityText": "The input provided is \"Business insights: Market trends are shifting.\" This text appears to be a headline or a brief statement rather than a complete news article. According to the input specification, the input must be a string containing the text of a **complete news article** suitable for classification. Since the input does not represent a full article with sufficient content, it does not comply with the specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "88eb44e",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "27",
+      "rule": "The output can include additional text, explanations, or information beyond the specified category name.",
+      "input": "The latest advancements in AI technology are impressive.",
+      "coverage": "Sci/Tech",
+      "validityText": "The input provided consists of a single sentence: \"The latest advancements in AI technology are impressive.\" According to the input specification, the input must be a string containing the text of a complete news article suitable for classification into specified categories. However, the provided input is merely a short statement and does not constitute a complete news article, as it lacks depth, context, and detailed information typically found in a full news piece.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "985c5be",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "27",
+      "rule": "The output can include additional text, explanations, or information beyond the specified category name.",
+      "input": "Breaking: The stock market hits a new high.",
+      "coverage": "Business",
+      "validityText": "The input does not represent a complete news article as required by the input specification. It appears to be only a headline, lacking the necessary content for classification.\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "1706c90",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "27",
+      "rule": "The output can include additional text, explanations, or information beyond the specified category name.",
+      "input": "Sports highlight: The game was intense and exciting.",
+      "coverage": "Sports",
+      "validityText": "The input provided is only a single sentence and does not constitute a complete news article as required by the input specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "773a419",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "28",
+      "rule": "The input text provided to the chatbot may not always be a string representing a news article.",
+      "input": "This is not a news article but a fictional story.",
+      "coverage": "World",
+      "validityText": "The input explicitly states that it is not a news article but a fictional story, which directly contradicts the requirement for the input to be a news article suitable for classification into specified categories.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "65ec84d",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "28",
+      "rule": "The input text provided to the chatbot may not always be a string representing a news article.",
+      "input": "12345",
+      "coverage": "Business",
+      "validityText": "The input \"12345\" does not comply with the input specification because it does not contain the text of a news article. The specification requires the input to be a string representing a complete news article suitable for classification into specified categories, which \"12345\" does not fulfill.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "07a923a",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "28",
+      "rule": "The input text provided to the chatbot may not always be a string representing a news article.",
+      "input": "",
+      "coverage": "Please provide the input text to classify.",
+      "validityText": "The provided input is empty and does not contain any text. According to the input specification, the input must be a string containing the text of a news article.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "48bf7b2",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "29",
+      "rule": "The chatbot may rely on provided examples to determine the appropriate category based on the content of the input text.",
+      "input": "World news: The global summit was postponed.",
+      "coverage": "World",
+      "validityText": "The input provided is a headline rather than a complete news article. According to the input specification, the input must contain the text of a complete news article suitable for classification. Since the input does not represent a complete article, it does not comply with the specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "55b3961",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "29",
+      "rule": "The chatbot may rely on provided examples to determine the appropriate category based on the content of the input text.",
+      "input": "Sports update: Team A defeats Team B.",
+      "coverage": "Sports",
+      "validityText": "The input provided is too brief to constitute a complete news article as required by the input specification, which expects a detailed news article suitable for classification into specific categories.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "9b4d4c3",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "29",
+      "rule": "The chatbot may rely on provided examples to determine the appropriate category based on the content of the input text.",
+      "input": "New tech gadget released today.",
+      "coverage": "Sci/Tech",
+      "validityText": "The input provided is not a complete news article; it appears to be a brief headline or title, which does not fulfill the requirement of containing the text of a complete news article as specified.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "3f8f35b",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "30",
+      "rule": "Each classification decision does not have to be mutually exclusive, allowing the input text to be assigned to multiple categories.",
+      "input": "The global conference covers multiple international topics.",
+      "coverage": "World",
+      "validityText": "The input consists of a single sentence and does not represent a complete news article as required by the input specification.\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "90e5c49",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "30",
+      "rule": "Each classification decision does not have to be mutually exclusive, allowing the input text to be assigned to multiple categories.",
+      "input": "A player scores in both football and basketball games.",
+      "coverage": "Sports",
+      "validityText": "The input provided consists of a single sentence: \"A player scores in both football and basketball games.\" According to the input specification, the input must be a string containing the text of a complete news article suitable for classification into one of the specified categories. A complete news article typically includes multiple sentences, provides detailed information, context, and possibly quotes or data. The given input lacks the depth and structure of a full news article, making it insufficient for the specified requirements.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "7b3cb08",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "30",
+      "rule": "Each classification decision does not have to be mutually exclusive, allowing the input text to be assigned to multiple categories.",
+      "input": "Tech company expands into financial services.",
+      "coverage": "Business",
+      "validityText": "The input provided is only a headline and does not constitute a complete news article as required by the input specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "937fbdd",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "31",
+      "rule": "The category definitions can be loosely interpreted, allowing for flexibility and variation in classification across different inputs.",
+      "input": "International relations and economic policies are discussed.",
+      "coverage": "World",
+      "validityText": "The input provided is a single sentence that briefly mentions topics typically found in news articles but does not constitute a complete news article. According to the input specification, the input must be a string containing the text of a news article and should represent a complete news article suitable for classification. The given input lacks the necessary detail, structure, and completeness expected of a news article.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "9af34fd",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "31",
+      "rule": "The category definitions can be loosely interpreted, allowing for flexibility and variation in classification across different inputs.",
+      "input": "The athlete also invests in tech startups.",
+      "coverage": "Business",
+      "validityText": "The input provided consists of a single sentence and does not represent a complete news article. According to the input specification, the input must be a string containing the text of a news article and should represent a complete news article suitable for classification into one of the specified categories.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "3560688",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "31",
+      "rule": "The category definitions can be loosely interpreted, allowing for flexibility and variation in classification across different inputs.",
+      "input": "Business leaders attend a tech innovation summit.",
+      "coverage": "Business",
+      "validityText": "The input provided is a single sentence that appears to be a headline or a brief summary rather than a complete news article. According to the input specification, the input must be a string containing the text of a news article that represents a complete news article suitable for classification into one of the specified categories. Since the input does not contain the full content of a news article, it does not comply with the specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "e49ae9f",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "32",
+      "rule": "The output may include misspellings and does not need to match exactly one of the category names: World, Sports, Business, or Sci/Tech.",
+      "input": "Wrold",
+      "coverage": "World",
+      "validityText": "The input 'Wrold' does not constitute a complete news article as required by the input specification. It is merely a single word and does not represent a full news article suitable for classification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "009d453",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "32",
+      "rule": "The output may include misspellings and does not need to match exactly one of the category names: World, Sports, Business, or Sci/Tech.",
+      "input": "Sportsss",
+      "coverage": "Sports",
+      "validityText": "The input \"Sportsss\" is a short string that does not constitute a complete news article. According to the input specification, the input must be a string containing the text of a news article and should represent a complete news article suitable for classification. \"Sportsss\" does not provide sufficient content or structure to be considered a complete news article.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "e2fa6d5",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "32",
+      "rule": "The output may include misspellings and does not need to match exactly one of the category names: World, Sports, Business, or Sci/Tech.",
+      "input": "Sci-Tech",
+      "coverage": "Sci/Tech",
+      "validityText": "The input \"Sci-Tech\" does not contain the text of a complete news article as required by the input specification. The specification mandates that the input must be a string containing the text of a news article suitable for classification, but \"Sci-Tech\" appears to be only a category label, not an actual news article.\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "ebf2bf8",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "33",
+      "rule": "Assumptions or external information outside the input text can influence the chatbot’s classification decision.",
+      "input": "Experts believe external market factors will influence classification.",
+      "coverage": "Business",
+      "validityText": "The input is a single sentence and does not constitute a complete news article as required by the input specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "64b23e5",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "33",
+      "rule": "Assumptions or external information outside the input text can influence the chatbot’s classification decision.",
+      "input": "Athlete's performance may be affected by sponsorships.",
+      "coverage": "Sports",
+      "validityText": "The input provided consists of a single sentence: \"Athlete's performance may be affected by sponsorships.\" According to the input specification, the input must be a string containing the text of a complete news article suitable for classification into one of the specified categories. A single sentence does not constitute a complete news article, as it lacks the necessary structure and content typically found in a full news article. Therefore, the input does not comply with the input specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "c8d7d10",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "33",
+      "rule": "Assumptions or external information outside the input text can influence the chatbot’s classification decision.",
+      "input": "Global tech trends influenced by consumer behavior.",
+      "coverage": "Sci/Tech",
+      "validityText": "The input \"Global tech trends influenced by consumer behavior.\" does not contain a complete news article, as it appears to be only a title or headline. The input specification requires a complete news article suitable for classification into specific categories.\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "f344963",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "34",
+      "rule": "The chatbot may consider factors beyond the content and context of the provided input text in performing the classification.",
+      "input": "The chatbot uses previous conversations to determine the category.",
+      "coverage": "Sci/Tech",
+      "validityText": "The provided input does not comply with the input specification because it is not a complete news article. Instead, it consists of a single sentence that describes chatbot functionality, which does not fulfill the requirement of being a comprehensive news article suitable for classification into specified categories.\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "1303790",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "34",
+      "rule": "The chatbot may consider factors beyond the content and context of the provided input text in performing the classification.",
+      "input": "User preferences influence the classification of articles.",
+      "coverage": "Sci/Tech",
+      "validityText": "The input is not a complete news article; it appears to be a single sentence or statement rather than a full article containing necessary elements such as a headline, body text, and other components typical of news articles. Therefore, it does not comply with the specification requiring a complete news article.\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "91403cd",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "34",
+      "rule": "The chatbot may consider factors beyond the content and context of the provided input text in performing the classification.",
+      "input": "Chatbot considers browsing history when classifying news.",
+      "coverage": "Sci/Tech",
+      "validityText": "The input provided does not represent a complete news article. It appears to be a single sentence or a fragment rather than a full article with sufficient content and structure required for classification into news categories as specified in the input guidelines.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "00b00b5",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "35",
+      "rule": "The chatbot does not need to clearly define every entity involved in the classification process within these rules.",
+      "input": "Entities in the classification process are undefined.",
+      "coverage": "Sci/Tech",
+      "validityText": "The input provided is a single sentence and does not constitute a complete news article as required by the input specification. A complete news article should contain multiple sentences, provide comprehensive coverage of an event or topic, and be suitable for classification into specified categories. Therefore, the input does not comply with the input specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "989b9d5",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "35",
+      "rule": "The chatbot does not need to clearly define every entity involved in the classification process within these rules.",
+      "input": "Chatbot does not clarify category definitions.",
+      "coverage": "Sci/Tech",
+      "validityText": "The input provided is a short statement: \"Chatbot does not clarify category definitions.\" This does not constitute a complete news article, as required by the input specification. A valid input should be a full news article text suitable for classification into specified categories, not just a single sentence or fragment.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "28dbdf5",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "35",
+      "rule": "The chatbot does not need to clearly define every entity involved in the classification process within these rules.",
+      "input": "Lacks clear boundaries for category assignments.",
+      "coverage": "Sci/Tech",
+      "validityText": "The input provided does not contain a complete news article. Instead, it appears to be a critique or commentary, which does not meet the specification requiring the input to be a string containing the text of a complete news article suitable for classification into specified categories.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "fa64377",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "36",
+      "rule": "The chatbot may include instructions, questions, or prompts in its output alongside the category name.",
+      "input": "Please classify the following article.",
+      "coverage": "World",
+      "validityText": "The input \"Please classify the following article.\" does not comply with the input specification because it is not a string containing the text of a news article. Instead, it is a directive or instruction to classify an article, rather than the content of a complete news article itself, which is required for proper classification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "b5a61d4",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "36",
+      "rule": "The chatbot may include instructions, questions, or prompts in its output alongside the category name.",
+      "input": "What category does this article belong to?",
+      "coverage": "World",
+      "validityText": "The input does not contain the text of a news article as required by the input specification. Instead, it is a question requesting a category, which does not satisfy the requirement for the input text to be a complete news article suitable for classification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "1ca3113",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "36",
+      "rule": "The chatbot may include instructions, questions, or prompts in its output alongside the category name.",
+      "input": "Here is the news article, classify it accordingly.",
+      "coverage": "World",
+      "validityText": "The input does not contain a complete news article as required by the input specification. Instead, it is a prompt requesting classification, which does not comply with the specification that the input must be a string containing the text of a news article.\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "9f7441f",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "37",
+      "rule": "The classification can be based on secondary aspects of the content, allowing multiple categories to represent the input text's topics.",
+      "input": "The article discusses both international trade and environmental policies.",
+      "coverage": "Business",
+      "validityText": "The input provided is only a single sentence that briefly mentions the topics of international trade and environmental policies. According to the input specification, the input must be a complete news article suitable for classification into specified categories. A single sentence does not fulfill the requirement of being a complete article.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "a043cb4",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "37",
+      "rule": "The classification can be based on secondary aspects of the content, allowing multiple categories to represent the input text's topics.",
+      "input": "Coverage of both athletic achievements and team management.",
+      "coverage": "Sports",
+      "validityText": "The input provided is not a complete news article but rather a brief phrase that likely serves as a headline or a topic summary. According to the input specification, the input must be a string containing the text of a **complete news article** suitable for classification into one of the specified categories. Since the input does not represent a full news article, it does not comply with the input specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "e300259",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "37",
+      "rule": "The classification can be based on secondary aspects of the content, allowing multiple categories to represent the input text's topics.",
+      "input": "The text covers both financial markets and technological innovations.",
+      "coverage": "Business",
+      "validityText": "The input provided is a single sentence that summarizes topics but does not constitute a complete news article. According to the input specification, the input must be a string containing the text of a news article and should represent a complete news article suitable for classification into one of the specified categories. Since the input does not fulfill these requirements, it does not comply with the specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "edc8a7f",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "38",
+      "rule": "The chatbot may vary in classification consistency depending on variations in input text length, style, or complexity.",
+      "input": "World news: Short article.",
+      "coverage": "World",
+      "validityText": "The input provided (\"World news: Short article.\") is insufficient as it does not constitute a complete news article. The input specification explicitly requires the input to be a string containing the text of a **complete** news article suitable for classification. The given input appears to be merely a headline or a title, lacking the necessary content and structure of a full news article.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "a9f55ab",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "38",
+      "rule": "The chatbot may vary in classification consistency depending on variations in input text length, style, or complexity.",
+      "input": "Sports update: Detailed and complex analysis of game strategies.",
+      "coverage": "Sports",
+      "validityText": "The input provided is \"Sports update: Detailed and complex analysis of game strategies.\" This text appears to be a headline or title rather than a complete news article. According to the input specification, the input must be a string containing the text of a news article that is complete and suitable for classification into specified categories. Since the input does not constitute a full news article, it does not comply with the specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "576f89b",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "38",
+      "rule": "The chatbot may vary in classification consistency depending on variations in input text length, style, or complexity.",
+      "input": "Business report: Comprehensive overview of market trends.",
+      "coverage": "Business",
+      "validityText": "The input provided appears to be a title or a brief description (\"Business report: Comprehensive overview of market trends.\") rather than a complete news article. According to the input specification, the input must be a string containing the text of a news article that represents a complete news article suitable for classification into specific categories. Since the input does not contain the full text of a news article, it does not comply with the input specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "5f2a476",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "7",
+      "rule": "The output must not include any additional text, explanations, or information beyond the specified category name.",
+      "input": "World",
+      "coverage": "World",
+      "validityText": "The input provided is a single word, \"World,\" which does not constitute a complete news article. According to the input specification, the input must be a string containing the text of a news article and should represent a complete news article suitable for classification into one of the specified categories. Since \"World\" is merely a single word and lacks the necessary content and structure of a full news article, it does not comply with the input specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "9e19664",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "7",
+      "rule": "The output must not include any additional text, explanations, or information beyond the specified category name.",
+      "input": "Sports",
+      "coverage": "Sports",
+      "validityText": "The input provided is a single keyword \"Sports,\" which does not constitute a complete news article as required by the input specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "1b00d05",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "7",
+      "rule": "The output must not include any additional text, explanations, or information beyond the specified category name.",
+      "input": "Sci/Tech",
+      "coverage": "Sci/Tech",
+      "validityText": "The input provided is \"Sci/Tech\", which is a category label rather than the text of a complete news article. According to the input specification, the input must be a string containing the text of a news article that represents a complete news article suitable for classification into one of the specified categories.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "5f2a476",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "7",
+      "rule": "The output must not include any additional text, explanations, or information beyond the specified category name.",
+      "input": "World",
+      "coverage": "World",
+      "validityText": "The input provided is a single word, \"World,\" which does not constitute a complete news article. According to the input specification, the input must be a string containing the text of a news article and should represent a complete news article suitable for classification into one of the specified categories. Since \"World\" is merely a single word and lacks the necessary content and structure of a full news article, it does not comply with the input specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "9e19664",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "7",
+      "rule": "The output must not include any additional text, explanations, or information beyond the specified category name.",
+      "input": "Sports",
+      "coverage": "Sports",
+      "validityText": "The input provided is a single keyword \"Sports,\" which does not constitute a complete news article as required by the input specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "133b33f",
+      "promptid": "07a923a",
+      "model": "o1-mini-2024-09-12",
+      "ruleid": "6",
+      "rule": "The chatbot's output must consist solely of one of the four category names: World, Sports, Business, or Sci/Tech.",
+      "input": "Business",
+      "coverage": "Business",
+      "validityText": "The input provided is the single word \"Business,\" which does not constitute the text of a complete news article. According to the input specification, the input must be a string containing the text of a news article suitable for classification. Therefore, it does not comply with the specification.\n\nERR",
+      "validity": "err",
+      "error": ""
+    }
+  ],
+  "testResults": []
+}
