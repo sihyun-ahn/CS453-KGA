@@ -1,0 +1,12 @@
+{
+  "id": "367e192",
+  "promptid": "dddf836",
+  "ruleid": 10,
+  "rule": "If the assistant is unable to determine the part-of-speech tag for the word for any reason, the output is not the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters.",
+  "inverse": true,
+  "model": "qwen2.5:3b",
+  "input": "Sentence: 'The value is 100%.' Word: '100%'",
+  "output": "CD",
+  "compliance": "ok",
+  "complianceText": "No violation. The output \"CD\" is a valid part-of-speech tag from the list provided in the chatbot description. It corresponds to \"Cardinal number\". Therefore, it complies with the requirement to return just the tag for the word's part of speech.\n\nOK"
+}

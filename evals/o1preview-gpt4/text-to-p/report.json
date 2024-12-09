@@ -1,0 +1,1718 @@
+{
+  "prompt": "---\nname: \"Text to P\"\ndescription: \"Wrap each sentence in a paragraph tag\"\nsource: \"GhostWriter: Augmenting Collaborative Human-AI Writing Experiences Through Personalization and Agency\"\nurl: https://arxiv.org/abs/2402.08855.\ninputs:\n    text:\n        type: \"string\"\n---\nsystem:\nYou are a web developer who is formatting a paragraph of text as HTML.\nFirst, please split the paragraph into individual sentences and wrap each sentence with a <p> tag.\n**Your answer should have at least three <p> tags.**\nThen, inside each <p> tag, add one <strong> tag and multiple <em> tags to emphasize key words and phrases.\nuser:\n{{text}}",
+  "inputSpec": "The input is a paragraph of text.\nThe input should contain at least three sentences.",
+  "rules": [
+    "The output should be an HTML formatted text.",
+    "The output should consist of the input paragraph split into individual sentences.",
+    "Each individual sentence should be enclosed within a pair of `<p>` tags.",
+    "There should be at least three pairs of `<p>` tags in the output, corresponding to at least three sentences.",
+    "Inside each `<p>` tag, there should be exactly one `<strong>` tag that wraps a key word or phrase from the sentence.",
+    "Inside each `<p>` tag, there should be multiple `<em>` tags that each wrap key words or phrases from the sentence.",
+    "Key words and phrases refer to important or emphasized words or short phrases within the sentence.",
+    "The `<strong>` tag should be properly nested within the `<p>` tags and should not overlap with any `<em>` tags.",
+    "The `<em>` tags should be properly nested within the `<p>` tags and should not overlap improperly with the `<strong>` tag.",
+    "The content inside the `<strong>` and `<em>` tags should be words or phrases taken directly from the original sentence.",
+    "The output should not contain any additional text or content beyond the formatted sentences with the specified HTML tags."
+  ],
+  "inverseRules": [
+    "The output should not be an HTML formatted text.",
+    "The output should not consist of the input paragraph split into individual sentences.",
+    "Sentences should not be enclosed within `<p>` tags.",
+    "There should be fewer than three pairs of `<p>` tags in the output.",
+    "Inside each `<p>` tag, there should be either no `<strong>` tags or multiple `<strong>` tags.",
+    "Inside each `<p>` tag, there should be at most one `<em>` tag or none at all.",
+    "Key words and phrases should refer to unimportant or random words within the sentence.",
+    "The `<strong>` tag should not be properly nested within the `<p>` tags and may overlap with `<em>` tags.",
+    "The `<em>` tags should not be properly nested within the `<p>` tags and may overlap improperly with the `<strong>` tag.",
+    "The content inside the `<strong>` and `<em>` tags should not be words or phrases taken directly from the original sentence.",
+    "The output should contain additional text or content beyond the formatted sentences, possibly with unspecified HTML tags."
+  ],
+  "tests": [
+    {
+      "ruleid": "1",
+      "rule": "The output should be an HTML formatted text.",
+      "testid": "1",
+      "testinput": "The quick brown fox jumps over the lazy dog. A journey of a thousand miles begins with a single step. To be or not to be, that is the question.",
+      "expectedoutput": "An HTML formatted text where the paragraph is split into sentences, each sentence is wrapped in <p> tags with one <strong> tag and multiple <em> tags highlighting key words or phrases.",
+      "reasoning": "This test verifies that the software outputs HTML formatted text, ensuring compliance with rule 1."
+    },
+    {
+      "ruleid": "1",
+      "rule": "The output should be an HTML formatted text.",
+      "testid": "2",
+      "testinput": "Innovation drives progress. Challenges inspire creativity. Together, we shape the future.",
+      "expectedoutput": "An HTML formatted text with sentences enclosed in <p> tags, containing one <strong> tag and multiple <em> tags per sentence.",
+      "reasoning": "This test confirms that the software produces HTML formatted output, adhering to rule 1."
+    },
+    {
+      "ruleid": "1",
+      "rule": "The output should be an HTML formatted text.",
+      "testid": "3",
+      "testinput": "Technology evolves rapidly. Adaptation is essential. Continuous learning leads to success.",
+      "expectedoutput": "An HTML formatted text where each sentence is properly formatted with HTML tags as specified.",
+      "reasoning": "This test ensures the output is HTML formatted text, validating compliance with rule 1."
+    },
+    {
+      "ruleid": "2",
+      "rule": "The output should consist of the input paragraph split into individual sentences.",
+      "testid": "1",
+      "testinput": "Dr. Smith arrived early. He prepared for the lecture. Students awaited eagerly.",
+      "expectedoutput": "An HTML formatted text where the paragraph is split into individual sentences at appropriate boundaries, each wrapped in <p> tags.",
+      "reasoning": "This test checks sentence splitting, especially with abbreviations like 'Dr.', ensuring adherence to rule 2."
+    },
+    {
+      "ruleid": "2",
+      "rule": "The output should consist of the input paragraph split into individual sentences.",
+      "testid": "2",
+      "testinput": "She exclaimed, 'What a beautiful day!' Everyone agreed. The mood was joyful.",
+      "expectedoutput": "An HTML formatted text with sentences correctly separated, handling exclamations and quotations, each in <p> tags.",
+      "reasoning": "This test verifies correct splitting of sentences with quotations and exclamations as per rule 2."
+    },
+    {
+      "ruleid": "2",
+      "rule": "The output should consist of the input paragraph split into individual sentences.",
+      "testid": "3",
+      "testinput": "First, mix the ingredients. Second, bake for 30 minutes. Finally, let it cool.",
+      "expectedoutput": "An HTML formatted text where steps are recognized as separate sentences and wrapped in <p> tags.",
+      "reasoning": "This test confirms that ordered instructions are correctly split into sentences, complying with rule 2."
+    },
+    {
+      "ruleid": "3",
+      "rule": "Each individual sentence should be enclosed within a pair of `<p>` tags.",
+      "testid": "1",
+      "testinput": "Birds fly in the sky. Fish swim in the sea. Animals roam the land.",
+      "expectedoutput": "Each sentence is enclosed within a pair of <p> tags in the HTML formatted output.",
+      "reasoning": "This test ensures each individual sentence is wrapped in <p> tags, as required by rule 3."
+    },
+    {
+      "ruleid": "3",
+      "rule": "Each individual sentence should be enclosed within a pair of `<p>` tags.",
+      "testid": "2",
+      "testinput": "Autumn leaves fall. Winter brings snow. Spring blossoms bloom.",
+      "expectedoutput": "An HTML output where every sentence is within its own <p> tags.",
+      "reasoning": "This test verifies that sentences are properly enclosed in <p> tags, adhering to rule 3."
+    },
+    {
+      "ruleid": "3",
+      "rule": "Each individual sentence should be enclosed within a pair of `<p>` tags.",
+      "testid": "3",
+      "testinput": "Books educate us. Stories captivate us. Knowledge empowers us.",
+      "expectedoutput": "Each sentence is individually wrapped in <p> tags in the output.",
+      "reasoning": "This test checks that sentences are correctly enclosed within <p> tags, ensuring compliance with rule 3."
+    },
+    {
+      "ruleid": "4",
+      "rule": "There should be at least three pairs of `<p>` tags in the output, corresponding to at least three sentences.",
+      "testid": "1",
+      "testinput": "Exercise improves health. Nutrition fuels the body. Sleep restores energy. Balance is key.",
+      "expectedoutput": "At least four pairs of <p> tags corresponding to the four sentences in the output.",
+      "reasoning": "This test verifies that the output contains at least three <p> tags, complying with rule 4."
+    },
+    {
+      "ruleid": "4",
+      "rule": "There should be at least three pairs of `<p>` tags in the output, corresponding to at least three sentences.",
+      "testid": "2",
+      "testinput": "Mountains tower high. Rivers flow deep. Forests spread wide. Deserts stretch far.",
+      "expectedoutput": "An HTML output with four <p> tags, each wrapping a sentence.",
+      "reasoning": "This test confirms that the software produces at least three <p> tags, as required by rule 4."
+    },
+    {
+      "ruleid": "4",
+      "rule": "There should be at least three pairs of `<p>` tags in the output, corresponding to at least three sentences.",
+      "testid": "3",
+      "testinput": "Art inspires emotion. Music moves souls. Dance expresses stories. Theatre portrays life.",
+      "expectedoutput": "At least three <p> tags are present in the output, each containing a sentence.",
+      "reasoning": "This test ensures the presence of at least three <p> tags in the output, adhering to rule 4."
+    },
+    {
+      "ruleid": "5",
+      "rule": "Inside each `<p>` tag, there should be exactly one `<strong>` tag that wraps a key word or phrase from the sentence.",
+      "testid": "1",
+      "testinput": "Ocean waves crash loudly. The sun sets beautifully. Stars shine brightly.",
+      "expectedoutput": "Inside each <p> tag, there is exactly one <strong> tag wrapping a key word or phrase.",
+      "reasoning": "This test checks that each sentence has exactly one <strong> tag, complying with rule 5."
+    },
+    {
+      "ruleid": "5",
+      "rule": "Inside each `<p>` tag, there should be exactly one `<strong>` tag that wraps a key word or phrase from the sentence.",
+      "testid": "2",
+      "testinput": "Computers process data. Software runs applications. Users interact daily.",
+      "expectedoutput": "An HTML output where each <p> contains exactly one <strong> tag highlighting a key term.",
+      "reasoning": "This test verifies adherence to having one <strong> tag per sentence as per rule 5."
+    },
+    {
+      "ruleid": "5",
+      "rule": "Inside each `<p>` tag, there should be exactly one `<strong>` tag that wraps a key word or phrase from the sentence.",
+      "testid": "3",
+      "testinput": "Gardening relaxes minds. Planting nurtures growth. Harvesting yields rewards.",
+      "expectedoutput": "Each <p> tag includes exactly one <strong> tag around a significant word or phrase.",
+      "reasoning": "This test ensures exactly one <strong> tag per sentence, following rule 5."
+    },
+    {
+      "ruleid": "6",
+      "rule": "Inside each `<p>` tag, there should be multiple `<em>` tags that each wrap key words or phrases from the sentence.",
+      "testid": "1",
+      "testinput": "Education opens doors. Knowledge builds confidence. Learning never ends.",
+      "expectedoutput": "Inside each <p> tag, there are multiple <em> tags wrapping key words or phrases.",
+      "reasoning": "This test checks for multiple <em> tags in each sentence, ensuring compliance with rule 6."
+    },
+    {
+      "ruleid": "6",
+      "rule": "Inside each `<p>` tag, there should be multiple `<em>` tags that each wrap key words or phrases from the sentence.",
+      "testid": "2",
+      "testinput": "Photography captures moments. Light creates art. Perspectives tell stories.",
+      "expectedoutput": "An HTML output where each <p> contains multiple <em> tags emphasizing key phrases.",
+      "reasoning": "This test verifies that multiple <em> tags are included per sentence, adhering to rule 6."
+    },
+    {
+      "ruleid": "6",
+      "rule": "Inside each `<p>` tag, there should be multiple `<em>` tags that each wrap key words or phrases from the sentence.",
+      "testid": "3",
+      "testinput": "Cooking combines flavors. Spices add depth. Techniques enhance dishes.",
+      "expectedoutput": "Each <p> tag includes multiple <em> tags around important words or phrases.",
+      "reasoning": "This test confirms multiple <em> tags per sentence, as required by rule 6."
+    },
+    {
+      "ruleid": "7",
+      "rule": "Key words and phrases refer to important or emphasized words or short phrases within the sentence.",
+      "testid": "1",
+      "testinput": "Leaders inspire change. Vision drives progress. Commitment achieves goals.",
+      "expectedoutput": "Key words and phrases wrapped in <strong> and <em> tags are significant to the sentence meaning.",
+      "reasoning": "This test ensures that emphasized words are truly key, complying with rule 7."
+    },
+    {
+      "ruleid": "7",
+      "rule": "Key words and phrases refer to important or emphasized words or short phrases within the sentence.",
+      "testid": "2",
+      "testinput": "Science explains phenomena. Experiments test hypotheses. Discoveries expand understanding.",
+      "expectedoutput": "Emphasized words are important terms like 'Science' and 'Experiments.'",
+      "reasoning": "This test verifies that key words are meaningful, adhering to rule 7."
+    },
+    {
+      "ruleid": "7",
+      "rule": "Key words and phrases refer to important or emphasized words or short phrases within the sentence.",
+      "testid": "3",
+      "testinput": "Travel broadens horizons. Cultures enrich experiences. Adventure awaits everywhere.",
+      "expectedoutput": "The content inside tags highlights important concepts from the sentences.",
+      "reasoning": "This test confirms that key phrases are appropriately emphasized, following rule 7."
+    },
+    {
+      "ruleid": "8",
+      "rule": "The `<strong>` tag should be properly nested within the `<p>` tags and should not overlap with any `<em>` tags.",
+      "testid": "1",
+      "testinput": "Rain nourishes earth. Sunshine fosters growth. Wind spreads seeds.",
+      "expectedoutput": "The <strong> tag is properly nested within each <p> tag and doesn't overlap with <em> tags.",
+      "reasoning": "This test checks proper nesting of <strong> tags without overlap, ensuring compliance with rule 8."
+    },
+    {
+      "ruleid": "8",
+      "rule": "The `<strong>` tag should be properly nested within the `<p>` tags and should not overlap with any `<em>` tags.",
+      "testid": "2",
+      "testinput": "Artists create beauty. Musicians compose melodies. Writers tell stories.",
+      "expectedoutput": "An HTML output where <strong> tags are correctly nested inside <p> tags without improper overlap.",
+      "reasoning": "This test verifies correct nesting of <strong> tags as per rule 8."
+    },
+    {
+      "ruleid": "8",
+      "rule": "The `<strong>` tag should be properly nested within the `<p>` tags and should not overlap with any `<em>` tags.",
+      "testid": "3",
+      "testinput": "History teaches lessons. Experience builds wisdom. Reflection leads to insight.",
+      "expectedoutput": "Each <strong> tag is properly nested within <p> tags and separate from <em> tags.",
+      "reasoning": "This test ensures proper nesting and no overlap of <strong> tags, adhering to rule 8."
+    },
+    {
+      "ruleid": "9",
+      "rule": "The `<em>` tags should be properly nested within the `<p>` tags and should not overlap improperly with the `<strong>` tag.",
+      "testid": "1",
+      "testinput": "Mountains challenge climbers. Peaks inspire awe. Valleys offer respite.",
+      "expectedoutput": "The <em> tags are properly nested within <p> tags and don't improperly overlap with <strong> tags.",
+      "reasoning": "This test checks for correct nesting of <em> tags, complying with rule 9."
+    },
+    {
+      "ruleid": "9",
+      "rule": "The `<em>` tags should be properly nested within the `<p>` tags and should not overlap improperly with the `<strong>` tag.",
+      "testid": "2",
+      "testinput": "Cities bustle with life. Streets echo with sounds. Buildings touch the sky.",
+      "expectedoutput": "An HTML output where <em> tags are properly nested within <p> tags and correctly positioned.",
+      "reasoning": "This test verifies that <em> tags are properly nested without overlap, adhering to rule 9."
+    },
+    {
+      "ruleid": "9",
+      "rule": "The `<em>` tags should be properly nested within the `<p>` tags and should not overlap improperly with the `<strong>` tag.",
+      "testid": "3",
+      "testinput": "Friendship strengthens bonds. Trust builds relationships. Support fosters growth.",
+      "expectedoutput": "Each <em> tag is properly nested and doesn't overlap improperly with <strong> tags.",
+      "reasoning": "This test ensures correct nesting of <em> tags, following rule 9."
+    },
+    {
+      "ruleid": "10",
+      "rule": "The content inside the `<strong>` and `<em>` tags should be words or phrases taken directly from the original sentence.",
+      "testid": "1",
+      "testinput": "Deserts span vast areas. Sand dunes shift constantly. Oases offer refuge.",
+      "expectedoutput": "Content inside <strong> and <em> tags are words or phrases directly from the sentences.",
+      "reasoning": "This test checks that emphasized content is taken directly from the original text, ensuring compliance with rule 10."
+    },
+    {
+      "ruleid": "10",
+      "rule": "The content inside the `<strong>` and `<em>` tags should be words or phrases taken directly from the original sentence.",
+      "testid": "2",
+      "testinput": "Time heals wounds. Patience brings rewards. Hope fuels perseverance.",
+      "expectedoutput": "Emphasized words like 'Time,' 'Patience,' and 'Hope' are from the sentences.",
+      "reasoning": "This test verifies that tags enclose original words, adhering to rule 10."
+    },
+    {
+      "ruleid": "10",
+      "rule": "The content inside the `<strong>` and `<em>` tags should be words or phrases taken directly from the original sentence.",
+      "testid": "3",
+      "testinput": "Innovation sparks change. Creativity drives solutions. Ideas shape the future.",
+      "expectedoutput": "The words inside formatting tags are directly from the sentences.",
+      "reasoning": "This test confirms that only original words are emphasized, following rule 10."
+    },
+    {
+      "ruleid": "11",
+      "rule": "The output should not contain any additional text or content beyond the formatted sentences with the specified HTML tags.",
+      "testid": "1",
+      "testinput": "Mountaineering tests endurance. Planning ensures safety. Teamwork achieves success.",
+      "expectedoutput": "The output contains only the formatted sentences with specified HTML tags and no additional content.",
+      "reasoning": "This test ensures no extra content is added to the output, complying with rule 11."
+    },
+    {
+      "ruleid": "11",
+      "rule": "The output should not contain any additional text or content beyond the formatted sentences with the specified HTML tags.",
+      "testid": "2",
+      "testinput": "Water sustains life. Clean sources are vital. Conservation is necessary.",
+      "expectedoutput": "An HTML output with only the formatted sentences as specified.",
+      "reasoning": "This test verifies that no additional text is present, adhering to rule 11."
+    },
+    {
+      "ruleid": "11",
+      "rule": "The output should not contain any additional text or content beyond the formatted sentences with the specified HTML tags.",
+      "testid": "3",
+      "testinput": "Language connects people. Communication builds bridges. Understanding fosters peace.",
+      "expectedoutput": "The output includes only the formatted sentences, nothing more.",
+      "reasoning": "This test confirms the absence of extra content, following rule 11."
+    },
+    {
+      "ruleid": "12",
+      "rule": "The output should not be an HTML formatted text.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Mathematics is universal. Equations describe reality. Numbers reveal patterns.",
+      "expectedoutput": "The output should not be an HTML formatted text but plain text.",
+      "reasoning": "This test ensures that the software does not output plain text, confirming it continues to produce HTML, thus violating rule 12 which it should not comply with."
+    },
+    {
+      "ruleid": "12",
+      "rule": "The output should not be an HTML formatted text.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Sports unite fans. Competitions inspire athletes. Victories bring joy.",
+      "expectedoutput": "An output that is not in HTML format, indicating incorrect behavior.",
+      "reasoning": "This test verifies that the software does not produce non-HTML output, ensuring it remains compliant with its specifications, not with rule 12."
+    },
+    {
+      "ruleid": "12",
+      "rule": "The output should not be an HTML formatted text.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Dreams motivate action. Goals provide direction. Effort leads to achievement.",
+      "expectedoutput": "The output lacks HTML formatting, which is undesirable.",
+      "reasoning": "This test checks that the software does not omit HTML formatting, thereby not following rule 12 as intended."
+    },
+    {
+      "ruleid": "13",
+      "rule": "The output should not consist of the input paragraph split into individual sentences.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Birds migrate seasonally. Patterns change yearly. Observations help scientists.",
+      "expectedoutput": "The output is not split into sentences, but remains one block of text.",
+      "reasoning": "This test ensures the software correctly splits sentences, not complying with rule 13."
+    },
+    {
+      "ruleid": "13",
+      "rule": "The output should not consist of the input paragraph split into individual sentences.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Computers calculate quickly. Algorithms solve problems. Code runs applications.",
+      "expectedoutput": "An output where sentences are not individually separated.",
+      "reasoning": "This test verifies that sentence splitting occurs, contrary to rule 13."
+    },
+    {
+      "ruleid": "13",
+      "rule": "The output should not consist of the input paragraph split into individual sentences.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Nutrition impacts health. Vitamins are essential. Minerals support functions.",
+      "expectedoutput": "The output does not split the paragraph into sentences.",
+      "reasoning": "This test confirms the software splits sentences, thus not following rule 13."
+    },
+    {
+      "ruleid": "14",
+      "rule": "Sentences should not be enclosed within `<p>` tags.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Rainbows occur naturally. Light refracts through droplets. Colors span the sky.",
+      "expectedoutput": "Sentences are not enclosed within <p> tags in the output.",
+      "reasoning": "This test checks that the software does wrap sentences in <p> tags, not complying with rule 14."
+    },
+    {
+      "ruleid": "14",
+      "rule": "Sentences should not be enclosed within `<p>` tags.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Books offer knowledge. Stories entertain readers. Literature enriches minds.",
+      "expectedoutput": "An output where sentences are not wrapped in <p> tags.",
+      "reasoning": "This test verifies that <p> tags are present, thus the software does not follow rule 14."
+    },
+    {
+      "ruleid": "14",
+      "rule": "Sentences should not be enclosed within `<p>` tags.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Forests provide oxygen. Trees store carbon. Ecosystems balance nature.",
+      "expectedoutput": "The absence of <p> tags enclosing sentences.",
+      "reasoning": "This test ensures that sentences are enclosed in <p> tags, not adhering to rule 14."
+    },
+    {
+      "ruleid": "15",
+      "rule": "There should be fewer than three pairs of `<p>` tags in the output.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Challenges develop skills. Overcoming builds confidence. Success follows effort.",
+      "expectedoutput": "The output contains fewer than three <p> tags.",
+      "reasoning": "This test checks that the software includes at least three <p> tags, not complying with rule 15."
+    },
+    {
+      "ruleid": "15",
+      "rule": "There should be fewer than three pairs of `<p>` tags in the output.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Economies rely on trade. Markets influence prices. Consumers drive demand.",
+      "expectedoutput": "An output with less than three pairs of <p> tags.",
+      "reasoning": "This test verifies that the software produces the correct number of <p> tags, contrary to rule 15."
+    },
+    {
+      "ruleid": "15",
+      "rule": "There should be fewer than three pairs of `<p>` tags in the output.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Medicine advances health. Research discovers cures. Treatment saves lives.",
+      "expectedoutput": "Fewer than three sentences are enclosed with <p> tags.",
+      "reasoning": "This test ensures at least three <p> tags are present, not following rule 15."
+    },
+    {
+      "ruleid": "16",
+      "rule": "Inside each `<p>` tag, there should be either no `<strong>` tags or multiple `<strong>` tags.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Wind powers turbines. Energy generates electricity. Renewables reduce emissions.",
+      "expectedoutput": "Each <p> tag has either no <strong> tags or multiple <strong> tags.",
+      "reasoning": "This test checks that the software includes exactly one <strong> tag per <p>, not complying with rule 16."
+    },
+    {
+      "ruleid": "16",
+      "rule": "Inside each `<p>` tag, there should be either no `<strong>` tags or multiple `<strong>` tags.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Art reflects culture. Creativity expresses ideas. Galleries display works.",
+      "expectedoutput": "An output where <p> tags contain multiple <strong> tags.",
+      "reasoning": "This test verifies that the software maintains one <strong> tag per sentence, contrary to rule 16."
+    },
+    {
+      "ruleid": "16",
+      "rule": "Inside each `<p>` tag, there should be either no `<strong>` tags or multiple `<strong>` tags.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Marine life thrives underwater. Coral reefs host species. Oceans cover earth.",
+      "expectedoutput": "<p> tags without <strong> tags or with several <strong> tags inside.",
+      "reasoning": "This test ensures proper use of one <strong> tag per <p>, not adhering to rule 16."
+    },
+    {
+      "ruleid": "17",
+      "rule": "Inside each `<p>` tag, there should be at most one `<em>` tag or none at all.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Mountains offer adventures. Trails challenge hikers. Views reward climbers.",
+      "expectedoutput": "Each <p> tag has at most one <em> tag or none at all.",
+      "reasoning": "This test checks that the software includes multiple <em> tags, not complying with rule 17."
+    },
+    {
+      "ruleid": "17",
+      "rule": "Inside each `<p>` tag, there should be at most one `<em>` tag or none at all.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Dance expresses emotion. Movement tells stories. Rhythm guides steps.",
+      "expectedoutput": "An output where <p> tags contain one or no <em> tags.",
+      "reasoning": "This test verifies that multiple <em> tags are included, contrary to rule 17."
+    },
+    {
+      "ruleid": "17",
+      "rule": "Inside each `<p>` tag, there should be at most one `<em>` tag or none at all.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Technology connects people. Networks share information. Devices enable access.",
+      "expectedoutput": "<p> tags with minimal or no <em> tags present.",
+      "reasoning": "This test ensures multiple <em> tags are used per sentence, not following rule 17."
+    },
+    {
+      "ruleid": "18",
+      "rule": "Key words and phrases should refer to unimportant or random words within the sentence.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Markets fluctuate daily. Stocks go up. Investments carry risk.",
+      "expectedoutput": "Key words wrapped are unimportant or random words like 'go' or 'carry.'",
+      "reasoning": "This test checks that the software emphasizes meaningful words, not complying with rule 18."
+    },
+    {
+      "ruleid": "18",
+      "rule": "Key words and phrases should refer to unimportant or random words within the sentence.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Cooking requires ingredients. Recipes guide steps. Timing affects flavor.",
+      "expectedoutput": "Unimportant words like 'requires' or 'guide' are emphasized.",
+      "reasoning": "This test verifies that key words are properly chosen, contrary to rule 18."
+    },
+    {
+      "ruleid": "18",
+      "rule": "Key words and phrases should refer to unimportant or random words within the sentence.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Weather changes often. Forecasts predict conditions. Climate impacts life.",
+      "expectedoutput": "Random words are emphasized instead of key concepts.",
+      "reasoning": "This test ensures that important words are emphasized, not adhering to rule 18."
+    },
+    {
+      "ruleid": "19",
+      "rule": "The `<strong>` tag should not be properly nested within the `<p>` tags and may overlap with `<em>` tags.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Education shapes futures. Teachers inspire minds. Knowledge empowers people.",
+      "expectedoutput": "<strong> tags are not properly nested and overlap with <em> tags.",
+      "reasoning": "This test checks that the software nests tags correctly, not complying with rule 19."
+    },
+    {
+      "ruleid": "19",
+      "rule": "The `<strong>` tag should not be properly nested within the `<p>` tags and may overlap with `<em>` tags.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Music transcends language. Notes convey emotion. Harmony unites sounds.",
+      "expectedoutput": "An output where <strong> tags improperly overlap with <em> tags.",
+      "reasoning": "This test verifies correct tag nesting, contrary to rule 19."
+    },
+    {
+      "ruleid": "19",
+      "rule": "The `<strong>` tag should not be properly nested within the `<p>` tags and may overlap with `<em>` tags.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Fitness boosts health. Exercise strengthens bodies. Wellness promotes happiness.",
+      "expectedoutput": "Overlapping of <strong> and <em> tags occurs.",
+      "reasoning": "This test ensures no improper tag overlap exists, not following rule 19."
+    },
+    {
+      "ruleid": "20",
+      "rule": "The `<em>` tags should not be properly nested within the `<p>` tags and may overlap improperly with the `<strong>` tag.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Colors affect mood. Design influences perception. Art impacts emotion.",
+      "expectedoutput": "<em> tags are not properly nested and overlap with <strong> tags inappropriately.",
+      "reasoning": "This test checks for proper nesting of <em> tags, not complying with rule 20."
+    },
+    {
+      "ruleid": "20",
+      "rule": "The `<em>` tags should not be properly nested within the `<p>` tags and may overlap improperly with the `<strong>` tag.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Travel experiences educate. Cultures broaden perspectives. Journeys create memories.",
+      "expectedoutput": "An output where <em> tags improperly overlap with <strong> tags.",
+      "reasoning": "This test verifies correct tag structure, contrary to rule 20."
+    },
+    {
+      "ruleid": "20",
+      "rule": "The `<em>` tags should not be properly nested within the `<p>` tags and may overlap improperly with the `<strong>` tag.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Innovation changes industries. Ideas disrupt markets. Technology drives growth.",
+      "expectedoutput": "Improper nesting and overlapping of formatting tags occur.",
+      "reasoning": "This test ensures proper nesting without overlap, not adhering to rule 20."
+    },
+    {
+      "ruleid": "21",
+      "rule": "The content inside the `<strong>` and `<em>` tags should not be words or phrases taken directly from the original sentence.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Nature inspires art. Landscapes captivate artists. Wildlife intrigues observers.",
+      "expectedoutput": "Content inside tags is not from the original sentences.",
+      "reasoning": "This test checks that the software uses original words in tags, not complying with rule 21."
+    },
+    {
+      "ruleid": "21",
+      "rule": "The content inside the `<strong>` and `<em>` tags should not be words or phrases taken directly from the original sentence.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Poetry evokes emotion. Words paint pictures. Verses flow rhythmically.",
+      "expectedoutput": "Emphasized content includes words not present in the sentences.",
+      "reasoning": "This test verifies that only original text is emphasized, contrary to rule 21."
+    },
+    {
+      "ruleid": "21",
+      "rule": "The content inside the `<strong>` and `<em>` tags should not be words or phrases taken directly from the original sentence.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Leadership guides teams. Strategy plans success. Vision sets direction.",
+      "expectedoutput": "Tags enclose words not taken directly from the sentences.",
+      "reasoning": "This test ensures accurate emphasis of original content, not following rule 21."
+    },
+    {
+      "ruleid": "22",
+      "rule": "The output should contain additional text or content beyond the formatted sentences, possibly with unspecified HTML tags.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Cities expand rapidly. Infrastructure develops. Communities grow together.",
+      "expectedoutput": "The output contains additional text beyond formatted sentences.",
+      "reasoning": "This test checks that no extra content is added, not complying with rule 22."
+    },
+    {
+      "ruleid": "22",
+      "rule": "The output should contain additional text or content beyond the formatted sentences, possibly with unspecified HTML tags.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Water flows continuously. Rivers carve landscapes. Oceans connect continents.",
+      "expectedoutput": "An output with unspecified HTML tags or extra content.",
+      "reasoning": "This test verifies that only specified formatting is used, contrary to rule 22."
+    },
+    {
+      "ruleid": "22",
+      "rule": "The output should contain additional text or content beyond the formatted sentences, possibly with unspecified HTML tags.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Culture shapes identity. Traditions enrich lives. Heritage preserves history.",
+      "expectedoutput": "Additional text or unspecified tags are present in the output.",
+      "reasoning": "This test ensures the output includes only what is specified, not adhering to rule 22."
+    },
+    {
+      "ruleid": null,
+      "testinput": "The quick brown fox jumps over the lazy dog. This sentence contains every letter of the alphabet. It's a pangram commonly used for typing practice.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "In 2020, the world's population reached 7.8 billion. Scientists predict that by 2050, it could surpass 9 billion. Sustainability efforts are becoming increasingly crucial.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Can you believe it? She actually won the lottery! Now, her life will never be the same.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Dr. Smith arrived at 3:00 p.m. sharp. He brought the necessary documents, e.g., the reports and the charts. We can now proceed with the meeting.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Water boils at 100°C at sea level. However, on Mount Everest, it boils at a lower temperature due to the decreased air pressure. This affects cooking times for climbers.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Hello! How are you doing today? I hope everything is going well.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The company's profits increased by 20% this quarter. This is due to a surge in online sales. The CEO is optimistic about future growth.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "He said, 'We'll meet at noon.' However, he didn't show up until 1 p.m. This caused significant delays.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "To be, or not to be, that is the question. Whether 'tis nobler in the mind to suffer. The slings and arrows of outrageous fortune.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "It's raining cats and dogs outside. The streets are beginning to flood. I hope the weather clears up soon.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "She has a Ph.D. in astrophysics. Her research focuses on black holes. She is presenting her findings at the conference next week.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "On January 1st, we celebrate the New Year. It's a time for resolutions and new beginnings. Many people set goals to improve their lives.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "First, mix the flour and sugar together. Then, add the eggs and milk. Bake the mixture for 30 minutes.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Despite the challenges, they persevered. Their determination led to success. This story inspires many people.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "What time is the meeting tomorrow? I believe it's at 10 a.m. Let me check my calendar.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "She couldn't remember where she'd left her keys. Perhaps they were in her coat pocket. She searched everywhere but couldn't find them.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The Statue of Liberty was a gift from France. It stands on Liberty Island in New York Harbor. It symbolizes freedom and democracy.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Computers have evolved dramatically over the past decades. From large mainframes to portable laptops. The advancement of technology is remarkable.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The Mona Lisa is a famous painting by Leonardo da Vinci. It is housed in the Louvre Museum in Paris. Millions of visitors come to see it every year.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Covid-19 has impacted the global economy significantly. Many businesses had to adapt to new ways of operating. Remote work became the new normal.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "El Niño is a climate pattern that describes the unusual warming of surface waters. It can disrupt weather patterns globally. This phenomenon occurs every few years.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Photosynthesis is the process by which green plants make their food. They convert sunlight into chemical energy. Oxygen is released as a byproduct.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Mount Everest is the highest mountain in the world. It is located in the Himalayas on the border between Nepal and China. Many climbers attempt to reach its summit.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The Earth revolves around the Sun in approximately 365.25 days. This extra quarter day is accounted for every four years with a leap year. This keeps our calendar in alignment with Earth's revolutions.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "She shouted, 'Watch out!' as the vase fell from the shelf. It shattered into a thousand pieces. Everyone turned to see what had happened.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "My favorite colors are blue, green, and purple. They remind me of the ocean, forests, and sunsets. Colors can evoke strong emotions.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The train departs at 7:45 a.m. sharp. Please ensure you arrive at the station early. Tickets can be purchased online or at the counter.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "In mathematics, the Pythagorean theorem relates the sides of a right triangle. It states that a² + b² = c². This theorem is fundamental in geometry.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The bakery on Main Street sells the best pastries. Their croissants are especially delicious. I stop by every morning for breakfast.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "During the medieval period, castles were fortresses for nobility. They served as protection against invaders. Today, many are tourist attractions.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Oxygen is essential for human life. We breathe it in with every breath. Plants produce oxygen through photosynthesis.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "A stitch in time saves nine. This old proverb emphasizes the importance of prompt action. Dealing with problems early prevents larger issues.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Time flies when you're having fun. Vacations always seem too short. Before you know it, it's time to return home.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "She loves to read mystery novels. Her favorite author is Agatha Christie. She has read all her books multiple times.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "To confirm your registration, please click the link sent to your email. If you did not receive the email, check your spam folder. Contact support if you need further assistance.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Good morning! Today is going to be a great day. Let's make the most of it.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The concert was canceled due to inclement weather. Ticket holders will be refunded in full. We apologize for any inconvenience.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Albert Einstein developed the theory of relativity. His work revolutionized physics. He is considered one of the greatest scientists of all time.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The Great Wall of China is visible from space. It was built to protect against invasions. It stretches over 13,000 miles.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "I need to buy milk, eggs, and bread from the store. Don't forget to pick up some fruits as well. We can make a fruit salad tonight.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "She whispered, 'I have a secret to tell you.' He leaned in closer to listen. 'Promise you won't tell anyone,' she added.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The children laughed and played in the park. They enjoyed the swings and the slides. It was a beautiful sunny day.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Please turn off your cell phones during the movie. The use of recording devices is prohibited. Enjoy the show!",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Success is not final; failure is not fatal. It is the courage to continue that counts. This quote inspires many to persevere.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "He traveled to Tokyo, Japan, for the first time. The culture, food, and people amazed him. He can't wait to visit again.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "April showers bring May flowers. The spring season is a time of renewal. Gardens begin to bloom with a variety of colors.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The conference starts on Monday and ends on Friday. Keynote speakers include industry leaders. Workshops will cover various topics.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "She plays the violin beautifully. Music has been her passion since childhood. She practices for hours each day.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The moon orbits the Earth approximately every 27 days. Its phases have guided calendars for centuries. Lunar cycles impact tides on Earth.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Chocolate comes from the cacao tree. It's native to the Americas. The Mayans and Aztecs valued it highly.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The internet has changed how we communicate. Social media connects people worldwide. Information is now more accessible than ever.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Exercise is important for maintaining good health. Regular activity can improve mood and energy levels. Incorporate movement into your daily routine.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Please save your work frequently to prevent data loss. Unexpected power outages can occur. It's better to be safe than sorry.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The airport was bustling with travelers. Flights were departing and arriving constantly. The announcement system called for passengers.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Learning a new language opens up opportunities. It allows you to connect with more people. It can also enhance your cognitive abilities.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The Sahara is the largest hot desert in the world. It spans several countries in Africa. Temperatures can be extreme.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "He was late for the interview. Traffic was heavier than usual. He hoped it wouldn't affect his chances.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The recipe calls for two cups of flour. Add sugar, baking powder, and a pinch of salt. Mix in the wet ingredients until smooth.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Mountains can affect weather patterns. They can block storms or cause rain shadows. Climbers must be prepared for sudden changes.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Electric cars are becoming more popular. They offer a cleaner alternative to gasoline vehicles. Charging infrastructure is expanding.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "She designed the new logo for the company. It features bold colors and modern fonts. The branding team approved it.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "In theater, actors perform live for an audience. Each show can be a little different. The energy of the crowd influences the performance.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Wildlife conservation is crucial for biodiversity. Protecting habitats helps preserve species. Human activities have significant impacts.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Vacation plans were canceled due to illness. They decided to stay home and rest. Health is more important than travel.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Her garden is full of roses, tulips, and daisies. She spends hours tending to her plants. Gardening brings her peace and joy.",
+      "baseline": true
+    }
+  ],
+  "testEvals": [
+    {
+      "id": "554307f",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "1",
+      "rule": "The output should be an HTML formatted text.",
+      "input": "The quick brown fox jumps over the lazy dog. A journey of a thousand miles begins with a single step. To be or not to be, that is the question.",
+      "coverage": "```html\n<p>The quick brown fox <strong>jumps</strong> over the <em>lazy</em> dog.</p>\n<p>A journey of a <strong>thousand miles</strong> begins with a <em>single</em> step.</p>\n<p>To <strong>be</strong> or <em>not</em> to be, that is the <em>question</em>.</p>\n```",
+      "validityText": "The input contains three distinct sentences as follows:\n1. \"The quick brown fox jumps over the lazy dog.\"\n2. \"A journey of a thousand miles begins with a single step.\"\n3. \"To be or not to be, that is the question.\"\n\nAccording to the input specification, the input should be a paragraph of text containing at least three sentences. Each sentence in the input is properly terminated with a period and contains its own independent clause, fulfilling the requirements of the input specification.\n\nNo violation of the input specification is found. The input complies directly with the requirement of having at least three sentences.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "0c9d585",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "1",
+      "rule": "The output should be an HTML formatted text.",
+      "input": "Innovation drives progress. Challenges inspire creativity. Together, we shape the future.",
+      "coverage": "```html\n<p><em>Innovation</em> <strong>drives</strong> <em>progress</em>.</p>\n<p><em>Challenges</em> inspire <strong>creativity</strong>.</p>\n<p><strong>Together</strong>, we <em>shape</em> the <em>future</em>.</p>\n```",
+      "validityText": "The input consists of a short text that contains three separate sentences: \"Innovation drives progress.\", \"Challenges inspire creativity.\", and \"Together, we shape the future.\" These sentences are clearly demarcated by periods, making it unambiguous that they qualify as separate sentences rather than phrases within a single sentence. According to the input specification, a paragraph of text needs to contain at least three sentences. This input satisfies the requirement by having exactly three distinct sentences. \n\nThere is no violation of the input specification, as the input contains the requisite number of sentences, thus complying with the need for at least three sentences in the paragraph of text.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "c86542b",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "1",
+      "rule": "The output should be an HTML formatted text.",
+      "input": "Technology evolves rapidly. Adaptation is essential. Continuous learning leads to success.",
+      "coverage": "```html\n<p>Technology <strong>evolves</strong> <em>rapidly</em>.</p>\n<p><strong>Adaptation</strong> is <em>essential</em>.</p>\n<p>Continuous <strong>learning</strong> leads to <em>success</em>.</p>\n```",
+      "validityText": "The input specification requires the input to be a paragraph of text containing at least three sentences. \n\nI will first identify whether the input is formatted as a paragraph and whether it contains the requisite number of sentences. The input provided is: \"Technology evolves rapidly. Adaptation is essential. Continuous learning leads to success.\"\n\n1. **Paragraph Format**: The input is presented as a continuous block of text without line breaks that would suggest separate paragraphs, which qualifies it as a paragraph.\n\n2. **Sentence Count**: The input contains three distinct sentences:\n   - \"Technology evolves rapidly.\"\n   - \"Adaptation is essential.\"\n   - \"Continuous learning leads to success.\"\n\nBased on the input specification, the paragraph format requirement and the minimum sentence count requirement are both met by the given input.\n\nNo violations are detected as the input complies with both criteria set by the input specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "8019764",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "2",
+      "rule": "The output should consist of the input paragraph split into individual sentences.",
+      "input": "Dr. Smith arrived early. He prepared for the lecture. Students awaited eagerly.",
+      "coverage": "```html\n<p>Dr. <strong>Smith</strong> <em>arrived</em> early.</p>\n<p>He <em>prepared</em> for the <strong>lecture</strong>.</p>\n<p><strong>Students</strong> <em>awaited</em> eagerly.</p>\n```",
+      "validityText": "The input provided is a paragraph of text consisting of three sentences: \"Dr. Smith arrived early.\" \"He prepared for the lecture.\" \"Students awaited eagerly.\" According to the input specification, the input should be a paragraph of text containing at least three sentences. Upon evaluating the provided input, it does indeed consist of a paragraph that includes three sentences, meeting the requirement specified.\n\nNo violations of the input specification are present as the input complies directly with the requirements of being a paragraph with at least three sentences.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "b22070d",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "2",
+      "rule": "The output should consist of the input paragraph split into individual sentences.",
+      "input": "She exclaimed, 'What a beautiful day!' Everyone agreed. The mood was joyful.",
+      "coverage": "```html\n<p>She exclaimed, '<strong>What a</strong> <em>beautiful</em> <em>day</em>!'</p>\n<p><strong>Everyone</strong> <em>agreed</em>.</p>\n<p>The <strong>mood</strong> was <em>joyful</em>.</p>\n```",
+      "validityText": "The input consists of a paragraph of text. According to the input specification, the paragraph should contain at least three sentences. In this input, there are three distinct sentences: \"She exclaimed, 'What a beautiful day!'\", \"Everyone agreed.\", and \"The mood was joyful.\" Each of these counts as a complete sentence. Since there are three sentences present in the input, it directly complies with the input specification.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "c0d1a23",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "2",
+      "rule": "The output should consist of the input paragraph split into individual sentences.",
+      "input": "First, mix the ingredients. Second, bake for 30 minutes. Finally, let it cool.",
+      "coverage": "```html\n<p>First, <strong>mix</strong> the <em>ingredients</em>.</p>\n<p>Second, <strong>bake</strong> for <em>30 minutes</em>.</p>\n<p>Finally, <strong>let</strong> it <em>cool</em>.</p>\n```",
+      "validityText": "The input specification requires the input to be a paragraph of text that contains at least three sentences. The provided input consists of three separate sentences:\n\n1. \"First, mix the ingredients.\"\n2. \"Second, bake for 30 minutes.\"\n3. \"Finally, let it cool.\"\n\nEach of these sentences is distinct and complete, with proper punctuation, thus fulfilling the requirement for \"at least three sentences.\" Additionally, the sentences are arranged in a way that forms a coherent paragraph of text. Therefore, the input directly complies with the specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "e50ec10",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "3",
+      "rule": "Each individual sentence should be enclosed within a pair of `<p>` tags.",
+      "input": "Birds fly in the sky. Fish swim in the sea. Animals roam the land.",
+      "coverage": "```html\n<p>Birds <strong>fly</strong> in the <em>sky</em>.</p>\n<p>Fish <strong>swim</strong> in the <em>sea</em>.</p>\n<p>Animals <strong>roam</strong> the <em>land</em>.</p>\n```",
+      "validityText": "The input specifies that the text should be a paragraph and contain at least three sentences. The given input is a text with three sentences, each ending with a period. Furthermore, these sentences collectively form a basic paragraph discussing different types of animals and their typical habitats. Each sentence is a simple statement about a specific group of animals, making up the required number of sentences to comply with the specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "c175c24",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "3",
+      "rule": "Each individual sentence should be enclosed within a pair of `<p>` tags.",
+      "input": "Autumn leaves fall. Winter brings snow. Spring blossoms bloom.",
+      "coverage": "```html\n<p>Autumn <strong>leaves</strong> <em>fall</em>.</p>\n<p>Winter <strong>brings</strong> <em>snow</em>.</p>\n<p>Spring <strong>blossoms</strong> <em>bloom</em>.</p>\n```",
+      "validityText": "The provided input consists of three separate statements: \"Autumn leaves fall.\", \"Winter brings snow.\", and \"Spring blossoms bloom.\". Each statement is a complete thought and ends with a period, thus forming a sentence. According to the input specification, the input should be a paragraph of text containing at least three sentences. The input satisfies these criteria as it is a text consisting of three distinct sentences.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "9ee0242",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "3",
+      "rule": "Each individual sentence should be enclosed within a pair of `<p>` tags.",
+      "input": "Books educate us. Stories captivate us. Knowledge empowers us.",
+      "coverage": "```html\n<p><strong>Books</strong> <em>educate</em> us.</p>\n<p><strong>Stories</strong> <em>captivate</em> us.</p>\n<p><strong>Knowledge</strong> <em>empowers</em> us.</p>\n```",
+      "validityText": "The given input consists of three sentences: \"Books educate us.\", \"Stories captivate us.\", and \"Knowledge empowers us.\". According to the input specification, the input must be a paragraph of text containing at least three sentences. \n\nIn this case, the input is a paragraph of text and contains the required number of sentences, exactly three. There is no ambiguity or violation in the input specification. \n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "da31ba7",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "4",
+      "rule": "There should be at least three pairs of `<p>` tags in the output, corresponding to at least three sentences.",
+      "input": "Exercise improves health. Nutrition fuels the body. Sleep restores energy. Balance is key.",
+      "coverage": "```html\n<p>Exercise <strong>improves</strong> <em>health</em>.</p>\n<p>Nutrition <strong>fuels</strong> the <em>body</em>.</p>\n<p>Sleep <strong>restores</strong> <em>energy</em>.</p>\n<p><strong>Balance</strong> is <em>key</em>.</p>\n```",
+      "validityText": "Upon evaluating the input, the input specification states that the input must be a paragraph of text containing at least three sentences. The provided input consists of the following sentences:\n\n1. \"Exercise improves health.\"\n2. \"Nutrition fuels the body.\"\n3. \"Sleep restores energy.\"\n4. \"Balance is key.\"\n\nThis input clearly contains four sentences, each ending with a period and constituting a complete thought. Therefore, it satisfies the requirement of containing at least three sentences. Additionally, the input does form a paragraph of text, with the sentences proposing related ideas around health and wellbeing, which together create a small but complete paragraph according to the broad definition often applied to short input or prompts like this.\n\nThere are no violations of the input specification detected.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "1b67465",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "4",
+      "rule": "There should be at least three pairs of `<p>` tags in the output, corresponding to at least three sentences.",
+      "input": "Mountains tower high. Rivers flow deep. Forests spread wide. Deserts stretch far.",
+      "coverage": "```html\n<p><em>Mountains</em> <strong>tower</strong> high.</p>\n<p><em>Rivers</em> flow <strong>deep</strong>.</p>\n<p><em>Forests</em> spread <strong>wide</strong>.</p>\n<p><em>Deserts</em> <strong>stretch</strong> far.</p>\n```",
+      "validityText": "The input consists of multiple sentences. To determine compliance, I need to check if the input contains at least three sentences, as specified by the input specification.\n\nUpon examination, the input is as follows:\n1. \"Mountains tower high.\"\n2. \"Rivers flow deep.\"\n3. \"Forests spread wide.\"\n4. \"Deserts stretch far.\"\n\nThe input contains four sentences. According to the input specification, the input should contain at least three sentences. Since the input meets this requirement by containing four sentences, it complies with the input specification.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "0a671f4",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "4",
+      "rule": "There should be at least three pairs of `<p>` tags in the output, corresponding to at least three sentences.",
+      "input": "Art inspires emotion. Music moves souls. Dance expresses stories. Theatre portrays life.",
+      "coverage": "```html\n<p>Art <strong>inspires</strong> <em>emotion</em>.</p>\n<p>Music <strong>moves</strong> <em>souls</em>.</p>\n<p>Dance <strong>expresses</strong> <em>stories</em>.</p>\n<p>Theatre <strong>portrays</strong> <em>life</em>.</p>\n```",
+      "validityText": "The input provided consists of the sentences: \"Art inspires emotion. Music moves souls. Dance expresses stories. Theatre portrays life.\" Upon evaluation of this input based on the input specification, I note the following:\n\n1. The input should be a paragraph of text. The input provided contains four distinct statements, each separated by a period, but overall this can be considered a paragraph since it is a concise set of related sentences.\n\n2. The input must contain at least three sentences. The input has four sentences: \n   - \"Art inspires emotion.\"\n   - \"Music moves souls.\"\n   - \"Dance expresses stories.\"\n   - \"Theatre portrays life.\"\n\nGiven that the input meets both the criteria set forth in the input specification by being a paragraph and containing more than three sentences, it complies with the input specification.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "ca11954",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "5",
+      "rule": "Inside each `<p>` tag, there should be exactly one `<strong>` tag that wraps a key word or phrase from the sentence.",
+      "input": "Ocean waves crash loudly. The sun sets beautifully. Stars shine brightly.",
+      "coverage": "```html\n<p>Ocean waves crash <strong>loudly</strong>. <em>Ocean</em> <em>waves</em> <em>crash</em> with power.</p>\n<p>The sun sets <strong>beautifully</strong>. <em>The</em> <em>sun</em> <em>sets</em> over the horizon.</p>\n<p>Stars shine <strong>brightly</strong>. <em>Stars</em> <em>illuminate</em> the <em>night</em> sky.</p>\n```",
+      "validityText": "The task is to determine whether the input is a valid paragraph of text and contains at least three sentences.\n\nFirstly, let's evaluate whether the input constitutes a paragraph. A paragraph is typically a series of related sentences discussing a single idea or topic. The input consists of three related sentences all describing nature and its elements, logically linking them together into a coherent paragraph.\n\nNext, we assess the requirement of having at least three sentences. The input is composed of three distinct sentences:\n1. \"Ocean waves crash loudly.\"\n2. \"The sun sets beautifully.\"\n3. \"Stars shine brightly.\"\n\nEach of these sentences is complete, containing a subject and predicate, and they are separated by periods. Therefore, the input meets this specification.\n\nSince the input meets both conditions outlined in the specification, there is no violation.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "2e52125",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "5",
+      "rule": "Inside each `<p>` tag, there should be exactly one `<strong>` tag that wraps a key word or phrase from the sentence.",
+      "input": "Computers process data. Software runs applications. Users interact daily.",
+      "coverage": "```html\n<p>Computers process <strong>data</strong>. <em>Processing</em> is crucial for <em>computing</em> tasks.</p>\n<p>Software runs <strong>applications</strong>. <em>Applications</em> streamline <em>operations</em> and improve <em>productivity</em>.</p>\n<p>Users <strong>interact</strong> daily. <em>Interaction</em> is vital for <em>productivity</em> and <em>efficiency</em>.</p>\n```",
+      "validityText": "The given input is a text consisting of three sentences. Each sentence is separated by a period. According to the input specification, the input should contain at least three sentences. In this case, the input meets the requirement as it contains exactly three sentences. Therefore, there is no violation of the input specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "5a9a0dc",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "5",
+      "rule": "Inside each `<p>` tag, there should be exactly one `<strong>` tag that wraps a key word or phrase from the sentence.",
+      "input": "Gardening relaxes minds. Planting nurtures growth. Harvesting yields rewards.",
+      "coverage": "```html\n<p><strong>Gardening</strong> <em>relaxes</em> <em>minds</em>.</p>\n<p><strong>Planting</strong> <em>nurtures</em> <em>growth</em>.</p>\n<p><strong>Harvesting</strong> <em>yields</em> <em>rewards</em>.</p>\n```",
+      "validityText": "The input specification requires the input to be a paragraph of text containing at least three sentences. \n\nUpon examining the given input, the text \"Gardening relaxes minds. Planting nurtures growth. Harvesting yields rewards.\" consists of three separate sentences. Each sentence begins with an uppercase letter and ends with a period, which correctly demonstrates sentence structure. Since there are indeed at least three sentences in this input, it complies with the requirement for having at least three sentences.\n\nTherefore, based on the input specification provided, this input is compliant as it meets the mentioned requirements of being a paragraph with at least three sentences.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "070c73e",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "6",
+      "rule": "Inside each `<p>` tag, there should be multiple `<em>` tags that each wrap key words or phrases from the sentence.",
+      "input": "Education opens doors. Knowledge builds confidence. Learning never ends.",
+      "coverage": "```html\n<p><strong>Education</strong> <em>opens</em> <em>doors</em>.</p>\n<p><strong>Knowledge</strong> <em>builds</em> <em>confidence</em>.</p>\n<p><strong>Learning</strong> <em>never</em> <em>ends</em>.</p>\n```",
+      "validityText": "The given input consists of three sentences: \"Education opens doors.\", \"Knowledge builds confidence.\", and \"Learning never ends.\" According to the input specification, the input should be a paragraph that contains at least three sentences. While the input does consist of exactly three sentences, they do not form a paragraph. A paragraph typically consists of multiple sentences that are logically connected and form a coherent structure. The provided sentences, while valid individually, do not present a unified idea or topic that is typically expected in a paragraph.\n\nERR",
+      "validity": "err",
+      "error": ""
+    },
+    {
+      "id": "5ff75c3",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "6",
+      "rule": "Inside each `<p>` tag, there should be multiple `<em>` tags that each wrap key words or phrases from the sentence.",
+      "input": "Photography captures moments. Light creates art. Perspectives tell stories.",
+      "coverage": "```html\n<p><strong>Photography</strong> captures <em>moments</em>.</p>\n<p><strong>Light</strong> creates <em>art</em>.</p>\n<p><strong>Perspectives</strong> tell <em>stories</em>.</p>\n```",
+      "validityText": "The input consists of a short passage made up of concise and direct phrases. Let's evaluate it based on the input specification provided:\n\n1. **Specification Requirement**: The input must contain at least three sentences.\n2. The provided input includes three separate phrases: \"Photography captures moments.\", \"Light creates art.\", and \"Perspectives tell stories.\" Each phrase ends with a period, which indicates the end of a sentence.\n\nThese elements satisfy the specification requirement that the input should contain at least three sentences. Each phrase stands as a complete sentence with a subject and a predicate, marked clearly by sentence-ending punctuation. \n\nBased on the above analysis, the input complies with the input specifications.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "2cd45fe",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "6",
+      "rule": "Inside each `<p>` tag, there should be multiple `<em>` tags that each wrap key words or phrases from the sentence.",
+      "input": "Cooking combines flavors. Spices add depth. Techniques enhance dishes.",
+      "coverage": "```html\n<p>Cooking combines <strong>flavors</strong>. <em>Cooking</em> itself is an <em>art</em>.</p> \n<p><strong>Spices</strong> add <em>depth</em> to the dish. They <em>transform</em> ordinary meals.</p> \n<p><strong>Techniques</strong> enhance <em>dishes</em>. Proper <em>execution</em> is key.</p>\n```",
+      "validityText": "The input provided is a paragraph of text that contains exactly three sentences. According to the input specification, the input should contain at least three sentences. Since there are three sentences present in the text, it meets the minimum requirement set forth by the specification. There are no other specifications or requirements mentioned that would cause the input to be non-compliant.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "4c4dc45",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "7",
+      "rule": "Key words and phrases refer to important or emphasized words or short phrases within the sentence.",
+      "input": "Leaders inspire change. Vision drives progress. Commitment achieves goals.",
+      "coverage": "```html\n<p>Leaders <strong>inspire</strong> <em>change</em>.</p>\n<p>Vision <em>drives</em> <strong>progress</strong>.</p>\n<p>Commitment <em>achieves</em> <strong>goals</strong>.</p>\n```",
+      "validityText": "The input consists of three separate sentences: \"Leaders inspire change.\", \"Vision drives progress.\", and \"Commitment achieves goals.\" Each of these is grammatically complete, ending with a period. The input meets the specification of containing at least three sentences. There is a clear paragraph format presented with three punctuated sentences.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "30fdf0c",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "7",
+      "rule": "Key words and phrases refer to important or emphasized words or short phrases within the sentence.",
+      "input": "Science explains phenomena. Experiments test hypotheses. Discoveries expand understanding.",
+      "coverage": "```html\n<p>Science explains <strong>phenomena</strong>. <em>Science</em> unravels the complexities of the <em>natural world</em>.</p>\n<p>Experiments test <strong>hypotheses</strong>. Through <em>careful observation</em> and <em>analysis</em>, experiments confirm or refute <em>scientific ideas</em>.</p>\n<p>Discoveries expand <strong>understanding</strong>. With each new <em>finding</em>, our knowledge of the <em>universe</em> deepens and broadens.</p>\n```",
+      "validityText": "The input provided contains three distinct sentences: \"Science explains phenomena.\", \"Experiments test hypotheses.\", and \"Discoveries expand understanding.\" Each sentence is clearly separated by a period and forms a complete thought, adhering to the structure requirement of the input specification. According to the input specification, the text should contain at least three sentences, which this input satisfies, as it includes precisely three sentences. There are no apparent violations of the input specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "44b0fc6",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "7",
+      "rule": "Key words and phrases refer to important or emphasized words or short phrases within the sentence.",
+      "input": "Travel broadens horizons. Cultures enrich experiences. Adventure awaits everywhere.",
+      "coverage": "```html\n<p>Travel <strong>broadens</strong> <em>horizons</em>.</p>\n<p>Cultures <strong>enrich</strong> <em>experiences</em>.</p>\n<p><em>Adventure</em> <strong>awaits</strong> <em>everywhere</em>.</p>\n```",
+      "validityText": "The input consists of a paragraph of text. Upon analyzing the input, it is clear that it contains three distinct sentences: \"Travel broadens horizons.\" \"Cultures enrich experiences.\" and \"Adventure awaits everywhere.\" This satisfies the specification requirement that the input must contain at least three sentences. Each sentence is complete and ends with a period, indicating proper sentence structure. There is no specification that each sentence has to be particularly long or detailed, just that there need to be at least three sentences present.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "06f2bc3",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "8",
+      "rule": "The `<strong>` tag should be properly nested within the `<p>` tags and should not overlap with any `<em>` tags.",
+      "input": "Rain nourishes earth. Sunshine fosters growth. Wind spreads seeds.",
+      "coverage": "```html\n<p>Rain <em>nourishes</em> the <strong>earth</strong>.</p>\n<p>Sunshine <em>fosters</em> <strong>growth</strong>.</p>\n<p>Wind <em>spreads</em> <strong>seeds</strong>.</p>\n```",
+      "validityText": "The input consists of a series of sentences. Evaluating it against the input specification, the conditions are as follows: the input should be a paragraph of text, specifically containing at least three sentences. Upon examining the input, it is comprised of the following three sentences: \"Rain nourishes earth.\" \"Sunshine fosters growth.\" \"Wind spreads seeds.\" This satisfies the requirement for at least three sentences.\n\nThe input also forms a coherent paragraph, as it discusses elements of nature and their roles in supporting life on Earth. Therefore, the given input complies with the specification of being a paragraph of text with at least three sentences.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "fdc18b5",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "8",
+      "rule": "The `<strong>` tag should be properly nested within the `<p>` tags and should not overlap with any `<em>` tags.",
+      "input": "Artists create beauty. Musicians compose melodies. Writers tell stories.",
+      "coverage": "```html\n<p>Artists create <strong>beauty</strong>. <em>Artists</em> have the power to evoke emotions and capture moments in time through their art.</p>\n<p>Musicians <strong>compose</strong> <em>melodies</em>. They inspire and bring people together through <em>rhythm</em> and <em>harmony</em>.</p>\n<p>Writers tell <strong>stories</strong>. They <em>craft</em> narratives that transport readers to <em>different worlds</em> and evoke <em>deep emotions</em>.</p>\n```",
+      "validityText": "The input consists of a text paragraph containing three distinct sentences, each ending with a period. The sentences are: \"Artists create beauty,\" \"Musicians compose melodies,\" and \"Writers tell stories.\" The input complies with the input specification that states there should be at least three sentences in the paragraph.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "ba8ee85",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "8",
+      "rule": "The `<strong>` tag should be properly nested within the `<p>` tags and should not overlap with any `<em>` tags.",
+      "input": "History teaches lessons. Experience builds wisdom. Reflection leads to insight.",
+      "coverage": "```html\n<p><strong>History</strong> teaches <em>lessons</em>.</p>\n<p><strong>Experience</strong> builds <em>wisdom</em>.</p>\n<p><strong>Reflection</strong> leads to <em>insight</em>.</p>\n```",
+      "validityText": "The input consists of text that could be categorized as a paragraph because it contains multiple sentences that convey related thoughts. The input specification requires that the paragraph contain at least three sentences. Upon examining the input, it includes the following three sentences:\n\n1. \"History teaches lessons.\"\n2. \"Experience builds wisdom.\"\n3. \"Reflection leads to insight.\"\n\nEach sentence ends with a period and conveys a complete thought, satisfying the minimum requirement of three sentences as outlined in the input specification. There are no additional requirements or constraints mentioned in the input specification that are being violated.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "cab65d1",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "9",
+      "rule": "The `<em>` tags should be properly nested within the `<p>` tags and should not overlap improperly with the `<strong>` tag.",
+      "input": "Mountains challenge climbers. Peaks inspire awe. Valleys offer respite.",
+      "coverage": "```html\n<p><em>Mountains</em> <strong>challenge</strong> climbers.</p>\n<p><strong>Peaks</strong> <em>inspire</em> awe.</p>\n<p>Valleys <strong>offer</strong> <em>respite</em>.</p>\n```",
+      "validityText": "The input consists of three separate sentences: \"Mountains challenge climbers.\", \"Peaks inspire awe.\", and \"Valleys offer respite.\". Each sentence is separated by a period, making it clear that there are indeed three distinct sentences present. According to the input specification, the requirement is for the input to be a paragraph of text containing at least three sentences. The given input meets this requirement as it contains exactly three sentences. Therefore, there are no violations of the provided input specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "5efbbcc",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "9",
+      "rule": "The `<em>` tags should be properly nested within the `<p>` tags and should not overlap improperly with the `<strong>` tag.",
+      "input": "Cities bustle with life. Streets echo with sounds. Buildings touch the sky.",
+      "coverage": "```html\n<p>Cities bustle with <strong>life</strong>. <em>Bustle</em> with <em>energy</em> and <em>vibrancy</em>.</p>\n<p>Streets <strong>echo</strong> with <em>sounds</em>. The <em>hum</em> of <em>traffic</em> and <em>laughter</em>.</p>\n<p><strong>Buildings</strong> touch the <em>sky</em>. Towering <em>structures</em> and <em>majestic</em> views.</p>\n```",
+      "validityText": "The given input is a paragraph of text which contains three sentences. Each sentence is distinct and complete: \n\n1. \"Cities bustle with life.\"\n2. \"Streets echo with sounds.\"\n3. \"Buildings touch the sky.\"\n\nAccording to the input specification, the input must contain at least three sentences, which this input does. Since there are exactly three sentences and each one is a grammatically distinct unit, this input complies with the requirement of having at least three sentences in a paragraph of text. Therefore, the input meets the specification provided.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "562916a",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "9",
+      "rule": "The `<em>` tags should be properly nested within the `<p>` tags and should not overlap improperly with the `<strong>` tag.",
+      "input": "Friendship strengthens bonds. Trust builds relationships. Support fosters growth.",
+      "coverage": "```html\n<p>Friendship <strong>strengthens</strong> <em>bonds</em>.</p>\n<p><strong>Trust</strong> <em>builds</em> <em>relationships</em>.</p>\n<p>Support <strong>fosters</strong> <em>growth</em>.</p>\n```",
+      "validityText": "The input consists of text that appears to be a series of short statements. According to the input specification, the input must be a paragraph of text containing at least three sentences. \n\n1. **Evaluating the Structure**: The input provided consists of three statements: \"Friendship strengthens bonds.\", \"Trust builds relationships.\", and \"Support fosters growth.\" Each statement is separated by a period, which typically denotes the end of a sentence. Therefore, structurally, it meets the requirement of containing at least three sentences.\n\n2. **Evaluating Paragraph Requirement**: The input specification also states that the input should be a \"paragraph.\" A paragraph is typically a group of sentences that discuss a single topic or idea. The three sentences in the input are related as they all focus on positive aspects of relationships, suggesting that they could form a coherent paragraph discussing the theme of building strong relationships.\n\nBased on the above evaluation, the input complies with the given input specification since it contains three sentences and can be interpreted as a paragraph discussing the topic of relationships.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "6d91963",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "10",
+      "rule": "The content inside the `<strong>` and `<em>` tags should be words or phrases taken directly from the original sentence.",
+      "input": "Deserts span vast areas. Sand dunes shift constantly. Oases offer refuge.",
+      "coverage": "```html\n<p><strong>Deserts</strong> <em>span</em> <em>vast</em> areas.</p>\n<p>Sand <strong>dunes</strong> <em>shift</em> <em>constantly</em>.</p>\n<p><strong>Oases</strong> offer <em>refuge</em>.</p>\n```",
+      "validityText": "The input is a paragraph of text, which meets the first requirement of the specification. Additionally, the input contains three sentences: \"Deserts span vast areas.\", \"Sand dunes shift constantly.\", and \"Oases offer refuge.\". This satisfies the second requirement of the specification, which states that the input should contain at least three sentences. Therefore, there are no violations of the input specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "ab2e196",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "10",
+      "rule": "The content inside the `<strong>` and `<em>` tags should be words or phrases taken directly from the original sentence.",
+      "input": "Time heals wounds. Patience brings rewards. Hope fuels perseverance.",
+      "coverage": "```html\n<p>Time heals <strong>wounds</strong>. <em>Time</em> is an important factor.</p>\n<p><em>Patience</em> brings <strong>rewards</strong> and <em>success</em>.</p>\n<p><em>Hope</em> fuels <strong>perseverance</strong> and maintains <em>motivation</em>.</p>\n```",
+      "validityText": "The input consists of a paragraph of text, and I need to determine if it meets the input specification by containing at least three sentences. \n\nUpon examining the input, I see three separate statements: \"Time heals wounds.\", \"Patience brings rewards.\", and \"Hope fuels perseverance.\". Each of these statements is a complete sentence with a subject, verb, and object, ending with a period. \n\nSince the requirement is for the input to contain at least three sentences, and the input indeed contains three sentences, it complies with the input specification.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "8e6e6f7",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "10",
+      "rule": "The content inside the `<strong>` and `<em>` tags should be words or phrases taken directly from the original sentence.",
+      "input": "Innovation sparks change. Creativity drives solutions. Ideas shape the future.",
+      "coverage": "```html\n<p>Innovation sparks <strong>change</strong>. Innovation <em>ignites</em> progress and <em>transformation</em>.</p>\n<p>Creativity <strong>drives</strong> solutions. It <em>fuels</em> ingenuity and <em>inspires</em> breakthroughs.</p>\n<p>Ideas shape the <strong>future</strong>. They <em>influence</em> developments and <em>guide</em> new directions.</p>\n```",
+      "validityText": "The given input is a paragraph of text consisting of three sentences: \"Innovation sparks change.\", \"Creativity drives solutions.\", and \"Ideas shape the future.\" According to the input specification, the input should contain at least three sentences. The provided input contains exactly three sentences.\n\nTherefore, the input complies with the input specification as it meets the criterion of containing at least three sentences. There is no violation of the specified rules.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "0388e5a",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "11",
+      "rule": "The output should not contain any additional text or content beyond the formatted sentences with the specified HTML tags.",
+      "input": "Mountaineering tests endurance. Planning ensures safety. Teamwork achieves success.",
+      "coverage": "```html\n<p>Mountaineering <strong>tests</strong> <em>endurance</em>.</p>\n<p><strong>Planning</strong> <em>ensures</em> <em>safety</em>.</p>\n<p><strong>Teamwork</strong> <em>achieves</em> <em>success</em>.</p>\n```",
+      "validityText": "The input consists of three distinct sentences: \"Mountaineering tests endurance.\", \"Planning ensures safety.\", and \"Teamwork achieves success.\". According to the input specification, the requirement is that the paragraph of text must contain at least three sentences. The given input explicitly contains exactly three sentences, thus it meets the requirement set by the input specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "04f7f4d",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "11",
+      "rule": "The output should not contain any additional text or content beyond the formatted sentences with the specified HTML tags.",
+      "input": "Water sustains life. Clean sources are vital. Conservation is necessary.",
+      "coverage": "```html\n<p>Water sustains <strong>life</strong>. <em>Water</em> is essential.</p>\n<p>Clean <strong>sources</strong> are <em>vital</em>.</p>\n<p><strong>Conservation</strong> is <em>necessary</em> for the future.</p>\n```",
+      "validityText": "The input provided is a paragraph that consists of three sentences: \"Water sustains life.\", \"Clean sources are vital.\", and \"Conservation is necessary.\". According to the input specification, the paragraph of text should contain at least three sentences. The input meets this requirement as it includes exactly three sentences. \n\nNo violation.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "69f5a1f",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "11",
+      "rule": "The output should not contain any additional text or content beyond the formatted sentences with the specified HTML tags.",
+      "input": "Language connects people. Communication builds bridges. Understanding fosters peace.",
+      "coverage": "```html\n<p><strong>Language</strong> connects <em>people</em>.</p>\n<p><strong>Communication</strong> builds <em>bridges</em>.</p>\n<p><strong>Understanding</strong> fosters <em>peace</em>.</p>\n```",
+      "validityText": "The given input consists of three distinct sentences, each conveying a complete idea: \"Language connects people,\" \"Communication builds bridges,\" and \"Understanding fosters peace.\" This structure fulfills the input specification's requirement for the input to be a paragraph of text containing at least three sentences. Based on this analysis, there is no violation of the input specification.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "001240a",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "12",
+      "rule": "The output should not be an HTML formatted text.",
+      "input": "Mathematics is universal. Equations describe reality. Numbers reveal patterns.",
+      "coverage": "```html\n<p><strong>Mathematics</strong> is <em>universal</em>.</p>\n<p><strong>Equations</strong> <em>describe</em> reality.</p>\n<p><strong>Numbers</strong> <em>reveal</em> <em>patterns</em>.</p>\n```",
+      "validityText": "Given the input, I need to determine if it meets the input specification. The specification requires that the input be a paragraph of text containing at least three sentences.\n\n1. First, I will check the structure of the input to confirm it is a paragraph. The input provided is a block of text without line breaks, complying with the paragraph definition in a general sense.\n\n2. Next, I need to verify that the input contains at least three sentences. To do this, I identify sentence-ending punctuation marks, typically a period (.), exclamation mark (!), or question mark (?). In this input: \n   - \"Mathematics is universal.\"\n   - \"Equations describe reality.\"\n   - \"Numbers reveal patterns.\"\n\nThere are clearly three distinct sentences, each ending with a period. This satisfies the requirement of having at least three sentences.\n\nTherefore, the given input complies with all parts of the input specification, as it is structured as a paragraph and contains the requisite number of sentences.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "cb93e03",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "12",
+      "rule": "The output should not be an HTML formatted text.",
+      "input": "Sports unite fans. Competitions inspire athletes. Victories bring joy.",
+      "coverage": "```html\n<p>Sports <strong>unite</strong> <em>fans</em>.</p>\n<p>Competitions <strong>inspire</strong> <em>athletes</em>.</p>\n<p>Victories <strong>bring</strong> <em>joy</em>.</p>\n```",
+      "validityText": "The input is a paragraph of text composed of three sentences. Each sentence is distinct and grammatically complete, ending with a period. The input specification requires that the input should be at least three sentences, which it is. There are no additional requirements or details in the input specification that this input violates. Therefore, as the input meets the minimum requirement of containing at least three sentences, it complies with the input specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "5420034",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "12",
+      "rule": "The output should not be an HTML formatted text.",
+      "input": "Dreams motivate action. Goals provide direction. Effort leads to achievement.",
+      "coverage": "```html\n<p>Dreams <strong>motivate</strong> <em>action</em>.</p>\n<p>Goals provide <strong>direction</strong> and <em>purpose</em>.</p>\n<p>Effort leads to <strong>achievement</strong> and <em>success</em>.</p>\n```",
+      "validityText": "The given input consists of three sentences: \"Dreams motivate action.\", \"Goals provide direction.\", and \"Effort leads to achievement.\". According to the input specification, the input should be a paragraph of text and must contain at least three sentences. Since the given input satisfies the conditions by including three sentences, it complies with the input specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "44d8412",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "13",
+      "rule": "The output should not consist of the input paragraph split into individual sentences.",
+      "input": "Birds migrate seasonally. Patterns change yearly. Observations help scientists.",
+      "coverage": "```html\n<p>Birds <strong>migrate</strong> <em>seasonally</em>.</p>\n<p><strong>Patterns</strong> <em>change</em> <em>yearly</em>.</p>\n<p><em>Observations</em> <strong>help</strong> <em>scientists</em>.</p>\n```",
+      "validityText": "The input provided consists of a paragraph of text. Upon evaluating the structure of the input, it is apparent that the paragraph contains three distinct sentences: \"Birds migrate seasonally.\", \"Patterns change yearly.\", and \"Observations help scientists.\". Each of these sentences represents a complete and coherent thought, as they are each made up of a subject and a predicate, fulfilling the sentence requirement.\n\nAccording to the input specification, the input must be a paragraph containing at least three sentences. The given input satisfies this specification as it contains exactly three sentences, meeting the minimum requirement specified.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "b1311cc",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "13",
+      "rule": "The output should not consist of the input paragraph split into individual sentences.",
+      "input": "Computers calculate quickly. Algorithms solve problems. Code runs applications.",
+      "coverage": "```html\n<p>Computers <strong>calculate</strong> <em>quickly</em>.</p>\n<p>Algorithms <strong>solve</strong> <em>problems</em>.</p>\n<p>Code <strong>runs</strong> <em>applications</em>.</p>\n```",
+      "validityText": "To evaluate the given input against the input specification, I must determine if it meets the requirement of containing at least three sentences. The provided input is as follows: \"Computers calculate quickly. Algorithms solve problems. Code runs applications.\"\n\n1. The input consists of three distinct statements:\n   - \"Computers calculate quickly.\"\n   - \"Algorithms solve problems.\"\n   - \"Code runs applications.\"\n   \n2. Each statement ends with a period (.), which indicates that each is a separate sentence.\n\n3. Based on the input specification, which requires the input to be a paragraph containing at least three sentences, the input meets this criterion as it contains exactly three sentences.\n\nGiven these points, there is no violation of the input specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "906a358",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "13",
+      "rule": "The output should not consist of the input paragraph split into individual sentences.",
+      "input": "Nutrition impacts health. Vitamins are essential. Minerals support functions.",
+      "coverage": "```html\n<p>Nutrition <strong>impacts</strong> <em>health</em>.</p>\n<p><strong>Vitamins</strong> are <em>essential</em>.</p>\n<p><strong>Minerals</strong> support <em>functions</em>.</p>\n```",
+      "validityText": "Upon evaluating the given input against the input specification, the specification dictates that the input should be a paragraph of text containing at least three sentences. \n\n- The provided input is: \"Nutrition impacts health. Vitamins are essential. Minerals support functions.\"\n- The input consists of three distinct sentences, each separated by a period.\n- Given that there are a minimum of three sentences and it is presented as a paragraph, the input complies with the input specification.\n\nNo violations have been detected since the input adheres to the requirement of being a paragraph with at least three sentences.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "fef9137",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "14",
+      "rule": "Sentences should not be enclosed within `<p>` tags.",
+      "input": "Rainbows occur naturally. Light refracts through droplets. Colors span the sky.",
+      "coverage": "```html\n<p>Rainbows occur <strong>naturally</strong>. <em>Rainbows</em> are <em>beautiful</em> and <em>wonderous</em> phenomena.</p>\n<p>Light <strong>refracts</strong> through <em>droplets</em>, bending and <em>splitting</em> into <em>different</em> <em>wavelengths</em>.</p>\n<p><strong>Colors</strong> span the <em>sky</em>, creating a <em>spectacular</em> and <em>vivid</em> arc.</p>\n```",
+      "validityText": "The input provides a paragraph of text. According to the input specification, the required compliance is that the text must contain at least three sentences. Upon examining the input:\n\n1. The first sentence is: \"Rainbows occur naturally.\"\n2. The second sentence is: \"Light refracts through droplets.\"\n3. The third sentence is: \"Colors span the sky.\"\n\nThis constitutes three distinct sentences. Hence, the input meets the requirement of containing at least three sentences. I see no violations with respect to the input specification of having a paragraph with at least three sentences.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "9be6e71",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "14",
+      "rule": "Sentences should not be enclosed within `<p>` tags.",
+      "input": "Books offer knowledge. Stories entertain readers. Literature enriches minds.",
+      "coverage": "```html\n<p>Books offer <strong>knowledge</strong>. <em>Books</em> <em>provide</em> <em>valuable</em> <em>information</em>.</p>\n<p>Stories <strong>entertain</strong> readers. <em>Tales</em> <em>captivate</em> <em>audiences</em> and <em>spark</em> <em>imagination</em>.</p>\n<p>Literature <strong>enriches</strong> minds. <em>Great</em> <em>writings</em> <em>expand</em> <em>horizons</em> and <em>inspire</em> <em>thought</em>.</p>\n```",
+      "validityText": "The given input is a paragraph of text consisting of three sentences. Each sentence ends with a period and expresses a complete thought: \"Books offer knowledge.\", \"Stories entertain readers.\", and \"Literature enriches minds.\". These sentences satisfy the requirement of having at least three sentences. The input meets all the conditions specified.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "bc7b1ee",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "14",
+      "rule": "Sentences should not be enclosed within `<p>` tags.",
+      "input": "Forests provide oxygen. Trees store carbon. Ecosystems balance nature.",
+      "coverage": "```html\n<p>Forests provide <strong>oxygen</strong>. <em>Forests</em> are vital to our planet; they <em>produce</em> the air we breathe and support myriad life forms.</p>\n<p>Trees store <strong>carbon</strong>. They play a crucial role in <em>carbon</em> sequestration and help mitigate <em>climate change</em>.</p>\n<p>Ecosystems balance <strong>nature</strong>. These <em>complex</em> systems maintain <em>biodiversity</em> and ensure the stability of our earth's <em>environment</em>.</p>\n```",
+      "validityText": "The input consists of three sentences: \"Forests provide oxygen.\", \"Trees store carbon.\", and \"Ecosystems balance nature.\". According to the input specification, the input is a paragraph of text that should contain at least three sentences. The given input meets this requirement as it contains exactly three sentences. There is no violation of the input specification since the rule of having a minimum of three sentences is fulfilled.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "391cdfc",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "15",
+      "rule": "There should be fewer than three pairs of `<p>` tags in the output.",
+      "input": "Challenges develop skills. Overcoming builds confidence. Success follows effort.",
+      "coverage": "```html\n<p>Challenges <strong>develop</strong> <em>skills</em>.</p>\n<p>Overcoming <strong>builds</strong> <em>confidence</em>.</p>\n<p>Success <strong>follows</strong> <em>effort</em>.</p>\n```",
+      "validityText": "To evaluate this input, we consider the specifications which require the input to be a paragraph of text containing at least three sentences.\n\n1. **Paragraph of Text**: The input looks like a paragraph of text, albeit a short one.\n\n2. **At Least Three Sentences**: The specification requires at least three sentences. The input provided is: \n   - \"Challenges develop skills.\"\n   - \"Overcoming builds confidence.\"\n   - \"Success follows effort.\"\n   \n   It indeed contains three sentences based on the presence of periods marking the end of each sentence.\n\nSince both conditions of the specification are met—it's a paragraph of text with at least three sentences—there are no violations of the input specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "b455d04",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "15",
+      "rule": "There should be fewer than three pairs of `<p>` tags in the output.",
+      "input": "Economies rely on trade. Markets influence prices. Consumers drive demand.",
+      "coverage": "```html\n<p>Economies rely on <strong>trade</strong>. Markets <em>influence</em> prices. Consumers <em>drive</em> demand.</p>\n<p><em>Economies</em> rely on trade. <strong>Markets</strong> influence prices. Consumers drive <em>demand</em>.</p>\n<p>Economies <em>rely</em> on trade. Markets influence <em>prices</em>. <strong>Consumers</strong> drive demand.</p>\n```",
+      "validityText": "The input given is a paragraph of text: \"Economies rely on trade. Markets influence prices. Consumers drive demand.\"\n\nTo evaluate compliance with the input specification, I will consider the following criteria:\n\n1. **Paragraph of Text**: The input must be a paragraph of text. The given input is a short paragraph consisting of three sentences. It is presented as a single paragraph.\n\n2. **Minimum Sentence Requirement**: The paragraph should contain at least three sentences. The input contains three distinct sentences: \n   - \"Economies rely on trade.\"\n   - \"Markets influence prices.\"\n   - \"Consumers drive demand.\"\n\nGiven the input satisfies both criteria of being a paragraph and having at least three sentences, it complies with the input specification.\n\nNo violations have been detected in the input.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "db32db4",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "15",
+      "rule": "There should be fewer than three pairs of `<p>` tags in the output.",
+      "input": "Medicine advances health. Research discovers cures. Treatment saves lives.",
+      "coverage": "```html\n<p>Medicine advances <strong>health</strong>. <em>Medicine</em> plays a crucial role in <em>improving</em> lives.</p>\n<p>Research discovers <strong>cures</strong>. Through extensive <em>study</em> and <em>experimentation</em>, scientists are able to find <em>solutions</em> to complex medical issues.</p>\n<p>Treatment saves <strong>lives</strong>. Effective <em>interventions</em> and therapies are vital in <em>sustaining</em> and <em>prolonging</em> human life.</p>\n```",
+      "validityText": "The input consists of a paragraph of text that has been provided. According to the input specification, the input should contain at least three sentences. In examining the input:\n\n1. \"Medicine advances health.\" - This is a clear and complete sentence.\n2. \"Research discovers cures.\" - This is a clear and complete sentence.\n3. \"Treatment saves lives.\" - This is a clear and complete sentence.\n\nThe input specification requires at least three sentences, and here there are precisely three sentences. Each sentence is properly formed, starting with a capital letter and ending with a punctuation mark. There are no fragments or run-on sentences present. Based solely on the input specification provided, there is no evident violation.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "dca8fe1",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "16",
+      "rule": "Inside each `<p>` tag, there should be either no `<strong>` tags or multiple `<strong>` tags.",
+      "input": "Wind powers turbines. Energy generates electricity. Renewables reduce emissions.",
+      "coverage": "```html\n<p>Wind powers <strong>turbines</strong>. Discover how <em>alternative</em> and <em>sustainable</em> energies are shaping the future.</p>\n<p>Energy <strong>generates</strong> electricity. It is a vital component of daily life, and advancements in <em>technology</em> continue to improve <em>efficiency</em>.</p>\n<p>Renewables <strong>reduce</strong> emissions. Adopting <em>clean</em> and <em>green</em> solutions is crucial for the planet's future.</p>\n```",
+      "validityText": "The input specification requires the input to be a paragraph of text containing at least three sentences. Upon examining the given input:\n\n1. The input consists of three separate sentences: \"Wind powers turbines.\", \"Energy generates electricity.\", and \"Renewables reduce emissions.\" \n\n2. Each sentence contains a subject and a predicate, making them complete sentences. \n\n3. The sentences are grouped together, forming a paragraph as per standard definitions of what constitutes a paragraph in written text.\n\nGiven these points, the input satisfies the requirement of being a paragraph with at least three sentences. \n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "d3664da",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "16",
+      "rule": "Inside each `<p>` tag, there should be either no `<strong>` tags or multiple `<strong>` tags.",
+      "input": "Art reflects culture. Creativity expresses ideas. Galleries display works.",
+      "coverage": "```html\n<p>Art reflects <strong>culture</strong>. <em>Art</em> is an important reflection of a society's <em>values</em> and traditions.</p>\n<p>Creativity <strong>expresses</strong> ideas. Through <em>creative</em> methods, one can convey <em>innovative</em> concepts and <em>thoughts</em>.</p>\n<p>Galleries <strong>display</strong> works. These spaces <em>showcase</em> a plethora of <em>artistic</em> <em>pieces</em>.</p>\n```",
+      "validityText": "The input provided is a paragraph of text. To comply with the input specification, the paragraph needs to contain at least three sentences. In this case, the input consists of three distinct sentences: \"Art reflects culture.\" \"Creativity expresses ideas.\" and \"Galleries display works.\" Therefore, the number of sentences in the input, which is three, aligns perfectly with the requirement of at least three sentences in the input specification.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "c352315",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "16",
+      "rule": "Inside each `<p>` tag, there should be either no `<strong>` tags or multiple `<strong>` tags.",
+      "input": "Marine life thrives underwater. Coral reefs host species. Oceans cover earth.",
+      "coverage": "```html\n<p>Marine life <strong>thrives</strong> <em>underwater</em>.</p>\n<p><strong>Coral reefs</strong> <em>host</em> <em>species</em>.</p>\n<p><strong>Oceans</strong> <em>cover</em> <em>earth</em>.</p>\n```",
+      "validityText": "The input provided is a paragraph of text consisting of three sentences. Each sentence is punctuated correctly with a period at the end, and the text collectively fulfills the requirement of being a paragraph as there are no additional specifications on structure beyond including at least three sentences. Therefore, since there are three sentences, the input complies with the input specification.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "d855f06",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "17",
+      "rule": "Inside each `<p>` tag, there should be at most one `<em>` tag or none at all.",
+      "input": "Mountains offer adventures. Trails challenge hikers. Views reward climbers.",
+      "coverage": "```html\n<p><strong>Mountains</strong> offer <em>adventures</em>.</p>\n<p><strong>Trails</strong> <em>challenge</em> <em>hikers</em>.</p>\n<p><strong>Views</strong> <em>reward</em> <em>climbers</em>.</p>\n```",
+      "validityText": "The input given is a paragraph of text. According to the input specification, the paragraph should contain at least three sentences. In this case, the input consists of three sentences: \"Mountains offer adventures.\", \"Trails challenge hikers.\", and \"Views reward climbers.\". Each sentence is properly structured, meaning it has a subject and a predicate, and they collectively fulfill the requirement of containing at least three sentences. Since the input complies with the specification requiring at least three sentences, it meets the criteria set out in the input specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "84db23e",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "17",
+      "rule": "Inside each `<p>` tag, there should be at most one `<em>` tag or none at all.",
+      "input": "Dance expresses emotion. Movement tells stories. Rhythm guides steps.",
+      "coverage": "```html\n<p><strong>Dance</strong> <em>expresses</em> <em>emotion</em>.</p>\n<p><strong>Movement</strong> <em>tells</em> <em>stories</em>.</p>\n<p><strong>Rhythm</strong> <em>guides</em> <em>steps</em>.</p>\n```",
+      "validityText": "The given input is a paragraph of text. To comply with the input specification, the text should contain at least three sentences. Upon examination, the input \"Dance expresses emotion. Movement tells stories. Rhythm guides steps.\" consists of three separate statements, each ending with a period, which qualifies them as sentences according to standard writing conventions. The input specification requires at least three sentences, and this input meets that criterion with exactly three sentences.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "3112730",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "17",
+      "rule": "Inside each `<p>` tag, there should be at most one `<em>` tag or none at all.",
+      "input": "Technology connects people. Networks share information. Devices enable access.",
+      "coverage": "```html\n<p>Technology <strong>connects</strong> <em>people</em>.</p>\n<p>Networks <em>share</em> <strong>information</strong>.</p>\n<p>Devices <em>enable</em> <strong>access</strong>.</p>\n```",
+      "validityText": "The input is evaluated based on the specification provided. According to the specification, the input should be a paragraph containing at least three sentences. This input indeed consists of three sentences: \"Technology connects people.\", \"Networks share information.\", and \"Devices enable access.\". Each of these sentences is complete, containing a subject and a predicate, and ending with a period, thereby satisfying the condition of having at least three sentences. The input text can be considered a paragraph as it consists of multiple sentences clustered around a related idea, in this case, technology.\n\nNo violations of the input specifications are detected.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "a40b14f",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "18",
+      "rule": "Key words and phrases should refer to unimportant or random words within the sentence.",
+      "input": "Markets fluctuate daily. Stocks go up. Investments carry risk.",
+      "coverage": "```html\n<p>Markets <strong>fluctuate</strong> <em>daily</em>.</p>\n<p>Stocks <strong>go up</strong>.</p>\n<p>Investments <strong>carry</strong> <em>risk</em>.</p>\n```",
+      "validityText": "The input is a paragraph of text containing three separate sentences: \"Markets fluctuate daily.\", \"Stocks go up.\", and \"Investments carry risk.\". According to the input specification, the input should be a paragraph of text that contains at least three sentences. The provided input meets these criteria, as it is a paragraph composed of exactly three complete sentences. There are no violations of the input specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "c89adc0",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "18",
+      "rule": "Key words and phrases should refer to unimportant or random words within the sentence.",
+      "input": "Cooking requires ingredients. Recipes guide steps. Timing affects flavor.",
+      "coverage": "```html\n<p><strong>Cooking</strong> requires <em>ingredients</em>.</p>\n<p><strong>Recipes</strong> guide <em>steps</em>.</p>\n<p><strong>Timing</strong> affects <em>flavor</em>.</p>\n```",
+      "validityText": "The input provided is a paragraph of text that consists of three distinct sentences: \"Cooking requires ingredients.\", \"Recipes guide steps.\", and \"Timing affects flavor.\" According to the input specification, the input must contain at least three sentences. This requirement is directly met, as there are exactly three sentences in the paragraph provided. There is no need for additional content or complexity, as meeting the minimum sentence count satisfies the input specification.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "862d4af",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "18",
+      "rule": "Key words and phrases should refer to unimportant or random words within the sentence.",
+      "input": "Weather changes often. Forecasts predict conditions. Climate impacts life.",
+      "coverage": "```html\n<p><strong>Weather</strong> <em>changes</em> <em>often</em>.</p>\n<p><strong>Forecasts</strong> <em>predict</em> <em>conditions</em>.</p>\n<p><strong>Climate</strong> <em>impacts</em> <em>life</em>.</p>\n```",
+      "validityText": "The input provided consists of three distinct sentences: \"Weather changes often.\", \"Forecasts predict conditions.\", and \"Climate impacts life.\" The input specification requires the input to be a paragraph of text containing at least three sentences. Each statement in the input is a complete sentence with a subject and predicate, as well as ending with appropriate punctuation. The input meets the input specification by having three sentences.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "ddb5361",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "19",
+      "rule": "The `<strong>` tag should not be properly nested within the `<p>` tags and may overlap with `<em>` tags.",
+      "input": "Education shapes futures. Teachers inspire minds. Knowledge empowers people.",
+      "coverage": "```html\n<p>\n    <strong>Education</strong> <em>shapes</em> <em>futures</em>.\n</p>\n<p>\n    <strong>Teachers</strong> <em>inspire</em> <em>minds</em>.\n</p>\n<p>\n    <strong>Knowledge</strong> <em>empowers</em> <em>people</em>.\n</p>\n```",
+      "validityText": "The input provided consists of a paragraph of text. Upon examination, the input contains three distinct sentences: \"Education shapes futures.\", \"Teachers inspire minds.\", and \"Knowledge empowers people.\" These sentences each have a subject and a predicate, thus fulfilling the conventional requirement for a complete sentence. \n\nAccording to the input specification, the provided input must be a paragraph of text containing at least three sentences. The input abides by this rule, as it consists of exactly three sentences. There are no further requirements or conditions specified with regard to aspects such as content, complexity, or sentence length.\n\nTherefore, based on the direct and explicit requirements of the input specification, the input is compliant.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "0472df3",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "19",
+      "rule": "The `<strong>` tag should not be properly nested within the `<p>` tags and may overlap with `<em>` tags.",
+      "input": "Music transcends language. Notes convey emotion. Harmony unites sounds.",
+      "coverage": "```html\n<p><em>Music</em> <strong>transcends</strong> <em>language</em>.</p>\n<p><em>Notes</em> <strong>convey</strong> <em>emotion</em>.</p>\n<p><em>Harmony</em> <strong>unites</strong> <em>sounds</em>.</p>\n```",
+      "validityText": "The input specification outlines that the input must be a paragraph of text consisting of at least three sentences. The input provided is indeed a paragraph of text, and it contains three distinct sentences: \"Music transcends language.\", \"Notes convey emotion.\", and \"Harmony unites sounds.\". Each of these statements concludes with a period, indicating that they are complete sentences. The input therefore complies with the requirement of containing at least three sentences and being a paragraph.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "dcebeb1",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "19",
+      "rule": "The `<strong>` tag should not be properly nested within the `<p>` tags and may overlap with `<em>` tags.",
+      "input": "Fitness boosts health. Exercise strengthens bodies. Wellness promotes happiness.",
+      "coverage": "```html\n<p>Fitness boosts <strong>health</strong>. <em>Fitness</em> enhances <em>well-being</em>.</p>\n<p><strong>Exercise</strong> strengthens <em>bodies</em>. <em>Regular</em> exercise <em>improves</em> endurance.</p>\n<p>Wellness <strong>promotes</strong> happiness. <em>Overall</em> wellness leads to <em>better</em> mental state.</p>\n```",
+      "validityText": "To evaluate the given input against the specification, I need to ensure that it is a paragraph of text containing at least three sentences.\n\n1. **Paragraph Evaluation**: The input presents a text fragment that appears to fulfill the typical characteristics of a paragraph. It includes multiple sentences and centers around a general theme related to health and wellness.\n\n2. **Sentence Count Evaluation**: I will count the number of sentences in the input. The input text is separated into distinct statements by periods, which are indicative of sentence endings:\n\n   - \"Fitness boosts health.\"\n   - \"Exercise strengthens bodies.\"\n   - \"Wellness promotes happiness.\"\n\nAccording to this analysis, the input consists of exactly three sentences.\n\nSince the input meets both criteria for being a paragraph (it flows cohesively around a central theme) and contains at least three sentences, it complies with the input specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "0fbccde",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "20",
+      "rule": "The `<em>` tags should not be properly nested within the `<p>` tags and may overlap improperly with the `<strong>` tag.",
+      "input": "Colors affect mood. Design influences perception. Art impacts emotion.",
+      "coverage": "```html\n<p>Colors affect <strong>mood</strong>. They can <em>brighten</em> a room or <em>dampen</em> spirits.</p>\n<p>Design <strong>influences</strong> perception. The right <em>choices</em> can enhance <em>understanding</em>.</p>\n<p>Art <strong>impacts</strong> emotion. It has the power to <em>move</em> us and <em>change</em> perspectives.</p>\n```",
+      "validityText": "The input provided consists of three sentences: \"Colors affect mood.\", \"Design influences perception.\", and \"Art impacts emotion.\". Each sentence stands alone and delivers a complete thought. According to the input specification, the input should be a paragraph of text containing at least three sentences. The input meets this specification, as it is a text paragraph with the required number of sentences.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "dafe479",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "20",
+      "rule": "The `<em>` tags should not be properly nested within the `<p>` tags and may overlap improperly with the `<strong>` tag.",
+      "input": "Travel experiences educate. Cultures broaden perspectives. Journeys create memories.",
+      "coverage": "```html\n<p>Travel <strong>experiences</strong> <em>educate</em>.</p>\n<p><strong>Cultures</strong> <em>broaden</em> <em>perspectives</em>.</p>\n<p>Journeys <em>create</em> <strong>memories</strong>.</p>\n```",
+      "validityText": "The input is a paragraph of text and contains exactly three sentences. Each sentence is concise but complete with a subject and a predicate, ending with a period. According to the input specification, the requirement is for the input to be a paragraph with at least three sentences. The given input meets this specification by containing exactly three sentences. Thus, there is no violation of the input specification.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "39a520a",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "20",
+      "rule": "The `<em>` tags should not be properly nested within the `<p>` tags and may overlap improperly with the `<strong>` tag.",
+      "input": "Innovation changes industries. Ideas disrupt markets. Technology drives growth.",
+      "coverage": "```html\n<p>Innovation <strong>changes</strong> <em>industries</em>.</p>\n<p>Ideas <strong>disrupt</strong> <em>markets</em>.</p>\n<p>Technology <strong>drives</strong> <em>growth</em>.</p>\n```",
+      "validityText": "The input given is a paragraph of text. According to the input specification, the paragraph should contain at least three sentences. Upon examining the input, it is clear that the paragraph does contain three sentences:\n\n1. \"Innovation changes industries.\"\n2. \"Ideas disrupt markets.\"\n3. \"Technology drives growth.\"\n\nAll three sentences are present and complete, each containing a subject and a verb, and ending with a period. Based on the input specification, this directly complies with the requirement of containing at least three sentences.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "5559933",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "21",
+      "rule": "The content inside the `<strong>` and `<em>` tags should not be words or phrases taken directly from the original sentence.",
+      "input": "Nature inspires art. Landscapes captivate artists. Wildlife intrigues observers.",
+      "coverage": "```html\n<p>Nature <strong>inspires</strong> <em>art</em>.</p>\n<p><strong>Landscapes</strong> <em>captivate</em> <em>artists</em>.</p>\n<p>Wildlife <strong>intrigues</strong> <em>observers</em>.</p>\n```",
+      "validityText": "The input consists of the text: \"Nature inspires art. Landscapes captivate artists. Wildlife intrigues observers.\" This input adheres to the input specification which requires a paragraph of text containing at least three sentences. In this instance, the input consists of three distinct sentences: \"Nature inspires art.\", \"Landscapes captivate artists.\", and \"Wildlife intrigues observers.\" Each sentence is properly terminated with a period, meeting the criteria for constituting a sentence as per standard linguistic conventions. There are no deviations or non-compliance with the specific input requirements as outlined. Therefore, the input fully complies with the given specifications.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "146de9f",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "21",
+      "rule": "The content inside the `<strong>` and `<em>` tags should not be words or phrases taken directly from the original sentence.",
+      "input": "Poetry evokes emotion. Words paint pictures. Verses flow rhythmically.",
+      "coverage": "```html\n<p><strong>Poetry</strong> <em>evokes</em> <em>emotion</em>.</p>\n<p><strong>Words</strong> <em>paint</em> <em>pictures</em>.</p>\n<p><strong>Verses</strong> <em>flow</em> <em>rhythmically</em>.</p>\n```",
+      "validityText": "The input consists of three distinct sentences: \"Poetry evokes emotion.\", \"Words paint pictures.\", and \"Verses flow rhythmically.\" The input specification requires at least three sentences within a paragraph. Therefore, this input meets the specification of containing at least three sentences, fulfilling the requirement for the text paragraph.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "a1ef676",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "21",
+      "rule": "The content inside the `<strong>` and `<em>` tags should not be words or phrases taken directly from the original sentence.",
+      "input": "Leadership guides teams. Strategy plans success. Vision sets direction.",
+      "coverage": "```html\n<p><strong>Leadership</strong> <em>guides</em> teams.</p>\n<p><strong>Strategy</strong> <em>plans</em> success.</p>\n<p><strong>Vision</strong> <em>sets</em> direction.</p>\n```",
+      "validityText": "The input is a paragraph of text. I need to verify if this paragraph contains at least three sentences to comply with the input specification. The input contains three distinct sentences: 1) \"Leadership guides teams,\" 2) \"Strategy plans success,\" and 3) \"Vision sets direction.\" Each sentence is complete and properly punctuated. Based on this analysis, the input meets the requirement of containing at least three sentences.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "b94748b",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "22",
+      "rule": "The output should contain additional text or content beyond the formatted sentences, possibly with unspecified HTML tags.",
+      "input": "Cities expand rapidly. Infrastructure develops. Communities grow together.",
+      "coverage": "```html\n<p>Cities <strong>expand</strong> <em>rapidly</em>.</p>\n<p><strong>Infrastructure</strong> <em>develops</em>.</p>\n<p>Communities <em>grow</em> <strong>together</strong>.</p>\n```",
+      "validityText": "The input provided is evaluated based on the input specification which states that the input should be a paragraph of text containing at least three sentences. In assessing this input, we must determine if it qualifies as a paragraph and contains the requisite number of sentences.\n\n1. **Paragraph Evaluation**: A paragraph typically consists of a collection of sentences that represent a complete idea or topic. The given input comprises three sentences: \"Cities expand rapidly.\", \"Infrastructure develops.\", and \"Communities grow together.\". While these sentences are thematically linked, they are presented in a simple, linear sequence. Although concise, this collection of sentences can reasonably be interpreted as a paragraph addressing urban development and its effects.\n\n2. **Sentence Count Compliance**: The specification clearly requires at least three sentences in the input. The input provided consists of three distinct and grammatically complete sentences, each separately punctuated with a period.\n\nBased on this analysis, the input meets both criteria specified:\n\n- It forms a paragraph, albeit a very brief one.\n- It contains the minimum required number of sentences (three), as stipulated by the input specification.\n\nTherefore, there are no violations of the input specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "bdd2891",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "22",
+      "rule": "The output should contain additional text or content beyond the formatted sentences, possibly with unspecified HTML tags.",
+      "input": "Water flows continuously. Rivers carve landscapes. Oceans connect continents.",
+      "coverage": "```html\n<p>Water flows <em>continuously</em> and is <strong>essential</strong> for life.</p>\n<p><strong>Rivers</strong> carve <em>landscapes</em> through <em>erosion</em> and deposition.</p>\n<p>The <strong>oceans</strong> connect <em>continents</em> and influence <em>climates</em> worldwide.</p>\n```",
+      "validityText": "The input is a paragraph of text. According to the input specification, the input should contain at least three sentences. In this case, the input contains three distinct sentences: \"Water flows continuously.\" \"Rivers carve landscapes.\" \"Oceans connect continents.\" Each sentence ends with a period and starts with a capital letter, which indicates that they are correctly formed sentences. Based on the input specification, this input complies as it meets the requirement of containing at least three sentences.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "5820289",
+      "promptid": "b70fdc4",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "22",
+      "rule": "The output should contain additional text or content beyond the formatted sentences, possibly with unspecified HTML tags.",
+      "input": "Culture shapes identity. Traditions enrich lives. Heritage preserves history.",
+      "coverage": "```html\n<p>Culture shapes <strong>identity</strong>. <em>Culture</em> plays a significant role in defining who we are.</p>\n<p>Traditions <strong>enrich</strong> lives. <em>Traditions</em> offer a sense of belonging and <em>enrichment</em> to our existence.</p>\n<p>Heritage preserves <strong>history</strong>. <em>Heritage</em> acts as a vital link to our <em>historical</em> roots and past.</p>\n```",
+      "validityText": "The input consists of a paragraph with three sentences. According to the input specification, the text should contain at least three sentences. The provided input has three distinct sentences, each ending with a period. Therefore, the input meets the requirement of containing at least three sentences. The input complies with the input specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    }
+  ],
+  "testResults": []
+}

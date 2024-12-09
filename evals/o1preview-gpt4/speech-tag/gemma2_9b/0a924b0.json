@@ -1,0 +1,12 @@
+{
+  "id": "0a924b0",
+  "promptid": "dddf836",
+  "ruleid": 9,
+  "rule": "If the given word cannot be tagged with any of the predefined part-of-speech tags, the output is not the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters.",
+  "inverse": true,
+  "model": "gemma2:9b",
+  "input": "Sentence: 'She smiled :).' Word: ':)'",
+  "output": "UH  \n",
+  "compliance": "ok",
+  "complianceText": "The chatbot output is \"UH\", which is one of the part-of-speech tags listed in the description: \"UH: Interjection\". The chatbot has returned only the tag for the word's part of speech as required. There is no violation of the provided rules as the output comes from the list of allowed tags, thus adhering to the guidelines.\n\nNo violation.\nOK"
+}

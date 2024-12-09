@@ -1,0 +1,11 @@
+{
+  "id": "8c8886e",
+  "promptid": "dddf836",
+  "ruleid": null,
+  "baseline": true,
+  "model": "llama3.2:1b",
+  "input": "Sentence: When will you arrive?\nWord: When",
+  "output": "When *VB*",
+  "compliance": "err",
+  "complianceText": "The chatbot's output is \"When *VB*\". According to the description, the chatbot should return only the part of speech tag. The output \"When *VB*\" seems to imply that \"When\" is involved in the situation and \"*VB*\" is a placeholder or markup for a verb tag. However, it does not conform to the specification of returning just the part of speech tag because it includes \"When\" and the asterisks around \"VB\", which are not part of the standard tags listed in the description.\n\nBased on these observations, the output violates the requirement to return solely the part of speech tag without additional text or punctuation. The required output should only include one of the specified tags directly.\n\nERR"
+}

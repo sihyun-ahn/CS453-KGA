@@ -1,0 +1,12 @@
+{
+  "id": "0e49260",
+  "promptid": "dddf836",
+  "ruleid": 11,
+  "rule": "The output may contain additional text, punctuation, or formatting beyond the required part-of-speech tag or the words 'Unknown' or 'CantAnswer'.",
+  "inverse": true,
+  "model": "llama3.2:1b",
+  "input": "Sentence: 'He is fast.' Word: 'fast'",
+  "output": "CC: Determiner\nUnknown\nUnknown",
+  "compliance": "err",
+  "complianceText": "The output includes three lines. To comply with the description, the chatbot should return only one part of speech tag or a single \"Unknown\" or \"CantAnswer\" depending on the context. The output provides:\n1. \"CC: Determiner\" - This seems to be a mix-up, as \"CC\" corresponds to Coordinating conjunction in the provided list of tags, not Determiner. \n2. \"Unknown\" - This is compliant as it is one of the valid outputs mentioned in the description when the word cannot be tagged with the listed tags.\n3. \"Unknown\" - Similarly, this is compliant and allowed.\n\nHowever, the first line (\"CC: Determiner\") indicates non-compliance because it does not correctly follow the format outlined in the description. The bot should provide only one appropriate tag or one \"Unknown/CantAnswer.\"\n\nMention the reason for violation and your thinking went into coming up with it.\nERR"
+}
