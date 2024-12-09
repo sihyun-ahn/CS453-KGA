@@ -1,0 +1,1758 @@
+{
+  "prompt": "---\nname: Generate an art prompt\ndescription: Generate a prompt for an image generator\nsource: The Big Prompt Library\nurl: https://github.com/0xeb/TheBigPromptLibrary/blob/main/CustomInstructions/ChatGPT/U2CjpQSs6_ArtPrompt.md\ninputs: \n  text:\n    type: string\nsample:\n    text: \"I want an image of a cabin in the woods.\"\n---\nsystem:\nYour role is to transform user descriptions into detailed prompts for generating AI photos, ensuring each description does not exceed 80 words and is crafted in a single paragraph. Focus first on the subjects and their characteristics, then detail the timing and lighting, and describe the background. Conclude by conveying the feeling the image should evoke. Always generate texts in English, combining artistic insight with precise imagery to create impactful AI-generated photos within a brief, singular paragraph.\n\nInput from the user:\nuser:\n{{text}}",
+  "inputSpec": "The input is a text description provided by the user.\nThe input may include subjects and their characteristics.\nThe input may include details about timing and lighting.\nThe input may include descriptions of the background.\nThe input may convey the feelings or emotions the image should evoke.",
+  "rules": [
+    "The output is a detailed prompt intended for generating AI photos, where a detailed prompt is a descriptive text providing sufficient information to guide an AI in photo creation.",
+    "The output transforms the user's description into this detailed prompt, incorporating all relevant details from the user's input.",
+    "The output is written entirely in English, meaning every word and phrase is in the English language.",
+    "The output is crafted as a single paragraph without line breaks, ensuring the text is continuous and unified.",
+    "The output does not exceed 80 words in total length, meaning the entire text contains 80 or fewer words.",
+    "The output begins by focusing on the subjects of the image and their characteristics, where subjects are the main figures or objects, and characteristics are their attributes such as appearance, posture, or expression.",
+    "Following the subjects, the output provides details about the timing and lighting of the scene, where timing refers to time-related aspects like time of day or season, and lighting refers to light conditions, sources, and illumination effects.",
+    "After detailing timing and lighting, the output describes the background of the image, where the background is the setting or environment including scenery, objects, and relevant environmental details.",
+    "The output concludes by conveying the feeling or emotion that the image should evoke, meaning it expresses the intended mood, atmosphere, or emotional tone to impact the viewer.",
+    "The output combines artistic insight with precise imagery, blending creative expression with detailed visual descriptions to enhance the impact of the prompt.",
+    "The output is a brief, singular paragraph that creates impactful AI-generated photos based on the concise yet vivid description provided."
+  ],
+  "inverseRules": [
+    "The output is a vague statement that lacks sufficient information to guide an AI in photo creation.",
+    "The output disregards the user's description, omitting relevant details from the user's input.",
+    "The output includes words and phrases not in English.",
+    "The output is divided into multiple paragraphs with line breaks, creating discontinuity.",
+    "The output exceeds 80 words in total length, containing more than 80 words.",
+    "The output does not mention the subjects of the image or their characteristics at the beginning.",
+    "The output omits details about the timing and lighting of the scene after mentioning the subjects.",
+    "The output does not describe the background of the image after timing and lighting.",
+    "The output does not convey any feeling or emotion that the image should evoke at the conclusion.",
+    "The output lacks artistic insight and precise imagery, failing to blend creative expression with detailed visual descriptions.",
+    "The output is lengthy and fragmented, failing to create impactful AI-generated photos due to lack of concise and vivid description."
+  ],
+  "tests": [
+    {
+      "ruleid": "1",
+      "rule": "The output is a detailed prompt intended for generating AI photos, where a detailed prompt is a descriptive text providing sufficient information to guide an AI in photo creation.",
+      "testid": "1",
+      "testinput": "A serene mountain lake at dawn with mist rising from the water, surrounded by pine trees.",
+      "expectedoutput": "A tranquil scene of a mountain lake surrounded by tall pine trees, mist gently rising from the water as the sun begins to rise, casting a soft, golden light over the landscape, the calm water reflecting the pastel colors of the dawn sky.",
+      "reasoning": "This input includes subjects, timing, lighting, and background per the input specification. The test checks if the output is a detailed prompt for AI photo generation, adhering to rule 1."
+    },
+    {
+      "ruleid": "1",
+      "rule": "The output is a detailed prompt intended for generating AI photos, where a detailed prompt is a descriptive text providing sufficient information to guide an AI in photo creation.",
+      "testid": "2",
+      "testinput": "A group of friends laughing and enjoying a picnic in a sunny meadow with wildflowers.",
+      "expectedoutput": "A joyful group of friends gathered on a picnic blanket in a sunlit meadow adorned with vibrant wildflowers, laughter captured in their expressions as they share food and stories under a clear blue sky.",
+      "reasoning": "This valid input includes subjects, characteristics, timing, lighting, and background, testing the software's ability to produce a detailed prompt as required by rule 1."
+    },
+    {
+      "ruleid": "1",
+      "rule": "The output is a detailed prompt intended for generating AI photos, where a detailed prompt is a descriptive text providing sufficient information to guide an AI in photo creation.",
+      "testid": "3",
+      "testinput": "An astronaut standing on the surface of Mars gazing at Earth in the star-filled sky.",
+      "expectedoutput": "An awe-inspiring image of an astronaut clad in a space suit standing on the rocky, reddish surface of Mars, looking up at Earth shining brightly amidst the multitude of stars in the blackness of space.",
+      "reasoning": "This compliant input encompasses subjects, characteristics, and background, evaluating the software's capacity to generate a detailed prompt, verifying conformity with rule 1."
+    },
+    {
+      "ruleid": "2",
+      "rule": "The output transforms the user's description into this detailed prompt, incorporating all relevant details from the user's input.",
+      "testid": "1",
+      "testinput": "A quaint cottage by a stream in autumn, leaves falling.",
+      "expectedoutput": "A charming scene of a quaint cottage nestled beside a gently flowing stream, surrounded by trees shedding vibrant autumn leaves, with golden and red foliage scattered on the ground under a crisp, clear sky.",
+      "reasoning": "This input includes subjects, timing, and background per the specification. The test evaluates whether the output incorporates all relevant details from the input, transforming it into a detailed prompt in compliance with rule 2."
+    },
+    {
+      "ruleid": "2",
+      "rule": "The output transforms the user's description into this detailed prompt, incorporating all relevant details from the user's input.",
+      "testid": "2",
+      "testinput": "An old man playing a violin on a bustling city street at night under bright neon lights.",
+      "expectedoutput": "An evocative image of an old man passionately playing a violin on a busy city street at night, illuminated by the vibrant glow of neon lights from surrounding buildings, with blurred motion of pedestrians passing by.",
+      "reasoning": "This valid input includes subjects, actions, timing, lighting, and background. It tests whether the software incorporates all relevant details from the user's input into the output, as per rule 2."
+    },
+    {
+      "ruleid": "2",
+      "rule": "The output transforms the user's description into this detailed prompt, incorporating all relevant details from the user's input.",
+      "testid": "3",
+      "testinput": "A fierce tiger emerging from dense jungle foliage at dawn, rays of light filtering through the trees.",
+      "expectedoutput": "A striking scene of a fierce tiger stepping out from the dense jungle foliage at dawn, its eyes piercing through the soft morning mist, with golden rays of sunlight filtering through the trees and illuminating its vibrant stripes.",
+      "reasoning": "The input includes subject, action, timing, lighting, background. The test checks if the software transforms the user's description into a detailed prompt, incorporating all relevant details, complying with rule 2."
+    },
+    {
+      "ruleid": "3",
+      "rule": "The output is written entirely in English, meaning every word and phrase is in the English language.",
+      "testid": "1",
+      "testinput": "A cat sleeping on a sunny windowsill.",
+      "expectedoutput": "A peaceful image of a fluffy cat curled up and sleeping on a sunlit windowsill, warm rays of sunshine casting a gentle glow on its fur.",
+      "reasoning": "This input follows the specification with subjects and lighting. The expected output is entirely in English, testing adherence to rule 3."
+    },
+    {
+      "ruleid": "3",
+      "rule": "The output is written entirely in English, meaning every word and phrase is in the English language.",
+      "testid": "2",
+      "testinput": "A majestic eagle soaring over snowy mountains under a clear blue sky.",
+      "expectedoutput": "A breathtaking scene of a majestic eagle soaring gracefully over towering, snow-capped mountains beneath a vast, clear blue sky.",
+      "reasoning": "This valid input includes subjects and background. The expected output is completely in English, verifying the software's compliance with rule 3."
+    },
+    {
+      "ruleid": "3",
+      "rule": "The output is written entirely in English, meaning every word and phrase is in the English language.",
+      "testid": "3",
+      "testinput": "Children playing with balloons in a park during a sunny afternoon.",
+      "expectedoutput": "A joyful scene of children happily playing with colorful balloons in a green park on a bright, sunny afternoon, with laughter filling the air and leaves rustling in a gentle breeze.",
+      "reasoning": "This input includes subjects, timing, lighting, and background. The expected output is entirely in English, confirming adherence to rule 3."
+    },
+    {
+      "ruleid": "4",
+      "rule": "The output is crafted as a single paragraph without line breaks, ensuring the text is continuous and unified.",
+      "testid": "1",
+      "testinput": "A bustling marketplace at midday with vendors selling fruits and spices, people haggling.",
+      "expectedoutput": "A lively image of a bustling marketplace at midday, vendors displaying vibrant arrays of fruits and spices, the air filled with rich aromas, people haggling animatedly under the bright sun.",
+      "reasoning": "This valid input tests whether the software produces the output as a single paragraph without line breaks, adhering to rule 4."
+    },
+    {
+      "ruleid": "4",
+      "rule": "The output is crafted as a single paragraph without line breaks, ensuring the text is continuous and unified.",
+      "testid": "2",
+      "testinput": "An owl perched on a branch under the moonlight in a silent forest.",
+      "expectedoutput": "A serene scene featuring an owl perched silently on a gnarled branch under the gentle glow of the moonlight, shadows casting intricate patterns in the quiet forest.",
+      "reasoning": "The input follows the specifications. This test evaluates if the output is presented as a continuous, unified paragraph without line breaks, complying with rule 4."
+    },
+    {
+      "ruleid": "4",
+      "rule": "The output is crafted as a single paragraph without line breaks, ensuring the text is continuous and unified.",
+      "testid": "3",
+      "testinput": "A surfer riding a huge wave at sunset, ocean spray in the air.",
+      "expectedoutput": "An exhilarating image of a surfer skillfully riding a towering wave at sunset, the sky ablaze with warm hues, ocean spray glistening in the golden light as the wave curls majestically.",
+      "reasoning": "This valid input tests whether the software outputs the description in a single paragraph without line breaks, in line with rule 4."
+    },
+    {
+      "ruleid": "5",
+      "rule": "The output does not exceed 80 words in total length, meaning the entire text contains 80 or fewer words.",
+      "testid": "1",
+      "testinput": "A girl reading under a tree in a meadow at sunrise.",
+      "expectedoutput": "A peaceful scene of a girl sitting under a large oak tree in a meadow at sunrise, engrossed in a book, the first rays of sun casting a warm glow over the dewy grass.",
+      "reasoning": "This input is valid per specification. The output is expected to be concise, not exceeding 80 words, testing adherence to rule 5."
+    },
+    {
+      "ruleid": "5",
+      "rule": "The output does not exceed 80 words in total length, meaning the entire text contains 80 or fewer words.",
+      "testid": "2",
+      "testinput": "A crowded subway station during rush hour, people moving quickly.",
+      "expectedoutput": "A dynamic image of a crowded subway station during rush hour, commuters moving swiftly through the labyrinth of platforms, fluorescent lights illuminating the bustling atmosphere.",
+      "reasoning": "This test input is designed to assess whether the software can describe the scene within 80 words, in alignment with rule 5."
+    },
+    {
+      "ruleid": "5",
+      "rule": "The output does not exceed 80 words in total length, meaning the entire text contains 80 or fewer words.",
+      "testid": "3",
+      "testinput": "A panoramic view of the Grand Canyon at sunset, colors vibrant.",
+      "expectedoutput": "A breathtaking panoramic view of the Grand Canyon at sunset, layers of rock glowing in shades of red and orange, shadows deepening as the sun dips below the horizon, sky painted with vibrant colors.",
+      "reasoning": "This valid input tests whether the software keeps the output within the 80-word limit, complying with rule 5."
+    },
+    {
+      "ruleid": "6",
+      "rule": "The output begins by focusing on the subjects of the image and their characteristics, where subjects are the main figures or objects, and characteristics are their attributes such as appearance, posture, or expression.",
+      "testid": "1",
+      "testinput": "A young dancer in a red dress performing on a stage.",
+      "expectedoutput": "An elegant image of a young dancer in a flowing red dress gracefully performing on a spotlighted stage, her movements capturing the audience's attention, shadows playing across the backdrop.",
+      "reasoning": "This input includes the subject and characteristics at the beginning, following the specification, testing adherence to rule 6."
+    },
+    {
+      "ruleid": "6",
+      "rule": "The output begins by focusing on the subjects of the image and their characteristics, where subjects are the main figures or objects, and characteristics are their attributes such as appearance, posture, or expression.",
+      "testid": "2",
+      "testinput": "A lion resting on a rock, mane blowing in the wind.",
+      "expectedoutput": "A powerful image of a lion resting majestically on a rocky outcrop, its mane flowing in the wind, eyes surveying the savannah under the warm sunlight.",
+      "reasoning": "The test input begins with the subject and its characteristics, as per the input specifications, verifying compliance with rule 6."
+    },
+    {
+      "ruleid": "6",
+      "rule": "The output begins by focusing on the subjects of the image and their characteristics, where subjects are the main figures or objects, and characteristics are their attributes such as appearance, posture, or expression.",
+      "testid": "3",
+      "testinput": "A couple holding hands walking along the beach.",
+      "expectedoutput": "A romantic scene of a couple holding hands as they stroll along a sandy beach, footprints trailing behind them, waves gently lapping at the shore under a golden sunset.",
+      "reasoning": "This input starts by focusing on the subjects and their characteristics, testing whether the software adheres to rule 6."
+    },
+    {
+      "ruleid": "7",
+      "rule": "Following the subjects, the output provides details about the timing and lighting of the scene, where timing refers to time-related aspects like time of day or season, and lighting refers to light conditions, sources, and illumination effects.",
+      "testid": "1",
+      "testinput": "A child flying a kite in the afternoon sun, clouds scattered.",
+      "expectedoutput": "Following the subject, the image features a child joyfully flying a colorful kite under the bright afternoon sun, with fluffy clouds scattered across the blue sky, the kite soaring high.",
+      "reasoning": "This test input includes timing and lighting details after the subject, in line with the specification, testing adherence to rule 7."
+    },
+    {
+      "ruleid": "7",
+      "rule": "Following the subjects, the output provides details about the timing and lighting of the scene, where timing refers to time-related aspects like time of day or season, and lighting refers to light conditions, sources, and illumination effects.",
+      "testid": "2",
+      "testinput": "A firefighter battling flames at night, sparks flying.",
+      "expectedoutput": "After focusing on the subject, the scene depicts a firefighter bravely battling intense flames at night, the fire illuminating the surroundings, sparks flying into the dark sky.",
+      "reasoning": "This input provides timing and lighting details after mentioning the subject, verifying compliance with rule 7."
+    },
+    {
+      "ruleid": "7",
+      "rule": "Following the subjects, the output provides details about the timing and lighting of the scene, where timing refers to time-related aspects like time of day or season, and lighting refers to light conditions, sources, and illumination effects.",
+      "testid": "3",
+      "testinput": "A cyclist riding through a city at dawn, streetlights glowing.",
+      "expectedoutput": "The image portrays a cyclist pedaling through quiet city streets at dawn, the soft glow of streetlights blending with the first light of day, shadows stretching behind.",
+      "reasoning": "This test checks if timing and lighting details follow the subject, adhering to rule 7."
+    },
+    {
+      "ruleid": "8",
+      "rule": "After detailing timing and lighting, the output describes the background of the image, where the background is the setting or environment including scenery, objects, and relevant environmental details.",
+      "testid": "1",
+      "testinput": "A dog playing in a garden at noon light.",
+      "expectedoutput": "After detailing timing and lighting, the background shows a vibrant garden in full bloom, colorful flowers and lush greenery providing a joyful setting.",
+      "reasoning": "This input includes background description after timing and lighting, following the specification, testing adherence to rule 8."
+    },
+    {
+      "ruleid": "8",
+      "rule": "After detailing timing and lighting, the output describes the background of the image, where the background is the setting or environment including scenery, objects, and relevant environmental details.",
+      "testid": "2",
+      "testinput": "A snowboarder performing a trick under bright sunlight, snow sparkling.",
+      "expectedoutput": "Following the lighting details, the background features snow-covered mountains and a clear blue sky, creating a dramatic and exhilarating backdrop.",
+      "reasoning": "The test assesses whether the software describes the background after timing and lighting, complying with rule 8."
+    },
+    {
+      "ruleid": "8",
+      "rule": "After detailing timing and lighting, the output describes the background of the image, where the background is the setting or environment including scenery, objects, and relevant environmental details.",
+      "testid": "3",
+      "testinput": "A writer sitting by a window during a rainy evening, lamp glowing.",
+      "expectedoutput": "After providing timing and lighting details, the background includes a cozy room lined with bookshelves, raindrops visible on the windowpane, enhancing the introspective mood.",
+      "reasoning": "This input tests if the software follows the sequence by describing the background after timing and lighting, in line with rule 8."
+    },
+    {
+      "ruleid": "9",
+      "rule": "The output concludes by conveying the feeling or emotion that the image should evoke, meaning it expresses the intended mood, atmosphere, or emotional tone to impact the viewer.",
+      "testid": "1",
+      "testinput": "An artist painting at sunrise overlooking the ocean, warm hues.",
+      "expectedoutput": "Concluding, the image evokes a feeling of tranquility and inspiration, capturing the peacefulness of the early morning and the limitless possibilities of creation.",
+      "reasoning": "This valid input tests whether the software conveys the intended feeling at the conclusion, adhering to rule 9."
+    },
+    {
+      "ruleid": "9",
+      "rule": "The output concludes by conveying the feeling or emotion that the image should evoke, meaning it expresses the intended mood, atmosphere, or emotional tone to impact the viewer.",
+      "testid": "2",
+      "testinput": "Children building a snowman under a bright winter sun, snow glistening.",
+      "expectedoutput": "The scene concludes by conveying a sense of joy and innocence, reflecting the simple pleasures and wonder of childhood during winter.",
+      "reasoning": "This test checks if the software expresses the intended emotion at the end, complying with rule 9."
+    },
+    {
+      "ruleid": "9",
+      "rule": "The output concludes by conveying the feeling or emotion that the image should evoke, meaning it expresses the intended mood, atmosphere, or emotional tone to impact the viewer.",
+      "testid": "3",
+      "testinput": "A lone traveler gazing at the stars from a desert dune at night.",
+      "expectedoutput": "At the conclusion, the image evokes feelings of solitude and introspection, highlighting the vastness of the universe and the search for meaning.",
+      "reasoning": "This input ensures the software conveys the intended emotion at the conclusion, following rule 9."
+    },
+    {
+      "ruleid": "10",
+      "rule": "The output combines artistic insight with precise imagery, blending creative expression with detailed visual descriptions to enhance the impact of the prompt.",
+      "testid": "1",
+      "testinput": "A chef preparing a dish in a rustic kitchen with soft lighting.",
+      "expectedoutput": "The output combines artistic insight with precise imagery, depicting the textures and ambiance vividly to enhance the impact of the prompt.",
+      "reasoning": "This test checks whether the software blends creative expression with detailed visual descriptions, adhering to rule 10."
+    },
+    {
+      "ruleid": "10",
+      "rule": "The output combines artistic insight with precise imagery, blending creative expression with detailed visual descriptions to enhance the impact of the prompt.",
+      "testid": "2",
+      "testinput": "A ballet dancer leaping gracefully on a dimly lit stage, shadows cast.",
+      "expectedoutput": "The output artistically captures the elegance and movement, using precise imagery to create an impactful visual for AI generation.",
+      "reasoning": "This input validates the software's ability to merge artistic insight with precise imagery, complying with rule 10."
+    },
+    {
+      "ruleid": "10",
+      "rule": "The output combines artistic insight with precise imagery, blending creative expression with detailed visual descriptions to enhance the impact of the prompt.",
+      "testid": "3",
+      "testinput": "An explorer discovering an ancient temple in a dense jungle, rays of light filtering.",
+      "expectedoutput": "The prompt combines an adventurous mood with detailed descriptions of the scene, enhancing the impact for AI photo generation.",
+      "reasoning": "This test assesses whether the software effectively blends artistic expression with precise details, as required by rule 10."
+    },
+    {
+      "ruleid": "11",
+      "rule": "The output is a brief, singular paragraph that creates impactful AI-generated photos based on the concise yet vivid description provided.",
+      "testid": "1",
+      "testinput": "A farmer harvesting crops at sunset in golden fields.",
+      "expectedoutput": "A brief, singular paragraph that vividly describes the scene, creating an impactful prompt for AI-generated photos.",
+      "reasoning": "This input checks if the software produces a concise, vivid description in one paragraph, adhering to rule 11."
+    },
+    {
+      "ruleid": "11",
+      "rule": "The output is a brief, singular paragraph that creates impactful AI-generated photos based on the concise yet vivid description provided.",
+      "testid": "2",
+      "testinput": "A swimmer diving into a crystal-clear lake surrounded by mountains.",
+      "expectedoutput": "The output is a brief, singular paragraph that effectively sets the scene for impactful AI photo generation.",
+      "reasoning": "This test ensures the software creates a concise and vivid description within a single paragraph, complying with rule 11."
+    },
+    {
+      "ruleid": "11",
+      "rule": "The output is a brief, singular paragraph that creates impactful AI-generated photos based on the concise yet vivid description provided.",
+      "testid": "3",
+      "testinput": "A carnival at night with colorful lights and happy faces.",
+      "expectedoutput": "The prompt is a brief yet vivid description in one paragraph, designed to create impactful AI-generated photos.",
+      "reasoning": "This input tests whether the software meets the criteria of brevity and vividness in a single paragraph, following rule 11."
+    },
+    {
+      "ruleid": "12",
+      "rule": "The output is a vague statement that lacks sufficient information to guide an AI in photo creation.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "A sunset over the ocean.",
+      "expectedoutput": "A stunning image of the sun setting over the vast ocean, the sky ablaze with hues of orange, pink, and purple, the water reflecting the vibrant colors, waves gently rolling towards the shore.",
+      "reasoning": "This minimal input tests if the software avoids producing a vague output, generating sufficient detail to comply with rule 12."
+    },
+    {
+      "ruleid": "12",
+      "rule": "The output is a vague statement that lacks sufficient information to guide an AI in photo creation.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "A busy city street.",
+      "expectedoutput": "A dynamic scene of a bustling city street filled with people and traffic, towering skyscrapers lining the avenue, neon signs illuminating the evening, the energy of urban life palpable.",
+      "reasoning": "The input is simple, testing whether the software avoids vagueness by providing ample detail, adhering to rule 12."
+    },
+    {
+      "ruleid": "12",
+      "rule": "The output is a vague statement that lacks sufficient information to guide an AI in photo creation.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "A forest.",
+      "expectedoutput": "An immersive image of a dense forest with towering trees, sunlight filtering through the canopy creating dappled shadows on the forest floor, the scent of pine in the air.",
+      "reasoning": "This test checks if the software generates a detailed prompt from a minimal input, ensuring it doesn't produce a vague statement, complying with rule 12."
+    },
+    {
+      "ruleid": "13",
+      "rule": "The output disregards the user's description, omitting relevant details from the user's input.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "A bird flying over mountains during sunrise.",
+      "expectedoutput": "An inspiring scene of a bird soaring gracefully over majestic mountains at sunrise, wings outstretched against the vibrant sky, the first light casting a golden hue over the peaks.",
+      "reasoning": "This valid input tests whether the software includes all relevant details from the user's description, ensuring none are disregarded, adhering to rule 13."
+    },
+    {
+      "ruleid": "13",
+      "rule": "The output disregards the user's description, omitting relevant details from the user's input.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "A child blowing bubbles in a park, sunlight filtering through trees.",
+      "expectedoutput": "A delightful image of a child joyfully blowing bubbles in a sun-dappled park, bubbles reflecting colors as they float upwards, tall trees providing a serene backdrop.",
+      "reasoning": "This test verifies the software incorporates all relevant input details into the output, complying with rule 13."
+    },
+    {
+      "ruleid": "13",
+      "rule": "The output disregards the user's description, omitting relevant details from the user's input.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "A fisherman casting a net at dawn on a tranquil lake.",
+      "expectedoutput": "A serene scene of a fisherman casting his net on a peaceful lake at dawn, mist rising from the water, soft hues painting the sky, ripples spreading as the net touches the surface.",
+      "reasoning": "This input assesses whether the software includes all pertinent details from the user's description, as required by rule 13."
+    },
+    {
+      "ruleid": "14",
+      "rule": "The output includes words and phrases not in English.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "An evening in Paris with the Eiffel Tower illuminated, feeling the joy of 'joie de vivre'.",
+      "expectedoutput": "An enchanting scene depicting the illuminated Eiffel Tower in Paris during the evening, the lights sparkling against the twilight sky, capturing the essence of joy and zest for life.",
+      "reasoning": "This input includes a non-English phrase. The test checks whether the software avoids non-English words in the output, adhering to rule 14."
+    },
+    {
+      "ruleid": "14",
+      "rule": "The output includes words and phrases not in English.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "A fiesta with people dancing flamenco under colorful 'piñatas' in a lively street.",
+      "expectedoutput": "A vibrant scene of people energetically dancing flamenco in a lively street adorned with colorful decorations, capturing the festive atmosphere filled with music and joy.",
+      "reasoning": "This valid input tests if the software omits non-English words in the output, following rule 14."
+    },
+    {
+      "ruleid": "14",
+      "rule": "The output includes words and phrases not in English.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "A 'samurai' warrior standing in a serene Japanese garden during cherry blossom season.",
+      "expectedoutput": "A striking image of a warrior in traditional attire standing in a tranquil Japanese garden amid blooming cherry blossoms, petals gently falling around, embodying strength and serenity.",
+      "reasoning": "This test assesses whether the software avoids non-English words in the output, complying with rule 14."
+    },
+    {
+      "ruleid": "15",
+      "rule": "The output is divided into multiple paragraphs with line breaks, creating discontinuity.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "A dolphin leaping out of the water at sunset, splashing waves.",
+      "expectedoutput": "An exhilarating image of a dolphin leaping joyfully out of the shimmering ocean at sunset, droplets of water sparkling as they scatter, the sky ablaze with warm colors.",
+      "reasoning": "This input checks if the software avoids creating multiple paragraphs or line breaks, ensuring continuity as per rule 15."
+    },
+    {
+      "ruleid": "15",
+      "rule": "The output is divided into multiple paragraphs with line breaks, creating discontinuity.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "A marathon runner crossing the finish line, crowd cheering, confetti falling.",
+      "expectedoutput": "A triumphant scene of a marathon runner crossing the finish line amid a cheering crowd, colorful confetti falling from above, expressions of joy and accomplishment evident.",
+      "reasoning": "This test verifies that the output is crafted as a single paragraph without line breaks, adhering to rule 15."
+    },
+    {
+      "ruleid": "15",
+      "rule": "The output is divided into multiple paragraphs with line breaks, creating discontinuity.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "A hot air balloon floating over a valley at sunrise, mist below.",
+      "expectedoutput": "An awe-inspiring image of a hot air balloon drifting silently over a mist-covered valley at sunrise, the sky painted with soft pastel hues, the landscape gradually illuminated.",
+      "reasoning": "This valid input ensures the software produces a continuous paragraph without fragmentation, complying with rule 15."
+    },
+    {
+      "ruleid": "16",
+      "rule": "The output exceeds 80 words in total length, containing more than 80 words.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "A snow-covered village in winter, smoke rising from chimneys, children playing.",
+      "expectedoutput": "A picturesque scene of a snow-blanketed village nestled in a valley during winter, smoke curling from cozy chimney tops, children bundled up and playing joyfully in the snow under a pale sky.",
+      "reasoning": "This test checks that the software's output does not exceed 80 words, adhering to rule 16."
+    },
+    {
+      "ruleid": "16",
+      "rule": "The output exceeds 80 words in total length, containing more than 80 words.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "A concert pianist performing on a grand stage, spotlight shining, audience captivated.",
+      "expectedoutput": "An elegant image of a concert pianist passionately performing on a grand stage, fingers gliding over the keys, the spotlight illuminating the piano, the audience captivated in silence.",
+      "reasoning": "This valid input tests whether the software keeps the output concise, not exceeding 80 words, complying with rule 16."
+    },
+    {
+      "ruleid": "16",
+      "rule": "The output exceeds 80 words in total length, containing more than 80 words.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "A farmer's market at dawn, fresh produce displayed, vendors setting up stalls.",
+      "expectedoutput": "A vibrant scene of a farmer's market coming to life at dawn, tables laden with fresh fruits and vegetables, vendors arranging their colorful displays, the first customers arriving under the warm morning light.",
+      "reasoning": "This input evaluates if the software maintains the word limit in the output, adhering to rule 16."
+    },
+    {
+      "ruleid": "17",
+      "rule": "The output does not mention the subjects of the image or their characteristics at the beginning.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "The moon shining over calm seas, stars reflecting.",
+      "expectedoutput": "An image of the moon casting a silvery glow over calm seas, stars reflecting on the water's surface, the vastness of the night sky enveloping the scene.",
+      "reasoning": "This test checks if the software avoids omitting the subjects at the beginning, ensuring compliance with rule 17."
+    },
+    {
+      "ruleid": "17",
+      "rule": "The output does not mention the subjects of the image or their characteristics at the beginning.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Distant thunderclouds approaching, horizon darkening, winds picking up.",
+      "expectedoutput": "A dramatic scene of distant thunderclouds rolling in, the horizon darkening as storm approaches, trees swaying as winds pick up, the atmosphere charged with anticipation.",
+      "reasoning": "This input verifies that the software mentions the subjects at the beginning, as per rule 17."
+    },
+    {
+      "ruleid": "17",
+      "rule": "The output does not mention the subjects of the image or their characteristics at the beginning.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "First snowfall covering the landscape, silence settling.",
+      "expectedoutput": "An enchanting image capturing the first snowfall gently blanketing the landscape, transforming it into a winter wonderland, a peaceful silence settling over everything.",
+      "reasoning": "This test ensures the software includes the subjects at the start of the output, adhering to rule 17."
+    },
+    {
+      "ruleid": "18",
+      "rule": "The output omits details about the timing and lighting of the scene after mentioning the subjects.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "A painter at work in a studio.",
+      "expectedoutput": "An artistic image of a painter engrossed in creating a masterpiece in a well-lit studio filled with canvases and brushes.",
+      "reasoning": "This input tests if the software mistakenly omits timing and lighting details after the subject, ensuring compliance with rule 18."
+    },
+    {
+      "ruleid": "18",
+      "rule": "The output omits details about the timing and lighting of the scene after mentioning the subjects.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "A cyclist on an empty road.",
+      "expectedoutput": "An evocative scene of a cyclist pedaling along an empty road stretching into the distance, the golden light of late afternoon casting elongated shadows.",
+      "reasoning": "This test checks that the software includes timing and lighting after the subject, adhering to rule 18."
+    },
+    {
+      "ruleid": "18",
+      "rule": "The output omits details about the timing and lighting of the scene after mentioning the subjects.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "A cat watching birds from a window.",
+      "expectedoutput": "A charming image of a curious cat perched on a windowsill watching birds flutter by outside, sunlight streaming through the glass casting patterns on the floor.",
+      "reasoning": "This valid input verifies that the software provides timing and lighting details after the subject, complying with rule 18."
+    },
+    {
+      "ruleid": "19",
+      "rule": "The output does not describe the background of the image after timing and lighting.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "A sailor navigating through stormy seas under dark skies.",
+      "expectedoutput": "An intense scene of a determined sailor steering a ship through tumultuous waves under dark, ominous skies, lightning illuminating the horizon.",
+      "reasoning": "This test ensures the software includes a background description after timing and lighting, avoiding omission as per rule 19."
+    },
+    {
+      "ruleid": "19",
+      "rule": "The output does not describe the background of the image after timing and lighting.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "A youth playing guitar by a campfire at night.",
+      "expectedoutput": "A warm image of a young individual strumming a guitar by the glow of a campfire at night, surrounded by friends, stars twinkling overhead.",
+      "reasoning": "This input checks that the software describes the background after timing and lighting, adhering to rule 19."
+    },
+    {
+      "ruleid": "19",
+      "rule": "The output does not describe the background of the image after timing and lighting.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "An architect examining blueprints in an office with sunlight pouring in.",
+      "expectedoutput": "An insightful scene of an architect intensely studying blueprints in a modern office, sunlight pouring in through large windows, cityscape visible beyond.",
+      "reasoning": "This valid input tests whether the software includes background details in sequence, complying with rule 19."
+    },
+    {
+      "ruleid": "20",
+      "rule": "The output does not convey any feeling or emotion that the image should evoke at the conclusion.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "An empty theater after a show.",
+      "expectedoutput": "An evocative image of an empty theater after a show, rows of seats in dim light, the stage quiet, remnants of the performance lingering in the air.",
+      "reasoning": "This test checks if the software conveys the intended emotion at the conclusion, ensuring it doesn't omit feelings as per rule 20."
+    },
+    {
+      "ruleid": "20",
+      "rule": "The output does not convey any feeling or emotion that the image should evoke at the conclusion.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "A student looking out of a train window.",
+      "expectedoutput": "A contemplative scene of a student gazing out of a train window, landscapes passing by, reflections on the glass, the soft light of evening creating a pensive mood.",
+      "reasoning": "This input verifies that the software conveys feelings or emotions at the end, adhering to rule 20."
+    },
+    {
+      "ruleid": "20",
+      "rule": "The output does not convey any feeling or emotion that the image should evoke at the conclusion.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "A parade marching down the street.",
+      "expectedoutput": "A festive image of a parade marching down a lively street, colorful floats and costumes, music filling the air, crowds cheering with excitement.",
+      "reasoning": "This valid input tests whether the software includes the intended emotion at the conclusion, complying with rule 20."
+    },
+    {
+      "ruleid": "21",
+      "rule": "The output lacks artistic insight and precise imagery, failing to blend creative expression with detailed visual descriptions.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "A gardener watering plants.",
+      "expectedoutput": "An image of a gardener tending to vibrant plants could lack depth without artistic insight; the software should enrich it with precise imagery to avoid failing rule 21.",
+      "reasoning": "This test ensures the software blends artistic expression with detailed descriptions, not lacking in artistic insight as per rule 21."
+    },
+    {
+      "ruleid": "21",
+      "rule": "The output lacks artistic insight and precise imagery, failing to blend creative expression with detailed visual descriptions.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "A runner on a track.",
+      "expectedoutput": "An uninspired description of a runner on a track misses an opportunity for impact; the software should enhance it with creative and precise imagery.",
+      "reasoning": "This input checks that the software provides artistic and precise descriptions, complying with rule 21."
+    },
+    {
+      "ruleid": "21",
+      "rule": "The output lacks artistic insight and precise imagery, failing to blend creative expression with detailed visual descriptions.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "A ship on the ocean.",
+      "expectedoutput": "A plain statement of a ship on the ocean lacks vividness; the software must infuse artistic insight and precise imagery to create an impactful prompt, adhering to rule 21.",
+      "reasoning": "This test assesses whether the software avoids lacking artistic insight and precise imagery, as required by rule 21."
+    },
+    {
+      "ruleid": "22",
+      "rule": "The output is lengthy and fragmented, failing to create impactful AI-generated photos due to lack of concise and vivid description.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "A festival in the village, people everywhere, music playing, food stalls, children running, lights hanging, evening time, excitement in the air, everyone enjoying, so much happening.",
+      "expectedoutput": "A lively scene of a village festival with vibrant music, diverse food stalls, children laughing and running under strings of lights as evening sets, capturing the communal joy.",
+      "reasoning": "This test checks that the software avoids lengthy and fragmented outputs, ensuring brevity and impact as per rule 22."
+    },
+    {
+      "ruleid": "22",
+      "rule": "The output is lengthy and fragmented, failing to create impactful AI-generated photos due to lack of concise and vivid description.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Mountains, rivers, trees, animals, sky, clouds, nature at its best, harmony everywhere, beauty unparalleled, nothing compares, amazing views, breathtaking sights, all together, just perfect.",
+      "expectedoutput": "An awe-inspiring panorama of majestic mountains, flowing rivers, lush forests, and diverse wildlife under a vast sky with billowy clouds, embodying the unparalleled beauty of nature.",
+      "reasoning": "This input verifies the software avoids creating fragmented descriptions, producing a concise, vivid prompt, adhering to rule 22."
+    },
+    {
+      "ruleid": "22",
+      "rule": "The output is lengthy and fragmented, failing to create impactful AI-generated photos due to lack of concise and vivid description.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "City life busy, cars honking, people walking, buildings tall, lights flashing, noise constant, day and night, never stops, energy high, always moving, streets crowded, faces unknown.",
+      "expectedoutput": "A dynamic urban scene with towering skyscrapers, bustling streets filled with cars and pedestrians, flashing lights illuminating the night, capturing the relentless energy of city life.",
+      "reasoning": "This test ensures the software avoids lengthy, fragmented outputs, creating impactful descriptions within a concise paragraph as required by rule 22."
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A majestic lion  \nCharacteristics: With a flowing mane and piercing eyes  \nTiming and Lighting: At dawn with soft golden light  \nBackground: The African savannah with distant acacia trees  \nFeeling: Power and dominance of the wild",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: An antique pocket watch  \nCharacteristics: Open face revealing intricate gears  \nTiming and Lighting: Soft afternoon light casting gentle shadows  \nBackground: Resting on a vintage wooden table with old letters  \nFeeling: Nostalgia and the passage of time",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A group of friends hiking  \nCharacteristics: Wearing backpacks and smiling  \nTiming and Lighting: Late afternoon with warm sun  \nBackground: A mountain trail overlooking a valley  \nFeeling: Camaraderie and adventure",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A lone surfer  \nCharacteristics: Riding a massive wave  \nTiming and Lighting: Sunset with golden reflections on the water  \nBackground: The vast ocean extending to the horizon  \nFeeling: Thrill and connection with nature",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A delicate butterfly  \nCharacteristics: Vibrant wings with intricate patterns  \nTiming and Lighting: Early morning dew with soft light  \nBackground: A garden filled with blooming flowers  \nFeeling: Fragility and beauty of life",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A bustling marketplace  \nCharacteristics: Vendors selling colorful spices and goods  \nTiming and Lighting: Midday with bright sunlight  \nBackground: Crowded streets with historic buildings  \nFeeling: Energy and culture of local life",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A passenger train  \nCharacteristics: Streamlined design moving at high speed  \nTiming and Lighting: Nighttime with lights streaking  \nBackground: Passing through a modern city skyline  \nFeeling: Progress and motion",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A child reading under a tree  \nCharacteristics: Absorbed in a large book  \nTiming and Lighting: Dappled sunlight filtering through leaves  \nBackground: A peaceful park with soft grass  \nFeeling: Tranquility and the joy of discovery",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: An astronaut on the moon  \nCharacteristics: Standing beside a flag with reflective visor  \nTiming and Lighting: Harsh sunlight with deep shadows  \nBackground: Lunar landscape with Earth visible in the sky  \nFeeling: Achievement and wonder",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A chef cooking  \nCharacteristics: Wearing a crisp white uniform tossing vegetables  \nTiming and Lighting: Warm kitchen light with steam rising  \nBackground: A professional kitchen with stainless steel appliances  \nFeeling: Passion and creativity in culinary arts",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: Wild horses running  \nCharacteristics: Manes flowing and hooves kicking up dust  \nTiming and Lighting: Golden hour with long shadows  \nBackground: Open plains stretching to distant mountains  \nFeeling: Freedom and untamed spirit",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A romantic couple dancing  \nCharacteristics: Dressed elegantly in formal attire  \nTiming and Lighting: Soft spotlight on a dimly lit dance floor  \nBackground: A grand ballroom with chandeliers  \nFeeling: Love and intimacy",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: An old fisherman  \nCharacteristics: Casting a net from a small wooden boat  \nTiming and Lighting: Early morning mist over the water  \nBackground: A calm lake surrounded by lush trees  \nFeeling: Peacefulness and simplicity of life",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A futuristic city  \nCharacteristics: Skyscrapers with holographic billboards  \nTiming and Lighting: Neon lights illuminating the night  \nBackground: Flying vehicles moving between buildings  \nFeeling: Excitement and curiosity about the future",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A guitarist performing  \nCharacteristics: Eyes closed, passionately strumming  \nTiming and Lighting: Spotlight on stage with smoky atmosphere  \nBackground: An enthusiastic crowd in a dimly lit venue  \nFeeling: Energy and connection through music",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A snow-covered cabin  \nCharacteristics: Smoke rising from the chimney  \nTiming and Lighting: Twilight with stars beginning to appear  \nBackground: Surrounded by tall pine trees in a silent forest  \nFeeling: Warmth and coziness amidst the cold",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A swimmer diving  \nCharacteristics: Body poised mid-air before entering the water  \nTiming and Lighting: Bright sunlight reflecting off the pool  \nBackground: Olympic-sized pool with empty lanes  \nFeeling: Anticipation and focus",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A cat lounging  \nCharacteristics: Stretching lazily on a windowsill  \nTiming and Lighting: Afternoon sun casting a warm glow  \nBackground: Overlooking a busy street below  \nFeeling: Contentment and serenity",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A painter at work  \nCharacteristics: Brush in hand, palette filled with vibrant colors  \nTiming and Lighting: Natural light flooding through large windows  \nBackground: An art studio cluttered with canvases  \nFeeling: Creativity and immersion in art",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A dragon flying  \nCharacteristics: Scales shimmering and wings spread wide  \nTiming and Lighting: Moonlit night with clouds parting  \nBackground: A medieval castle perched on a cliff  \nFeeling: Mystery and awe",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: Market stalls  \nCharacteristics: Baskets overflowing with fresh fruits  \nTiming and Lighting: Morning light with bustling activity  \nBackground: Cobblestone streets lined with quaint shops  \nFeeling: Vibrancy and community spirit",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A soccer player  \nCharacteristics: Mid-kick with determination on face  \nTiming and Lighting: Under stadium lights during a match  \nBackground: Crowd cheering in the stands  \nFeeling: Passion and dedication to sport",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: Hot air balloons  \nCharacteristics: Colorful patterns ascending into the sky  \nTiming and Lighting: Sunrise with pastel hues  \nBackground: Rolling hills and patchwork fields below  \nFeeling: Peacefulness and wonder",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A scientist in a lab  \nCharacteristics: Examining a test tube with concentration  \nTiming and Lighting: Bright, sterile lighting  \nBackground: Lab equipment and charts on the walls  \nFeeling: Curiosity and pursuit of knowledge",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A mother and child  \nCharacteristics: Holding hands and laughing  \nTiming and Lighting: Golden hour with warm glow  \nBackground: Walking through an autumn park with falling leaves  \nFeeling: Love and familial bond",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A skier descending a slope  \nCharacteristics: Cutting through fresh powder  \nTiming and Lighting: Clear day with brilliant sunshine  \nBackground: Snow-capped mountains and evergreen trees  \nFeeling: Exhilaration and mastery",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A street musician  \nCharacteristics: Playing violin passionately  \nTiming and Lighting: Soft evening light with long shadows  \nBackground: Historic city square with passersby  \nFeeling: Melancholy and beauty in simplicity",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: An intricate mandala  \nCharacteristics: Detailed patterns and vibrant colors  \nTiming and Lighting: Illuminated evenly  \nBackground: On a textured canvas  \nFeeling: Harmony and balance",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A robot companion  \nCharacteristics: Friendly design with expressive eyes  \nTiming and Lighting: Bright indoor setting  \nBackground: A modern home interior  \nFeeling: Comfort and innovation",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A thunderstorm over a city  \nCharacteristics: Lightning striking with dramatic clouds  \nTiming and Lighting: Nighttime with flashes of light  \nBackground: Skyline silhouetted against the storm  \nFeeling: Power of nature and awe",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A ballet dancer  \nCharacteristics: Mid-leap with graceful poise  \nTiming and Lighting: Spotlight highlighting movement  \nBackground: Simple stage with dark curtains  \nFeeling: Elegance and dedication",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A vintage airplane  \nCharacteristics: Flying above the clouds  \nTiming and Lighting: Daylight with clear skies  \nBackground: Expansive view of the horizon  \nFeeling: Adventure and pioneering spirit",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A library  \nCharacteristics: Tall shelves filled with books  \nTiming and Lighting: Soft, warm lighting  \nBackground: Grand hall with ornate architecture  \nFeeling: Wisdom and endless possibilities",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A sunflower field  \nCharacteristics: Sunflowers facing towards the sun  \nTiming and Lighting: Mid-morning brightness  \nBackground: Blue sky with a few white clouds  \nFeeling: Joy and optimism",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A sailboat  \nCharacteristics: Sails billowing in the wind  \nTiming and Lighting: Sunset casting warm colors  \nBackground: Calm sea with distant islands  \nFeeling: Serenity and freedom",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: An elephant family  \nCharacteristics: Adult elephants walking with calves  \nTiming and Lighting: Golden hour enhancing textures  \nBackground: Open plains with distant watering hole  \nFeeling: Unity and care in the animal kingdom",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: An ice cave  \nCharacteristics: Walls glistening with shades of blue  \nTiming and Lighting: Soft light filtering through ice  \nBackground: Deep within a glacier  \nFeeling: Mystery and the beauty of nature",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A farmer harvesting  \nCharacteristics: Carrying a basket of fresh produce  \nTiming and Lighting: Early morning fog lifting  \nBackground: Rows of crops stretching into the distance  \nFeeling: Fulfillment and connection to the land",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A medieval knight  \nCharacteristics: Wearing shining armor on horseback  \nTiming and Lighting: Overcast sky adding drama  \nBackground: A castle under siege  \nFeeling: Courage and honor",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: Concert audience  \nCharacteristics: Hands raised and cheering  \nTiming and Lighting: Laser lights and pyrotechnics  \nBackground: A large outdoor stage  \nFeeling: Excitement and collective energy",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A peacock displaying feathers  \nCharacteristics: Vibrant colors in full spread  \nTiming and Lighting: Natural sunlight enhancing hues  \nBackground: Lush garden with exotic plants  \nFeeling: Majesty and allure",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A cup of coffee  \nCharacteristics: Steam rising from the surface  \nTiming and Lighting: Morning light through a window  \nBackground: A cozy café with wooden tables  \nFeeling: Comfort and anticipation of the day",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A desert landscape  \nCharacteristics: Sand dunes with rippling patterns  \nTiming and Lighting: Sunset with silhouettes  \nBackground: A lone caravan in the distance  \nFeeling: Solitude and the vastness of nature",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A skier at the peak  \nCharacteristics: Standing with arms raised  \nTiming and Lighting: Clear day with bright sunlight  \nBackground: Panoramic mountain range  \nFeeling: Achievement and exhilaration",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A bustling newsroom  \nCharacteristics: Journalists typing and phones ringing  \nTiming and Lighting: Fluorescent lights creating urgency  \nBackground: Clocks showing different time zones  \nFeeling: Intensity and fast-paced environment",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A phoenix rising  \nCharacteristics: Wings engulfed in flames  \nTiming and Lighting: Against a dark, smoky backdrop  \nBackground: Ashes transforming into new life  \nFeeling: Renewal and immortality",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A couple in a boat  \nCharacteristics: Rowing together on calm water  \nTiming and Lighting: Moonlight reflecting off the lake  \nBackground: Surrounding forest under a starry sky  \nFeeling: Romance and tranquility",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A colorful coral reef  \nCharacteristics: Diverse marine life swimming among corals  \nTiming and Lighting: Sunbeams penetrating the clear water  \nBackground: The ocean floor teeming with life  \nFeeling: Wonder and the richness of nature",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A high-speed train  \nCharacteristics: Blurring through the countryside  \nTiming and Lighting: Dawn with misty fields  \nBackground: Mountains in the distance  \nFeeling: Modernity meeting tradition",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A marathon runner  \nCharacteristics: Determined expression and steady stride  \nTiming and Lighting: Midday sun highlighting sweat  \nBackground: City streets lined with cheering spectators  \nFeeling: Endurance and personal triumph",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A photographer  \nCharacteristics: Leaning over a tripod capturing a moment  \nTiming and Lighting: Golden hour enhancing the scene  \nBackground: Open landscape with dramatic skies  \nFeeling: Passion and dedication to craft",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: An eagle in flight  \nCharacteristics: Wings fully extended, eyes focused  \nTiming and Lighting: Clear sky with the sun behind  \nBackground: Overlooking a dense forest  \nFeeling: Strength and freedom",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A rainy window  \nCharacteristics: Raindrops trickling down the glass  \nTiming and Lighting: Gloomy afternoon light  \nBackground: Blurred cityscape beyond the window  \nFeeling: Melancholy and reflection",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A jazz band performing  \nCharacteristics: Musicians deeply engrossed in their instruments  \nTiming and Lighting: Dimly lit club with spotlights  \nBackground: An intimate venue with an attentive audience  \nFeeling: Soulfulness and rhythmic energy",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A mountain climber  \nCharacteristics: Reaching the summit with flag in hand  \nTiming and Lighting: Sunrise breaking over peaks  \nBackground: Snow-covered mountains and clouds below  \nFeeling: Accomplishment and awe",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A panda eating bamboo  \nCharacteristics: Cute expression and gentle demeanor  \nTiming and Lighting: Soft light under forest canopy  \nBackground: Bamboo forest with dappled shadows  \nFeeling: Endearment and tranquility",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A kaleidoscope pattern  \nCharacteristics: Symmetrical shapes and vibrant colors  \nTiming and Lighting: Illuminated evenly  \nBackground: Abstract and ever-changing  \nFeeling: Fascination and endless possibilities",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A firefighter in action  \nCharacteristics: Battling flames with determination  \nTiming and Lighting: Nighttime illuminated by firelight  \nBackground: A burning building with smoke  \nFeeling: Heroism and urgency",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A child blowing bubbles  \nCharacteristics: Joyful face watching bubbles float away  \nTiming and Lighting: Late afternoon sun creating iridescent colors  \nBackground: Backyard with a picket fence and flowers  \nFeeling: Innocence and simple pleasures",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A carnival at night  \nCharacteristics: Ferris wheel lit up against the sky  \nTiming and Lighting: Bright lights contrasting the darkness  \nBackground: Crowds enjoying games and rides  \nFeeling: Excitement and nostalgia",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: An eagle catching fish  \nCharacteristics: Talons extended ready to grasp  \nTiming and Lighting: Early morning light over the water  \nBackground: A tranquil lake with ripples  \nFeeling: Precision and survival instinct",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A futuristic robot  \nCharacteristics: Sleek design with metallic finish  \nTiming and Lighting: Studio lighting highlighting features  \nBackground: Minimalist white space  \nFeeling: Innovation and curiosity",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A dancer in traditional attire  \nCharacteristics: Mid-movement with expressive gestures  \nTiming and Lighting: Stage lights focusing attention  \nBackground: Cultural patterns and colors  \nFeeling: Pride and celebration of heritage",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A dog playing in snow  \nCharacteristics: Jumping with tongue out and joyful expression  \nTiming and Lighting: Clear winter day with bright light  \nBackground: Snow-covered yard with footprints  \nFeeling: Joy and playfulness",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A city skyline at dusk  \nCharacteristics: Lights beginning to twinkle  \nTiming and Lighting: Vibrant sunset casting hues of pink and orange  \nBackground: Reflective water in the foreground  \nFeeling: Calmness transitioning to evening energy",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A tree in autumn  \nCharacteristics: Leaves in shades of red, orange, and yellow  \nTiming and Lighting: Soft light enhancing colors  \nBackground: Forest pathway covered in fallen leaves  \nFeeling: Change and the beauty of nature's cycles",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A yoga practitioner  \nCharacteristics: Holding a pose with focused calm  \nTiming and Lighting: Gentle morning light  \nBackground: A serene beach with waves lapping  \nFeeling: Peacefulness and inner balance",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A fantasy castle  \nCharacteristics: Tall spires and intricate stonework  \nTiming and Lighting: Moonlit night with stars  \nBackground: Surrounded by a mist-covered lake  \nFeeling: Magic and the allure of legends",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A young athlete training  \nCharacteristics: Jumping rope with intensity  \nTiming and Lighting: Early morning dedication  \nBackground: An empty gym with equipment  \nFeeling: Determination and discipline",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A family reunion  \nCharacteristics: Generations gathered around a long table  \nTiming and Lighting: Warm indoor light with laughter evident  \nBackground: A backyard decorated with string lights  \nFeeling: Joy and togetherness",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A busy beehive  \nCharacteristics: Bees working diligently  \nTiming and Lighting: Bright sunlight emphasizing activity  \nBackground: Surrounded by wildflowers  \nFeeling: Industriousness and harmony in nature",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A sunken ship  \nCharacteristics: Encrusted with coral and marine life  \nTiming and Lighting: Underwater light filtering down  \nBackground: The ocean depths shrouded in blue  \nFeeling: Mystery and history reclaimed by nature",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A cyclist on a trail  \nCharacteristics: Navigating through rugged terrain  \nTiming and Lighting: Midday sun casting sharp shadows  \nBackground: Forested hills with a winding path  \nFeeling: Adventure and connection with the outdoors",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Subject: A tiger prowling  \nCharacteristics: Eyes fixed, muscles tense  \nTiming and Lighting: Twilight adding dramatic effect  \nBackground: Dense jungle foliage  \nFeeling: Tension and respect for the predator",
+      "baseline": true
+    }
+  ],
+  "testEvals": [
+    {
+      "id": "3c39918",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "1",
+      "rule": "The output is a detailed prompt intended for generating AI photos, where a detailed prompt is a descriptive text providing sufficient information to guide an AI in photo creation.",
+      "input": "A serene mountain lake at dawn with mist rising from the water, surrounded by pine trees.",
+      "coverage": "Generate an AI image depicting a serene mountain lake at dawn, characterized by mist gently rising from the water's surface. Capture the tranquil atmosphere with soft, early morning light illuminating the scene. The lake is encircled by towering pine trees, their reflection mirrored in the calm waters. The backdrop consists of lofty mountains barely visible through the mist. This image should evoke a sense of peaceful solitude and natural beauty, enveloping viewers in a harmonious, serene mood.",
+      "validityText": "The input provided is a text description of a scene. It includes the subject, which is a \"mountain lake,\" and its characteristics such as being \"serene\" and occurring \"at dawn.\" It also describes the mist \"rising from the water,\" which can be considered both a characteristic of the lake and a detail related to timing (early morning when mist is likely). The \"pine trees\" surrounding the lake are mentioned, which describes the background. In addition, the phrase \"serene\" conveys the emotion or feeling the image evokes.\n\nAll these elements align with the input specification:\n- Subjects and their characteristics: Mountain lake, serene, mist rising from the water.\n- Details about timing and lighting: At dawn.\n- Descriptions of the background: Surrounded by pine trees.\n- Feelings or emotions the image should evoke: Serene.\n\nNo violations are present as all aspects of the given input are accounted for in the input specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "92c5cda",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "1",
+      "rule": "The output is a detailed prompt intended for generating AI photos, where a detailed prompt is a descriptive text providing sufficient information to guide an AI in photo creation.",
+      "input": "A group of friends laughing and enjoying a picnic in a sunny meadow with wildflowers.",
+      "coverage": "Prompt:\nCapture a joyful scene featuring a group of friends laughing and enjoying a picnic on a sunny afternoon. The meadow, abloom with vibrant wildflowers, bathes in warm, golden light. The background features a rolling expanse of greenery, dotted with colorful blooms swaying in a gentle breeze. Highlight the camaraderie and carefree joy shared among the friends, evoking a sense of warmth, happiness, and the rejuvenating spirit of a perfect summer day in nature.",
+      "validityText": "The input description includes subjects, which are \"a group of friends,\" and provides their characteristics as \"laughing and enjoying a picnic.\" It also includes details about timing and lighting, \"in a sunny meadow,\" and describes the background, \"with wildflowers.\" The description also implicitly conveys feelings or emotions, which could be interpreted as happiness or joy due to \"laughing and enjoying.\" \n\nThe input specification requires the description to potentially include subjects, their characteristics, timing and lighting, background descriptions, and the emotions the image should evoke. This input complies with all aspects of the input specification as it addresses these points clearly and adequately. There is no indication of any missing or non-compliant elements.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "0d66783",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "1",
+      "rule": "The output is a detailed prompt intended for generating AI photos, where a detailed prompt is a descriptive text providing sufficient information to guide an AI in photo creation.",
+      "input": "An astronaut standing on the surface of Mars gazing at Earth in the star-filled sky.",
+      "coverage": "Prompt: An astronaut in a sleek white spacesuit stands on Mars' red, dusty terrain, gazing skyward at the distant Earth, a glowing blue orb amidst a tapestry of stars. The scene is bathed in the soft, reddish glow of Martian twilight, with dramatic shadows enhancing the atmosphere. In the background, barren rocky landscapes stretch endlessly under the velvet night sky. The image evokes a sense of wonder and solitude, capturing the vastness and mystery of the universe.",
+      "validityText": "The provided input is a textual description that includes a subject (an astronaut) and their characteristic activity (standing and gazing). It also includes details about the setting, as it mentions the surface of Mars and a star-filled sky. Additionally, it implicitly conveys a potential feeling or emotion (wonder or contemplation) through the act of gazing at Earth.\n\nThe input meets all the criteria outlined in the input specification. It describes a subject with characteristics, provides background details, and implicitly suggests feelings or emotions the image might evoke.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "3fe27ea",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "2",
+      "rule": "The output transforms the user's description into this detailed prompt, incorporating all relevant details from the user's input.",
+      "input": "A quaint cottage by a stream in autumn, leaves falling.",
+      "coverage": "Create an image of a quaint cottage nestled by a gentle stream, surrounded by vibrant autumn foliage with leaves gracefully drifting down. The scene is set in the golden light of late afternoon, casting warm hues and long shadows. The background should include a serene forest, with the stream reflecting the colorful leaves. Evoke a sense of nostalgic tranquility and the beauty of nature's transition, capturing the peaceful, reflective mood of an autumn day.",
+      "validityText": "The input provides a description of a subject (a 'quaint cottage by a stream') and includes characteristics related to timing ('in autumn') and possibly feelings or emotions ('quaint' could evoke a warm, nostalgic feeling). Additionally, it describes details about the environment ('leaves falling'). This input adheres to the input specification, which includes descriptions of subjects, characteristics, background details, and emotional evocation.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "f648dc5",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "2",
+      "rule": "The output transforms the user's description into this detailed prompt, incorporating all relevant details from the user's input.",
+      "input": "An old man playing a violin on a bustling city street at night under bright neon lights.",
+      "coverage": "Generate an AI photo featuring an elderly man playing a violin with focused expression on a bustling city street at night. The scene is illuminated by vibrant neon lights, casting colorful reflections on the pavement. The background showcases blurred movements of city life, with busy pedestrians and passing cars. The image should evoke a sense of nostalgia and the contrast between the man's timeless music and the dynamic, modern urban setting, creating an emotionally resonant atmosphere.",
+      "validityText": "The input provided consists of a description of a scene. Let's break down the elements:\n\n1. **Subjects and their characteristics**: The input mentions \"an old man playing a violin,\" fulfilling the requirement of including a subject and their characteristic activity.\n  \n2. **Details about timing and lighting**: The scenario occurs \"at night\" and includes \"bright neon lights,\" which covers both timing and lighting aspects specified.\n\n3. **Descriptions of the background**: The background is described as a \"bustling city street,\" providing context and setting for the scene.\n\n4. **Feelings or emotions**: While not explicitly stated, the imagery of a city street at night with neon lights and an old man playing violin may evoke certain feelings, although the specification does not require explicit mention of feelings or emotions as long as the description can inherently convey them.\n\nBased on the specifications provided, this input meets all the necessary components without any violations.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "1410d7b",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "2",
+      "rule": "The output transforms the user's description into this detailed prompt, incorporating all relevant details from the user's input.",
+      "input": "A fierce tiger emerging from dense jungle foliage at dawn, rays of light filtering through the trees.",
+      "coverage": "Prompt:\nCapture a fierce tiger with intense eyes and powerful posture emerging from dense jungle foliage. It's dawn, and the scene is infused with soft, golden light filtering through the trees, casting ethereal beams on the tiger's striped fur. The background is an intricate tapestry of lush greenery with mist hovering above. This image should evoke a sense of awe and reverence, highlighting the majesty and primal power of the tiger in its natural habitat.",
+      "validityText": "The input provides a text description that includes the subject, \"a fierce tiger,\" and its characteristics, \"emerging from dense jungle foliage.\" It also specifies details about timing, \"at dawn,\" and lighting, \"rays of light filtering through the trees.\" The input does not explicitly mention feelings or emotions that the image should evoke, but the description implies a sense of awe or majesty with the mention of a \"fierce tiger\" and the dawn light. However, the specification does not require feelings or emotions to be explicitly stated, only that the input may convey them. Therefore, this input aligns with the input specification provided.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "a6410f7",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "3",
+      "rule": "The output is written entirely in English, meaning every word and phrase is in the English language.",
+      "input": "A cat sleeping on a sunny windowsill.",
+      "coverage": "Prompt:\nCapture a serene cat with soft, fluffy fur sleeping peacefully on a sunlit windowsill. The sunlight bathes the cat in a warm, golden glow, with gentle afternoon rays streaming through the window. The background features a tranquil garden view, with lush greenery subtly blurred to focus on the cat. The image should evoke a sense of calmness and warmth, creating an idyllic and comforting atmosphere that invites quiet reflection and contentment.",
+      "validityText": "The input provides a description that includes a subject (\"A cat\") and characteristics or details about the subject's state (\"sleeping\") and the setting (\"on a sunny windowsill\"). It also includes details about timing and lighting with \"sunny\" indirectly suggesting both time of day and lighting condition. The background context is vaguely conveyed by mentioning the \"windowsill\". While there is no explicit mention of emotions or feelings, the description can naturally imply a sense of peace or contentment. Thus, the input aligns with the input specification as it involves subjects, characteristics, timing, details of the setting, and offers an indirect emotional suggestion without explicitly requiring one according to the specification. Therefore, the input complies fully with the specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "14d7ec3",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "3",
+      "rule": "The output is written entirely in English, meaning every word and phrase is in the English language.",
+      "input": "A majestic eagle soaring over snowy mountains under a clear blue sky.",
+      "coverage": "Prompt: Capture a majestic eagle with outstretched wings gliding gracefully over towering, snow-covered mountains. The scene is set under a clear blue sky, where the crisp winter air enhances the bright sunlight illuminating the eagle's feathers and casting subtle shadows on the snow. The background features a sweeping expanse of serene, pristine peaks. The image should evoke a sense of freedom and awe, highlighting the eagle's strength and the breathtaking beauty of its natural habitat.",
+      "validityText": "The input is a text description that matches the items outlined in the input specification:\n\n1. **Subjects and Characteristics**: The majestic eagle is the subject, and its characteristic of \"soaring\" is described. \n\n2. **Details about Timing and Lighting**: The input specifies \"under a clear blue sky,\" which implies a certain lighting condition.\n\n3. **Descriptions of Background**: The \"snowy mountains\" and \"clear blue sky\" provide a clear background description.\n\n4. **Feelings or Emotions**: The use of the word \"majestic\" may convey a feeling of awe or grandeur.\n\nThe description aligns directly with the criteria set forth in the input specification, without any omissions or deviations. The input provides a clear and vivid image description in line with the input elements.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "a2082ac",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "3",
+      "rule": "The output is written entirely in English, meaning every word and phrase is in the English language.",
+      "input": "Children playing with balloons in a park during a sunny afternoon.",
+      "coverage": "Create a captivating image of joyful children playing with colorful balloons. Capture their happy and carefree expressions in a sunlit park. The timing is a sunny afternoon with warm, vibrant lighting casting gentle shadows and highlighting the children's enthusiasm. The background features lush green grass, flowering bushes, and distant trees swaying in a gentle breeze. This scene should evoke feelings of innocence, joy, and the simple pleasures of a carefree childhood day, emphasizing warmth and happiness.",
+      "validityText": "The input is a text description that includes subjects (\"Children\") and their characteristics (\"playing with balloons\"). It details timing (\"sunny afternoon\") and provides some implicit information about lighting (since it's a sunny afternoon, the lighting would be bright). The background can be inferred as being a \"park.\" Although the input does not explicitly convey the feelings or emotions the image should evoke, it implies a sense of joy or happiness typically associated with children playing in a park. However, since conveying emotions is optional, the input does not violate any specifications. Therefore, the input complies with the given specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "5387ab4",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "4",
+      "rule": "The output is crafted as a single paragraph without line breaks, ensuring the text is continuous and unified.",
+      "input": "A bustling marketplace at midday with vendors selling fruits and spices, people haggling.",
+      "coverage": "Generate a vibrant image of a bustling marketplace at midday, focusing on vendors animatedly selling colorful fruits and aromatic spices. Capture the dynamic scene of people energetically haggling. Illuminate the market with bright, natural midday sunlight, casting lively shadows. The background should show stalls teeming with produce, rich in textures and hues. Evoke the atmosphere of lively commerce and cultural exchange, filling the image with a sense of vibrancy, diversity, and communal energy.",
+      "validityText": "The given input description is \"A bustling marketplace at midday with vendors selling fruits and spices, people haggling.\" \n\n1. The input does describe subjects – \"vendors selling fruits and spices\" and \"people\" are mentioned.\n2. The time is specified as \"midday,\" which aligns with details about \"timing.\"\n3. No explicit details about lighting are mentioned, but the mention of \"midday\" implies certain lighting conditions typical of that time, closely related to lighting details.\n4. There are no explicit descriptions of the background beyond the marketplace setting, but this setting does provide some understanding of the environment.\n5. The description suggests a busy and lively scene, which indirectly conveys a sense of vibrancy and energy, hinting at emotions or feelings.\n\nBased on the directly provided details, the input fits within the specified categories, adhering to the input specification. Every element is aligned with the guidance given in the specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "d9f1268",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "4",
+      "rule": "The output is crafted as a single paragraph without line breaks, ensuring the text is continuous and unified.",
+      "input": "An owl perched on a branch under the moonlight in a silent forest.",
+      "coverage": "Prompt:\nDepict an owl with large, watchful eyes and fluffy feathers perched on a branch, illuminated by soft, silvery moonlight. This scene takes place on a serene night, capturing the quiet elegance of a silent forest shrouded in shadows. The background features dense, dark trees and occasional shafts of gentle moonbeam filtering through the leaves. The image should evoke a sense of mystique and tranquility, highlighting the owl's regal presence and the forest's silent, nocturnal beauty.",
+      "validityText": "The input provides a description that includes the following elements: \n1. A subject (\"An owl perched on a branch\").\n2. Timing and lighting details (\"under the moonlight\").\n3. Characteristics of the environment (\"in a silent forest\").\n\nThe description does not explicitly include feelings or emotions that the image should evoke, but this is not a requirement according to the given input specification—it is only one of the possible elements that may be included. The input follows the structure outlined, describing the subject, its characteristics, timing, lighting, and the background.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "262b1ae",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "4",
+      "rule": "The output is crafted as a single paragraph without line breaks, ensuring the text is continuous and unified.",
+      "input": "A surfer riding a huge wave at sunset, ocean spray in the air.",
+      "coverage": "Prompt:\nCapture a dynamic image of a surfer skillfully navigating a colossal wave at twilight. The vibrant sunset casts a golden hue, highlighting the ocean spray suspended in the salty air. The background features a vast, open ocean stretching to the horizon, with the sun partially visible, casting vibrant reflections on the water's surface. The image should evoke a sense of thrill, freedom, and the awe-inspiring power of nature, with dramatic contrasts between the warm evening light and the cool ocean blues.",
+      "validityText": "The input consists of a description of a scene. It includes a subject, \"A surfer,\" and their characteristic action, \"riding a huge wave.\" It provides details about the timing, \"at sunset,\" and includes elements related to the scene's atmosphere, \"ocean spray in the air.\" The description effectively depicts the scene in terms of both action and setting, aligning well with the input specification requirements. There are no restrictions or violations found in the input concerning the given input specification.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "a6e8037",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "5",
+      "rule": "The output does not exceed 80 words in total length, meaning the entire text contains 80 or fewer words.",
+      "input": "A girl reading under a tree in a meadow at sunrise.",
+      "coverage": "Prompt: A young girl with long, flowing hair sits cross-legged beneath a large, leafy tree in a lush meadow, deeply engrossed in a book. The scene captures the golden hue of sunrise, casting a warm, gentle glow on her and the surrounding grass. The background features wildflowers scattered across the meadow, with soft, rolling hills in the distance. This image evokes a serene and contemplative mood, reflecting a moment of peaceful solitude and the joy of reading in nature.",
+      "validityText": "The input is a text description provided by the user. It includes a subject ('a girl') and her characteristic (engaged in 'reading'). It provides details about the timing ('at sunrise') and the setting ('under a tree in a meadow'), which can be considered part of the background. The input specification also leaves room for conveying feelings or emotions, though it does not strictly require it.\n\nThe description does not contain anything explicitly outside of what the specification allows. It does not violate any specific requirements as it includes subjects, details about timing, and background, and it may implicitly convey a peaceful or serene atmosphere through these elements.\n\nSince the description aligns with the guidelines of mentioning a subject, characteristics, timing, and setting, it complies with the input specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "a2097bb",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "5",
+      "rule": "The output does not exceed 80 words in total length, meaning the entire text contains 80 or fewer words.",
+      "input": "A crowded subway station during rush hour, people moving quickly.",
+      "coverage": "Prompt:\nCapture a bustling subway station during rush hour with people moving swiftly in various directions. The subjects are diverse commuters with purposeful expressions, carrying bags and wearing a range of work attire. Evening lighting casts soft glows from the overhead fixtures, illuminating the crowd's movement. The background shows tiled walls, train tracks, and advertisement posters blurred by motion. The image should evoke energy and urgency, reflecting the dynamic and fast-paced rhythm of urban life.",
+      "validityText": "The input provided is \"A crowded subway station during rush hour, people moving quickly.\" Let's evaluate it against the given input specification:\n\n- The description includes a subject: \"a crowded subway station.\"\n- It involves characteristics of the subject: \"during rush hour\" provides timing, and \"people moving quickly\" describes action.\n- There is no explicit mention of lighting, but timing can imply it indirectly (rush hour typically has certain lighting conditions), which is an acceptable detail for general context.\n- There are no explicit descriptions of the background besides the general setting of a subway station, which can be considered part of the subject in this context.\n- The input does not convey specific feelings or emotions that the image should evoke.\n\nBased on these observations, the input complies with the input specification as it provides a clear description of the subject, includes characteristics and timing details, and can be reasonably inferred to touch on setting as part of the subject. The lack of explicit emotional or background details is optional as the specification does not mandate these points but allows for their inclusion if present.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "564ebe3",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "5",
+      "rule": "The output does not exceed 80 words in total length, meaning the entire text contains 80 or fewer words.",
+      "input": "A panoramic view of the Grand Canyon at sunset, colors vibrant.",
+      "coverage": "Create a panoramic image capturing the Grand Canyon at sunset, with vibrant hues highlighting the intricate rock formations. The warm glow of the setting sun casts rich, golden tones across the canyon walls, intensifying the reds, oranges, and purples in the landscape. The sky is a brilliant mix of pinks and oranges as the sun dips below the horizon. The background features an expansive vista, evoking a sense of awe and tranquility, inviting the viewer to appreciate the natural grandeur.",
+      "validityText": "The provided input is \"A panoramic view of the Grand Canyon at sunset, colors vibrant.\" Let me analyze it based on the input specification:\n\n1. **Subjects and Their Characteristics**: The input includes a subject, which is \"the Grand Canyon,\" and describes a characteristic of the view as \"panoramic.\" This complies with the specification which allows the inclusion of subjects and their characteristics.\n\n2. **Timing and Lighting**: The input mentions \"at sunset,\" which provides an element of timing and lighting, complying with the specification that allows details about timing or lighting.\n\n3. **Background**: The input does not explicitly mention the background, but the Grand Canyon and the sunset context implicitly provide background details. This is within the bounds of the specification as it's naturally inferred from the subject.\n\n4. **Feelings or Emotions**: The phrase \"colors vibrant\" could implicitly suggest an uplifting or vivid emotional tone, even though it might not directly state emotions. This can be seen as indirectly complying with conveying feelings.\n\nGiven the analysis, each element of the input aligns with what the input specification outlines and allows. There are no elements within the input that violate any rule set forth by the specification about descriptions.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "6df372e",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "6",
+      "rule": "The output begins by focusing on the subjects of the image and their characteristics, where subjects are the main figures or objects, and characteristics are their attributes such as appearance, posture, or expression.",
+      "input": "A young dancer in a red dress performing on a stage.",
+      "coverage": "Prompt:\nCapture a young dancer adorned in a vibrant red dress exuding grace as she performs elegantly on a grand stage. The spotlight illuminates her expressive movements, casting dramatic shadows. The setting is an opulent theatre with velvet curtains framing the scene. The background features a captivated audience silhouetted in the dim, ambient lighting. This image should evoke a sense of passion and inspiration, highlighting the beauty of artistic expression and the enchantment of live performance.",
+      "validityText": "The input provides a description of a subject (\"A young dancer in a red dress\") along with their characteristic (performing on a stage). This complies with the part of the input specification that allows for the inclusion of subjects and their characteristics. \n\nThe input does not explicitly include details about timing, lighting, background, or convey any feelings or emotions directly, but the absence of these elements does not lead to non-compliance since the specification lists these as optional inclusions (\"may include\").\n\nSince the input directly aligns with the specification provided, it is considered compliant.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "2f4f468",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "6",
+      "rule": "The output begins by focusing on the subjects of the image and their characteristics, where subjects are the main figures or objects, and characteristics are their attributes such as appearance, posture, or expression.",
+      "input": "A lion resting on a rock, mane blowing in the wind.",
+      "coverage": "Generate an image of a majestic lion resting regally on a large rock, its lush mane elegantly flowing in a gentle breeze. The scene is set during golden hour, with warm, soft sunlight highlighting the lion's fur, creating a serene and natural atmosphere. In the background, a savanna landscape unfurls with scattered acacia trees against a vast blue sky. The image should evoke a sense of tranquility, power, and the untamed beauty of nature.",
+      "validityText": "The input description includes a subject, which is a lion, and a characteristic of the subject, the mane blowing in the wind. It also includes the lion's action of resting on a rock. There is no direct mention of timing, lighting, background, or conveyed emotions, but absence of these details does not constitute a violation according to the specification. According to the input specifications, the input may include subjects with characteristics, which this description does. \n\nTherefore, the input complies with the input specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "56dc7ee",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "6",
+      "rule": "The output begins by focusing on the subjects of the image and their characteristics, where subjects are the main figures or objects, and characteristics are their attributes such as appearance, posture, or expression.",
+      "input": "A couple holding hands walking along the beach.",
+      "coverage": "Generate an image of a couple holding hands, strolling leisurely along a serene beach. They are mid-twenties, joyful expressions, and wearing casual beachwear. Capture the golden hour, with the sun setting low, casting warm, soft light that gently illuminates their path. The background features gentle waves, a sandy shoreline, and distant cliffs. Evoke feelings of romance, tranquility, and connection, creating a serene atmosphere that conveys a sense of love and togetherness against nature's beautiful backdrop.",
+      "validityText": "The given input is \"A couple holding hands walking along the beach.\" Let's evaluate this input against the provided specification:\n\n1. The input is a text description, which is compliant with the requirement that the input should be a text description provided by the user.\n\n2. The input includes subjects (a couple) and their characteristics (holding hands, walking), which are in line with the part of the specification that mentions the input may include subjects and their characteristics.\n\n3. The input provides some context about the background (the beach), which complies with the part of the specification stating that the input may include descriptions of the background.\n\n4. The input does not explicitly include details on timing, lighting, or convey any specific feelings or emotions that the image should evoke. However, these elements are optional parts of the specification, meaning their absence does not constitute a violation of the specification.\n\nBased on this analysis, there are no violations of the input specification. The input complies with the parts that are necessarily covered by the specification, and there are no mandatory elements that have been missed.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "e56fa47",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "7",
+      "rule": "Following the subjects, the output provides details about the timing and lighting of the scene, where timing refers to time-related aspects like time of day or season, and lighting refers to light conditions, sources, and illumination effects.",
+      "input": "A child flying a kite in the afternoon sun, clouds scattered.",
+      "coverage": "Prompt: Capture a young child with an exuberant expression, flying a colorful kite high in the sky on a bright afternoon. The sun casts warm, gentle rays, illuminating the scene, while fluffy white clouds are scattered across a brilliant blue sky. The grassy field serves as a backdrop, suggesting a sense of openness and freedom. The image should evoke a sense of joy, innocence, and carefree contentment, inviting viewers to reminisce about playful childhood moments.",
+      "validityText": "The given input describes a scene involving a child flying a kite. It mentions characteristics of the subjects: a \"child\" and a \"kite\". The input includes details about timing (\"in the afternoon sun\") and lighting conditions. Additionally, it provides a description of the background with \"clouds scattered\". There are no explicit emotions or feelings mentioned, but the input specification does not mandate their inclusion, it only allows it. \n\nTherefore, based on these observations, the input complies with the input specification as it provides a text description that includes subjects, characteristics, timing, lighting, and background details.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "8fce6e6",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "7",
+      "rule": "Following the subjects, the output provides details about the timing and lighting of the scene, where timing refers to time-related aspects like time of day or season, and lighting refers to light conditions, sources, and illumination effects.",
+      "input": "A firefighter battling flames at night, sparks flying.",
+      "coverage": "Create an AI-generated photo of a determined firefighter, clad in protective gear, fiercely battling raging flames at night. The scene is illuminated by the intense glow of the fire, casting dramatic shadows against the firefighter's focused expression. Sparks fly through the air, adding dynamic energy. The background depicts a partially engulfed building, enhancing the urgency. Evoke a feeling of bravery and tension, with a dramatic atmosphere that captures the heroic effort against overwhelming odds.",
+      "validityText": "The input provided is: \"A firefighter battling flames at night, sparks flying.\" \n\nLet's evaluate this input based on the provided specification:\n\n1. **Subjects and Characteristics**: The description includes a subject (a firefighter) and their characteristic action (battling flames). This component complies with the input specification as it directly describes the subject and their action.\n\n2. **Timing and Lighting**: The description specifies timing (\"at night\") and involves a lighting element (inferred by the sparks flying). This is aligned with the input specification regarding details about timing and lighting.\n\n3. **Background**: There is no explicit mention of the background. However, the scene involves flames and sparks, which implies a certain setting that can be considered part of the overall context or background. This is less explicit, but not necessarily in violation since the specification does not mandate explicit background details.\n\n4. **Feelings or Emotions**: The description implies a sense of urgency or intensity (\"battling flames,\" \"sparks flying\"), which can convey feelings of tension or bravery. While not explicitly stated, the input provides enough context to evoke emotions related to the scene.\n\nBased on the evaluation above, the input complies with the input specification. All aspects of the specification have been sufficiently addressed by the input provided.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "ffa168e",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "7",
+      "rule": "Following the subjects, the output provides details about the timing and lighting of the scene, where timing refers to time-related aspects like time of day or season, and lighting refers to light conditions, sources, and illumination effects.",
+      "input": "A cyclist riding through a city at dawn, streetlights glowing.",
+      "coverage": "Create an image of a cyclist in dynamic motion, pedaling swiftly through an urban street at dawn. The cyclist is clad in a sleek outfit, exuding determination and focus. The early morning sky casts a gentle, bluish hue, while streetlights create a warm, golden glow, adding contrast to the scene. Skyscrapers loom in the background, their futuristic silhouettes enhancing the city's modern vibe. The image evokes a sense of tranquility mixed with the thrill of adventure and exploration.",
+      "validityText": "The given input describes a scene involving a \"cyclist\" with the characteristic of \"riding through a city at dawn,\" which fits the input specification regarding subjects and their characteristics. It also includes details about timing with \"at dawn\" and lighting with \"streetlights glowing,\" complying with the input specification that allows details about timing and lighting. The input does not explicitly describe the background comprehensively but does imply one with the context of a city. Although the background description is minimal, it aligns with the specification because the input need not be exhaustive. The input does not convey feelings or emotions explicitly, but this is not a requirement for compliance; it's an allowance in the specification. Therefore, the input complies with the specification on multiple accounts without violating any requirement.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "1938849",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "8",
+      "rule": "After detailing timing and lighting, the output describes the background of the image, where the background is the setting or environment including scenery, objects, and relevant environmental details.",
+      "input": "A dog playing in a garden at noon light.",
+      "coverage": "A joyful dog with glossy fur frolics in a lush, blooming garden under the bright noon sun, its eyes gleaming with excitement. The sunlight casts soft shadows, highlighting vibrant flowers and verdant grass. The background features a quaint wooden picket fence and tall, leafy trees swaying gently in the breeze. This image should evoke a sense of happiness, carefree spirit, and the simple joy of playful moments in the warmth and beauty of a summer day.",
+      "validityText": "The given input \"A dog playing in a garden at noon light.\" is a text description provided by the user. \n\n1. **Subjects and Characteristics**: The input specifies the subject, which is \"a dog,\" and its activity/characteristic, \"playing.\"\n2. **Timing and Lighting**: The input includes details about timing and lighting, specifically mentioning \"at noon light.\"\n3. **Background**: The input describes the background as \"a garden.\"\n4. **Feelings or Emotions**: Although the input does not explicitly convey specific emotions or feelings, the visual of a dog playing might inherently imply a sense of joy or playfulness, which aligns with the input specification on evoking feelings or emotions.\n\nThe input does not violate any points of the input specification. It appropriately includes subjects and their characteristics, timing and lighting details, and a description of the background. There is no requirement for the input to explicitly convey feelings or emotions, but the playful scene does suggest inherent emotion.\n\nNo violations or omissions occur within the given input concerning the provided input specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "a4218fe",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "8",
+      "rule": "After detailing timing and lighting, the output describes the background of the image, where the background is the setting or environment including scenery, objects, and relevant environmental details.",
+      "input": "A snowboarder performing a trick under bright sunlight, snow sparkling.",
+      "coverage": "Prompt:\nCapture a snowboarder mid-air executing a trick, highlighting their dynamic posture and determined expression. The scene is set under vibrant, bright sunlight, with the snow glistening and sparkling like diamonds. The background features a vast, snowy mountainside with sharp peaks under a clear blue sky. The image should evoke excitement and adrenaline, encapsulating the thrill and freedom of snowboarding on a perfect winter day.",
+      "validityText": "The input provided is a description of a scene involving a snowboarder. Here is my reasoning in evaluating this input against the specification:\n\n- **Subjects and Characteristics**: The input mentions a \"snowboarder performing a trick,\" which introduces the subject (the snowboarder) and their action/characteristic (performing a trick). This complies with the input specification which allows for subjects and their characteristics to be included.\n\n- **Timing and Lighting**: The phrase \"under bright sunlight\" provides information about the lighting conditions. This fits within the specification, which allows for details about timing and lighting.\n\n- **Background Descriptions**: The mention of \"snow sparkling\" suggests elements of the background, namely the condition of the snow. This adheres to the input specification which allows for background descriptions.\n\n- **Feelings or Emotions**: The description of the scene (including the sparkling snow and the action of performing a trick) could convey a sense of excitement or joy, although it's not explicitly stated. The specification permits conveying feelings or emotions that the image should evoke.\n\nIn conclusion, the input directly and explicitly complies with all aspects of the input specification including subjects and characteristics, timing and lighting, background descriptions, and potentially conveying feelings or emotions. There are no violations of the input specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "bf6ea12",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "8",
+      "rule": "After detailing timing and lighting, the output describes the background of the image, where the background is the setting or environment including scenery, objects, and relevant environmental details.",
+      "input": "A writer sitting by a window during a rainy evening, lamp glowing.",
+      "coverage": "Prompt:\nCapture a writer with focused expression, seated by a rain-speckled window, rivulets trickling down the glass on a tranquil, rainy evening. A soft, warm glow from a vintage lamp illuminates the scene, casting gentle shadows and highlighting the writer's thoughtful demeanor. The room exudes cozy ambiance, with books and papers scattered around, presenting an atmosphere of creative contemplation. The image should evoke feelings of peaceful introspection, enveloping the viewer in a serene, creative oasis amid the pattering rain.",
+      "validityText": "The input meets the input specification on several fronts:\n\n1. **Subjects and their Characteristics**: The input mentions a subject, \"A writer,\" who is \"sitting by a window,\" which are identifiable characteristics and actions associated with the subject. This aspect of the specification is satisfied.\n\n2. **Details about Timing and Lighting**: The input includes timing by mentioning a \"rainy evening,\" which gives a sense of the time setting. Additionally, \"lamp glowing\" provides details regarding the lighting conditions. Thus, this part of the specification is also satisfied.\n\n3. **Descriptions of the Background**: While the \"window\" and the fact it is \"a rainy evening\" suggest something about the setting or background, it is not an explicit description of what lies beyond the window or any other background, yet it provides enough context to imply a setting. This appears to be adequate for basic compliance.\n\n4. **Feelings or Emotions**: Although the input does not explicitly mention emotions or feelings, the mention of a \"rainy evening\" and \"lamp glowing\" indirectly evokes a cozy or contemplative mood. The combination of these elements can convey a feeling or emotion implicitly, even if not explicitly stated.\n\nGiven the input specification, which allows a range of descriptive elements like subjects, timing, and lighting, the input provides all of these. Thus, the input is compliant with the input specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "09ea725",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "9",
+      "rule": "The output concludes by conveying the feeling or emotion that the image should evoke, meaning it expresses the intended mood, atmosphere, or emotional tone to impact the viewer.",
+      "input": "An artist painting at sunrise overlooking the ocean, warm hues.",
+      "coverage": "Prompt:\nA thoughtful artist, focusing intently, brushes vibrant colors on a canvas at sunrise. The warm hues of dawn cast a soft, golden light over the scene. Background features the gentle waves of the ocean glistening under the early morning rays. The scene evokes a serene yet inspired atmosphere, capturing the tranquil beauty and creative awakening at the day’s new beginning.",
+      "validityText": "The given input consists of a description that includes a subject (\"an artist painting\"), timing (\"at sunrise\"), lighting and colors (\"warm hues\"), and a setting or background (\"overlooking the ocean\"). The input also contains elements that might convey emotions, such as \"warm hues,\" which can be interpreted as evoking a warm and tranquil feeling. All these components are directly aligned with the input specification, as they cover subjects and their characteristics, details about timing and lighting, descriptions of the background, and potential emotions that the image could evoke. Therefore, the input complies with the input specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "1baa936",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "9",
+      "rule": "The output concludes by conveying the feeling or emotion that the image should evoke, meaning it expresses the intended mood, atmosphere, or emotional tone to impact the viewer.",
+      "input": "Children building a snowman under a bright winter sun, snow glistening.",
+      "coverage": "Prompt:\nCapture joyful children with rosy cheeks building a snowman, their laughter vibrant in the crisp air. The scene unfolds under a bright winter sun, casting stark shadows and highlighting the snow’s glistening surface. Background shows a serene, snow-covered park with bare trees and frosty paths. The image should evoke warmth and playful innocence, celebrating the companionship and joy of childhood within a magical, sunlit winter wonderland.",
+      "validityText": "The input describes a scene where children are building a snowman. It includes subjects, their actions, and characteristics (\"Children building a snowman\"). It also provides details about timing and lighting (\"under a bright winter sun\") and gives a description of the background or environment with \"snow glistening.\" It conveys an overall positive and cheerful feeling, although not explicitly stated. All elements mentioned in the input specification for a valid input are covered, and there is no information missing that would lead to a violation. Therefore, the input complies with the input specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "61d8694",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "9",
+      "rule": "The output concludes by conveying the feeling or emotion that the image should evoke, meaning it expresses the intended mood, atmosphere, or emotional tone to impact the viewer.",
+      "input": "A lone traveler gazing at the stars from a desert dune at night.",
+      "coverage": "A solitary traveler stands atop a desert dune, gazing intently at the starlit sky. The scene unfolds at night, under a clear, moonlit sky casting gentle shadows across the sand. The soft, cool lighting highlights the contours of the dunes, creating an ethereal atmosphere. The vast expanse of the desert stretches into the horizon. This image should evoke feelings of solitude, wonder, and the infinite possibilities of exploration beneath the majestic celestial canopy.",
+      "validityText": "The input \"A lone traveler gazing at the stars from a desert dune at night\" is evaluated against the input specification. Here's how it aligns with the specified criteria:\n\n- The input provides a subject (\"A lone traveler\") and their characteristic or action (\"gazing at the stars\"), which aligns with the specification's allowance for subjects and their characteristics.\n\n- The input includes timing details (\"at night\"), which is consistent with the specification's provision for including details about timing.\n\n- The description of the background is implicit (\"from a desert dune\"), which refers to the setting, compliant with the specification guideline that background descriptions may be included.\n\n- Although the input does not explicitly convey feelings or emotions, this is not a requirement but an option in the specification. The absence of explicit emotional conveyance does not constitute a violation.\n\nTherefore, there is no violation of the input specification as the given input aligns well with the provided guidelines.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "698bd37",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "10",
+      "rule": "The output combines artistic insight with precise imagery, blending creative expression with detailed visual descriptions to enhance the impact of the prompt.",
+      "input": "A chef preparing a dish in a rustic kitchen with soft lighting.",
+      "coverage": "The image features a skilled chef meticulously preparing a dish in a rustic kitchen, characterized by aged wooden cabinets and vintage cookware. The scene is set in the warm glow of soft, ambient lighting, creating gentle shadows and a cozy atmosphere. The background includes rustic elements like exposed brick walls and hanging copper pots. The image should evoke a sense of nostalgia and warmth, capturing the essence of culinary artistry in a homely, inviting setting.",
+      "validityText": "The input description provided discusses a scene depicting \"A chef preparing a dish in a rustic kitchen with soft lighting.\" This description covers various aspects that fit within the input specification provided:\n\n- Subjects and their characteristics: The description includes a subject, \"A chef,\" and provides the action they are engaged in, \"preparing a dish.\"\n- Timing and lighting: The input specifies \"soft lighting.\"\n- Descriptions of the background: The environment, \"a rustic kitchen,\" is described.\n- Feelings or emotions: The mood could be inferred as warm or cozy due to \"soft lighting\" and \"rustic,\" though explicit emotional words aren't used.\n\nThe input does not lack any required details based on the specification and gives a clear and vivid image as it includes subjects, characteristics, lighting, and background elements.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "40bfdd4",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "10",
+      "rule": "The output combines artistic insight with precise imagery, blending creative expression with detailed visual descriptions to enhance the impact of the prompt.",
+      "input": "A ballet dancer leaping gracefully on a dimly lit stage, shadows cast.",
+      "coverage": "Prompt:\nCapture a ballet dancer leaping gracefully mid-air on a dimly lit stage, their silhouette defined by soft, dramatic shadows. The lighting is subdued, emanating from above to cast elongated shadows that enhance the dancer’s elegance. In the background, faint outlines of stage curtains create a sense of depth and focus on the performer. The image should evoke a sense of serene beauty and elegant motion, highlighting the artistic passion and dedication of the dancer.",
+      "validityText": "The input description includes a subject (\"A ballet dancer\") and a characteristic or action by the subject (\"leaping gracefully\"). The input also includes details about lighting (\"dimly lit stage, shadows cast\"). The description gives a sense of motion and lighting, elements which could convey a particular atmosphere or emotion. \n\nThe input aligns with the specification as it describes a subject and its characteristics, includes details about timing and lighting, and potentially conveys a mood evoked by such an image. \n\nNo parts of the input are in violation of the specification provided.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "95eac3f",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "10",
+      "rule": "The output combines artistic insight with precise imagery, blending creative expression with detailed visual descriptions to enhance the impact of the prompt.",
+      "input": "An explorer discovering an ancient temple in a dense jungle, rays of light filtering.",
+      "coverage": "Prompt:\nDepict an adventurous explorer in rugged attire discovering an ancient temple amid a dense, lush jungle. Sunlight filters gently through the thick canopy, casting ethereal beams that illuminate the scene. The temple, partly hidden by vines, exudes mystery and age, with intricate carvings visible. The atmosphere is serene yet awe-inspiring, evoking a sense of wonder and discovery as the explorer stands transfixed, touched by the beauty and history surrounding them, forging a connection with the past.",
+      "validityText": "The input specifies a scene involving \"an explorer discovering an ancient temple in a dense jungle, rays of light filtering.\" Let’s evaluate this against the input specification:\n\n1. **Subjects and Characteristics**: The input includes the subject \"an explorer\" and \"an ancient temple,\" along with their context \"discovering\" and location \"in a dense jungle.\" This complies with the requirement to include subjects and their characteristics.\n\n2. **Timing and Lighting**: The description mentions \"rays of light filtering,\" which provides details about the lighting in the scene. This satisfies the aspect of including timing and lighting details.\n\n3. **Background**: The input describes the background as a \"dense jungle,\" which aligns with the specification of including descriptions of the background.\n\n4. **Feelings or Emotions**: While the input does not explicitly mention feelings or emotions, the discovery of an \"ancient temple\" and details like \"rays of light filtering\" suggest a sense of mystery and awe implicitly. The specification does not mandate an explicit conveyance of emotion, so this is not a violation.\n\nBased on this assessment, the input fulfills the requirements outlined in the specification without any violations.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "453de96",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "11",
+      "rule": "The output is a brief, singular paragraph that creates impactful AI-generated photos based on the concise yet vivid description provided.",
+      "input": "A farmer harvesting crops at sunset in golden fields.",
+      "coverage": "Prompt: Capture a farmer diligently harvesting ripe crops, with weathered hands and determined focus, in expansive golden fields. The timing is sunset, casting warm, amber light and long shadows, highlighting the serenity of the scene. The background features rolling hills dotted with hay bales, a rustic barn silhouetted against the fiery sky. The image should evoke a sense of fulfillment and tranquility, reflecting the harmony between human effort and nature's bounty at this tranquil moment.",
+      "validityText": "The input provided seems to be a description. Let's evaluate it against the input specification:\n\n1. **Subjects and Characteristics**: The subject, \"a farmer harvesting crops,\" is mentioned along with an activity, which is a characteristic.\n\n2. **Details about Timing and Lighting**: The description includes \"at sunset,\" which indicates timing and lighting.\n\n3. **Descriptions of the Background**: The background is described as \"golden fields.\"\n\n4. **Conveying Feelings or Emotions**: The description can evoke emotions related to peace, fulfillment, or the beauty of natural landscapes, especially when considering the timing (sunset) and the golden color.\n\nConsidering these points, the description includes all the necessary aspects such as the subjects, characteristics, timing, lighting, background, and potential emotions to be evoked. Therefore, there is no violation of the input specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "27f4262",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "11",
+      "rule": "The output is a brief, singular paragraph that creates impactful AI-generated photos based on the concise yet vivid description provided.",
+      "input": "A swimmer diving into a crystal-clear lake surrounded by mountains.",
+      "coverage": "Prompt:\nCapture a swimmer mid-dive, their body streamlined and graceful, entering a crystal-clear lake reflecting the serene sky. It's early morning, with soft, golden light highlighting ripples and motion. Surrounding the scene are towering, majestic mountains, their peaks dusted with snow, casting shadows on the water. The background displays lush greenery at the base of the mountains. The image evokes a sense of freedom and tranquility, emphasizing the harmony between human movement and nature’s stillness.",
+      "validityText": "The input describes a scene with a subject (a swimmer), some characteristics (diving, crystal-clear lake), and a background (surrounded by mountains). While it doesn't explicitly mention timing, lighting, or feelings/emotions, this is not a requirement for compliance according to the specification. The input does include subjects and their characteristics, and details of the background, which aligns with the input specification.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "52d5cc3",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "11",
+      "rule": "The output is a brief, singular paragraph that creates impactful AI-generated photos based on the concise yet vivid description provided.",
+      "input": "A carnival at night with colorful lights and happy faces.",
+      "coverage": "Prompt: Capture a bustling carnival scene at night, featuring vibrant colorful lights illuminating joyous faces. The scene should showcase a gleaming Ferris wheel and various other rides, with festive energy radiating from the crowd. Nighttime lighting should emphasize the bright, cheerful colors, casting reflections on the surrounding surfaces. The background should include bustling stalls and playful attractions, contributing to a lively atmosphere. The image should evoke feelings of joy, excitement, and wonder, highlighting the carnival's enchanting nighttime charm.",
+      "validityText": "The input description mentions a \"carnival at night,\" which provides details about timing (\"night\") and the background setting (\"carnival\"). There are \"colorful lights,\" which mention specifics about lighting. The term \"happy faces\" conveys emotions the image should evoke, namely happiness. All these elements are directly in line with the input specification, which allows information about subjects and characteristics, timing and lighting, background, and emotions. Therefore, the input does comply with the specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "6b57ae7",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "12",
+      "rule": "The output is a vague statement that lacks sufficient information to guide an AI in photo creation.",
+      "input": "A sunset over the ocean.",
+      "coverage": "Prompt:\nCapture a stunning sunset over the vast ocean, with the sun dipping below the horizon, casting warm orange and pink hues across the sky. The golden hour lighting reflects off gentle ocean waves, creating a serene, shimmering effect. The background features an endless, tranquil sea meeting the vibrant sky. This image should evoke feelings of peace and wonder, embodying the serene beauty of nature's daily spectacle, and inviting viewers to lose themselves in the moment's tranquility.",
+      "validityText": "The input \"A sunset over the ocean\" does describe a scene. It could include the subject (sunset), the background (ocean), and potentially evoke emotions associated with sunsets. However, it does not explicitly mention characteristics of the subject, details about timing and lighting, or the background, beyond identifying it as the ocean. Nevertheless, it provides some information that adheres to the input specification. There is no clear violation of the input specification as the input describes a scene with a subject and a background. Thus, it complies with the given input specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "0d46cdc",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "12",
+      "rule": "The output is a vague statement that lacks sufficient information to guide an AI in photo creation.",
+      "input": "A busy city street.",
+      "coverage": "Generate an AI photo of a bustling city street filled with diverse pedestrians hurrying in various directions, each with expressive faces and dynamic postures. Capture this scene at midday under vibrant sunlight, with shadows cast by towering skyscrapers. Traffic flows steadily, with taxis and buses navigating the avenue. The background features glossy storefronts and bustling cafes, all alive with vibrant colors and urban energy. Convey a sense of urgency and vibrancy, evoking the city's nonstop pulse and vitality.",
+      "validityText": "The given input, \"A busy city street,\" is a text description provided by the user. It includes a subject, which is \"a busy city street.\" However, the input does not explicitly include subjects' characteristics, details about timing and lighting, descriptions of the background, or convey any specific feelings or emotions that the image should evoke. Despite lacking these additional details, the input specification does not mandate that all these elements must be present in every description. It allows for the inclusion of any or all of these elements.\n\nBased on a strict interpretation of the input specification, the provided input does comply since it is a text description of a scene, which is permissible. The input specification allows for various components, but it does not explicitly require them all. Therefore, even though some aspects are missing, it does not violate the input specification.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "9d3c665",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "12",
+      "rule": "The output is a vague statement that lacks sufficient information to guide an AI in photo creation.",
+      "input": "A forest.",
+      "coverage": "Create a captivating image of an ancient forest with towering, majestic trees whose branches weave into a dense canopy. The scene is illuminated by dappled sunlight filtering through the leaves, creating a mosaic of light and shadow on the forest floor. In the background, a gentle stream winds its way through moss-covered rocks. Evoke a sense of serenity and timelessness, inviting viewers to feel the quiet mystery and tranquil beauty of this lush, untouched natural sanctuary.",
+      "validityText": "The given input \"A forest.\" can be assessed against the input specification as follows:\n\n- **Subjects and Characteristics**: The input mentions \"a forest,\" which is a subject.\n- **Timing and Lighting**: There are no specific details about timing or lighting in the input.\n- **Background Descriptions**: The input implies a background of a forest but does not provide any additional description of it.\n- **Feelings or Emotions**: The input does not convey any feelings or emotions that the image should evoke.\n\nBased on the input specification, the input is quite minimal but it still fits within the allowed scope. It mentions a subject and implies a background (\"a forest\"), which falls under likely intended descriptions. While there are no specific references to timing, lighting, or emotions, the absence of these elements does not constitute non-compliance; they are optional parts of a description.\n\nTherefore, the input does not violate the input specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "94aae68",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "13",
+      "rule": "The output disregards the user's description, omitting relevant details from the user's input.",
+      "input": "A bird flying over mountains during sunrise.",
+      "coverage": "Prompt: Capture a majestic bird soaring with outstretched wings over a range of towering mountains at sunrise. The scene is bathed in soft, golden light, casting long shadows and highlighting the bird's feathers in delicate detail. Behind, the mountains form a beautiful silhouette against the vibrant hues of a waking sky, with hints of pink and purple. This image should evoke a sense of freedom and awe, inspiring a serene and uplifting atmosphere.",
+      "validityText": "The given input describes a scenario involving a subject (a bird) and a characteristic action (flying) as well as a detail about timing (during sunrise). It also mentions the background (over mountains). The description fits within the input specification as it includes a subject and its characteristic, details about timing, and descriptions of background. There is no explicit mention of feelings or emotions, but those are optional elements in the specification. Therefore, there are no violations found.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "fca7191",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "13",
+      "rule": "The output disregards the user's description, omitting relevant details from the user's input.",
+      "input": "A child blowing bubbles in a park, sunlight filtering through trees.",
+      "coverage": "Generate an AI photo of a joyful child blowing bubbles in a sunny park. The child, with an innocent expression, is focused on the shimmering bubbles in front of them. Sunlight filters gently through the lush green trees, casting playful light patterns on the soft grass. The park is serene with distant benches and vibrant flowers. The image should evoke a sense of carefree happiness, capturing a moment of pure childhood wonder and delight.",
+      "validityText": "The input provides a text description of a visual scene. Upon examining the input thoroughly, let's evaluate it according to the input specification:\n\n1. Subjects and their characteristics: The input mentions a \"child blowing bubbles,\" indicating both a subject (the child) and a characteristic action (blowing bubbles).\n\n2. Timing and lighting details: The input includes \"sunlight filtering through trees,\" providing information about the lighting and suggesting a time of day (likely daytime).\n\n3. Description of the background: The setting of \"in a park\" gives context and describes the background.\n\n4. Feelings or emotions: While the input does not explicitly convey feelings or emotions, it does not violate the specification, as including emotions is not a requirement, only a possibility.\n\nThe input meets all relevant points in the specification. No aspects of compliance are missing from the given input. Therefore, it directly and explicitly complies with the provided input specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "dddcd51",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "13",
+      "rule": "The output disregards the user's description, omitting relevant details from the user's input.",
+      "input": "A fisherman casting a net at dawn on a tranquil lake.",
+      "coverage": "Prompt:\nDepict a solitary fisherman casting a net at dawn on a serene lake. His posture is focused and determined, silhouetted against the soft, golden light of early morning. The scene captures gentle ripples on the water, reflecting the pastel hues of the sunrise. Mist subtly blankets the distant shoreline, adding depth to the background. The overall atmosphere should evoke a sense of calm and solitude, highlighting the peaceful connection between the fisherman and nature.",
+      "validityText": "The input describes a scene involving \"a fisherman casting a net at dawn on a tranquil lake.\" Let's evaluate it according to the input specification:\n\n1. **Subjects and their characteristics**: The input includes a subject, \"a fisherman,\" with the action of \"casting a net.\"\n\n2. **Details about timing and lighting**: The input mentions \"at dawn,\" which provides a sense of timing and implies specific lighting conditions.\n\n3. **Descriptions of the background**: The input includes \"a tranquil lake,\" which describes the background setting.\n\n4. **Feelings or emotions**: The word \"tranquil\" implies a peaceful and calm emotion the image should evoke.\n\nThe description includes subjects, characteristics, timing, lighting, background, and emotions, all of which align with the input specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "0fa3668",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "14",
+      "rule": "The output includes words and phrases not in English.",
+      "input": "An evening in Paris with the Eiffel Tower illuminated, feeling the joy of 'joie de vivre'.",
+      "coverage": "Create a captivating evening scene in Paris featuring the Eiffel Tower bathed in warm, glowing lights against the twilight sky. Capture the tower's elegant iron lattice structure prominently, while the background showcases a serene Parisian cityscape with scattered, softly lit buildings. The lighting should emphasize the golden hues of the tower against the deep blue sky, evoking a sense of wonder. Infuse the scene with the joyous emotion of 'joie de vivre', highlighting the vibrant energy and beauty of Paris at night.",
+      "validityText": "The input provided is a text description and complies with the input specification in several ways. It includes subjects and their characteristics: \"an evening in Paris\" and \"the Eiffel Tower illuminated.\" It also provides details about timing and lighting: \"evening\" and \"illuminated.\" It conveys the feelings or emotions the image should evoke: \"feeling the joy of 'joie de vivre'.\" There are no elements of the description that fall outside of the input specification provided. \n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "b124733",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "14",
+      "rule": "The output includes words and phrases not in English.",
+      "input": "A fiesta with people dancing flamenco under colorful 'piñatas' in a lively street.",
+      "coverage": "Generate an AI photo depicting lively figures dancing flamenco passionately, adorned in vibrant traditional attire. It's a sunny afternoon with the warm glow of sunlight casting dynamic shadows. The scene is set in a bustling street adorned with colorful 'piñatas,' creating a festive atmosphere. The background includes cheerful onlookers and charming facades of quaint buildings. The image should evoke joy and celebration, with an immersive sense of cultural exuberance and rhythmic movement, capturing the vibrant essence of a spirited fiesta.",
+      "validityText": "The input describes a scene at a fiesta, highlighting subjects such as \"people dancing flamenco\" and mentioning characteristics like dancing. It includes details about the background with \"colorful 'piñatas'\" and \"a lively street.\" Although the feelings or emotions are not explicitly listed, the use of \"fiesta,\" \"dancing flamenco,\" and \"lively street\" implies a festive and energetic mood. All these elements align with the input specification, which allows for subjects, characteristics, background details, and implied emotions.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "776091b",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "14",
+      "rule": "The output includes words and phrases not in English.",
+      "input": "A 'samurai' warrior standing in a serene Japanese garden during cherry blossom season.",
+      "coverage": "Create an image of a stoic samurai warrior with traditional armor, poised confidently in a tranquil Japanese garden. The scene is set during cherry blossom season, with delicate pink petals gently drifting through the air. The warm, golden light of a late afternoon sun bathes the garden in a soft glow, illuminating a backdrop of serene koi ponds and gracefully arching bridges. The image should evoke a sense of peaceful strength and timeless elegance, capturing the harmony between warrior and nature.",
+      "validityText": "The input includes several elements described in the input specification:\n\n1. **Subjects and their characteristics**: The subject \"samurai warrior\" is mentioned, which fits under this category.\n\n2. **Details about timing and lighting**: The input includes the timing of \"cherry blossom season,\" which can be considered as part of timing detail.\n\n3. **Descriptions of the background**: The \"serene Japanese garden\" provides a description of the background, thus complying with this rule.\n\n4. **Feelings or emotions the image should evoke**: The use of \"serene\" could convey a tranquil or peaceful feeling, which fits this criterion.\n\nAll these components align well with the provided input specification, ensuring that the criteria set forth are satisfied. There are no discrepancies with the input specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "2dbd3e3",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "15",
+      "rule": "The output is divided into multiple paragraphs with line breaks, creating discontinuity.",
+      "input": "A dolphin leaping out of the water at sunset, splashing waves.",
+      "coverage": "Prompt:\nA graceful dolphin elegantly leaps out of sparkling waves, showcasing its sleek form against the radiant backdrop of a vibrant sunset. Capturing the moment at dusk, the golden-orange light casts a warm glow on the churning sea, highlighting the splashes and ripples with glistening reflections. The expansive horizon blends seamlessly into the sky, creating a serene and majestic scene. This image evokes a sense of wonder and tranquility, capturing the beauty and freedom of nature’s marvels.",
+      "validityText": "The input is a text description. It includes a subject ('A dolphin leaping out of the water'), characteristics of the action ('splashing waves'), and details about timing ('at sunset'). The input does not explicitly mention the background or convey specific feelings or emotions the image should evoke, but the presence of a sunset could implicitly suggest a serene or dramatic atmosphere. However, the specification does not mandate every input must include every possible detail, it only offers possibilities of what the input may include. \n\nThere is no part of the input specification that mandates the inclusion of specific elements like emotions or background details in every input, so the absence of some elements doesn't constitute a violation. The provided input complies with the specification in terms of being a descriptive text that includes subjects and their characteristics. \n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "d0c6630",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "15",
+      "rule": "The output is divided into multiple paragraphs with line breaks, creating discontinuity.",
+      "input": "A marathon runner crossing the finish line, crowd cheering, confetti falling.",
+      "coverage": "Prompt: Capture a dynamic image of a marathon runner crossing the finish line, their face filled with determination and relief. It's midday with bright, natural sunlight illuminating the scene. The background is an enthusiastic crowd, cheering with arms raised, and colorful confetti raining down, creating a festive atmosphere. The overall emotion should convey triumph and celebration, capturing the climactic moment of victory and joy as the runner achieves their goal amid the crowd's jubilant support.",
+      "validityText": "The input describes a scene involving a marathon runner crossing the finish line. It mentions characteristics related to the subject, which is \"a marathon runner,\" and also includes details about the setting, such as \"crowd cheering\" and \"confetti falling.\" These elements relate to subjects and the scene's background. Additionally, the description implies a celebratory emotion by including \"crowd cheering\" and \"confetti falling,\" which conveys feelings or emotions the image should evoke. \n\nSince the input specifies subjects, characteristics, descriptions of the background, and conveys emotions, it complies with the input specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "e16b6fe",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "15",
+      "rule": "The output is divided into multiple paragraphs with line breaks, creating discontinuity.",
+      "input": "A hot air balloon floating over a valley at sunrise, mist below.",
+      "coverage": "A vibrant hot air balloon adorned with colorful patterns floats gracefully over a serene valley at sunrise. The balloon's fabric captures and illuminates the warm, golden hues of dawn. Below, a soft, ethereal mist blankets the valley, creating a mystical and tranquil atmosphere. The sky is painted in pastel tones, gently transitioning from deep blues to the soft pinks and golds of morning. This image evokes a sense of wonder, peace, and the serene beauty of a new day dawning.",
+      "validityText": "The input provided includes:\n- A subject (a hot air balloon).\n- Characteristics associated with the subject (floating over a valley).\n- Details about timing (at sunrise).\n- Background elements (mist below).\n\nThe input is a text description that aligns well with the input specification, reflecting subjects and their characteristics, timing details, and background description. There is no requirement in the specification that feelings or emotions must be conveyed, so the absence of these elements does not constitute a violation. Therefore, the input complies with the specification as it provides a description with the specified elements.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "bc0f834",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "16",
+      "rule": "The output exceeds 80 words in total length, containing more than 80 words.",
+      "input": "A snow-covered village in winter, smoke rising from chimneys, children playing.",
+      "coverage": "Generate a photo of a quaint, snow-covered village in the heart of winter. Chimneys emit gentle plumes of smoke, hinting at cozy warmth within the homes. Groups of children, bundled in vibrant winter clothing, joyfully play in the snow. Capture the scene during late afternoon, with soft, golden sunlight casting a magical glow over the landscape. The background showcases rustic cottages and frosted pine trees, evoking a nostalgic and heartwarming feeling of innocence and tranquility.",
+      "validityText": "The input consists of a description that includes subjects (a village and children), their characteristics (snow-covered, smoke rising from chimneys), and an activity (children playing). Although the input does not explicitly mention details about timing, the mention of a \"winter\" setting implies a seasonal context, which can be associated with timing. There is also a mention of the background (\"A snow-covered village\") and an indirect evocation of feelings or emotions (the image might evoke feelings of warmth or nostalgic winter scenes due to children playing and smoke rising from chimneys).\n\nThe input fully complies with the input specification by including subjects, characteristics, timing details, and some aspects of background and implied emotions, even if these are indirectly inferred through context. Therefore, the input description meets all elements of the specification.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "6c57142",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "16",
+      "rule": "The output exceeds 80 words in total length, containing more than 80 words.",
+      "input": "A concert pianist performing on a grand stage, spotlight shining, audience captivated.",
+      "coverage": "Prompt: Capture a concert pianist in a dramatic performance on a grand stage. The pianist, elegantly dressed and deeply focused, sits at a gleaming grand piano. A brilliant spotlight highlights the musician, casting soft shadows and illuminating their artistry. The auditorium is darkened, with a captivated audience visible as silhouettes. The background features ornate stage elements, exuding grandeur. The image evokes awe and admiration, capturing the intensity and passion of the musical moment.",
+      "validityText": "The input consists of a text description that includes several components. First, it introduces a subject, \"A concert pianist,\" which complies with the input specification allowing inclusion of subjects and their characteristics. Then it describes the setting with the phrase \"performing on a grand stage,\" which aligns well with the specification's allowance for descriptions of backgrounds. Furthermore, the input mentions \"spotlight shining,\" providing details about lighting, which is specifically mentioned as permissible in the input specification. Finally, it states \"audience captivated,\" which conveys a feeling or emotion, also within the scope of the input specification.\n\nBased on this thorough evaluation, every aspect of the description fits into the categories allowed by the input specification, such as subject characteristics, background details, lighting, and emotional conveyance. There is no element in the input that violates the rules laid out in the input specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "dd48d7b",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "16",
+      "rule": "The output exceeds 80 words in total length, containing more than 80 words.",
+      "input": "A farmer's market at dawn, fresh produce displayed, vendors setting up stalls.",
+      "coverage": "Generate an image of a farmer's market at dawn, capturing the serene and optimistic ambiance. Highlight vendors setting up colorful stalls laden with fresh, vibrant produce such as fruits and vegetables. The early morning light casts a soft, warm glow, lending a sense of tranquility and hope. The background features trees lightly shrouded in morning mist. Evoke a feeling of freshness, anticipation, and community connection through the lively yet peaceful scene, inviting the viewer into this early market hustle.",
+      "validityText": "The input provides a text description, which includes several elements that comply with the input specification:\n\n1. **Subjects and Their Characteristics**: The text describes a farmer's market, including fresh produce and vendors, which meets the requirement to include subjects and their characteristics.\n\n2. **Details About Timing and Lighting**: The mention of \"dawn\" provides a timing element, and it implies a certain type of lighting condition, in compliance with the input specification.\n\n3. **Descriptions of the Background**: While the background is not explicitly detailed, the description of the setting (\"farmer's market\") inherently implies a certain type of background, which can be considered as meeting the requirement.\n\n4. **Feelings or Emotions**: The description lacks explicit information about the feelings or emotions that the image should evoke. However, the requirement for conveying feelings or emotions is optional, as the input specification states that the input \"may\" include them.\n\nSince the input describes subjects, timing, and setting without any explicit violations of the input specification, it complies with the provided input requirements.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "701f83b",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "17",
+      "rule": "The output does not mention the subjects of the image or their characteristics at the beginning.",
+      "input": "The moon shining over calm seas, stars reflecting.",
+      "coverage": "Prompt:\nCreate an image of the moon radiantly shining over calm seas, its light casting silvery reflections on the gentle waves. The sky is sprinkled with twinkling stars, mirroring brilliantly on the serene ocean surface. Capture the scene during a clear night, with soft, natural moonlight illuminating the tranquil setting. In the background, the horizon gently fades into the night sky, creating a seamless blend of sea and cosmos. Evoke a sense of peace and wonder, highlighting the beauty of nature's night-time spectacle.",
+      "validityText": "The input describes a scene involving the moon, seas, and stars. It includes characteristics of these subjects, such as the moon shining and the seas being calm. There's also a mention of stars reflecting, which can be considered a characteristic of the subject (stars) and possibly the sea. Additionally, the mention of the moon shining suggests a detail about timing and lighting, as it implies perhaps a nighttime setting. The input does not explicitly describe a background or convey any specific feelings or emotions the image should evoke. However, the calm seas and shining moon could indirectly evoke a sense of tranquility, which aligns with the specification that allows for conveying feelings or emotions.\n\nConsidering the input specification, the input includes subjects with characteristics, provides details about timing and lighting, and indirectly conveys feeling or emotions. Therefore, it complies with the input specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "751feb4",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "17",
+      "rule": "The output does not mention the subjects of the image or their characteristics at the beginning.",
+      "input": "Distant thunderclouds approaching, horizon darkening, winds picking up.",
+      "coverage": "Prompt:\nCreate an image of looming thunderclouds filling the sky, dark and dense, with an ominous aura. The horizon below grows shadowy as the sun's light fades, complementing the impending storm. Capture the scene at late afternoon, with gusty winds rustling through tall grass. The background showcases a wide-open field, adding depth and motion. Evoke a sense of dramatic tension and anticipation, immersing the viewer in the power and unpredictability of nature's fury.",
+      "validityText": "The given input description specifies certain characteristics of a scene. It mentions subjects ('thunderclouds') and their characteristics ('approaching'). It includes details about timing or progression ('distant thunderclouds approaching'), as well as lighting ('horizon darkening'). There is also an implicit description of the background ('winds picking up', which suggests a certain setting or atmosphere).\n\nThe input does not provide feelings or emotions explicitly, but it is not necessary according to the input specification, which states that the input may, but does not have to, convey emotions. Therefore, this part of the specification is not violated.\n\nOverall, the input complies with the input specification. It includes subjects, their characteristics, and details about the timing and background. There are no violations of the input specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "f0b5d11",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "17",
+      "rule": "The output does not mention the subjects of the image or their characteristics at the beginning.",
+      "input": "First snowfall covering the landscape, silence settling.",
+      "coverage": "Prompt:\nCapture the first snowfall gently blanketing a serene landscape, with delicate snowflakes softly covering trees and fields. The scene is set during the magic hour of early morning, with a golden light subtly illuminating the fresh snow. The background features tranquil vistas of untouched nature, with no footprints marring the pristine surface. The image should evoke a profound sense of peace and tranquility, capturing the silent wonder and serene calmness of a freshly snow-covered world.",
+      "validityText": "The input describes a scene with \"first snowfall covering the landscape,\" which aligns with the specification of a \"background\" description. It also includes the element of \"silence settling,\" which conveys an emotion or feeling the image should evoke. \n\nBased on the input specification:\n- It includes subjects and their characteristics: Not directly applicable here.\n- It includes details about timing and lighting: \"first snowfall\" implies timing, but lighting is not explicitly mentioned.\n- It includes descriptions of the background: \"covering the landscape\" satisfies this criterion.\n- It conveys the feelings or emotions the image should evoke: \"silence settling\" fulfills this requirement.\n\nThe input aligns with the input specification as it includes a description of the background and conveys a feeling, which is consistent with the specification. There are no elements in the input that violate the specification. \n\nHence, based on the provided input specification, the input complies completely.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "c63fc61",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "18",
+      "rule": "The output omits details about the timing and lighting of the scene after mentioning the subjects.",
+      "input": "A painter at work in a studio.",
+      "coverage": "A focused painter with tousled hair, dressed in a smock, skillfully applies vibrant colors to a canvas in a sunlit studio. Morning rays filter through large windows, casting warm, soft light over the scene. The background reveals scattered brushes, paint palettes, and easels, immersing the space in a creative aura. The image should evoke a sense of inspiration and dedication, capturing the essence of artistic passion and the serenity of a moment immersed in creation.",
+      "validityText": "The input \"A painter at work in a studio\" is a text description provided by the user. It includes a subject, which is \"a painter,\" and a location or characteristic, which is \"at work in a studio.\" The input aligns with the input specification as it provides a subject and its characteristic. The input specification mentions that the input may include subjects and their characteristics, which this input does. Although the input does not include timing, lighting, background details, or emotional aspects, these elements are optional (\"may include\") and not mandatory according to the input specification. Therefore, the absence of such elements does not constitute a violation. \n\nThinking process: I checked for the presence of a subject and its characteristics, which are evident in the input. I also verified whether the optional elements are not included and acknowledged that they are not a requirement for compliance. Therefore, the input is in accordance with the provided specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "b33840e",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "18",
+      "rule": "The output omits details about the timing and lighting of the scene after mentioning the subjects.",
+      "input": "A cyclist on an empty road.",
+      "coverage": "Create an image of a lone cyclist with a determined expression, pedaling vigorously on an empty, winding road surrounded by autumn trees. The scene is set in the early morning light, casting long, dramatic shadows across the roadway. The background features a serene landscape of rolling hills and vibrant foliage. The composition evokes a sense of solitude and perseverance, capturing the cyclist's journey through an expansive and tranquil natural setting.",
+      "validityText": "The given input is \"A cyclist on an empty road.\" Let's evaluate this input based on the provided input specification:\n\n1. **Subjects and their characteristics**: The input mentions \"a cyclist,\" which is a subject. The characteristic here is that the cyclist is \"on an empty road.\" This aspect complies with the input specification regarding subjects and their characteristics.\n\n2. **Details about timing and lighting**: The input does not explicitly mention timing or lighting details. While the presence of such details is allowed by the specification, it is not required. Therefore, their absence does not constitute a violation.\n\n3. **Descriptions of the background**: The input implies a \"road\" as part of the background. Although it is described as \"empty,\" which adds a characteristic, the road serves as a backdrop for the subject, thus adhering to the requirement for describing backgrounds.\n\n4. **Feelings or emotions**: The input does not explicitly convey any feelings or emotions the image should evoke. Similar to timing and lighting, the specification allows for such details but does not mandate them. Therefore, their absence is permissible.\n\nIn conclusion, the input \"A cyclist on an empty road.\" complies with the input specification because it includes a subject with a characteristic and a basic background description, and it is not required to include other elements like timing, lighting, or emotions.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "8fc9a69",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "18",
+      "rule": "The output omits details about the timing and lighting of the scene after mentioning the subjects.",
+      "input": "A cat watching birds from a window.",
+      "coverage": "Prompt: A serene cat with sleek fur and bright, attentive eyes sits on a windowsill, focused intently on the lively birds flitting outside. It's an early morning scene, with soft, golden sunlight streaming through the glass, casting a warm glow on the feline and its surroundings. The background showcases a garden with lush greenery and a clear blue sky. The image evokes a sense of tranquility and the simple joys of observing nature's beauty.",
+      "validityText": "The given input describes a scene involving a subject (a cat) and an activity (watching birds from a window). This aligns with the input specification, which allows for descriptions of subjects and their characteristics. While the description does not explicitly mention characteristics like timing, lighting, or background details, the lack of such descriptions does not violate the input specification. The specification does not mandate that all elements must be present, only that any present element should be within the accepted categories, which are subjects, characteristics, timing, lighting, background, and emotions. Since the subject and activity fall within these categories, the input complies with the specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "b0b720c",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "19",
+      "rule": "The output does not describe the background of the image after timing and lighting.",
+      "input": "A sailor navigating through stormy seas under dark skies.",
+      "coverage": "Prompt:\nCreate an image of a determined sailor navigating a turbulent sea with fierce waves crashing around. His expression shows focus and courage as he grips the ship's wheel. Depict this scene at dusk, with ominous dark skies and flashes of lightning illuminating the chaos. The background features towering, stormy waves and a distant horizon. Convey a sense of bravery amidst adversity, instilling a dramatic and thrilling atmosphere that captures the relentless spirit of the sea.",
+      "validityText": "The input provided is \"A sailor navigating through stormy seas under dark skies.\" Let's evaluate this based on the input specification:\n\n1. **Subjects and Their Characteristics**: The input mentions a \"sailor,\" which qualifies as a subject. Characteristics implicitly include navigating through stormy seas, which gives a certain context or action the subject is involved in.\n\n2. **Details about Timing and Lighting**: The phrase \"under dark skies\" gives a description that can be interpreted as representing both timing (perhaps nighttime or stormy weather) and lighting (darkness).\n\n3. **Descriptions of the Background**: \"Stormy seas\" can be considered part of the background, adding to the overall scene.\n\n4. **Feelings or Emotions the Image Should Evoke**: While not explicitly stated, phrases like \"stormy seas\" and \"dark skies\" typically evoke emotions such as danger, adventure, or fear, which fits within the description of conveying feelings or emotions.\n\nThere are no apparent violations of the input specification. Each aspect of the specification is addressed directly by the description provided. Therefore, this input complies with the input specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "929f396",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "19",
+      "rule": "The output does not describe the background of the image after timing and lighting.",
+      "input": "A youth playing guitar by a campfire at night.",
+      "coverage": "Prompt:\nCapture a young person strumming a guitar beside a flickering campfire under a starry night sky. Emphasize the warm glow of the fire casting gentle shadows and highlights on the youth's face, creating a serene and intimate atmosphere. The background features tall trees silhouetted against the brilliant stars. The scene should evoke a sense of tranquility, connection, and the timeless joy of music shared in nature's quiet embrace.",
+      "validityText": "The input provided is a text description from a user. Let's evaluate it against the specifications:\n\n1. **Subjects and their characteristics**: The description includes a subject, \"A youth playing guitar.\" The characteristic here is \"playing guitar,\" which describes the activity the youth is engaged in.\n\n2. **Details about timing and lighting**: Timing is specified as \"at night,\" and there is an implicit suggestion of lighting from the \"campfire,\" which provides a source of light in the scene.\n\n3. **Descriptions of the background**: The background description is given as \"by a campfire,\" which helps to set the scene regarding where the activity is taking place.\n\n4. **Feelings or emotions**: The description does not directly specify any feelings or emotions the image should evoke, but the setting of a campfire at night with someone playing guitar typically conveys a cozy, relaxed, or perhaps reflective mood. However, the specification does not require feelings or emotions to be explicitly mentioned, so this lack does not constitute a violation.\n\nSince all elements of the specification that need to be covered have been covered explicitly and without any assumptions or speculations, the input complies with the provided input specification.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "8a8c20f",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "19",
+      "rule": "The output does not describe the background of the image after timing and lighting.",
+      "input": "An architect examining blueprints in an office with sunlight pouring in.",
+      "coverage": "Create an AI-generated photo featuring an architect intently examining blueprints, characterized by a thoughtful and focused expression. The scene transpires in an office bathed in warm, golden sunlight streaming through large windows, casting soft shadows and highlighting the intricate details of the blueprints. The background showcases modern office furnishings and shelves adorned with architectural models and books. The overall atmosphere should evoke a sense of creativity, innovation, and dedication within a professional and inspiring workspace ambiance.",
+      "validityText": "The input description is evaluated against the input specification. The input includes a subject (an architect) and their characteristic activity (examining blueprints). It also provides details about timing and lighting (\"sunlight pouring in\") which is part of the scene setting. The description of the background, being in an \"office\", is also present. However, the input does not explicitly convey the feelings or emotions the image should evoke. The input specification does not mandate that every description must convey feelings or emotions, just that it may include such elements.\n\nTherefore, there is no specific requirement violation in this description because all the necessary aspects outlined in the input specification are covered as applicable. The absence of emotions or feelings does not lead to non-compliance as per the provided specification. My decision, based on the careful examination of the input specification, is that the input adheres to the provided criteria.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "006cf22",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "20",
+      "rule": "The output does not convey any feeling or emotion that the image should evoke at the conclusion.",
+      "input": "An empty theater after a show.",
+      "coverage": "Prompt:\nCapture an empty theater with rows of plush red seats and an ornate stage, showing the aftermath of a bustling show. The scene is lit with soft, ambient lighting from elegant chandeliers, casting gentle shadows and highlighting the theater's grandeur. The background features elaborate golden accents and rich, velvet curtains drawn back to reveal the now-quiet stage. The image should evoke a sense of nostalgia and tranquility, celebrating the theater's opulent beauty and the silent echoes of performances past.",
+      "validityText": "The given input \"An empty theater after a show.\" includes a description of a subject (an empty theater) and a timing detail (after a show). The description does not mention specific characteristics of the theater, such as its size or layout, but it provides a clear sense of the scene being described. It does not include explicit mentions of lighting, background, or emotions; however, the phrase \"after a show\" can imply a certain quiet or reflective mood. The input complies with the specification by providing elements such as the subject and timing. There is nothing in the specification that requires all possible details (like lighting or emotions) to be present, so the absence of these elements does not constitute a violation.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "5d09f08",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "20",
+      "rule": "The output does not convey any feeling or emotion that the image should evoke at the conclusion.",
+      "input": "A student looking out of a train window.",
+      "coverage": "Prompt:\nA young student with a contemplative expression peers out of a train window, his reflection faint and ghostly on the glass. It's early morning, with soft, golden sunlight casting a warm glow, filtering through the mist outside. The background reveals a blurred landscape of rolling hills and distant towns, creating a sense of movement. The image evokes a feeling of solitude and hope, capturing a moment of introspection and the promise of new beginnings.",
+      "validityText": "The input provided describes a subject, which is \"a student,\" and mentions the context or activity, \"looking out of a train window.\" The input aligns with the input specification, as it identifies a subject and implies an action or orientation related to the setting. However, it doesn't delve into other areas listed in the specification. Nevertheless, the input meets the requirement of a text description that involves subjects and their characteristics, which is a primary component of the specification. No explicit requirements are mentioned for the inclusion of timing, lighting, background, or emotions. As the input description includes a valid subject and part of a scene, it complies with the specification that allows inclusion of subjects and characteristics.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "537d257",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "20",
+      "rule": "The output does not convey any feeling or emotion that the image should evoke at the conclusion.",
+      "input": "A parade marching down the street.",
+      "coverage": "Prompt: Capture a vibrant parade marching down a bustling city street, with colorful floats and enthusiastic participants in elaborate costumes. The scene is set under a sunny midday sky, casting bright, lively shadows. The background features cheering crowds and tall skyscrapers. The image should evoke a sense of excitement and joy, conveying the infectious energy and celebratory spirit of the parade, inviting viewers to immerse themselves in the festive atmosphere.",
+      "validityText": "The input is \"A parade marching down the street.\" Let's evaluate this input based on the input specification provided:\n\n1. **Subjects and their characteristics**: The input mentions a subject, \"a parade,\" which is in line with the input specification allowing for subjects.\n2. **Timing and lighting**: There is no specific mention of timing or lighting in the input. The input specification does allow for such details, but it does not require them. So, the absence of such details is acceptable.\n3. **Descriptions of the background**: The input does mention \"the street,\" which can be considered a minimal background description. The specification allows for background descriptions, but it does not mandate any specific level of detail.\n4. **Feelings or emotions**: The input does not explicitly convey any feelings or emotions. However, similar to timing and lighting, while such descriptions are allowed, they are not mandatory. The lack of this element does not violate the specification.\n\nConsidering the details within the input and the requirements specified, there is no requirement for each aspect to be present for compliance. The input provides a subject and a minimal background, which meets the basic criteria of the input specification. Therefore, no violations are detected.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "1104164",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "21",
+      "rule": "The output lacks artistic insight and precise imagery, failing to blend creative expression with detailed visual descriptions.",
+      "input": "A gardener watering plants.",
+      "coverage": "Create an image of a devoted gardener with gentle features, tending meticulously to vibrant blooming plants under a golden morning sun. The scene is bathed in soft, warm light, creating a serene, reflective atmosphere. The lush garden background teems with colorful flowers and dew-kissed leaves, indicating a fresh, early day. This image should evoke tranquility and dedication, capturing the harmonious connection between the gardener and nature, celebrating the peaceful art of nurturing growth.",
+      "validityText": "The input \"A gardener watering plants\" is a simple text description. Let's evaluate it based on the input specification provided:\n\n1. **Subjects and Their Characteristics**: The description includes a subject, \"a gardener,\" and provides a basic action \"watering plants.\" This complies with the requirement for including subjects and their characteristics.\n\n2. **Timing and Lighting**: The specification states that the input \"may\" include timing and lighting details. Since the word \"may\" implies that these details are optional, their absence in the description does not violate the specification.\n\n3. **Background Descriptions**: The input does not provide specific details about the background. However, as with timing and lighting, background descriptions are not explicitly required by the specification.\n\n4. **Feelings or Emotions**: The input does not explicitly convey feelings or emotions. Like background descriptions and timing, the inclusion of emotions or feelings is not a mandated part of the specification.\n\nSince the input includes a subject and an action, and does not violate any mandatory requirements of the specification, it complies with the specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "1649a75",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "21",
+      "rule": "The output lacks artistic insight and precise imagery, failing to blend creative expression with detailed visual descriptions.",
+      "input": "A runner on a track.",
+      "coverage": "Prompt: Create an image of a determined runner mid-stride on a race track, muscles tense and expression focused. Capture the scene during early morning with soft, diffused sunlight casting gentle shadows. The background should show a stadium with empty stands and a clear sky. Evoke a sense of perseverance and ambition, highlighting the runner's dedication and commitment to their sport. The lighting should illuminate the runner's silhouette, enhancing the emotion of resilience and drive.",
+      "validityText": "The input, \"A runner on a track,\" includes a subject (a runner) and a characteristic (location: on a track). However, it does not explicitly mention any details about timing, lighting, descriptions of the background, or feelings or emotions the image should evoke. According to the input specification, while these elements may be included, their absence does not constitute non-compliance. Therefore, the input is compliant with the specification as it provides a subject and its characteristic.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "3ab340f",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "21",
+      "rule": "The output lacks artistic insight and precise imagery, failing to blend creative expression with detailed visual descriptions.",
+      "input": "A ship on the ocean.",
+      "coverage": "Create an image of a majestic ship sailing smoothly across the vast ocean, its sails billowing gracefully in the wind. Set the scene during golden hour, with warm sunlight casting a serene glow across the water’s surface, creating an ethereal ambiance. In the background, include a distant, hazy horizon where the ocean meets the sky. The image should evoke a sense of adventure and tranquility, capturing the timeless allure of maritime exploration.",
+      "validityText": "The input, \"A ship on the ocean,\" is evaluated against the input specification. This text description provided by the user directly mentions a subject, which is \"a ship,\" and an environment or context, \"the ocean.\" The specification allows for input to include subjects and their characteristics, as well as the background. In this case, the input provides a subject and its context without additional characteristics or emotional descriptions, but there is no requirement in the specification for these to always be present. Thus, based on the specification provided, the input complies as it does not explicitly lack any required information.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "2d78f2b",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "22",
+      "rule": "The output is lengthy and fragmented, failing to create impactful AI-generated photos due to lack of concise and vivid description.",
+      "input": "A festival in the village, people everywhere, music playing, food stalls, children running, lights hanging, evening time, excitement in the air, everyone enjoying, so much happening.",
+      "coverage": "Prompt: Capture a vibrant village festival scene with joyful crowds, showcasing people in colorful attire enjoying music and food stalls. Include children running with laughter among the stalls. Set the scene in the evening, illuminated by twinkling hanging lights creating a warm, lively glow. The background should feature the charming village setting with decorated stalls. Convey an atmosphere of excitement and communal joy, highlighting the happiness and wonder of shared festivities, creating a sense of celebration and togetherness.",
+      "validityText": "The input provides a text description that aligns very well with the input specification provided. Here's my reasoning:\n\n1. **Subjects and Characteristics**: The description includes subjects such as \"people\", \"children\", \"food stalls\", and their characteristics (\"running\", \"playing\").\n\n2. **Timing and Lighting**: The input includes details about timing (\"evening time\") and lighting (\"lights hanging\").\n\n3. **Background**: It sets a scene of a \"festival in the village\", which conveys a background environment for the description.\n\n4. **Feelings or Emotions**: The description conveys the atmosphere and emotions like \"excitement in the air\" and \"everyone enjoying\".\n\nEvery part of the input aligns with the provided input specification, encompassing subjects, timing, lighting, background, and emotions. There are no violations of the specification. \n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "79a5266",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "22",
+      "rule": "The output is lengthy and fragmented, failing to create impactful AI-generated photos due to lack of concise and vivid description.",
+      "input": "Mountains, rivers, trees, animals, sky, clouds, nature at its best, harmony everywhere, beauty unparalleled, nothing compares, amazing views, breathtaking sights, all together, just perfect.",
+      "coverage": "Create an AI-generated photo featuring majestic mountains with clear rivers flowing through lush forests. Include diverse animals like deer and birds harmoniously coexisting. Capture a bright blue sky with fluffy white clouds, emphasizing nature's purity. Set during a serene morning with soft, natural lighting, highlighting the vibrant greenery. The scene should evoke a sense of unparalleled beauty and tranquility, showcasing nature's harmony and breathtaking sights in a perfect, awe-inspiring view, leaving viewers in complete admiration.",
+      "validityText": "The input is a text description, which includes subjects (mountains, rivers, trees, animals, sky, and clouds) and their characteristics (nature at its best, harmony everywhere, beauty unparalleled). Additionally, it conveys feelings or emotions the image should evoke (\"nothing compares, amazing views, breathtaking sights, all together, just perfect\"). While it does not explicitly mention timing, lighting, or details about the background, the specification does not require all aspects to be covered explicitly, only that they may be included. Therefore, this input complies with the input specification.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    },
+    {
+      "id": "c4a7d2c",
+      "promptid": "a8460a2",
+      "model": "gpt-4o-2024-08-06",
+      "ruleid": "22",
+      "rule": "The output is lengthy and fragmented, failing to create impactful AI-generated photos due to lack of concise and vivid description.",
+      "input": "City life busy, cars honking, people walking, buildings tall, lights flashing, noise constant, day and night, never stops, energy high, always moving, streets crowded, faces unknown.",
+      "coverage": "Prompt: Capture the bustling city life with cars honking and people walking among towering buildings. It's a day-night scene with flashing lights and constant noise, symbolizing a truly 24/7 atmosphere. The streets are crowded, filled with faces blending into the urban rush. The background showcases dynamic skyscrapers and neon lights, evoking an energy that is both relentless and exhilarating. The image should convey the vibrant, unstoppable pulse of a city that never sleeps, brimming with life and motion.",
+      "validityText": "The input \"City life busy, cars honking, people walking, buildings tall, lights flashing, noise constant, day and night, never stops, energy high, always moving, streets crowded, faces unknown.\" complies with the input specification. It includes subjects and characteristics (e.g., cars honking, people walking), details about timing (e.g., day and night), lighting descriptions (e.g., lights flashing), and conveys the overall emotion or atmosphere of the city (e.g., energy high, always moving). There is no non-compliance with the input specification as the input is a text description containing relevant details.\n\nOK",
+      "validity": "ok",
+      "error": ""
+    }
+  ],
+  "testResults": []
+}
