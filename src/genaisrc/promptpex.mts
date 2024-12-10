@@ -110,7 +110,9 @@ export interface PromptPexTestEval {
   rule: string;
   inverse?: boolean;
   input: string;
-  coverage?: string;
+  coverage?: "ok" | "err";
+  coverageEvalText?: string;
+  coverageText?: string;
   validity?: "ok" | "err";
   validityText?: string;
   error?: string;
@@ -653,17 +655,30 @@ export async function evaluateTestQuality(
   const error = [resCoverage.error?.message, resValidity?.error?.message]
     .filter((s) => !!s)
     .join(" ");
-  const testEval = {
+  const testEval: PromptPexTestEval = {
     id,
     promptid,
     model: resCoverage.model,
     ...rule,
     input: testInput,
-    coverage: resCoverage.text,
+    coverageText: resCoverage.text,
     validityText: resValidity.text,
     validity: parseOKERR(resValidity.text),
     error: error || undefined,
   } satisfies PromptPexTestEval;
+
+  const coverage = await evaluateTestResult(files, {
+    id: "cov-" + testEval.id,
+    rule: testEval.rule,
+    ruleid: test.ruleid,
+    promptid,
+    model: testEval.model,
+    input: testEval.input,
+    output: testEval.coverageText,
+  });
+
+  testEval.coverageEvalText = coverage;
+  testEval.coverage = parseOKERR(testEval.coverageEvalText);
 
   await workspace.writeText(file.filename, JSON.stringify(testEval, null, 2));
 
