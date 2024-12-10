@@ -1,9 +1,8 @@
 ## speech-tag ([json](./evals\o1preview-gpt4\speech-tag/report.json))
 
-- 6 rules
-- 6 inverse rules
-- 72 tests, 36 baseline tests
-- 288 test results, 206/288 (71%) oks, 82/288 (28%) errs
+- 9 rules
+- 9 inverse rules
+- 112 tests, 58 baseline tests
 
 ### Overview
 
@@ -33,12 +32,7 @@
 
 ### [test_results.csv](./test_results.csv)
 
-|model|tests|tests compliant|baseline compliant|tests positive|tests positive compliant|tests negative|tests negative compliant|baseline|tests valid|tests valid compliant|
-|-|-|-|-|-|-|-|-|-|-|-|
-|gpt\-4o\-mini|36|100%|97%|21|21|15|15|36|33|33|
-|gemma2:9b|36|86%|86%|21|17|15|14|36|33|31|
-|qwen2\.5:3b|36|97%|92%|21|20|15|15|36|33|32|
-|llama3\.2:1b|36|6%|8%|21|2|15|0|36|33|2|
+
 
 ### [speech-tag.prompty](./speech-tag.prompty)
 
@@ -77,339 +71,51 @@ user:
 `````
 
 
-### [test_results.csv](./test_results.csv)
-
-|model|rule|input|output|compliance|
-|-|-|-|-|-|
-|gpt\-4o\-mini|The output is a single string containing only the part\-of\-speech tag corresponding to the given word in the provided sentence\.|Sentence: 'The cat sat on the mat\.' Word: 'cat'|NN|ok|
-|gemma2:9b|The output is a single string containing only the part\-of\-speech tag corresponding to the given word in the provided sentence\.|Sentence: 'The cat sat on the mat\.' Word: 'cat'|NN|ok|
-|qwen2\.5:3b|The output is a single string containing only the part\-of\-speech tag corresponding to the given word in the provided sentence\.|Sentence: 'The cat sat on the mat\.' Word: 'cat'|NN|ok|
-|llama3\.2:1b|The output is a single string containing only the part\-of\-speech tag corresponding to the given word in the provided sentence\.|Sentence: 'The cat sat on the mat\.' Word: 'cat'|Word: cat<br>Tag: JJR|ok|
-|gpt\-4o\-mini|The output is a single string containing only the part\-of\-speech tag corresponding to the given word in the provided sentence\.|Sentence: 'He is running fast\.' Word: 'running'|VBG|ok|
-|gemma2:9b|The output is a single string containing only the part\-of\-speech tag corresponding to the given word in the provided sentence\.|Sentence: 'He is running fast\.' Word: 'running'|VBG|ok|
-|qwen2\.5:3b|The output is a single string containing only the part\-of\-speech tag corresponding to the given word in the provided sentence\.|Sentence: 'He is running fast\.' Word: 'running'|VBGV|err|
-|llama3\.2:1b|The output is a single string containing only the part\-of\-speech tag corresponding to the given word in the provided sentence\.|Sentence: 'He is running fast\.' Word: 'running'| Sentence: He \- DT<br>Word:  running|err|
-|gpt\-4o\-mini|The output is a single string containing only the part\-of\-speech tag corresponding to the given word in the provided sentence\.|Sentence: 'Wow, that is amazing\!' Word: 'Wow'|UH|ok|
-|gemma2:9b|The output is a single string containing only the part\-of\-speech tag corresponding to the given word in the provided sentence\.|Sentence: 'Wow, that is amazing\!' Word: 'Wow'|UH|ok|
-|qwen2\.5:3b|The output is a single string containing only the part\-of\-speech tag corresponding to the given word in the provided sentence\.|Sentence: 'Wow, that is amazing\!' Word: 'Wow'|FW|ok|
-|llama3\.2:1b|The output is a single string containing only the part\-of\-speech tag corresponding to the given word in the provided sentence\.|Sentence: 'Wow, that is amazing\!' Word: 'Wow'|DT \(Cardinal number\)<br>DT \(Cardinal number\)|err|
-|gpt\-4o\-mini|The part\-of\-speech tag must be one of the predefined uppercase abbreviations provided in the list, such as 'NN', 'VBD', 'JJ', etc\.|Sentence: 'She reads books every day\.' Word: 'reads'|VB|ok|
-|gemma2:9b|The part\-of\-speech tag must be one of the predefined uppercase abbreviations provided in the list, such as 'NN', 'VBD', 'JJ', etc\.|Sentence: 'She reads books every day\.' Word: 'reads'|VBP|ok|
-|qwen2\.5:3b|The part\-of\-speech tag must be one of the predefined uppercase abbreviations provided in the list, such as 'NN', 'VBD', 'JJ', etc\.|Sentence: 'She reads books every day\.' Word: 'reads'|VBZ|ok|
-|llama3\.2:1b|The part\-of\-speech tag must be one of the predefined uppercase abbreviations provided in the list, such as 'NN', 'VBD', 'JJ', etc\.|Sentence: 'She reads books every day\.' Word: 'reads'|CC: verb<br>EX: verb \( Existential there: "every" \)  <br>VB: Verb \(base form\) <br>VBD: Verb, past tense <br>POS: possessive ending \(possessive pronoun\)|err|
-|gpt\-4o\-mini|The part\-of\-speech tag must be one of the predefined uppercase abbreviations provided in the list, such as 'NN', 'VBD', 'JJ', etc\.|Sentence: 'He has a red apple\.' Word: 'red'|JJ|ok|
-|gemma2:9b|The part\-of\-speech tag must be one of the predefined uppercase abbreviations provided in the list, such as 'NN', 'VBD', 'JJ', etc\.|Sentence: 'He has a red apple\.' Word: 'red'|JJ|ok|
-|qwen2\.5:3b|The part\-of\-speech tag must be one of the predefined uppercase abbreviations provided in the list, such as 'NN', 'VBD', 'JJ', etc\.|Sentence: 'He has a red apple\.' Word: 'red'|JJ|ok|
-|llama3\.2:1b|The part\-of\-speech tag must be one of the predefined uppercase abbreviations provided in the list, such as 'NN', 'VBD', 'JJ', etc\.|Sentence: 'He has a red apple\.' Word: 'red'|CC: Conjunction<br>CC: Coordinate conjunction|err|
-|gpt\-4o\-mini|The part\-of\-speech tag must be one of the predefined uppercase abbreviations provided in the list, such as 'NN', 'VBD', 'JJ', etc\.|Sentence: 'They are going to school\.' Word: 'to'|TO|ok|
-|gemma2:9b|The part\-of\-speech tag must be one of the predefined uppercase abbreviations provided in the list, such as 'NN', 'VBD', 'JJ', etc\.|Sentence: 'They are going to school\.' Word: 'to'|TO|ok|
-|qwen2\.5:3b|The part\-of\-speech tag must be one of the predefined uppercase abbreviations provided in the list, such as 'NN', 'VBD', 'JJ', etc\.|Sentence: 'They are going to school\.' Word: 'to'|TO|ok|
-|llama3\.2:1b|The part\-of\-speech tag must be one of the predefined uppercase abbreviations provided in the list, such as 'NN', 'VBD', 'JJ', etc\.|Sentence: 'They are going to school\.' Word: 'to'|Word: 'to'<br>Part of speech tag: TO|ok|
-|gpt\-4o\-mini|If the given word cannot be tagged with any of the predefined part\-of\-speech tags, the output is the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters\.|Sentence: 'He said blorf yesterday\.' Word: 'blorf'|Unknown|ok|
-|gemma2:9b|If the given word cannot be tagged with any of the predefined part\-of\-speech tags, the output is the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters\.|Sentence: 'He said blorf yesterday\.' Word: 'blorf'|Unknown|ok|
-|qwen2\.5:3b|If the given word cannot be tagged with any of the predefined part\-of\-speech tags, the output is the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters\.|Sentence: 'He said blorf yesterday\.' Word: 'blorf'|FW|ok|
-|llama3\.2:1b|If the given word cannot be tagged with any of the predefined part\-of\-speech tags, the output is the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters\.|Sentence: 'He said blorf yesterday\.' Word: 'blorf'|PP: Predeterminer <br>VB: Verb<br>BLF: Blorf \(Note: The preposition 'blorf' is not clearly defined in the language, making it difficult to identify its part of speech\. Without more context or information, I would return Unknown\.\)|err|
-|gpt\-4o\-mini|If the given word cannot be tagged with any of the predefined part\-of\-speech tags, the output is the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters\.|Sentence: 'The qwerty jumped over the lazy dog\.' Word: 'qwerty'|NN|ok|
-|gemma2:9b|If the given word cannot be tagged with any of the predefined part\-of\-speech tags, the output is the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters\.|Sentence: 'The qwerty jumped over the lazy dog\.' Word: 'qwerty'|NN|ok|
-|qwen2\.5:3b|If the given word cannot be tagged with any of the predefined part\-of\-speech tags, the output is the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters\.|Sentence: 'The qwerty jumped over the lazy dog\.' Word: 'qwerty'|CantAnswer|ok|
-|llama3\.2:1b|If the given word cannot be tagged with any of the predefined part\-of\-speech tags, the output is the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters\.|Sentence: 'The qwerty jumped over the lazy dog\.' Word: 'qwerty'|CC: CC<br>JJS: JJS|err|
-|gpt\-4o\-mini|If the given word cannot be tagged with any of the predefined part\-of\-speech tags, the output is the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters\.|Sentence: 'She smiled :\) after hearing the news\.' Word: ':\)'|SYM|ok|
-|gemma2:9b|If the given word cannot be tagged with any of the predefined part\-of\-speech tags, the output is the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters\.|Sentence: 'She smiled :\) after hearing the news\.' Word: ':\)'|UH|ok|
-|qwen2\.5:3b|If the given word cannot be tagged with any of the predefined part\-of\-speech tags, the output is the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters\.|Sentence: 'She smiled :\) after hearing the news\.' Word: ':\)'|FW|ok|
-|llama3\.2:1b|If the given word cannot be tagged with any of the predefined part\-of\-speech tags, the output is the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters\.|Sentence: 'She smiled :\) after hearing the news\.' Word: ':\)'| Sentence: She smiled :\) after hearing the news\. Word: '<br>Tag: P'<br><br> Sentence: She smiled :\) after hearing the news\. Word: '<br> Tag: PS' <br><br> Sentence: She smiled ;\) after hearing the news\. Word: '\)<br> Tag: ?'|err|
-|gpt\-4o\-mini|If the assistant is unable to determine the part\-of\-speech tag for the word for any reason, the output is the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters\.|Sentence: '' Word: 'hello'|Unknown|ok|
-|gemma2:9b|If the assistant is unable to determine the part\-of\-speech tag for the word for any reason, the output is the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters\.|Sentence: '' Word: 'hello'|UH <br><br><br>Let me know if you have more words to tag\!|err|
-|qwen2\.5:3b|If the assistant is unable to determine the part\-of\-speech tag for the word for any reason, the output is the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters\.|Sentence: '' Word: 'hello'|Unknown|ok|
-|llama3\.2:1b|If the assistant is unable to determine the part\-of\-speech tag for the word for any reason, the output is the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters\.|Sentence: '' Word: 'hello'|Sentence: DT<br>Word: 'hello' \(DT\)|err|
-|gpt\-4o\-mini|If the assistant is unable to determine the part\-of\-speech tag for the word for any reason, the output is the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters\.|Sentence: 'He said привет yesterday\.' Word: 'привет'|FW|ok|
-|gemma2:9b|If the assistant is unable to determine the part\-of\-speech tag for the word for any reason, the output is the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters\.|Sentence: 'He said привет yesterday\.' Word: 'привет'|FW|ok|
-|qwen2\.5:3b|If the assistant is unable to determine the part\-of\-speech tag for the word for any reason, the output is the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters\.|Sentence: 'He said привет yesterday\.' Word: 'привет'|Unknown|ok|
-|llama3\.2:1b|If the assistant is unable to determine the part\-of\-speech tag for the word for any reason, the output is the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters\.|Sentence: 'He said привет yesterday\.' Word: 'привет'|JJJR \(comparative and superlative adjective\) <br>PP: Preposition|err|
-|gpt\-4o\-mini|If the assistant is unable to determine the part\-of\-speech tag for the word for any reason, the output is the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters\.|Sentence: 'He whispered something quietly\.' Word: 'some~thing'|Unknown|ok|
-|gemma2:9b|If the assistant is unable to determine the part\-of\-speech tag for the word for any reason, the output is the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters\.|Sentence: 'He whispered something quietly\.' Word: 'some~thing'|NN <br><br>Let me know if you have any other sentences and words you'd like me to classify\! 😊|err|
-|qwen2\.5:3b|If the assistant is unable to determine the part\-of\-speech tag for the word for any reason, the output is the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters\.|Sentence: 'He whispered something quietly\.' Word: 'some~thing'|Unknown|ok|
-|llama3\.2:1b|If the assistant is unable to determine the part\-of\-speech tag for the word for any reason, the output is the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters\.|Sentence: 'He whispered something quietly\.' Word: 'some~thing'|Part of speech tag for 'whispered': IN<br>Part of speech tag for 'quietly': ADJ|err|
-|gpt\-4o\-mini|The output contains only the required part\-of\-speech tag or the words 'Unknown' or 'CantAnswer', with no additional text, punctuation, or formatting\.|Sentence: 'She sings beautifully\.' Word: 'sings'|VB|ok|
-|gemma2:9b|The output contains only the required part\-of\-speech tag or the words 'Unknown' or 'CantAnswer', with no additional text, punctuation, or formatting\.|Sentence: 'She sings beautifully\.' Word: 'sings'|VBZ|ok|
-|qwen2\.5:3b|The output contains only the required part\-of\-speech tag or the words 'Unknown' or 'CantAnswer', with no additional text, punctuation, or formatting\.|Sentence: 'She sings beautifully\.' Word: 'sings'|VBZ|ok|
-|llama3\.2:1b|The output contains only the required part\-of\-speech tag or the words 'Unknown' or 'CantAnswer', with no additional text, punctuation, or formatting\.|Sentence: 'She sings beautifully\.' Word: 'sings'|Word: sings<br>Part\-of\-speech tag: VB|err|
-|gpt\-4o\-mini|The output contains only the required part\-of\-speech tag or the words 'Unknown' or 'CantAnswer', with no additional text, punctuation, or formatting\.|Sentence: 'They quickly ran away\.' Word: 'quickly'|RB|ok|
-|gemma2:9b|The output contains only the required part\-of\-speech tag or the words 'Unknown' or 'CantAnswer', with no additional text, punctuation, or formatting\.|Sentence: 'They quickly ran away\.' Word: 'quickly'|RB|ok|
-|qwen2\.5:3b|The output contains only the required part\-of\-speech tag or the words 'Unknown' or 'CantAnswer', with no additional text, punctuation, or formatting\.|Sentence: 'They quickly ran away\.' Word: 'quickly'|VBZ|ok|
-|llama3\.2:1b|The output contains only the required part\-of\-speech tag or the words 'Unknown' or 'CantAnswer', with no additional text, punctuation, or formatting\.|Sentence: 'They quickly ran away\.' Word: 'quickly'|The part of speech tag for the word "quickly" in both sentences is JJR\.|err|
-|gpt\-4o\-mini|The output contains only the required part\-of\-speech tag or the words 'Unknown' or 'CantAnswer', with no additional text, punctuation, or formatting\.|Sentence: 'I will call you tomorrow\.' Word: 'tomorrow'|NN|ok|
-|gemma2:9b|The output contains only the required part\-of\-speech tag or the words 'Unknown' or 'CantAnswer', with no additional text, punctuation, or formatting\.|Sentence: 'I will call you tomorrow\.' Word: 'tomorrow'|RB|ok|
-|qwen2\.5:3b|The output contains only the required part\-of\-speech tag or the words 'Unknown' or 'CantAnswer', with no additional text, punctuation, or formatting\.|Sentence: 'I will call you tomorrow\.' Word: 'tomorrow'|NN|ok|
-|llama3\.2:1b|The output contains only the required part\-of\-speech tag or the words 'Unknown' or 'CantAnswer', with no additional text, punctuation, or formatting\.|Sentence: 'I will call you tomorrow\.' Word: 'tomorrow'|IN: singular or mass<br>TO: to|err|
-|gpt\-4o\-mini|All outputs must be exactly as specified, without any additional spaces, explanations, or characters\.|Sentence: 'This is a test\.' Word: 'test'|NN|ok|
-|gemma2:9b|All outputs must be exactly as specified, without any additional spaces, explanations, or characters\.|Sentence: 'This is a test\.' Word: 'test'|NN|ok|
-|qwen2\.5:3b|All outputs must be exactly as specified, without any additional spaces, explanations, or characters\.|Sentence: 'This is a test\.' Word: 'test'|NN|ok|
-|llama3\.2:1b|All outputs must be exactly as specified, without any additional spaces, explanations, or characters\.|Sentence: 'This is a test\.' Word: 'test'|Sentence: This is a test\. <br>\- 'this' : NNP<br>\- 'is' : VBD<br>\- 'a' : Article \(IN/A\)<br>\- 'test' : NN <br><br> Sentence: 'This is a test\.' <br>\- 'is' : VBD<br>\- 'a' : Article \(IN/A\) <br>\- 'test' : NN|err|
-|gpt\-4o\-mini|All outputs must be exactly as specified, without any additional spaces, explanations, or characters\.|Sentence: 'He arrived late\.' Word: 'late'|RB|ok|
-|gemma2:9b|All outputs must be exactly as specified, without any additional spaces, explanations, or characters\.|Sentence: 'He arrived late\.' Word: 'late'|RB|ok|
-|qwen2\.5:3b|All outputs must be exactly as specified, without any additional spaces, explanations, or characters\.|Sentence: 'He arrived late\.' Word: 'late'|JJ|ok|
-|llama3\.2:1b|All outputs must be exactly as specified, without any additional spaces, explanations, or characters\.|Sentence: 'He arrived late\.' Word: 'late'|Part\-of\-speech tag for "arrived":<br>IN<br><br>Part\-of\-speech tag for "late":<br>NN|err|
-|gpt\-4o\-mini|All outputs must be exactly as specified, without any additional spaces, explanations, or characters\.|Sentence: 'The book is interesting\.' Word: 'interesting'|JJ|ok|
-|gemma2:9b|All outputs must be exactly as specified, without any additional spaces, explanations, or characters\.|Sentence: 'The book is interesting\.' Word: 'interesting'|JJ <br><br><br>Let me know if you have another example\! 😊|err|
-|qwen2\.5:3b|All outputs must be exactly as specified, without any additional spaces, explanations, or characters\.|Sentence: 'The book is interesting\.' Word: 'interesting'|JJ|ok|
-|llama3\.2:1b|All outputs must be exactly as specified, without any additional spaces, explanations, or characters\.|Sentence: 'The book is interesting\.' Word: 'interesting'|IN<br>IN <br>CANTAnswer|err|
-|gpt\-4o\-mini|The output is not a single string containing only the part\-of\-speech tag corresponding to the given word in the provided sentence\.|Sentence: 'She is reading a book\.' Word: 'reading'|VBG|ok|
-|gemma2:9b|The output is not a single string containing only the part\-of\-speech tag corresponding to the given word in the provided sentence\.|Sentence: 'She is reading a book\.' Word: 'reading'|VBG|ok|
-|qwen2\.5:3b|The output is not a single string containing only the part\-of\-speech tag corresponding to the given word in the provided sentence\.|Sentence: 'She is reading a book\.' Word: 'reading'|VBZ|ok|
-|llama3\.2:1b|The output is not a single string containing only the part\-of\-speech tag corresponding to the given word in the provided sentence\.|Sentence: 'She is reading a book\.' Word: 'reading'|Word: reading<br>Tag: IN|err|
-|gpt\-4o\-mini|The output is not a single string containing only the part\-of\-speech tag corresponding to the given word in the provided sentence\.|Sentence: 'They arrived late\.' Word: 'late'|RB|ok|
-|gemma2:9b|The output is not a single string containing only the part\-of\-speech tag corresponding to the given word in the provided sentence\.|Sentence: 'They arrived late\.' Word: 'late'|RB|ok|
-|qwen2\.5:3b|The output is not a single string containing only the part\-of\-speech tag corresponding to the given word in the provided sentence\.|Sentence: 'They arrived late\.' Word: 'late'|JJ|ok|
-|llama3\.2:1b|The output is not a single string containing only the part\-of\-speech tag corresponding to the given word in the provided sentence\.|Sentence: 'They arrived late\.' Word: 'late'|Word: late<br>Pos tag: CC<br>Word: they<br>Pos tag: PRP$<br>Sentence: 'They arrived late\.' Word: late<br>Pos tag: CC|err|
-|gpt\-4o\-mini|The output is not a single string containing only the part\-of\-speech tag corresponding to the given word in the provided sentence\.|Sentence: 'He bought apples\.' Word: 'apples'|NNS|ok|
-|gemma2:9b|The output is not a single string containing only the part\-of\-speech tag corresponding to the given word in the provided sentence\.|Sentence: 'He bought apples\.' Word: 'apples'|NN <br><br><br>NN|ok|
-|qwen2\.5:3b|The output is not a single string containing only the part\-of\-speech tag corresponding to the given word in the provided sentence\.|Sentence: 'He bought apples\.' Word: 'apples'|NN|ok|
-|llama3\.2:1b|The output is not a single string containing only the part\-of\-speech tag corresponding to the given word in the provided sentence\.|Sentence: 'He bought apples\.' Word: 'apples'|DT<br>VB <br>DT|err|
-|gpt\-4o\-mini|The output contains only the required part\-of\-speech tag or the words 'Unknown' or 'CantAnswer', with no additional text, punctuation, or formatting\.|Sentence: 'She sings beautifully\.' Word: 'sings'|VB|ok|
-|gemma2:9b|The output contains only the required part\-of\-speech tag or the words 'Unknown' or 'CantAnswer', with no additional text, punctuation, or formatting\.|Sentence: 'She sings beautifully\.' Word: 'sings'|VBZ|ok|
-|qwen2\.5:3b|The output contains only the required part\-of\-speech tag or the words 'Unknown' or 'CantAnswer', with no additional text, punctuation, or formatting\.|Sentence: 'She sings beautifully\.' Word: 'sings'|VBZ|ok|
-|llama3\.2:1b|The output contains only the required part\-of\-speech tag or the words 'Unknown' or 'CantAnswer', with no additional text, punctuation, or formatting\.|Sentence: 'She sings beautifully\.' Word: 'sings'|Word: sings<br>Part\-of\-speech tag: VB|err|
-|gpt\-4o\-mini|The part\-of\-speech tag must not be one of the predefined uppercase abbreviations provided in the list, such as 'NN', 'VBD', 'JJ', etc\.|Sentence: 'He has a red car\.' Word: 'red'|JJ|ok|
-|gemma2:9b|The part\-of\-speech tag must not be one of the predefined uppercase abbreviations provided in the list, such as 'NN', 'VBD', 'JJ', etc\.|Sentence: 'He has a red car\.' Word: 'red'|JJ|ok|
-|qwen2\.5:3b|The part\-of\-speech tag must not be one of the predefined uppercase abbreviations provided in the list, such as 'NN', 'VBD', 'JJ', etc\.|Sentence: 'He has a red car\.' Word: 'red'|JJ|ok|
-|llama3\.2:1b|The part\-of\-speech tag must not be one of the predefined uppercase abbreviations provided in the list, such as 'NN', 'VBD', 'JJ', etc\.|Sentence: 'He has a red car\.' Word: 'red'|CC: Adverb<br>EX: Existential there<br>FN: Foreign word<br>IN: Determiner<br>JJ: Adjective<br>NN: Noun, male<br>PS: Possessive ending \(possessor\)|err|
-|gpt\-4o\-mini|The part\-of\-speech tag must not be one of the predefined uppercase abbreviations provided in the list, such as 'NN', 'VBD', 'JJ', etc\.|Sentence: 'They play soccer every weekend\.' Word: 'play'|VBP|ok|
-|gemma2:9b|The part\-of\-speech tag must not be one of the predefined uppercase abbreviations provided in the list, such as 'NN', 'VBD', 'JJ', etc\.|Sentence: 'They play soccer every weekend\.' Word: 'play'|VB|ok|
-|qwen2\.5:3b|The part\-of\-speech tag must not be one of the predefined uppercase abbreviations provided in the list, such as 'NN', 'VBD', 'JJ', etc\.|Sentence: 'They play soccer every weekend\.' Word: 'play'|VB|ok|
-|llama3\.2:1b|The part\-of\-speech tag must not be one of the predefined uppercase abbreviations provided in the list, such as 'NN', 'VBD', 'JJ', etc\.|Sentence: 'They play soccer every weekend\.' Word: 'play'|Word: JJ \(Adjective\)<br>Tagged word for JJ in both sentences is always "JJ"\.|err|
-|gpt\-4o\-mini|If the given word cannot be tagged with any of the predefined part\-of\-speech tags, the output is the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters\.|Sentence: 'He said blorf yesterday\.' Word: 'blorf'|Unknown|ok|
-|gemma2:9b|If the given word cannot be tagged with any of the predefined part\-of\-speech tags, the output is the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters\.|Sentence: 'He said blorf yesterday\.' Word: 'blorf'|Unknown|ok|
-|qwen2\.5:3b|If the given word cannot be tagged with any of the predefined part\-of\-speech tags, the output is the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters\.|Sentence: 'He said blorf yesterday\.' Word: 'blorf'|FW|ok|
-|llama3\.2:1b|If the given word cannot be tagged with any of the predefined part\-of\-speech tags, the output is the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters\.|Sentence: 'He said blorf yesterday\.' Word: 'blorf'|PP: Predeterminer <br>VB: Verb<br>BLF: Blorf \(Note: The preposition 'blorf' is not clearly defined in the language, making it difficult to identify its part of speech\. Without more context or information, I would return Unknown\.\)|err|
-|gpt\-4o\-mini|If the given word cannot be tagged with any of the predefined part\-of\-speech tags, the output is not the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters\.|Sentence: 'Please fix the asdkjfh\.' Word: 'asdkjfh'|Unknown|ok|
-|gemma2:9b|If the given word cannot be tagged with any of the predefined part\-of\-speech tags, the output is not the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters\.|Sentence: 'Please fix the asdkjfh\.' Word: 'asdkjfh'|Unknown|ok|
-|qwen2\.5:3b|If the given word cannot be tagged with any of the predefined part\-of\-speech tags, the output is not the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters\.|Sentence: 'Please fix the asdkjfh\.' Word: 'asdkjfh'|Unknown|ok|
-|llama3\.2:1b|If the given word cannot be tagged with any of the predefined part\-of\-speech tags, the output is not the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters\.|Sentence: 'Please fix the asdkjfh\.' Word: 'asdkjfh'|JJR: adjective \(superlative\)<br>JJS: adjective \(superlative\)<br>PDT: determiner<br>IN: preposition <br>CantAnswer|err|
-|gpt\-4o\-mini|If the given word cannot be tagged with any of the predefined part\-of\-speech tags, the output is not the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters\.|Sentence: 'She smiled :\)\.' Word: ':\)'|Unknown|ok|
-|gemma2:9b|If the given word cannot be tagged with any of the predefined part\-of\-speech tags, the output is not the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters\.|Sentence: 'She smiled :\)\.' Word: ':\)'|UH|ok|
-|qwen2\.5:3b|If the given word cannot be tagged with any of the predefined part\-of\-speech tags, the output is not the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters\.|Sentence: 'She smiled :\)\.' Word: ':\)'|Unknown|ok|
-|llama3\.2:1b|If the given word cannot be tagged with any of the predefined part\-of\-speech tags, the output is not the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters\.|Sentence: 'She smiled :\)\.' Word: ':\)'|Part\-of\-speech tag for " :\)" is POS\. <br><br>Part\-of\-speech tag for ":\)" is POS\.|err|
-|gpt\-4o\-mini|If the assistant is unable to determine the part\-of\-speech tag for the word for any reason, the output is the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters\.|Sentence: '' Word: 'hello'|Unknown|ok|
-|gemma2:9b|If the assistant is unable to determine the part\-of\-speech tag for the word for any reason, the output is the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters\.|Sentence: '' Word: 'hello'|UH <br><br><br>Let me know if you have more words to tag\!|err|
-|qwen2\.5:3b|If the assistant is unable to determine the part\-of\-speech tag for the word for any reason, the output is the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters\.|Sentence: '' Word: 'hello'|Unknown|ok|
-|llama3\.2:1b|If the assistant is unable to determine the part\-of\-speech tag for the word for any reason, the output is the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters\.|Sentence: '' Word: 'hello'|Sentence: DT<br>Word: 'hello' \(DT\)|err|
-|gpt\-4o\-mini|If the assistant is unable to determine the part\-of\-speech tag for the word for any reason, the output is not the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters\.|Sentence: 'He said привет\.' Word: 'привет'|FW|ok|
-|gemma2:9b|If the assistant is unable to determine the part\-of\-speech tag for the word for any reason, the output is not the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters\.|Sentence: 'He said привет\.' Word: 'привет'|FW|ok|
-|qwen2\.5:3b|If the assistant is unable to determine the part\-of\-speech tag for the word for any reason, the output is not the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters\.|Sentence: 'He said привет\.' Word: 'привет'|Unknown|ok|
-|llama3\.2:1b|If the assistant is unable to determine the part\-of\-speech tag for the word for any reason, the output is not the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters\.|Sentence: 'He said привет\.' Word: 'привет'|CC: Privet <br>PWT: Privet <br>CantAnswer: Privet <br>Unknown:Privet|err|
-|gpt\-4o\-mini|If the assistant is unable to determine the part\-of\-speech tag for the word for any reason, the output is not the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters\.|Sentence: 'The value is 100%\.' Word: '100%'|CD|ok|
-|gemma2:9b|If the assistant is unable to determine the part\-of\-speech tag for the word for any reason, the output is not the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters\.|Sentence: 'The value is 100%\.' Word: '100%'|CD|ok|
-|qwen2\.5:3b|If the assistant is unable to determine the part\-of\-speech tag for the word for any reason, the output is not the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters\.|Sentence: 'The value is 100%\.' Word: '100%'|CD|ok|
-|llama3\.2:1b|If the assistant is unable to determine the part\-of\-speech tag for the word for any reason, the output is not the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters\.|Sentence: 'The value is 100%\.' Word: '100%'|CC: Coordinating conjunction<br>Unknown: CantAnswer|err|
-|gpt\-4o\-mini|The output may contain additional text, punctuation, or formatting beyond the required part\-of\-speech tag or the words 'Unknown' or 'CantAnswer'\.|Sentence: 'She sang a song\.' Word: 'sang'|VBD|ok|
-|gemma2:9b|The output may contain additional text, punctuation, or formatting beyond the required part\-of\-speech tag or the words 'Unknown' or 'CantAnswer'\.|Sentence: 'She sang a song\.' Word: 'sang'|VBD|ok|
-|qwen2\.5:3b|The output may contain additional text, punctuation, or formatting beyond the required part\-of\-speech tag or the words 'Unknown' or 'CantAnswer'\.|Sentence: 'She sang a song\.' Word: 'sang'|VBZ|ok|
-|llama3\.2:1b|The output may contain additional text, punctuation, or formatting beyond the required part\-of\-speech tag or the words 'Unknown' or 'CantAnswer'\.|Sentence: 'She sang a song\.' Word: 'sang'|Word: CC \(Coordinating conjunction\)<br>CantAnswer \(No tags can be applied\)|err|
-|gpt\-4o\-mini|The output may contain additional text, punctuation, or formatting beyond the required part\-of\-speech tag or the words 'Unknown' or 'CantAnswer'\.|Sentence: 'He is fast\.' Word: 'fast'|JJ|ok|
-|gemma2:9b|The output may contain additional text, punctuation, or formatting beyond the required part\-of\-speech tag or the words 'Unknown' or 'CantAnswer'\.|Sentence: 'He is fast\.' Word: 'fast'|ADJ|err|
-|qwen2\.5:3b|The output may contain additional text, punctuation, or formatting beyond the required part\-of\-speech tag or the words 'Unknown' or 'CantAnswer'\.|Sentence: 'He is fast\.' Word: 'fast'|JJ|ok|
-|llama3\.2:1b|The output may contain additional text, punctuation, or formatting beyond the required part\-of\-speech tag or the words 'Unknown' or 'CantAnswer'\.|Sentence: 'He is fast\.' Word: 'fast'|CC: Determiner<br>Unknown<br>Unknown|err|
-|gpt\-4o\-mini|The output may contain additional text, punctuation, or formatting beyond the required part\-of\-speech tag or the words 'Unknown' or 'CantAnswer'\.|Sentence: 'They are running\.' Word: 'running'|VBG|ok|
-|gemma2:9b|The output may contain additional text, punctuation, or formatting beyond the required part\-of\-speech tag or the words 'Unknown' or 'CantAnswer'\.|Sentence: 'They are running\.' Word: 'running'|VBG|ok|
-|qwen2\.5:3b|The output may contain additional text, punctuation, or formatting beyond the required part\-of\-speech tag or the words 'Unknown' or 'CantAnswer'\.|Sentence: 'They are running\.' Word: 'running'|VBZ|ok|
-|llama3\.2:1b|The output may contain additional text, punctuation, or formatting beyond the required part\-of\-speech tag or the words 'Unknown' or 'CantAnswer'\.|Sentence: 'They are running\.' Word: 'running'|Here are the results:<br><br>1\. Sentence: They are running\.<br>Word: running<br>Tag: VBD \(Verb, base form\)<br><br>2\. Sentence: They are running\.<br>Word: running<br>Tag: NN \(Noun\) <br>3\. Sentence: They are running\.<br>Word: running<br>Tag: VBZ \(Verb, 3rd person singular present\)|err|
-|gpt\-4o\-mini|Outputs may include additional spaces, explanations, or characters, and may not be exactly as specified\.|Sentence: 'It's a beautiful day\.' Word: 'beautiful'|JJ|ok|
-|gemma2:9b|Outputs may include additional spaces, explanations, or characters, and may not be exactly as specified\.|Sentence: 'It's a beautiful day\.' Word: 'beautiful'|JJ|ok|
-|qwen2\.5:3b|Outputs may include additional spaces, explanations, or characters, and may not be exactly as specified\.|Sentence: 'It's a beautiful day\.' Word: 'beautiful'|JJ|ok|
-|llama3\.2:1b|Outputs may include additional spaces, explanations, or characters, and may not be exactly as specified\.|Sentence: 'It's a beautiful day\.' Word: 'beautiful'|CC: It's \(coordinate conjunction\), NN: beautiful \(noun\)|err|
-|gpt\-4o\-mini|Outputs may include additional spaces, explanations, or characters, and may not be exactly as specified\.|Sentence: 'Time flies\.' Word: 'Time'|NN|ok|
-|gemma2:9b|Outputs may include additional spaces, explanations, or characters, and may not be exactly as specified\.|Sentence: 'Time flies\.' Word: 'Time'|NN|ok|
-|qwen2\.5:3b|Outputs may include additional spaces, explanations, or characters, and may not be exactly as specified\.|Sentence: 'Time flies\.' Word: 'Time'|NN|ok|
-|llama3\.2:1b|Outputs may include additional spaces, explanations, or characters, and may not be exactly as specified\.|Sentence: 'Time flies\.' Word: 'Time'|CC: Determiner<br>NNS: Noun, plural|err|
-|gpt\-4o\-mini|Outputs may include additional spaces, explanations, or characters, and may not be exactly as specified\.|Sentence: 'He will arrive soon\.' Word: 'will'|MD|ok|
-|gemma2:9b|Outputs may include additional spaces, explanations, or characters, and may not be exactly as specified\.|Sentence: 'He will arrive soon\.' Word: 'will'|MD|ok|
-|qwen2\.5:3b|Outputs may include additional spaces, explanations, or characters, and may not be exactly as specified\.|Sentence: 'He will arrive soon\.' Word: 'will'|VBZ|ok|
-|llama3\.2:1b|Outputs may include additional spaces, explanations, or characters, and may not be exactly as specified\.|Sentence: 'He will arrive soon\.' Word: 'will'|IN <br>CantAnswer|err|
-|gpt\-4o\-mini||Sentence: She likes tea and coffee\.<br>Word: and|CC|ok|
-|gemma2:9b||Sentence: She likes tea and coffee\.<br>Word: and|CC|ok|
-|qwen2\.5:3b||Sentence: She likes tea and coffee\.<br>Word: and|CC|ok|
-|llama3\.2:1b||Sentence: She likes tea and coffee\.<br>Word: and|Part\-of\-speech tag for the word "and":<br>IN|ok|
-|gpt\-4o\-mini||Sentence: He has three dogs\.<br>Word: three|CD|ok|
-|gemma2:9b||Sentence: He has three dogs\.<br>Word: three|CD <br><br><br>Let me know if you'd like to tag another word\! 😊|err|
-|qwen2\.5:3b||Sentence: He has three dogs\.<br>Word: three|CD|ok|
-|llama3\.2:1b||Sentence: He has three dogs\.<br>Word: three|POS: CC \(Coordinating conjunction\)<br><br>POS: JD \(Adjective\)|err|
-|gpt\-4o\-mini||Sentence: This is important\.<br>Word: This|DT|ok|
-|gemma2:9b||Sentence: This is important\.<br>Word: This|DT <br><br><br>Let me explain why\!<br><br>\* \*\*DT \(Determiner\):\*\*  "This" in this sentence acts as a determiner, specifying which noun \("is"\) is being talked about\. <br><br><br><br><br>   Let me know if you have any other words you'd like tagged\!|err|
-|qwen2\.5:3b||Sentence: This is important\.<br>Word: This|WP|ok|
-|llama3\.2:1b||Sentence: This is important\.<br>Word: This|Part\-of\-speech tag for Word 'This':<br><br>NN \(Noun\)|err|
-|gpt\-4o\-mini||Sentence: There is a problem\.<br>Word: There|EX|ok|
-|gemma2:9b||Sentence: There is a problem\.<br>Word: There|EX|ok|
-|qwen2\.5:3b||Sentence: There is a problem\.<br>Word: There|WP|ok|
-|llama3\.2:1b||Sentence: There is a problem\.<br>Word: There|CC: Correlative conjunction<br>CT0: Article, third person singular present \(uncountable\)<br>SYM: Symbol <br>UH: Interjection|err|
-|gpt\-4o\-mini||Sentence: She said, 'adiós' and left\.<br>Word: adiós|FW|ok|
-|gemma2:9b||Sentence: She said, 'adiós' and left\.<br>Word: adiós|FW|ok|
-|qwen2\.5:3b||Sentence: She said, 'adiós' and left\.<br>Word: adiós|FW|ok|
-|llama3\.2:1b||Sentence: She said, 'adiós' and left\.<br>Word: adiós|Here are the tags for the given word:<br><br>CC: Coordinating conjunction \(in conjunction with 'She said'\)<br>IN: Preposition or subordinating conjunction \('and'\)<br><br>The words 'adiós' is a proper noun\.|err|
-|gpt\-4o\-mini||Sentence: He went before me\.<br>Word: before|IN|ok|
-|gemma2:9b||Sentence: He went before me\.<br>Word: before|IN <br><br><br>Let me know if you have other sentences and words to tag\!|err|
-|qwen2\.5:3b||Sentence: He went before me\.<br>Word: before|IN|ok|
-|llama3\.2:1b||Sentence: He went before me\.<br>Word: before|\* Before \(tagged as IN\)<br>\* he <br>\* before <br>\* word|err|
-|gpt\-4o\-mini||Sentence: The tall man\.<br>Word: tall|JJ|ok|
-|gemma2:9b||Sentence: The tall man\.<br>Word: tall|JJ <br><br><br>Let me know if you'd like to try another word\!  😊|ok|
-|qwen2\.5:3b||Sentence: The tall man\.<br>Word: tall|JJ|ok|
-|llama3\.2:1b||Sentence: The tall man\.<br>Word: tall|Here are the part\-of\-speech tags for each word:<br><br>\- tall: NN \(Noun\)<br>Since the sentence and word only refer to themselves, there is no grammatical relation that would change the tag\.|err|
-|gpt\-4o\-mini||Sentence: She is taller than me\.<br>Word: taller|JJ|ok|
-|gemma2:9b||Sentence: She is taller than me\.<br>Word: taller|JJR|ok|
-|qwen2\.5:3b||Sentence: She is taller than me\.<br>Word: taller|VBＧ|err|
-|llama3\.2:1b||Sentence: She is taller than me\.<br>Word: taller|Part\-of\-speech tags:<br><br>\- She \(IN\)<br>\- is \(INF\) \-gt; Note: IN is generally used to indicate an infinitive, not an adjective in this context\. INF might be better for "taller" but the tag I assigned initially was IN\.<br>\- taller \(JJR\)|err|
-|gpt\-4o\-mini||Sentence: She is the tallest\.<br>Word: tallest|JJS|ok|
-|gemma2:9b||Sentence: She is the tallest\.<br>Word: tallest|JJSS|err|
-|qwen2\.5:3b||Sentence: She is the tallest\.<br>Word: tallest|VBN|ok|
-|llama3\.2:1b||Sentence: She is the tallest\.<br>Word: tallest|Words marked CC: Coordinating conjunction <br>\- She \(in sentence 1\)<br>\- to \(in sentence 2\) <br>Since words are repetitive, we should consider "is" as a single unit\. Words marked DT: Determiner <br>\- She \(in sentence 1\) <br>\- the \(in sentence 2\)<br><br>Words marked IN: Preposition or subordinating conjunction <br>\- the \(in sentence 1\)<br>\- to \(in sentence 2\) <br><br>Words tagged ZZ: Unknown<br>Since words are identical, we should consider "is" as a single unit\. Words marked JJ: Adjective <br>\- tallest \(in sentence 1\)<br><br>There is no repetition of word "tallest", but we still need to check if the tag is correct based on given tags list|err|
-|gpt\-4o\-mini||Sentence: First, wash your hands\.<br>Word: First|JJ|ok|
-|gemma2:9b||Sentence: First, wash your hands\.<br>Word: First|RB|ok|
-|qwen2\.5:3b||Sentence: First, wash your hands\.<br>Word: First|JJ|ok|
-|llama3\.2:1b||Sentence: First, wash your hands\.<br>Word: First|CC: Initial word<br>JC: Adjective \(part of the word "First"\)<br>JJR: Superior adjective<br>JJS: Comparative adjective<br>NNS: Plural noun \(referring to 'words'\)<br>NN: Noun \(referring to the action itself\)<br>PRP$: Possessive pronoun|err|
-|gpt\-4o\-mini||Sentence: He can swim\.<br>Word: can|MD|ok|
-|gemma2:9b||Sentence: He can swim\.<br>Word: can|MD|ok|
-|qwen2\.5:3b||Sentence: He can swim\.<br>Word: can|VB|ok|
-|llama3\.2:1b||Sentence: He can swim\.<br>Word: can|Part\-of\-speech tag for "can":<br>NN|ok|
-|gpt\-4o\-mini||Sentence: The cat sleeps\.<br>Word: cat|NN|ok|
-|gemma2:9b||Sentence: The cat sleeps\.<br>Word: cat|NN|ok|
-|qwen2\.5:3b||Sentence: The cat sleeps\.<br>Word: cat|NN|ok|
-|llama3\.2:1b||Sentence: The cat sleeps\.<br>Word: cat|Word: cat<br>Part of speech tag: NN \(Noun singular\)|err|
-|gpt\-4o\-mini||Sentence: Cats are cute\.<br>Word: Cats|NNS|ok|
-|gemma2:9b||Sentence: Cats are cute\.<br>Word: Cats|NN|ok|
-|qwen2\.5:3b||Sentence: Cats are cute\.<br>Word: Cats|NN|ok|
-|llama3\.2:1b||Sentence: Cats are cute\.<br>Word: Cats|In the first sentence, the word "are" is a linking verb \(VBZ\)\. <br>In the second and third sentences, the word 'Cats' can be a proper noun \(NP\) or a common noun \(NN\)\.|err|
-|gpt\-4o\-mini||Sentence: Mary went to Paris\.<br>Word: Mary|NNP|ok|
-|gemma2:9b||Sentence: Mary went to Paris\.<br>Word: Mary|NNP|ok|
-|qwen2\.5:3b||Sentence: Mary went to Paris\.<br>Word: Mary|NN|ok|
-|llama3\.2:1b||Sentence: Mary went to Paris\.<br>Word: Mary|Word: Mary<br>Tag: PRP$|err|
-|gpt\-4o\-mini||Sentence: The Smiths are here\.<br>Word: Smiths|NNS|ok|
-|gemma2:9b||Sentence: The Smiths are here\.<br>Word: Smiths|NNPS|ok|
-|qwen2\.5:3b||Sentence: The Smiths are here\.<br>Word: Smiths|NNS|ok|
-|llama3\.2:1b||Sentence: The Smiths are here\.<br>Word: Smiths|Word: CC: Coordinating conjunction<br>Word: MS: Determiner<br>Word: JSR: Adjective, comparative, JJS: Adjective, superlative<br>Word: Smiths|err|
-|gpt\-4o\-mini||Sentence: Both options are good\.<br>Word: Both|DT|ok|
-|gemma2:9b||Sentence: Both options are good\.<br>Word: Both|CC|ok|
-|qwen2\.5:3b||Sentence: Both options are good\.<br>Word: Both|JJ|ok|
-|llama3\.2:1b||Sentence: Both options are good\.<br>Word: Both|Here are the part of speech tags for each word:<br><br>\- Both: CC \(Coordinating conjunction\)|err|
-|gpt\-4o\-mini||Sentence: John's book is on the table\.<br>Word: 's|POS|err|
-|gemma2:9b||Sentence: John's book is on the table\.<br>Word: 's|POS|ok|
-|qwen2\.5:3b||Sentence: John's book is on the table\.<br>Word: 's|CD|ok|
-|llama3\.2:1b||Sentence: John's book is on the table\.<br>Word: 's|Word: s<br>Tag: CC \(Conjunction\)|err|
-|gpt\-4o\-mini||Sentence: She is here\.<br>Word: She|PRP|ok|
-|gemma2:9b||Sentence: She is here\.<br>Word: She|PRP|ok|
-|qwen2\.5:3b||Sentence: She is here\.<br>Word: She|NN|ok|
-|llama3\.2:1b||Sentence: She is here\.<br>Word: She|NN \(noun\) <br>She <br>NN \(noun\)|err|
-|gpt\-4o\-mini||Sentence: Her car is red\.<br>Word: Her|PRP$|ok|
-|gemma2:9b||Sentence: Her car is red\.<br>Word: Her|PRP$|ok|
-|qwen2\.5:3b||Sentence: Her car is red\.<br>Word: Her|DT|ok|
-|llama3\.2:1b||Sentence: Her car is red\.<br>Word: Her|HH <br>HH <br><br>CantAnswer <br>HH|err|
-|gpt\-4o\-mini||Sentence: She runs quickly\.<br>Word: quickly|RB|ok|
-|gemma2:9b||Sentence: She runs quickly\.<br>Word: quickly|RB|ok|
-|qwen2\.5:3b||Sentence: She runs quickly\.<br>Word: quickly|RB|ok|
-|llama3\.2:1b||Sentence: She runs quickly\.<br>Word: quickly|Part of speech tag for 'She' = PRP$<br>Part of speech tag for 'runs' = VBL \(base form of past participle\)<br>Part of speech tag for 'quickly' = ADJ \(adjective, comparative\)|err|
-|gpt\-4o\-mini||Sentence: She runs faster than him\.<br>Word: faster|RBR|ok|
-|gemma2:9b||Sentence: She runs faster than him\.<br>Word: faster|RBR|ok|
-|qwen2\.5:3b||Sentence: She runs faster than him\.<br>Word: faster|JJ|ok|
-|llama3\.2:1b||Sentence: She runs faster than him\.<br>Word: faster|CantAnswer<br>CantAnswer|err|
-|gpt\-4o\-mini||Sentence: She runs fastest\.<br>Word: fastest|RBS|ok|
-|gemma2:9b||Sentence: She runs fastest\.<br>Word: fastest|RBS|ok|
-|qwen2\.5:3b||Sentence: She runs fastest\.<br>Word: fastest|VBZ|ok|
-|llama3\.2:1b||Sentence: She runs fastest\.<br>Word: fastest|Fastest \(NNP\) <br>fastest <br>fastest|err|
-|gpt\-4o\-mini||Sentence: He gave up smoking\.<br>Word: up|RP|ok|
-|gemma2:9b||Sentence: He gave up smoking\.<br>Word: up|RB <br>RB|ok|
-|qwen2\.5:3b||Sentence: He gave up smoking\.<br>Word: up|IN|ok|
-|llama3\.2:1b||Sentence: He gave up smoking\.<br>Word: up|Word: up <br> Tag: IN \(preposition\) <br><br> Sentence: He gave up smoking\. <br> Word: up <br>Tag: EX \(existential there\)|err|
-|gpt\-4o\-mini||Sentence: The equation is E=mc^2\.<br>Word: =|SYM|ok|
-|gemma2:9b||Sentence: The equation is E=mc^2\.<br>Word: =|RP|ok|
-|qwen2\.5:3b||Sentence: The equation is E=mc^2\.<br>Word: =|RP|ok|
-|llama3\.2:1b||Sentence: The equation is E=mc^2\.<br>Word: =|Sentence: The equation is E=mc^2\.<br><br>JJR: Adjective<br> JJS: Adjective, superlative \(Note: This word could also be tagged as a determiner or pronoun, but based on its usage in this context, it is best tagged as an adjective\)<br><br>Word: =|err|
-|gpt\-4o\-mini||Sentence: I want to go\.<br>Word: to|TO|ok|
-|gemma2:9b||Sentence: I want to go\.<br>Word: to|TO|ok|
-|qwen2\.5:3b||Sentence: I want to go\.<br>Word: to|TO|ok|
-|llama3\.2:1b||Sentence: I want to go\.<br>Word: to|Sentence: CANTANSWER \(The word "to" cannot be tagged with a part of speech\)<br><br>Word: to<br> Sentence: WANT<br> Word: to<br> Sentence: TO|err|
-|gpt\-4o\-mini||Sentence: Wow, that's great\!<br>Word: Wow|UH|ok|
-|gemma2:9b||Sentence: Wow, that's great\!<br>Word: Wow|UH|ok|
-|qwen2\.5:3b||Sentence: Wow, that's great\!<br>Word: Wow|WB|err|
-|llama3\.2:1b||Sentence: Wow, that's great\!<br>Word: Wow|\* Wow \( JJR \)<br>\* that's \( DT \) <br>\* great \( NN \)|err|
-|gpt\-4o\-mini||Sentence: I like to eat\.<br>Word: eat|VB|ok|
-|gemma2:9b||Sentence: I like to eat\.<br>Word: eat|VB <br>VB|err|
-|qwen2\.5:3b||Sentence: I like to eat\.<br>Word: eat|VBZ|ok|
-|llama3\.2:1b||Sentence: I like to eat\.<br>Word: eat|Word: eat<br> Part of speech tag: JJ|ok|
-|gpt\-4o\-mini||Sentence: She walked home\.<br>Word: walked|VBD|ok|
-|gemma2:9b||Sentence: She walked home\.<br>Word: walked|VBD|ok|
-|qwen2\.5:3b||Sentence: She walked home\.<br>Word: walked|VB|ok|
-|llama3\.2:1b||Sentence: She walked home\.<br>Word: walked|PTV: verb<br>VVN: verb \- VV \(Verb is the 1st person singular present tense of walk\)<br>CC: Can't answer\.|err|
-|gpt\-4o\-mini||Sentence: She is swimming\.<br>Word: swimming|VBG|ok|
-|gemma2:9b||Sentence: She is swimming\.<br>Word: swimming|VBG <br><br>swimming is the present participle of the verb to swim|ok|
-|qwen2\.5:3b||Sentence: She is swimming\.<br>Word: swimming|VBNGreater Than 32|err|
-|llama3\.2:1b||Sentence: She is swimming\.<br>Word: swimming|Here are the part of speech tags for each word:<br><br>1\. She \- PRP$<br>2\. is \- IN<br>3\. swimming \- JJ|err|
-|gpt\-4o\-mini||Sentence: She has eaten\.<br>Word: eaten|VBN|ok|
-|gemma2:9b||Sentence: She has eaten\.<br>Word: eaten|VBN|ok|
-|qwen2\.5:3b||Sentence: She has eaten\.<br>Word: eaten|VBN|ok|
-|llama3\.2:1b||Sentence: She has eaten\.<br>Word: eaten|Sentence: she has eaten<br>Tag: VBZ <br>Word: eaten <br><br> Sentence: She has eaten<br> Tag: VERB <br>Word: eaten|err|
-|gpt\-4o\-mini||Sentence: I go home\.<br>Word: go|VB|ok|
-|gemma2:9b||Sentence: I go home\.<br>Word: go|VB|ok|
-|qwen2\.5:3b||Sentence: I go home\.<br>Word: go|VB|ok|
-|llama3\.2:1b||Sentence: I go home\.<br>Word: go|go \- VB \(Base form\)<br>go \- VBG \(Gerund or present participle\)<br>go \- VBP \(Non\-3rd person singular present\)|err|
-|gpt\-4o\-mini||Sentence: He eats an apple\.<br>Word: eats|VB|ok|
-|gemma2:9b||Sentence: He eats an apple\.<br>Word: eats|VBZ|ok|
-|qwen2\.5:3b||Sentence: He eats an apple\.<br>Word: eats|VBZ|ok|
-|llama3\.2:1b||Sentence: He eats an apple\.<br>Word: eats|Word: eats<br>Tag: NN \(Noun\)<br><br>Word: eats<br>Tag: VBD \(Verb\)|err|
-|gpt\-4o\-mini||Sentence: I know which car is yours\.<br>Word: which|WDT|ok|
-|gemma2:9b||Sentence: I know which car is yours\.<br>Word: which|WDT|ok|
-|qwen2\.5:3b||Sentence: I know which car is yours\.<br>Word: which|WP|ok|
-|llama3\.2:1b||Sentence: I know which car is yours\.<br>Word: which|Here are the part of speech tags:<br>\- CC: Coordinating conjunction \(repeated\)<br>\- CD: Cardinal number<br>\- DT: Determiner<br>\- EX: Existential there<br>\- FW: Foreign word<br>\- IN: Preposition <br>\- JJ: Adjective<br>\- JJR: Adjective, comparative<br>\- JJS: Adjective, superlative<br>\- LS: List item marker<br>\- MD: Modal<br>\- NN: Noun \(singular or mass\)<br>\- NNPS: Proper noun, plural \- note that this one is referring to a person but in the context of "knows" it's an object of the verb so the 'proper noun' tag isn't applicable here<br>\- PDT: Predeterminer<br>\- POS: Possessive ending <br>\- PRP: Personal pronoun<br>\- PRP$: Possessive pronoun<br>\- RB: Adverb comparative, RBS: Adverb, superlative \- these are used to describe the verb "know" in this context but still "which" is an adverb indicating location or point so more specific tags would be required <br>\- SYM: Symbol|err|
-|gpt\-4o\-mini||Sentence: Who are you?<br>Word: Who|WP|ok|
-|gemma2:9b||Sentence: Who are you?<br>Word: Who|WDT|ok|
-|qwen2\.5:3b||Sentence: Who are you?<br>Word: Who|WP|ok|
-|llama3\.2:1b||Sentence: Who are you?<br>Word: Who|CC: Sentence<br>JJ: Word<br>SYM: Sentence<br>EX: Adverb<br>VB: Verb|err|
-|gpt\-4o\-mini||Sentence: Whose book is this?<br>Word: Whose|WP$|ok|
-|gemma2:9b||Sentence: Whose book is this?<br>Word: Whose|WDT|ok|
-|qwen2\.5:3b||Sentence: Whose book is this?<br>Word: Whose|WP|ok|
-|llama3\.2:1b||Sentence: Whose book is this?<br>Word: Whose|IN  \- Determiner <br>NP : Noun\.|err|
-|gpt\-4o\-mini||Sentence: When will you arrive?<br>Word: When|WRB|ok|
-|gemma2:9b||Sentence: When will you arrive?<br>Word: When|WDT|ok|
-|qwen2\.5:3b||Sentence: When will you arrive?<br>Word: When|WP|ok|
-|llama3\.2:1b||Sentence: When will you arrive?<br>Word: When|When \*VB\*|err|
-
 ### [intent.txt](./intent.txt)
 
 `````txt
-Determine the part of speech of a given word in a sentence and return its part of speech tag.
+Determine the part of speech tag for a given word in a sentence and return only the tag.
 `````
 
 
 ### [input_spec.txt](./input_spec.txt)
 
 `````txt
-The input is a sentence and a word contained in that sentence.
-The sentence can be any string of words.
-The sentence may include punctuation and symbols.
-The word is a word present in the sentence.
-There is no restriction on the length of the sentence.
-There is no restriction on the length of the word.
+The input consists of a sentence and a word from that sentence.
+The sentence can be of any length.
+The sentence can contain any combination of words, numbers, symbols, or foreign words.
+The word must be a word present in the sentence.
+The word can be any word, regardless of its characteristics.
 `````
 
 
 ### [rules.txt](./rules.txt)
 
 `````txt
-1: The output is a single string containing only the part-of-speech tag corresponding to the given word in the provided sentence.
-2: The part-of-speech tag must be one of the predefined uppercase abbreviations provided in the list, such as 'NN', 'VBD', 'JJ', etc.
-3: If the given word cannot be tagged with any of the predefined part-of-speech tags, the output is the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters.
-4: If the assistant is unable to determine the part-of-speech tag for the word for any reason, the output is the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters.
-5: The output contains only the required part-of-speech tag or the words 'Unknown' or 'CantAnswer', with no additional text, punctuation, or formatting.
-6: All outputs must be exactly as specified, without any additional spaces, explanations, or characters.
+1: The output must be exactly one of the provided part-of-speech tags, "Unknown", or "CantAnswer", and must not include any additional text.
+2: A "part-of-speech tag" is a specific abbreviation representing the grammatical role of a word in a sentence, as defined in the provided list.
+3: If the given word in the context of the provided sentence corresponds to one of the part-of-speech categories from the list, the output must be the exact tag associated with that category.
+4: If the given word cannot be assigned any of the provided part-of-speech tags in the context of the provided sentence, the output must be exactly "Unknown" without any additional characters or text.
+5: If it is impossible to determine the part-of-speech tag for the given word in the context of the provided sentence, the output must be exactly "CantAnswer" without any additional characters or text.
+6: The output must be case-sensitive and match exactly the capitalization of the tags or specified words as provided.
+7: The output must not contain any leading or trailing whitespace or blank lines.
+8: The output must not include any explanations, definitions, examples, or additional information beyond the required tag or specified word.
+9: The list of available part-of-speech tags is as follows: CC: Coordinating conjunction, CD: Cardinal number, DT: Determiner, EX: Existential there, FW: Foreign word, IN: Preposition or subordinating conjunction, JJ: Adjective, JJR: Adjective, comparative, JJS: Adjective, superlative, LS: List item marker, MD: Modal, NN: Noun, singular or mass, NNS: Noun, plural, NNP: Proper noun, singular, NNPS: Proper noun, plural, PDT: Predeterminer, POS: Possessive ending, PRP: Personal pronoun, PRP$: Possessive pronoun, RB: Adverb, RBR: Adverb, comparative, RBS: Adverb, superlative, RP: Particle, SYM: Symbol, TO: to, UH: Interjection, VB: Verb, base form, VBD: Verb, past tense, VBG: Verb, gerund or present participle, VBN: Verb, past participle, VBP: Verb, non-3rd person singular present, VBZ: Verb, 3rd person singular present, WDT: Wh-determiner, WP: Wh-pronoun, WP$: Possessive wh-pronoun, WRB: Wh-adverb.
 `````
 
 
 ### [inverse_rules.txt](./inverse_rules.txt)
 
 `````txt
-7: The output is not a single string containing only the part-of-speech tag corresponding to the given word in the provided sentence.
-8: The part-of-speech tag must not be one of the predefined uppercase abbreviations provided in the list, such as 'NN', 'VBD', 'JJ', etc.
-9: If the given word cannot be tagged with any of the predefined part-of-speech tags, the output is not the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters.
-10: If the assistant is unable to determine the part-of-speech tag for the word for any reason, the output is not the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters.
-11: The output may contain additional text, punctuation, or formatting beyond the required part-of-speech tag or the words 'Unknown' or 'CantAnswer'.
-12: Outputs may include additional spaces, explanations, or characters, and may not be exactly as specified.
+10: The output may include additional text and does not need to be exactly one of the provided part-of-speech tags, "Unknown", or "CantAnswer".
+11: A "part-of-speech tag" is not restricted to the specific abbreviations defined in the provided list.
+12: Even if the given word corresponds to one of the part-of-speech categories from the list, the output does not need to be the exact tag associated with that category.
+13: If the given word cannot be assigned any of the provided part-of-speech tags, the output does not need to be exactly "Unknown".
+14: If it is impossible to determine the part-of-speech tag, the output does not need to be exactly "CantAnswer".
+15: The output does not need to be case-sensitive or match exactly the capitalization of the tags or specified words as provided.
+16: The output may contain leading or trailing whitespace or blank lines.
+17: The output may include explanations, definitions, examples, or additional information beyond the required tag or specified word.
+18: The list of available part-of-speech tags is not limited to those provided and may include additional tags.
 `````
 
 
@@ -417,192 +123,294 @@ There is no restriction on the length of the word.
 
 |testinput|expectedoutput|reasoning|
 |-|-|-|
-|Sentence: 'The cat sat on the mat\.' Word: 'cat'|NN|This test checks that the software outputs only the POS tag 'NN' for the word 'cat', adhering to Rule 1\.|
-|Sentence: 'He is running fast\.' Word: 'running'|VBG|This test ensures the software outputs only 'VBG' for 'running', complying with Rule 1\.|
-|Sentence: 'Wow, that is amazing\!' Word: 'Wow'|UH|This test verifies that only the POS tag 'UH' is returned for 'Wow', as per Rule 1\.|
-|Sentence: 'She reads books every day\.' Word: 'reads'|VBZ|This test confirms that 'reads' is tagged as 'VBZ', a predefined tag, following Rule 2\.|
-|Sentence: 'He has a red apple\.' Word: 'red'|JJ|This test checks that 'red' is correctly tagged as 'JJ', a predefined POS tag, adhering to Rule 2\.|
-|Sentence: 'They are going to school\.' Word: 'to'|TO|This test ensures that 'to' is tagged as 'TO', one of the predefined tags, complying with Rule 2\.|
-|Sentence: 'He said blorf yesterday\.' Word: 'blorf'|Unknown|This test checks that for an untaggable word 'blorf', the software outputs 'Unknown', as specified in Rule 3\.|
-|Sentence: 'The qwerty jumped over the lazy dog\.' Word: 'qwerty'|Unknown|This test ensures that 'qwerty', an unknown word, results in 'Unknown', following Rule 3\.|
-|Sentence: 'She smiled :\) after hearing the news\.' Word: ':\)'|Unknown|This test verifies that an emoticon ':\)' is tagged as 'Unknown', adhering to Rule 3\.|
-|Sentence: '' Word: 'hello'|CantAnswer|This test checks that with an empty sentence, the output is 'CantAnswer', as the POS tag cannot be determined, per Rule 4\.|
-|Sentence: 'He said привет yesterday\.' Word: 'привет'|CantAnswer|This test ensures that non\-English word 'привет' results in 'CantAnswer', complying with Rule 4\.|
-|Sentence: 'He whispered something quietly\.' Word: 'some~thing'|CantAnswer|This test verifies that the irregular word 'some~thing' leads to 'CantAnswer', as specified in Rule 4\.|
-|Sentence: 'She sings beautifully\.' Word: 'sings'|VBZ|This test confirms that only 'VBZ' is output for 'sings', with no extra text, adhering to Rule 5\.|
-|Sentence: 'They quickly ran away\.' Word: 'quickly'|RB|This test ensures the output is 'RB' for 'quickly', without additional text, following Rule 5\.|
-|Sentence: 'I will call you tomorrow\.' Word: 'tomorrow'|NN|This test verifies that only 'NN' is returned for 'tomorrow', complying with Rule 5\.|
-|Sentence: 'This is a test\.' Word: 'test'|NN|This test checks that the output is exactly 'NN', with no extra spaces or characters, as per Rule 6\.|
-|Sentence: 'He arrived late\.' Word: 'late'|RB|This test ensures that 'late' is tagged as 'RB' precisely, adhering to Rule 6\.|
-|Sentence: 'The book is interesting\.' Word: 'interesting'|JJ|This test confirms that only 'JJ' is output for 'interesting', following Rule 6\.|
-|Sentence: 'She is reading a book\.' Word: 'reading'|The POS tag for 'reading' is VBG\.|This test checks that the output includes additional text, not just the POS tag, complying with Rule 7\.|
-|Sentence: 'They arrived late\.' Word: 'late'|RB \(adverb\)|This test ensures the output provides more information than just 'RB', adhering to Rule 7\.|
-|Sentence: 'He bought apples\.' Word: 'apples'|The word 'apples' is a plural noun \(NNS\)\.|This test verifies that the output is not a single POS tag, as specified in Rule 7\.|
-|Sentence: 'She sings beautifully\.' Word: 'sings'|Verb|This test checks that 'sings' is tagged as 'Verb' instead of 'VBZ', complying with Rule 8\.|
-|Sentence: 'He has a red car\.' Word: 'red'|Adjective|This test ensures that 'red' is labeled 'Adjective' rather than 'JJ', following Rule 8\.|
-|Sentence: 'They play soccer every weekend\.' Word: 'play'|Verb|This test confirms that 'play' is tagged as 'Verb', not 'VBP', adhering to Rule 8\.|
-|Sentence: 'He said blorf yesterday\.' Word: 'blorf'|Unrecognized word|This test checks that the output is not 'Unknown' for 'blorf', complying with Rule 9\.|
-|Sentence: 'Please fix the asdkjfh\.' Word: 'asdkjfh'|Word cannot be tagged|This test ensures a different message than 'Unknown' is returned, following Rule 9\.|
-|Sentence: 'She smiled :\)\.' Word: ':\)'|Not applicable|This test verifies that the output is not 'Unknown' for ':\)', as specified in Rule 9\.|
-|Sentence: '' Word: 'hello'|No sentence provided|This test checks that 'CantAnswer' is not output when the sentence is empty, complying with Rule 10\.|
-|Sentence: 'He said привет\.' Word: 'привет'|Unable to process non\-English characters|This test ensures a different output than 'CantAnswer' for 'привет', following Rule 10\.|
-|Sentence: 'The value is 100%\.' Word: '100%'|Cannot tag symbols|This test verifies that 'CantAnswer' is not returned for '100%', adhering to Rule 10\.|
-|Sentence: 'She sang a song\.' Word: 'sang'|VBD\!|This test checks that the output includes punctuation, complying with Rule 11\.|
-|Sentence: 'He is fast\.' Word: 'fast'|\[RB\]|This test ensures the output has additional formatting, following Rule 11\.|
-|Sentence: 'They are running\.' Word: 'running'|VBG \- Verb, gerund|This test verifies that extra explanation is included, adhering to Rule 11\.|
-|Sentence: 'It's a beautiful day\.' Word: 'beautiful'|JJ|This test checks that the output includes an extra space, complying with Rule 12\.|
-|Sentence: 'Time flies\.' Word: 'Time'| NN|This test ensures there is an additional space before 'NN', following Rule 12\.|
-|Sentence: 'He will arrive soon\.' Word: 'will'|MD \(modal\)|This test verifies that extra characters are included in the output, adhering to Rule 12\.|
+|Sentence: 'She runs every morning\.' Word: 'runs'|VBZ|The word 'runs' is a third\-person singular present verb, tagged as 'VBZ'\. This test ensures the software outputs only the tag without additional text, adhering to Rule 1\.|
+|Sentence: 'They have many 'qwerty' devices\.' Word: 'qwerty'|Unknown|The word 'qwerty' doesn't correspond to any provided POS tag; the software should output 'Unknown' exactly, per Rule 1\.|
+|Sentence: 'He mentioned 'xyzzy' in the conversation\.' Word: 'xyzzy'|CantAnswer|It's impossible to assign a POS tag to 'xyzzy'; the expected output is 'CantAnswer'\. This tests that the software outputs only 'CantAnswer' without additional text, following Rule 1\.|
+|Sentence: 'He is an intelligent person\.' Word: 'intelligent'|JJ|The word 'intelligent' is an adjective, tagged as 'JJ'\. This ensures that only specified tags are accepted, per Rule 2\.|
+|Sentence: 'They went to multiple concerts\.' Word: 'concerts'|NNS|The word 'concerts' is a plural noun, tagged as 'NNS'\. This test confirms the software uses tags from the provided list, adhering to Rule 2\.|
+|Sentence: 'London is a bustling city\.' Word: 'London'|NNP|The word 'London' is a proper noun, singular, tagged as 'NNP'\. This ensures only specified tags are used, following Rule 2\.|
+|Sentence: 'He is happier today\.' Word: 'happier'|JJR|The word 'happier' is a comparative adjective, tagged as 'JJR'\. This tests that the correct tag is used, adhering to Rule 3\.|
+|Sentence: 'They are playing in the park\.' Word: 'playing'|VBG|The word 'playing' is a present participle verb, tagged as 'VBG'\. This ensures the exact tag is used, following Rule 3\.|
+|Sentence: 'Please lend me your book\.' Word: 'your'|PRP$|The word 'your' is a possessive pronoun, tagged as 'PRP$'\. This tests that the exact associated tag is returned, adhering to Rule 3\.|
+|Sentence: 'The quick brown fox jumps over the lazy dog blork\.' Word: 'blork'|Unknown|The word 'blork' cannot be assigned any provided POS tag; the software should output 'Unknown' exactly, per Rule 4\.|
+|Sentence: 'She used 'asdfgh' in her essay\.' Word: 'asdfgh'|Unknown|The word 'asdfgh' doesn't match any POS tag; this ensures the software outputs 'Unknown', following Rule 4\.|
+|Sentence: 'He found the artifact 'Qwertz' in the ruins\.' Word: 'Qwertz'|Unknown|The word 'Qwertz' cannot be tagged with any provided POS tag; the expected output is 'Unknown', adhering to Rule 4\.|
+|Sentence: 'The old man the boat\.' Word: 'man'|CantAnswer|In this sentence, 'man' could be a verb or noun; it's impossible to determine the POS without more context, so 'CantAnswer' is expected, per Rule 5\.|
+|Sentence: 'Time flies like an arrow; fruit flies like a banana\.' Word: 'flies'|CantAnswer|The word 'flies' is ambiguous between noun and verb; the software should output 'CantAnswer', following Rule 5\.|
+|Sentence: 'She saw her duck\.' Word: 'duck'|CantAnswer|The word 'duck' can be a noun or verb here; it's impossible to determine without additional context, so 'CantAnswer' is expected, per Rule 5\.|
+|Sentence: 'He will go to the market\.' Word: 'He'|PRP|The word 'He' is a pronoun, tagged as 'PRP'\. This tests that the output is case\-sensitive, adhering to Rule 6\.|
+|Sentence: 'She had many dreams\.' Word: 'had'|VBD|The word 'had' is a past tense verb, tagged as 'VBD'\. This ensures the output matches the capitalization exactly, following Rule 6\.|
+|Sentence: 'I love to read\.' Word: 'to'|TO|The word 'to' is tagged as 'TO'\. This test ensures the output is case\-sensitive and matches exactly, adhering to Rule 6\.|
+|Sentence: 'They are running fast\.' Word: 'running'|VBG|The word 'running' is tagged as 'VBG'\. This test checks there's no leading/trailing whitespace in the output, following Rule 7\.|
+|Sentence: 'She is a teacher\.' Word: 'teacher'|NN|The word 'teacher' is tagged as 'NN'\. This ensures the output has no extra spaces, adhering to Rule 7\.|
+|Sentence: 'Can you help me?' Word: 'me'|PRP|The word 'me' is tagged as 'PRP'\. This tests that the output doesn't contain blank lines or spaces, following Rule 7\.|
+|Sentence: 'They happily agreed\.' Word: 'happily'|RB|The word 'happily' is an adverb, tagged as 'RB'\. This ensures no additional information is included in the output, adhering to Rule 8\.|
+|Sentence: 'That is an unusual sight\.' Word: 'unusual'|JJ|The word 'unusual' is an adjective, tagged as 'JJ'\. This test checks that only the tag is output, following Rule 8\.|
+|Sentence: 'She might come later\.' Word: 'might'|MD|The word 'might' is a modal verb, tagged as 'MD'\. This ensures no explanations are included, adhering to Rule 8\.|
+|Sentence: 'He bought a new car\.' Word: 'car'|NN|The word 'car' is tagged as 'NN', which is in the provided list\. This confirms only specified tags are used, following Rule 9\.|
+|Sentence: 'She is reading a book\.' Word: 'reading'|VBG|The word 'reading' is tagged as 'VBG'\. This ensures the use of tags from the list, adhering to Rule 9\.|
+|Sentence: 'He said 'Bonjour' to them\.' Word: 'Bonjour'|FW|The word 'Bonjour' is a foreign word, tagged as 'FW'\. This confirms only the provided tags are used, following Rule 9\.|
+|Sentence: 'They won easily\.' Word: 'won'|VBD|The software should output 'VBD' without additional text, ensuring it doesn't include extra output despite Rule 10 stating it may\.|
+|Sentence: 'He will arrive soon\.' Word: 'arrive'|VB|The software should output 'VB' only, not including extra text, confirming it doesn't follow Rule 10\.|
+|Sentence: 'Wow\! That was amazing\!' Word: 'Wow'|UH|The software should output 'UH' without extra text, ensuring it doesn't adhere to Rule 10\.|
+|Sentence: 'He discussed the plan\.' Word: 'discussed'|VBD|The software should output 'VBD', using only tags from the provided list, not adhering to Rule 11\.|
+|Sentence: 'She has an appointment\.' Word: 'appointment'|NN|The software should output 'NN', confirming it doesn't use tags outside the list, contrary to Rule 11\.|
+|Sentence: 'They ended the meeting early\.' Word: 'ended'|VBD|The software uses 'VBD' from the list, ensuring it doesn't follow Rule 11\.|
+|Sentence: 'She is the best player\.' Word: 'best'|JJS|The software should output 'JJS' exactly, not any other tag, ensuring it doesn't follow Rule 12\.|
+|Sentence: 'He runs faster than you\.' Word: 'faster'|JJR|The word 'faster' is tagged as 'JJR'\. This ensures the exact tag is returned, not adhering to Rule 12\.|
+|Sentence: 'They arrived early\.' Word: 'early'|RB|The software should output 'RB' only, not deviating from the exact tag, contrary to Rule 12\.|
+|Sentence: 'She found the 'blargh' in the cave\.' Word: 'blargh'|Unknown|The software should output 'Unknown' exactly, not following Rule 13 which allows otherwise\.|
+|Sentence: 'He mentioned 'snorfblat' in his speech\.' Word: 'snorfblat'|Unknown|The word can't be tagged; the software should output 'Unknown', ensuring it doesn't adhere to Rule 13\.|
+|Sentence: 'They discovered a 'zibble' in the forest\.' Word: 'zibble'|Unknown|The software outputs 'Unknown', not deviating as per Rule 13\.|
+|Sentence: 'I can't decide whether to desert or not\.' Word: 'desert'|CantAnswer|Due to ambiguity, the software should output 'CantAnswer', not following Rule 14\.|
+|Sentence: 'She left him her book\.' Word: 'left'|CantAnswer|It's unclear if 'left' is a verb or adjective here; the software should output 'CantAnswer', contrary to Rule 14\.|
+|Sentence: 'He saw the duck\.' Word: 'duck'|CantAnswer|The word 'duck' can be a noun or verb; the software should output 'CantAnswer', not adhering to Rule 14\.|
+|Sentence: 'They will win\.' Word: 'win'|VB|The software outputs 'VB' with correct capitalization, ensuring it doesn't follow Rule 15\.|
+|Sentence: 'She gave me a gift\.' Word: 'gave'|VBD|The software outputs 'VBD', matching case exactly, contrary to Rule 15\.|
+|Sentence: 'I love reading books\.' Word: 'books'|NNS|The software outputs 'NNS' with correct case, not adhering to Rule 15\.|
+|Sentence: 'She laughed loudly\.' Word: 'laughed'|VBD|The software outputs 'VBD' without extra spaces, ensuring it doesn't follow Rule 16\.|
+|Sentence: 'He writes daily\.' Word: 'writes'|VBZ|The software outputs 'VBZ' without leading/trailing whitespace, contrary to Rule 16\.|
+|Sentence: 'They enjoy swimming\.' Word: 'swimming'|VBG|The software outputs 'VBG' without blank lines, not adhering to Rule 16\.|
+|Sentence: 'It is raining heavily\.' Word: 'heavily'|RB|The software outputs 'RB' only, without explanations, ensuring it doesn't follow Rule 17\.|
+|Sentence: 'She sings beautifully\.' Word: 'beautifully'|RB|The software outputs 'RB' without additional info, contrary to Rule 17\.|
+|Sentence: 'He solved the problem easily\.' Word: 'easily'|RB|The software outputs 'RB' only, not adhering to Rule 17\.|
+|Sentence: 'She will be arriving soon\.' Word: 'arriving'|VBG|The software uses 'VBG' from the provided list, ensuring it doesn't follow Rule 18\.|
+|Sentence: 'They need to analyze the data\.' Word: 'analyze'|VB|The software outputs 'VB', not introducing new tags, contrary to Rule 18\.|
+|Sentence: 'He is an exceptional individual\.' Word: 'exceptional'|JJ|The software uses 'JJ' from the list, not adhering to Rule 18\.|
 
 ### [test_evals.csv](./test_evals.csv)
 
 |rule|model|input|coverage|validity|
 |-|-|-|-|-|
-|The output is a single string containing only the part\-of\-speech tag corresponding to the given word in the provided sentence\.|gpt\-4o\-2024\-08\-06|Sentence: 'The cat sat on the mat\.' Word: 'cat'|NN|ok|
-|The output is a single string containing only the part\-of\-speech tag corresponding to the given word in the provided sentence\.|gpt\-4o\-2024\-08\-06|Sentence: 'He is running fast\.' Word: 'running'|VBG|ok|
-|The output is a single string containing only the part\-of\-speech tag corresponding to the given word in the provided sentence\.|gpt\-4o\-2024\-08\-06|Sentence: 'Wow, that is amazing\!' Word: 'Wow'|UH|ok|
-|The part\-of\-speech tag must be one of the predefined uppercase abbreviations provided in the list, such as 'NN', 'VBD', 'JJ', etc\.|gpt\-4o\-2024\-08\-06|Sentence: 'She reads books every day\.' Word: 'reads'|VBZ|ok|
-|The part\-of\-speech tag must be one of the predefined uppercase abbreviations provided in the list, such as 'NN', 'VBD', 'JJ', etc\.|gpt\-4o\-2024\-08\-06|Sentence: 'He has a red apple\.' Word: 'red'|JJ|ok|
-|The part\-of\-speech tag must be one of the predefined uppercase abbreviations provided in the list, such as 'NN', 'VBD', 'JJ', etc\.|gpt\-4o\-2024\-08\-06|Sentence: 'They are going to school\.' Word: 'to'|TO|ok|
-|If the given word cannot be tagged with any of the predefined part\-of\-speech tags, the output is the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters\.|gpt\-4o\-2024\-08\-06|Sentence: 'He said blorf yesterday\.' Word: 'blorf'|Unknown|ok|
-|If the given word cannot be tagged with any of the predefined part\-of\-speech tags, the output is the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters\.|gpt\-4o\-2024\-08\-06|Sentence: 'The qwerty jumped over the lazy dog\.' Word: 'qwerty'|Unknown|ok|
-|If the given word cannot be tagged with any of the predefined part\-of\-speech tags, the output is the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters\.|gpt\-4o\-2024\-08\-06|Sentence: 'She smiled :\) after hearing the news\.' Word: ':\)'|Unknown|ok|
-|If the assistant is unable to determine the part\-of\-speech tag for the word for any reason, the output is the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters\.|gpt\-4o\-2024\-08\-06|Sentence: '' Word: 'hello'|Unknown|err|
-|If the assistant is unable to determine the part\-of\-speech tag for the word for any reason, the output is the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters\.|gpt\-4o\-2024\-08\-06|Sentence: 'He said привет yesterday\.' Word: 'привет'|Unknown|ok|
-|If the assistant is unable to determine the part\-of\-speech tag for the word for any reason, the output is the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters\.|gpt\-4o\-2024\-08\-06|Sentence: 'He whispered something quietly\.' Word: 'some~thing'|CantAnswer|err|
-|The output contains only the required part\-of\-speech tag or the words 'Unknown' or 'CantAnswer', with no additional text, punctuation, or formatting\.|gpt\-4o\-2024\-08\-06|Sentence: 'She sings beautifully\.' Word: 'sings'|VBZ|ok|
-|The output contains only the required part\-of\-speech tag or the words 'Unknown' or 'CantAnswer', with no additional text, punctuation, or formatting\.|gpt\-4o\-2024\-08\-06|Sentence: 'They quickly ran away\.' Word: 'quickly'|RB|ok|
-|The output contains only the required part\-of\-speech tag or the words 'Unknown' or 'CantAnswer', with no additional text, punctuation, or formatting\.|gpt\-4o\-2024\-08\-06|Sentence: 'I will call you tomorrow\.' Word: 'tomorrow'|RB|ok|
-|All outputs must be exactly as specified, without any additional spaces, explanations, or characters\.|gpt\-4o\-2024\-08\-06|Sentence: 'This is a test\.' Word: 'test'|NN|ok|
-|All outputs must be exactly as specified, without any additional spaces, explanations, or characters\.|gpt\-4o\-2024\-08\-06|Sentence: 'He arrived late\.' Word: 'late'|RB|ok|
-|All outputs must be exactly as specified, without any additional spaces, explanations, or characters\.|gpt\-4o\-2024\-08\-06|Sentence: 'The book is interesting\.' Word: 'interesting'|JJ|ok|
-|The output is not a single string containing only the part\-of\-speech tag corresponding to the given word in the provided sentence\.|gpt\-4o\-2024\-08\-06|Sentence: 'She is reading a book\.' Word: 'reading'|VBG|ok|
-|The output is not a single string containing only the part\-of\-speech tag corresponding to the given word in the provided sentence\.|gpt\-4o\-2024\-08\-06|Sentence: 'They arrived late\.' Word: 'late'|RB|ok|
-|The output is not a single string containing only the part\-of\-speech tag corresponding to the given word in the provided sentence\.|gpt\-4o\-2024\-08\-06|Sentence: 'He bought apples\.' Word: 'apples'|NNS|ok|
-|The output contains only the required part\-of\-speech tag or the words 'Unknown' or 'CantAnswer', with no additional text, punctuation, or formatting\.|gpt\-4o\-2024\-08\-06|Sentence: 'She sings beautifully\.' Word: 'sings'|VBZ|ok|
-|The part\-of\-speech tag must not be one of the predefined uppercase abbreviations provided in the list, such as 'NN', 'VBD', 'JJ', etc\.|gpt\-4o\-2024\-08\-06|Sentence: 'He has a red car\.' Word: 'red'|JJ|ok|
-|The part\-of\-speech tag must not be one of the predefined uppercase abbreviations provided in the list, such as 'NN', 'VBD', 'JJ', etc\.|gpt\-4o\-2024\-08\-06|Sentence: 'They play soccer every weekend\.' Word: 'play'|VB|ok|
-|If the given word cannot be tagged with any of the predefined part\-of\-speech tags, the output is the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters\.|gpt\-4o\-2024\-08\-06|Sentence: 'He said blorf yesterday\.' Word: 'blorf'|Unknown|ok|
-|If the given word cannot be tagged with any of the predefined part\-of\-speech tags, the output is not the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters\.|gpt\-4o\-2024\-08\-06|Sentence: 'Please fix the asdkjfh\.' Word: 'asdkjfh'|Unknown|ok|
-|If the given word cannot be tagged with any of the predefined part\-of\-speech tags, the output is not the word 'Unknown', starting with an uppercase 'U' followed by lowercase letters\.|gpt\-4o\-2024\-08\-06|Sentence: 'She smiled :\)\.' Word: ':\)'|Unknown|ok|
-|If the assistant is unable to determine the part\-of\-speech tag for the word for any reason, the output is the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters\.|gpt\-4o\-2024\-08\-06|Sentence: '' Word: 'hello'|Unknown|err|
-|If the assistant is unable to determine the part\-of\-speech tag for the word for any reason, the output is not the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters\.|gpt\-4o\-2024\-08\-06|Sentence: 'He said привет\.' Word: 'привет'|Unknown|ok|
-|If the assistant is unable to determine the part\-of\-speech tag for the word for any reason, the output is not the word 'CantAnswer', with an uppercase 'C' and an uppercase 'A' and the rest in lowercase letters\.|gpt\-4o\-2024\-08\-06|Sentence: 'The value is 100%\.' Word: '100%'|NN|ok|
-|The output may contain additional text, punctuation, or formatting beyond the required part\-of\-speech tag or the words 'Unknown' or 'CantAnswer'\.|gpt\-4o\-2024\-08\-06|Sentence: 'She sang a song\.' Word: 'sang'|VBD|ok|
-|The output may contain additional text, punctuation, or formatting beyond the required part\-of\-speech tag or the words 'Unknown' or 'CantAnswer'\.|gpt\-4o\-2024\-08\-06|Sentence: 'He is fast\.' Word: 'fast'|JJ|ok|
-|The output may contain additional text, punctuation, or formatting beyond the required part\-of\-speech tag or the words 'Unknown' or 'CantAnswer'\.|gpt\-4o\-2024\-08\-06|Sentence: 'They are running\.' Word: 'running'|VBG|ok|
-|Outputs may include additional spaces, explanations, or characters, and may not be exactly as specified\.|gpt\-4o\-2024\-08\-06|Sentence: 'It's a beautiful day\.' Word: 'beautiful'|JJ|ok|
-|Outputs may include additional spaces, explanations, or characters, and may not be exactly as specified\.|gpt\-4o\-2024\-08\-06|Sentence: 'Time flies\.' Word: 'Time'|NN|ok|
-|Outputs may include additional spaces, explanations, or characters, and may not be exactly as specified\.|gpt\-4o\-2024\-08\-06|Sentence: 'He will arrive soon\.' Word: 'will'|MD|ok|
+|The output must be exactly one of the provided part\-of\-speech tags, "Unknown", or "CantAnswer", and must not include any additional text\.|gpt\-4o\-2024\-08\-06|Sentence: 'She runs every morning\.' Word: 'runs'|VBZ|ok|
+|The output must be exactly one of the provided part\-of\-speech tags, "Unknown", or "CantAnswer", and must not include any additional text\.|gpt\-4o\-2024\-08\-06|Sentence: 'They have many 'qwerty' devices\.' Word: 'qwerty'|FW|ok|
+|The output must be exactly one of the provided part\-of\-speech tags, "Unknown", or "CantAnswer", and must not include any additional text\.|gpt\-4o\-2024\-08\-06|Sentence: 'He mentioned 'xyzzy' in the conversation\.' Word: 'xyzzy'|FW|ok|
+|A "part\-of\-speech tag" is a specific abbreviation representing the grammatical role of a word in a sentence, as defined in the provided list\.|gpt\-4o\-2024\-08\-06|Sentence: 'He is an intelligent person\.' Word: 'intelligent'|JJ|ok|
+|A "part\-of\-speech tag" is a specific abbreviation representing the grammatical role of a word in a sentence, as defined in the provided list\.|gpt\-4o\-2024\-08\-06|Sentence: 'They went to multiple concerts\.' Word: 'concerts'|NNS|ok|
+|A "part\-of\-speech tag" is a specific abbreviation representing the grammatical role of a word in a sentence, as defined in the provided list\.|gpt\-4o\-2024\-08\-06|Sentence: 'London is a bustling city\.' Word: 'London'|NNP|ok|
+|If the given word in the context of the provided sentence corresponds to one of the part\-of\-speech categories from the list, the output must be the exact tag associated with that category\.|gpt\-4o\-2024\-08\-06|Sentence: 'He is happier today\.' Word: 'happier'|JJR|ok|
+|If the given word in the context of the provided sentence corresponds to one of the part\-of\-speech categories from the list, the output must be the exact tag associated with that category\.|gpt\-4o\-2024\-08\-06|Sentence: 'They are playing in the park\.' Word: 'playing'|VBG|ok|
+|If the given word in the context of the provided sentence corresponds to one of the part\-of\-speech categories from the list, the output must be the exact tag associated with that category\.|gpt\-4o\-2024\-08\-06|Sentence: 'Please lend me your book\.' Word: 'your'|PRP$|ok|
+|If the given word cannot be assigned any of the provided part\-of\-speech tags in the context of the provided sentence, the output must be exactly "Unknown" without any additional characters or text\.|gpt\-4o\-2024\-08\-06|Sentence: 'The quick brown fox jumps over the lazy dog blork\.' Word: 'blork'|Unknown|ok|
+|If the given word cannot be assigned any of the provided part\-of\-speech tags in the context of the provided sentence, the output must be exactly "Unknown" without any additional characters or text\.|gpt\-4o\-2024\-08\-06|Sentence: 'She used 'asdfgh' in her essay\.' Word: 'asdfgh'|FW|ok|
+|If the given word cannot be assigned any of the provided part\-of\-speech tags in the context of the provided sentence, the output must be exactly "Unknown" without any additional characters or text\.|gpt\-4o\-2024\-08\-06|Sentence: 'He found the artifact 'Qwertz' in the ruins\.' Word: 'Qwertz'|NNP|ok|
+|If it is impossible to determine the part\-of\-speech tag for the given word in the context of the provided sentence, the output must be exactly "CantAnswer" without any additional characters or text\.|gpt\-4o\-2024\-08\-06|Sentence: 'The old man the boat\.' Word: 'man'|VB|ok|
+|If it is impossible to determine the part\-of\-speech tag for the given word in the context of the provided sentence, the output must be exactly "CantAnswer" without any additional characters or text\.|gpt\-4o\-2024\-08\-06|Sentence: 'Time flies like an arrow; fruit flies like a banana\.' Word: 'flies'|VBZ|ok|
+|If it is impossible to determine the part\-of\-speech tag for the given word in the context of the provided sentence, the output must be exactly "CantAnswer" without any additional characters or text\.|gpt\-4o\-2024\-08\-06|Sentence: 'She saw her duck\.' Word: 'duck'|VB|ok|
+|The output must be case\-sensitive and match exactly the capitalization of the tags or specified words as provided\.|gpt\-4o\-2024\-08\-06|Sentence: 'He will go to the market\.' Word: 'He'|PRP|ok|
+|The output must be case\-sensitive and match exactly the capitalization of the tags or specified words as provided\.|gpt\-4o\-2024\-08\-06|Sentence: 'She had many dreams\.' Word: 'had'|VBD|ok|
+|The output must be case\-sensitive and match exactly the capitalization of the tags or specified words as provided\.|gpt\-4o\-2024\-08\-06|Sentence: 'I love to read\.' Word: 'to'|TO|ok|
+|The output must not contain any leading or trailing whitespace or blank lines\.|gpt\-4o\-2024\-08\-06|Sentence: 'They are running fast\.' Word: 'running'|VBG|ok|
+|The output must not contain any leading or trailing whitespace or blank lines\.|gpt\-4o\-2024\-08\-06|Sentence: 'She is a teacher\.' Word: 'teacher'|NN|ok|
+|The output must not contain any leading or trailing whitespace or blank lines\.|gpt\-4o\-2024\-08\-06|Sentence: 'Can you help me?' Word: 'me'|PRP|ok|
+|The output must not include any explanations, definitions, examples, or additional information beyond the required tag or specified word\.|gpt\-4o\-2024\-08\-06|Sentence: 'They happily agreed\.' Word: 'happily'|RB|ok|
+|The output must not include any explanations, definitions, examples, or additional information beyond the required tag or specified word\.|gpt\-4o\-2024\-08\-06|Sentence: 'That is an unusual sight\.' Word: 'unusual'|JJ|ok|
+|The output must not include any explanations, definitions, examples, or additional information beyond the required tag or specified word\.|gpt\-4o\-2024\-08\-06|Sentence: 'She might come later\.' Word: 'might'|MD|ok|
+|The list of available part\-of\-speech tags is as follows: CC: Coordinating conjunction, CD: Cardinal number, DT: Determiner, EX: Existential there, FW: Foreign word, IN: Preposition or subordinating conjunction, JJ: Adjective, JJR: Adjective, comparative, JJS: Adjective, superlative, LS: List item marker, MD: Modal, NN: Noun, singular or mass, NNS: Noun, plural, NNP: Proper noun, singular, NNPS: Proper noun, plural, PDT: Predeterminer, POS: Possessive ending, PRP: Personal pronoun, PRP$: Possessive pronoun, RB: Adverb, RBR: Adverb, comparative, RBS: Adverb, superlative, RP: Particle, SYM: Symbol, TO: to, UH: Interjection, VB: Verb, base form, VBD: Verb, past tense, VBG: Verb, gerund or present participle, VBN: Verb, past participle, VBP: Verb, non\-3rd person singular present, VBZ: Verb, 3rd person singular present, WDT: Wh\-determiner, WP: Wh\-pronoun, WP$: Possessive wh\-pronoun, WRB: Wh\-adverb\.|gpt\-4o\-2024\-08\-06|Sentence: 'He bought a new car\.' Word: 'car'|NN|ok|
+|The list of available part\-of\-speech tags is as follows: CC: Coordinating conjunction, CD: Cardinal number, DT: Determiner, EX: Existential there, FW: Foreign word, IN: Preposition or subordinating conjunction, JJ: Adjective, JJR: Adjective, comparative, JJS: Adjective, superlative, LS: List item marker, MD: Modal, NN: Noun, singular or mass, NNS: Noun, plural, NNP: Proper noun, singular, NNPS: Proper noun, plural, PDT: Predeterminer, POS: Possessive ending, PRP: Personal pronoun, PRP$: Possessive pronoun, RB: Adverb, RBR: Adverb, comparative, RBS: Adverb, superlative, RP: Particle, SYM: Symbol, TO: to, UH: Interjection, VB: Verb, base form, VBD: Verb, past tense, VBG: Verb, gerund or present participle, VBN: Verb, past participle, VBP: Verb, non\-3rd person singular present, VBZ: Verb, 3rd person singular present, WDT: Wh\-determiner, WP: Wh\-pronoun, WP$: Possessive wh\-pronoun, WRB: Wh\-adverb\.|gpt\-4o\-2024\-08\-06|Sentence: 'She is reading a book\.' Word: 'reading'|VBG|ok|
+|The list of available part\-of\-speech tags is as follows: CC: Coordinating conjunction, CD: Cardinal number, DT: Determiner, EX: Existential there, FW: Foreign word, IN: Preposition or subordinating conjunction, JJ: Adjective, JJR: Adjective, comparative, JJS: Adjective, superlative, LS: List item marker, MD: Modal, NN: Noun, singular or mass, NNS: Noun, plural, NNP: Proper noun, singular, NNPS: Proper noun, plural, PDT: Predeterminer, POS: Possessive ending, PRP: Personal pronoun, PRP$: Possessive pronoun, RB: Adverb, RBR: Adverb, comparative, RBS: Adverb, superlative, RP: Particle, SYM: Symbol, TO: to, UH: Interjection, VB: Verb, base form, VBD: Verb, past tense, VBG: Verb, gerund or present participle, VBN: Verb, past participle, VBP: Verb, non\-3rd person singular present, VBZ: Verb, 3rd person singular present, WDT: Wh\-determiner, WP: Wh\-pronoun, WP$: Possessive wh\-pronoun, WRB: Wh\-adverb\.|gpt\-4o\-2024\-08\-06|Sentence: 'He said 'Bonjour' to them\.' Word: 'Bonjour'|FW|ok|
+|The output may include additional text and does not need to be exactly one of the provided part\-of\-speech tags, "Unknown", or "CantAnswer"\.|gpt\-4o\-2024\-08\-06|Sentence: 'They won easily\.' Word: 'won'|VBD|ok|
+|The output may include additional text and does not need to be exactly one of the provided part\-of\-speech tags, "Unknown", or "CantAnswer"\.|gpt\-4o\-2024\-08\-06|Sentence: 'He will arrive soon\.' Word: 'arrive'|VB|ok|
+|The output may include additional text and does not need to be exactly one of the provided part\-of\-speech tags, "Unknown", or "CantAnswer"\.|gpt\-4o\-2024\-08\-06|Sentence: 'Wow\! That was amazing\!' Word: 'Wow'|UH|ok|
+|A "part\-of\-speech tag" is not restricted to the specific abbreviations defined in the provided list\.|gpt\-4o\-2024\-08\-06|Sentence: 'He discussed the plan\.' Word: 'discussed'|VBD|ok|
+|A "part\-of\-speech tag" is not restricted to the specific abbreviations defined in the provided list\.|gpt\-4o\-2024\-08\-06|Sentence: 'She has an appointment\.' Word: 'appointment'|NN|ok|
+|A "part\-of\-speech tag" is not restricted to the specific abbreviations defined in the provided list\.|gpt\-4o\-2024\-08\-06|Sentence: 'They ended the meeting early\.' Word: 'ended'|VBD|ok|
+|Even if the given word corresponds to one of the part\-of\-speech categories from the list, the output does not need to be the exact tag associated with that category\.|gpt\-4o\-2024\-08\-06|Sentence: 'She is the best player\.' Word: 'best'|JJS|ok|
+|Even if the given word corresponds to one of the part\-of\-speech categories from the list, the output does not need to be the exact tag associated with that category\.|gpt\-4o\-2024\-08\-06|Sentence: 'He runs faster than you\.' Word: 'faster'|JJR|ok|
+|Even if the given word corresponds to one of the part\-of\-speech categories from the list, the output does not need to be the exact tag associated with that category\.|gpt\-4o\-2024\-08\-06|Sentence: 'They arrived early\.' Word: 'early'|RB|ok|
+|If the given word cannot be assigned any of the provided part\-of\-speech tags, the output does not need to be exactly "Unknown"\.|gpt\-4o\-2024\-08\-06|Sentence: 'She found the 'blargh' in the cave\.' Word: 'blargh'|FW|ok|
+|If the given word cannot be assigned any of the provided part\-of\-speech tags, the output does not need to be exactly "Unknown"\.|gpt\-4o\-2024\-08\-06|Sentence: 'He mentioned 'snorfblat' in his speech\.' Word: 'snorfblat'|FW|ok|
+|If the given word cannot be assigned any of the provided part\-of\-speech tags, the output does not need to be exactly "Unknown"\.|gpt\-4o\-2024\-08\-06|Sentence: 'They discovered a 'zibble' in the forest\.' Word: 'zibble'|FW|ok|
+|If it is impossible to determine the part\-of\-speech tag, the output does not need to be exactly "CantAnswer"\.|gpt\-4o\-2024\-08\-06|Sentence: 'I can't decide whether to desert or not\.' Word: 'desert'|VB|ok|
+|If it is impossible to determine the part\-of\-speech tag, the output does not need to be exactly "CantAnswer"\.|gpt\-4o\-2024\-08\-06|Sentence: 'She left him her book\.' Word: 'left'|VBD|ok|
+|If it is impossible to determine the part\-of\-speech tag, the output does not need to be exactly "CantAnswer"\.|gpt\-4o\-2024\-08\-06|Sentence: 'He saw the duck\.' Word: 'duck'|VB|ok|
+|The output does not need to be case\-sensitive or match exactly the capitalization of the tags or specified words as provided\.|gpt\-4o\-2024\-08\-06|Sentence: 'They will win\.' Word: 'win'|VB|ok|
+|The output does not need to be case\-sensitive or match exactly the capitalization of the tags or specified words as provided\.|gpt\-4o\-2024\-08\-06|Sentence: 'She gave me a gift\.' Word: 'gave'|VBD|ok|
+|The output does not need to be case\-sensitive or match exactly the capitalization of the tags or specified words as provided\.|gpt\-4o\-2024\-08\-06|Sentence: 'I love reading books\.' Word: 'books'|NNS|ok|
+|The output may contain leading or trailing whitespace or blank lines\.|gpt\-4o\-2024\-08\-06|Sentence: 'She laughed loudly\.' Word: 'laughed'|VBD|ok|
+|The output may contain leading or trailing whitespace or blank lines\.|gpt\-4o\-2024\-08\-06|Sentence: 'He writes daily\.' Word: 'writes'|VBZ|ok|
+|The output may contain leading or trailing whitespace or blank lines\.|gpt\-4o\-2024\-08\-06|Sentence: 'They enjoy swimming\.' Word: 'swimming'|VBG|ok|
+|The output may include explanations, definitions, examples, or additional information beyond the required tag or specified word\.|gpt\-4o\-2024\-08\-06|Sentence: 'It is raining heavily\.' Word: 'heavily'|RB|ok|
+|The output may include explanations, definitions, examples, or additional information beyond the required tag or specified word\.|gpt\-4o\-2024\-08\-06|Sentence: 'She sings beautifully\.' Word: 'beautifully'|RB|ok|
+|The output may include explanations, definitions, examples, or additional information beyond the required tag or specified word\.|gpt\-4o\-2024\-08\-06|Sentence: 'He solved the problem easily\.' Word: 'easily'|RB|ok|
+|The list of available part\-of\-speech tags is not limited to those provided and may include additional tags\.|gpt\-4o\-2024\-08\-06|Sentence: 'She will be arriving soon\.' Word: 'arriving'|VBG|ok|
+|The list of available part\-of\-speech tags is not limited to those provided and may include additional tags\.|gpt\-4o\-2024\-08\-06|Sentence: 'They need to analyze the data\.' Word: 'analyze'|VB|ok|
+|The list of available part\-of\-speech tags is not limited to those provided and may include additional tags\.|gpt\-4o\-2024\-08\-06|Sentence: 'He is an exceptional individual\.' Word: 'exceptional'|JJ|ok|
 
 ### [baseline_tests.txt](./baseline_tests.txt)
 
 `````txt
-Sentence: She likes tea and coffee.
+Sentence: The quick brown fox jumps over the lazy dog.
+Word: fox
+===
+Sentence: She sells seashells by the seashore.
+Word: seashells
+===
+Sentence: Can you pass me the salt?
+Word: pass
+===
+Sentence: They are going to the market tomorrow.
+Word: are
+===
+Sentence: The leaves fell softly to the ground.
+Word: softly
+===
+Sentence: I might visit the museum this weekend.
+Word: might
+===
+Sentence: After the storm, the sky was clear.
+Word: After
+===
+Sentence: He found a rare coin under the old tree.
+Word: rare
+===
+Sentence: Please write your name at the top of the page.
+Word: top
+===
+Sentence: She is the best dancer in the group.
+Word: best
+===
+Sentence: The committee agreed to the proposed changes.
+Word: agreed
+===
+Sentence: Running is his favorite form of exercise.
+Word: Running
+===
+Sentence: The cat sat on the mat and purred.
 Word: and
 ===
-Sentence: He has three dogs.
-Word: three
+Sentence: She wore a bright red dress to the party.
+Word: red
 ===
-Sentence: This is important.
-Word: This
+Sentence: Do you know where he went?
+Word: where
 ===
-Sentence: There is a problem.
-Word: There
+Sentence: Everyone except John was present.
+Word: except
 ===
-Sentence: She said, 'adiós' and left.
-Word: adiós
+Sentence: The children laughed happily in the playground.
+Word: happily
 ===
-Sentence: He went before me.
-Word: before
+Sentence: This is the book that I told you about.
+Word: that
 ===
-Sentence: The tall man.
-Word: tall
-===
-Sentence: She is taller than me.
-Word: taller
-===
-Sentence: She is the tallest.
-Word: tallest
-===
-Sentence: First, wash your hands.
-Word: First
-===
-Sentence: He can swim.
-Word: can
-===
-Sentence: The cat sleeps.
-Word: cat
-===
-Sentence: Cats are cute.
-Word: Cats
-===
-Sentence: Mary went to Paris.
-Word: Mary
-===
-Sentence: The Smiths are here.
-Word: Smiths
-===
-Sentence: Both options are good.
-Word: Both
-===
-Sentence: John's book is on the table.
-Word: 's
-===
-Sentence: She is here.
-Word: She
-===
-Sentence: Her car is red.
-Word: Her
-===
-Sentence: She runs quickly.
+Sentence: He quickly finished his homework before dinner.
 Word: quickly
 ===
-Sentence: She runs faster than him.
-Word: faster
+Sentence: The picture on the wall is crooked.
+Word: on
 ===
-Sentence: She runs fastest.
-Word: fastest
+Sentence: She can't find her keys anywhere.
+Word: can't
 ===
-Sentence: He gave up smoking.
-Word: up
+Sentence: They traveled across the country by train.
+Word: across
 ===
-Sentence: The equation is E=mc^2.
-Word: =
+Sentence: If it rains, the event will be canceled.
+Word: If
 ===
-Sentence: I want to go.
-Word: to
+Sentence: The old house was haunted, according to local legends.
+Word: haunted
 ===
-Sentence: Wow, that's great!
-Word: Wow
+Sentence: He reads the newspaper every morning.
+Word: reads
 ===
-Sentence: I like to eat.
-Word: eat
+Sentence: The team's victory was celebrated by fans.
+Word: by
 ===
-Sentence: She walked home.
-Word: walked
+Sentence: She feels very happy today.
+Word: very
 ===
-Sentence: She is swimming.
-Word: swimming
+Sentence: It's important to stay hydrated.
+Word: It's
 ===
-Sentence: She has eaten.
-Word: eaten
+Sentence: The artist painted a beautiful landscape.
+Word: painted
 ===
-Sentence: I go home.
-Word: go
+Sentence: Despite the traffic, they arrived on time.
+Word: Despite
 ===
-Sentence: He eats an apple.
-Word: eats
+Sentence: The boy who won the prize is my cousin.
+Word: who
 ===
-Sentence: I know which car is yours.
-Word: which
+Sentence: She will travel to Japan next month.
+Word: will
 ===
-Sentence: Who are you?
-Word: Who
+Sentence: The clock struck midnight.
+Word: midnight
 ===
-Sentence: Whose book is this?
-Word: Whose
+Sentence: They have been friends since childhood.
+Word: since
 ===
-Sentence: When will you arrive?
-Word: When
+Sentence: The car needs to be repaired soon.
+Word: repaired
+===
+Sentence: He bought twelve apples from the market.
+Word: twelve
+===
+Sentence: The cake tastes sweet and delicious.
+Word: sweet
+===
+Sentence: Would you like some tea or coffee?
+Word: or
+===
+Sentence: The scientist discovered a new element.
+Word: new
+===
+Sentence: Please turn off the lights when you leave.
+Word: off
+===
+Sentence: She believes that honesty is the best policy.
+Word: honesty
+===
+Sentence: The police officer directed the traffic.
+Word: directed
+===
+Sentence: I love listening to classical music.
+Word: listening
+===
+Sentence: The movie was exciting yet emotional.
+Word: yet
+===
+Sentence: He wore a hat to protect himself from the sun.
+Word: from
+===
+Sentence: Their house is bigger than ours.
+Word: than
+===
+Sentence: Ouch! That hurt.
+Word: Ouch
+===
+Sentence: Let's meet at the cafe around noon.
+Word: around
+===
+Sentence: She quickly packed her bags.
+Word: packed
+===
+Sentence: The puppy is cute, but very mischievous.
+Word: but
+===
+Sentence: They don't know the answer.
+Word: don't
+===
+Sentence: Although he was tired, he continued working.
+Word: Although
+===
+Sentence: Is there anything else you need?
+Word: else
+===
+Sentence: The teacher gave each student a book.
+Word: each
+===
+Sentence: I haven't seen him since last year.
+Word: haven't
+===
+Sentence: The flowers bloom beautifully in spring.
+Word: beautifully
+===
+Sentence: Wait! I forgot my keys.
+Word: Wait
+===
+Sentence: She sang and danced all night.
+Word: and
 `````
