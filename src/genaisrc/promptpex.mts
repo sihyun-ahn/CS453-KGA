@@ -374,13 +374,12 @@ export async function runTests(
 
   console.log(`executing ${tests.length} tests with ${models.length} models`);
   const testResults: PromptPexTestResult[] = [];
-  for (let testi = 0; testi < tests.length; ++testi) {
-    const test = tests[testi];
-    console.log(
-      `run test ${testi + 1}/${tests.length} ${test.testinput.slice(0, 42)}...`
-    );
-    await evaluateTestQuality(files, test, { force });
-    for (const model of models) {
+  for (const model of models) {
+    for (let testi = 0; testi < tests.length; ++testi) {
+      const test = tests[testi];
+      console.log(
+        `${model}: run test ${testi + 1}/${tests.length} ${test.testinput.slice(0, 42)}...`
+      );
       const testRes = await runTest(files, test, { model, force });
       if (testRes) testResults.push(testRes);
     }
@@ -661,10 +660,9 @@ export async function evaluateTestQuality(
     model: resCoverage.model,
     ...rule,
     input: testInput,
-    coverageText: resCoverage.text,
     validityText: resValidity.text,
     validity: parseOKERR(resValidity.text),
-    error: error || undefined,
+    coverageText: resCoverage.text,
   } satisfies PromptPexTestEval;
 
   const coverage = await evaluateTestResult(files, {
@@ -679,6 +677,7 @@ export async function evaluateTestQuality(
 
   testEval.coverageEvalText = coverage;
   testEval.coverage = parseOKERR(testEval.coverageEvalText);
+  testEval.error = error || undefined;
 
   await workspace.writeText(file.filename, JSON.stringify(testEval, null, 2));
 
