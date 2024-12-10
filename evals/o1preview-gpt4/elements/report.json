@@ -1,0 +1,1382 @@
+{
+  "prompt": "\n---\nname: Extract Elements of Text\ndescription: Extract specific elements of text from a given text\nsource: OpenAI documentation\nurl: https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-the-openai-api\ninputs: \n   text:\n      type: string\n---\nsystem:\nExtract the important entities mentioned in the text below. First extract all company names, then extract all people names, then extract specific topics which fit the content and finally extract general overarching themes\n\nDesired format:\nCompany names: <comma_separated_list_of_company_names>\nPeople names: -||-\nSpecific topics: -||-\nGeneral themes: -||-\nuser:\nText: {{ text }}\n",
+  "inputSpec": "The input is a string of text provided under the key 'text'.\nThe text may include mentions of company names, people names, specific topics, and general themes.",
+  "rules": [
+    "The output must consist of exactly four separate lines.",
+    "Each line must begin with a category label followed by a colon.",
+    "The category labels must be \"Company names\", \"People names\", \"Specific topics\", and \"General themes\", in that exact order.",
+    "Each category label must be written exactly as specified, including capitalization and spelling.",
+    "After the colon on each line, the assistant must provide a comma-separated list of extracted entities corresponding to that category.",
+    "The entities in each list must be separated by commas and must not include any additional punctuation.",
+    "If there are no entities to list in a category, the assistant must still include the category label followed by a colon and leave it empty.",
+    "For \"Company names\", the assistant must extract all company names mentioned in the text, where a company name is the official name of a legally recognized business organization.",
+    "For \"People names\", the assistant must extract all personal names mentioned in the text, where a people name is the full name or commonly recognized name of an individual person.",
+    "For \"Specific topics\", the assistant must extract all specific topics discussed in the text, where a specific topic is a particular subject, concept, or issue that is directly addressed.",
+    "For \"General themes\", the assistant must extract all general overarching themes present in the text, where a general theme is a broad and abstract idea or subject that captures the main essence or message of the text.",
+    "The assistant must only extract entities that are explicitly mentioned or clearly implied in the text.",
+    "The assistant must not add any extra text, explanations, or formatting beyond what is specified in the desired format.",
+    "The assistant must not include numbering, bullet points, or any other formatting marks besides those specified.",
+    "The assistant must ensure that the output exactly matches the desired format provided, with precise adherence to structure and content requirements."
+  ],
+  "inverseRules": [
+    "The output must not consist of exactly four separate lines.",
+    "Lines may not begin with a category label followed by a colon.",
+    "The category labels may differ from \"Company names\", \"People names\", \"Specific topics\", and \"General themes\", or may be in any order.",
+    "Each category label can be written differently than specified, including changes in capitalization and spelling.",
+    "After the colon on each line, the assistant may avoid providing a comma-separated list of extracted entities corresponding to that category.",
+    "The entities in each list may include additional punctuation or be separated by other delimiters than commas.",
+    "If there are no entities to list in a category, the assistant may omit the category label or add content after the colon.",
+    "For \"Company names\", the assistant may choose not to extract company names or may include entities that are not official business organizations.",
+    "For \"People names\", the assistant may choose not to extract personal names or may include names that are not of individual persons.",
+    "For \"Specific topics\", the assistant may choose not to extract specific topics discussed in the text.",
+    "For \"General themes\", the assistant may choose not to extract general overarching themes or may include specific details instead.",
+    "The assistant may extract entities not explicitly mentioned or implied in the text.",
+    "The assistant may add extra text, explanations, or formatting beyond what is specified in the desired format.",
+    "The assistant may include numbering, bullet points, or other formatting marks besides those specified.",
+    "The assistant does not need to ensure that the output exactly matches the desired format provided, and may deviate from structure and content requirements."
+  ],
+  "tests": [
+    {
+      "ruleid": "1",
+      "rule": "The output must consist of exactly four separate lines.",
+      "testid": "1",
+      "testinput": "Text: Tesla and SpaceX, led by Elon Musk, are pioneering innovations in renewable energy and space travel to combat climate change.",
+      "expectedoutput": "Company names: Tesla, SpaceX\nPeople names: Elon Musk\nSpecific topics: renewable energy, space travel\nGeneral themes: innovation, climate change",
+      "reasoning": "This test checks if the software outputs exactly four separate lines when all categories have entities, complying with rule 1."
+    },
+    {
+      "ruleid": "1",
+      "rule": "The output must consist of exactly four separate lines.",
+      "testid": "2",
+      "testinput": "Text: Apple Inc. released a new iPhone. The launch event was hosted by Tim Cook.",
+      "expectedoutput": "Company names: Apple Inc.\nPeople names: Tim Cook\nSpecific topics: new iPhone, launch event\nGeneral themes: technology, product release",
+      "reasoning": "This test ensures the software outputs exactly four lines with proper entities, validating rule 1."
+    },
+    {
+      "ruleid": "1",
+      "rule": "The output must consist of exactly four separate lines.",
+      "testid": "3",
+      "testinput": "Text: The conference discussed advancements in artificial intelligence.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics: artificial intelligence\nGeneral themes: technological advancements",
+      "reasoning": "This test verifies that even when some categories are empty, the software still outputs exactly four lines, adhering to rule 1."
+    },
+    {
+      "ruleid": "2",
+      "rule": "Each line must begin with a category label followed by a colon.",
+      "testid": "1",
+      "testinput": "Text: Microsoft CEO Satya Nadella spoke about cloud computing and digital transformation at the summit.",
+      "expectedoutput": "Company names: Microsoft\nPeople names: Satya Nadella\nSpecific topics: cloud computing, digital transformation\nGeneral themes: technology, leadership",
+      "reasoning": "This test checks that each output line begins with the correct category label followed by a colon, ensuring adherence to rule 2."
+    },
+    {
+      "ruleid": "2",
+      "rule": "Each line must begin with a category label followed by a colon.",
+      "testid": "2",
+      "testinput": "Text: Marie Curie's work laid the foundation for modern nuclear physics.",
+      "expectedoutput": "Company names:\nPeople names: Marie Curie\nSpecific topics: nuclear physics\nGeneral themes: scientific research, pioneering work",
+      "reasoning": "This test verifies that even when some categories are empty, each line begins with the category label followed by a colon, as required by rule 2."
+    },
+    {
+      "ruleid": "2",
+      "rule": "Each line must begin with a category label followed by a colon.",
+      "testid": "3",
+      "testinput": "Text: In a historic mission, NASA's Perseverance Rover landed on Mars.",
+      "expectedoutput": "Company names: NASA\nPeople names:\nSpecific topics: Perseverance Rover, Mars landing\nGeneral themes: space exploration, innovation",
+      "reasoning": "This test ensures that each output line starts with the category label and colon, testing compliance with rule 2."
+    },
+    {
+      "ruleid": "3",
+      "rule": "The category labels must be \"Company names\", \"People names\", \"Specific topics\", and \"General themes\", in that exact order.",
+      "testid": "1",
+      "testinput": "Text: Google announced its collaboration with DeepMind, guided by Sundar Pichai, to enhance AI technologies.",
+      "expectedoutput": "Company names: Google, DeepMind\nPeople names: Sundar Pichai\nSpecific topics: AI technologies, collaboration\nGeneral themes: artificial intelligence, innovation",
+      "reasoning": "This test verifies that the software outputs the category labels in the correct order and exactly as specified in rule 3."
+    },
+    {
+      "ruleid": "3",
+      "rule": "The category labels must be \"Company names\", \"People names\", \"Specific topics\", and \"General themes\", in that exact order.",
+      "testid": "2",
+      "testinput": "Text: Amelia Earhart was a pioneer in aviation, inspiring women worldwide.",
+      "expectedoutput": "Company names:\nPeople names: Amelia Earhart\nSpecific topics: aviation\nGeneral themes: inspiration, women's empowerment",
+      "reasoning": "This test ensures that even when some categories are empty, the order and labels remain as per rule 3."
+    },
+    {
+      "ruleid": "3",
+      "rule": "The category labels must be \"Company names\", \"People names\", \"Specific topics\", and \"General themes\", in that exact order.",
+      "testid": "3",
+      "testinput": "Text: Amazon's Jeff Bezos plans for space tourism through Blue Origin.",
+      "expectedoutput": "Company names: Amazon, Blue Origin\nPeople names: Jeff Bezos\nSpecific topics: space tourism\nGeneral themes: exploration, commercial spaceflight",
+      "reasoning": "This test confirms that the correct order and exact category labels are used, complying with rule 3."
+    },
+    {
+      "ruleid": "4",
+      "rule": "Each category label must be written exactly as specified, including capitalization and spelling.",
+      "testid": "1",
+      "testinput": "Text: At the Apple Worldwide Developers Conference, Tim Cook unveiled new features in iOS.",
+      "expectedoutput": "Company names: Apple\nPeople names: Tim Cook\nSpecific topics: iOS features, Worldwide Developers Conference\nGeneral themes: technology advancements, software development",
+      "reasoning": "This test checks that category labels are written exactly as specified, including capitalization and spelling, as per rule 4."
+    },
+    {
+      "ruleid": "4",
+      "rule": "Each category label must be written exactly as specified, including capitalization and spelling.",
+      "testid": "2",
+      "testinput": "Text: J.K. Rowling's Harry Potter series has enchanted readers globally.",
+      "expectedoutput": "Company names:\nPeople names: J.K. Rowling\nSpecific topics: Harry Potter series\nGeneral themes: literature, fantasy",
+      "reasoning": "Ensures exact capitalization and spelling of category labels, testing compliance with rule 4."
+    },
+    {
+      "ruleid": "4",
+      "rule": "Each category label must be written exactly as specified, including capitalization and spelling.",
+      "testid": "3",
+      "testinput": "Text: The United Nations focuses on global issues like peacekeeping and humanitarian aid.",
+      "expectedoutput": "Company names: United Nations\nPeople names:\nSpecific topics: peacekeeping, humanitarian aid\nGeneral themes: global cooperation, international relations",
+      "reasoning": "Verifies that the category labels are exactly as specified, including capitalization, in accordance with rule 4."
+    },
+    {
+      "ruleid": "5",
+      "rule": "After the colon on each line, the assistant must provide a comma-separated list of extracted entities corresponding to that category.",
+      "testid": "1",
+      "testinput": "Text: Bill Gates and Melinda Gates Foundation are investing in global health and education.",
+      "expectedoutput": "Company names: Melinda Gates Foundation\nPeople names: Bill Gates\nSpecific topics: global health, education\nGeneral themes: philanthropy, social impact",
+      "reasoning": "This test confirms that after the colon, the assistant provides a comma-separated list of entities, as required by rule 5."
+    },
+    {
+      "ruleid": "5",
+      "rule": "After the colon on each line, the assistant must provide a comma-separated list of extracted entities corresponding to that category.",
+      "testid": "2",
+      "testinput": "Text: Facebook, now Meta, is focusing on virtual reality and the metaverse.",
+      "expectedoutput": "Company names: Facebook, Meta\nPeople names:\nSpecific topics: virtual reality, metaverse\nGeneral themes: technological evolution, social connectivity",
+      "reasoning": "Ensures that the entities are listed as comma-separated values after the colon, per rule 5."
+    },
+    {
+      "ruleid": "5",
+      "rule": "After the colon on each line, the assistant must provide a comma-separated list of extracted entities corresponding to that category.",
+      "testid": "3",
+      "testinput": "Text: Nelson Mandela advocated for peace and equality in South Africa.",
+      "expectedoutput": "Company names:\nPeople names: Nelson Mandela\nSpecific topics: peace, equality, South Africa\nGeneral themes: civil rights, social justice",
+      "reasoning": "Verifies that the assistant lists entities in comma-separated format after the colon, complying with rule 5."
+    },
+    {
+      "ruleid": "6",
+      "rule": "The entities in each list must be separated by commas and must not include any additional punctuation.",
+      "testid": "1",
+      "testinput": "Text: Alphabet Inc.'s Google and YouTube are at the forefront of internet services.",
+      "expectedoutput": "Company names: Alphabet Inc., Google, YouTube\nPeople names:\nSpecific topics: internet services\nGeneral themes: digital technology, online platforms",
+      "reasoning": "This test ensures that the entities are separated only by commas without additional punctuation, as specified in rule 6."
+    },
+    {
+      "ruleid": "6",
+      "rule": "The entities in each list must be separated by commas and must not include any additional punctuation.",
+      "testid": "2",
+      "testinput": "Text: Leonardo da Vinci was known for painting the Mona Lisa and The Last Supper.",
+      "expectedoutput": "Company names:\nPeople names: Leonardo da Vinci\nSpecific topics: Mona Lisa, The Last Supper\nGeneral themes: art, Renaissance",
+      "reasoning": "Verifies that entity lists use commas only, with no additional punctuation, ensuring compliance with rule 6."
+    },
+    {
+      "ruleid": "6",
+      "rule": "The entities in each list must be separated by commas and must not include any additional punctuation.",
+      "testid": "3",
+      "testinput": "Text: IBM, Apple, and Microsoft have had significant impacts on computing.",
+      "expectedoutput": "Company names: IBM, Apple, Microsoft\nPeople names:\nSpecific topics: computing\nGeneral themes: technology innovation",
+      "reasoning": "Checks that entities are comma-separated without extra punctuation, as per rule 6."
+    },
+    {
+      "ruleid": "7",
+      "rule": "If there are no entities to list in a category, the assistant must still include the category label followed by a colon and leave it empty.",
+      "testid": "1",
+      "testinput": "Text: Advancements in quantum computing are accelerating.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics: quantum computing\nGeneral themes: technological advancements",
+      "reasoning": "This test confirms that when a category has no entities, the assistant still outputs the category label followed by a colon and leaves it empty, compliant with rule 7."
+    },
+    {
+      "ruleid": "7",
+      "rule": "If there are no entities to list in a category, the assistant must still include the category label followed by a colon and leave it empty.",
+      "testid": "2",
+      "testinput": "Text: The festival celebrated art, music, and culture.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics: art, music, culture\nGeneral themes: celebration, community",
+      "reasoning": "Ensures categories with no entities are included and left empty after the colon, per rule 7."
+    },
+    {
+      "ruleid": "7",
+      "rule": "If there are no entities to list in a category, the assistant must still include the category label followed by a colon and leave it empty.",
+      "testid": "3",
+      "testinput": "Text: Climate change impacts ecosystems worldwide.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics: climate change\nGeneral themes: environmental issues",
+      "reasoning": "Verifies that empty categories are handled correctly by including the label and leaving it empty, adhering to rule 7."
+    },
+    {
+      "ruleid": "8",
+      "rule": "For \"Company names\", the assistant must extract all company names mentioned in the text, where a company name is the official name of a legally recognized business organization.",
+      "testid": "1",
+      "testinput": "Text: Tesla and SolarCity are working together on renewable energy projects.",
+      "expectedoutput": "Company names: Tesla, SolarCity\nPeople names:\nSpecific topics: renewable energy projects\nGeneral themes: sustainability",
+      "reasoning": "This test checks that the assistant extracts all official company names mentioned, as required by rule 8."
+    },
+    {
+      "ruleid": "8",
+      "rule": "For \"Company names\", the assistant must extract all company names mentioned in the text, where a company name is the official name of a legally recognized business organization.",
+      "testid": "2",
+      "testinput": "Text: The partnership between Starbucks and Nestlé expands coffee offerings globally.",
+      "expectedoutput": "Company names: Starbucks, Nestlé\nPeople names:\nSpecific topics: coffee offerings, global partnership\nGeneral themes: business expansion",
+      "reasoning": "Verifies that official company names are correctly extracted, following rule 8."
+    },
+    {
+      "ruleid": "8",
+      "rule": "For \"Company names\", the assistant must extract all company names mentioned in the text, where a company name is the official name of a legally recognized business organization.",
+      "testid": "3",
+      "testinput": "Text: IBM acquired Red Hat to enhance its cloud computing capabilities.",
+      "expectedoutput": "Company names: IBM, Red Hat\nPeople names:\nSpecific topics: cloud computing capabilities, acquisition\nGeneral themes: technology integration",
+      "reasoning": "Confirms accurate extraction of company names per rule 8."
+    },
+    {
+      "ruleid": "9",
+      "rule": "For \"People names\", the assistant must extract all personal names mentioned in the text, where a people name is the full name or commonly recognized name of an individual person.",
+      "testid": "1",
+      "testinput": "Text: Malala Yousafzai advocates for girls' education worldwide.",
+      "expectedoutput": "Company names:\nPeople names: Malala Yousafzai\nSpecific topics: girls' education\nGeneral themes: education rights, activism",
+      "reasoning": "This test ensures the assistant extracts full personal names accurately, as specified in rule 9."
+    },
+    {
+      "ruleid": "9",
+      "rule": "For \"People names\", the assistant must extract all personal names mentioned in the text, where a people name is the full name or commonly recognized name of an individual person.",
+      "testid": "2",
+      "testinput": "Text: Albert Einstein developed the theory of relativity.",
+      "expectedoutput": "Company names:\nPeople names: Albert Einstein\nSpecific topics: theory of relativity\nGeneral themes: physics, scientific breakthroughs",
+      "reasoning": "Confirms proper extraction of personal names, complying with rule 9."
+    },
+    {
+      "ruleid": "9",
+      "rule": "For \"People names\", the assistant must extract all personal names mentioned in the text, where a people name is the full name or commonly recognized name of an individual person.",
+      "testid": "3",
+      "testinput": "Text: The work of Vincent van Gogh revolutionized post-impressionist art.",
+      "expectedoutput": "Company names:\nPeople names: Vincent van Gogh\nSpecific topics: post-impressionist art\nGeneral themes: art history, innovation",
+      "reasoning": "Verifies accurate extraction of individual person names per rule 9."
+    },
+    {
+      "ruleid": "10",
+      "rule": "For \"Specific topics\", the assistant must extract all specific topics discussed in the text, where a specific topic is a particular subject, concept, or issue that is directly addressed.",
+      "testid": "1",
+      "testinput": "Text: The seminar on renewable energy highlighted solar and wind power advancements.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics: renewable energy, solar power, wind power, advancements\nGeneral themes: environmental sustainability",
+      "reasoning": "This test checks that all specific topics directly discussed are extracted, as per rule 10."
+    },
+    {
+      "ruleid": "10",
+      "rule": "For \"Specific topics\", the assistant must extract all specific topics discussed in the text, where a specific topic is a particular subject, concept, or issue that is directly addressed.",
+      "testid": "2",
+      "testinput": "Text: Discussions centered around artificial intelligence and machine learning applications.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics: artificial intelligence, machine learning applications\nGeneral themes: technology innovation",
+      "reasoning": "Confirms extraction of specific topics directly addressed, complying with rule 10."
+    },
+    {
+      "ruleid": "10",
+      "rule": "For \"Specific topics\", the assistant must extract all specific topics discussed in the text, where a specific topic is a particular subject, concept, or issue that is directly addressed.",
+      "testid": "3",
+      "testinput": "Text: The lecture covered human rights issues and international law.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics: human rights, international law\nGeneral themes: justice, global governance",
+      "reasoning": "Verifies extraction of specific topics discussed, adhering to rule 10."
+    },
+    {
+      "ruleid": "11",
+      "rule": "For \"General themes\", the assistant must extract all general overarching themes present in the text, where a general theme is a broad and abstract idea or subject that captures the main essence or message of the text.",
+      "testid": "1",
+      "testinput": "Text: The novel explores love, loss, and the journey towards self-discovery.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics:\nGeneral themes: love, loss, self-discovery",
+      "reasoning": "This test ensures the assistant extracts general overarching themes of the text, as specified in rule 11."
+    },
+    {
+      "ruleid": "11",
+      "rule": "For \"General themes\", the assistant must extract all general overarching themes present in the text, where a general theme is a broad and abstract idea or subject that captures the main essence or message of the text.",
+      "testid": "2",
+      "testinput": "Text: The conference emphasized the importance of innovation and collaboration in the modern economy.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics:\nGeneral themes: innovation, collaboration, modern economy",
+      "reasoning": "Confirms accurate extraction of general themes per rule 11."
+    },
+    {
+      "ruleid": "11",
+      "rule": "For \"General themes\", the assistant must extract all general overarching themes present in the text, where a general theme is a broad and abstract idea or subject that captures the main essence or message of the text.",
+      "testid": "3",
+      "testinput": "Text: His speech addressed the challenges of leadership in times of crisis.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics:\nGeneral themes: leadership, crisis management",
+      "reasoning": "Verifies compliance with rule 11 by extracting overarching themes."
+    },
+    {
+      "ruleid": "12",
+      "rule": "The assistant must only extract entities that are explicitly mentioned or clearly implied in the text.",
+      "testid": "1",
+      "testinput": "Text: SpaceX plans another mission to the International Space Station.",
+      "expectedoutput": "Company names: SpaceX\nPeople names:\nSpecific topics: mission, International Space Station\nGeneral themes: space exploration",
+      "reasoning": "This test confirms that only entities explicitly mentioned or clearly implied are extracted, in line with rule 12."
+    },
+    {
+      "ruleid": "12",
+      "rule": "The assistant must only extract entities that are explicitly mentioned or clearly implied in the text.",
+      "testid": "2",
+      "testinput": "Text: She received an award for her groundbreaking research.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics: groundbreaking research, award\nGeneral themes: recognition, scientific advancement",
+      "reasoning": "Ensures no entities beyond those mentioned or implied are extracted, per rule 12."
+    },
+    {
+      "ruleid": "12",
+      "rule": "The assistant must only extract entities that are explicitly mentioned or clearly implied in the text.",
+      "testid": "3",
+      "testinput": "Text: The ancient ruins tell stories of lost civilizations.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics: ancient ruins, lost civilizations\nGeneral themes: history, archaeology",
+      "reasoning": "Verifies that only entities in the text are extracted, complying with rule 12."
+    },
+    {
+      "ruleid": "13",
+      "rule": "The assistant must not add any extra text, explanations, or formatting beyond what is specified in the desired format.",
+      "testid": "1",
+      "testinput": "Text: Adobe acquired Figma to expand its design tools.",
+      "expectedoutput": "Company names: Adobe, Figma\nPeople names:\nSpecific topics: acquisition, design tools\nGeneral themes: business strategy, design industry",
+      "reasoning": "This test ensures the assistant does not add extra explanations or formatting, adhering strictly to the desired format per rule 13."
+    },
+    {
+      "ruleid": "13",
+      "rule": "The assistant must not add any extra text, explanations, or formatting beyond what is specified in the desired format.",
+      "testid": "2",
+      "testinput": "Text: The documentary examines the effects of pollution on marine life.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics: pollution, marine life\nGeneral themes: environmental issues, conservation",
+      "reasoning": "Confirms no extra text or formatting is added, in compliance with rule 13."
+    },
+    {
+      "ruleid": "13",
+      "rule": "The assistant must not add any extra text, explanations, or formatting beyond what is specified in the desired format.",
+      "testid": "3",
+      "testinput": "Text: Leaders discussed economic policies at the summit.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics: economic policies, summit\nGeneral themes: economics, international relations",
+      "reasoning": "Verifies adherence to the specified format without extra content, per rule 13."
+    },
+    {
+      "ruleid": "14",
+      "rule": "The assistant must not include numbering, bullet points, or any other formatting marks besides those specified.",
+      "testid": "1",
+      "testinput": "Text: Scientists are exploring the potential of gene editing.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics: gene editing\nGeneral themes: scientific research, biotechnology",
+      "reasoning": "This test ensures the assistant does not use numbering or bullet points, complying with rule 14."
+    },
+    {
+      "ruleid": "14",
+      "rule": "The assistant must not include numbering, bullet points, or any other formatting marks besides those specified.",
+      "testid": "2",
+      "testinput": "Text: The team's victory was a result of strategy, skill, and teamwork.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics: strategy, skill, teamwork\nGeneral themes: sportsmanship, collaboration",
+      "reasoning": "Confirms no improper formatting marks are added, in accordance with rule 14."
+    },
+    {
+      "ruleid": "14",
+      "rule": "The assistant must not include numbering, bullet points, or any other formatting marks besides those specified.",
+      "testid": "3",
+      "testinput": "Text: Her artistic expression combines elements of dance, music, and visual arts.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics: dance, music, visual arts\nGeneral themes: artistic expression, creativity",
+      "reasoning": "Verifies the assistant avoids numbering or bullets, per rule 14."
+    },
+    {
+      "ruleid": "15",
+      "rule": "The assistant must ensure that the output exactly matches the desired format provided, with precise adherence to structure and content requirements.",
+      "testid": "1",
+      "testinput": "Text: Google's Sundar Pichai emphasizes the importance of AI ethics.",
+      "expectedoutput": "Company names: Google\nPeople names: Sundar Pichai\nSpecific topics: AI ethics\nGeneral themes: technology responsibility",
+      "reasoning": "This test ensures the assistant produces output that exactly matches the desired format, adhering to rule 15."
+    },
+    {
+      "ruleid": "15",
+      "rule": "The assistant must ensure that the output exactly matches the desired format provided, with precise adherence to structure and content requirements.",
+      "testid": "2",
+      "testinput": "Text: Jane Goodall's work with chimpanzees has transformed animal conservation.",
+      "expectedoutput": "Company names:\nPeople names: Jane Goodall\nSpecific topics: chimpanzees, animal conservation\nGeneral themes: environmentalism, wildlife research",
+      "reasoning": "Confirms precise adherence to structure as per rule 15."
+    },
+    {
+      "ruleid": "15",
+      "rule": "The assistant must ensure that the output exactly matches the desired format provided, with precise adherence to structure and content requirements.",
+      "testid": "3",
+      "testinput": "Text: The Paris Agreement aims to address climate change globally.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics: Paris Agreement, climate change\nGeneral themes: international cooperation, environmental policy",
+      "reasoning": "Verifies exact format compliance with rule 15."
+    },
+    {
+      "ruleid": "16",
+      "rule": "The output must not consist of exactly four separate lines.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Text: The park was peaceful.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics:\nGeneral themes:",
+      "reasoning": "This test verifies that the software maintains the four-line structure even when no entities are present, ensuring it does not violate rule 16."
+    },
+    {
+      "ruleid": "16",
+      "rule": "The output must not consist of exactly four separate lines.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Text: IBM and Microsoft are tech giants.",
+      "expectedoutput": "Company names: IBM, Microsoft\nPeople names:\nSpecific topics:\nGeneral themes:",
+      "reasoning": "Ensures the software outputs exactly four lines despite partial data, complying with the intended behavior and not violating rule 16."
+    },
+    {
+      "ruleid": "16",
+      "rule": "The output must not consist of exactly four separate lines.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Text: Einstein developed the theory of relativity, which changed physics forever.",
+      "expectedoutput": "Company names:\nPeople names: Einstein\nSpecific topics: theory of relativity\nGeneral themes: physics, scientific breakthroughs",
+      "reasoning": "Verifies that the software maintains the four-line structure, thus not violating rule 16."
+    },
+    {
+      "ruleid": "17",
+      "rule": "Lines may not begin with a category label followed by a colon.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Text: Facebook is creating virtual reality headsets.",
+      "expectedoutput": "Company names: Facebook\nPeople names:\nSpecific topics: virtual reality headsets\nGeneral themes: technology innovation",
+      "reasoning": "Ensures the software correctly includes category labels with colons, thus not following rule 17."
+    },
+    {
+      "ruleid": "17",
+      "rule": "Lines may not begin with a category label followed by a colon.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Text: Shakespeare wrote many plays and sonnets.",
+      "expectedoutput": "Company names:\nPeople names: Shakespeare\nSpecific topics: plays, sonnets\nGeneral themes: literature, art",
+      "reasoning": "Verifies that the software starts lines with category labels followed by colons, not violating rule 17."
+    },
+    {
+      "ruleid": "17",
+      "rule": "Lines may not begin with a category label followed by a colon.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Text: The United Nations is hosting a summit on climate action.",
+      "expectedoutput": "Company names: United Nations\nPeople names:\nSpecific topics: summit, climate action\nGeneral themes: international cooperation, environmental issues",
+      "reasoning": "Confirms inclusion of category labels with colons, not adhering to rule 17."
+    },
+    {
+      "ruleid": "18",
+      "rule": "The category labels may differ from \"Company names\", \"People names\", \"Specific topics\", and \"General themes\", or may be in any order.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Text: Amazon's Jeff Bezos aims to take people to the moon.",
+      "expectedoutput": "Company names: Amazon\nPeople names: Jeff Bezos\nSpecific topics: moon mission\nGeneral themes: space exploration, entrepreneurship",
+      "reasoning": "Checks that the assistant uses the specified category labels in order, not following rule 18."
+    },
+    {
+      "ruleid": "18",
+      "rule": "The category labels may differ from \"Company names\", \"People names\", \"Specific topics\", and \"General themes\", or may be in any order.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Text: Neil Armstrong was the first person to walk on the Moon.",
+      "expectedoutput": "Company names:\nPeople names: Neil Armstrong\nSpecific topics: Moon landing\nGeneral themes: historic achievements, space exploration",
+      "reasoning": "Verifies correct category labels and order, not violating rule 18."
+    },
+    {
+      "ruleid": "18",
+      "rule": "The category labels may differ from \"Company names\", \"People names\", \"Specific topics\", and \"General themes\", or may be in any order.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Text: Tesla is revolutionizing electric vehicles.",
+      "expectedoutput": "Company names: Tesla\nPeople names:\nSpecific topics: electric vehicles\nGeneral themes: innovation, sustainable transportation",
+      "reasoning": "Ensures proper use of category labels in specified order, thus not adhering to rule 18."
+    },
+    {
+      "ruleid": "19",
+      "rule": "Each category label can be written differently than specified, including changes in capitalization and spelling.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Text: At the opening ceremony, the President addressed the nation.",
+      "expectedoutput": "Company names:\nPeople names: President\nSpecific topics: opening ceremony\nGeneral themes: national events, leadership",
+      "reasoning": "This test ensures that the category labels are written exactly as specified, not differing in capitalization or spelling, thus not following rule 19."
+    },
+    {
+      "ruleid": "19",
+      "rule": "Each category label can be written differently than specified, including changes in capitalization and spelling.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Text: The BBC reported on advancements in renewable energy.",
+      "expectedoutput": "Company names: BBC\nPeople names:\nSpecific topics: advancements, renewable energy\nGeneral themes: environmental issues, media coverage",
+      "reasoning": "Verifies exact spelling and capitalization of category labels, not violating rule 19."
+    },
+    {
+      "ruleid": "19",
+      "rule": "Each category label can be written differently than specified, including changes in capitalization and spelling.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Text: William Shakespeare's influence on literature remains unmatched.",
+      "expectedoutput": "Company names:\nPeople names: William Shakespeare\nSpecific topics: influence on literature\nGeneral themes: cultural impact, literary history",
+      "reasoning": "Confirms category labels are written exactly as specified, not adhering to rule 19."
+    },
+    {
+      "ruleid": "20",
+      "rule": "After the colon on each line, the assistant may avoid providing a comma-separated list of extracted entities corresponding to that category.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Text: Researchers discovered a new species in the Amazon rainforest.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics: new species, Amazon rainforest\nGeneral themes: biodiversity, scientific discovery",
+      "reasoning": "Ensures the assistant provides a comma-separated list of entities after the colon, thus not avoiding as per rule 20."
+    },
+    {
+      "ruleid": "20",
+      "rule": "After the colon on each line, the assistant may avoid providing a comma-separated list of extracted entities corresponding to that category.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Text: The study highlights the importance of mental health awareness.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics: mental health awareness, study\nGeneral themes: public health, well-being",
+      "reasoning": "Confirms proper listing of entities after the colon, not following rule 20."
+    },
+    {
+      "ruleid": "20",
+      "rule": "After the colon on each line, the assistant may avoid providing a comma-separated list of extracted entities corresponding to that category.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Text: Innovations in AI are transforming industries worldwide.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics: innovations, AI\nGeneral themes: technological change, global impact",
+      "reasoning": "Verifies that entities are provided after the colon, not avoiding as per rule 20."
+    },
+    {
+      "ruleid": "21",
+      "rule": "The entities in each list may include additional punctuation or be separated by other delimiters than commas.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Text: The CEO announced the merger; investors reacted positively.",
+      "expectedoutput": "Company names:\nPeople names: CEO\nSpecific topics: merger\nGeneral themes: business, investment reactions",
+      "reasoning": "Ensures entities in lists are separated by commas without additional punctuation, not including extra marks as per rule 21."
+    },
+    {
+      "ruleid": "21",
+      "rule": "The entities in each list may include additional punctuation or be separated by other delimiters than commas.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Text: The festival featured music—art—and dance.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics: music, art, dance\nGeneral themes: cultural celebration",
+      "reasoning": "Confirms entities are comma-separated, avoiding other delimiters, not following rule 21."
+    },
+    {
+      "ruleid": "21",
+      "rule": "The entities in each list may include additional punctuation or be separated by other delimiters than commas.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Text: Advances in genetics: medicine: and technology were discussed.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics: genetics, medicine, technology\nGeneral themes: scientific progress",
+      "reasoning": "Verifies that commas are used to separate entities without additional punctuation, not adhering to rule 21."
+    },
+    {
+      "ruleid": "22",
+      "rule": "If there are no entities to list in a category, the assistant may omit the category label or add content after the colon.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Text: The monument was built to commemorate heroes.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics: monument, heroes\nGeneral themes: remembrance, honor",
+      "reasoning": "Ensures the category labels are included and left empty when no entities are present, not omitting them as per rule 22."
+    },
+    {
+      "ruleid": "22",
+      "rule": "If there are no entities to list in a category, the assistant may omit the category label or add content after the colon.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Text: Renewable energy sources are crucial for the future.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics: renewable energy sources\nGeneral themes: sustainability, future planning",
+      "reasoning": "Confirms empty categories are included, not adding content after the colon, not following rule 22."
+    },
+    {
+      "ruleid": "22",
+      "rule": "If there are no entities to list in a category, the assistant may omit the category label or add content after the colon.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Text: Global cooperation is needed to address pandemics.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics: global cooperation, pandemics\nGeneral themes: international health, collaboration",
+      "reasoning": "Verifies categories are properly included and left empty when necessary, not violating rule 22."
+    },
+    {
+      "ruleid": "23",
+      "rule": "For \"Company names\", the assistant may choose not to extract company names or may include entities that are not official business organizations.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Text: He started a non-profit organization to help others.",
+      "expectedoutput": "Company names: non-profit organization\nPeople names:\nSpecific topics: helping others\nGeneral themes: philanthropy, social assistance",
+      "reasoning": "Ensures only official company names are extracted, not including entities that are not legally recognized businesses, thus not following rule 23."
+    },
+    {
+      "ruleid": "23",
+      "rule": "For \"Company names\", the assistant may choose not to extract company names or may include entities that are not official business organizations.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Text: They formed a charity to support education.",
+      "expectedoutput": "Company names: charity\nPeople names:\nSpecific topics: support education\nGeneral themes: community service, learning",
+      "reasoning": "Verifies only official company names are listed, not ignoring as per rule 23."
+    },
+    {
+      "ruleid": "23",
+      "rule": "For \"Company names\", the assistant may choose not to extract company names or may include entities that are not official business organizations.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Text: The startup aims to innovate the tech industry.",
+      "expectedoutput": "Company names: startup\nPeople names:\nSpecific topics: innovate, tech industry\nGeneral themes: entrepreneurship, innovation",
+      "reasoning": "Confirms extraction of company names, not choosing to exclude them as per rule 23."
+    },
+    {
+      "ruleid": "24",
+      "rule": "For \"People names\", the assistant may choose not to extract personal names or may include names that are not of individual persons.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Text: Dr. Martin Luther King Jr. delivered inspiring speeches.",
+      "expectedoutput": "Company names:\nPeople names: Dr. Martin Luther King Jr.\nSpecific topics: inspiring speeches\nGeneral themes: civil rights, inspiration",
+      "reasoning": "Ensures personal names are extracted correctly, not excluding or including non-person entities, thus not following rule 24."
+    },
+    {
+      "ruleid": "24",
+      "rule": "For \"People names\", the assistant may choose not to extract personal names or may include names that are not of individual persons.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Text: Mother Teresa dedicated her life to helping the poor.",
+      "expectedoutput": "Company names:\nPeople names: Mother Teresa\nSpecific topics: helping the poor\nGeneral themes: compassion, humanitarian work",
+      "reasoning": "Verifies accurate extraction of individual names, not ignoring as per rule 24."
+    },
+    {
+      "ruleid": "24",
+      "rule": "For \"People names\", the assistant may choose not to extract personal names or may include names that are not of individual persons.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Text: The artist known as Banksy remains anonymous.",
+      "expectedoutput": "Company names:\nPeople names: Banksy\nSpecific topics: anonymity, street art\nGeneral themes: artistic expression, mystery",
+      "reasoning": "Confirms inclusion of personal names, not omitting or misclassifying as per rule 24."
+    },
+    {
+      "ruleid": "25",
+      "rule": "For \"Specific topics\", the assistant may choose not to extract specific topics discussed in the text.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Text: The lecture delved into astrophysics and black holes.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics: astrophysics, black holes\nGeneral themes: space science, advanced physics",
+      "reasoning": "Ensures extraction of specific topics, not choosing to exclude them as per rule 25."
+    },
+    {
+      "ruleid": "25",
+      "rule": "For \"Specific topics\", the assistant may choose not to extract specific topics discussed in the text.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Text: Workshops on coding and robotics were offered.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics: coding, robotics, workshops\nGeneral themes: education, technology skills",
+      "reasoning": "Verifies inclusion of specific topics discussed, not omitting as per rule 25."
+    },
+    {
+      "ruleid": "25",
+      "rule": "For \"Specific topics\", the assistant may choose not to extract specific topics discussed in the text.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Text: The article analyzed economic trends and forecasts.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics: economic trends, forecasts\nGeneral themes: finance, market analysis",
+      "reasoning": "Confirms extraction of specific topics, not following rule 25 by excluding them."
+    },
+    {
+      "ruleid": "26",
+      "rule": "For \"General themes\", the assistant may choose not to extract general overarching themes or may include specific details instead.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Text: The story explores themes of betrayal and redemption.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics:\nGeneral themes: betrayal, redemption",
+      "reasoning": "Ensures general themes are extracted, not including specific details instead, thus not adhering to rule 26."
+    },
+    {
+      "ruleid": "26",
+      "rule": "For \"General themes\", the assistant may choose not to extract general overarching themes or may include specific details instead.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Text: The movie touches on love, loss, and hope.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics:\nGeneral themes: love, loss, hope",
+      "reasoning": "Verifies inclusion of general overarching themes, not replacing with specifics as per rule 26."
+    },
+    {
+      "ruleid": "26",
+      "rule": "For \"General themes\", the assistant may choose not to extract general overarching themes or may include specific details instead.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Text: Their journey symbolizes resilience and perseverance.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics:\nGeneral themes: resilience, perseverance",
+      "reasoning": "Confirms extraction of general themes, not violating rule 26 by focusing on specifics."
+    },
+    {
+      "ruleid": "27",
+      "rule": "The assistant may extract entities not explicitly mentioned or implied in the text.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Text: The painting depicts a serene landscape.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics: serene landscape\nGeneral themes: tranquility, nature",
+      "reasoning": "Ensures only entities mentioned are extracted, not adding unrelated ones, thus not following rule 27."
+    },
+    {
+      "ruleid": "27",
+      "rule": "The assistant may extract entities not explicitly mentioned or implied in the text.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Text: She wrote a book about her travels.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics: book, travels\nGeneral themes: exploration, personal journey",
+      "reasoning": "Verifies no extraneous entities are included, complying with intended behavior and not adhering to rule 27."
+    },
+    {
+      "ruleid": "27",
+      "rule": "The assistant may extract entities not explicitly mentioned or implied in the text.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Text: The team celebrated their victory.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics: victory, team celebration\nGeneral themes: success, teamwork",
+      "reasoning": "Confirms only explicit entities are extracted, not adding others as per rule 27."
+    },
+    {
+      "ruleid": "28",
+      "rule": "The assistant may add extra text, explanations, or formatting beyond what is specified in the desired format.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Text: The project aims to improve urban infrastructure.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics: urban infrastructure, project\nGeneral themes: urban development, improvement",
+      "reasoning": "Ensures no extra text or explanations are added beyond the specified format, thus not following rule 28."
+    },
+    {
+      "ruleid": "28",
+      "rule": "The assistant may add extra text, explanations, or formatting beyond what is specified in the desired format.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Text: The speech addressed global health challenges.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics: global health challenges, speech\nGeneral themes: public health, international issues",
+      "reasoning": "Verifies adherence to format without additional text, not violating rule 28."
+    },
+    {
+      "ruleid": "28",
+      "rule": "The assistant may add extra text, explanations, or formatting beyond what is specified in the desired format.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Text: Advances in renewable energy are promising.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics: advances, renewable energy\nGeneral themes: sustainability, innovation",
+      "reasoning": "Confirms no extra explanations are included, complying with the intended behavior and not following rule 28."
+    },
+    {
+      "ruleid": "29",
+      "rule": "The assistant may include numbering, bullet points, or other formatting marks besides those specified.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Text: The festival featured diverse cultures.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics: festival, diverse cultures\nGeneral themes: multiculturalism, celebration",
+      "reasoning": "Ensures no numbering or bullet points are added, not adhering to rule 29."
+    },
+    {
+      "ruleid": "29",
+      "rule": "The assistant may include numbering, bullet points, or other formatting marks besides those specified.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Text: Her performance combined music and storytelling.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics: performance, music, storytelling\nGeneral themes: artistic expression, creativity",
+      "reasoning": "Verifies the output avoids improper formatting marks, not following rule 29."
+    },
+    {
+      "ruleid": "29",
+      "rule": "The assistant may include numbering, bullet points, or other formatting marks besides those specified.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Text: The expedition discovered new species.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics: expedition, new species\nGeneral themes: exploration, scientific discovery",
+      "reasoning": "Confirms proper formatting without additional marks, thus not adhering to rule 29."
+    },
+    {
+      "ruleid": "30",
+      "rule": "The assistant does not need to ensure that the output exactly matches the desired format provided, and may deviate from structure and content requirements.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Text: The policy aims to reduce emissions by 2030.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics: policy, emissions reduction\nGeneral themes: environmental policy, sustainability",
+      "reasoning": "Ensures the output exactly matches the desired format, not deviating as per rule 30."
+    },
+    {
+      "ruleid": "30",
+      "rule": "The assistant does not need to ensure that the output exactly matches the desired format provided, and may deviate from structure and content requirements.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Text: The workshop focused on leadership skills.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics: workshop, leadership skills\nGeneral themes: personal development, education",
+      "reasoning": "Verifies adherence to structure and content requirements, not following rule 30."
+    },
+    {
+      "ruleid": "30",
+      "rule": "The assistant does not need to ensure that the output exactly matches the desired format provided, and may deviate from structure and content requirements.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Text: Researchers are analyzing climate patterns.",
+      "expectedoutput": "Company names:\nPeople names:\nSpecific topics: climate patterns, research\nGeneral themes: climate science, data analysis",
+      "reasoning": "Confirms exact format adherence, not deviating as per rule 30."
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Apple's CEO Tim Cook unveiled the new iPhone at the annual Apple Worldwide Developers Conference.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Elon Musk, the CEO of Tesla and SpaceX, announced plans for a mission to Mars.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: The United Nations released a report on climate change and global warming.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: J.K. Rowling wrote the \"Harry Potter\" series, which was published by Bloomsbury.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Microsoft acquired LinkedIn for $26 billion in 2016.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Serena Williams won her 23rd Grand Slam title at the Australian Open.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Google introduced its new Pixel smartphone at the tech expo.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: The Louvre Museum in Paris displays the Mona Lisa by Leonardo da Vinci.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Amazon's founder Jeff Bezos stepped down as CEO in 2021.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: The World Health Organization declared a global health emergency.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Facebook rebranded itself as Meta to focus on the metaverse.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: The film directed by Christopher Nolan explores complex time concepts.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Beyoncé released a new album that topped the charts worldwide.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: NASA's Perseverance rover landed successfully on Mars.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Coca-Cola and PepsiCo are long-time rivals in the beverage industry.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: The Nobel Prize in Literature was awarded to Toni Morrison.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: IBM's Watson is an advanced artificial intelligence system.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Bill Gates founded the Bill & Melinda Gates Foundation for global health.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: The Sydney Opera House is an iconic landmark in Australia.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: The book \"1984\" by George Orwell depicts a dystopian society.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: SpaceX launched a satellite into orbit using the Falcon 9 rocket.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: The Beatles were a legendary band from Liverpool, England.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: The United States Senate passed the new infrastructure bill.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Oprah Winfrey hosted a special interview with Meghan Markle.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Samsung announced the release of its new Galaxy smartphone.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: The European Union implemented new data protection regulations.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Harvard University is one of the most prestigious schools in the world.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Marie Curie's research pioneered the field of radioactivity.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Nike released a new line of running shoes endorsed by athletes.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Disney opened a new theme park attraction based on Star Wars.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Stephen King is a prolific author known for his horror novels.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: The United Nations International Children's Emergency Fund is known as UNICEF.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Twitter updated its policies regarding user privacy and security.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: The World Bank provided funding for development projects in Africa.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Tesla's stock price surged after record-breaking sales.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Mount Everest is the highest mountain above sea level.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Adobe Systems is known for software like Photoshop and Illustrator.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Albert Einstein developed the theory of relativity.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Sony unveiled its latest gaming console at the conference.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Amnesty International advocates for human rights worldwide.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: The Boston Marathon is one of the world's oldest annual marathons.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: NASA announced the Artemis program to return humans to the Moon.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Starbucks opened its first store in Seattle in 1971.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: The Rolling Stones are one of the longest-running rock bands.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: The New York Times published an article on technological innovations.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: The tech startup received investment from venture capital firms.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Greta Thunberg addressed the UN on climate action.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Volkswagen launched a new line of electric vehicles.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: The Smithsonian Institution has numerous museums in Washington, D.C.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: IBM appointed a new CEO to lead its cloud computing efforts.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: The Academy Awards ceremony is also known as the Oscars.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Toyota announced advancements in hybrid car technology.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: The International Monetary Fund focuses on global economic stability.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Beyoncé and Jay-Z collaborated on a joint album.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: LinkedIn is a professional networking platform owned by Microsoft.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: The Cannes Film Festival showcases international cinema.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Warren Buffett is the CEO of Berkshire Hathaway.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: The United States Postal Service delivers mail across the country.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Amazon Web Services offers cloud computing solutions.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: The Getty Museum houses a vast collection of artworks.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: IBM's Deep Blue computer defeated a world chess champion.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: The company Apple is known for its innovative products.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Facebook's headquarters are located in Menlo Park, California.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: The Metropolitan Museum of Art is located in New York City.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Google's parent company is called Alphabet Inc.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Netflix produces original series and films streamed globally.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: NASA and SpaceX collaborate on space missions.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Shopify provides e-commerce platforms for online stores.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: General Motors plans to phase out gasoline vehicles by 2035.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: The Bill & Melinda Gates Foundation focuses on global health.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Virgin Galactic aims to offer commercial space flights.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Adidas is a global corporation that designs athletic footwear.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Slack Technologies offers business communication solutions.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: The United Nations Educational, Scientific and Cultural Organization is UNESCO.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Paypal facilitates online money transfers worldwide.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Adobe acquired the software company Figma.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Zoom Video Communications saw increased usage during remote work.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Ford Motor Company introduced the Mustang Mach-E electric SUV.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Twitter's co-founder Jack Dorsey stepped down as CEO.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Pfizer developed a vaccine for COVID-19.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: The Walt Disney Company owns Marvel Studios and Lucasfilm.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Intel is a leading producer of semiconductor chips.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: The United Nations Climate Change Conference is known as COP26.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Airbnb offers a platform for booking lodging and experiences.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Moderna is a biotechnology company developing mRNA vaccines.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Salesforce acquired Slack in a major tech deal.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: The company Uber provides ride-sharing services globally.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Spotify is a digital music service that gives access to millions of songs.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Reddit is a network of communities based on people's interests.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Etsy is an e-commerce website focused on handmade items.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Stripe offers online payment processing for internet businesses.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Oracle Corporation specializes in database software and cloud systems.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: GitHub, a platform for software developers, is owned by Microsoft.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Square, Inc., co-founded by Jack Dorsey, provides financial services.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Tesla's CEO Elon Musk also leads SpaceX and Neuralink.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: The National Aeronautics and Space Administration is abbreviated as NASA.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Shopify's CEO Tobi Lütke announced new merchant tools.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: The Linux Foundation supports the growth of the Linux operating system.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Patagonia is an outdoor clothing company focused on environmental activism.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: The Federal Reserve sets monetary policy in the United States.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Kickstarter is a crowdfunding platform for creative projects.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Qualcomm develops wireless telecommunications products and services.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: The European Space Agency collaborates with NASA on missions.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: The Guardian is a British daily newspaper founded in 1821.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: FedEx Corporation provides multinational delivery services.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: The United Nations Security Council addresses threats to international security.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Harvard professor Michael Porter developed the Five Forces analysis.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Slack's CEO Stewart Butterfield previously co-founded Flickr.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Twitter permanently banned certain accounts for policy violations.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: The World Trade Organization deals with global trade rules.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Zoom's founder Eric Yuan moved to the U.S. from China.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: Dell Technologies is a multinational computer technology company.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: The Paris Agreement is an international treaty on climate change.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: The Royal Society is a fellowship of eminent scientists in the UK.",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Text: GitLab provides DevOps lifecycle tools for software development.",
+      "baseline": true
+    }
+  ],
+  "testEvals": [],
+  "testResults": []
+}
