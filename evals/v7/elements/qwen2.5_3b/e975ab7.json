@@ -1,0 +1,11 @@
+{
+  "id": "e975ab7",
+  "promptid": "e5ed513",
+  "ruleid": 8,
+  "rule": "If there are no elements found for a category, it should still be listed with its label followed by an empty space or properly formatted as per given examples such as \"Company names: \" with no elements after the space.",
+  "model": "qwen2.5:3b",
+  "input": "Text: Tesla announced nothing notable.",
+  "output": "Company names: Tesla\nPeople names: -\nSpecific topics: -\nGeneral themes: announcements, absence of significant developments",
+  "compliance": "err",
+  "complianceText": "The chatbot output lists a company name under \"Company names\" as \"Tesla,\" which aligns with the described format. However, for \"People names,\" \"Specific topics,\" and \"General themes,\" the output includes empty \"-\" entries and a non-empty \"General themes\" entry of \"announcements, absence of significant developments.\"\n\nThe description specifies that after extracting company names, people names should be extracted, followed by specific topics and finally general themes, implying that all lists should exist and be formatted correctly even if they are empty (with `-||-` format). The output uses \"-\" for empty categories rather than the expected \"`-||-`\" format, violating the specified list formatting. Therefore, it does not comply with the given description due to formatting inconsistency.\n\nERR"
+}

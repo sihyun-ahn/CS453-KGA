@@ -1,0 +1,12 @@
+{
+  "id": "a49622d",
+  "promptid": "e5ed513",
+  "ruleid": 10,
+  "rule": "People names must not be listed in a comma-separated format following the label \"People names:\".",
+  "inverse": true,
+  "model": "qwen2.5:3b",
+  "input": "Text: Elon Musk, without others.",
+  "output": "Company names: Elon Musk\nPeople names: Elon Musk\nSpecific topics: -||-\nGeneral themes: -||-",
+  "compliance": "err",
+  "complianceText": "The chatbot output does not comply with the description for several reasons:\n\n1. **Format and Extraction Order**: The desired format, as per the description, requires extracting all company names first, then people names, followed by specific topics, and finally general themes. The output does follow this structure.\n\n2. **Company Names and People Names Overlap**: The output lists \"Elon Musk\" under both \"Company names\" and \"People names.\" While it's possible for an entity to fit into multiple categories, placing a person's name directly in \"Company names\" without explicitly indicating it is associated with a company violates the expectation in the description that these categories are distinct. \n\n3. **Content of Specific Topics and General Themes**: The \"Specific topics\" and \"General themes\" sections contain \"-||-\", which is the required format for indicating an empty list, thereby compliant.\n\nIn summary, the main compliance issue lies in the misclassification of \"Elon Musk\" as a company name without any indication it is associated with a company name, which goes against the expectation that these should be distinct. Given these considerations, the output violates the compliance of the chatbot description.\n\nERR"
+}

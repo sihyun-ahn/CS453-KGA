@@ -1,0 +1,12 @@
+{
+  "id": "4211018",
+  "promptid": "e5ed513",
+  "ruleid": 9,
+  "rule": "Company names must not be listed in a comma-separated format following the label \"Company names:\".",
+  "inverse": true,
+  "model": "qwen2.5:3b",
+  "input": "Text: Amazon, IBM, and Google.",
+  "output": "Company names: Amazon, IBM, Google\nPeople names: \nSpecific topics: \nGeneral themes: technological companies, innovations",
+  "compliance": "err",
+  "complianceText": "The chatbot output provides the different entities extracted from a text, however, there are a few violations of the guidelines provided. Firstly, for the \"People names\" and \"Specific topics\" categories, there are no names or topics listed, but no indication of \"None\" or \"N/A\" or any explanation that there were no entities found in those categories. The output should explicitly state when no entities are detected in those categories to be clearly compliant with the structured format described. The same applies to \"General themes\", although there are indeed themes listed, it might be better to explicitly state so that it isn't confused as incomplete.\n\nDue to these reasons, I conclude that the output is not explicitly following the desired format outlined in the description.\n\nERR"
+}

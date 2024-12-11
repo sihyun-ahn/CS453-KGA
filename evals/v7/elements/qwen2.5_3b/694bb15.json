@@ -1,0 +1,12 @@
+{
+  "id": "694bb15",
+  "promptid": "e5ed513",
+  "ruleid": 12,
+  "rule": "General themes must not be listed in a comma-separated format following the label \"General themes:\".",
+  "inverse": true,
+  "model": "qwen2.5:3b",
+  "input": "Text: Unformatted blur of societal influences.",
+  "output": "Company names: \nPeople names: -||-\nSpecific topics: blur, societal influences\nGeneral themes: general societal commentary",
+  "compliance": "err",
+  "complianceText": "Upon examining the chatbot output, the output does not fully comply with the description provided. \n\n1. The format is mostly followed, but there is a notable absence of a list where there should be one. Specifically, the section for 'Company names' is not following the required comma-separated list format even if it means the list is empty it should utilize the format \"-||-\" as used for 'People names'.\n\n2. 'Company names' is expected to have a list in a format consistent with that of the 'People names', which utilized \"-||-\" to imply no entries. The same should apply to 'Company names' to maintain consistency and adhere strictly to the format \n\nBased on the above analysis, the output does not comply with the description's requirement for a standardized format.\n\nERR"
+}

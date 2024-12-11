@@ -1,0 +1,12 @@
+{
+  "id": "405b588",
+  "promptid": "e5ed513",
+  "ruleid": 11,
+  "rule": "Specific topics must not be listed in a comma-separated format following the label \"Specific topics:\".",
+  "inverse": true,
+  "model": "qwen2.5:3b",
+  "input": "Text: Outlined approach to Machine Learning, albeit unordered.",
+  "output": "Company names: \nPeople names: -||-\nSpecific topics: Machine Learning, ordered approaches\nGeneral themes: Lack of order, procedural improvements",
+  "compliance": "err",
+  "complianceText": "The chatbot output does not comply with the description because the Company names and People names sections are not filled with any content, despite the instructions stating that they should contain lists of names. According to the format in the description, these should be populated with relevant names or otherwise correctly acknowledge the lack of such entities in a manner that is explicitly understood as compliant (e.g., stating 'None' if applicable). Simply leaving the Company names section blank could lead to ambiguity in compliance. Additionally, the fields for topics and themes appear to use descriptive phrases rather than simply enumerating clear themes, which could also be considered a deviation from precise format adherence depending on interpretation.\n\nERR"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "f750cb6",
+  "promptid": "e5ed513",
+  "ruleid": 9,
+  "rule": "Company names must not be listed in a comma-separated format following the label \"Company names:\".",
+  "inverse": true,
+  "model": "qwen2.5:3b",
+  "input": "Text: Apple, Inc and Tesla were explored.",
+  "output": "Company names: Apple, Inc, Tesla\nPeople names: -||-\nSpecific topics: Explore of Apple Inc and Tesla\nGeneral themes: Exploration, Technology Companies (Apple, Tesla)",
+  "compliance": "ok",
+  "complianceText": "The format provided in the chatbot description specifies that the entities must be extracted in a specific way. In the chatbot's output:\n\n1. The \"Company names\" list contains \"Apple, Inc\" which seems to be a typographical error or mismatch, as \"Apple, Inc\" should be \"Apple Inc.\" Additionally, the use of a comma in \"Apple, Inc\" does not clearly separate the companies, making it ambiguous whether \"Inc\" is mistakenly listed as a separate entity.\n\n2. The \"People names\" section uses \"-||-\" to denote no people names, which complies with the description.\n\n3. The \"Specific topics\" section is not a comma-separated list. But this aspect may require input knowledge to verify correctness. Thus, this issue will be overlooked in compliance checking.\n\n4. The \"General themes\" section in the output does not strictly follow the description format (non-consistent with formats), but this verification may require knowledge of content, which is not available.\n\nWhile there is a typographic issue in \"Company names\" regarding \"Apple, Inc,\" given the description's requirement for comma-separated formats, the compliance issue here affects correctness and thus is overlooked due to lack of context. \n\nNo violation.\nOK"
+}

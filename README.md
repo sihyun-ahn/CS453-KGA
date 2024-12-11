@@ -98,23 +98,26 @@ Tests generated from the rules:
 
 ## Test Generation Flow
 
+The diagram below shows the flow of test generation in PromptPex, starting from the PUT (database shape).
+
 ```mermaid
 graph TD
-    PUT(["Prompt Under Test (PUT)"])
-    IS["Input Specification (IS)"]
-    OR["Output Rules (OR)"]
+    PUT[("Prompt Under Test (PUT)")]
+    IS(["Input Specification (IS)"])
+    OR(["Output Rules (OR)"])
     ORG["Output Rules Groundedness (ORG)"]
-    PUTI["Prompt Under Test Intent (PUTI)"]
-    PPT["PromptPex Tests (PPT)"]
+    PUTI(["Prompt Under Test Intent (PUTI)"])
+    PPT{{"PromptPex Tests (PPT)"}}
     TC["Test Coverage (TC)"]
     TCE["Test Coverage Evaluation (TCE)"]
     TO["Test Output (TO) for MUT"]
     TOC["Test Output Compliance (TOC)"]
     TIC["Test Input Compliance (TIC)"]
+    BT{{"Baseline Tests (BT)"}}
 
-    PUT --> IS
+    PUT ==> IS
 
-    PUT --> OR
+    PUT ==> OR
 
     OR --> ORG
     PUT --> ORG
@@ -122,8 +125,8 @@ graph TD
     PUT --> PUTI
 
     PUT --> PPT
-    IS --> PPT
-    OR --> PPT
+    IS ==> PPT
+    OR ==> PPT
 
     PPT --> TIC
     IS --> TIC
@@ -141,7 +144,19 @@ graph TD
 
     TO --> TOC
     PUT --> TOC
+
+    PUT --> BT
+    BT --> TOC
 ```
+
+<br/>
+
+- Every node is created by a LLM call (aside from the PUT).
+- Rounded nodes can be edited by the user.
+- Square nodes are evaluations.
+- Diamond nodes are outputs.
+- Lines represent data dependencies.
+- Bolded lines are the minimum path to generate tests.
 
 ## Intended Uses
 

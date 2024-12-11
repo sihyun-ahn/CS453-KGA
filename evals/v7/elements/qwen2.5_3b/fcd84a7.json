@@ -1,0 +1,11 @@
+{
+  "id": "fcd84a7",
+  "promptid": "e5ed513",
+  "ruleid": 7,
+  "rule": "The output should strictly follow the order: Company names, People names, Specific topics, and General themes.",
+  "model": "qwen2.5:3b",
+  "input": "Text: Cloud computing challenges at Google explained by Sundar Pichai.",
+  "output": "Company names: Google\nPeople names: Sundar Pichai\nSpecific topics: Cloud computing challenges, Google, Sundar Pichai\nGeneral themes: Cloud Computing Challenges, Speakers/Interviews",
+  "compliance": "err",
+  "complianceText": "The chatbot output has some issues with format compliance based on the description provided. Here's the reasoning:\n\n1. Company names: \"Google\" is correctly placed as a company name. It follows the format described as a comma-separated list (though there's only one name).\n2. People names: \"Sundar Pichai\" is correctly placed as a person name. It follows the required format.\n3. Specific topics: \"Cloud computing challenges\" is a valid specific topic. However, \"Google\" and \"Sundar Pichai,\" mentioned as company and people names, respectively, should not be listed here according to the specific guidelines.\n4. General themes: While \"Cloud Computing Challenges\" might fit as a general theme, \"Speakers/Interviews\" appears to be oddly specific and repetitive if the names are present.\n\nThe errors are therefore due to non-compliance with the specification of not repeating entities categorized elsewhere as specific topics or general themes. \n\nERR"
+}

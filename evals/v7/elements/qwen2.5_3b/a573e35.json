@@ -1,0 +1,11 @@
+{
+  "id": "a573e35",
+  "promptid": "e5ed513",
+  "ruleid": 2,
+  "rule": "People names must be listed in a comma-separated format following the label \"People names:\".",
+  "model": "qwen2.5:3b",
+  "input": "Text: Florence Nightingale was influential in healthcare, together with Clara Barton and Nightingale too.",
+  "output": "Company names: Florence Nightingale, Clara Barton\nPeople names: Florence Nightingale, Clara Barton\nSpecific topics: Healthcare, Nightingale, Florence, Clara, \nGeneral themes: Influence, Collaboration, Health Care Workers",
+  "compliance": "err",
+  "complianceText": "The chatbot output is not in compliance with the description in the following ways:\n\n1. **Company Names**: The format specifies that company names should be listed. However, the items listed under \"Company names\" are clearly people names, not company names. Since I cannot check the correctness of whether those names should really be considered companies, based on the direct content of the output, they appear categorically incorrect.\n\n2. **People Names**: The \"People names\" field correctly lists names, consistent with typical person names. There is no violation here.\n\n3. **Specific Topics**: The description requires that specific topics be extracted. The list includes \"Healthcare, Nightingale, Florence, Clara,\" which includes parts of people names alongside valid topics. This suggests an improper extraction of specific topics in relation to the provided rules.\n\n4. **General Themes**: The description requires \"general overarching themes,\" and the list includes \"Influence, Collaboration, Health Care Workers,\" which is consistent with the general and thematic extraction expected.\n\nThe errors primarily lie with the incorrect categorization of company names and improper extraction in the specific topics section. These directly violate formatting guidelines and expectations for content extraction provided in the description.\n\nERR"
+}

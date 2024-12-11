@@ -1,0 +1,12 @@
+{
+  "id": "10086c5",
+  "promptid": "e5ed513",
+  "ruleid": 10,
+  "rule": "People names must not be listed in a comma-separated format following the label \"People names:\".",
+  "inverse": true,
+  "model": "qwen2.5:3b",
+  "input": "Text: Mention of Ada Lovelace, Marie Curie follows no rule.",
+  "output": "Company names: <none>\nPeople names: Ada Lovelace, Marie Curie\nSpecific topics: no_rule\nGeneral themes: female_inventors, notable_women,influence_on_math_and_science,legacy_of_remarkable_individuals",
+  "compliance": "err",
+  "complianceText": "The output contains clear sections for each category required by the description: \"Company names,\" \"People names,\" \"Specific topics,\" and \"General themes.\" The \"Company names\" section is filled with \"<none>\", which is acceptable since it's possible there were no company names in the input text. The \"People names\" section lists \"Ada Lovelace, Marie Curie,\" following the described format. The \"General themes\" section contains a comma-separated list, as expected.\n\nHowever, the \"Specific topics\" section contains \"no_rule,\" which does not follow the format outlined. The required format is a comma-separated list of specific topics, not \"no_rule.\" This constitutes a violation of the format rules specified in the description.\n\nTherefore, the output contains a violation due to non-compliance with the required format for \"Specific topics,\" despite the potential correctness of the content with respect to the input. \n\nERR"
+}

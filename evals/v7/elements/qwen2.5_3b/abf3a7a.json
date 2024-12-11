@@ -1,0 +1,12 @@
+{
+  "id": "abf3a7a",
+  "promptid": "e5ed513",
+  "ruleid": 15,
+  "rule": "The output should not strictly follow the order: Company names, People names, Specific topics, and General themes.",
+  "inverse": true,
+  "model": "qwen2.5:3b",
+  "input": "Text: Steve Jobs and Apple surfaced, unordered.",
+  "output": "Company names: Apple\nPeople names: Steve Jobs\nSpecific topics: \nGeneral themes: Startup/Innovation",
+  "compliance": "ok",
+  "complianceText": "The chatbot output is supposed to list company names, people names, specific topics, and general themes based on a given text. In the provided output:\n\n- The format for Company names and People names is correct.\n- There are no specific topics provided in the output. While the chatbot description does mention extracting specific topics, it doesn't mandate the list be non-empty—there may not have been any specific topics in the original text.\n- The format for General themes is correct.\n\nThe lack of specific topics doesn't necessarily point to non-compliance because such topics might not exist in the text or were deemed irrelevant. However, since we can't speculate on the content of the input text itself, we disregard parts of requirements that depend on the input.\n\nTherefore, the output complies with the description provided based on the adherence to formatting and possible justifiable absence of certain elements.\n\nNo violation.\nOK"
+}
