@@ -3,6 +3,7 @@
 - 4 rules
 - 4 inverse rules
 - 48 tests, 24 baseline tests
+- 192 test results, 144/192 (75%) oks, 48/192 (25%) errs
 
 ### Overview
 
@@ -32,7 +33,12 @@
 
 ### [test_results.csv](./test_results.csv)
 
-
+|model|tests|tests compliant|baseline compliant|tests positive|tests positive compliant|tests negative|tests negative compliant|baseline|tests valid|tests valid compliant|
+|-|-|-|-|-|-|-|-|-|-|-|
+|gpt\-4o\-mini|24|100%|100%|12|12|12|12|24|20|20|
+|gemma2:9b|24|100%|100%|12|12|12|12|24|20|20|
+|qwen2\.5:3b|24|96%|92%|12|11|12|12|24|20|19|
+|llama3\.2:1b|24|8%|4%|12|0|12|2|24|20|2|
 
 ### [speech-tag.prompty](./speech-tag.prompty)
 
@@ -70,6 +76,203 @@ user:
 {{sentenceword}}
 `````
 
+
+### [test_results.csv](./test_results.csv)
+
+|model|rule|input|output|compliance|
+|-|-|-|-|-|
+|gpt\-4o\-mini|The output must be a single part of speech tag that represents the given word's role in the sentence according to the specified list of tags\.|sentence: The quick brown fox jumps over the lazy dog\., word: fox|NN|ok|
+|gpt\-4o\-mini|The output must be a single part of speech tag that represents the given word's role in the sentence according to the specified list of tags\.|sentence: She sells seashells by the seashore\., word: by|IN|ok|
+|gpt\-4o\-mini|The output must be a single part of speech tag that represents the given word's role in the sentence according to the specified list of tags\.|sentence: Wow, that's amazing\!, word: Wow|UH|ok|
+|gpt\-4o\-mini|If the given word cannot be accurately tagged using the provided list of part\-of\-speech tags, the output must be the word "Unknown"\.|sentence: The xylophone zxylophone harmonizes\., word: zxylophone|Unknown|ok|
+|gpt\-4o\-mini|If the given word cannot be accurately tagged using the provided list of part\-of\-speech tags, the output must be the word "Unknown"\.|sentence: He ate the mysterious food item\., word: food|NN|ok|
+|gpt\-4o\-mini|If the given word cannot be accurately tagged using the provided list of part\-of\-speech tags, the output must be the word "Unknown"\.|sentence: As he qwertyuiop in the room\., word: qwertyuiop|Unknown|ok|
+|gpt\-4o\-mini|If it is impossible to determine a part of speech for the given word, the output must be the word "CantAnswer"\.|sentence: She spoke eloquently although about nothing in particular\., word: although|IN|ok|
+|gpt\-4o\-mini|If it is impossible to determine a part of speech for the given word, the output must be the word "CantAnswer"\.|sentence: Despite the conditions, they succeeded\., word: conditions|NNS|ok|
+|gpt\-4o\-mini|If it is impossible to determine a part of speech for the given word, the output must be the word "CantAnswer"\.|sentence: The truth was uncertain, shenative\., word: shenative|Unknown|ok|
+|gpt\-4o\-mini|The output must not contain any additional text, punctuation, or formatting besides the part of speech tag or the words "Unknown" or "CantAnswer"\.|sentence: He quickly ran to the store\., word: quickly|RB|ok|
+|gpt\-4o\-mini|The output must not contain any additional text, punctuation, or formatting besides the part of speech tag or the words "Unknown" or "CantAnswer"\.|sentence: This is the best ever\!, word: best|JJ|ok|
+|gpt\-4o\-mini|The output must not contain any additional text, punctuation, or formatting besides the part of speech tag or the words "Unknown" or "CantAnswer"\.|sentence: Do you have a pen?, word: you|PRP|ok|
+|gpt\-4o\-mini|The output must be multiple parts of speech tags representing different potential roles for the given word according to any possible tags\.|sentence: She booked the show\., word: booked|VBD|ok|
+|gpt\-4o\-mini|The output must be multiple parts of speech tags representing different potential roles for the given word according to any possible tags\.|sentence: Play the notes\., word: Play|VB|ok|
+|gpt\-4o\-mini|The output must be multiple parts of speech tags representing different potential roles for the given word according to any possible tags\.|sentence: The run was tiresome\., word: run|NN|ok|
+|gpt\-4o\-mini|If the given word can be tagged using any known part\-of\-speech tags, the output must not include the word "Unknown"\.|sentence: She sings beautifully\., word: sings|VB|ok|
+|gpt\-4o\-mini|If the given word can be tagged using any known part\-of\-speech tags, the output must not include the word "Unknown"\.|sentence: It shines brightly\., word: shines|VB|ok|
+|gpt\-4o\-mini|If the given word can be tagged using any known part\-of\-speech tags, the output must not include the word "Unknown"\.|sentence: Light travels fast\., word: travels|VBZ|ok|
+|gpt\-4o\-mini|If it is possible to determine a part of speech for the given word, the output must be entirely blank or contain an error message\.|sentence: The cat sleeps peacefully\., word: cat|NN|ok|
+|gpt\-4o\-mini|If it is possible to determine a part of speech for the given word, the output must be entirely blank or contain an error message\.|sentence: She understood the question\., word: understood|VBD|ok|
+|gpt\-4o\-mini|If it is possible to determine a part of speech for the given word, the output must be entirely blank or contain an error message\.|sentence: He will write a letter\., word: write|VB|ok|
+|gpt\-4o\-mini|The output must contain additional text, punctuation, or formatting besides the part of speech tag or the words "Unknown" or "CantAnswer"\.|sentence: There is a book on the table\., word: book|NN|ok|
+|gpt\-4o\-mini|The output must contain additional text, punctuation, or formatting besides the part of speech tag or the words "Unknown" or "CantAnswer"\.|sentence: A quick brown fox?, word: quick|JJ|ok|
+|gpt\-4o\-mini|The output must contain additional text, punctuation, or formatting besides the part of speech tag or the words "Unknown" or "CantAnswer"\.|sentence: Where did she go?, word: Where|WRB|ok|
+|gpt\-4o\-mini||sentence: The cat sat on the mat\. word: cat|NN|ok|
+|gpt\-4o\-mini||sentence: She quickly finished her homework\. word: quickly|RB|ok|
+|gpt\-4o\-mini||sentence: We will visit Paris next summer\. word: Paris|NNP|ok|
+|gpt\-4o\-mini||sentence: They haven't arrived at the station yet\. word: arrived|VBN|ok|
+|gpt\-4o\-mini||sentence: Tom and Jerry are famous cartoon characters\. word: and|CC|ok|
+|gpt\-4o\-mini||sentence: She is going to the gym\. word: is|VB|ok|
+|gpt\-4o\-mini||sentence: There were many reasons for the success\. word: There|EX|ok|
+|gpt\-4o\-mini||sentence: That is the biggest cake I have ever seen\. word: biggest|JJ|ok|
+|gpt\-4o\-mini||sentence: I can do it alone\. word: can|MD|ok|
+|gpt\-4o\-mini||sentence: Please hand me the red book\. word: book|NN|ok|
+|gpt\-4o\-mini||sentence: The baby's toy was missing\. word: baby's|POS|ok|
+|gpt\-4o\-mini||sentence: Ouch, that hurts\! word: Ouch|UH|ok|
+|gpt\-4o\-mini||sentence: If he studies hard, he might pass the test\. word: If|IN|ok|
+|gpt\-4o\-mini||sentence: There are 12 eggs in the basket\. word: 12|CD|ok|
+|gpt\-4o\-mini||sentence: Whoever answers correctly gets a prize\. word: Whoever|PRP|ok|
+|gpt\-4o\-mini||sentence: Happy people are more productive\. word: Happy|JJ|ok|
+|gpt\-4o\-mini||sentence: The wheels on the bus go round and round\. word: on|IN|ok|
+|gpt\-4o\-mini||sentence: Jane barely passed the exam this time\. word: barely|RB|ok|
+|gpt\-4o\-mini||sentence: Alas, the show is over\. word: Alas|UH|ok|
+|gpt\-4o\-mini||sentence: Would you like tea or coffee? word: or|CC|ok|
+|gpt\-4o\-mini||sentence: Some students forgot their umbrellas\. word: their|PRP$|ok|
+|gpt\-4o\-mini||sentence: The golden trophy was awarded to the winner\. word: golden|JJ|ok|
+|gpt\-4o\-mini||sentence: I might have taken the wrong turn\. word: might|MD|ok|
+|gpt\-4o\-mini||sentence: Certainly, that is the correct answer\. word: Certainly|RB|ok|
+|gemma2:9b|The output must be a single part of speech tag that represents the given word's role in the sentence according to the specified list of tags\.|sentence: The quick brown fox jumps over the lazy dog\., word: fox|NN|ok|
+|gemma2:9b|The output must be a single part of speech tag that represents the given word's role in the sentence according to the specified list of tags\.|sentence: She sells seashells by the seashore\., word: by|IN|ok|
+|gemma2:9b|The output must be a single part of speech tag that represents the given word's role in the sentence according to the specified list of tags\.|sentence: Wow, that's amazing\!, word: Wow|UH|ok|
+|gemma2:9b|If the given word cannot be accurately tagged using the provided list of part\-of\-speech tags, the output must be the word "Unknown"\.|sentence: The xylophone zxylophone harmonizes\., word: zxylophone|NN|ok|
+|gemma2:9b|If the given word cannot be accurately tagged using the provided list of part\-of\-speech tags, the output must be the word "Unknown"\.|sentence: He ate the mysterious food item\., word: food|NN|ok|
+|gemma2:9b|If the given word cannot be accurately tagged using the provided list of part\-of\-speech tags, the output must be the word "Unknown"\.|sentence: As he qwertyuiop in the room\., word: qwertyuiop|FW|ok|
+|gemma2:9b|If it is impossible to determine a part of speech for the given word, the output must be the word "CantAnswer"\.|sentence: She spoke eloquently although about nothing in particular\., word: although|IN|ok|
+|gemma2:9b|If it is impossible to determine a part of speech for the given word, the output must be the word "CantAnswer"\.|sentence: Despite the conditions, they succeeded\., word: conditions|NN|ok|
+|gemma2:9b|If it is impossible to determine a part of speech for the given word, the output must be the word "CantAnswer"\.|sentence: The truth was uncertain, shenative\., word: shenative|Unknown|ok|
+|gemma2:9b|The output must not contain any additional text, punctuation, or formatting besides the part of speech tag or the words "Unknown" or "CantAnswer"\.|sentence: He quickly ran to the store\., word: quickly|RB|ok|
+|gemma2:9b|The output must not contain any additional text, punctuation, or formatting besides the part of speech tag or the words "Unknown" or "CantAnswer"\.|sentence: This is the best ever\!, word: best|JJS|ok|
+|gemma2:9b|The output must not contain any additional text, punctuation, or formatting besides the part of speech tag or the words "Unknown" or "CantAnswer"\.|sentence: Do you have a pen?, word: you|PRP|ok|
+|gemma2:9b|The output must be multiple parts of speech tags representing different potential roles for the given word according to any possible tags\.|sentence: She booked the show\., word: booked|VBD|ok|
+|gemma2:9b|The output must be multiple parts of speech tags representing different potential roles for the given word according to any possible tags\.|sentence: Play the notes\., word: Play|VB|ok|
+|gemma2:9b|The output must be multiple parts of speech tags representing different potential roles for the given word according to any possible tags\.|sentence: The run was tiresome\., word: run|NN|ok|
+|gemma2:9b|If the given word can be tagged using any known part\-of\-speech tags, the output must not include the word "Unknown"\.|sentence: She sings beautifully\., word: sings|VBZ|ok|
+|gemma2:9b|If the given word can be tagged using any known part\-of\-speech tags, the output must not include the word "Unknown"\.|sentence: It shines brightly\., word: shines|VBZ|ok|
+|gemma2:9b|If the given word can be tagged using any known part\-of\-speech tags, the output must not include the word "Unknown"\.|sentence: Light travels fast\., word: travels|VBZ|ok|
+|gemma2:9b|If it is possible to determine a part of speech for the given word, the output must be entirely blank or contain an error message\.|sentence: The cat sleeps peacefully\., word: cat|NN|ok|
+|gemma2:9b|If it is possible to determine a part of speech for the given word, the output must be entirely blank or contain an error message\.|sentence: She understood the question\., word: understood|VBD|ok|
+|gemma2:9b|If it is possible to determine a part of speech for the given word, the output must be entirely blank or contain an error message\.|sentence: He will write a letter\., word: write|VB|ok|
+|gemma2:9b|The output must contain additional text, punctuation, or formatting besides the part of speech tag or the words "Unknown" or "CantAnswer"\.|sentence: There is a book on the table\., word: book|NN|ok|
+|gemma2:9b|The output must contain additional text, punctuation, or formatting besides the part of speech tag or the words "Unknown" or "CantAnswer"\.|sentence: A quick brown fox?, word: quick|JJ|ok|
+|gemma2:9b|The output must contain additional text, punctuation, or formatting besides the part of speech tag or the words "Unknown" or "CantAnswer"\.|sentence: Where did she go?, word: Where|WDT|ok|
+|gemma2:9b||sentence: The cat sat on the mat\. word: cat|NN|ok|
+|gemma2:9b||sentence: She quickly finished her homework\. word: quickly|RB|ok|
+|gemma2:9b||sentence: We will visit Paris next summer\. word: Paris|NNP|ok|
+|gemma2:9b||sentence: They haven't arrived at the station yet\. word: arrived|VBD|ok|
+|gemma2:9b||sentence: Tom and Jerry are famous cartoon characters\. word: and|CC|ok|
+|gemma2:9b||sentence: She is going to the gym\. word: is|VBZ|ok|
+|gemma2:9b||sentence: There were many reasons for the success\. word: There|EX|ok|
+|gemma2:9b||sentence: That is the biggest cake I have ever seen\. word: biggest|JJS|ok|
+|gemma2:9b||sentence: I can do it alone\. word: can|MD|ok|
+|gemma2:9b||sentence: Please hand me the red book\. word: book|NN|ok|
+|gemma2:9b||sentence: The baby's toy was missing\. word: baby's|POS|ok|
+|gemma2:9b||sentence: Ouch, that hurts\! word: Ouch|UH|ok|
+|gemma2:9b||sentence: If he studies hard, he might pass the test\. word: If|IN|ok|
+|gemma2:9b||sentence: There are 12 eggs in the basket\. word: 12|CD|ok|
+|gemma2:9b||sentence: Whoever answers correctly gets a prize\. word: Whoever|WDT|ok|
+|gemma2:9b||sentence: Happy people are more productive\. word: Happy|JJ|ok|
+|gemma2:9b||sentence: The wheels on the bus go round and round\. word: on|IN|ok|
+|gemma2:9b||sentence: Jane barely passed the exam this time\. word: barely|RB|ok|
+|gemma2:9b||sentence: Alas, the show is over\. word: Alas|UH|ok|
+|gemma2:9b||sentence: Would you like tea or coffee? word: or|CC|ok|
+|gemma2:9b||sentence: Some students forgot their umbrellas\. word: their|PRP$|ok|
+|gemma2:9b||sentence: The golden trophy was awarded to the winner\. word: golden|JJ|ok|
+|gemma2:9b||sentence: I might have taken the wrong turn\. word: might|MD|ok|
+|gemma2:9b||sentence: Certainly, that is the correct answer\. word: Certainly|UH|ok|
+|qwen2\.5:3b|The output must be a single part of speech tag that represents the given word's role in the sentence according to the specified list of tags\.|sentence: The quick brown fox jumps over the lazy dog\., word: fox|NN|ok|
+|qwen2\.5:3b|The output must be a single part of speech tag that represents the given word's role in the sentence according to the specified list of tags\.|sentence: She sells seashells by the seashore\., word: by|IN|ok|
+|qwen2\.5:3b|The output must be a single part of speech tag that represents the given word's role in the sentence according to the specified list of tags\.|sentence: Wow, that's amazing\!, word: Wow|WRB|ok|
+|qwen2\.5:3b|If the given word cannot be accurately tagged using the provided list of part\-of\-speech tags, the output must be the word "Unknown"\.|sentence: The xylophone zxylophone harmonizes\., word: zxylophone|Unknown|ok|
+|qwen2\.5:3b|If the given word cannot be accurately tagged using the provided list of part\-of\-speech tags, the output must be the word "Unknown"\.|sentence: He ate the mysterious food item\., word: food|NN|ok|
+|qwen2\.5:3b|If the given word cannot be accurately tagged using the provided list of part\-of\-speech tags, the output must be the word "Unknown"\.|sentence: As he qwertyuiop in the room\., word: qwertyuiop|Unknown|ok|
+|qwen2\.5:3b|If it is impossible to determine a part of speech for the given word, the output must be the word "CantAnswer"\.|sentence: She spoke eloquently although about nothing in particular\., word: although|IN|ok|
+|qwen2\.5:3b|If it is impossible to determine a part of speech for the given word, the output must be the word "CantAnswer"\.|sentence: Despite the conditions, they succeeded\., word: conditions|NN|ok|
+|qwen2\.5:3b|If it is impossible to determine a part of speech for the given word, the output must be the word "CantAnswer"\.|sentence: The truth was uncertain, shenative\., word: shenative|Unknown|ok|
+|qwen2\.5:3b|The output must not contain any additional text, punctuation, or formatting besides the part of speech tag or the words "Unknown" or "CantAnswer"\.|sentence: He quickly ran to the store\., word: quickly|VB️|err|
+|qwen2\.5:3b|The output must not contain any additional text, punctuation, or formatting besides the part of speech tag or the words "Unknown" or "CantAnswer"\.|sentence: This is the best ever\!, word: best|JJ|ok|
+|qwen2\.5:3b|The output must not contain any additional text, punctuation, or formatting besides the part of speech tag or the words "Unknown" or "CantAnswer"\.|sentence: Do you have a pen?, word: you|WP|ok|
+|qwen2\.5:3b|The output must be multiple parts of speech tags representing different potential roles for the given word according to any possible tags\.|sentence: She booked the show\., word: booked|VBZ|ok|
+|qwen2\.5:3b|The output must be multiple parts of speech tags representing different potential roles for the given word according to any possible tags\.|sentence: Play the notes\., word: Play|VB|ok|
+|qwen2\.5:3b|The output must be multiple parts of speech tags representing different potential roles for the given word according to any possible tags\.|sentence: The run was tiresome\., word: run|NN|ok|
+|qwen2\.5:3b|If the given word can be tagged using any known part\-of\-speech tags, the output must not include the word "Unknown"\.|sentence: She sings beautifully\., word: sings|VBZ|ok|
+|qwen2\.5:3b|If the given word can be tagged using any known part\-of\-speech tags, the output must not include the word "Unknown"\.|sentence: It shines brightly\., word: shines|VBZ|ok|
+|qwen2\.5:3b|If the given word can be tagged using any known part\-of\-speech tags, the output must not include the word "Unknown"\.|sentence: Light travels fast\., word: travels|VB|ok|
+|qwen2\.5:3b|If it is possible to determine a part of speech for the given word, the output must be entirely blank or contain an error message\.|sentence: The cat sleeps peacefully\., word: cat|NN|ok|
+|qwen2\.5:3b|If it is possible to determine a part of speech for the given word, the output must be entirely blank or contain an error message\.|sentence: She understood the question\., word: understood|VB|ok|
+|qwen2\.5:3b|If it is possible to determine a part of speech for the given word, the output must be entirely blank or contain an error message\.|sentence: He will write a letter\., word: write|VB|ok|
+|qwen2\.5:3b|The output must contain additional text, punctuation, or formatting besides the part of speech tag or the words "Unknown" or "CantAnswer"\.|sentence: There is a book on the table\., word: book|NN|ok|
+|qwen2\.5:3b|The output must contain additional text, punctuation, or formatting besides the part of speech tag or the words "Unknown" or "CantAnswer"\.|sentence: A quick brown fox?, word: quick|JJ|ok|
+|qwen2\.5:3b|The output must contain additional text, punctuation, or formatting besides the part of speech tag or the words "Unknown" or "CantAnswer"\.|sentence: Where did she go?, word: Where|WP|ok|
+|qwen2\.5:3b||sentence: The cat sat on the mat\. word: cat|NN|ok|
+|qwen2\.5:3b||sentence: She quickly finished her homework\. word: quickly|VB兮|err|
+|qwen2\.5:3b||sentence: We will visit Paris next summer\. word: Paris|NN|ok|
+|qwen2\.5:3b||sentence: They haven't arrived at the station yet\. word: arrived|VBZ|ok|
+|qwen2\.5:3b||sentence: Tom and Jerry are famous cartoon characters\. word: and|CC|ok|
+|qwen2\.5:3b||sentence: She is going to the gym\. word: is|VB|ok|
+|qwen2\.5:3b||sentence: There were many reasons for the success\. word: There|TO|ok|
+|qwen2\.5:3b||sentence: That is the biggest cake I have ever seen\. word: biggest|JJR|ok|
+|qwen2\.5:3b||sentence: I can do it alone\. word: can|VB|ok|
+|qwen2\.5:3b||sentence: Please hand me the red book\. word: book|NN|ok|
+|qwen2\.5:3b||sentence: The baby's toy was missing\. word: baby's|NNP|ok|
+|qwen2\.5:3b||sentence: Ouch, that hurts\! word: Ouch|UH|ok|
+|qwen2\.5:3b||sentence: If he studies hard, he might pass the test\. word: If|CantAnswer|ok|
+|qwen2\.5:3b||sentence: There are 12 eggs in the basket\. word: 12|CD|ok|
+|qwen2\.5:3b||sentence: Whoever answers correctly gets a prize\. word: Whoever|WP|ok|
+|qwen2\.5:3b||sentence: Happy people are more productive\. word: Happy|JJ|ok|
+|qwen2\.5:3b||sentence: The wheels on the bus go round and round\. word: on|IN|ok|
+|qwen2\.5:3b||sentence: Jane barely passed the exam this time\. word: barely|VB️DG|err|
+|qwen2\.5:3b||sentence: Alas, the show is over\. word: Alas|RB|ok|
+|qwen2\.5:3b||sentence: Would you like tea or coffee? word: or|CC|ok|
+|qwen2\.5:3b||sentence: Some students forgot their umbrellas\. word: their|their<br>PRP|ok|
+|qwen2\.5:3b||sentence: The golden trophy was awarded to the winner\. word: golden|JJ|ok|
+|qwen2\.5:3b||sentence: I might have taken the wrong turn\. word: might|VBZ|ok|
+|qwen2\.5:3b||sentence: Certainly, that is the correct answer\. word: Certainly|FW|ok|
+|llama3\.2:1b|The output must be a single part of speech tag that represents the given word's role in the sentence according to the specified list of tags\.|sentence: The quick brown fox jumps over the lazy dog\., word: fox|CC: adjective<br>JJ: adjective<br>JJS: adjective|err|
+|llama3\.2:1b|The output must be a single part of speech tag that represents the given word's role in the sentence according to the specified list of tags\.|sentence: She sells seashells by the seashore\., word: by|Sentence: Unknown<br>Word: by|err|
+|llama3\.2:1b|The output must be a single part of speech tag that represents the given word's role in the sentence according to the specified list of tags\.|sentence: Wow, that's amazing\!, word: Wow|WP: Wh\-pronoun<br>WC: Conjunction \(used to connect the two occurrences of 'Wow'\) <br>WU: Interjection \(exclamation\)|err|
+|llama3\.2:1b|If the given word cannot be accurately tagged using the provided list of part\-of\-speech tags, the output must be the word "Unknown"\.|sentence: The xylophone zxylophone harmonizes\., word: zxylophone|Part of speech tag for the given word 'zxylophone': CD \(Cardinal number\) <br>The part of speech tags should form a cohesive and grammatically correct sentence\. In this case, the given words have different meanings, so forming a complete sentence with the same parts of speech is not possible\.<br><br>Therefore, I return: CantAnswer|err|
+|llama3\.2:1b|If the given word cannot be accurately tagged using the provided list of part\-of\-speech tags, the output must be the word "Unknown"\.|sentence: He ate the mysterious food item\., word: food|For the given sentence and word "food", both verbs "ate" can be tagged as VBD \(Past tense, 3rd person singular present\)\.<br><br>So, the part of speech tag for the word "food" is VB\.|err|
+|llama3\.2:1b|If the given word cannot be accurately tagged using the provided list of part\-of\-speech tags, the output must be the word "Unknown"\.|sentence: As he qwertyuiop in the room\., word: qwertyuiop|\*\*Part\-of\-Speech Tags:\*\*<br><br>\* sentence: IN, SYM<br>\* word: qwertyuiop|err|
+|llama3\.2:1b|If it is impossible to determine a part of speech for the given word, the output must be the word "CantAnswer"\.|sentence: She spoke eloquently although about nothing in particular\., word: although|Part of Speech Tag:<br><br>\* She: CC<br>\* spoke: VBZ<br>\* eloquently: RB<br>\* although: RRB|err|
+|llama3\.2:1b|If it is impossible to determine a part of speech for the given word, the output must be the word "CantAnswer"\.|sentence: Despite the conditions, they succeeded\., word: conditions|Sentence \- NNP \(Proper Noun\)<br>Word   \- conditions <br><br>Both words can be tagged as NNS \(Noun, plural\), so I will return NNS\.|err|
+|llama3\.2:1b|If it is impossible to determine a part of speech for the given word, the output must be the word "CantAnswer"\.|sentence: The truth was uncertain, shenative\., word: shenative|Here are the parts of speech for each word:<br><br>\* The: DT \(Determiner\)<br>\* truth: NN \(Noun\)|err|
+|llama3\.2:1b|The output must not contain any additional text, punctuation, or formatting besides the part of speech tag or the words "Unknown" or "CantAnswer"\.|sentence: He quickly ran to the store\., word: quickly|Word: quickly <br> POS: VerB \(Verb\)|err|
+|llama3\.2:1b|The output must not contain any additional text, punctuation, or formatting besides the part of speech tag or the words "Unknown" or "CantAnswer"\.|sentence: This is the best ever\!, word: best|PART OF SPOC: JJ <br>tagged: best|err|
+|llama3\.2:1b|The output must not contain any additional text, punctuation, or formatting besides the part of speech tag or the words "Unknown" or "CantAnswer"\.|sentence: Do you have a pen?, word: you|For the given words:<br><br>\- The word "you" is an INF: Adverb I would tag it as ADJ: Adjective\. So, for the first sentence, I would return ADJ as part of 'ADP: Adverb' but cannot as ADJ is not a proper tag, however  AS adj would be too ambiguous\.<br>\- The word "you" is an INF: Adverb in both sentences\. <br><br>However since we're asked to just provide the tag for each word's part of speech without using their full form, I will return:<br><br>ADJ<br>INF|err|
+|llama3\.2:1b|The output must be multiple parts of speech tags representing different potential roles for the given word according to any possible tags\.|sentence: She booked the show\., word: booked|Word: CC: Booking, JJS: Booked, EX: She|err|
+|llama3\.2:1b|The output must be multiple parts of speech tags representing different potential roles for the given word according to any possible tags\.|sentence: Play the notes\., word: Play|Part\-of\-speech tag for "Play" is NN\.<br> Part\-of\-speech tag for "notes" is JJR\.|err|
+|llama3\.2:1b|The output must be multiple parts of speech tags representing different potential roles for the given word according to any possible tags\.|sentence: The run was tiresome\., word: run|Word: Run<br> Tag: JJ|err|
+|llama3\.2:1b|If the given word can be tagged using any known part\-of\-speech tags, the output must not include the word "Unknown"\.|sentence: She sings beautifully\., word: sings|Word: JJR \(Jobbing adjective\)<br><br> Sentence: She sings beautifully\., word: beautiful <br> Sentence: She sings wonderfully\., word: beautifully\.<br> Word: NN \(Proper noun\)|err|
+|llama3\.2:1b|If the given word can be tagged using any known part\-of\-speech tags, the output must not include the word "Unknown"\.|sentence: It shines brightly\., word: shines|The tag for the word "shines" in both sentences is NN\.|ok|
+|llama3\.2:1b|If the given word can be tagged using any known part\-of\-speech tags, the output must not include the word "Unknown"\.|sentence: Light travels fast\., word: travels|word: travels \( JJR, JJS\)<br>word: travels \( DT, IN\) <br> CantAnswer <br><br>Note: The word 'travels' can also be tagged as MS: Adverb or RB: ADVERB depending on its grammatical position\. However, in the provided list of tag options, I have only listed JJR/JJS for "travels" since it is an adjective\. If you want to include 'adverbial', I will put "ADVERB" under travel instead\.|err|
+|llama3\.2:1b|If it is possible to determine a part of speech for the given word, the output must be entirely blank or contain an error message\.|sentence: The cat sleeps peacefully\., word: cat|Word: cat<br>Tag: NNP|ok|
+|llama3\.2:1b|If it is possible to determine a part of speech for the given word, the output must be entirely blank or contain an error message\.|sentence: She understood the question\., word: understood|\_tag\_: DT<br><br>\_word\_: understood\_|err|
+|llama3\.2:1b|If it is possible to determine a part of speech for the given word, the output must be entirely blank or contain an error message\.|sentence: He will write a letter\., word: write|\* For the first sentence: The word "write" is an : JJ\.<br>\* For the second sentence \(same sentence as above\): The word "write" is an : JJ\.|err|
+|llama3\.2:1b|The output must contain additional text, punctuation, or formatting besides the part of speech tag or the words "Unknown" or "CantAnswer"\.|sentence: There is a book on the table\., word: book|Word: CC: Coordinating conjunction \(conjunction\), JJ: Adjective<br><br>Sentence: It is raining outside\. <br>Word: CD: Cardinal number, NN: Noun, singular or mass|err|
+|llama3\.2:1b|The output must contain additional text, punctuation, or formatting besides the part of speech tag or the words "Unknown" or "CantAnswer"\.|sentence: A quick brown fox?, word: quick|CC: Coordinating conjunction<br>Tag: ? \(unknown\)|err|
+|llama3\.2:1b|The output must contain additional text, punctuation, or formatting besides the part of speech tag or the words "Unknown" or "CantAnswer"\.|sentence: Where did she go?, word: Where|CC: Coordinating conjunction<br>Since the sentence is identical \(same structure and words\) and both instances of "where" are connected, it's a case of homographs\. Coordinating conjunctions join non\- coordinating clauses to a main clause\.<br><br>CantAnswer<br>Both words cannot be tagged with a specific part\-of\-speech tag due to their identical use in different positions\. Symbol|err|
+|llama3\.2:1b||sentence: The cat sat on the mat\. word: cat|Word: DD: Determiner \(Determiner\)<br> <br>Sentence tags:<br>\- DT: Determiner \(Det\) \-Determiner<br>\- JJ: Adjective \(Adj\) Adjective<br>\- NNP: Proper noun \(NNP\) , singular, NP: Noun \(NP\)|err|
+|llama3\.2:1b||sentence: She quickly finished her homework\. word: quickly|For the given sentence and word "quickly":<br><br>\* The tag is PD \(Pronouns doesn't fit, thus returning PD\)\.<br> To be precise, a more suitable answer would be PL tags for the present participle\.|err|
+|llama3\.2:1b||sentence: We will visit Paris next summer\. word: Paris|Tagging the sentences:<br>\- sentence 1: We \(IN\) will \(FW\) visit \(JJR\) Paris \(NN\) next \(DD\) summer \(NN\)\. So, the tagged version is: IN FW JJR NN DD<br>\- sentence 2: We \(IN\) will \(FW\) visit \(JJR\) Paris \(NN\) next \(DD\) summer \(NN\)\. So, the tagged version is: IN FW JJR NN DD|err|
+|llama3\.2:1b||sentence: They haven't arrived at the station yet\. word: arrived|JJ <br>JJR: <br>JJS|err|
+|llama3\.2:1b||sentence: Tom and Jerry are famous cartoon characters\. word: and|For the first sentence, tag: ADP \(Adposition\) <br>For the second sentence, tag: CC \(Coordinating conjunction\)|err|
+|llama3\.2:1b||sentence: She is going to the gym\. word: is|Word: is <br>Tag: RC \(Relational, no grammatical function\)<br><br>Word: is<br>Tag: CC \(Coordinating conjunction\)|err|
+|llama3\.2:1b||sentence: There were many reasons for the success\. word: There|\* For: DT \(Determiner\)<br>\* There:<br>     \* This: NNP \(Proper noun, plural, NNPS\)<br>     \* When: FW \(Foreign word\)<br><br>\* Reasons: JJR \(Adjective, comparative, JJS \(Adjective, superlative\)|err|
+|llama3\.2:1b||sentence: That is the biggest cake I have ever seen\. word: biggest|Part\-of\-speech tag for "word": NN <br><br>Part\-of\-speech tag for "word": NNS|err|
+|llama3\.2:1b||sentence: I can do it alone\. word: can|Word: can<br>\- DD: Determiner \(I\)<br>\- NN: Noun \(can\)|err|
+|llama3\.2:1b||sentence: Please hand me the red book\. word: book|Part\-of\-speech tag for "book" is NN \(Noun\)\.|err|
+|llama3\.2:1b||sentence: The baby's toy was missing\. word: baby's|Word: baby's<br>Tags: NNS \(2\)|err|
+|llama3\.2:1b||sentence: Ouch, that hurts\! word: Ouch|Sentence: Ouch, that hurts\!<br>Word: Ouch<br>Tag: VB<br><br>Sentence: Ouch, that hurts\!<br>Word: Ouch<br>Tag: VB|err|
+|llama3\.2:1b||sentence: If he studies hard, he might pass the test\. word: If|CC: Subordinating conjunction|err|
+|llama3\.2:1b||sentence: There are 12 eggs in the basket\. word: 12|\*   TT: Titic \(tag for 'Titantic'\)<br>\*   CC: Cor \(correlated\)<br>\*   CT: Toc \(to the cost\)<br>\*   UH: Uhuh \(Interjection\)|err|
+|llama3\.2:1b||sentence: Whoever answers correctly gets a prize\. word: Whoever|\* In the sentence "Whoever answers correctly gets a prize," the tagged word is "whoever\."<br><br>Tagged as:Possessive ending|err|
+|llama3\.2:1b||sentence: Happy people are more productive\. word: Happy|Here are the parts of speech for each word:<br><br>\- Happy: NN \(NOUN, singular\)<br>\- Happy: JJ \(ADJECTIVE\)|err|
+|llama3\.2:1b||sentence: The wheels on the bus go round and round\. word: on|word: on<br>tag: Nouns|err|
+|llama3\.2:1b||sentence: Jane barely passed the exam this time\. word: barely|\*\*Part of Speech Tag:\*\*<br>Nouns \(barely\)|err|
+|llama3\.2:1b||sentence: Alas, the show is over\. word: Alas|For the given sentence:<br><br>\* The first instance of "Alas" is a noun\.<br>\* The second instance of "Alas" appears to be an interjection \(UH\)\. <br><br>So, I'd return NN and UH as the part of speech tags\.|err|
+|llama3\.2:1b||sentence: Would you like tea or coffee? word: or|\* POS: IN<br>\* LS: NNS: \(Note: There are two identical sentences\. The first contains the determiner "or", and the second sentence is identical to the first, thus leaving only the determined part of speech\.\) <br><br>Corrected response:<br>\* IN|err|
+|llama3\.2:1b||sentence: Some students forgot their umbrellas\. word: their|The tag for the word "their" in this sentence is PRP$\.|ok|
+|llama3\.2:1b||sentence: The golden trophy was awarded to the winner\. word: golden|\* The tag for the word "golden" is NN \(Noun\)\.<br>\* The tag for the word "golden" is PD \(Pronoun\)\.|err|
+|llama3\.2:1b||sentence: I might have taken the wrong turn\. word: might|Tag for the word "might": DD: Determiner|err|
+|llama3\.2:1b||sentence: Certainly, that is the correct answer\. word: Certainly|DT: Determiner<br>DT: Determiner<br>WW: Wh\-word \(returning "Wh\-"\)|err|
 
 ### [intent.txt](./intent.txt)
 
