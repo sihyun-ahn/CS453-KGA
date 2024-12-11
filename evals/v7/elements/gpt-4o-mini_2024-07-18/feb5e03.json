@@ -1,0 +1,12 @@
+{
+  "id": "feb5e03",
+  "promptid": "e5ed513",
+  "ruleid": 12,
+  "rule": "General themes must not be listed in a comma-separated format following the label \"General themes:\".",
+  "inverse": true,
+  "model": "gpt-4o-mini",
+  "input": "Text: Strategy influencing themes discussed.",
+  "output": "Company names: \nPeople names: -||-\nSpecific topics: Strategy, themes\nGeneral themes: Influence, discussion",
+  "compliance": "ok",
+  "complianceText": "The evaluation of the chatbot output must be based solely on its adherence to the format specified in the description. The description requires that the output be structured in a specific format with four sections: Company names, People names, Specific topics, and General themes. Each section should contain a comma-separated list of relevant items.\n\nIn the evaluated output:\n- The \"Company names\" section is empty, which, depending on the input (which is not provided), could be compliant if there were no company names to extract. However, this cannot be confirmed without the input.\n- The \"People names\" section properly uses the \"-||-\" symbol to denote no items found or to list individuals if any were detected.\n- The \"Specific topics\" and \"General themes\" sections do contain specific items, adhering to the format.\n\nThe primary issue is in \"Specific topics\" where it includes the term \"themes,\" which is a broader category and belongs more appropriately to the \"General themes\" section, indicating a potential misclassification of terms. Despite this misstep, each section is appropriately filled in terms of format and structure.\n\nGiven these considerations, while there might be a misclassification internally, the structural requirement of populating or indicating the presence of zero entries correctly has been met for three sections, minus one potential misplacement/error on semantic classification which we should ignore without input.\n\nTherefore, there is no explicit violation of the format requirement laid out in the description.\n\nNo violation.\nOK"
+}

@@ -107,6 +107,7 @@ graph TD
     PUTI["Prompt Under Test Intent (PUTI)"]
     PPT["PromptPex Tests (PPT)"]
     TC["Test Coverage (TC)"]
+    TCE["Test Coverage Evaluation (TCE)"]
     TO["Test Output (TO) for MUT"]
     TOC["Test Output Compliance (TOC)"]
     TIC["Test Input Compliance (TIC)"]
@@ -130,6 +131,10 @@ graph TD
     PPT --> TC
     PUTI --> TC
     OR --> TC
+
+    TC --> TCE
+    PUT --> TCE
+    
 
     PPT --> TO
     PUT --> TO

@@ -1,0 +1,12 @@
+{
+  "id": "7189485",
+  "promptid": "e5ed513",
+  "ruleid": 11,
+  "rule": "Specific topics must not be listed in a comma-separated format following the label \"Specific topics:\".",
+  "inverse": true,
+  "model": "gpt-4o-mini",
+  "input": "Text: Topics discussed as E-commerce, AI are not welcome.",
+  "output": "Company names: \nPeople names: -||-\nSpecific topics: E-commerce, AI\nGeneral themes: Technology, Business Trends",
+  "compliance": "ok",
+  "complianceText": "The chatbot's output is supposed to provide a structured extraction of entities from a given text, following a clear order: first company names, then people names, specific topics, and finally general themes. According to the description, we expect non-empty fields to be populated with entities, separated by commas without the knowledge of input.\n\nEvaluating the given output:\n\n1. **Company Names**: The \"Company names\" field is empty, with no comma-separated list or placeholder text indicating that it is intentionally empty. It is not possible to check if companies were mentioned and not extracted because that would require input which is not available, so this part is ignored as it is not possible to determine compliance.\n\n2. **People Names**: The \"People names\" field follows the expected format with \"-||-\". It means that no people names were extracted, which is in line with the format when there are no such entities present in the text. Again, it cannot be determined if this is correct without knowing the input.\n\n3. **Specific Topics**: This field correctly lists specific topics separated by commas: \"E-commerce, AI.\" The format is correctly followed.\n\n4. **General Themes**: The \"General themes\" section lists \"Technology, Business Trends,\" adhering to the requested comma-separated format.\n\nWithout the need to know the input, the structure and order of the extracted information comply with the format explicitly stated in the chatbot description. No part of the output violates the required structure, as it maintains the separation and list format as instructed.\n\nNo violation.\nOK"
+}

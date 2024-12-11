@@ -103,10 +103,13 @@ for (const files of prompts) {
 }
 await workspace.writeText(
   "evals/README.md",
-  `# Test Results
+  `# Eval summary
+  
+## Test Results
 
 - % represent compliance rate
 
 ${CSV.markdownify(res)}
+
 `
 );

@@ -43,15 +43,14 @@
 ### [elements.prompty](./elements.prompty)
 
 `````md
-
 ---
 name: Extract Elements of Text
 description: Extract specific elements of text from a given text
 source: OpenAI documentation
 url: https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-the-openai-api
 inputs: 
-  text:
-    type: string
+   text:
+      type: string
 ---
 system:
 Extract the important entities mentioned in the text below. First extract all company names, then extract all people names, then extract specific topics which fit the content and finally extract general overarching themes
@@ -62,7 +61,7 @@ People names: -||-
 Specific topics: -||-
 General themes: -||-
 user:
-Text: {{text}}
+Text: {{ text }}
 
 `````
 
@@ -483,6 +482,19 @@ The text input can be in any language but should preferably be comprehensible fo
 8: If there are no elements found for a category, it should still be listed with its label followed by an empty space or properly formatted as per given examples such as "Company names: " with no elements after the space.
 `````
 
+
+### [rule_evals.csv](./rule_evals.csv)
+
+|ruleid|rule|grounded|
+|-|-|-|
+|1|Company names must be listed in a comma\-separated format following the label "Company names:"\.|ok|
+|2|People names must be listed in a comma\-separated format following the label "People names:"\.|ok|
+|3|Specific topics must be listed in a comma\-separated format following the label "Specific topics:"\.|err|
+|4|General themes must be listed in a comma\-separated format following the label "General themes:"\.|ok|
+|5|Each category label should be followed by a colon and a single space before the list\.|ok|
+|6|All extracted elements from the text should be categorized under their respective labels\.|ok|
+|7|The output should strictly follow the order: Company names, People names, Specific topics, and General themes\.|ok|
+|8|If there are no elements found for a category, it should still be listed with its label followed by an empty space or properly formatted as per given examples such as "Company names: " with no elements after the space\.|err|
 
 ### [inverse_rules.txt](./inverse_rules.txt)
 

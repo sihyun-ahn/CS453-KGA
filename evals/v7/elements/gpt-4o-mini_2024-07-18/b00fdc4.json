@@ -1,0 +1,12 @@
+{
+  "id": "b00fdc4",
+  "promptid": "e5ed513",
+  "ruleid": 16,
+  "rule": "If there are no elements found for a category, it should not be listed with its label followed by an empty space or properly formatted as per given examples such as \"Company names: \" with no elements after the space.",
+  "inverse": true,
+  "model": "gpt-4o-mini",
+  "input": "Text: Oracle's exposition on no specific field.",
+  "output": "Company names: Oracle  \nPeople names: -||-  \nSpecific topics: exposition, no specific field  \nGeneral themes: technology, corporate presentations",
+  "compliance": "err",
+  "complianceText": "The chatbot's output adheres to the required format specified in the description. The company names, people names, specific topics, and general themes are all separated by colons and formatted as comma-separated lists or placeholders where necessary. \n\nHowever, upon close inspection, there seems to be a deviation in the elements contained within the specific topics. The description suggests extracting specific topics that fit the content, but the output lists \"exposition\" along with \"no specific field,\" which seems contradictory and not fitting for a specific topic. If there is indeed \"no specific field,\" it is unclear why \"exposition\" is included as a specific topic and why there is a declaration of no specific field.\n\nThis issue could suggest either non-compliance with the format rules or possibly incorrect generation based on the unseen input text. Due to the ambiguity introduced by listing a specific topic alongside a statement of no specific field, it leads to a compliance issue.\n\nBased on the above reasoning, the output does not fully comply with the chatbot description as there is a contradiction within the specific topics section.\n\nERR"
+}

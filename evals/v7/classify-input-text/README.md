@@ -43,15 +43,14 @@
 ### [classify-input-text.prompty](./classify-input-text.prompty)
 
 `````md
-
 ---
 name: Classify input text
 description: Given an input text, classify it into a specific category.
 source: How to use Llama2 tutorial for text classification
 url: https://pupuweb.com/how-use-llama-2-text-classification-tasks/
-inputs: 
-  text:
-    type: string
+inputs:
+    text:
+        type: "string"
 sample:
     text: "UN chief urges action on climate change as report warns of 'catastrophe'"
 ---
@@ -65,7 +64,7 @@ Examples:
 
 Based on these categories, classify this news article: 
 user:
-{{text}}
+{{ text }}
     
 `````
 
@@ -296,6 +295,15 @@ The input should be in a language that the chatbot is trained to process correct
 4: The chosen category for classification must be clearly representational and consistent with the core subject matter of the input text as it fits within the provided category definitions.
 `````
 
+
+### [rule_evals.csv](./rule_evals.csv)
+
+|ruleid|rule|grounded|
+|-|-|-|
+|1|The output must classify a given input text into one and only one of the following specific categories: World, Sports, Business, or Sci/Tech\.|ok|
+|2|The classification must be directly relevant to the content of the input text without any ambiguity or overlap between categories\.|err|
+|3|The output must only include the name of the category without any additional text, explanation, or context\.|err|
+|4|The chosen category for classification must be clearly representational and consistent with the core subject matter of the input text as it fits within the provided category definitions\.|ok|
 
 ### [inverse_rules.txt](./inverse_rules.txt)
 

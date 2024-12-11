@@ -387,6 +387,17 @@ The input can include technical terms, acronyms, and specific model names.
 `````
 
 
+### [rule_evals.csv](./rule_evals.csv)
+
+|ruleid|rule|grounded|
+|-|-|-|
+|1|The output must be structured as an array with the specific format \["model\_name"\], where "model\_name" represents the name of a machine learning model extracted from the abstract\.|ok|
+|2|Each element within the output array should be a distinct string representing an extracted model name\.|ok|
+|3|If no model names are found in the provided abstract or there is uncertainty regarding the identification of a model name, the output must be \["NA"\], using exactly this format including the square brackets and quotation marks\.|ok|
+|4|The output must only contain model names extracted from the abstract or \["NA"\] if no model names are identified, without any additional text, explanations, or context\.|ok|
+|5|The array must only contain correctly identified machine learning model names from the abstract as individual strings, ensuring precision in the identification process\.|ok|
+|6|The order of model names in the array should reflect their order of appearance in the abstract, but this does not affect the requirement that the structure and format of the array are correct\.|err|
+
 ### [inverse_rules.txt](./inverse_rules.txt)
 
 `````txt

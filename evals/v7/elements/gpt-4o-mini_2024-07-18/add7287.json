@@ -1,0 +1,11 @@
+{
+  "id": "add7287",
+  "promptid": "e5ed513",
+  "ruleid": 3,
+  "rule": "Specific topics must be listed in a comma-separated format following the label \"Specific topics:\".",
+  "model": "gpt-4o-mini",
+  "input": "Text: Discussions around Renewable Energy and Electric Vehicles were prevalent.",
+  "output": "Company names: \nPeople names: -||-\nSpecific topics: Renewable Energy, Electric Vehicles\nGeneral themes: Sustainability, Clean Energy, Transportation",
+  "compliance": "err",
+  "complianceText": "The chatbot's output is missing company names where it should list a comma-separated list or mention none if there are no company names to extract. The output format has included sections for company names, people names, specific topics, and general themes, which aligns with the format specified in the description. However, the section for \"Company names\" is left empty without any indication of whether there are none or if this is an oversight, which does not comply with the requirement to provide a comma-separated list.\n\nThere is a structural issue in the presentation of the \"Company names\" extraction, which does not align with the explicitly required format to mention none if there are no companies to list. \n\nERR"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "a573e35",
+  "promptid": "e5ed513",
+  "ruleid": 2,
+  "rule": "People names must be listed in a comma-separated format following the label \"People names:\".",
+  "model": "gpt-4o-mini",
+  "input": "Text: Florence Nightingale was influential in healthcare, together with Clara Barton and Nightingale too.",
+  "output": "Company names: \nPeople names: Florence Nightingale, Clara Barton\nSpecific topics: healthcare, nursing\nGeneral themes: influence, historical contributions to healthcare",
+  "compliance": "err",
+  "complianceText": "The evaluation of the chatbot's output involves checking if it aligns with the format stipulated in the description. The provided format should include company names, people names, specific topics, and general themes. \n\nIn the chatbot's output, the format begins with \"Company names: \" followed by the list of entities, which in this case, is empty. This follows with \"People names: \" which lists Florence Nightingale and Clara Barton, followed by \"Specific topics: \" with healthcare and nursing, and ends with \"General themes: \" listing influence and historical contributions to healthcare.\n\nThere is a possible issue of non-compliance with the chatbot description: \"Company names\" section should have at least the string \"<comma_separated_list_of_company_names>\", even if there are no company names mentioned in the text. In the output, this string is missing and leads to a non-compliance with the provided description.\n\nERR"
+}

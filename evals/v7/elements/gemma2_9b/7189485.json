@@ -1,0 +1,12 @@
+{
+  "id": "7189485",
+  "promptid": "e5ed513",
+  "ruleid": 11,
+  "rule": "Specific topics must not be listed in a comma-separated format following the label \"Specific topics:\".",
+  "inverse": true,
+  "model": "gemma2:9b",
+  "input": "Text: Topics discussed as E-commerce, AI are not welcome.",
+  "output": "Here's a breakdown of the entities from your provided text:\n\n**Company names:** \n\n**People names:** \n\n**Specific topics:**  E-commerce, AI\n\n**General themes:**  Rejection of technological advancements in business (e-commerce and AI).\n\n\nLet me know if you have any other text you'd like me to analyze! \n",
+  "compliance": "err",
+  "complianceText": "The chatbot's output has a few issues with compliance based on the description provided. \n\nThe description specifies that the output must follow the format:\n\nCompany names: <comma_separated_list_of_company_names>\nPeople names: -||-\nSpecific topics: -||-\nGeneral themes: -||-\n\nThe output does follow this format to an extent; however, 'Company names:' and 'People names:' are both empty lists, which could potentially be a compliance issue if such items were supposed to exist in the input text, but since we cannot verify this without the input text, we cannot consider their absence as a violation.\n\nFurthermore, in the \"Specific topics\" and \"General themes\", the chatbot provided specific content without a comma-separated list and period ending each item. While the presence of content cannot be judged, it does not comply with the description's prescribed format exactly. Specific topics should be a comma-separated list, and general themes should be similarly formatted and do not exactly follow the required period punctuation.\n\nTherefore, the output does not precisely adhere to the prescribed response format specified in the description.\n\nERR"
+}

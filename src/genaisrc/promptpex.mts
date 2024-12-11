@@ -628,6 +628,7 @@ export async function runTest(
   if (file.content && !force) {
     const res = parsers.JSON5(file);
     if (res && !res.error) {
+      if (!res.model) throw new Error(`invalid test result ${file.filename}`);
       updateTestResultCompliant(res);
       res.baseline = test.baseline;
       return res;
@@ -704,7 +705,7 @@ export async function evaluateTestQuality(
   const { id, promptid, file } = await resolveTestEvalPath(files, test);
   if (file.content && !force) {
     const res = parsers.JSON5(file) as PromptPexTestEval;
-    if (res && !res.error) return res;
+    if (res && !res.error && res.coverage && res.validity) return res;
   }
 
   const intent = files.intent.content;
@@ -827,6 +828,8 @@ function parseTestResults(files: PromptPexContext): PromptPexTestResult[] {
   res?.forEach((r) => {
     r.inverse = r.ruleid !== null && parseInt(r.ruleid as any) > rules.length;
   });
+  if (res.some((r) => !r.model))
+    throw new Error(`invalid test results in ${files.testOutputs.filename}`);
   return res;
 }
 

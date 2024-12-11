@@ -1,0 +1,12 @@
+{
+  "id": "4211018",
+  "promptid": "e5ed513",
+  "ruleid": 9,
+  "rule": "Company names must not be listed in a comma-separated format following the label \"Company names:\".",
+  "inverse": true,
+  "model": "gpt-4o-mini",
+  "input": "Text: Amazon, IBM, and Google.",
+  "output": "Company names: Amazon, IBM, Google\nPeople names: -||-\nSpecific topics: -||-\nGeneral themes: -||-",
+  "compliance": "err",
+  "complianceText": "The output provided by the chatbot doesn't comply with the description requirements. According to the desired format mentioned in the description, the chatbot should list all extracted entities under the appropriate categories: company names, people names, specific topics, and general themes. The output should use a comma-separated list for each category. However, the chatbot's output lists company names correctly but uses \"-||-\" for the categories of people names, specific topics, and general themes. While it's acceptable to not extract any names, topics, or themes if none are mentioned in the input text, the description does not specify using \"-||-\" to signify no entities found. Instead, if no entities are found, the output should simply be empty following each category prompt. The use of \"-||-\" suggests an incorrect understanding or implementation of the format guideline.\n\nERR"
+}

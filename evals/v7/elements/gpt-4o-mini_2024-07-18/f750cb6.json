@@ -1,0 +1,12 @@
+{
+  "id": "f750cb6",
+  "promptid": "e5ed513",
+  "ruleid": 9,
+  "rule": "Company names must not be listed in a comma-separated format following the label \"Company names:\".",
+  "inverse": true,
+  "model": "gpt-4o-mini",
+  "input": "Text: Apple, Inc and Tesla were explored.",
+  "output": "Company names: Apple, Inc, Tesla  \nPeople names: -||-  \nSpecific topics: -||-  \nGeneral themes: -||-  ",
+  "compliance": "err",
+  "complianceText": "The output does not comply with the description provided. Firstly, the company names are not properly formatted as a comma-separated list, given that \"Apple, Inc\" should ideally be written without a comma or as \"Apple Inc.\" Furthermore, the output lacks the expected line format provided in the description for People names, Specific topics, and General themes; they are supposed to contain a list, even if empty, rather than repeating the placeholder text \"-||-\". This does not adhere to the guidelines specified in the format.\n\nERR"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "4f29a04",
+  "promptid": "e5ed513",
+  "ruleid": 3,
+  "rule": "Specific topics must be listed in a comma-separated format following the label \"Specific topics:\".",
+  "model": "gpt-4o-mini",
+  "input": "Text: The focus was on Data Privacy, IoT, and AI Ethics during the conference.",
+  "output": "Company names: \nPeople names: -||-\nSpecific topics: Data Privacy, IoT, AI Ethics -||-\nGeneral themes: Technology, Ethics, Data Protection -||-",
+  "compliance": "err",
+  "complianceText": "The chatbot's output has some compliance issues with the description. First, the \"Company names\" section is empty, which is fine as it may imply there were no company names mentioned if the input text did not contain any. The \"People names\" section, 'People names: -||-', is correctly formatted following the desired output format.\n\nThe violation occurs in the sections for \"Specific topics\" and \"General themes.\" The bot has incorrectly repeated the delimiter \"-||-\" instead of using a comma-separated list as specified in the description. For both \"Specific topics\" and \"General themes,\" it should have been a simple comma-separated list as the description specifies \"<comma_separated_list_of_company_names>\" as the format. Therefore, the presence of \"-||-\" indicates a formatting error in these sections.\n\nBased on the incorrect formatting use in the \"Specific topics\" and \"General themes\" sections, the decision is:\n\nERR"
+}

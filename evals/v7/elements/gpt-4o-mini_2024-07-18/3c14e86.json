@@ -1,0 +1,12 @@
+{
+  "id": "3c14e86",
+  "promptid": "e5ed513",
+  "ruleid": 16,
+  "rule": "If there are no elements found for a category, it should not be listed with its label followed by an empty space or properly formatted as per given examples such as \"Company names: \" with no elements after the space.",
+  "inverse": true,
+  "model": "gpt-4o-mini",
+  "input": "Text: Non-secured mentionings elicit purpose breakdown.",
+  "output": "Company names: \nPeople names: -||-\nSpecific topics: non-secured mentionings, purpose breakdown\nGeneral themes: communication, analysis",
+  "compliance": "ok",
+  "complianceText": "The chatbot output presents different categories as required, including Company names, People names, Specific topics, and General themes. The categories are correctly listed in the desired format given in the description. However, the Company names section is left empty, which is not explicitly non-compliant as it might be the case that there are no company names to be extracted, and we are allowed to ignore checks that require the input text to verify this. Similarly, the People names section indicates no names are provided by using \"-||-,\" which is also acceptable under the assumption there could be no people names to extract.\n\nThe specific topics and general themes are listed correctly with entries under each category. The output adheres to the format and structure required by the description. There is no clear indication of non-compliance based on the format provided.\n\nNo violation.\nOK"
+}

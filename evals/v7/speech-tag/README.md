@@ -82,340 +82,340 @@ user:
 |model|rule|input|output|compliance|
 |-|-|-|-|-|
 |gpt\-4o\-mini|The output must only contain a single part of speech tag from the pre\-defined list in the system prompt\.|Sentence: The quick brown fox jumps over the lazy dog\. Word: fox|NN|ok|
-|gemma2:9b|The output must only contain a single part of speech tag from the pre\-defined list in the system prompt\.|Sentence: The quick brown fox jumps over the lazy dog\. Word: fox|NN|ok|
-|qwen2\.5:3b|The output must only contain a single part of speech tag from the pre\-defined list in the system prompt\.|Sentence: The quick brown fox jumps over the lazy dog\. Word: fox|NN|ok|
-|llama3\.2:1b|The output must only contain a single part of speech tag from the pre\-defined list in the system prompt\.|Sentence: The quick brown fox jumps over the lazy dog\. Word: fox|CC: fox<br>JJS: fox|err|
 |gpt\-4o\-mini|The output must only contain a single part of speech tag from the pre\-defined list in the system prompt\.|Sentence: She sells seashells by the seashore\. Word: sells|VBP|ok|
-|gemma2:9b|The output must only contain a single part of speech tag from the pre\-defined list in the system prompt\.|Sentence: She sells seashells by the seashore\. Word: sells|VBZ|ok|
-|qwen2\.5:3b|The output must only contain a single part of speech tag from the pre\-defined list in the system prompt\.|Sentence: She sells seashells by the seashore\. Word: sells|VB︻̲VK|err|
-|llama3\.2:1b|The output must only contain a single part of speech tag from the pre\-defined list in the system prompt\.|Sentence: She sells seashells by the seashore\. Word: sells|Word: CC \(Coordinating conjunction\)<br><br> Sentence remains the same as it was initially provided with the word "sells" which is a linking verb forming a present tense conditional sentence from the participle phrase "seasels"\.<br><br>Sentence:<br> She sells seashells by the seashore\.|err|
 |gpt\-4o\-mini|The output must only contain a single part of speech tag from the pre\-defined list in the system prompt\.|Sentence: Yesterday, it rained heavily\. Word: rained|VBD|ok|
-|gemma2:9b|The output must only contain a single part of speech tag from the pre\-defined list in the system prompt\.|Sentence: Yesterday, it rained heavily\. Word: rained|VBD|ok|
-|qwen2\.5:3b|The output must only contain a single part of speech tag from the pre\-defined list in the system prompt\.|Sentence: Yesterday, it rained heavily\. Word: rained|VBZ|ok|
-|llama3\.2:1b|The output must only contain a single part of speech tag from the pre\-defined list in the system prompt\.|Sentence: Yesterday, it rained heavily\. Word: rained|Here are the part of speech tags:<br><br>1\. Sentence: CC: Coordinating conjunction<br>2\. Word: rained \- IN: Preposition or subordinating conjunction \(in "Yesterday"\)<br>3\. Sentence: rained \- JJR/JJS/RBR/RBS: Adjective and comparative/superlative/gradable adjective \(in "heavily"\)|err|
 |gpt\-4o\-mini|The output must be an exact match to one of the tags in the pre\-defined list, if applicable\.|Sentence: The cat sat on the mat\. Word: cat|NN|ok|
-|gemma2:9b|The output must be an exact match to one of the tags in the pre\-defined list, if applicable\.|Sentence: The cat sat on the mat\. Word: cat|NN|ok|
-|qwen2\.5:3b|The output must be an exact match to one of the tags in the pre\-defined list, if applicable\.|Sentence: The cat sat on the mat\. Word: cat|NN|ok|
-|llama3\.2:1b|The output must be an exact match to one of the tags in the pre\-defined list, if applicable\.|Sentence: The cat sat on the mat\. Word: cat|Word: cat \(NNPS\)<br>Part\-of\-speech tag: NNP \(Proper noun, singular\)|err|
 |gpt\-4o\-mini|The output must be an exact match to one of the tags in the pre\-defined list, if applicable\.|Sentence: Birds fly high\. Word: fly|VB|ok|
-|gemma2:9b|The output must be an exact match to one of the tags in the pre\-defined list, if applicable\.|Sentence: Birds fly high\. Word: fly|VB|ok|
-|qwen2\.5:3b|The output must be an exact match to one of the tags in the pre\-defined list, if applicable\.|Sentence: Birds fly high\. Word: fly|VB|ok|
-|llama3\.2:1b|The output must be an exact match to one of the tags in the pre\-defined list, if applicable\.|Sentence: Birds fly high\. Word: fly|Part\-of\-speech tag for the word "fly":<br>VBZ \(Third\-person singular present tense of the verb "to fly"\)|err|
 |gpt\-4o\-mini|The output must be an exact match to one of the tags in the pre\-defined list, if applicable\.|Sentence: One hundred apples fell\. Word: hundred|CD|ok|
-|gemma2:9b|The output must be an exact match to one of the tags in the pre\-defined list, if applicable\.|Sentence: One hundred apples fell\. Word: hundred|CD|ok|
-|qwen2\.5:3b|The output must be an exact match to one of the tags in the pre\-defined list, if applicable\.|Sentence: One hundred apples fell\. Word: hundred|CD|ok|
-|llama3\.2:1b|The output must be an exact match to one of the tags in the pre\-defined list, if applicable\.|Sentence: One hundred apples fell\. Word: hundred|Part\-of\-speech tag for "hundred": CD \(Cardinal number\)<br> <br>\(Note: While the word "hundred" is technically a plural noun, in this context it's used as a determiner to indicate that 100 is being counted individually\.\)|err|
 |gpt\-4o\-mini|If the word provided in the input can be matched to one of the listed part of speech tags, return only the corresponding tag as the output, with no additional text or formatting\.|Sentence: A large tree fell\. Word: large|JJ|ok|
-|gemma2:9b|If the word provided in the input can be matched to one of the listed part of speech tags, return only the corresponding tag as the output, with no additional text or formatting\.|Sentence: A large tree fell\. Word: large|JJ|ok|
-|qwen2\.5:3b|If the word provided in the input can be matched to one of the listed part of speech tags, return only the corresponding tag as the output, with no additional text or formatting\.|Sentence: A large tree fell\. Word: large|JJ|ok|
-|llama3\.2:1b|If the word provided in the input can be matched to one of the listed part of speech tags, return only the corresponding tag as the output, with no additional text or formatting\.|Sentence: A large tree fell\. Word: large|In the first sentence, the tag for "large" is DD: Determiner\.<br><br>In the second sentence, the tag for "large" is CD: Cardinal number\.|err|
 |gpt\-4o\-mini|If the word provided in the input can be matched to one of the listed part of speech tags, return only the corresponding tag as the output, with no additional text or formatting\.|Sentence: I usually walk home\. Word: usually|RB|ok|
-|gemma2:9b|If the word provided in the input can be matched to one of the listed part of speech tags, return only the corresponding tag as the output, with no additional text or formatting\.|Sentence: I usually walk home\. Word: usually|RB|ok|
-|qwen2\.5:3b|If the word provided in the input can be matched to one of the listed part of speech tags, return only the corresponding tag as the output, with no additional text or formatting\.|Sentence: I usually walk home\. Word: usually|VBZ|ok|
-|llama3\.2:1b|If the word provided in the input can be matched to one of the listed part of speech tags, return only the corresponding tag as the output, with no additional text or formatting\.|Sentence: I usually walk home\. Word: usually|Word: usually \- JJ<br>Sentence: I usually walk home\. Word: usually \- JJ|ok|
 |gpt\-4o\-mini|If the word provided in the input can be matched to one of the listed part of speech tags, return only the corresponding tag as the output, with no additional text or formatting\.|Sentence: They have been healthy\. Word: have|VB|ok|
-|gemma2:9b|If the word provided in the input can be matched to one of the listed part of speech tags, return only the corresponding tag as the output, with no additional text or formatting\.|Sentence: They have been healthy\. Word: have|VBP|ok|
-|qwen2\.5:3b|If the word provided in the input can be matched to one of the listed part of speech tags, return only the corresponding tag as the output, with no additional text or formatting\.|Sentence: They have been healthy\. Word: have|VB|ok|
-|llama3\.2:1b|If the word provided in the input can be matched to one of the listed part of speech tags, return only the corresponding tag as the output, with no additional text or formatting\.|Sentence: They have been healthy\. Word: have|POS for the word 'have': ADJ|err|
 |gpt\-4o\-mini|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should only contain the word "Unknown"\.|Sentence: Everything went according to the plan\. Word: according|IN|ok|
-|gemma2:9b|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should only contain the word "Unknown"\.|Sentence: Everything went according to the plan\. Word: according|IN|ok|
-|qwen2\.5:3b|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should only contain the word "Unknown"\.|Sentence: Everything went according to the plan\. Word: according|IN|ok|
-|llama3\.2:1b|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should only contain the word "Unknown"\.|Sentence: Everything went according to the plan\. Word: according|Part\-of\-speech tag for "according" is JJ\.<br><br>As it appears twice in the sentence, I'll list them separately:<br> JJ in "everything"<br> JJ in "according"<br><br>Both instances can be tagged with "JJ", but since they appear twice, the return for both occurrences of the word should be JJ, returning JJ as our answer\.|err|
 |gpt\-4o\-mini|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should only contain the word "Unknown"\.|Sentence: The session was remarkable\. Word: sessione|Unknown|ok|
-|gemma2:9b|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should only contain the word "Unknown"\.|Sentence: The session was remarkable\. Word: sessione|Unknown|ok|
-|qwen2\.5:3b|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should only contain the word "Unknown"\.|Sentence: The session was remarkable\. Word: sessione|CantAnswer|ok|
-|llama3\.2:1b|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should only contain the word "Unknown"\.|Sentence: The session was remarkable\. Word: sessione|Part\-of\-speech tag for "sessione" is NN \(Noun\)\. <br><br>Part\-of\-speech tag for "The session" is NNPs \(Proper Noun, plural\), PT \(Proprietied noun\), and TO \(to\)\.<br><br> So the complete output will be:<br> <br>NN  <br>NNP<br>TO|err|
 |gpt\-4o\-mini|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should only contain the word "Unknown"\.|Sentence: My new routine will adapt\. Word: xyzzy|Unknown|ok|
-|gemma2:9b|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should only contain the word "Unknown"\.|Sentence: My new routine will adapt\. Word: xyzzy|Unknown|ok|
-|qwen2\.5:3b|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should only contain the word "Unknown"\.|Sentence: My new routine will adapt\. Word: xyzzy|Unknown|ok|
-|llama3\.2:1b|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should only contain the word "Unknown"\.|Sentence: My new routine will adapt\. Word: xyzzy|Part of Speech Tag:<br>\- Sentence: CNT: Conjunctive particle \(was not in sentence\), CC: Coordinating conjunction \(correct\), etc\.<br>\- Word: xyzzy \- NN: Noun \(Correct\)|err|
 |gpt\-4o\-mini|If it is not possible to determine the part of speech from the input, the output should only contain the word "CantAnswer"\.|Sentence: This sentence cannot be processed\. Word: unprocesable|Unknown|ok|
-|gemma2:9b|If it is not possible to determine the part of speech from the input, the output should only contain the word "CantAnswer"\.|Sentence: This sentence cannot be processed\. Word: unprocesable|JJ|ok|
-|qwen2\.5:3b|If it is not possible to determine the part of speech from the input, the output should only contain the word "CantAnswer"\.|Sentence: This sentence cannot be processed\. Word: unprocesable|CantAnswer|ok|
-|llama3\.2:1b|If it is not possible to determine the part of speech from the input, the output should only contain the word "CantAnswer"\.|Sentence: This sentence cannot be processed\. Word: unprocesable|CC: Un procesable <br>WRB: Uncan not procesable|err|
 |gpt\-4o\-mini|If it is not possible to determine the part of speech from the input, the output should only contain the word "CantAnswer"\.|Sentence: A complex wordplay occurred here\. Word: qwertyuiop|Unknown|ok|
-|gemma2:9b|If it is not possible to determine the part of speech from the input, the output should only contain the word "CantAnswer"\.|Sentence: A complex wordplay occurred here\. Word: qwertyuiop|Unknown|ok|
-|qwen2\.5:3b|If it is not possible to determine the part of speech from the input, the output should only contain the word "CantAnswer"\.|Sentence: A complex wordplay occurred here\. Word: qwertyuiop|Unknown|ok|
-|llama3\.2:1b|If it is not possible to determine the part of speech from the input, the output should only contain the word "CantAnswer"\.|Sentence: A complex wordplay occurred here\. Word: qwertyuiop|CC: <br>Determiner: <br>EX: Causal existential there, <br>FW: Foreign word, <br>IN: Interjection or subordinating conjunction, JJ: Adjective,JJR: Adjective, superlative, JJS: Adjective, comparative, JJS: Adjective, superlative, LS: List item marker, MD: Modal, NN: Noun, singular or mass, NNS: Noun, plural, NNP: Proper noun, singular, NNPS: Proper noun, plural, PDT: Predeterminer, POS: Possessive ending, PRP: Personal pronoun, PRP$: Possessive pronoun, RB: Adverb, RBR: Adverb, comparative, RBS: Adverb, superlative, RP: particle,SYM: Symbol,<br>MD: Modal, NN: Noun, <br>singular or mass, NNS: Noun,<br>plural,NNPS: Proper noun, plural, PDT: Predeterminer, POS: Possessive ending, PRP: Personal pronoun, PRP$: Possessive pronoun, RB: Adverb, RBR: Adverb, comparative, RBS: Adverb, superlative,RP: Particle,<br>SYM: Symbol<br>CantAnswer\.<br>To be honest and to continue in this task I need more examples of the given word\. Can you please give me another sentence with the same word?|err|
 |gpt\-4o\-mini|If it is not possible to determine the part of speech from the input, the output should only contain the word "CantAnswer"\.|Sentence: Many colorful dreams arise unhindered\. Word: ljfdksjl|CantAnswer|ok|
-|gemma2:9b|If it is not possible to determine the part of speech from the input, the output should only contain the word "CantAnswer"\.|Sentence: Many colorful dreams arise unhindered\. Word: ljfdksjl|CantAnswer|ok|
-|qwen2\.5:3b|If it is not possible to determine the part of speech from the input, the output should only contain the word "CantAnswer"\.|Sentence: Many colorful dreams arise unhindered\. Word: ljfdksjl|CantAnswer|ok|
-|llama3\.2:1b|If it is not possible to determine the part of speech from the input, the output should only contain the word "CantAnswer"\.|Sentence: Many colorful dreams arise unhindered\. Word: ljfdksjl|Part\-of\-speech tag:<br>IN: Noun <br><br>\(Note: The word "ljdfksjl" seems to be gibberish or random characters\. I couldn't identify any valid words in this context with the given list of tags, so I returned IN: Noun\. Alternatively, it might represent a technical term or code, which would require more information or clarification\.\)|err|
 |gpt\-4o\-mini|The output must contain no additional information besides the specified part of speech tag or the exact words "Unknown" or "CantAnswer" based on the given rules\.|Sentence: Their experiment succeeded\. Word: succeeded|VBD|ok|
-|gemma2:9b|The output must contain no additional information besides the specified part of speech tag or the exact words "Unknown" or "CantAnswer" based on the given rules\.|Sentence: Their experiment succeeded\. Word: succeeded|VBD|ok|
-|qwen2\.5:3b|The output must contain no additional information besides the specified part of speech tag or the exact words "Unknown" or "CantAnswer" based on the given rules\.|Sentence: Their experiment succeeded\. Word: succeeded|VBZ|ok|
-|llama3\.2:1b|The output must contain no additional information besides the specified part of speech tag or the exact words "Unknown" or "CantAnswer" based on the given rules\.|Sentence: Their experiment succeeded\. Word: succeeded|Here are the results:<br><br>1\. Sentence: Their experiment succeeded\.<br>Word: succeeded <br>Part of Speech tag: VBD \(Verb, past tense\)<br><br>2\. Sentence: Their experiment succeeded\.<br>Word: succeeded<br>Part of Politics speech tag: VBZ \(Verb, 3rd person singular present\)|err|
 |gpt\-4o\-mini|The output must contain no additional information besides the specified part of speech tag or the exact words "Unknown" or "CantAnswer" based on the given rules\.|Sentence: Appreciate the colors of the wind\. Word: colors|NNS|ok|
-|gemma2:9b|The output must contain no additional information besides the specified part of speech tag or the exact words "Unknown" or "CantAnswer" based on the given rules\.|Sentence: Appreciate the colors of the wind\. Word: colors|NN|ok|
-|qwen2\.5:3b|The output must contain no additional information besides the specified part of speech tag or the exact words "Unknown" or "CantAnswer" based on the given rules\.|Sentence: Appreciate the colors of the wind\. Word: colors|NN|ok|
-|llama3\.2:1b|The output must contain no additional information besides the specified part of speech tag or the exact words "Unknown" or "CantAnswer" based on the given rules\.|Sentence: Appreciate the colors of the wind\. Word: colors|The part\-of\-speech tag for the word "colors" in both sentences is NN\.<br><br> Sentence: Appreciate the colors of the wind\. Word: Appreciate<br> Part\-of\-speech tag: NN <br><br> Sentence: Appreciate the colors of the wind\. Word: Appreciate<br> Part\-of\-speech tag: CC|err|
 |gpt\-4o\-mini|The output must contain no additional information besides the specified part of speech tag or the exact words "Unknown" or "CantAnswer" based on the given rules\.|Sentence: She can solve the mystery alone\. Word: can|MD|ok|
-|gemma2:9b|The output must contain no additional information besides the specified part of speech tag or the exact words "Unknown" or "CantAnswer" based on the given rules\.|Sentence: She can solve the mystery alone\. Word: can|MD|ok|
-|qwen2\.5:3b|The output must contain no additional information besides the specified part of speech tag or the exact words "Unknown" or "CantAnswer" based on the given rules\.|Sentence: She can solve the mystery alone\. Word: can|VBZ|ok|
-|llama3\.2:1b|The output must contain no additional information besides the specified part of speech tag or the exact words "Unknown" or "CantAnswer" based on the given rules\.|Sentence: She can solve the mystery alone\. Word: can|Word: can<br>Part of speech tag: V1 \(base form\) <br><br> Sentence: The sun rises in the east and sets in the west on most days but not every day it remains above the horizon for some time|err|
 |gpt\-4o\-mini|Every word in the provided input must be attempted to be tagged according to the conditions defined, and the output must reflect one of the listed scenarios appropriately\.|Sentence: He quickly understood the situation\. Word: quickly|RB|ok|
-|gemma2:9b|Every word in the provided input must be attempted to be tagged according to the conditions defined, and the output must reflect one of the listed scenarios appropriately\.|Sentence: He quickly understood the situation\. Word: quickly|RB|ok|
-|qwen2\.5:3b|Every word in the provided input must be attempted to be tagged according to the conditions defined, and the output must reflect one of the listed scenarios appropriately\.|Sentence: He quickly understood the situation\. Word: quickly|VB|ok|
-|llama3\.2:1b|Every word in the provided input must be attempted to be tagged according to the conditions defined, and the output must reflect one of the listed scenarios appropriately\.|Sentence: He quickly understood the situation\. Word: quickly|Here are the parts of speech tags for each word:<br><br>\- Word: "quickly" \- JJ: Adjective<br>\- Word: "quickly" \- JJR: Superlative adjective, JJS: Comparative superlative adjective|err|
 |gpt\-4o\-mini|Every word in the provided input must be attempted to be tagged according to the conditions defined, and the output must reflect one of the listed scenarios appropriately\.|Sentence: They left yesterday\. Word: yesterday|RB|ok|
-|gemma2:9b|Every word in the provided input must be attempted to be tagged according to the conditions defined, and the output must reflect one of the listed scenarios appropriately\.|Sentence: They left yesterday\. Word: yesterday|RB|ok|
-|qwen2\.5:3b|Every word in the provided input must be attempted to be tagged according to the conditions defined, and the output must reflect one of the listed scenarios appropriately\.|Sentence: They left yesterday\. Word: yesterday|JJ|ok|
-|llama3\.2:1b|Every word in the provided input must be attempted to be tagged according to the conditions defined, and the output must reflect one of the listed scenarios appropriately\.|Sentence: They left yesterday\. Word: yesterday|Part\-of\-speech tag for "yesterday" is PD\.<br> Part\-of\-speech tag for Sentence \(as a whole\) is NN\. <br>No part of speech can be determined for the word CantAnswer since it's not in the list but "CantAnswer" can also imply there are no words to analyze, or it may simply contain an unknown or invalid word|err|
 |gpt\-4o\-mini|Every word in the provided input must be attempted to be tagged according to the conditions defined, and the output must reflect one of the listed scenarios appropriately\.|Sentence: Imagine a brighter future\. Word: Imagine|VB|ok|
-|gemma2:9b|Every word in the provided input must be attempted to be tagged according to the conditions defined, and the output must reflect one of the listed scenarios appropriately\.|Sentence: Imagine a brighter future\. Word: Imagine|VB|ok|
-|qwen2\.5:3b|Every word in the provided input must be attempted to be tagged according to the conditions defined, and the output must reflect one of the listed scenarios appropriately\.|Sentence: Imagine a brighter future\. Word: Imagine|VBZ|ok|
-|llama3\.2:1b|Every word in the provided input must be attempted to be tagged according to the conditions defined, and the output must reflect one of the listed scenarios appropriately\.|Sentence: Imagine a brighter future\. Word: Imagine|Part\-of\-speech tag for "Imagine" is NNP \(Noun, proper noun\)\.<br><br>As "Imagine" is the same word in both sentences, it can only be tagged as NNP \(which stands for Noun, proper noun\)\.|err|
 |gpt\-4o\-mini|The output must contain multiple parts of speech tags that are not from the pre\-defined list in the system prompt\.|Sentence: The plan was executed hurrily\. Word: hurrily|Unknown|ok|
-|gemma2:9b|The output must contain multiple parts of speech tags that are not from the pre\-defined list in the system prompt\.|Sentence: The plan was executed hurrily\. Word: hurrily|RBS|ok|
-|qwen2\.5:3b|The output must contain multiple parts of speech tags that are not from the pre\-defined list in the system prompt\.|Sentence: The plan was executed hurrily\. Word: hurrily|RB|ok|
-|llama3\.2:1b|The output must contain multiple parts of speech tags that are not from the pre\-defined list in the system prompt\.|Sentence: The plan was executed hurrily\. Word: hurrily|Word: hurrily<br><br>Tag: RB \(Adverb\)|ok|
 |gpt\-4o\-mini|The output must contain multiple parts of speech tags that are not from the pre\-defined list in the system prompt\.|Sentence: Welcome to zzyzx road\. Word: zzyzx|NNP|ok|
-|gemma2:9b|The output must contain multiple parts of speech tags that are not from the pre\-defined list in the system prompt\.|Sentence: Welcome to zzyzx road\. Word: zzyzx|NNP|ok|
-|qwen2\.5:3b|The output must contain multiple parts of speech tags that are not from the pre\-defined list in the system prompt\.|Sentence: Welcome to zzyzx road\. Word: zzyzx|Unknown|ok|
-|llama3\.2:1b|The output must contain multiple parts of speech tags that are not from the pre\-defined list in the system prompt\.|Sentence: Welcome to zzyzx road\. Word: zzyzx|Words: <br>\- zzyzx: Unknown|err|
 |gpt\-4o\-mini|The output must contain multiple parts of speech tags that are not from the pre\-defined list in the system prompt\.|Sentence: I coined murf the word\. Word: murf|NN|ok|
-|gemma2:9b|The output must contain multiple parts of speech tags that are not from the pre\-defined list in the system prompt\.|Sentence: I coined murf the word\. Word: murf|NN|ok|
-|qwen2\.5:3b|The output must contain multiple parts of speech tags that are not from the pre\-defined list in the system prompt\.|Sentence: I coined murf the word\. Word: murf|NN|ok|
-|llama3\.2:1b|The output must contain multiple parts of speech tags that are not from the pre\-defined list in the system prompt\.|Sentence: I coined murf the word\. Word: murf|Here are the part of speech tags:<br><br>1\. I \- PRP$ \(Possessive pronoun\)<br>2\. coined \- JJR \(comparative adjective\)<br>3\. murf \- NNPS \(Proper noun, plural\)|err|
 |gpt\-4o\-mini|The output must not match any of the tags in the pre\-defined list, where applicable\.|Sentence: That is unanticipatedly concise\. Word: unanticipatedly|RB|ok|
-|gemma2:9b|The output must not match any of the tags in the pre\-defined list, where applicable\.|Sentence: That is unanticipatedly concise\. Word: unanticipatedly|RB|ok|
-|qwen2\.5:3b|The output must not match any of the tags in the pre\-defined list, where applicable\.|Sentence: That is unanticipatedly concise\. Word: unanticipatedly|RB|ok|
-|llama3\.2:1b|The output must not match any of the tags in the pre\-defined list, where applicable\.|Sentence: That is unanticipatedly concise\. Word: unanticipatedly|Word: unanticipatedly<br> Tag: ADJ|err|
 |gpt\-4o\-mini|The output must not match any of the tags in the pre\-defined list, where applicable\.|Sentence: Her demeanor was inaccesible\.|JJ|ok|
-|gemma2:9b|The output must not match any of the tags in the pre\-defined list, where applicable\.|Sentence: Her demeanor was inaccesible\.|inaccesible  JJ|err|
-|qwen2\.5:3b|The output must not match any of the tags in the pre\-defined list, where applicable\.|Sentence: Her demeanor was inaccesible\.|JJ|ok|
-|llama3\.2:1b|The output must not match any of the tags in the pre\-defined list, where applicable\.|Sentence: Her demeanor was inaccesible\.|Tag for 'inaccessible': CC<br><br>Tag for 'inaccessible': DS \(Determiner/Sing\) <br><br>As you can see from the list, it seems I was able to correctly identify " inaccessible" as an adjectival form in this case and thus returned "CC"\. However, upon further inspection of the second sentence, I realize that it actually contains 2 occurrences of 'inaccessible', so a correction is needed: Tag for both instances would be DS\.|err|
 |gpt\-4o\-mini|The output must not match any of the tags in the pre\-defined list, where applicable\.|Sentence: There are many colours in this art\.|RB|ok|
-|gemma2:9b|The output must not match any of the tags in the pre\-defined list, where applicable\.|Sentence: There are many colours in this art\.|VB  \(Verb, base form\) <br><br><br>Let me know if you have another word you'd like tagged\!|err|
-|qwen2\.5:3b|The output must not match any of the tags in the pre\-defined list, where applicable\.|Sentence: There are many colours in this art\.|VBZ|ok|
-|llama3\.2:1b|The output must not match any of the tags in the pre\-defined list, where applicable\.|Sentence: There are many colours in this art\.|Word: Many<br>Tags: CC: Coordinating conjunction, DT: Determiner, IN: Preposition or subordinating conjunction, JJS: Adjective, LS: List item marker, NN: Noun, singular or mass, NNS: Noun, plural, VBZ: Verb, 3rd person singular present|err|
 |gpt\-4o\-mini|If the word provided in the input can be matched to one of the listed part of speech tags, return additional text and formatting rather than the corresponding tag\.|Sentence: Mist in the valley is enchanting\. Word: enchanting|JJ|ok|
-|gemma2:9b|If the word provided in the input can be matched to one of the listed part of speech tags, return additional text and formatting rather than the corresponding tag\.|Sentence: Mist in the valley is enchanting\. Word: enchanting|JJ|ok|
-|qwen2\.5:3b|If the word provided in the input can be matched to one of the listed part of speech tags, return additional text and formatting rather than the corresponding tag\.|Sentence: Mist in the valley is enchanting\. Word: enchanting|JJ|ok|
-|llama3\.2:1b|If the word provided in the input can be matched to one of the listed part of speech tags, return additional text and formatting rather than the corresponding tag\.|Sentence: Mist in the valley is enchanting\. Word: enchanting|Word: enchanting <br>tag: JJ|ok|
 |gpt\-4o\-mini|If the word provided in the input can be matched to one of the listed part of speech tags, return additional text and formatting rather than the corresponding tag\.|Sentence: Laughter echoed through hall endlessly\. Word: endlessly|RB|ok|
-|gemma2:9b|If the word provided in the input can be matched to one of the listed part of speech tags, return additional text and formatting rather than the corresponding tag\.|Sentence: Laughter echoed through hall endlessly\. Word: endlessly|RB|ok|
-|qwen2\.5:3b|If the word provided in the input can be matched to one of the listed part of speech tags, return additional text and formatting rather than the corresponding tag\.|Sentence: Laughter echoed through hall endlessly\. Word: endlessly|RB|ok|
-|llama3\.2:1b|If the word provided in the input can be matched to one of the listed part of speech tags, return additional text and formatting rather than the corresponding tag\.|Sentence: Laughter echoed through hall endlessly\. Word: endlessly|Word: endlessly<br>Part of speech tag: CD \(Cardinal number\)|ok|
 |gpt\-4o\-mini|If the word provided in the input can be matched to one of the listed part of speech tags, return additional text and formatting rather than the corresponding tag\.|Sentence: Eagerly awaited\. Word: awaited|VBD|ok|
-|gemma2:9b|If the word provided in the input can be matched to one of the listed part of speech tags, return additional text and formatting rather than the corresponding tag\.|Sentence: Eagerly awaited\. Word: awaited|VBN|ok|
-|qwen2\.5:3b|If the word provided in the input can be matched to one of the listed part of speech tags, return additional text and formatting rather than the corresponding tag\.|Sentence: Eagerly awaited\. Word: awaited|VBZ|ok|
-|llama3\.2:1b|If the word provided in the input can be matched to one of the listed part of speech tags, return additional text and formatting rather than the corresponding tag\.|Sentence: Eagerly awaited\. Word: awaited|\-awaited \(NN\)<br>\.awaited \(VBZ\)|err|
 |gpt\-4o\-mini|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should not contain the word "Unknown"\.|Sentence: The unexplained phenomenon\. Word: unexplained|JJ|ok|
-|gemma2:9b|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should not contain the word "Unknown"\.|Sentence: The unexplained phenomenon\. Word: unexplained|JJ <br><br><br>You're looking for the part of speech tag for "unexplained", which is an adjective in this case\.  Therefore, the answer is \*\*JJ\*\*\.|ok|
-|qwen2\.5:3b|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should not contain the word "Unknown"\.|Sentence: The unexplained phenomenon\. Word: unexplained|JJ|ok|
-|llama3\.2:1b|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should not contain the word "Unknown"\.|Sentence: The unexplained phenomenon\. Word: unexplained|Word: Unexplained<br><br>CC<br><br> Sentence: The unexplained phenomenon\. Word: unexplained<br> Sentence: The unexplained phenomenon\. Word: unexplained<br><br>Word: Unexplained <br><br>DT <br> DT \(used twice, in a compound adverb\)|err|
 |gpt\-4o\-mini|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should not contain the word "Unknown"\.|Sentence: Uncharted discoveries multiplied\. Word: uncharted|JJ|ok|
-|gemma2:9b|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should not contain the word "Unknown"\.|Sentence: Uncharted discoveries multiplied\. Word: uncharted|JJ|ok|
-|qwen2\.5:3b|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should not contain the word "Unknown"\.|Sentence: Uncharted discoveries multiplied\. Word: uncharted|NN|ok|
-|llama3\.2:1b|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should not contain the word "Unknown"\.|Sentence: Uncharted discoveries multiplied\. Word: uncharted|Word: uncharted <br>Tag: ADJ <br><br> Sentence: Uncharted discoveries multiplied\. Word: uncharted\. Tag: NOUN <br><br>Note: The word "uncharted" can also function as an adjective in certain contexts, but based on its usage and the list of tags provided, it's most accurate to consider it a noun in this case\.|err|
 |gpt\-4o\-mini|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should not contain the word "Unknown"\.|Sentence: Freshly baked cookies\. Word: baked|VBN|ok|
-|gemma2:9b|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should not contain the word "Unknown"\.|Sentence: Freshly baked cookies\. Word: baked|VBN|ok|
-|qwen2\.5:3b|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should not contain the word "Unknown"\.|Sentence: Freshly baked cookies\. Word: baked|VBG|ok|
-|llama3\.2:1b|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should not contain the word "Unknown"\.|Sentence: Freshly baked cookies\. Word: baked|Tagged: NN \(Noun\)<br>Unknown<br>Tagged: JJR \(Adjective, comparative\) and JJ \(Adjective, superlative\) Cannot be applied to a singular noun like 'baked' so 'JJR/JJ cannot tag it'\.<br>Tagged: VBZ \(Verb, non\-3rd person singular present\)|err|
 |gpt\-4o\-mini|If it is not possible to determine the part of speech from the input, the output should not contain the word "CantAnswer"\.|Sentence: My non\-conclusive sentence\. Word: non\-conclusive|JJ|ok|
-|gemma2:9b|If it is not possible to determine the part of speech from the input, the output should not contain the word "CantAnswer"\.|Sentence: My non\-conclusive sentence\. Word: non\-conclusive|JJ|ok|
-|qwen2\.5:3b|If it is not possible to determine the part of speech from the input, the output should not contain the word "CantAnswer"\.|Sentence: My non\-conclusive sentence\. Word: non\-conclusive|NNPS|ok|
-|llama3\.2:1b|If it is not possible to determine the part of speech from the input, the output should not contain the word "CantAnswer"\.|Sentence: My non\-conclusive sentence\. Word: non\-conclusive|Here are the results:<br><br>1\. The word "non\-conclusive" has as its part of speech tag POS \(Noun\)\.<br>2\. The word "non\-conclusive" has as its part of speech tag JJS \(Adjective, superlative\)\.|err|
 |gpt\-4o\-mini|If it is not possible to determine the part of speech from the input, the output should not contain the word "CantAnswer"\.|Sentence: My entirely customized interface\.W ord: entirely|RB|ok|
-|gemma2:9b|If it is not possible to determine the part of speech from the input, the output should not contain the word "CantAnswer"\.|Sentence: My entirely customized interface\.W ord: entirely|RB|ok|
-|qwen2\.5:3b|If it is not possible to determine the part of speech from the input, the output should not contain the word "CantAnswer"\.|Sentence: My entirely customized interface\.W ord: entirely|JJ|ok|
-|llama3\.2:1b|If it is not possible to determine the part of speech from the input, the output should not contain the word "CantAnswer"\.|Sentence: My entirely customized interface\.W ord: entirely|For the first sentence:<br><br>No tag is available for "My", so return "Unknown"\.<br>The tag is "CC: Coordinating conjunction" but it's used as a subordinating conjunction to introduce the adverbial clause "entirely customized"\. <br>So, return "\-"\.<br><br>For the second sentence:<br><br>The tag is "CANTAnswer" which means this word cannot be tagged with any of the listed tags\. So, return "CantAnswer"\.|err|
 |gpt\-4o\-mini|If it is not possible to determine the part of speech from the input, the output should not contain the word "CantAnswer"\.|Sentence: Envisioned unravels tomorrow\. Word: unravels|VBZ|ok|
-|gemma2:9b|If it is not possible to determine the part of speech from the input, the output should not contain the word "CantAnswer"\.|Sentence: Envisioned unravels tomorrow\. Word: unravels|VBN|ok|
-|qwen2\.5:3b|If it is not possible to determine the part of speech from the input, the output should not contain the word "CantAnswer"\.|Sentence: Envisioned unravels tomorrow\. Word: unravels|VBZ|ok|
-|llama3\.2:1b|If it is not possible to determine the part of speech from the input, the output should not contain the word "CantAnswer"\.|Sentence: Envisioned unravels tomorrow\. Word: unravels|Word: unravels<br>Part of Speech: VBD|err|
 |gpt\-4o\-mini|The output must contain additional information besides any specific part of speech tag or words such as "Unknown" and "CantAnswer"\.|Sentence: Buzzwords characterize strategy sadly\. Word: strategy|NN|ok|
-|gemma2:9b|The output must contain additional information besides any specific part of speech tag or words such as "Unknown" and "CantAnswer"\.|Sentence: Buzzwords characterize strategy sadly\. Word: strategy|NN|ok|
-|qwen2\.5:3b|The output must contain additional information besides any specific part of speech tag or words such as "Unknown" and "CantAnswer"\.|Sentence: Buzzwords characterize strategy sadly\. Word: strategy|NN|ok|
-|llama3\.2:1b|The output must contain additional information besides any specific part of speech tag or words such as "Unknown" and "CantAnswer"\.|Sentence: Buzzwords characterize strategy sadly\. Word: strategy|Here are the part of speech tags for each word:<br><br>\- strategy: NN \(Noun\)<br>\- strategy: NN \(Noun\) <br><br>Since both words match, I will return WN \(Unknown\)\.|err|
 |gpt\-4o\-mini|The output must contain additional information besides any specific part of speech tag or words such as "Unknown" and "CantAnswer"\.|Sentence: Conundrum solved strategically\. Word: Conundrum|NN|ok|
-|gemma2:9b|The output must contain additional information besides any specific part of speech tag or words such as "Unknown" and "CantAnswer"\.|Sentence: Conundrum solved strategically\. Word: Conundrum|NN|ok|
-|qwen2\.5:3b|The output must contain additional information besides any specific part of speech tag or words such as "Unknown" and "CantAnswer"\.|Sentence: Conundrum solved strategically\. Word: Conundrum|NN|ok|
-|llama3\.2:1b|The output must contain additional information besides any specific part of speech tag or words such as "Unknown" and "CantAnswer"\.|Sentence: Conundrum solved strategically\. Word: Conundrum|Word: Conundrum<br> CC: Conundrum ADJ: \(returns "ADJ" since conundrum is an adjective\)<br><br>Word: Conundrum<br> ADJ: Conundrum NNP: Conundrum  \(returns "Conundrum NNP" since conundrum is a proper noun\)|err|
 |gpt\-4o\-mini|The output must contain additional information besides any specific part of speech tag or words such as "Unknown" and "CantAnswer"\.|Sentence: Proficiently relinquished duties\. Word: Proficiently|RB|ok|
-|gemma2:9b|The output must contain additional information besides any specific part of speech tag or words such as "Unknown" and "CantAnswer"\.|Sentence: Proficiently relinquished duties\. Word: Proficiently|RB|ok|
-|qwen2\.5:3b|The output must contain additional information besides any specific part of speech tag or words such as "Unknown" and "CantAnswer"\.|Sentence: Proficiently relinquished duties\. Word: Proficiently|VB|ok|
-|llama3\.2:1b|The output must contain additional information besides any specific part of speech tag or words such as "Unknown" and "CantAnswer"\.|Sentence: Proficiently relinquished duties\. Word: Proficiently|Part of speech tags:<br>\- CC: Coordinating conjunction<br>\- DT: Determiner|err|
 |gpt\-4o\-mini|At least one word in the provided input must be omitted from tagging according to the conditions defined, and the output must ignore some of the listed scenarios appropriately\.|Sentence: Varied marbles on the floor\. Word: floor|NN|ok|
-|gemma2:9b|At least one word in the provided input must be omitted from tagging according to the conditions defined, and the output must ignore some of the listed scenarios appropriately\.|Sentence: Varied marbles on the floor\. Word: floor|NN|ok|
-|qwen2\.5:3b|At least one word in the provided input must be omitted from tagging according to the conditions defined, and the output must ignore some of the listed scenarios appropriately\.|Sentence: Varied marbles on the floor\. Word: floor|NN|ok|
-|llama3\.2:1b|At least one word in the provided input must be omitted from tagging according to the conditions defined, and the output must ignore some of the listed scenarios appropriately\.|Sentence: Varied marbles on the floor\. Word: floor|Part of speech tags:<br><br>\* Floor: IN|err|
 |gpt\-4o\-mini|At least one word in the provided input must be omitted from tagging according to the conditions defined, and the output must ignore some of the listed scenarios appropriately\.|Sentence: Clustered rings surround frequently\. Word: frequently|RB|ok|
-|gemma2:9b|At least one word in the provided input must be omitted from tagging according to the conditions defined, and the output must ignore some of the listed scenarios appropriately\.|Sentence: Clustered rings surround frequently\. Word: frequently|RB|ok|
-|qwen2\.5:3b|At least one word in the provided input must be omitted from tagging according to the conditions defined, and the output must ignore some of the listed scenarios appropriately\.|Sentence: Clustered rings surround frequently\. Word: frequently|VBZ|ok|
-|llama3\.2:1b|At least one word in the provided input must be omitted from tagging according to the conditions defined, and the output must ignore some of the listed scenarios appropriately\.|Sentence: Clustered rings surround frequently\. Word: frequently|CC: Determiner<br>FREquently|err|
 |gpt\-4o\-mini|At least one word in the provided input must be omitted from tagging according to the conditions defined, and the output must ignore some of the listed scenarios appropriately\.|Sentence: Astronomically relevant grids captivate\. Word: Astronomically|RB|ok|
-|gemma2:9b|At least one word in the provided input must be omitted from tagging according to the conditions defined, and the output must ignore some of the listed scenarios appropriately\.|Sentence: Astronomically relevant grids captivate\. Word: Astronomically|JJ|ok|
-|qwen2\.5:3b|At least one word in the provided input must be omitted from tagging according to the conditions defined, and the output must ignore some of the listed scenarios appropriately\.|Sentence: Astronomically relevant grids captivate\. Word: Astronomically|JJ|ok|
-|llama3\.2:1b|At least one word in the provided input must be omitted from tagging according to the conditions defined, and the output must ignore some of the listed scenarios appropriately\.|Sentence: Astronomically relevant grids captivate\. Word: Astronomically|Word: Astronomically<br>Part of speech tag: ADJ<br><br>Note: The word "Astronomically" is an adverbial adjective\.|err|
 |gpt\-4o\-mini||sentence: The quick brown fox jumps over the lazy dog\. word: jumps|VBZ|ok|
-|gemma2:9b||sentence: The quick brown fox jumps over the lazy dog\. word: jumps|VBZ|ok|
-|qwen2\.5:3b||sentence: The quick brown fox jumps over the lazy dog\. word: jumps|VBZ|ok|
-|llama3\.2:1b||sentence: The quick brown fox jumps over the lazy dog\. word: jumps|Here are the part of speech tags for each word:<br><br>1\. jumps \- VBZ \(Verb, 3rd person singular present\)<br>2\. jumps \- VBD \(Verb, past tense\)|err|
 |gpt\-4o\-mini||sentence: She has taken the book from the shelf\. word: taken|VBN|ok|
-|gemma2:9b||sentence: She has taken the book from the shelf\. word: taken|VBN|ok|
-|qwen2\.5:3b||sentence: She has taken the book from the shelf\. word: taken|VBZ|ok|
-|llama3\.2:1b||sentence: She has taken the book from the shelf\. word: taken|For "taken":<br>CC: Subordinating conjunction<br><br>For "book":<br>NN: Noun|err|
 |gpt\-4o\-mini||sentence: John loves Mary\. word: Mary|NN|ok|
-|gemma2:9b||sentence: John loves Mary\. word: Mary|NNP|ok|
-|qwen2\.5:3b||sentence: John loves Mary\. word: Mary|NN|ok|
-|llama3\.2:1b||sentence: John loves Mary\. word: Mary|Word: NN \(Noun\)<br> Tagging Output: NN|err|
 |gpt\-4o\-mini||sentence: There is a cat under the table\. word: There|EX|ok|
-|gemma2:9b||sentence: There is a cat under the table\. word: There|EX|ok|
-|qwen2\.5:3b||sentence: There is a cat under the table\. word: There|TO|ok|
-|llama3\.2:1b||sentence: There is a cat under the table\. word: There|CC: Coordinating conjunction \(first instance\), CP: Prepositional phrase, JJ: Adjective, NN: Noun|err|
 |gpt\-4o\-mini||sentence: The recipe calls for two eggs and a cup of sugar\. word: two|CD|ok|
-|gemma2:9b||sentence: The recipe calls for two eggs and a cup of sugar\. word: two|CD|ok|
-|qwen2\.5:3b||sentence: The recipe calls for two eggs and a cup of sugar\. word: two|JJ|ok|
-|llama3\.2:1b||sentence: The recipe calls for two eggs and a cup of sugar\. word: two|Tags:<br>\- CC: Coordinating conjunction \(implied by "and"\)<br>\- RB: Adverb \(specifically, an adverb to indicate the relationship between "two" and "eggs"\) <br>\- JJ: Adjective \(in "recipe", describing "calls"\)|err|
 |gpt\-4o\-mini||sentence: We will win that match\. word: win|VB|ok|
-|gemma2:9b||sentence: We will win that match\. word: win|VB|ok|
-|qwen2\.5:3b||sentence: We will win that match\. word: win|VBZ|ok|
-|llama3\.2:1b||sentence: We will win that match\. word: win|For the given sentence "We will win that match" :<br><br>\- We \(Article\) is an Object\.<br>\- will \(Verb\)<br>\- win \(Base Verb Form\)<br><br>So, the part of speech tags for 'win' are VBZ and VBD\.|err|
 |gpt\-4o\-mini||sentence: Paris is a beautiful city\. word: Paris|NNP|ok|
-|gemma2:9b||sentence: Paris is a beautiful city\. word: Paris|NNP|ok|
-|qwen2\.5:3b||sentence: Paris is a beautiful city\. word: Paris|NN|ok|
-|llama3\.2:1b||sentence: Paris is a beautiful city\. word: Paris|Word: Paris <br>CC: NNPS <br><br> Sentence is the same as above\. <br>The only change is in word position which affects tag, in the sentence word "Paris" is not tagged correctly with any pos \(part of speech\) since the first time it was tagged \("NN"\) but then it gets replaced by \('NNPS'\)|err|
 |gpt\-4o\-mini||sentence: They quickly ran towards the finish line\. word: quickly|RB|ok|
-|gemma2:9b||sentence: They quickly ran towards the finish line\. word: quickly|RB|ok|
-|qwen2\.5:3b||sentence: They quickly ran towards the finish line\. word: quickly|VB️|err|
-|llama3\.2:1b||sentence: They quickly ran towards the finish line\. word: quickly|Word: Quickly <br> Tag: VRB \(Verb\-Subj\)<br><br><br>Word: they<br> Tag: PRP \(Personal pronoun\)|err|
 |gpt\-4o\-mini||sentence: These are the best cookies I have ever tasted\. word: best|JJS|ok|
-|gemma2:9b||sentence: These are the best cookies I have ever tasted\. word: best|JJS|ok|
-|qwen2\.5:3b||sentence: These are the best cookies I have ever tasted\. word: best|JJ|ok|
-|llama3\.2:1b||sentence: These are the best cookies I have ever tasted\. word: best|CC: <br>tagged as Coordinating conjunction <br><br>CantAnswer|err|
 |gpt\-4o\-mini||sentence: Can you find the hidden treasure? word: hidden|JJ|ok|
-|gemma2:9b||sentence: Can you find the hidden treasure? word: hidden|JJ|ok|
-|qwen2\.5:3b||sentence: Can you find the hidden treasure? word: hidden|VBG|ok|
-|llama3\.2:1b||sentence: Can you find the hidden treasure? word: hidden|\* CC: Coordinating conjunction \(twice, once at the beginning and again as a coordinating conjunction within the sentence\)<br>\* EX: Existential there \(not present in this instance but would be if 'hidden' were used as an existential verb\)<br><br>However, since 'hidden' is the word being tagged as it has to do with its position or part of speech in the given sentences, we can just state that:<br><br>\* JJR: Adjective superlative|err|
 |gpt\-4o\-mini||sentence: The children play happily in the park\. word: happily|RB|ok|
-|gemma2:9b||sentence: The children play happily in the park\. word: happily|RB|ok|
-|qwen2\.5:3b||sentence: The children play happily in the park\. word: happily|RB|ok|
-|llama3\.2:1b||sentence: The children play happily in the park\. word: happily|Here are the part of speech tags for each word:<br><br>\* Happily: ADJ \(Adjective\)<br>\* In: IN \(Preposition or subordinating conjunction\)|err|
 |gpt\-4o\-mini||sentence: He went to the store yesterday\. word: yesterday|RB|ok|
-|gemma2:9b||sentence: He went to the store yesterday\. word: yesterday|RB|ok|
-|qwen2\.5:3b||sentence: He went to the store yesterday\. word: yesterday|JJ|ok|
-|llama3\.2:1b||sentence: He went to the store yesterday\. word: yesterday|No match is found in the list of tagged parts of speech for the given words\.<br><br>CantAnswer|err|
 |gpt\-4o\-mini||sentence: Will you be coming with us? word: Will|MD|ok|
-|gemma2:9b||sentence: Will you be coming with us? word: Will|MD|ok|
-|qwen2\.5:3b||sentence: Will you be coming with us? word: Will|VB|ok|
-|llama3\.2:1b||sentence: Will you be coming with us? word: Will|\*\*Part\-of\-speech tag for "Will" : JD\*\*<br><br>There is only one occurrence of the word "Will"\. The correct analysis results in a single JD \(Adjective\) tag for the entire sentence, but since there are no other parts that can change it, the individual JD remains as given\.|err|
 |gpt\-4o\-mini||sentence: Please hand me the blue folder\. word: blue|JJ|ok|
-|gemma2:9b||sentence: Please hand me the blue folder\. word: blue|JJ|ok|
-|qwen2\.5:3b||sentence: Please hand me the blue folder\. word: blue|JJ|ok|
-|llama3\.2:1b||sentence: Please hand me the blue folder\. word: blue|\* For the sentence "Please hand me the blue folder," <br>\+ POS: DT \(Determiner\)<br>\* For the same sentence, <br>\+ VS: VBD \(Verb, past tense of Hand\)|err|
 |gpt\-4o\-mini||sentence: The test was incredibly difficult\. word: was|VBD|ok|
-|gemma2:9b||sentence: The test was incredibly difficult\. word: was|VBD|ok|
-|qwen2\.5:3b||sentence: The test was incredibly difficult\. word: was|VBZ|ok|
-|llama3\.2:1b||sentence: The test was incredibly difficult\. word: was|Word: was<br>\- was \(IN\)|err|
 |gpt\-4o\-mini||sentence: She doesn't know what to do\. word: what|WP|ok|
-|gemma2:9b||sentence: She doesn't know what to do\. word: what|WDT|ok|
-|qwen2\.5:3b||sentence: She doesn't know what to do\. word: what|WH\-to|err|
-|llama3\.2:1b||sentence: She doesn't know what to do\. word: what|For the given sentence and word:<br><br>\- The word "what" can be tagged as NNS \(Noun, plural\), because it is a mass noun referring to something\.<br> <br>The part\-of\-speech tags for "She doesn't know what to do": NNS\.|err|
 |gpt\-4o\-mini||sentence: A flock of birds flew overhead\. word: flock|NN|ok|
-|gemma2:9b||sentence: A flock of birds flew overhead\. word: flock|NN|ok|
-|qwen2\.5:3b||sentence: A flock of birds flew overhead\. word: flock|NN|ok|
-|llama3\.2:1b||sentence: A flock of birds flew overhead\. word: flock|Part\-of\-speech tag for "flock" \- Noun<br><br>Part\-of\-speech tag for "flock" \(second occurrence\) \- NN \(Proper noun, singular or mass\)|err|
 |gpt\-4o\-mini||sentence: Sam and Pete are going to the conference\. word: and|CC|ok|
-|gemma2:9b||sentence: Sam and Pete are going to the conference\. word: and|CC|ok|
-|qwen2\.5:3b||sentence: Sam and Pete are going to the conference\. word: and|CC|ok|
-|llama3\.2:1b||sentence: Sam and Pete are going to the conference\. word: and|Part of speech tag for word "and": CC \(Coordinating conjunction\)|err|
 |gpt\-4o\-mini||sentence: I need a pen and paper\. word: pen|NN|ok|
-|gemma2:9b||sentence: I need a pen and paper\. word: pen|NN|ok|
-|qwen2\.5:3b||sentence: I need a pen and paper\. word: pen|NN|ok|
-|llama3\.2:1b||sentence: I need a pen and paper\. word: pen|\* For the sentence "I need a pen and paper\." <br>  The tag for 'pen' is VB \(Base form\)\.<br><br>\* For the sentence "I need a pen"<br>  The tag for 'pen' is VB \(Base form\)\. <br><br>Since both cases match with VB, I will return VB as the tag\.|err|
 |gpt\-4o\-mini||sentence: Which route should we take? word: Which|WDT|ok|
-|gemma2:9b||sentence: Which route should we take? word: Which|WDT|ok|
-|qwen2\.5:3b||sentence: Which route should we take? word: Which|WP|ok|
-|llama3\.2:1b||sentence: Which route should we take? word: Which|tag: IN \(Determiner\) and JJ \(Adjective\)<br><br>result: INJJ|err|
 |gpt\-4o\-mini||sentence: The process is extremely complicated\. word: extremely|RB|ok|
-|gemma2:9b||sentence: The process is extremely complicated\. word: extremely|RB|ok|
-|qwen2\.5:3b||sentence: The process is extremely complicated\. word: extremely|RB|ok|
-|llama3\.2:1b||sentence: The process is extremely complicated\. word: extremely|\*Process\* \- VBZ<br>\*extremely\* \- JJ|err|
 |gpt\-4o\-mini||sentence: We have been friends for many years\. word: been|VBN|ok|
-|gemma2:9b||sentence: We have been friends for many years\. word: been|VBN|ok|
-|qwen2\.5:3b||sentence: We have been friends for many years\. word: been|VBZ|ok|
-|llama3\.2:1b||sentence: We have been friends for many years\. word: been|\*\*Word:\*\* been<br>\*\*Tag:\*\* VC \(Verb\-Subject\) <br><br>\(Verbs are not explicitly tagged, but can be inferred as the subject of "We", which is CC in this case\.\)|err|
 |gpt\-4o\-mini||sentence: This is my car\. word: my|PRP$|ok|
-|gemma2:9b||sentence: This is my car\. word: my|PRP$|ok|
-|qwen2\.5:3b||sentence: This is my car\. word: my|PRP$|ok|
-|llama3\.2:1b||sentence: This is my car\. word: my|Here are the part of speech tags for each word:<br><br>\* "This" \- DT: Determiner<br>\* "is" \- VBZ: Verb, 3rd person singular present \(tag:Verb\+Sing\.\)<br>\* "my" \- CC: Coordinating conjunction <br><br>Let me know if you have any further requests\.|err|
 |gpt\-4o\-mini||sentence: Have you seen their new house yet? word: their|PRP$|ok|
-|gemma2:9b||sentence: Have you seen their new house yet? word: their|PRP$|ok|
-|qwen2\.5:3b||sentence: Have you seen their new house yet? word: their|their<br>NN|ok|
-|llama3\.2:1b||sentence: Have you seen their new house yet? word: their|\* CC: Coordinating conjunction\. <br>\* IN: Determiner\.<br>\* Their|err|
 |gpt\-4o\-mini||sentence: Oh no, I forgot my homework at home\. word: Oh|UH|ok|
-|gemma2:9b||sentence: Oh no, I forgot my homework at home\. word: Oh|UH|ok|
-|qwen2\.5:3b||sentence: Oh no, I forgot my homework at home\. word: Oh|Unknown|ok|
-|llama3\.2:1b||sentence: Oh no, I forgot my homework at home\. word: Oh|Sentence: Oh =gt; ORG : Interjection<br><br>Word: Oh =gt; PRM : Personal pronoun|err|
 |gpt\-4o\-mini||sentence: Each student should bring a notebook\. word: Each|DT|ok|
-|gemma2:9b||sentence: Each student should bring a notebook\. word: Each|DT|ok|
-|qwen2\.5:3b||sentence: Each student should bring a notebook\. word: Each|DT|ok|
-|llama3\.2:1b||sentence: Each student should bring a notebook\. word: Each|\* Part of speech tag for "Each": Noun|err|
 |gpt\-4o\-mini||sentence: The sun rises in the east\. word: rises|VBZ|ok|
-|gemma2:9b||sentence: The sun rises in the east\. word: rises|VZB|err|
-|qwen2\.5:3b||sentence: The sun rises in the east\. word: rises|VBZ|ok|
-|llama3\.2:1b||sentence: The sun rises in the east\. word: rises|Part\-of\-speech tag for 'rises': VBZ<br><br>Part\-of\-speech tag for 'The' or 'east': DT <br><br>Part\-of\-speech tag for 'suns': CC|err|
 |gpt\-4o\-mini||sentence: Can someone explain this to me? word: explain|VB|ok|
-|gemma2:9b||sentence: Can someone explain this to me? word: explain|VB|ok|
-|qwen2\.5:3b||sentence: Can someone explain this to me? word: explain|VB️|err|
-|llama3\.2:1b||sentence: Can someone explain this to me? word: explain|Part\-of\-speech tags for the given words are:<br><br>\* Explain: JJR: Adjective, comparative, JJS: Adjective, superlative \(superlative is plural form, but in this case, we have "explanation" as a whole which makes it singular\)<br><br>Since it's only describing a noun and there isn't any other adjective provided, the tag for just 'explain' is JJR\.|err|
 |gpt\-4o\-mini||sentence: Despite the warnings, they proceeded with the plan\. word: Despite|IN|ok|
-|gemma2:9b||sentence: Despite the warnings, they proceeded with the plan\. word: Despite|IN|ok|
-|qwen2\.5:3b||sentence: Despite the warnings, they proceeded with the plan\. word: Despite|TO|ok|
-|llama3\.2:1b||sentence: Despite the warnings, they proceeded with the plan\. word: Despite|POS: adverb<br><br>Reasoning:<br>Since "Despite" is a functional adjective used to introduce a contrasting clause or an expression that contrasts an action or situation present in one part of the sentence with one that is not, it can be tagged as adverb, despite the presence of other parts of speech like NP and CC\.|err|
 |gpt\-4o\-mini||sentence: We have been waiting for hours\. word: hours|NNS|ok|
-|gemma2:9b||sentence: We have been waiting for hours\. word: hours|CD|ok|
-|qwen2\.5:3b||sentence: We have been waiting for hours\. word: hours|NN|ok|
-|llama3\.2:1b||sentence: We have been waiting for hours\. word: hours|CC: \(Hours is a coordinate phrase\)<br>DT: \(Hours are\)<br>EX: <br>JJR: Adjective \(positive\)<br>JJS: Adjective \(superlativedelete\) <br>NNS: Noun 'hours'|err|
 |gpt\-4o\-mini||sentence: The delicious aroma filled the kitchen\. word: aroma|NN|ok|
-|gemma2:9b||sentence: The delicious aroma filled the kitchen\. word: aroma|NN|ok|
-|qwen2\.5:3b||sentence: The delicious aroma filled the kitchen\. word: aroma|NN|ok|
-|llama3\.2:1b||sentence: The delicious aroma filled the kitchen\. word: aroma|For the word "aroma":<br>PPS: Proper possessive ending<br><br>For the word "filled", <br>IN: Preposition or subordinating conjunction<br> <br>As both words can be tagged with IN, it's not possible to determine a definite part of speech for one word alone\.|err|
 |gpt\-4o\-mini||sentence: The committee dissolved the party\. word: dissolved|VBD|ok|
-|gemma2:9b||sentence: The committee dissolved the party\. word: dissolved|VBD|ok|
-|qwen2\.5:3b||sentence: The committee dissolved the party\. word: dissolved|VBZ|ok|
-|llama3\.2:1b||sentence: The committee dissolved the party\. word: dissolved|Part\-of\-speech tag for "dissolved": CC \(Conjunction\)<br><br>Part\-of\-speech tag for "dissolved": NN \(Noun\)|err|
 |gpt\-4o\-mini||sentence: You should definitely try this dish\. word: definitely|RB|ok|
-|gemma2:9b||sentence: You should definitely try this dish\. word: definitely|RB|ok|
-|qwen2\.5:3b||sentence: You should definitely try this dish\. word: definitely|RB|ok|
-|llama3\.2:1b||sentence: You should definitely try this dish\. word: definitely|\*\*Word: definitively\*\*<br>\* Tag: ADVERB|err|
 |gpt\-4o\-mini||sentence: An apple a day keeps the doctor away\. word: An|DT|ok|
-|gemma2:9b||sentence: An apple a day keeps the doctor away\. word: An|DT|ok|
-|qwen2\.5:3b||sentence: An apple a day keeps the doctor away\. word: An|WP|ok|
-|llama3\.2:1b||sentence: An apple a day keeps the doctor away\. word: An|CC: Coordinating conjunction<br>Word part of speech: <br>Det \(Determiner\)|err|
 |gpt\-4o\-mini||sentence: Let me rest for a while\. word: rest|VB|ok|
-|gemma2:9b||sentence: Let me rest for a while\. word: rest|VB|ok|
-|qwen2\.5:3b||sentence: Let me rest for a while\. word: rest|NN|ok|
-|llama3\.2:1b||sentence: Let me rest for a while\. word: rest|For the sentence "Let me rest for a while", the part of speech tag is:<br>JJR \(Adjective, comparative\)|err|
 |gpt\-4o\-mini||sentence: The quick brown fox jumps over the lazy dog\. word: fox|NN|ok|
-|gemma2:9b||sentence: The quick brown fox jumps over the lazy dog\. word: fox|NN|ok|
-|qwen2\.5:3b||sentence: The quick brown fox jumps over the lazy dog\. word: fox|NN|ok|
-|llama3\.2:1b||sentence: The quick brown fox jumps over the lazy dog\. word: fox|CC: noun<br><br><br>The word "fox" is a common noun referring to a type of animal\.|err|
 |gpt\-4o\-mini||sentence: She has a unique perspective on life\. word: unique|JJ|ok|
-|gemma2:9b||sentence: She has a unique perspective on life\. word: unique|JJ|ok|
-|qwen2\.5:3b||sentence: She has a unique perspective on life\. word: unique|JJ|ok|
-|llama3\.2:1b||sentence: She has a unique perspective on life\. word: unique|Word: unique <br> Tag: JJ|ok|
 |gpt\-4o\-mini||sentence: It suddenly started raining\. word: suddenly|RB|ok|
-|gemma2:9b||sentence: It suddenly started raining\. word: suddenly|RB|ok|
-|qwen2\.5:3b||sentence: It suddenly started raining\. word: suddenly|RB|ok|
-|llama3\.2:1b||sentence: It suddenly started raining\. word: suddenly|Here are the part of speech tags for the given words:<br><br>1\. Suddenly \- NN \(Noun\)<br>2\. Suddenly \- JJ \(Adjective\)|err|
 |gpt\-4o\-mini||sentence: How often do you visit your hometown? word: often|RB|ok|
-|gemma2:9b||sentence: How often do you visit your hometown? word: often|RB|ok|
-|qwen2\.5:3b||sentence: How often do you visit your hometown? word: often|VB|ok|
-|llama3\.2:1b||sentence: How often do you visit your hometown? word: often|\* POS: NNP \(Proper noun\)<br>\* tag for NN in sentence 1: N<br>\* tag for NN in sentence 2: N <br><br>Since both words share the same part of speech, their tags are identical\. If I had more sentences to analyze, I would need further information about them\.<br><br>If you provide more text, I can help with your original request\.|err|
 |gpt\-4o\-mini||sentence: Alas, we have no choice\. word: Alas|UH|ok|
-|gemma2:9b||sentence: Alas, we have no choice\. word: Alas|UH|ok|
-|qwen2\.5:3b||sentence: Alas, we have no choice\. word: Alas|RB|ok|
-|llama3\.2:1b||sentence: Alas, we have no choice\. word: Alas|\* CC: Determiner<br>\* CC:CantAnswer <br> \* SYM: Symbol|err|
 |gpt\-4o\-mini||sentence: If you believe, you can achieve\. word: If|CC|ok|
-|gemma2:9b||sentence: If you believe, you can achieve\. word: If|IN|ok|
-|qwen2\.5:3b||sentence: If you believe, you can achieve\. word: If|TO|ok|
-|llama3\.2:1b||sentence: If you believe, you can achieve\. word: If|Word: If<br><br>Part of speech tags: CC \(Coordinating conjunction\), SYM \(Symbol\), RB \(Adverb\)|err|
 |gpt\-4o\-mini||sentence: The vase broke into pieces\. word: pieces|NNS|ok|
+|gemma2:9b|The output must only contain a single part of speech tag from the pre\-defined list in the system prompt\.|Sentence: The quick brown fox jumps over the lazy dog\. Word: fox|NN|ok|
+|gemma2:9b|The output must only contain a single part of speech tag from the pre\-defined list in the system prompt\.|Sentence: She sells seashells by the seashore\. Word: sells|VBZ|ok|
+|gemma2:9b|The output must only contain a single part of speech tag from the pre\-defined list in the system prompt\.|Sentence: Yesterday, it rained heavily\. Word: rained|VBD|ok|
+|gemma2:9b|The output must be an exact match to one of the tags in the pre\-defined list, if applicable\.|Sentence: The cat sat on the mat\. Word: cat|NN|ok|
+|gemma2:9b|The output must be an exact match to one of the tags in the pre\-defined list, if applicable\.|Sentence: Birds fly high\. Word: fly|VB|ok|
+|gemma2:9b|The output must be an exact match to one of the tags in the pre\-defined list, if applicable\.|Sentence: One hundred apples fell\. Word: hundred|CD|ok|
+|gemma2:9b|If the word provided in the input can be matched to one of the listed part of speech tags, return only the corresponding tag as the output, with no additional text or formatting\.|Sentence: A large tree fell\. Word: large|JJ|ok|
+|gemma2:9b|If the word provided in the input can be matched to one of the listed part of speech tags, return only the corresponding tag as the output, with no additional text or formatting\.|Sentence: I usually walk home\. Word: usually|RB|ok|
+|gemma2:9b|If the word provided in the input can be matched to one of the listed part of speech tags, return only the corresponding tag as the output, with no additional text or formatting\.|Sentence: They have been healthy\. Word: have|VBP|ok|
+|gemma2:9b|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should only contain the word "Unknown"\.|Sentence: Everything went according to the plan\. Word: according|IN|ok|
+|gemma2:9b|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should only contain the word "Unknown"\.|Sentence: The session was remarkable\. Word: sessione|Unknown|ok|
+|gemma2:9b|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should only contain the word "Unknown"\.|Sentence: My new routine will adapt\. Word: xyzzy|Unknown|ok|
+|gemma2:9b|If it is not possible to determine the part of speech from the input, the output should only contain the word "CantAnswer"\.|Sentence: This sentence cannot be processed\. Word: unprocesable|JJ|ok|
+|gemma2:9b|If it is not possible to determine the part of speech from the input, the output should only contain the word "CantAnswer"\.|Sentence: A complex wordplay occurred here\. Word: qwertyuiop|Unknown|ok|
+|gemma2:9b|If it is not possible to determine the part of speech from the input, the output should only contain the word "CantAnswer"\.|Sentence: Many colorful dreams arise unhindered\. Word: ljfdksjl|CantAnswer|ok|
+|gemma2:9b|The output must contain no additional information besides the specified part of speech tag or the exact words "Unknown" or "CantAnswer" based on the given rules\.|Sentence: Their experiment succeeded\. Word: succeeded|VBD|ok|
+|gemma2:9b|The output must contain no additional information besides the specified part of speech tag or the exact words "Unknown" or "CantAnswer" based on the given rules\.|Sentence: Appreciate the colors of the wind\. Word: colors|NN|ok|
+|gemma2:9b|The output must contain no additional information besides the specified part of speech tag or the exact words "Unknown" or "CantAnswer" based on the given rules\.|Sentence: She can solve the mystery alone\. Word: can|MD|ok|
+|gemma2:9b|Every word in the provided input must be attempted to be tagged according to the conditions defined, and the output must reflect one of the listed scenarios appropriately\.|Sentence: He quickly understood the situation\. Word: quickly|RB|ok|
+|gemma2:9b|Every word in the provided input must be attempted to be tagged according to the conditions defined, and the output must reflect one of the listed scenarios appropriately\.|Sentence: They left yesterday\. Word: yesterday|RB|ok|
+|gemma2:9b|Every word in the provided input must be attempted to be tagged according to the conditions defined, and the output must reflect one of the listed scenarios appropriately\.|Sentence: Imagine a brighter future\. Word: Imagine|VB|ok|
+|gemma2:9b|The output must contain multiple parts of speech tags that are not from the pre\-defined list in the system prompt\.|Sentence: The plan was executed hurrily\. Word: hurrily|RBS|ok|
+|gemma2:9b|The output must contain multiple parts of speech tags that are not from the pre\-defined list in the system prompt\.|Sentence: Welcome to zzyzx road\. Word: zzyzx|NNP|ok|
+|gemma2:9b|The output must contain multiple parts of speech tags that are not from the pre\-defined list in the system prompt\.|Sentence: I coined murf the word\. Word: murf|NN|ok|
+|gemma2:9b|The output must not match any of the tags in the pre\-defined list, where applicable\.|Sentence: That is unanticipatedly concise\. Word: unanticipatedly|RB|ok|
+|gemma2:9b|The output must not match any of the tags in the pre\-defined list, where applicable\.|Sentence: Her demeanor was inaccesible\.|inaccesible  JJ|err|
+|gemma2:9b|The output must not match any of the tags in the pre\-defined list, where applicable\.|Sentence: There are many colours in this art\.|VB  \(Verb, base form\) <br><br><br>Let me know if you have another word you'd like tagged\!|err|
+|gemma2:9b|If the word provided in the input can be matched to one of the listed part of speech tags, return additional text and formatting rather than the corresponding tag\.|Sentence: Mist in the valley is enchanting\. Word: enchanting|JJ|ok|
+|gemma2:9b|If the word provided in the input can be matched to one of the listed part of speech tags, return additional text and formatting rather than the corresponding tag\.|Sentence: Laughter echoed through hall endlessly\. Word: endlessly|RB|ok|
+|gemma2:9b|If the word provided in the input can be matched to one of the listed part of speech tags, return additional text and formatting rather than the corresponding tag\.|Sentence: Eagerly awaited\. Word: awaited|VBN|ok|
+|gemma2:9b|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should not contain the word "Unknown"\.|Sentence: The unexplained phenomenon\. Word: unexplained|JJ <br><br><br>You're looking for the part of speech tag for "unexplained", which is an adjective in this case\.  Therefore, the answer is \*\*JJ\*\*\.|ok|
+|gemma2:9b|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should not contain the word "Unknown"\.|Sentence: Uncharted discoveries multiplied\. Word: uncharted|JJ|ok|
+|gemma2:9b|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should not contain the word "Unknown"\.|Sentence: Freshly baked cookies\. Word: baked|VBN|ok|
+|gemma2:9b|If it is not possible to determine the part of speech from the input, the output should not contain the word "CantAnswer"\.|Sentence: My non\-conclusive sentence\. Word: non\-conclusive|JJ|ok|
+|gemma2:9b|If it is not possible to determine the part of speech from the input, the output should not contain the word "CantAnswer"\.|Sentence: My entirely customized interface\.W ord: entirely|RB|ok|
+|gemma2:9b|If it is not possible to determine the part of speech from the input, the output should not contain the word "CantAnswer"\.|Sentence: Envisioned unravels tomorrow\. Word: unravels|VBN|ok|
+|gemma2:9b|The output must contain additional information besides any specific part of speech tag or words such as "Unknown" and "CantAnswer"\.|Sentence: Buzzwords characterize strategy sadly\. Word: strategy|NN|ok|
+|gemma2:9b|The output must contain additional information besides any specific part of speech tag or words such as "Unknown" and "CantAnswer"\.|Sentence: Conundrum solved strategically\. Word: Conundrum|NN|ok|
+|gemma2:9b|The output must contain additional information besides any specific part of speech tag or words such as "Unknown" and "CantAnswer"\.|Sentence: Proficiently relinquished duties\. Word: Proficiently|RB|ok|
+|gemma2:9b|At least one word in the provided input must be omitted from tagging according to the conditions defined, and the output must ignore some of the listed scenarios appropriately\.|Sentence: Varied marbles on the floor\. Word: floor|NN|ok|
+|gemma2:9b|At least one word in the provided input must be omitted from tagging according to the conditions defined, and the output must ignore some of the listed scenarios appropriately\.|Sentence: Clustered rings surround frequently\. Word: frequently|RB|ok|
+|gemma2:9b|At least one word in the provided input must be omitted from tagging according to the conditions defined, and the output must ignore some of the listed scenarios appropriately\.|Sentence: Astronomically relevant grids captivate\. Word: Astronomically|JJ|ok|
+|gemma2:9b||sentence: The quick brown fox jumps over the lazy dog\. word: jumps|VBZ|ok|
+|gemma2:9b||sentence: She has taken the book from the shelf\. word: taken|VBN|ok|
+|gemma2:9b||sentence: John loves Mary\. word: Mary|NNP|ok|
+|gemma2:9b||sentence: There is a cat under the table\. word: There|EX|ok|
+|gemma2:9b||sentence: The recipe calls for two eggs and a cup of sugar\. word: two|CD|ok|
+|gemma2:9b||sentence: We will win that match\. word: win|VB|ok|
+|gemma2:9b||sentence: Paris is a beautiful city\. word: Paris|NNP|ok|
+|gemma2:9b||sentence: They quickly ran towards the finish line\. word: quickly|RB|ok|
+|gemma2:9b||sentence: These are the best cookies I have ever tasted\. word: best|JJS|ok|
+|gemma2:9b||sentence: Can you find the hidden treasure? word: hidden|JJ|ok|
+|gemma2:9b||sentence: The children play happily in the park\. word: happily|RB|ok|
+|gemma2:9b||sentence: He went to the store yesterday\. word: yesterday|RB|ok|
+|gemma2:9b||sentence: Will you be coming with us? word: Will|MD|ok|
+|gemma2:9b||sentence: Please hand me the blue folder\. word: blue|JJ|ok|
+|gemma2:9b||sentence: The test was incredibly difficult\. word: was|VBD|ok|
+|gemma2:9b||sentence: She doesn't know what to do\. word: what|WDT|ok|
+|gemma2:9b||sentence: A flock of birds flew overhead\. word: flock|NN|ok|
+|gemma2:9b||sentence: Sam and Pete are going to the conference\. word: and|CC|ok|
+|gemma2:9b||sentence: I need a pen and paper\. word: pen|NN|ok|
+|gemma2:9b||sentence: Which route should we take? word: Which|WDT|ok|
+|gemma2:9b||sentence: The process is extremely complicated\. word: extremely|RB|ok|
+|gemma2:9b||sentence: We have been friends for many years\. word: been|VBN|ok|
+|gemma2:9b||sentence: This is my car\. word: my|PRP$|ok|
+|gemma2:9b||sentence: Have you seen their new house yet? word: their|PRP$|ok|
+|gemma2:9b||sentence: Oh no, I forgot my homework at home\. word: Oh|UH|ok|
+|gemma2:9b||sentence: Each student should bring a notebook\. word: Each|DT|ok|
+|gemma2:9b||sentence: The sun rises in the east\. word: rises|VZB|err|
+|gemma2:9b||sentence: Can someone explain this to me? word: explain|VB|ok|
+|gemma2:9b||sentence: Despite the warnings, they proceeded with the plan\. word: Despite|IN|ok|
+|gemma2:9b||sentence: We have been waiting for hours\. word: hours|CD|ok|
+|gemma2:9b||sentence: The delicious aroma filled the kitchen\. word: aroma|NN|ok|
+|gemma2:9b||sentence: The committee dissolved the party\. word: dissolved|VBD|ok|
+|gemma2:9b||sentence: You should definitely try this dish\. word: definitely|RB|ok|
+|gemma2:9b||sentence: An apple a day keeps the doctor away\. word: An|DT|ok|
+|gemma2:9b||sentence: Let me rest for a while\. word: rest|VB|ok|
+|gemma2:9b||sentence: The quick brown fox jumps over the lazy dog\. word: fox|NN|ok|
+|gemma2:9b||sentence: She has a unique perspective on life\. word: unique|JJ|ok|
+|gemma2:9b||sentence: It suddenly started raining\. word: suddenly|RB|ok|
+|gemma2:9b||sentence: How often do you visit your hometown? word: often|RB|ok|
+|gemma2:9b||sentence: Alas, we have no choice\. word: Alas|UH|ok|
+|gemma2:9b||sentence: If you believe, you can achieve\. word: If|IN|ok|
 |gemma2:9b||sentence: The vase broke into pieces\. word: pieces|NNS|ok|
+|qwen2\.5:3b|The output must only contain a single part of speech tag from the pre\-defined list in the system prompt\.|Sentence: The quick brown fox jumps over the lazy dog\. Word: fox|NN|ok|
+|qwen2\.5:3b|The output must only contain a single part of speech tag from the pre\-defined list in the system prompt\.|Sentence: She sells seashells by the seashore\. Word: sells|VB︻̲VK|err|
+|qwen2\.5:3b|The output must only contain a single part of speech tag from the pre\-defined list in the system prompt\.|Sentence: Yesterday, it rained heavily\. Word: rained|VBZ|ok|
+|qwen2\.5:3b|The output must be an exact match to one of the tags in the pre\-defined list, if applicable\.|Sentence: The cat sat on the mat\. Word: cat|NN|ok|
+|qwen2\.5:3b|The output must be an exact match to one of the tags in the pre\-defined list, if applicable\.|Sentence: Birds fly high\. Word: fly|VB|ok|
+|qwen2\.5:3b|The output must be an exact match to one of the tags in the pre\-defined list, if applicable\.|Sentence: One hundred apples fell\. Word: hundred|CD|ok|
+|qwen2\.5:3b|If the word provided in the input can be matched to one of the listed part of speech tags, return only the corresponding tag as the output, with no additional text or formatting\.|Sentence: A large tree fell\. Word: large|JJ|ok|
+|qwen2\.5:3b|If the word provided in the input can be matched to one of the listed part of speech tags, return only the corresponding tag as the output, with no additional text or formatting\.|Sentence: I usually walk home\. Word: usually|VBZ|ok|
+|qwen2\.5:3b|If the word provided in the input can be matched to one of the listed part of speech tags, return only the corresponding tag as the output, with no additional text or formatting\.|Sentence: They have been healthy\. Word: have|VB|ok|
+|qwen2\.5:3b|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should only contain the word "Unknown"\.|Sentence: Everything went according to the plan\. Word: according|IN|ok|
+|qwen2\.5:3b|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should only contain the word "Unknown"\.|Sentence: The session was remarkable\. Word: sessione|CantAnswer|ok|
+|qwen2\.5:3b|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should only contain the word "Unknown"\.|Sentence: My new routine will adapt\. Word: xyzzy|Unknown|ok|
+|qwen2\.5:3b|If it is not possible to determine the part of speech from the input, the output should only contain the word "CantAnswer"\.|Sentence: This sentence cannot be processed\. Word: unprocesable|CantAnswer|ok|
+|qwen2\.5:3b|If it is not possible to determine the part of speech from the input, the output should only contain the word "CantAnswer"\.|Sentence: A complex wordplay occurred here\. Word: qwertyuiop|Unknown|ok|
+|qwen2\.5:3b|If it is not possible to determine the part of speech from the input, the output should only contain the word "CantAnswer"\.|Sentence: Many colorful dreams arise unhindered\. Word: ljfdksjl|CantAnswer|ok|
+|qwen2\.5:3b|The output must contain no additional information besides the specified part of speech tag or the exact words "Unknown" or "CantAnswer" based on the given rules\.|Sentence: Their experiment succeeded\. Word: succeeded|VBZ|ok|
+|qwen2\.5:3b|The output must contain no additional information besides the specified part of speech tag or the exact words "Unknown" or "CantAnswer" based on the given rules\.|Sentence: Appreciate the colors of the wind\. Word: colors|NN|ok|
+|qwen2\.5:3b|The output must contain no additional information besides the specified part of speech tag or the exact words "Unknown" or "CantAnswer" based on the given rules\.|Sentence: She can solve the mystery alone\. Word: can|VBZ|ok|
+|qwen2\.5:3b|Every word in the provided input must be attempted to be tagged according to the conditions defined, and the output must reflect one of the listed scenarios appropriately\.|Sentence: He quickly understood the situation\. Word: quickly|VB|ok|
+|qwen2\.5:3b|Every word in the provided input must be attempted to be tagged according to the conditions defined, and the output must reflect one of the listed scenarios appropriately\.|Sentence: They left yesterday\. Word: yesterday|JJ|ok|
+|qwen2\.5:3b|Every word in the provided input must be attempted to be tagged according to the conditions defined, and the output must reflect one of the listed scenarios appropriately\.|Sentence: Imagine a brighter future\. Word: Imagine|VBZ|ok|
+|qwen2\.5:3b|The output must contain multiple parts of speech tags that are not from the pre\-defined list in the system prompt\.|Sentence: The plan was executed hurrily\. Word: hurrily|RB|ok|
+|qwen2\.5:3b|The output must contain multiple parts of speech tags that are not from the pre\-defined list in the system prompt\.|Sentence: Welcome to zzyzx road\. Word: zzyzx|Unknown|ok|
+|qwen2\.5:3b|The output must contain multiple parts of speech tags that are not from the pre\-defined list in the system prompt\.|Sentence: I coined murf the word\. Word: murf|NN|ok|
+|qwen2\.5:3b|The output must not match any of the tags in the pre\-defined list, where applicable\.|Sentence: That is unanticipatedly concise\. Word: unanticipatedly|RB|ok|
+|qwen2\.5:3b|The output must not match any of the tags in the pre\-defined list, where applicable\.|Sentence: Her demeanor was inaccesible\.|JJ|ok|
+|qwen2\.5:3b|The output must not match any of the tags in the pre\-defined list, where applicable\.|Sentence: There are many colours in this art\.|VBZ|ok|
+|qwen2\.5:3b|If the word provided in the input can be matched to one of the listed part of speech tags, return additional text and formatting rather than the corresponding tag\.|Sentence: Mist in the valley is enchanting\. Word: enchanting|JJ|ok|
+|qwen2\.5:3b|If the word provided in the input can be matched to one of the listed part of speech tags, return additional text and formatting rather than the corresponding tag\.|Sentence: Laughter echoed through hall endlessly\. Word: endlessly|RB|ok|
+|qwen2\.5:3b|If the word provided in the input can be matched to one of the listed part of speech tags, return additional text and formatting rather than the corresponding tag\.|Sentence: Eagerly awaited\. Word: awaited|VBZ|ok|
+|qwen2\.5:3b|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should not contain the word "Unknown"\.|Sentence: The unexplained phenomenon\. Word: unexplained|JJ|ok|
+|qwen2\.5:3b|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should not contain the word "Unknown"\.|Sentence: Uncharted discoveries multiplied\. Word: uncharted|NN|ok|
+|qwen2\.5:3b|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should not contain the word "Unknown"\.|Sentence: Freshly baked cookies\. Word: baked|VBG|ok|
+|qwen2\.5:3b|If it is not possible to determine the part of speech from the input, the output should not contain the word "CantAnswer"\.|Sentence: My non\-conclusive sentence\. Word: non\-conclusive|NNPS|ok|
+|qwen2\.5:3b|If it is not possible to determine the part of speech from the input, the output should not contain the word "CantAnswer"\.|Sentence: My entirely customized interface\.W ord: entirely|JJ|ok|
+|qwen2\.5:3b|If it is not possible to determine the part of speech from the input, the output should not contain the word "CantAnswer"\.|Sentence: Envisioned unravels tomorrow\. Word: unravels|VBZ|ok|
+|qwen2\.5:3b|The output must contain additional information besides any specific part of speech tag or words such as "Unknown" and "CantAnswer"\.|Sentence: Buzzwords characterize strategy sadly\. Word: strategy|NN|ok|
+|qwen2\.5:3b|The output must contain additional information besides any specific part of speech tag or words such as "Unknown" and "CantAnswer"\.|Sentence: Conundrum solved strategically\. Word: Conundrum|NN|ok|
+|qwen2\.5:3b|The output must contain additional information besides any specific part of speech tag or words such as "Unknown" and "CantAnswer"\.|Sentence: Proficiently relinquished duties\. Word: Proficiently|VB|ok|
+|qwen2\.5:3b|At least one word in the provided input must be omitted from tagging according to the conditions defined, and the output must ignore some of the listed scenarios appropriately\.|Sentence: Varied marbles on the floor\. Word: floor|NN|ok|
+|qwen2\.5:3b|At least one word in the provided input must be omitted from tagging according to the conditions defined, and the output must ignore some of the listed scenarios appropriately\.|Sentence: Clustered rings surround frequently\. Word: frequently|VBZ|ok|
+|qwen2\.5:3b|At least one word in the provided input must be omitted from tagging according to the conditions defined, and the output must ignore some of the listed scenarios appropriately\.|Sentence: Astronomically relevant grids captivate\. Word: Astronomically|JJ|ok|
+|qwen2\.5:3b||sentence: The quick brown fox jumps over the lazy dog\. word: jumps|VBZ|ok|
+|qwen2\.5:3b||sentence: She has taken the book from the shelf\. word: taken|VBZ|ok|
+|qwen2\.5:3b||sentence: John loves Mary\. word: Mary|NN|ok|
+|qwen2\.5:3b||sentence: There is a cat under the table\. word: There|TO|ok|
+|qwen2\.5:3b||sentence: The recipe calls for two eggs and a cup of sugar\. word: two|JJ|ok|
+|qwen2\.5:3b||sentence: We will win that match\. word: win|VBZ|ok|
+|qwen2\.5:3b||sentence: Paris is a beautiful city\. word: Paris|NN|ok|
+|qwen2\.5:3b||sentence: They quickly ran towards the finish line\. word: quickly|VB️|err|
+|qwen2\.5:3b||sentence: These are the best cookies I have ever tasted\. word: best|JJ|ok|
+|qwen2\.5:3b||sentence: Can you find the hidden treasure? word: hidden|VBG|ok|
+|qwen2\.5:3b||sentence: The children play happily in the park\. word: happily|RB|ok|
+|qwen2\.5:3b||sentence: He went to the store yesterday\. word: yesterday|JJ|ok|
+|qwen2\.5:3b||sentence: Will you be coming with us? word: Will|VB|ok|
+|qwen2\.5:3b||sentence: Please hand me the blue folder\. word: blue|JJ|ok|
+|qwen2\.5:3b||sentence: The test was incredibly difficult\. word: was|VBZ|ok|
+|qwen2\.5:3b||sentence: She doesn't know what to do\. word: what|WH\-to|err|
+|qwen2\.5:3b||sentence: A flock of birds flew overhead\. word: flock|NN|ok|
+|qwen2\.5:3b||sentence: Sam and Pete are going to the conference\. word: and|CC|ok|
+|qwen2\.5:3b||sentence: I need a pen and paper\. word: pen|NN|ok|
+|qwen2\.5:3b||sentence: Which route should we take? word: Which|WP|ok|
+|qwen2\.5:3b||sentence: The process is extremely complicated\. word: extremely|RB|ok|
+|qwen2\.5:3b||sentence: We have been friends for many years\. word: been|VBZ|ok|
+|qwen2\.5:3b||sentence: This is my car\. word: my|PRP$|ok|
+|qwen2\.5:3b||sentence: Have you seen their new house yet? word: their|their<br>NN|ok|
+|qwen2\.5:3b||sentence: Oh no, I forgot my homework at home\. word: Oh|Unknown|ok|
+|qwen2\.5:3b||sentence: Each student should bring a notebook\. word: Each|DT|ok|
+|qwen2\.5:3b||sentence: The sun rises in the east\. word: rises|VBZ|ok|
+|qwen2\.5:3b||sentence: Can someone explain this to me? word: explain|VB️|err|
+|qwen2\.5:3b||sentence: Despite the warnings, they proceeded with the plan\. word: Despite|TO|ok|
+|qwen2\.5:3b||sentence: We have been waiting for hours\. word: hours|NN|ok|
+|qwen2\.5:3b||sentence: The delicious aroma filled the kitchen\. word: aroma|NN|ok|
+|qwen2\.5:3b||sentence: The committee dissolved the party\. word: dissolved|VBZ|ok|
+|qwen2\.5:3b||sentence: You should definitely try this dish\. word: definitely|RB|ok|
+|qwen2\.5:3b||sentence: An apple a day keeps the doctor away\. word: An|WP|ok|
+|qwen2\.5:3b||sentence: Let me rest for a while\. word: rest|NN|ok|
+|qwen2\.5:3b||sentence: The quick brown fox jumps over the lazy dog\. word: fox|NN|ok|
+|qwen2\.5:3b||sentence: She has a unique perspective on life\. word: unique|JJ|ok|
+|qwen2\.5:3b||sentence: It suddenly started raining\. word: suddenly|RB|ok|
+|qwen2\.5:3b||sentence: How often do you visit your hometown? word: often|VB|ok|
+|qwen2\.5:3b||sentence: Alas, we have no choice\. word: Alas|RB|ok|
+|qwen2\.5:3b||sentence: If you believe, you can achieve\. word: If|TO|ok|
 |qwen2\.5:3b||sentence: The vase broke into pieces\. word: pieces|NN|ok|
+|llama3\.2:1b|The output must only contain a single part of speech tag from the pre\-defined list in the system prompt\.|Sentence: The quick brown fox jumps over the lazy dog\. Word: fox|CC: fox<br>JJS: fox|err|
+|llama3\.2:1b|The output must only contain a single part of speech tag from the pre\-defined list in the system prompt\.|Sentence: She sells seashells by the seashore\. Word: sells|Word: CC \(Coordinating conjunction\)<br><br> Sentence remains the same as it was initially provided with the word "sells" which is a linking verb forming a present tense conditional sentence from the participle phrase "seasels"\.<br><br>Sentence:<br> She sells seashells by the seashore\.|err|
+|llama3\.2:1b|The output must only contain a single part of speech tag from the pre\-defined list in the system prompt\.|Sentence: Yesterday, it rained heavily\. Word: rained|Here are the part of speech tags:<br><br>1\. Sentence: CC: Coordinating conjunction<br>2\. Word: rained \- IN: Preposition or subordinating conjunction \(in "Yesterday"\)<br>3\. Sentence: rained \- JJR/JJS/RBR/RBS: Adjective and comparative/superlative/gradable adjective \(in "heavily"\)|err|
+|llama3\.2:1b|The output must be an exact match to one of the tags in the pre\-defined list, if applicable\.|Sentence: The cat sat on the mat\. Word: cat|Word: cat \(NNPS\)<br>Part\-of\-speech tag: NNP \(Proper noun, singular\)|err|
+|llama3\.2:1b|The output must be an exact match to one of the tags in the pre\-defined list, if applicable\.|Sentence: Birds fly high\. Word: fly|Part\-of\-speech tag for the word "fly":<br>VBZ \(Third\-person singular present tense of the verb "to fly"\)|err|
+|llama3\.2:1b|The output must be an exact match to one of the tags in the pre\-defined list, if applicable\.|Sentence: One hundred apples fell\. Word: hundred|Part\-of\-speech tag for "hundred": CD \(Cardinal number\)<br> <br>\(Note: While the word "hundred" is technically a plural noun, in this context it's used as a determiner to indicate that 100 is being counted individually\.\)|err|
+|llama3\.2:1b|If the word provided in the input can be matched to one of the listed part of speech tags, return only the corresponding tag as the output, with no additional text or formatting\.|Sentence: A large tree fell\. Word: large|In the first sentence, the tag for "large" is DD: Determiner\.<br><br>In the second sentence, the tag for "large" is CD: Cardinal number\.|err|
+|llama3\.2:1b|If the word provided in the input can be matched to one of the listed part of speech tags, return only the corresponding tag as the output, with no additional text or formatting\.|Sentence: I usually walk home\. Word: usually|Word: usually \- JJ<br>Sentence: I usually walk home\. Word: usually \- JJ|ok|
+|llama3\.2:1b|If the word provided in the input can be matched to one of the listed part of speech tags, return only the corresponding tag as the output, with no additional text or formatting\.|Sentence: They have been healthy\. Word: have|POS for the word 'have': ADJ|err|
+|llama3\.2:1b|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should only contain the word "Unknown"\.|Sentence: Everything went according to the plan\. Word: according|Part\-of\-speech tag for "according" is JJ\.<br><br>As it appears twice in the sentence, I'll list them separately:<br> JJ in "everything"<br> JJ in "according"<br><br>Both instances can be tagged with "JJ", but since they appear twice, the return for both occurrences of the word should be JJ, returning JJ as our answer\.|err|
+|llama3\.2:1b|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should only contain the word "Unknown"\.|Sentence: The session was remarkable\. Word: sessione|Part\-of\-speech tag for "sessione" is NN \(Noun\)\. <br><br>Part\-of\-speech tag for "The session" is NNPs \(Proper Noun, plural\), PT \(Proprietied noun\), and TO \(to\)\.<br><br> So the complete output will be:<br> <br>NN  <br>NNP<br>TO|err|
+|llama3\.2:1b|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should only contain the word "Unknown"\.|Sentence: My new routine will adapt\. Word: xyzzy|Part of Speech Tag:<br>\- Sentence: CNT: Conjunctive particle \(was not in sentence\), CC: Coordinating conjunction \(correct\), etc\.<br>\- Word: xyzzy \- NN: Noun \(Correct\)|err|
+|llama3\.2:1b|If it is not possible to determine the part of speech from the input, the output should only contain the word "CantAnswer"\.|Sentence: This sentence cannot be processed\. Word: unprocesable|CC: Un procesable <br>WRB: Uncan not procesable|err|
+|llama3\.2:1b|If it is not possible to determine the part of speech from the input, the output should only contain the word "CantAnswer"\.|Sentence: A complex wordplay occurred here\. Word: qwertyuiop|CC: <br>Determiner: <br>EX: Causal existential there, <br>FW: Foreign word, <br>IN: Interjection or subordinating conjunction, JJ: Adjective,JJR: Adjective, superlative, JJS: Adjective, comparative, JJS: Adjective, superlative, LS: List item marker, MD: Modal, NN: Noun, singular or mass, NNS: Noun, plural, NNP: Proper noun, singular, NNPS: Proper noun, plural, PDT: Predeterminer, POS: Possessive ending, PRP: Personal pronoun, PRP$: Possessive pronoun, RB: Adverb, RBR: Adverb, comparative, RBS: Adverb, superlative, RP: particle,SYM: Symbol,<br>MD: Modal, NN: Noun, <br>singular or mass, NNS: Noun,<br>plural,NNPS: Proper noun, plural, PDT: Predeterminer, POS: Possessive ending, PRP: Personal pronoun, PRP$: Possessive pronoun, RB: Adverb, RBR: Adverb, comparative, RBS: Adverb, superlative,RP: Particle,<br>SYM: Symbol<br>CantAnswer\.<br>To be honest and to continue in this task I need more examples of the given word\. Can you please give me another sentence with the same word?|err|
+|llama3\.2:1b|If it is not possible to determine the part of speech from the input, the output should only contain the word "CantAnswer"\.|Sentence: Many colorful dreams arise unhindered\. Word: ljfdksjl|Part\-of\-speech tag:<br>IN: Noun <br><br>\(Note: The word "ljdfksjl" seems to be gibberish or random characters\. I couldn't identify any valid words in this context with the given list of tags, so I returned IN: Noun\. Alternatively, it might represent a technical term or code, which would require more information or clarification\.\)|err|
+|llama3\.2:1b|The output must contain no additional information besides the specified part of speech tag or the exact words "Unknown" or "CantAnswer" based on the given rules\.|Sentence: Their experiment succeeded\. Word: succeeded|Here are the results:<br><br>1\. Sentence: Their experiment succeeded\.<br>Word: succeeded <br>Part of Speech tag: VBD \(Verb, past tense\)<br><br>2\. Sentence: Their experiment succeeded\.<br>Word: succeeded<br>Part of Politics speech tag: VBZ \(Verb, 3rd person singular present\)|err|
+|llama3\.2:1b|The output must contain no additional information besides the specified part of speech tag or the exact words "Unknown" or "CantAnswer" based on the given rules\.|Sentence: Appreciate the colors of the wind\. Word: colors|The part\-of\-speech tag for the word "colors" in both sentences is NN\.<br><br> Sentence: Appreciate the colors of the wind\. Word: Appreciate<br> Part\-of\-speech tag: NN <br><br> Sentence: Appreciate the colors of the wind\. Word: Appreciate<br> Part\-of\-speech tag: CC|err|
+|llama3\.2:1b|The output must contain no additional information besides the specified part of speech tag or the exact words "Unknown" or "CantAnswer" based on the given rules\.|Sentence: She can solve the mystery alone\. Word: can|Word: can<br>Part of speech tag: V1 \(base form\) <br><br> Sentence: The sun rises in the east and sets in the west on most days but not every day it remains above the horizon for some time|err|
+|llama3\.2:1b|Every word in the provided input must be attempted to be tagged according to the conditions defined, and the output must reflect one of the listed scenarios appropriately\.|Sentence: He quickly understood the situation\. Word: quickly|Here are the parts of speech tags for each word:<br><br>\- Word: "quickly" \- JJ: Adjective<br>\- Word: "quickly" \- JJR: Superlative adjective, JJS: Comparative superlative adjective|err|
+|llama3\.2:1b|Every word in the provided input must be attempted to be tagged according to the conditions defined, and the output must reflect one of the listed scenarios appropriately\.|Sentence: They left yesterday\. Word: yesterday|Part\-of\-speech tag for "yesterday" is PD\.<br> Part\-of\-speech tag for Sentence \(as a whole\) is NN\. <br>No part of speech can be determined for the word CantAnswer since it's not in the list but "CantAnswer" can also imply there are no words to analyze, or it may simply contain an unknown or invalid word|err|
+|llama3\.2:1b|Every word in the provided input must be attempted to be tagged according to the conditions defined, and the output must reflect one of the listed scenarios appropriately\.|Sentence: Imagine a brighter future\. Word: Imagine|Part\-of\-speech tag for "Imagine" is NNP \(Noun, proper noun\)\.<br><br>As "Imagine" is the same word in both sentences, it can only be tagged as NNP \(which stands for Noun, proper noun\)\.|err|
+|llama3\.2:1b|The output must contain multiple parts of speech tags that are not from the pre\-defined list in the system prompt\.|Sentence: The plan was executed hurrily\. Word: hurrily|Word: hurrily<br><br>Tag: RB \(Adverb\)|ok|
+|llama3\.2:1b|The output must contain multiple parts of speech tags that are not from the pre\-defined list in the system prompt\.|Sentence: Welcome to zzyzx road\. Word: zzyzx|Words: <br>\- zzyzx: Unknown|err|
+|llama3\.2:1b|The output must contain multiple parts of speech tags that are not from the pre\-defined list in the system prompt\.|Sentence: I coined murf the word\. Word: murf|Here are the part of speech tags:<br><br>1\. I \- PRP$ \(Possessive pronoun\)<br>2\. coined \- JJR \(comparative adjective\)<br>3\. murf \- NNPS \(Proper noun, plural\)|err|
+|llama3\.2:1b|The output must not match any of the tags in the pre\-defined list, where applicable\.|Sentence: That is unanticipatedly concise\. Word: unanticipatedly|Word: unanticipatedly<br> Tag: ADJ|err|
+|llama3\.2:1b|The output must not match any of the tags in the pre\-defined list, where applicable\.|Sentence: Her demeanor was inaccesible\.|Tag for 'inaccessible': CC<br><br>Tag for 'inaccessible': DS \(Determiner/Sing\) <br><br>As you can see from the list, it seems I was able to correctly identify " inaccessible" as an adjectival form in this case and thus returned "CC"\. However, upon further inspection of the second sentence, I realize that it actually contains 2 occurrences of 'inaccessible', so a correction is needed: Tag for both instances would be DS\.|err|
+|llama3\.2:1b|The output must not match any of the tags in the pre\-defined list, where applicable\.|Sentence: There are many colours in this art\.|Word: Many<br>Tags: CC: Coordinating conjunction, DT: Determiner, IN: Preposition or subordinating conjunction, JJS: Adjective, LS: List item marker, NN: Noun, singular or mass, NNS: Noun, plural, VBZ: Verb, 3rd person singular present|err|
+|llama3\.2:1b|If the word provided in the input can be matched to one of the listed part of speech tags, return additional text and formatting rather than the corresponding tag\.|Sentence: Mist in the valley is enchanting\. Word: enchanting|Word: enchanting <br>tag: JJ|ok|
+|llama3\.2:1b|If the word provided in the input can be matched to one of the listed part of speech tags, return additional text and formatting rather than the corresponding tag\.|Sentence: Laughter echoed through hall endlessly\. Word: endlessly|Word: endlessly<br>Part of speech tag: CD \(Cardinal number\)|ok|
+|llama3\.2:1b|If the word provided in the input can be matched to one of the listed part of speech tags, return additional text and formatting rather than the corresponding tag\.|Sentence: Eagerly awaited\. Word: awaited|\-awaited \(NN\)<br>\.awaited \(VBZ\)|err|
+|llama3\.2:1b|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should not contain the word "Unknown"\.|Sentence: The unexplained phenomenon\. Word: unexplained|Word: Unexplained<br><br>CC<br><br> Sentence: The unexplained phenomenon\. Word: unexplained<br> Sentence: The unexplained phenomenon\. Word: unexplained<br><br>Word: Unexplained <br><br>DT <br> DT \(used twice, in a compound adverb\)|err|
+|llama3\.2:1b|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should not contain the word "Unknown"\.|Sentence: Uncharted discoveries multiplied\. Word: uncharted|Word: uncharted <br>Tag: ADJ <br><br> Sentence: Uncharted discoveries multiplied\. Word: uncharted\. Tag: NOUN <br><br>Note: The word "uncharted" can also function as an adjective in certain contexts, but based on its usage and the list of tags provided, it's most accurate to consider it a noun in this case\.|err|
+|llama3\.2:1b|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should not contain the word "Unknown"\.|Sentence: Freshly baked cookies\. Word: baked|Tagged: NN \(Noun\)<br>Unknown<br>Tagged: JJR \(Adjective, comparative\) and JJ \(Adjective, superlative\) Cannot be applied to a singular noun like 'baked' so 'JJR/JJ cannot tag it'\.<br>Tagged: VBZ \(Verb, non\-3rd person singular present\)|err|
+|llama3\.2:1b|If it is not possible to determine the part of speech from the input, the output should not contain the word "CantAnswer"\.|Sentence: My non\-conclusive sentence\. Word: non\-conclusive|Here are the results:<br><br>1\. The word "non\-conclusive" has as its part of speech tag POS \(Noun\)\.<br>2\. The word "non\-conclusive" has as its part of speech tag JJS \(Adjective, superlative\)\.|err|
+|llama3\.2:1b|If it is not possible to determine the part of speech from the input, the output should not contain the word "CantAnswer"\.|Sentence: My entirely customized interface\.W ord: entirely|For the first sentence:<br><br>No tag is available for "My", so return "Unknown"\.<br>The tag is "CC: Coordinating conjunction" but it's used as a subordinating conjunction to introduce the adverbial clause "entirely customized"\. <br>So, return "\-"\.<br><br>For the second sentence:<br><br>The tag is "CANTAnswer" which means this word cannot be tagged with any of the listed tags\. So, return "CantAnswer"\.|err|
+|llama3\.2:1b|If it is not possible to determine the part of speech from the input, the output should not contain the word "CantAnswer"\.|Sentence: Envisioned unravels tomorrow\. Word: unravels|Word: unravels<br>Part of Speech: VBD|err|
+|llama3\.2:1b|The output must contain additional information besides any specific part of speech tag or words such as "Unknown" and "CantAnswer"\.|Sentence: Buzzwords characterize strategy sadly\. Word: strategy|Here are the part of speech tags for each word:<br><br>\- strategy: NN \(Noun\)<br>\- strategy: NN \(Noun\) <br><br>Since both words match, I will return WN \(Unknown\)\.|err|
+|llama3\.2:1b|The output must contain additional information besides any specific part of speech tag or words such as "Unknown" and "CantAnswer"\.|Sentence: Conundrum solved strategically\. Word: Conundrum|Word: Conundrum<br> CC: Conundrum ADJ: \(returns "ADJ" since conundrum is an adjective\)<br><br>Word: Conundrum<br> ADJ: Conundrum NNP: Conundrum  \(returns "Conundrum NNP" since conundrum is a proper noun\)|err|
+|llama3\.2:1b|The output must contain additional information besides any specific part of speech tag or words such as "Unknown" and "CantAnswer"\.|Sentence: Proficiently relinquished duties\. Word: Proficiently|Part of speech tags:<br>\- CC: Coordinating conjunction<br>\- DT: Determiner|err|
+|llama3\.2:1b|At least one word in the provided input must be omitted from tagging according to the conditions defined, and the output must ignore some of the listed scenarios appropriately\.|Sentence: Varied marbles on the floor\. Word: floor|Part of speech tags:<br><br>\* Floor: IN|err|
+|llama3\.2:1b|At least one word in the provided input must be omitted from tagging according to the conditions defined, and the output must ignore some of the listed scenarios appropriately\.|Sentence: Clustered rings surround frequently\. Word: frequently|CC: Determiner<br>FREquently|err|
+|llama3\.2:1b|At least one word in the provided input must be omitted from tagging according to the conditions defined, and the output must ignore some of the listed scenarios appropriately\.|Sentence: Astronomically relevant grids captivate\. Word: Astronomically|Word: Astronomically<br>Part of speech tag: ADJ<br><br>Note: The word "Astronomically" is an adverbial adjective\.|err|
+|llama3\.2:1b||sentence: The quick brown fox jumps over the lazy dog\. word: jumps|Here are the part of speech tags for each word:<br><br>1\. jumps \- VBZ \(Verb, 3rd person singular present\)<br>2\. jumps \- VBD \(Verb, past tense\)|err|
+|llama3\.2:1b||sentence: She has taken the book from the shelf\. word: taken|For "taken":<br>CC: Subordinating conjunction<br><br>For "book":<br>NN: Noun|err|
+|llama3\.2:1b||sentence: John loves Mary\. word: Mary|Word: NN \(Noun\)<br> Tagging Output: NN|err|
+|llama3\.2:1b||sentence: There is a cat under the table\. word: There|CC: Coordinating conjunction \(first instance\), CP: Prepositional phrase, JJ: Adjective, NN: Noun|err|
+|llama3\.2:1b||sentence: The recipe calls for two eggs and a cup of sugar\. word: two|Tags:<br>\- CC: Coordinating conjunction \(implied by "and"\)<br>\- RB: Adverb \(specifically, an adverb to indicate the relationship between "two" and "eggs"\) <br>\- JJ: Adjective \(in "recipe", describing "calls"\)|err|
+|llama3\.2:1b||sentence: We will win that match\. word: win|For the given sentence "We will win that match" :<br><br>\- We \(Article\) is an Object\.<br>\- will \(Verb\)<br>\- win \(Base Verb Form\)<br><br>So, the part of speech tags for 'win' are VBZ and VBD\.|err|
+|llama3\.2:1b||sentence: Paris is a beautiful city\. word: Paris|Word: Paris <br>CC: NNPS <br><br> Sentence is the same as above\. <br>The only change is in word position which affects tag, in the sentence word "Paris" is not tagged correctly with any pos \(part of speech\) since the first time it was tagged \("NN"\) but then it gets replaced by \('NNPS'\)|err|
+|llama3\.2:1b||sentence: They quickly ran towards the finish line\. word: quickly|Word: Quickly <br> Tag: VRB \(Verb\-Subj\)<br><br><br>Word: they<br> Tag: PRP \(Personal pronoun\)|err|
+|llama3\.2:1b||sentence: These are the best cookies I have ever tasted\. word: best|CC: <br>tagged as Coordinating conjunction <br><br>CantAnswer|err|
+|llama3\.2:1b||sentence: Can you find the hidden treasure? word: hidden|\* CC: Coordinating conjunction \(twice, once at the beginning and again as a coordinating conjunction within the sentence\)<br>\* EX: Existential there \(not present in this instance but would be if 'hidden' were used as an existential verb\)<br><br>However, since 'hidden' is the word being tagged as it has to do with its position or part of speech in the given sentences, we can just state that:<br><br>\* JJR: Adjective superlative|err|
+|llama3\.2:1b||sentence: The children play happily in the park\. word: happily|Here are the part of speech tags for each word:<br><br>\* Happily: ADJ \(Adjective\)<br>\* In: IN \(Preposition or subordinating conjunction\)|err|
+|llama3\.2:1b||sentence: He went to the store yesterday\. word: yesterday|No match is found in the list of tagged parts of speech for the given words\.<br><br>CantAnswer|err|
+|llama3\.2:1b||sentence: Will you be coming with us? word: Will|\*\*Part\-of\-speech tag for "Will" : JD\*\*<br><br>There is only one occurrence of the word "Will"\. The correct analysis results in a single JD \(Adjective\) tag for the entire sentence, but since there are no other parts that can change it, the individual JD remains as given\.|err|
+|llama3\.2:1b||sentence: Please hand me the blue folder\. word: blue|\* For the sentence "Please hand me the blue folder," <br>\+ POS: DT \(Determiner\)<br>\* For the same sentence, <br>\+ VS: VBD \(Verb, past tense of Hand\)|err|
+|llama3\.2:1b||sentence: The test was incredibly difficult\. word: was|Word: was<br>\- was \(IN\)|err|
+|llama3\.2:1b||sentence: She doesn't know what to do\. word: what|For the given sentence and word:<br><br>\- The word "what" can be tagged as NNS \(Noun, plural\), because it is a mass noun referring to something\.<br> <br>The part\-of\-speech tags for "She doesn't know what to do": NNS\.|err|
+|llama3\.2:1b||sentence: A flock of birds flew overhead\. word: flock|Part\-of\-speech tag for "flock" \- Noun<br><br>Part\-of\-speech tag for "flock" \(second occurrence\) \- NN \(Proper noun, singular or mass\)|err|
+|llama3\.2:1b||sentence: Sam and Pete are going to the conference\. word: and|Part of speech tag for word "and": CC \(Coordinating conjunction\)|err|
+|llama3\.2:1b||sentence: I need a pen and paper\. word: pen|\* For the sentence "I need a pen and paper\." <br>  The tag for 'pen' is VB \(Base form\)\.<br><br>\* For the sentence "I need a pen"<br>  The tag for 'pen' is VB \(Base form\)\. <br><br>Since both cases match with VB, I will return VB as the tag\.|err|
+|llama3\.2:1b||sentence: Which route should we take? word: Which|tag: IN \(Determiner\) and JJ \(Adjective\)<br><br>result: INJJ|err|
+|llama3\.2:1b||sentence: The process is extremely complicated\. word: extremely|\*Process\* \- VBZ<br>\*extremely\* \- JJ|err|
+|llama3\.2:1b||sentence: We have been friends for many years\. word: been|\*\*Word:\*\* been<br>\*\*Tag:\*\* VC \(Verb\-Subject\) <br><br>\(Verbs are not explicitly tagged, but can be inferred as the subject of "We", which is CC in this case\.\)|err|
+|llama3\.2:1b||sentence: This is my car\. word: my|Here are the part of speech tags for each word:<br><br>\* "This" \- DT: Determiner<br>\* "is" \- VBZ: Verb, 3rd person singular present \(tag:Verb\+Sing\.\)<br>\* "my" \- CC: Coordinating conjunction <br><br>Let me know if you have any further requests\.|err|
+|llama3\.2:1b||sentence: Have you seen their new house yet? word: their|\* CC: Coordinating conjunction\. <br>\* IN: Determiner\.<br>\* Their|err|
+|llama3\.2:1b||sentence: Oh no, I forgot my homework at home\. word: Oh|Sentence: Oh =gt; ORG : Interjection<br><br>Word: Oh =gt; PRM : Personal pronoun|err|
+|llama3\.2:1b||sentence: Each student should bring a notebook\. word: Each|\* Part of speech tag for "Each": Noun|err|
+|llama3\.2:1b||sentence: The sun rises in the east\. word: rises|Part\-of\-speech tag for 'rises': VBZ<br><br>Part\-of\-speech tag for 'The' or 'east': DT <br><br>Part\-of\-speech tag for 'suns': CC|err|
+|llama3\.2:1b||sentence: Can someone explain this to me? word: explain|Part\-of\-speech tags for the given words are:<br><br>\* Explain: JJR: Adjective, comparative, JJS: Adjective, superlative \(superlative is plural form, but in this case, we have "explanation" as a whole which makes it singular\)<br><br>Since it's only describing a noun and there isn't any other adjective provided, the tag for just 'explain' is JJR\.|err|
+|llama3\.2:1b||sentence: Despite the warnings, they proceeded with the plan\. word: Despite|POS: adverb<br><br>Reasoning:<br>Since "Despite" is a functional adjective used to introduce a contrasting clause or an expression that contrasts an action or situation present in one part of the sentence with one that is not, it can be tagged as adverb, despite the presence of other parts of speech like NP and CC\.|err|
+|llama3\.2:1b||sentence: We have been waiting for hours\. word: hours|CC: \(Hours is a coordinate phrase\)<br>DT: \(Hours are\)<br>EX: <br>JJR: Adjective \(positive\)<br>JJS: Adjective \(superlativedelete\) <br>NNS: Noun 'hours'|err|
+|llama3\.2:1b||sentence: The delicious aroma filled the kitchen\. word: aroma|For the word "aroma":<br>PPS: Proper possessive ending<br><br>For the word "filled", <br>IN: Preposition or subordinating conjunction<br> <br>As both words can be tagged with IN, it's not possible to determine a definite part of speech for one word alone\.|err|
+|llama3\.2:1b||sentence: The committee dissolved the party\. word: dissolved|Part\-of\-speech tag for "dissolved": CC \(Conjunction\)<br><br>Part\-of\-speech tag for "dissolved": NN \(Noun\)|err|
+|llama3\.2:1b||sentence: You should definitely try this dish\. word: definitely|\*\*Word: definitively\*\*<br>\* Tag: ADVERB|err|
+|llama3\.2:1b||sentence: An apple a day keeps the doctor away\. word: An|CC: Coordinating conjunction<br>Word part of speech: <br>Det \(Determiner\)|err|
+|llama3\.2:1b||sentence: Let me rest for a while\. word: rest|For the sentence "Let me rest for a while", the part of speech tag is:<br>JJR \(Adjective, comparative\)|err|
+|llama3\.2:1b||sentence: The quick brown fox jumps over the lazy dog\. word: fox|CC: noun<br><br><br>The word "fox" is a common noun referring to a type of animal\.|err|
+|llama3\.2:1b||sentence: She has a unique perspective on life\. word: unique|Word: unique <br> Tag: JJ|ok|
+|llama3\.2:1b||sentence: It suddenly started raining\. word: suddenly|Here are the part of speech tags for the given words:<br><br>1\. Suddenly \- NN \(Noun\)<br>2\. Suddenly \- JJ \(Adjective\)|err|
+|llama3\.2:1b||sentence: How often do you visit your hometown? word: often|\* POS: NNP \(Proper noun\)<br>\* tag for NN in sentence 1: N<br>\* tag for NN in sentence 2: N <br><br>Since both words share the same part of speech, their tags are identical\. If I had more sentences to analyze, I would need further information about them\.<br><br>If you provide more text, I can help with your original request\.|err|
+|llama3\.2:1b||sentence: Alas, we have no choice\. word: Alas|\* CC: Determiner<br>\* CC:CantAnswer <br> \* SYM: Symbol|err|
+|llama3\.2:1b||sentence: If you believe, you can achieve\. word: If|Word: If<br><br>Part of speech tags: CC \(Coordinating conjunction\), SYM \(Symbol\), RB \(Adverb\)|err|
 |llama3\.2:1b||sentence: The vase broke into pieces\. word: pieces|Sentence: The vase broke into pieces\.<br><br>\* CC: Coordinating conjunction \(none\)<br>\* CD: Cardinal number \(none\)<br>\* DT: Determiner \(none\)<br>\* EX: Existential there \(none\)<br>\* FW: Foreign word \(?\)<br>\* IN: Preposition or subordinating conjunction \(none\)<br>\* JJ: Adjective \(pieces\)<br>\* JJJ: Adjective, comparative and superlative \(none\)<br>\* LS: List item marker \(?\) \(none\)<br>\* MD: Modal \(none\)<br>\* NN: Noun \(pieces\)<br>\* NS: Noun, plural \(pieces\)<br>\* NP: Not in sentence<br>\* NNP: Proper noun, singular \(The vase\)<br>\* SS: Syntactic specification \(none\), Singular \- 2 \( pieces \)<br>\* WD: Wh\-determiner \(?\), Who \( none\)<br>\* WP: Wh\-pronoun \(?\) or possessive wh\-pronoun<br>\* VP: Verb phrase \(broken into\)<br><br> Tagging returned NNP which is a proper noun|err|
 
 ### [intent.txt](./intent.txt)
@@ -453,6 +453,18 @@ There is no specified maximum length for the word.
 7: Every word in the provided input must be attempted to be tagged according to the conditions defined, and the output must reflect one of the listed scenarios appropriately.
 `````
 
+
+### [rule_evals.csv](./rule_evals.csv)
+
+|ruleid|rule|grounded|
+|-|-|-|
+|1|The output must only contain a single part of speech tag from the pre\-defined list in the system prompt\.|ok|
+|2|The output must be an exact match to one of the tags in the pre\-defined list, if applicable\.|ok|
+|3|If the word provided in the input can be matched to one of the listed part of speech tags, return only the corresponding tag as the output, with no additional text or formatting\.|ok|
+|4|If the word provided in the input cannot be assigned any of the listed part of speech tags, the output should only contain the word "Unknown"\.|ok|
+|5|If it is not possible to determine the part of speech from the input, the output should only contain the word "CantAnswer"\.|ok|
+|6|The output must contain no additional information besides the specified part of speech tag or the exact words "Unknown" or "CantAnswer" based on the given rules\.|ok|
+|7|Every word in the provided input must be attempted to be tagged according to the conditions defined, and the output must reflect one of the listed scenarios appropriately\.|err|
 
 ### [inverse_rules.txt](./inverse_rules.txt)
 

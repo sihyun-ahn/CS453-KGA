@@ -1,0 +1,12 @@
+{
+  "id": "76d6d24",
+  "promptid": "e5ed513",
+  "ruleid": 12,
+  "rule": "General themes must not be listed in a comma-separated format following the label \"General themes:\".",
+  "inverse": true,
+  "model": "gpt-4o-mini",
+  "input": "Text: Articles include Climate Change, without order.",
+  "output": "Company names: \nPeople names: -||-\nSpecific topics: Climate Change -||-\nGeneral themes: Environmental Issues, Sustainability",
+  "compliance": "ok",
+  "complianceText": "The output provided by the chatbot lists categories such as company names, people names, specific topics, and general themes, as per the required format. However, it doesn't mention any entities for the company names category; the list is empty, yet it is still included. Similarly, the people names category also does not have any entities listed. While it's possible that the text might not have contained relevant entities for these categories, the checking for content is not possible without the input. \n\nThe formatting of the listed categories is consistent with the given description—namely, All company names, all people names, specific topics, and general themes are extracted and listed in the specified order with a colon followed by a list or placeholder \"-||-\". \n\nNo violation.\nOK"
+}
