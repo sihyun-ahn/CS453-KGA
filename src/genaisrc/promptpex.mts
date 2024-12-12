@@ -253,7 +253,7 @@ export async function evaluateRuleGrounded(
     {
       ...modelOptions("eval"),
       choices: ["OK", "ERR"],
-      label: `eval rule grounded ${rule.slice(0, 18)}...`,
+      label: `${files.name}> eval rule grounded ${rule.slice(0, 18)}...`,
     }
   );
   checkLLMResponse(res);
@@ -302,7 +302,7 @@ export async function generateInputSpec(
     {
       ...modelOptions("rules"),
       //      logprobs: true,
-      label: "generate input spec",
+      label: `${files.name}> generate input spec`,
     }
   );
   checkLLMResponse(res);
@@ -323,7 +323,7 @@ export async function generateIntent(
     {
       ...modelOptions("rules"),
       //      logprobs: true,
-      label: "generate intent",
+      label: `${files.name}> generate intent`,
     }
   );
   checkLLMResponse(res);
@@ -347,7 +347,7 @@ export async function generateRules(
     {
       ...modelOptions("rules"),
       //      logprobs: true,
-      label: "generate rules",
+      label: `${files.name}> generate rules`,
     }
   );
   checkLLMResponse(res);
@@ -369,7 +369,7 @@ export async function generateInverseRules(
     {
       ...modelOptions("rules"),
       //      logprobs: true,
-      label: "inverse rules",
+      label: `${files.name}> inverse rules`,
     }
   );
   checkLLMResponse(res);
@@ -393,7 +393,7 @@ export async function generateBaselineTests(
     {
       ...modelOptions("rules"),
       //      logprobs: true,
-      label: `generate baseline tests`,
+      label: `${files.name}> generate baseline tests`,
     }
   );
 
@@ -441,7 +441,7 @@ export async function generateTests(
     {
       ...modelOptions("rules"),
       //      logprobs: true,
-      label: `generate tests`,
+      label: `${files.name}> generate tests`,
     }
   );
   checkLLMResponse(res);
@@ -479,7 +479,7 @@ export async function runTests(
     for (let testi = 0; testi < tests.length; ++testi) {
       const test = tests[testi];
       console.log(
-        `${model}: run test ${testi + 1}/${tests.length} ${test.testinput.slice(0, 42)}...`
+        `${files.name}> ${model}: run test ${testi + 1}/${tests.length} ${test.testinput.slice(0, 42)}...`
       );
       const testRes = await runTest(files, test, { model, force });
       if (testRes) testResults.push(testRes);
@@ -657,7 +657,7 @@ export async function runTest(
     },
     {
       ...moptions,
-      label: `run test ${testInput.slice(0, 42)}...`,
+      label: `${files.name}> run test ${testInput.slice(0, 42)}...`,
     }
   );
   const actualOutput = res.text;
@@ -747,7 +747,7 @@ export async function evaluateTestQuality(
       {
         ...moptions,
         //        logprobs: true,
-        label: `evaluate coverage of test ${testInput.slice(0, 42)}...`,
+        label: `${files.name}> evaluate coverage of test ${testInput.slice(0, 42)}...`,
       }
     ),
     runPrompt(
@@ -764,7 +764,7 @@ export async function evaluateTestQuality(
         ...moptions,
         choices: ["OK", "ERR"],
         //        logprobs: true,
-        label: `evaluate validity of test ${testInput.slice(0, 42)}...`,
+        label: `${files.name}> evaluate validity of test ${testInput.slice(0, 42)}...`,
       }
     ),
   ]);
@@ -905,7 +905,7 @@ async function evaluateTestResult(
       ...moptions,
       choices: ["OK", "ERR"],
       //      logprobs: true,
-      label: `evaluate test result ${testResult.model} ${testResult.input.slice(0, 42)}...`,
+      label: `${files.name}> evaluate test result ${testResult.model} ${testResult.input.slice(0, 42)}...`,
     }
   );
   if (res.error) console.warn(res.error?.message);

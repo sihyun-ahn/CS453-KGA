@@ -101,6 +101,8 @@ for (const files of prompts) {
     console.debug(e.stack);
   }
 }
+
+res.sort((a, b) => a.prompt.localeCompare(b.prompt));
 await workspace.writeText(
   "evals/README.md",
   `# Eval summary
