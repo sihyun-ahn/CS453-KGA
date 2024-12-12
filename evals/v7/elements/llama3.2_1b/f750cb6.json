@@ -1,0 +1,12 @@
+{
+  "id": "f750cb6",
+  "promptid": "e5ed513",
+  "ruleid": 9,
+  "rule": "Company names must not be listed in a comma-separated format following the label \"Company names:\".",
+  "inverse": true,
+  "model": "llama3.2:1b",
+  "input": "Text: Apple, Inc and Tesla were explored.",
+  "output": "Here are the extracted entities:\n\n**Company Names:** Apple, Inc, Tesla\n\n**People Names:** -||-\n\n**Specific Topics:** exploration\n\n**General Themes:** -||- (related to innovation)",
+  "compliance": "err",
+  "complianceText": "The output needs to be evaluated against the provided description for compliance. According to the desired format and the description:\n\n1. The output format has partially complied with the description. It begins with \"Company Names\" and provides a list in the correct format. \n\n2. For \"People Names\", it uses the format \"-||-\", which is correct as per the description when there are no names extracted.\n\n3. For \"Specific Topics\", there is a deviation from the format. The topic 'exploration' is listed correctly, but it is not formatted with \"-||-\" if it is empty, and should just be a list if there is content.\n\n4. \"General Themes\" uses a format \"-||-\" with additional text \"(related to innovation)\" which deviates from the format given in the description. If there are no general themes, it should be simply \"-||-\". The description doesn't specify adding anything additional like \"(related to innovation)\" when there’s no overarching theme listed.\n\nDue to the formatting inconsistencies in the \"Specific Topics\" and \"General Themes\" sections, the output does not fully comply with the description. \n\nERR"
+}

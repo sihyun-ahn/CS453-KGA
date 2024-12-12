@@ -1,0 +1,11 @@
+{
+  "id": "a04d84e",
+  "promptid": "e5ed513",
+  "ruleid": null,
+  "baseline": true,
+  "model": "llama3.2:1b",
+  "input": "Text: \"During the tech conference, Mark Zuckerberg from Facebook introduced new privacy features for their platform. He also touched upon the growing importance of user data protection, a critical theme for the digital age.\"",
+  "output": "Company names: -||-\nPeople names: Mark Zuckerberg -\nSpecific topics: User data protection, Privacy features\nGeneral themes: Internet/Social media, Technology",
+  "compliance": "err",
+  "complianceText": "The chatbot output provides the information in the expected order: company names, people names, specific topics, and general themes. However, there is a non-compliance issue with the format for \"People names\". The chatbot's guideline specifies that the entities should be in a list format, delineated by commas. The \"People names\" field correctly uses the placeholder \"-||-\" to indicate no entities were identified, but it erroneously appends a hyphen after \"Mark Zuckerberg\" which suggests incomplete compliance with the expected list format structure, causing inconsistency. In addition, the \"Company names\" field should also include such a placeholder, but ends with \"-||-\", which is incorrect. Therefore, the output does not fully comply with the described format.\n\nERR"
+}

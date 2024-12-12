@@ -1,0 +1,11 @@
+{
+  "id": "2f4614c",
+  "promptid": "e5ed513",
+  "ruleid": null,
+  "baseline": true,
+  "model": "llama3.2:1b",
+  "input": "Text: \"A medical panel, including Dr. Sanjay Gupta, discussed the intricacies of genome editing at the bioethics conference. Genetic research and ethical considerations were highlighted as significant themes.\"",
+  "output": "Company names: -||-\nPeople names: Dr. Sanjay Gupta ||-\nSpecific topics: Genome editing && Bioethics conference\nGeneral themes: Medical panel, Genome editing, Bioethics conference",
+  "compliance": "err",
+  "complianceText": "The chatbot output does not comply with the description because:\n1. The format specified in the description is for items to be listed with a comma-separated list after the label, without any special characters or separators such as \"||-\" or \"&&\".\n2. The format provided for the company names, people names, specific topics, and general themes does not align with the expected format of <comma_separated_list_of_entities>. \n3. For \"People names,\" the given output uses \"||-\" instead of a comma-separated list.\n4. For \"Specific topics,\" the format includes \"&&,\" which is not part of the expected format.\n\nDue to these format inconsistencies, the output does not adhere to the specified structure.\n\nERR"
+}

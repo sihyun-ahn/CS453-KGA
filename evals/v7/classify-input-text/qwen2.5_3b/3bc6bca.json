@@ -1,0 +1,12 @@
+{
+  "id": "3bc6bca",
+  "promptid": "890240e",
+  "ruleid": 5,
+  "rule": "The output must classify a given input text into none of the following specific categories: World, Sports, Business, or Sci/Tech.",
+  "inverse": true,
+  "model": "qwen2.5:3b",
+  "input": "Movie stars flock to red carpet at Cannes Festival",
+  "output": "This news article should be classified as the category Entertainment, as it mentions Movie stars and the Cannes Festival which is a prominent event in the film industry. Since there are no keywords that clearly indicate World, Sports, Business, or Sci/Tech categories, \"Entertainment\" would be the most appropriate classification for this news article.",
+  "compliance": "err",
+  "complianceText": "The description specifies that the news article should be classified as one of the following categories: World, Sports, Business, or Sci/Tech. The chatbot output classifies the news article into the 'Entertainment' category, which is not one of the specified categories in the description. Therefore, this is a violation of the guidelines as the chatbot has not adhered to the given classification categories.\n\nERR"
+}

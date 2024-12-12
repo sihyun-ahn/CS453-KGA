@@ -1,0 +1,11 @@
+{
+  "id": "2239c84",
+  "promptid": "e5ed513",
+  "ruleid": 1,
+  "rule": "Company names must be listed in a comma-separated format following the label \"Company names:\".",
+  "model": "llama3.2:1b",
+  "input": "Text: Amazon is pioneering e-commerce, while Airbnb disrupts travel. Only these companies were mentioned.",
+  "output": "Company names: Amazon\nPeople names:\nSpecific topics: \nGeneral themes: Entrepreneurship and innovation in e-commerce and travel industries",
+  "compliance": "err",
+  "complianceText": "There is a violation in the output. According to the chatbot description, the desired format specifies that if there are no entities to list under each category (Company names, People names, Specific topics, General themes), a comma-separated list should still be provided even if it is empty. In this output, the 'People names' and 'Specific topics' fields are empty without at least an empty placeholder (such as \"People names: \" and \"Specific topics: \"). Furthermore, 'General themes:' should also include a comma-separated list. The omission of these placeholders constitutes non-compliance with the required format.\n\nERR"
+}

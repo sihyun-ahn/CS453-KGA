@@ -1,0 +1,12 @@
+{
+  "id": "7189485",
+  "promptid": "e5ed513",
+  "ruleid": 11,
+  "rule": "Specific topics must not be listed in a comma-separated format following the label \"Specific topics:\".",
+  "inverse": true,
+  "model": "llama3.2:1b",
+  "input": "Text: Topics discussed as E-commerce, AI are not welcome.",
+  "output": "Company names: None mentioned\nPeople names: None mentioned\nSpecific topics: e-commerce, AI\nGeneral themes: Disapproval, Technology",
+  "compliance": "ok",
+  "complianceText": "The chatbot output follows the desired format provided in the description. The categories are clearly defined and separated: \"Company names,\" \"People names,\" \"Specific topics,\" and \"General themes.\" The output specifies 'None mentioned' for both company and people names, which appears to align with the description for cases with no entities found. Specific topics and general themes are listed in a comma-separated format. There doesn't seem to be any deviation from the requested structure laid out in the description. \n\nNo violation.\nOK"
+}

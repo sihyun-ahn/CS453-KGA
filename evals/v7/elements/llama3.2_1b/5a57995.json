@@ -1,0 +1,12 @@
+{
+  "id": "5a57995",
+  "promptid": "e5ed513",
+  "ruleid": 14,
+  "rule": "All extracted elements from the text should not be categorized under their respective labels.",
+  "inverse": true,
+  "model": "llama3.2:1b",
+  "input": "Text: Company regimes and leaders like Gates sorted unlabelly.",
+  "output": "Company names: None\nPeople names: Bill Gates (-|\nSpecific topics: Tech entrepreneurship, Leadership style (unlabelly), Business models\nGeneral themes: Innovation, Industry leaders, Corporate governance",
+  "compliance": "err",
+  "complianceText": "The chatbot's output is expected to follow a specific format, which includes the extraction of company names, people names, specific topics, and general themes from a provided text. The items within each category should be separated by commas if there is more than one, and they should not include extraneous characters or annotations.\n\nUpon examining the chatbot's output:\n\n1. **Company names**: The list correctly reports 'None', complying with the expected format.\n\n2. **People names**: This section includes a name, 'Bill Gates', but there is an issue with the additional characters \"(-|”, which are not part of the required format. The name should be listed clearly without extra characters.\n\n3. **Specific topics**: The phrase 'unlabelly' does not comply with the expected simple list format and may imply uncertainty or commentary rather than extraction.\n\n4. **General themes**: No issues are apparent in this category; it complies with the expected format using commas to list multiple entries.\n\nBased on the analysis, the presence of extra characters and commentary in the 'People names' and 'Specific topics' sections represents a violation of the output format rules.\n\nERR"
+}

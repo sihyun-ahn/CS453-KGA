@@ -1,0 +1,12 @@
+{
+  "id": "abf3a7a",
+  "promptid": "e5ed513",
+  "ruleid": 15,
+  "rule": "The output should not strictly follow the order: Company names, People names, Specific topics, and General themes.",
+  "inverse": true,
+  "model": "llama3.2:1b",
+  "input": "Text: Steve Jobs and Apple surfaced, unordered.",
+  "output": "Here are the extracted entities:\n\nCompany names: None\nPeople names:\n- Steve Jobs\nSpecific topics: surface\nGeneral themes: None",
+  "compliance": "err",
+  "complianceText": "There are several issues with the chatbot's output in relation to the description provided:\n\n1. **Format Compliance**: The format specified in the description should be adhered to strictly without any deviation. The output should follow the exact structure of \"Company names: <comma_separated_list_of_company_names>\", etc. Although this part isn't an egregious violation, listing the names in the \"People names\" section as bullet points when the description suggests a comma-separated list is a slight non-compliance. Additionally, even if \"Company names\" or \"General themes\" result in \"None\", they should still be aligned with the format specified. The \"Specific topics\" should also be in the comma-separated format but isn't.\n\n2. **Empty Sections**: The description aims for consistent formatting using a specified format, even when sections result in \"None\". For example, it requires \"Company names: <comma_separated_list_of_company_names>\" format. \"None\" is acceptable as a content, but the alignment and format must strictly follow the given structure.\n\nIn conclusion, the issues here relate to a slight deviation in expected format and consistency across all sections, even when they are empty. \n\nERR"
+}

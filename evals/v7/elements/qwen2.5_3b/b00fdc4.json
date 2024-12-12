@@ -1,0 +1,11 @@
+{
+  "id": "b00fdc4",
+  "promptid": "e5ed513",
+  "ruleid": 16,
+  "rule": "If there are no elements found for a category, it should not be listed with its label followed by an empty space or properly formatted as per given examples such as \"Company names: \" with no elements after the space.",
+  "inverse": true,
+  "model": "qwen2.5:3b",
+  "input": "Text: Oracle's exposition on no specific field.",
+  "output": "Company names: Oracle\nPeople names: -\nSpecific topics: -\nGeneral themes: exposition, oracle",
+  "complianceText": "The chatbot output should list entities in a specific order: company names, then people names, then specific topics, and finally general overarching themes. In this output, there are issues with the formatting of the \"People names\" and \"Specific topics\" segments. \n\nAccording to the description:\n\n1. Empty sections should follow the format \"-||-\" to clearly indicate that no entities of that type were found, but in the chatbot output, the \"People names\" is correctly formatted as \"-||-\", while the \"Specific topics\" is left empty. This violates the expected format as per the description requirements.\n\n2. General themes should be formatted as a list, and while the themes \"exposition\" and \"oracle\" appear to be listed, the lack of clarity around the two words (without knowing the input text) doesn't strictly violate any rule pertaining to listing format.\n\nSince the output does not follow the correct format for listing the \"Specific topics,\" it results in non-compliance.\n\nErr was returned due to lack of strict adherence to required textual formatting expectations, notably -||- for missing topics. Further adherence to its set structure warrants correction. Thus, including explicit notation maintains precise delineation, fostering consistency and transparency in representing extraction results."
+}

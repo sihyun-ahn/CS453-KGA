@@ -1,0 +1,12 @@
+{
+  "id": "c65c641",
+  "promptid": "e5ed513",
+  "ruleid": 13,
+  "rule": "Each category label should not be followed by a colon and a single space before the list.",
+  "inverse": true,
+  "model": "llama3.2:1b",
+  "input": "Text: Elon Musk leading SpaceX, no clear formats.",
+  "output": "Company names: SpaceX\nPersonnel:\n - Elon Musk \n Specific topics: Leading roles in the company, SpaceX\n General themes: Leadership, company ownership and direction, space exploration",
+  "compliance": "err",
+  "complianceText": "The chatbot's output does not fully comply with the specified format in the description for several reasons:\n\n1. **Section Titles**: \n   - The output uses \"Personnel\" instead of the required \"People names\", leading to a non-compliance with the required format.\n\n2. **Format Consistency**: \n   - Each category should have a colon followed by the list items, whereas \"Personnel\" uses line breaks before listing names.\n\nGiven the format issues mentioned above, the output does not strictly adhere to the expected format provided in the description. Therefore, it violates the compliance guidelines.\n\nERR"
+}

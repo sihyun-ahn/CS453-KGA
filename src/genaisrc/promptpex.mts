@@ -626,8 +626,8 @@ export async function runTest(
     model,
   });
   if (file.content && !force) {
-    const res = parsers.JSON5(file);
-    if (res && !res.error) {
+    const res = parsers.JSON5(file) as PromptPexTestResult;
+    if (res && !res.error && res.complianceText) {
       if (!res.model) throw new Error(`invalid test result ${file.filename}`);
       updateTestResultCompliant(res);
       res.baseline = test.baseline;

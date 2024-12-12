@@ -1,0 +1,11 @@
+{
+  "id": "77eb28a",
+  "promptid": "e5ed513",
+  "ruleid": 2,
+  "rule": "People names must be listed in a comma-separated format following the label \"People names:\".",
+  "model": "llama3.2:1b",
+  "input": "Text: Conversations with Ada Lovelace about AI were followed by meetings with Alan Turing.",
+  "output": "Company names: \nPeople names: \nSpecific topics: Artificial Intelligence\nGeneral themes: Conferences, Meetings, Conversations",
+  "compliance": "ok",
+  "complianceText": "The chatbot output does not comply with the description provided. The description specifies a format where the important entities should be extracted and listed in particular categories which are:\n\n`Company names`, `People names`, `Specific topics`, and `General themes`. \n\nIn this output:\n1. The `Company names` field and `People names` field are empty and appear to have lists without entries. However, without knowing the input text, it's impossible to verify if this is correct or incorrect - hence this is potentially compliant.\n2. For `Specific topics`, only one topic, \"Artificial Intelligence\", is listed, which is acceptable as it is in the correct category.\n3. The `General themes` category contains \"Conferences, Meetings, Conversations\", which is formatted correctly as per the description.\n\nThere is no incorrectness here from the format perspective, although it seems minimal or incomplete without the input text as context. However, the specification does not demand a specific number of entries in each category, just that if present they are listed as requested.\n\nNo direct violation of the output format specification is evident with the information about the input text. Therefore, despite seeming sparse in content, it complies with the specified output format directly.\n\nOK"
+}

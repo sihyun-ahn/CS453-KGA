@@ -1,0 +1,12 @@
+{
+  "id": "405b588",
+  "promptid": "e5ed513",
+  "ruleid": 11,
+  "rule": "Specific topics must not be listed in a comma-separated format following the label \"Specific topics:\".",
+  "inverse": true,
+  "model": "llama3.2:1b",
+  "input": "Text: Outlined approach to Machine Learning, albeit unordered.",
+  "output": "Here are the extracted entities:\n\n**Company Names:** None\n\n**People Names:** \n\n- ||-\n\n**Specific Topics:** Outlined Approach to Machine Learning\n\n**General Themes:** Outlined approach, Machine Learning, Methodologies",
+  "compliance": "err",
+  "complianceText": "The chatbot output does not comply with the description provided for several reasons:\n\n1. **Formatting**: The format specified in the description should have all extracted entities in a comma-separated list for company names and people names. Here, the people names field is not formatted correctly as it does not follow the description's format of a comma-separated list. Instead, it incorrectly shows as \"-||-\".\n\n2. **Empty Fields**: If there are no entities to extract, the description expects these fields to be represented as empty comma-separated lists, which was done correctly for 'Company Names' but incorrectly for 'People Names'. \"None\" is used correctly for company names, but there is a formatting issue with people names.\n\n3. **Duplication in General Themes**: The outlined approach is repeated in both “Specific Topics” and “General Themes.” Although repetition isn't explicitly banned by the description, it suggests that different levels of abstraction should naturally lead to different entries.\n\nThese elements point to non-compliance with the given description.\n\nERR"
+}

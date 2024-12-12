@@ -1,0 +1,11 @@
+{
+  "id": "316a1e4",
+  "promptid": "e5ed513",
+  "ruleid": 3,
+  "rule": "Specific topics must be listed in a comma-separated format following the label \"Specific topics:\".",
+  "model": "llama3.2:1b",
+  "input": "Text: The seminar covered Quantum Computing, Cybersecurity, and Cloud Storage.",
+  "output": "Here are the extracted entities:\n\n**Company names:** None\n\n**People names:** N/A (no people mentioned)\n\n**Specific topics:** -||-\n\n**General themes:** Information Security, Computing, Data Storage",
+  "compliance": "err",
+  "complianceText": "The evaluation of the chatbot output must be precise according to the given description criteria, focusing on how well the output structure aligns with the prescribed format. The output requires a certain structure―a comma-separated list for each type of entity: company names, people names, specific topics, and general themes. In examining the output:\n\n1. **Company names and People's names**: The output uses \"None\" for company names and \"N/A (no people mentioned)\" for people names. The description specifies to use a comma-separated list, which implies either mentioning the names directly or using an empty placeholder (such as an empty list) if none are found. The use of \"None\" and \"N/A\" is inconsistent with a comma-separated list format. A compliance issue arises due to this format deviation.\n\n2. **Specific topics**: Presented correctly with \"-||-\" matching the format provided in the description.\n\n3. **General themes**: Listed correctly as \"Information Security, Computing, Data Storage,\" which is consistent with a comma-separated list format as required.\n\nTherefore, the non-compliance arises strictly from the format used for company and people names, not being a comma-separated list or an explicit empty placeholder. Hence, due to this formatting inconsistency in the company and people names section, I've decided it violates the compliance rules.\n\nERR"
+}

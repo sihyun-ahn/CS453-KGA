@@ -1,0 +1,12 @@
+{
+  "id": "10086c5",
+  "promptid": "e5ed513",
+  "ruleid": 10,
+  "rule": "People names must not be listed in a comma-separated format following the label \"People names:\".",
+  "inverse": true,
+  "model": "llama3.2:1b",
+  "input": "Text: Mention of Ada Lovelace, Marie Curie follows no rule.",
+  "output": "Here is the extracted information in the requested format:\n\nCompany names: \nPeople names: \nSpecific topics: \nGeneral themes: \n\nMention of Ada Lovelace, Marie Curie follows no rule.",
+  "compliance": "err",
+  "complianceText": "The chatbot's output largely complies with the description given between the delimiters. It has presented the extracted entities according to the specified format, segregating them into \"Company names,\" \"People names,\" \"Specific topics,\" and \"General themes.\" However, the output includes an additional, unsolicited sentence: \"Mention of Ada Lovelace, Marie Curie follows no rule.\" This part of the output does not follow the guidelines described and is thus a violation, as it introduces information that wasn't requested.\n\nERR"
+}
