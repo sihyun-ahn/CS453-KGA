@@ -8,7 +8,7 @@ script({
     safety: {
       type: "boolean",
       description: "Include Responsible AI safety prompts",
-      default: true
+      default: true,
     },
     force: {
       type: "boolean",
@@ -68,7 +68,7 @@ const {
   out,
 } = env.vars;
 
-const disableSafetyPrompts = !safety
+const disableSafetyPrompts = !safety;
 const prompts = await loadPromptContext(out);
 const models = (env.vars.models || "github:gpt-4o-mini")
   ?.split(/;/g)
@@ -88,9 +88,13 @@ for (const files of prompts) {
       forceExecuteTests,
       models,
     });
-    const { testEvals, overview } = computeOverview(ctx, { percent: false });
+    const { testEvals, rules, ruleEvals, overview } = computeOverview(ctx, {
+      percent: false,
+    });
     res.push({
       prompt: files.name,
+      rules: rules.filter((r) => !r.inverse).length,
+      ["rules grounded"]: ruleEvals.filter((g) => g.grounded === "ok").length,
       tests: testEvals.length,
       ...Object.fromEntries(
         overview.map((o) => [o.model, o["tests compliant"]])

@@ -977,6 +977,8 @@ export function computeOverview(
   const { percent } = options || {};
   const testResults = parseTestResults(files);
   const testEvals = parseTestEvals(files);
+  const rules = parseAllRules(files);
+  const ruleEvals = parseRuleEvals(files);
   const testResultsPerModels = testResults.reduce(
     (acc, result) => {
       if (!acc[result.model]) {
@@ -1032,6 +1034,8 @@ export function computeOverview(
   return {
     testResults,
     testEvals,
+    rules,
+    ruleEvals,
     overview,
   };
 }
