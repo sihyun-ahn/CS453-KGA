@@ -1,6 +1,6 @@
 ## sentence-rewrite ([json](./evals\v7\sentence-rewrite/report.json))
 
-- 8 rules
+- 8 rules, 8/8 (100%) grounded
 - 8 inverse rules
 - 96 tests, 48 baseline tests
 - 384 test results, 338/384 (88%) oks, 45/384 (11%) errs

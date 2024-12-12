@@ -1,6 +1,6 @@
 ## speech-tag ([json](./evals\v7\speech-tag/report.json))
 
-- 7 rules
+- 7 rules, 6/7 (85%) grounded
 - 7 inverse rules
 - 84 tests, 42 baseline tests
 - 336 test results, 250/336 (74%) oks, 86/336 (25%) errs

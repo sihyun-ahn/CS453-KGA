@@ -1,6 +1,6 @@
 ## shakespearean-writing-assistant ([json](./evals\v7\shakespearean-writing-assistant/report.json))
 
-- 7 rules
+- 7 rules, 7/7 (100%) grounded
 - 7 inverse rules
 - 86 tests, 44 baseline tests
 - 344 test results, 329/344 (95%) oks, 15/344 (4%) errs

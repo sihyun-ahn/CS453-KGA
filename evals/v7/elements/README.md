@@ -1,6 +1,6 @@
 ## elements ([json](./evals\v7\elements/report.json))
 
-- 8 rules
+- 8 rules, 6/8 (75%) grounded
 - 8 inverse rules
 - 95 tests, 47 baseline tests
 - 380 test results, 242/380 (63%) oks, 137/380 (36%) errs

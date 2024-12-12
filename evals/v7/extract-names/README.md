@@ -1,6 +1,6 @@
 ## extract-names ([json](./evals\v7\extract-names/report.json))
 
-- 6 rules
+- 6 rules, 5/6 (83%) grounded
 - 6 inverse rules
 - 73 tests, 37 baseline tests
 - 292 test results, 226/292 (77%) oks, 66/292 (22%) errs

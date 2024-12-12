@@ -1,6 +1,6 @@
 ## classify-input-text ([json](./evals\v7\classify-input-text/report.json))
 
-- 4 rules
+- 4 rules, 2/4 (50%) grounded
 - 4 inverse rules
 - 48 tests, 24 baseline tests
 - 192 test results, 176/192 (91%) oks, 16/192 (8%) errs

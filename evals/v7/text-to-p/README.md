@@ -1,6 +1,6 @@
 ## text-to-p ([json](./evals\v7\text-to-p/report.json))
 
-- 7 rules
+- 7 rules, 7/7 (100%) grounded
 - 6 inverse rules
 - 78 tests, 39 baseline tests
 - 312 test results, 150/312 (48%) oks, 162/312 (51%) errs

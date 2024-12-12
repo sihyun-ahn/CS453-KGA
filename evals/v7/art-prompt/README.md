@@ -1,6 +1,6 @@
 ## art-prompt ([json](./evals\v7\art-prompt/report.json))
 
-- 7 rules
+- 7 rules, 7/7 (100%) grounded
 - 7 inverse rules
 - 84 tests, 42 baseline tests
 - 336 test results, 274/336 (81%) oks, 61/336 (18%) errs

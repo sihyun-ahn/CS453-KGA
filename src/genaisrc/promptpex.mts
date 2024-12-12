@@ -860,6 +860,12 @@ function parseTestEvals(files: PromptPexContext) {
   }) as PromptPexTestEval[];
 }
 
+function parseRuleEvals(files: PromptPexContext) {
+  return CSV.parse(files.ruleEvals.content, {
+    delimiter: ",",
+  }) as PromptPexRuleEval[];
+}
+
 function parseAllRules(
   files: PromptPexContext
 ): { rule: string; inverse?: boolean }[] {
@@ -1034,6 +1040,8 @@ export async function generateMarkdownReport(files: PromptPexContext) {
     ...parseBaselineTests(files),
   ];
   const rules = parseRules(files.rules.content);
+  const ruleEvals = parseRuleEvals(files);
+  const groundedRuleEvals = ruleEvals.filter((r) => r.grounded === "ok");
   const inverseRules = parseRules(files.inverseRules.content);
   const testResults = parseTestResults(files);
   const ts = testResults.length;
@@ -1045,7 +1053,7 @@ export async function generateMarkdownReport(files: PromptPexContext) {
   const res: string[] = [
     `## ${files.name} ([json](./${files.dir}/report.json))`,
     ``,
-    `- ${rules?.length ?? 0} rules`,
+    `- ${rules?.length ?? 0} rules, ${rp(groundedRuleEvals.length, ruleEvals.length)} grounded`,
     `- ${inverseRules?.length ?? 0} inverse rules`,
     `- ${tests.length ?? 0} tests, ${tests.filter((t) => t.baseline).length} baseline tests`,
     testResults?.length
