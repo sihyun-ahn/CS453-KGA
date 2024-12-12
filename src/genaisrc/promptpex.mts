@@ -930,6 +930,7 @@ export async function generateJSONReport(files: PromptPexContext) {
   const rulesTests = parseRulesTests(files.tests.content);
   const baseLineTests = parseBaselineTests(files);
   const testEvals = parseTestEvals(files);
+  const ruleEvals = parseRuleEvals(files);
   const testResults = parseTestResults(files);
   if (files.tests.content && !rulesTests.length) {
     console.warn(`failed to parse tests in ${files.tests.filename}`);
@@ -954,6 +955,7 @@ export async function generateJSONReport(files: PromptPexContext) {
     inputSpec,
     rules,
     inverseRules,
+    ruleEvals,
     tests,
     testEvals,
     testResults,
