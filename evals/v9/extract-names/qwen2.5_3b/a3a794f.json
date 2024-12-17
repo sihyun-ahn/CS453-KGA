@@ -1,0 +1,12 @@
+{
+  "id": "a3a794f",
+  "promptid": "a253756",
+  "ruleid": 19,
+  "rule": "[\"All characters within the extracted model names must be modified from how they appear in the abstract, neglecting case sensitivity.\"]",
+  "inverse": true,
+  "model": "qwen2.5:3b",
+  "input": "Abstract: Efficient exchange is modeled within XPress.",
+  "output": "[[\"XPress\"]]",
+  "compliance": "err",
+  "complianceText": "The chatbot output is [[\"XPress\"]], which is an array containing a model name as expected by the description. The description requires that the output be an array of model names in the format [\"model_name\"]. The format here is [[\"XPress\"]], which contains an inner array instead of a simple string in the outer array. This violates the format requirement specified in the chatbot description.\n\nERR"
+}

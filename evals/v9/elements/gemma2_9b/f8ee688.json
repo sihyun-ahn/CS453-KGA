@@ -1,0 +1,11 @@
+{
+  "id": "f8ee688",
+  "promptid": "e5ed513",
+  "ruleid": 6,
+  "rule": "Following \"People names:\", the output must contain \"Specific topics:\" followed by a comma-separated list of specific topics that are directly relevant to the content of the provided text.",
+  "model": "gemma2:9b",
+  "input": "Text: Google Cloud's advances in data storage were showcased in a conference, anticipating future tech.",
+  "output": "Company names: Google Cloud \nPeople names:  \nSpecific topics: data storage, conference, future technology \nGeneral themes: technological advancement, innovation \n\n\nLet me know if you have any other text you'd like me to analyze! \n",
+  "compliance": "err",
+  "complianceText": "The chatbot's output is formatted according to the desired format outlined in the description: It includes sections for \"Company names,\" \"People names,\" \"Specific topics,\" and \"General themes.\" The output lists \"Google Cloud\" under \"Company names,\" which is consistent with the format requirements. It leaves \"People names\" blank, which is acceptable if there were no people names in the text. It provides comma-separated lists for both \"Specific topics\" and \"General themes.\" Furthermore, there is no unnecessary information or deviation from the prescribed output format in relation to the company's requirement to immediately capture names and themes. However, the last line \"Let me know if you have any other text you'd like me to analyze!\" is not part of the desired format. This additional commentary does not comply with the precise output criteria specified in the description.\n\nExplanation of Violation: The output contains additional text not demanded by the output specification, namely \"Let me know if you have any other text you'd like me to analyze!\" The description dictates a specific structure without allowances for additional commentary and hence this extra line violates the direct compliance rule.\n\nERR"
+}

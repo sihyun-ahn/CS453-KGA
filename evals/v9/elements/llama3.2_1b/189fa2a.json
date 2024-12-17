@@ -1,0 +1,11 @@
+{
+  "id": "189fa2a",
+  "promptid": "e5ed513",
+  "ruleid": 2,
+  "rule": "The list of company names must not include any entities that are not explicitly mentioned as companies.",
+  "model": "llama3.2:1b",
+  "input": "Text: According to The Wall Street Journal, Apple and Google are working on improving security features. Employees, including Jane Doe, back these measures.",
+  "output": "**Company names:** \n- Apple\n- Google \n\n**People names:** \n- -||-\n  - Jane Doe\n\n**Specific topics:** \n- Security features\n- Measures\n\n**General themes:** \n- Collaboration",
+  "compliance": "err",
+  "complianceText": "The output from the chatbot does not comply with the described format for several reasons:\n\n1. In the section for \"People names,\" there is an incorrect use of the placeholder \" -||- \". The description specifies that this placeholder should be used to denote a comma-separated list, not preceding a bullet list. The correct usage would have been directly listing the names or using commas.\n\n2. The format for the lists is not adhering strictly to the description. The desired format suggests comma-separated lists, rather than bullet points, for all categories. The actual output uses bullet points for company names, people names, specific topics, and general themes.\n\nDue to the mismatch between the provided output and the specified format for these sections, it does not fully comply with the description.\n\nERR"
+}

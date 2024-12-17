@@ -1,0 +1,11 @@
+{
+  "id": "fe62a31",
+  "promptid": "e5ed513",
+  "ruleid": null,
+  "baseline": true,
+  "model": "llama3.2:1b",
+  "input": "Text: \"Facebook's annual developer conference was held in San Jose, where Mark Zuckerberg presented innovations in virtual reality and augmented reality. The event covered topics like digital privacy, AR/VR technologies, and user engagement strategies. Keynote speakers included Sheryl Sandberg and engineers from Oculus. Discussions revolved around creating engaging digital experiences and maintaining user trust in the digital age.\"\n\nCompany names: Facebook, Oculus  \nPeople names: Mark Zuckerberg, Sheryl Sandberg  \nSpecific topics: Digital privacy, AR/VR technologies, user engagement strategies  \nGeneral themes: Engaging digital experiences, user trust",
+  "output": "Here are the extracted entities:\n\n**Company Names:** Facebook, Oculus\n(no additional company names provided in the text)\n\n**People Names:** Mark Zuckerberg, Sheryl Sandberg\n- ||-\n(no specific people mentioned except engineers from Oculus at one point)\n\n**Topics:**\n- Digital privacy (specific topic)\n- AR/VR technologies (specific topic)\n- User engagement strategies (specific topic)\n\n**General Themes:**\n- Engaging digital experiences (general theme)\n- User trust",
+  "compliance": "err",
+  "complianceText": "The chatbot's output format is not fully compliant with the specified format described. According to the description, each category should be followed by a comma-separated list, and when there are no entities to list, it should be represented with '-||-'. The output for 'People Names' uses \"-||-\" correctly, but then deviates by adding an additional explanatory note, which is inconsistent with the expected format.\n\nAdditionally, for the 'Company Names', there is an appended note that deviates from the required format after listing company names. Furthermore, the 'General Themes' section does not follow the specified separator format '-||-', as no list is separated by commas or formatted appropriately.\n\nThe output should strictly follow the desired format without additional explanatory notes or deviations. The presence of explanations within the lists and alternate separators indicates a formatting non-compliance.\n\nERR"
+}

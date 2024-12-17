@@ -1,0 +1,12 @@
+{
+  "id": "14e3e1c",
+  "promptid": "dddf836",
+  "ruleid": 8,
+  "rule": "If the word can be assigned a part of speech from the provided list, the output must be anything but \"Unknown\".",
+  "inverse": true,
+  "model": "gpt-4o-mini",
+  "input": "sentence: We should make our future work; word: work",
+  "output": "NN",
+  "compliance": "ok",
+  "complianceText": "The chatbot's output is a part of speech tag, \"NN,\" which stands for \"Noun, singular or mass.\" According to the description, the output should be a part of speech tag from the specified list, or if the word cannot be tagged, it should return \"Unknown,\" and if unable to tag the word, it should return \"CantAnswer.\" Since \"NN\" is indeed a valid part of speech tag listed in the description, the output complies with the chatbot's guidelines.\n\nNo violation.\nOK"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "be5f2cd",
+  "promptid": "dddf836",
+  "ruleid": 8,
+  "rule": "If the word can be assigned a part of speech from the provided list, the output must be anything but \"Unknown\".",
+  "inverse": true,
+  "model": "gemma2:9b",
+  "input": "sentence: Electricity needs a switch; word: switch",
+  "output": "NN \n",
+  "compliance": "ok",
+  "complianceText": "No violation. The output \"NN\" is a part of speech tag listed in the description (Noun, singular or mass). The output correctly follows the instruction to return only the part of speech tag.\n\nOK"
+}

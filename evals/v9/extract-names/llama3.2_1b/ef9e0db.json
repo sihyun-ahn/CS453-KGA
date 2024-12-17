@@ -1,0 +1,12 @@
+{
+  "id": "ef9e0db",
+  "promptid": "a253756",
+  "ruleid": 17,
+  "rule": "[\"The response must contain explanatory text or additional information beyond the specified array of model names.\"]",
+  "inverse": true,
+  "model": "llama3.2:1b",
+  "input": "Abstract: Application of MetaLearn shows versatility.",
+  "output": "[\\\"MetaLearn\\\", \\\"not found\\\"]",
+  "compliance": "err",
+  "complianceText": "The chatbot output is [\"MetaLearn\", \"not found\"]. According to the description, the output should be an array of model names in the format [\"model_name\"]. If no model names are found, or the chatbot is not sure, it should return [\"NA\"]. The presence of \"not found\" in the output does not comply with this requirement, since the correct response when no model names are found is [\"NA\"], not [\"not found\"]. Therefore, the output violates the stated requirement as it introduces an incorrect element.\n\nERR"
+}

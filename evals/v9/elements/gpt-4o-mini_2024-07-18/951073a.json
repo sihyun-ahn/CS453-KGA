@@ -1,0 +1,12 @@
+{
+  "id": "951073a",
+  "promptid": "e5ed513",
+  "ruleid": 13,
+  "rule": "The chatbot output must not begin with \"Company names:\" or include any list of company names extracted from the provided text.",
+  "inverse": true,
+  "model": "gpt-4o-mini",
+  "input": "Text: Jane Austen's novels remain a focus in literature courses worldwide.",
+  "output": "Company names: \nPeople names: Jane Austen\nSpecific topics: literature courses, novels\nGeneral themes: literature, education, classic literature",
+  "compliance": "err",
+  "complianceText": "The chatbot output does not comply with the description. According to the description, each section must be filled, but the \"Company names\" section is left empty without indicating that there are no company names by using a placeholder like \"None\" or similar. The output should still explicitly mention the absence of entities by filling it accordingly. Furthermore, the name \"Jane Austen\" is mentioned under \"People names\" which correctly follows the format requirement to be a comma-separated list. Similarly, the sections for \"Specific topics\" and \"General themes\" are correctly filled with comma-separated entries. But the issue with \"Company names\" section not following the format prevents full compliance.\n\nERR"
+}

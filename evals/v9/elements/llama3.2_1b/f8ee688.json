@@ -1,0 +1,11 @@
+{
+  "id": "f8ee688",
+  "promptid": "e5ed513",
+  "ruleid": 6,
+  "rule": "Following \"People names:\", the output must contain \"Specific topics:\" followed by a comma-separated list of specific topics that are directly relevant to the content of the provided text.",
+  "model": "llama3.2:1b",
+  "input": "Text: Google Cloud's advances in data storage were showcased in a conference, anticipating future tech.",
+  "output": "**Company names:** \nGoogle Cloud\nGoogle \n-|\nSpecific topics: Data Storage, Technology Conference\nGeneral themes: Anticipation, Advancements",
+  "compliance": "err",
+  "complianceText": "The evaluation of the chatbot output against the description yields the following considerations:\n\n1. **Format Verification**: The desired format requires the output to have four categories: \"Company names\", \"People names\", \"Specific topics\", and \"General themes\". In the given output, the category \"People names\" is completely missing. \n\n2. **Separation Verification**: Company names and people names should be separated by commas in the list. Although \"People names\" category is missing, \"Company names\" are correctly separated.\n\n3. **Category Completeness**: All four categories must be present. Absence of any category represents non-compliance. Here, the chatbot output omits the \"People names\" category entirely.\n\nThe crucial issue here is the absence of a required category (\"People names\"), leading to a structural non-compliance with the stated format in the chatbot's description. \n\nERR"
+}

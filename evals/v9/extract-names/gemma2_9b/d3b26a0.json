@@ -1,0 +1,12 @@
+{
+  "id": "d3b26a0",
+  "promptid": "a253756",
+  "ruleid": 14,
+  "rule": "[\"If zero model names can be definitively identified in the abstract, the output must not be ['NA'].\"]",
+  "inverse": true,
+  "model": "gemma2:9b",
+  "input": "Abstract: Analysis was purely theoretical - no model input.",
+  "output": "[\"NA\", \"NA\"] \n",
+  "compliance": "err",
+  "complianceText": "The description states that the chatbot's task is to extract model names from machine learning paper abstracts and to return an array of the model names in the format [\"model_name\"]. If the chatbot does not find any model names or is unsure, it should return [\"NA\"]. The given output [\"NA\", \"NA\"] does not comply with this format, as it only requires a single \"NA\" if no model names are found. Therefore, returning two \"NA\" strings violates the requirement.\n\nERR"
+}

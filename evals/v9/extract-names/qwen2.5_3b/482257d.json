@@ -1,0 +1,12 @@
+{
+  "id": "482257d",
+  "promptid": "a253756",
+  "ruleid": 13,
+  "rule": "[\"If multiple model names are found, each must not be individually enclosed in double quotation marks within any format.\"]",
+  "inverse": true,
+  "model": "qwen2.5:3b",
+  "input": "Abstract: Successful deployment of NetAlpha and BetaRack.",
+  "output": "[[\"NetAlpha\", \"BetaRack\"]]",
+  "compliance": "err",
+  "complianceText": "The chatbot's output is an array containing two extracted model names: \"NetAlpha\" and \"BetaRack\". According to the chatbot description, the response should always be an array containing model names in the format `[\"model_name\"]`, or `[\"NA\"]` if no model names are found or if there's uncertainty. From the format and content of the chatbot output provided, the output does indeed contain an array of strings which represent possible model names. However, it lists two model names instead of one, which is not clearly aligned with the specified format `[\"model_name\"]`, suggesting it should only be one model name within the brackets. This discrepancy indicates the output does not fully adhere to the description as it seems that only one model name should be extracted or returned, not multiple, unless `[\"NA\"]`.\n\nERR"
+}

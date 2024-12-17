@@ -1,0 +1,12 @@
+{
+  "id": "1004105",
+  "promptid": "e5ed513",
+  "ruleid": 13,
+  "rule": "The chatbot output must not begin with \"Company names:\" or include any list of company names extracted from the provided text.",
+  "inverse": true,
+  "model": "gpt-4o-mini",
+  "input": "Text: Inspiring figures like Marie Curie continue to be celebrated across academic institutions.",
+  "output": "Company names: \nPeople names: Marie Curie\nSpecific topics: celebration in academic institutions\nGeneral themes: appreciation of historical figures in science, recognition of contributions to academia",
+  "compliance": "ok",
+  "complianceText": "The chatbot has provided an output with four sections: Company names, People names, Specific topics, and General themes. The section for Company names is present but empty, which complies with the required format, as not listing any is an explicit compliance (there could be no company names to list). The sections for People names, Specific topics, and General themes all contain entries.\n\nAll four categories are listed in the order specified by the description, and they are separated by a colon followed by the extracted entities, which matches the desired format. There are no obvious format violations, and the description does not state that any of the categories must have content, only that they should be listed. Therefore, the output adheres to the description as provided. No specific reasoning requires the text itself, so based on structural and format compliance, the output is thus compliant with the description. \n\nNo violation.\nOK"
+}

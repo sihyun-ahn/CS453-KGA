@@ -1,0 +1,11 @@
+{
+  "id": "76316f2",
+  "promptid": "b70fdc4",
+  "ruleid": null,
+  "baseline": true,
+  "model": "llama3.2:1b",
+  "input": "text: The internet is a vast network that connects millions of private, public, academic, business, and government networks. Most modern communication relies heavily on the internet. It's hard to imagine life without it now.",
+  "output": "Here is the formatted paragraph with at least three <p> tags, each wrapped in a <strong> tag and multiple <em> tags:\n\n<p><strong>The</strong> internet is a vast network that connects millions of private, public, academic, business, and government networks.</p>\n<p><strong>Most</strong> modern communication relies heavily on the internet.</p>\n<p><strong>It's</strong> hard to imagine life without it now.</p>",
+  "compliance": "err",
+  "complianceText": "The chatbot output wraps each sentence inside a `<p>` tag. However, it places the `<strong>` tag outside the `<p>` tags, contrary to the requirement that the `<strong>` tag should be inside each `<p>` tag. Additionally, there are no `<em>` tags present within the `<p>` tags to emphasize key words or phrases, which is another requirement specified in the description. These violations include the incorrect placement of `<strong>` tags and the absence of `<em>` tags.\n\nERR"
+}

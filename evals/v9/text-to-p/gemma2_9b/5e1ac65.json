@@ -1,0 +1,11 @@
+{
+  "id": "5e1ac65",
+  "promptid": "b70fdc4",
+  "ruleid": null,
+  "baseline": true,
+  "model": "gemma2:9b",
+  "input": "text: Climate change is a global issue affecting every country. Rising sea levels and extreme weather patterns are becoming more common. Urgent action is needed to address the growing crisis.",
+  "output": "<p><strong>Climate change</strong> is a <em>global issue</em> affecting <strong>every country</strong>.</p>\n\n<p><i>Rising sea levels</i> and <strong>extreme weather patterns</strong> are becoming **more common**. </p> \n\n<p><strong>Urgent action</strong> is needed to address the **growing crisis**. </p>  \n",
+  "compliance": "err",
+  "complianceText": "The output does not comply with the description in the following ways:\n\n1. The description instructs to use `<em>` tags, but the second paragraph uses an `<i>` tag instead. These are not the same, as the description explicitly requires `<p>`, `<strong>`, and `<em>` tags.\n2. The second and third paragraphs use `**` to denote emphasized text instead of wrapping such text with `<em>` tags, as required by the description.\n\nBased on these observations, the chatbot's output does not fully adhere to the formatting rules specified in the description.\n\nERR"
+}

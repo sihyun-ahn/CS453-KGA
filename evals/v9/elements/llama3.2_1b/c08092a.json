@@ -1,0 +1,12 @@
+{
+  "id": "c08092a",
+  "promptid": "e5ed513",
+  "ruleid": 15,
+  "rule": "The \"Company names:\" section must not appear first in the output before any other sections.",
+  "inverse": true,
+  "model": "llama3.2:1b",
+  "input": "Text: Cleopatra is often discussed regarding leadership and influence in history.",
+  "output": "**Company Names:** None mentioned\n\n**People Names:** -||-\n\n**Specific Topics:** Leadership, Influence \n\n**General Themes:** Power, Politics, History",
+  "compliance": "err",
+  "complianceText": "The chatbot output is partially compliant with the description provided. It adheres to the required format by listing \"Company Names,\" \"People Names,\" \"Specific Topics,\" and \"General Themes.\" However, there is an issue with the \"People Names\" output, which is denoted by \"-||-.\" The description requires a comma-separated list of people names. The \"-||-\" symbol is not a valid or compliant output according to the provided format guidelines. For \"Company Names,\" the chatbot provides \"None mentioned,\" which is an acceptable format if no company names are present in the text. The \"Specific Topics\" and \"General Themes\" are clearly listed following the required schema.\n\nERR"
+}

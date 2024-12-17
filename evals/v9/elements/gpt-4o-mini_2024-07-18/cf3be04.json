@@ -1,0 +1,12 @@
+{
+  "id": "cf3be04",
+  "promptid": "e5ed513",
+  "ruleid": 15,
+  "rule": "The \"Company names:\" section must not appear first in the output before any other sections.",
+  "inverse": true,
+  "model": "gpt-4o-mini",
+  "input": "Text: Shakespeare's work is universally recognized, deeply influencing culture and arts.",
+  "output": "Company names: \nPeople names: William Shakespeare\nSpecific topics: influence of literature, cultural impact, arts\nGeneral themes: literature, culture, influence",
+  "compliance": "ok",
+  "complianceText": "While evaluating the output, the following are considered based on the description:\n\n1. The desired format for the output is given clearly as separate categories for company names, people names, specific topics, and general themes.\n2. The output for each category should be in a comma-separated list format as specified.\n3. The presence or absence of entities should be taken into account even without knowing the input.\n\nUpon reviewing the output:\n\n- Company names: The list is empty; hence it complies with the format requirement of having a comma-separated list, even if empty.\n- People names: There is one name, \"William Shakespeare,\" and it is properly formatted as a comma-separated list with a single element. This complies with the description’s requirements.\n- Specific topics: The topics provided are \"influence of literature, cultural impact, arts,\" which are correctly formatted as a comma-separated list, adhering to the description's format.\n- General themes: The themes listed are \"literature, culture, influence,\" also correctly formatted and thus comply with the description.\n\nThe output adheres to the format specifications as given in each required category. There are no elements of the output that directly violate the description given.\n\nNo violation.\nOK"
+}

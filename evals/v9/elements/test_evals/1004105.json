@@ -1,0 +1,14 @@
+{
+  "id": "1004105",
+  "promptid": "e5ed513",
+  "model": "gpt-4o-2024-08-06",
+  "ruleid": 13,
+  "rule": "The chatbot output must not begin with \"Company names:\" or include any list of company names extracted from the provided text.",
+  "inverse": true,
+  "input": "Text: Inspiring figures like Marie Curie continue to be celebrated across academic institutions.",
+  "validityText": "The input text is a block of text mentioning 'Marie Curie', which is a name of a person. The text also relates to a general theme or specific topic related to academic institutions and inspiring figures, which fits within the scope of potential topics or themes mentioned. The text is complete, human-readable, and in an understandable language. All these aspects align with the input specification provided.\n\nNo violation.\nOK",
+  "validity": "ok",
+  "coverageText": "Company names:  \nPeople names: Marie Curie  \nSpecific topics: academic institutions  \nGeneral themes: inspiration, education, scientific achievements  ",
+  "coverageEvalText": "The output does not comply with the description provided. The description requires listing the entities in a specific format, however, the output contains an issue.\n\n1. The section \"Company names\" is left empty, but according to the format provided, it should at least reflect that the section is intentionally empty if there are indeed no company names mentioned. This might be presented as `Company names: None` or `Company names: -` or a similar indication that no company names were found, to ensure clarity and adherence to format.\n\nBased on the above observation, the output deviates from the expected format, and therefore, it does not fully comply with the described requirements.\n\nERR",
+  "coverage": "err"
+}

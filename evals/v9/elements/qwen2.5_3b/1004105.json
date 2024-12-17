@@ -1,0 +1,12 @@
+{
+  "id": "1004105",
+  "promptid": "e5ed513",
+  "ruleid": 13,
+  "rule": "The chatbot output must not begin with \"Company names:\" or include any list of company names extracted from the provided text.",
+  "inverse": true,
+  "model": "qwen2.5:3b",
+  "input": "Text: Inspiring figures like Marie Curie continue to be celebrated across academic institutions.",
+  "output": "Company names: <none>\nPeople names: Marie Curie\nSpecific topics: inspiring figures, academics, academic institutions\nGeneral themes: celebration, figures, academia, achievements",
+  "compliance": "ok",
+  "complianceText": "The output structure generally complies with the required format, listing all categories in the specified order: Company names, People names, Specific topics, and General themes. \n\n1. **Company Names**: The output specifies '<none>' which meets the expectation for when there are no relevant entities to extract.\n2. **People Names**: 'Marie Curie' is listed, correctly following the format provided.\n3. **Specific Topics**: Topics are given in a coherent list. \n4. **General Themes**: Themes are appropriately listed.\n\nThere is no evidence of deviation from the specified format or order for listing entities. The adherence to the structural format is without error. \n\nNo violation.\nOK"
+}

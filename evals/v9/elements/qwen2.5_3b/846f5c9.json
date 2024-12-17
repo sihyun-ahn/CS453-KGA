@@ -1,0 +1,11 @@
+{
+  "id": "846f5c9",
+  "promptid": "e5ed513",
+  "ruleid": 2,
+  "rule": "The list of company names must not include any entities that are not explicitly mentioned as companies.",
+  "model": "qwen2.5:3b",
+  "input": "Text: Amazon and Netflix are exploring new markets, while Jeff Bezos focuses on space exploration.",
+  "output": "Company names: Amazon, Netflix, Jeff Bezos\nPeople names: Jeff Bezos\nSpecific topics: new markets, space exploration\nGeneral themes: exploration, competition",
+  "compliance": "err",
+  "complianceText": "The chatbot output lists \"Amazon, Netflix, Jeff Bezos\" under \"Company names\". However, \"Jeff Bezos\" is a person's name, not a company. Including it in the \"Company names\" list violates the description which clearly states to extract company names and people names separately. Furthermore, \"Jeff Bezos\" is appropriately listed under \"People names\". This inconsistency in categorization reflects a failure to adhere to the provided format and instructions. Therefore, based on this non-compliance, the chatbot's output does not align with the description.\n\nERR"
+}
