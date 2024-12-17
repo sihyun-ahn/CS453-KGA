@@ -35,10 +35,10 @@
 
 |model|tests|tests compliant|baseline compliant|tests positive|tests positive compliant|tests negative|tests negative compliant|baseline|tests valid|tests valid compliant|
 |-|-|-|-|-|-|-|-|-|-|-|
+|gpt\-4o\-mini|60|100%|97%|30|30|30|30|61|16|16|
 |gemma2:9b|60|87%|93%|30|25|30|27|61|16|14|
 |qwen2\.5:3b|60|78%|75%|30|24|30|23|61|16|11|
 |llama3\.2:1b|60|45%|41%|30|14|30|13|61|16|5|
-|gpt\-4o\-mini|60|100%|97%|30|30|30|30|61|16|16|
 
 ### [extract-names.prompty](./extract-names.prompty)
 
@@ -65,6 +65,127 @@ Abstract: {{input}}
 
 |model|rule|input|output|compliance|
 |-|-|-|-|-|
+|gpt\-4o\-mini|The output must be an array formatted with square brackets\.|Abstract: In this study, we present a new model called NeuralNetProf\.|\["NeuralNetProf"\]|ok|
+|gpt\-4o\-mini|The output must be an array formatted with square brackets\.|Abstract: We analyze the performance of ModelX against several benchmarks\.|\["ModelX"\]|ok|
+|gpt\-4o\-mini|The output must be an array formatted with square brackets\.|Abstract: The study did not propose any new models\.|\["NA"\]|ok|
+|gpt\-4o\-mini|Each model name extracted from the abstract must be enclosed within double quotation marks and must be comma\-separated within the array\.|Abstract: This paper introduces ModelA, ModelB, and ModelC for analysis\.|\["ModelA", "ModelB", "ModelC"\]|ok|
+|gpt\-4o\-mini|Each model name extracted from the abstract must be enclosed within double quotation marks and must be comma\-separated within the array\.|Abstract: A comparison between SuperNet and QuickLearner is conducted\.|\["SuperNet", "QuickLearner"\]|ok|
+|gpt\-4o\-mini|Each model name extracted from the abstract must be enclosed within double quotation marks and must be comma\-separated within the array\.|Abstract: Our proposed model, EfficientNet is compared with ResNet\.|\["EfficientNet", "ResNet"\]|ok|
+|gpt\-4o\-mini|If multiple model names are found, each must be individually enclosed in double quotation marks within the array\.|Abstract: The DeltaModel and GammaModel were tested for efficiency\.|\["DeltaModel", "GammaModel"\]|ok|
+|gpt\-4o\-mini|If multiple model names are found, each must be individually enclosed in double quotation marks within the array\.|Abstract: We introduce AlphaNet followed by BetaNet in our experiments\.|\["AlphaNet", "BetaNet"\]|ok|
+|gpt\-4o\-mini|If multiple model names are found, each must be individually enclosed in double quotation marks within the array\.|Abstract: Our prediction system, SmartPredictor, is an extension of TrendExtractor\.|\["SmartPredictor", "TrendExtractor"\]|ok|
+|gpt\-4o\-mini|If zero model names can be definitively identified in the abstract, the output must be \["NA"\]\.|Abstract: We did not explore any particular model in this research\.|\["NA"\]|ok|
+|gpt\-4o\-mini|If zero model names can be definitively identified in the abstract, the output must be \["NA"\]\.|Abstract: An in\-depth survey was conducted without introducing a new model\.|\["NA"\]|ok|
+|gpt\-4o\-mini|If zero model names can be definitively identified in the abstract, the output must be \["NA"\]\.|Abstract: Topics of machine learning and algorithms were discussed without a model\.|\["NA"\]|ok|
+|gpt\-4o\-mini|If the output is \["NA"\], it must be returned without any extra spaces or characters\.|Abstract: Our discussion focused on the theoretical model of computation\.|\["NA"\]|ok|
+|gpt\-4o\-mini|If the output is \["NA"\], it must be returned without any extra spaces or characters\.|Abstract: We reviewed existing models without adding new contributions\.|\["NA"\]|ok|
+|gpt\-4o\-mini|If the output is \["NA"\], it must be returned without any extra spaces or characters\.|Abstract: Models mentioned are common in literature, but none newly defined\.|\["NA"\]|ok|
+|gpt\-4o\-mini|The array must not contain any elements other than model names or "NA"\.|Abstract: Introduction of CaymanModel for deep learning task prediction\.|\["CaymanModel"\]|ok|
+|gpt\-4o\-mini|The array must not contain any elements other than model names or "NA"\.|Abstract: This work is based on framework XYZ with ModelWave\.|\["ModelWave"\]|ok|
+|gpt\-4o\-mini|The array must not contain any elements other than model names or "NA"\.|Abstract: Research involved developing NovoModel from existing concepts\.|\["NovoModel"\]|ok|
+|gpt\-4o\-mini|The response must not contain any explanatory text or additional information beyond the specified array of model names\.|Abstract: The architecture known as FlexModel was applied\.|\["FlexModel"\]|ok|
+|gpt\-4o\-mini|The response must not contain any explanatory text or additional information beyond the specified array of model names\.|Abstract: For benchmarking, we employed GalacticNet as an example\.|\["GalacticNet"\]|ok|
+|gpt\-4o\-mini|The response must not contain any explanatory text or additional information beyond the specified array of model names\.|Abstract: Here, we utilize EcoPredict for environmental estimations\.|\["EcoPredict"\]|ok|
+|gpt\-4o\-mini|The output must begin with an opening square bracket "\[" and end with a closing square bracket "\]"\.|Abstract: RainbowNet was found effective in our experiments\.|\["RainbowNet"\]|ok|
+|gpt\-4o\-mini|The output must begin with an opening square bracket "\[" and end with a closing square bracket "\]"\.|Abstract: Use of a model, StreamFlow, was highlighted\.|\["StreamFlow"\]|ok|
+|gpt\-4o\-mini|The output must begin with an opening square bracket "\[" and end with a closing square bracket "\]"\.|Abstract: Comparison of GraphiaNet with traditional methods\.|\["GraphiaNet"\]|ok|
+|gpt\-4o\-mini|All characters within the extracted model names must be exactly as they appear in the abstract, respecting case sensitivity\.|Abstract: The study focuses on enhancing SPEEDnet performance\.|\["SPEEDnet"\]|ok|
+|gpt\-4o\-mini|All characters within the extracted model names must be exactly as they appear in the abstract, respecting case sensitivity\.|Abstract: Improved AdaptNet was the goal of this research\.|\["Improved AdaptNet"\]|ok|
+|gpt\-4o\-mini|All characters within the extracted model names must be exactly as they appear in the abstract, respecting case sensitivity\.|Abstract: Analysis conducted using advanced SmartNet technology\.|\["SmartNet"\]|ok|
+|gpt\-4o\-mini|The array must not contain trailing or leading spaces inside the quotation marks enclosing each model name\.|Abstract: Features were tested using the BetaAnalyzer model\.|\["BetaAnalyzer"\]|ok|
+|gpt\-4o\-mini|The array must not contain trailing or leading spaces inside the quotation marks enclosing each model name\.|Abstract: Model called PlanIt was evaluated thoroughly\.|\["PlanIt"\]|ok|
+|gpt\-4o\-mini|The array must not contain trailing or leading spaces inside the quotation marks enclosing each model name\.|Abstract: Integration of SoftGenie was pivotal in results\.|\["SoftGenie"\]|ok|
+|gpt\-4o\-mini|\["The output must not be an array formatted with square brackets\."\]|Abstract: Dynamics of PerseveranceModel were examined\.|\["PerseveranceModel"\]|ok|
+|gpt\-4o\-mini|\["The output must not be an array formatted with square brackets\."\]|Abstract: Techniques using FloatNet as a primary tool had remarkable outcomes\.|\["FloatNet"\]|ok|
+|gpt\-4o\-mini|\["The output must not be an array formatted with square brackets\."\]|Abstract: Research highlights AutoDroid in automation tasks\.|\["AutoDroid"\]|ok|
+|gpt\-4o\-mini|\["Each model name extracted from the abstract must be without double quotation marks or any specific separator\."\]|Abstract: Our method involves TensorAid model\.|\["TensorAid"\]|ok|
+|gpt\-4o\-mini|\["Each model name extracted from the abstract must be without double quotation marks or any specific separator\."\]|Abstract: The focus was on QuickSynth for improvement\.|\["QuickSynth"\]|ok|
+|gpt\-4o\-mini|\["Each model name extracted from the abstract must be without double quotation marks or any specific separator\."\]|Abstract: TurboCore was central to our computing solution\.|\["TurboCore"\]|ok|
+|gpt\-4o\-mini|\["If multiple model names are found, each must not be individually enclosed in double quotation marks within any format\."\]|Abstract: Insights were gained using PrismModel and GeoGuard\.|\["PrismModel", "GeoGuard"\]|ok|
+|gpt\-4o\-mini|\["If multiple model names are found, each must not be individually enclosed in double quotation marks within any format\."\]|Abstract: Current application includes FlowX and StreamNull\.|\["FlowX", "StreamNull"\]|ok|
+|gpt\-4o\-mini|\["If multiple model names are found, each must not be individually enclosed in double quotation marks within any format\."\]|Abstract: Successful deployment of NetAlpha and BetaRack\.|\["NetAlpha", "BetaRack"\]|ok|
+|gpt\-4o\-mini|\["If zero model names can be definitively identified in the abstract, the output must not be \['NA'\]\."\]|Abstract: This survey did not conclude with new model propositions\.|\["NA"\]|ok|
+|gpt\-4o\-mini|\["If zero model names can be definitively identified in the abstract, the output must not be \['NA'\]\."\]|Abstract: Existing research was augmented without new model creation\.|\["NA"\]|ok|
+|gpt\-4o\-mini|\["If zero model names can be definitively identified in the abstract, the output must not be \['NA'\]\."\]|Abstract: Analysis was purely theoretical \- no model input\.|\["NA"\]|ok|
+|gpt\-4o\-mini|\["If the output is \['NA'\], it must be returned with extra spaces or characters\."\]|Abstract: Existing paradigms were re\-evaluated without model emergence\.|\["NA"\]|ok|
+|gpt\-4o\-mini|\["If the output is \['NA'\], it must be returned with extra spaces or characters\."\]|Abstract: Prior methods were examined, not extended with models\.|\["NA"\]|ok|
+|gpt\-4o\-mini|\["If the output is \['NA'\], it must be returned with extra spaces or characters\."\]|Abstract: We disregarded any direct modeling or its introduction\.|\["NA"\]|ok|
+|gpt\-4o\-mini|\["The array must contain elements other than model names or 'NA'\."\]|Abstract: Overview with AlphaBot, though unimplemented\.|\["AlphaBot"\]|ok|
+|gpt\-4o\-mini|\["The array must contain elements other than model names or 'NA'\."\]|Abstract: Study mentions microframework and HydroModel\.|\["HydroModel"\]|ok|
+|gpt\-4o\-mini|\["The array must contain elements other than model names or 'NA'\."\]|Abstract: Trial model SigmaNet was set against theoretical backdrop\.|\["SigmaNet"\]|ok|
+|gpt\-4o\-mini|\["The response must contain explanatory text or additional information beyond the specified array of model names\."\]|Abstract: With the employment of GreenNLP, results improved\.|\["GreenNLP"\]|ok|
+|gpt\-4o\-mini|\["The response must contain explanatory text or additional information beyond the specified array of model names\."\]|Abstract: Application of MetaLearn shows versatility\.|\["MetaLearn"\]|ok|
+|gpt\-4o\-mini|\["The response must contain explanatory text or additional information beyond the specified array of model names\."\]|Abstract: EcoSys creation demonstrates broader applications\.|\["NA"\]|ok|
+|gpt\-4o\-mini|\["The output must not begin with an opening square bracket '\[' and end with a closing square bracket '\]'\."\]|Abstract: Analysis utilizes CrystalModel innovation\.|\["CrystalModel"\]|ok|
+|gpt\-4o\-mini|\["The output must not begin with an opening square bracket '\[' and end with a closing square bracket '\]'\."\]|Abstract: Use of CodeNet has expanded possibilities\.|\["NA"\]|ok|
+|gpt\-4o\-mini|\["The output must not begin with an opening square bracket '\[' and end with a closing square bracket '\]'\."\]|Abstract: Experiments with PentaCore reveal insights\.|\["PentaCore"\]|ok|
+|gpt\-4o\-mini|\["All characters within the extracted model names must be modified from how they appear in the abstract, neglecting case sensitivity\."\]|Abstract: Efficient exchange is modeled within XPress\.|\["XPress"\]|ok|
+|gpt\-4o\-mini|\["All characters within the extracted model names must be modified from how they appear in the abstract, neglecting case sensitivity\."\]|Abstract: Invention names alphaTech as crucial\.|\["alphaTech"\]|ok|
+|gpt\-4o\-mini|\["All characters within the extracted model names must be modified from how they appear in the abstract, neglecting case sensitivity\."\]|Abstract: Understanding through RayNet in\-depth study\.|\["RayNet"\]|ok|
+|gpt\-4o\-mini|\["The array must contain trailing or leading spaces inside the quotation marks enclosing each model name\."\]|Abstract: Said important model is TestModel\.|\["TestModel"\]|ok|
+|gpt\-4o\-mini|\["The array must contain trailing or leading spaces inside the quotation marks enclosing each model name\."\]|Abstract: Validation pivoted on HyperBolt application\.|\["HyperBolt"\]|ok|
+|gpt\-4o\-mini|\["The array must contain trailing or leading spaces inside the quotation marks enclosing each model name\."\]|Abstract: PrismLayer components explored and stood out\.|\["PrismLayer"\]|ok|
+|gpt\-4o\-mini||Abstract: NeRF: Neural Radiance Fields for View Synthesis takes a 3D scene as input and optimizes a continuous volumetric scene function using a deep fully\-connected neural network\. Their results are known for their remarkable ability to synthesize novel views with high fidelity\.|\["NeRF"\]|ok|
+|gpt\-4o\-mini||Abstract: We present DeepLabV3, an improved semantic image segmentation model that uses atrous convolution and a simple yet effective deep neural network\.|\["DeepLabV3"\]|ok|
+|gpt\-4o\-mini||Abstract: The BERT model, a language representation model, has achieved state\-of\-the\-art results on a wide array of natural language processing tasks\.|\["BERT"\]|ok|
+|gpt\-4o\-mini||Abstract: In this paper, we introduce StyleGAN, a new model architecture that enables high\-resolution image generation\.|\["StyleGAN"\]|ok|
+|gpt\-4o\-mini||Abstract: Faster R\-CNN, known for its fast and accurate object detection capabilities, builds on R\-CNN and Fast R\-CNN models by introducing Region Proposal Networks\.|\["Faster R\-CNN", "R\-CNN", "Fast R\-CNN", "Region Proposal Networks"\]|ok|
+|gpt\-4o\-mini||Abstract: ResNet, with its innovative residual learning framework, significantly improves image classification performance\.|\["ResNet"\]|ok|
+|gpt\-4o\-mini||Abstract: We use the T5 model to transform every NLP problem into a text\-to\-text format, achieving high accuracy across multiple NLP tasks\.|\["T5"\]|ok|
+|gpt\-4o\-mini||Abstract: The GAN architecture we present overcomes mode collapse with novel techniques and produces high\-quality image generations consistently\.|\["GAN"\]|ok|
+|gpt\-4o\-mini||Abstract: Our proposal includes YOLOv3, a real\-time object detection system that achieves high accuracy by splitting the detection task into multiple bounding box predictions\.|\["YOLOv3"\]|ok|
+|gpt\-4o\-mini||Abstract: The AlexNet model made breakthroughs in deep learning for image classification by introducing deep Convolutional Networks to large\-scale data\.|\["AlexNet"\]|ok|
+|gpt\-4o\-mini||Abstract: We train Transformers, a new attention mechanism\-based architecture, for machine translation, significantly outperforming previous models\.|\["Transformers"\]|ok|
+|gpt\-4o\-mini||Abstract: RetinaNet introduces the focal loss, a novel loss function that helps deal with class imbalance when selecting object detection classes\.|\["RetinaNet"\]|ok|
+|gpt\-4o\-mini||Abstract: The LSTM networks have proved crucial in sequential data processing tasks due to their enhanced memory capabilities\.|\["LSTM"\]|err|
+|gpt\-4o\-mini||Abstract: Our system uses VGG16 architecture for detailed feature extraction in image classification and transfer learning tasks\.|\["VGG16"\]|ok|
+|gpt\-4o\-mini||Abstract: We propose a novel architecture called MobileNet that is designed for efficient mobile and embedded vision applications\.|\["MobileNet"\]|ok|
+|gpt\-4o\-mini||Abstract: The proposed DQN model enhances reinforcement learning through novel exploration\-exploitation strategies, achieving higher rewards in control tasks\.|\["DQN"\]|ok|
+|gpt\-4o\-mini||Abstract: The introduction of Bi\-LSTM in our experiments leads to significant improvements in sequence labeling tasks, particularly for named entity recognition\.|\["Bi\-LSTM"\]|ok|
+|gpt\-4o\-mini||Abstract: We employ Glove, a unique word representation model that captures global corpus statistics, in our experiments for better semantic similarity\.|\["Glove"\]|ok|
+|gpt\-4o\-mini||Abstract: In this study, we leverage the RFN \(Recurrent Forward Network\) for handling long dependency tasks in various sequential problems\.|\["RFN", "Recurrent Forward Network"\]|ok|
+|gpt\-4o\-mini||Abstract: Our architecture, EfficientNet, optimizes convolutional networks by systematically balancing network depth, width, and resolution\.|\["EfficientNet"\]|ok|
+|gpt\-4o\-mini||Abstract: AlphaZero, a new approach employing deep reinforcement learning, achieves mastery in chess, shogi, and Go without domain knowledge\.|\["AlphaZero"\]|ok|
+|gpt\-4o\-mini||Abstract: Ladder networks demonstrate improvements in semi\-supervised learning tasks by incorporating a regularization framework derived from deep learning principles\.|\["Ladder networks"\]|ok|
+|gpt\-4o\-mini||Abstract: Our findings with BART, a new sequence\-to\-sequence model, show state\-of\-the\-art results in text generation and comprehension tasks\.|\["BART"\]|ok|
+|gpt\-4o\-mini||Abstract: Introducing GPT\-3, an autoregressive language model, provides breakthroughs in conversational AI and understanding natural language instructions\.|\["GPT\-3"\]|ok|
+|gpt\-4o\-mini||Abstract: We propose SectorGAN to solve the challenges in financial data analysis, offering advancements in generative learning for market data synthesis\.|\["SectorGAN"\]|ok|
+|gpt\-4o\-mini||Abstract: The architecture of UNet proves effective for segmentation in biomedical images, enhancing precision and performance in various tasks\.|\["UNet"\]|ok|
+|gpt\-4o\-mini||Abstract: We employ InceptionV3 which integrates factorized convolutions to handle variations in image scale effectively during classification\.|\["InceptionV3"\]|ok|
+|gpt\-4o\-mini||Abstract: SparseAutoencoder, utilized in our research, shows improved dimensionality reduction and feature extraction efficiency in high\-dimensional data\.|\["SparseAutoencoder"\]|ok|
+|gpt\-4o\-mini||Abstract: By applying the NN\-Victor model for voice cloning, we manage to synthesize human\-like speech from small audio datasets binding quality with efficiency\.|\["NN\-Victor"\]|ok|
+|gpt\-4o\-mini||Abstract: Our BioBERT model, fine\-tuned for biomedicine and language processing, outperforms standard BERT in specialized biomedical corpora\.|\["BioBERT", "BERT"\]|ok|
+|gpt\-4o\-mini||Abstract: The proposed GraphSAGE model allows scalable computation of node embeddings for large\-scale graph datasets commonly encountered in network tasks\.|\["GraphSAGE"\]|ok|
+|gpt\-4o\-mini||Abstract: We use Pix2Pix, a conditional GAN model, to learn image\-to\-image translation mappings for various visual transformation tasks\.|\["Pix2Pix"\]|ok|
+|gpt\-4o\-mini||Abstract: Our new approach with Capsule Networks shows superior results in capturing spatial hierarchies, essential for accurate image recognition\.|\["Capsule Networks"\]|ok|
+|gpt\-4o\-mini||Abstract: With the use of Swin Transformer, our system achieves breakthroughs in vision tasks, particularly by focusing on hierarchical feature maps\.|\["Swin Transformer"\]|ok|
+|gpt\-4o\-mini||Abstract: Integrating a ProGAN platform, we address the challenges of stable, high\-quality image generation and refinement in complex tasks\.|\["ProGAN"\]|ok|
+|gpt\-4o\-mini||Abstract: HyperNetworks propose a unique parameter prediction mechanism enhancing deep neural network efficiency without compromising flexibility\.|\["HyperNetworks"\]|ok|
+|gpt\-4o\-mini||Abstract: We develop AlphaFold, an innovative model that predicts 3D protein structures with unprecedented accuracy, revolutionizing biological insights\.|\["AlphaFold"\]|ok|
+|gpt\-4o\-mini||Abstract: The use of Char\-RNN facilitates character\-level language modeling effectively, producing coherent text sequences with minimal data input\.|\["Char\-RNN"\]|ok|
+|gpt\-4o\-mini||Abstract: In our research, we explore ConvLSTM architecture for spatiotemporal data, advancing the field in predictive learning across time series\.|\["ConvLSTM"\]|ok|
+|gpt\-4o\-mini||Abstract: Applying the XLNet model vastly improves permutation\-based language modeling tasks, outperforming previous autoregressive techniques\.|\["XLNet"\]|ok|
+|gpt\-4o\-mini||Abstract: We utilize BokehNet in astrophotography, providing a novel approach to blur synthesis for enhancing spatial focus and visual detail\.|\["BokehNet"\]|ok|
+|gpt\-4o\-mini||Abstract: The development of CoVeR simplifies visual question answering tasks by introducing an interpretable neural retrieval mechanism\.|\["CoVeR"\]|ok|
+|gpt\-4o\-mini||Abstract: We propose DeepMoji for sentiment analysis, capturing the emotional tone of text using emoji\-based contextual signals\.|\["DeepMoji"\]|ok|
+|gpt\-4o\-mini||Abstract: Our study employs FQEncoder, a novel encoding mechanism, optimizing both speed and precision in quantum computation simulations\.|\["FQEncoder"\]|ok|
+|gpt\-4o\-mini||Abstract: In the implementation of LightGBM, we achieve fast, distributed, and efficient training of gradient boosting decision trees, critical for large datasets\.|\["LightGBM"\]|ok|
+|gpt\-4o\-mini||Abstract: The DE:Mixed model facilitates mixed\-input data scenarios, uniquely balancing modality\-specific contributions with innovative fusion mechanisms\.|\["DE:Mixed"\]|err|
+|gpt\-4o\-mini||Abstract: Our findings show that BigGAN is capable of unprecedented high\-resolution image generation, focusing on large\-scale GAN implementations\.|\["BigGAN"\]|ok|
+|gpt\-4o\-mini||Abstract: CycleGAN enables unpaired image\-to\-image translation by leveraging cycle consistency without explicit pairings, broadening generative tasks\.|\["CycleGAN"\]|ok|
+|gpt\-4o\-mini||Abstract: The introduction of Memory Networks in our study allows complex reasoning tasks, facilitating enhanced natural language understanding\.|\["Memory Networks"\]|ok|
+|gpt\-4o\-mini||Abstract: With EdgeSTORM, we tackle edge computing challenges by proposing novel architectures tailored for decentralized, real\-time data processing\.|\["EdgeSTORM"\]|ok|
+|gpt\-4o\-mini||Abstract: DRAGAN enhances GAN stability through unique gradient penalty mechanisms, effectively reducing noise and promoting image clarity\.|\["DRAGAN"\]|ok|
+|gpt\-4o\-mini||Abstract: Our newly designed Bio2Vec model captures detailed biological interactions, proving instrumental in biomedical data analysis\.|\["Bio2Vec"\]|ok|
+|gpt\-4o\-mini||Abstract: We explore the use of SimCLR, a self\-supervised learning framework, significantly advancing representation learning in computer vision tasks\.|\["SimCLR"\]|ok|
+|gpt\-4o\-mini||Abstract: Employing the HQRinNet in our project provides robust quaternion representations essential for precise 3D object registration and manipulation\.|\["HQRinNet"\]|ok|
+|gpt\-4o\-mini||Abstract: QuantGAN introduces quantum\-inspired tensor operations, driving innovations in data generation methodologies and optimization frameworks\.|\["QuantGAN"\]|ok|
+|gpt\-4o\-mini||Abstract: SparseTransformer, used in our experiments, enables efficient attention mechanism computations, especially over lengthy sequences\.|\["SparseTransformer"\]|ok|
+|gpt\-4o\-mini||Abstract: Our work on StableVIC extends VQ\-VAE architecture, offering stability and quality enhancements in discrete latent variable modeling\.|\["StableVIC", "VQ\-VAE"\]|ok|
+|gpt\-4o\-mini||Abstract: Leveraging MMNets, we establish improvements in multi\-modal data processing tasks, enhancing interoperability and learning efficiency\.|\["MMNets"\]|ok|
+|gpt\-4o\-mini||Abstract: The newly presented NASNet automatically optimizes architecture search, providing crucial insights into evolving deep network configurations\.|\["NASNet"\]|ok|
+|gpt\-4o\-mini||Abstract: We showcase DGCNN, a dynamic graph convolutional network, which excels in learning graph\-structured data, boosting performance in network analysis tasks\.|\["DGCNN"\]|ok|
+|gpt\-4o\-mini||Abstract: With NoisyNet, our reinforcement learning tasks benefit from stochastic exploration policies, significantly refining decision\-making pathways\.|\["NoisyNet"\]|ok|
 |gemma2:9b|The output must be an array formatted with square brackets\.|Abstract: In this study, we present a new model called NeuralNetProf\.|\["NeuralNetProf"\]|ok|
 |gemma2:9b|The output must be an array formatted with square brackets\.|Abstract: We analyze the performance of ModelX against several benchmarks\.|\["ModelX"\] <br>\("ModelX" is mentioned twice in the provided abstracts\)|ok|
 |gemma2:9b|The output must be an array formatted with square brackets\.|Abstract: The study did not propose any new models\.|\[ "NA" \] <br><br>\[ "NA" \]|ok|
@@ -428,127 +549,6 @@ Abstract: {{input}}
 |llama3\.2:1b||Abstract: The newly presented NASNet automatically optimizes architecture search, providing crucial insights into evolving deep network configurations\.|\[NA\]|ok|
 |llama3\.2:1b||Abstract: We showcase DGCNN, a dynamic graph convolutional network, which excels in learning graph\-structured data, boosting performance in network analysis tasks\.|\\\[ "NA" \\\]<br><br>We did not find any model names mentioned in the abstract\.|ok|
 |llama3\.2:1b||Abstract: With NoisyNet, our reinforcement learning tasks benefit from stochastic exploration policies, significantly refining decision\-making pathways\.|Here are the model names extracted from the abstracts:<br><br>\['NoisyNet'\]|ok|
-|gpt\-4o\-mini|The output must be an array formatted with square brackets\.|Abstract: In this study, we present a new model called NeuralNetProf\.|\["NeuralNetProf"\]|ok|
-|gpt\-4o\-mini|The output must be an array formatted with square brackets\.|Abstract: We analyze the performance of ModelX against several benchmarks\.|\["ModelX"\]|ok|
-|gpt\-4o\-mini|The output must be an array formatted with square brackets\.|Abstract: The study did not propose any new models\.|\["NA"\]|ok|
-|gpt\-4o\-mini|Each model name extracted from the abstract must be enclosed within double quotation marks and must be comma\-separated within the array\.|Abstract: This paper introduces ModelA, ModelB, and ModelC for analysis\.|\["ModelA", "ModelB", "ModelC"\]|ok|
-|gpt\-4o\-mini|Each model name extracted from the abstract must be enclosed within double quotation marks and must be comma\-separated within the array\.|Abstract: A comparison between SuperNet and QuickLearner is conducted\.|\["SuperNet", "QuickLearner"\]|ok|
-|gpt\-4o\-mini|Each model name extracted from the abstract must be enclosed within double quotation marks and must be comma\-separated within the array\.|Abstract: Our proposed model, EfficientNet is compared with ResNet\.|\["EfficientNet", "ResNet"\]|ok|
-|gpt\-4o\-mini|If multiple model names are found, each must be individually enclosed in double quotation marks within the array\.|Abstract: The DeltaModel and GammaModel were tested for efficiency\.|\["DeltaModel", "GammaModel"\]|ok|
-|gpt\-4o\-mini|If multiple model names are found, each must be individually enclosed in double quotation marks within the array\.|Abstract: We introduce AlphaNet followed by BetaNet in our experiments\.|\["AlphaNet", "BetaNet"\]|ok|
-|gpt\-4o\-mini|If multiple model names are found, each must be individually enclosed in double quotation marks within the array\.|Abstract: Our prediction system, SmartPredictor, is an extension of TrendExtractor\.|\["SmartPredictor", "TrendExtractor"\]|ok|
-|gpt\-4o\-mini|If zero model names can be definitively identified in the abstract, the output must be \["NA"\]\.|Abstract: We did not explore any particular model in this research\.|\["NA"\]|ok|
-|gpt\-4o\-mini|If zero model names can be definitively identified in the abstract, the output must be \["NA"\]\.|Abstract: An in\-depth survey was conducted without introducing a new model\.|\["NA"\]|ok|
-|gpt\-4o\-mini|If zero model names can be definitively identified in the abstract, the output must be \["NA"\]\.|Abstract: Topics of machine learning and algorithms were discussed without a model\.|\["NA"\]|ok|
-|gpt\-4o\-mini|If the output is \["NA"\], it must be returned without any extra spaces or characters\.|Abstract: Our discussion focused on the theoretical model of computation\.|\["NA"\]|ok|
-|gpt\-4o\-mini|If the output is \["NA"\], it must be returned without any extra spaces or characters\.|Abstract: We reviewed existing models without adding new contributions\.|\["NA"\]|ok|
-|gpt\-4o\-mini|If the output is \["NA"\], it must be returned without any extra spaces or characters\.|Abstract: Models mentioned are common in literature, but none newly defined\.|\["NA"\]|ok|
-|gpt\-4o\-mini|The array must not contain any elements other than model names or "NA"\.|Abstract: Introduction of CaymanModel for deep learning task prediction\.|\["CaymanModel"\]|ok|
-|gpt\-4o\-mini|The array must not contain any elements other than model names or "NA"\.|Abstract: This work is based on framework XYZ with ModelWave\.|\["ModelWave"\]|ok|
-|gpt\-4o\-mini|The array must not contain any elements other than model names or "NA"\.|Abstract: Research involved developing NovoModel from existing concepts\.|\["NovoModel"\]|ok|
-|gpt\-4o\-mini|The response must not contain any explanatory text or additional information beyond the specified array of model names\.|Abstract: The architecture known as FlexModel was applied\.|\["FlexModel"\]|ok|
-|gpt\-4o\-mini|The response must not contain any explanatory text or additional information beyond the specified array of model names\.|Abstract: For benchmarking, we employed GalacticNet as an example\.|\["GalacticNet"\]|ok|
-|gpt\-4o\-mini|The response must not contain any explanatory text or additional information beyond the specified array of model names\.|Abstract: Here, we utilize EcoPredict for environmental estimations\.|\["EcoPredict"\]|ok|
-|gpt\-4o\-mini|The output must begin with an opening square bracket "\[" and end with a closing square bracket "\]"\.|Abstract: RainbowNet was found effective in our experiments\.|\["RainbowNet"\]|ok|
-|gpt\-4o\-mini|The output must begin with an opening square bracket "\[" and end with a closing square bracket "\]"\.|Abstract: Use of a model, StreamFlow, was highlighted\.|\["StreamFlow"\]|ok|
-|gpt\-4o\-mini|The output must begin with an opening square bracket "\[" and end with a closing square bracket "\]"\.|Abstract: Comparison of GraphiaNet with traditional methods\.|\["GraphiaNet"\]|ok|
-|gpt\-4o\-mini|All characters within the extracted model names must be exactly as they appear in the abstract, respecting case sensitivity\.|Abstract: The study focuses on enhancing SPEEDnet performance\.|\["SPEEDnet"\]|ok|
-|gpt\-4o\-mini|All characters within the extracted model names must be exactly as they appear in the abstract, respecting case sensitivity\.|Abstract: Improved AdaptNet was the goal of this research\.|\["Improved AdaptNet"\]|ok|
-|gpt\-4o\-mini|All characters within the extracted model names must be exactly as they appear in the abstract, respecting case sensitivity\.|Abstract: Analysis conducted using advanced SmartNet technology\.|\["SmartNet"\]|ok|
-|gpt\-4o\-mini|The array must not contain trailing or leading spaces inside the quotation marks enclosing each model name\.|Abstract: Features were tested using the BetaAnalyzer model\.|\["BetaAnalyzer"\]|ok|
-|gpt\-4o\-mini|The array must not contain trailing or leading spaces inside the quotation marks enclosing each model name\.|Abstract: Model called PlanIt was evaluated thoroughly\.|\["PlanIt"\]|ok|
-|gpt\-4o\-mini|The array must not contain trailing or leading spaces inside the quotation marks enclosing each model name\.|Abstract: Integration of SoftGenie was pivotal in results\.|\["SoftGenie"\]|ok|
-|gpt\-4o\-mini|\["The output must not be an array formatted with square brackets\."\]|Abstract: Dynamics of PerseveranceModel were examined\.|\["PerseveranceModel"\]|ok|
-|gpt\-4o\-mini|\["The output must not be an array formatted with square brackets\."\]|Abstract: Techniques using FloatNet as a primary tool had remarkable outcomes\.|\["FloatNet"\]|ok|
-|gpt\-4o\-mini|\["The output must not be an array formatted with square brackets\."\]|Abstract: Research highlights AutoDroid in automation tasks\.|\["AutoDroid"\]|ok|
-|gpt\-4o\-mini|\["Each model name extracted from the abstract must be without double quotation marks or any specific separator\."\]|Abstract: Our method involves TensorAid model\.|\["TensorAid"\]|ok|
-|gpt\-4o\-mini|\["Each model name extracted from the abstract must be without double quotation marks or any specific separator\."\]|Abstract: The focus was on QuickSynth for improvement\.|\["QuickSynth"\]|ok|
-|gpt\-4o\-mini|\["Each model name extracted from the abstract must be without double quotation marks or any specific separator\."\]|Abstract: TurboCore was central to our computing solution\.|\["TurboCore"\]|ok|
-|gpt\-4o\-mini|\["If multiple model names are found, each must not be individually enclosed in double quotation marks within any format\."\]|Abstract: Insights were gained using PrismModel and GeoGuard\.|\["PrismModel", "GeoGuard"\]|ok|
-|gpt\-4o\-mini|\["If multiple model names are found, each must not be individually enclosed in double quotation marks within any format\."\]|Abstract: Current application includes FlowX and StreamNull\.|\["FlowX", "StreamNull"\]|ok|
-|gpt\-4o\-mini|\["If multiple model names are found, each must not be individually enclosed in double quotation marks within any format\."\]|Abstract: Successful deployment of NetAlpha and BetaRack\.|\["NetAlpha", "BetaRack"\]|ok|
-|gpt\-4o\-mini|\["If zero model names can be definitively identified in the abstract, the output must not be \['NA'\]\."\]|Abstract: This survey did not conclude with new model propositions\.|\["NA"\]|ok|
-|gpt\-4o\-mini|\["If zero model names can be definitively identified in the abstract, the output must not be \['NA'\]\."\]|Abstract: Existing research was augmented without new model creation\.|\["NA"\]|ok|
-|gpt\-4o\-mini|\["If zero model names can be definitively identified in the abstract, the output must not be \['NA'\]\."\]|Abstract: Analysis was purely theoretical \- no model input\.|\["NA"\]|ok|
-|gpt\-4o\-mini|\["If the output is \['NA'\], it must be returned with extra spaces or characters\."\]|Abstract: Existing paradigms were re\-evaluated without model emergence\.|\["NA"\]|ok|
-|gpt\-4o\-mini|\["If the output is \['NA'\], it must be returned with extra spaces or characters\."\]|Abstract: Prior methods were examined, not extended with models\.|\["NA"\]|ok|
-|gpt\-4o\-mini|\["If the output is \['NA'\], it must be returned with extra spaces or characters\."\]|Abstract: We disregarded any direct modeling or its introduction\.|\["NA"\]|ok|
-|gpt\-4o\-mini|\["The array must contain elements other than model names or 'NA'\."\]|Abstract: Overview with AlphaBot, though unimplemented\.|\["AlphaBot"\]|ok|
-|gpt\-4o\-mini|\["The array must contain elements other than model names or 'NA'\."\]|Abstract: Study mentions microframework and HydroModel\.|\["HydroModel"\]|ok|
-|gpt\-4o\-mini|\["The array must contain elements other than model names or 'NA'\."\]|Abstract: Trial model SigmaNet was set against theoretical backdrop\.|\["SigmaNet"\]|ok|
-|gpt\-4o\-mini|\["The response must contain explanatory text or additional information beyond the specified array of model names\."\]|Abstract: With the employment of GreenNLP, results improved\.|\["GreenNLP"\]|ok|
-|gpt\-4o\-mini|\["The response must contain explanatory text or additional information beyond the specified array of model names\."\]|Abstract: Application of MetaLearn shows versatility\.|\["MetaLearn"\]|ok|
-|gpt\-4o\-mini|\["The response must contain explanatory text or additional information beyond the specified array of model names\."\]|Abstract: EcoSys creation demonstrates broader applications\.|\["NA"\]|ok|
-|gpt\-4o\-mini|\["The output must not begin with an opening square bracket '\[' and end with a closing square bracket '\]'\."\]|Abstract: Analysis utilizes CrystalModel innovation\.|\["CrystalModel"\]|ok|
-|gpt\-4o\-mini|\["The output must not begin with an opening square bracket '\[' and end with a closing square bracket '\]'\."\]|Abstract: Use of CodeNet has expanded possibilities\.|\["NA"\]|ok|
-|gpt\-4o\-mini|\["The output must not begin with an opening square bracket '\[' and end with a closing square bracket '\]'\."\]|Abstract: Experiments with PentaCore reveal insights\.|\["PentaCore"\]|ok|
-|gpt\-4o\-mini|\["All characters within the extracted model names must be modified from how they appear in the abstract, neglecting case sensitivity\."\]|Abstract: Efficient exchange is modeled within XPress\.|\["XPress"\]|ok|
-|gpt\-4o\-mini|\["All characters within the extracted model names must be modified from how they appear in the abstract, neglecting case sensitivity\."\]|Abstract: Invention names alphaTech as crucial\.|\["alphaTech"\]|ok|
-|gpt\-4o\-mini|\["All characters within the extracted model names must be modified from how they appear in the abstract, neglecting case sensitivity\."\]|Abstract: Understanding through RayNet in\-depth study\.|\["RayNet"\]|ok|
-|gpt\-4o\-mini|\["The array must contain trailing or leading spaces inside the quotation marks enclosing each model name\."\]|Abstract: Said important model is TestModel\.|\["TestModel"\]|ok|
-|gpt\-4o\-mini|\["The array must contain trailing or leading spaces inside the quotation marks enclosing each model name\."\]|Abstract: Validation pivoted on HyperBolt application\.|\["HyperBolt"\]|ok|
-|gpt\-4o\-mini|\["The array must contain trailing or leading spaces inside the quotation marks enclosing each model name\."\]|Abstract: PrismLayer components explored and stood out\.|\["PrismLayer"\]|ok|
-|gpt\-4o\-mini||Abstract: NeRF: Neural Radiance Fields for View Synthesis takes a 3D scene as input and optimizes a continuous volumetric scene function using a deep fully\-connected neural network\. Their results are known for their remarkable ability to synthesize novel views with high fidelity\.|\["NeRF"\]|ok|
-|gpt\-4o\-mini||Abstract: We present DeepLabV3, an improved semantic image segmentation model that uses atrous convolution and a simple yet effective deep neural network\.|\["DeepLabV3"\]|ok|
-|gpt\-4o\-mini||Abstract: The BERT model, a language representation model, has achieved state\-of\-the\-art results on a wide array of natural language processing tasks\.|\["BERT"\]|ok|
-|gpt\-4o\-mini||Abstract: In this paper, we introduce StyleGAN, a new model architecture that enables high\-resolution image generation\.|\["StyleGAN"\]|ok|
-|gpt\-4o\-mini||Abstract: Faster R\-CNN, known for its fast and accurate object detection capabilities, builds on R\-CNN and Fast R\-CNN models by introducing Region Proposal Networks\.|\["Faster R\-CNN", "R\-CNN", "Fast R\-CNN", "Region Proposal Networks"\]|ok|
-|gpt\-4o\-mini||Abstract: ResNet, with its innovative residual learning framework, significantly improves image classification performance\.|\["ResNet"\]|ok|
-|gpt\-4o\-mini||Abstract: We use the T5 model to transform every NLP problem into a text\-to\-text format, achieving high accuracy across multiple NLP tasks\.|\["T5"\]|ok|
-|gpt\-4o\-mini||Abstract: The GAN architecture we present overcomes mode collapse with novel techniques and produces high\-quality image generations consistently\.|\["GAN"\]|ok|
-|gpt\-4o\-mini||Abstract: Our proposal includes YOLOv3, a real\-time object detection system that achieves high accuracy by splitting the detection task into multiple bounding box predictions\.|\["YOLOv3"\]|ok|
-|gpt\-4o\-mini||Abstract: The AlexNet model made breakthroughs in deep learning for image classification by introducing deep Convolutional Networks to large\-scale data\.|\["AlexNet"\]|ok|
-|gpt\-4o\-mini||Abstract: We train Transformers, a new attention mechanism\-based architecture, for machine translation, significantly outperforming previous models\.|\["Transformers"\]|ok|
-|gpt\-4o\-mini||Abstract: RetinaNet introduces the focal loss, a novel loss function that helps deal with class imbalance when selecting object detection classes\.|\["RetinaNet"\]|ok|
-|gpt\-4o\-mini||Abstract: The LSTM networks have proved crucial in sequential data processing tasks due to their enhanced memory capabilities\.|\["LSTM"\]|err|
-|gpt\-4o\-mini||Abstract: Our system uses VGG16 architecture for detailed feature extraction in image classification and transfer learning tasks\.|\["VGG16"\]|ok|
-|gpt\-4o\-mini||Abstract: We propose a novel architecture called MobileNet that is designed for efficient mobile and embedded vision applications\.|\["MobileNet"\]|ok|
-|gpt\-4o\-mini||Abstract: The proposed DQN model enhances reinforcement learning through novel exploration\-exploitation strategies, achieving higher rewards in control tasks\.|\["DQN"\]|ok|
-|gpt\-4o\-mini||Abstract: The introduction of Bi\-LSTM in our experiments leads to significant improvements in sequence labeling tasks, particularly for named entity recognition\.|\["Bi\-LSTM"\]|ok|
-|gpt\-4o\-mini||Abstract: We employ Glove, a unique word representation model that captures global corpus statistics, in our experiments for better semantic similarity\.|\["Glove"\]|ok|
-|gpt\-4o\-mini||Abstract: In this study, we leverage the RFN \(Recurrent Forward Network\) for handling long dependency tasks in various sequential problems\.|\["RFN", "Recurrent Forward Network"\]|ok|
-|gpt\-4o\-mini||Abstract: Our architecture, EfficientNet, optimizes convolutional networks by systematically balancing network depth, width, and resolution\.|\["EfficientNet"\]|ok|
-|gpt\-4o\-mini||Abstract: AlphaZero, a new approach employing deep reinforcement learning, achieves mastery in chess, shogi, and Go without domain knowledge\.|\["AlphaZero"\]|ok|
-|gpt\-4o\-mini||Abstract: Ladder networks demonstrate improvements in semi\-supervised learning tasks by incorporating a regularization framework derived from deep learning principles\.|\["Ladder networks"\]|ok|
-|gpt\-4o\-mini||Abstract: Our findings with BART, a new sequence\-to\-sequence model, show state\-of\-the\-art results in text generation and comprehension tasks\.|\["BART"\]|ok|
-|gpt\-4o\-mini||Abstract: Introducing GPT\-3, an autoregressive language model, provides breakthroughs in conversational AI and understanding natural language instructions\.|\["GPT\-3"\]|ok|
-|gpt\-4o\-mini||Abstract: We propose SectorGAN to solve the challenges in financial data analysis, offering advancements in generative learning for market data synthesis\.|\["SectorGAN"\]|ok|
-|gpt\-4o\-mini||Abstract: The architecture of UNet proves effective for segmentation in biomedical images, enhancing precision and performance in various tasks\.|\["UNet"\]|ok|
-|gpt\-4o\-mini||Abstract: We employ InceptionV3 which integrates factorized convolutions to handle variations in image scale effectively during classification\.|\["InceptionV3"\]|ok|
-|gpt\-4o\-mini||Abstract: SparseAutoencoder, utilized in our research, shows improved dimensionality reduction and feature extraction efficiency in high\-dimensional data\.|\["SparseAutoencoder"\]|ok|
-|gpt\-4o\-mini||Abstract: By applying the NN\-Victor model for voice cloning, we manage to synthesize human\-like speech from small audio datasets binding quality with efficiency\.|\["NN\-Victor"\]|ok|
-|gpt\-4o\-mini||Abstract: Our BioBERT model, fine\-tuned for biomedicine and language processing, outperforms standard BERT in specialized biomedical corpora\.|\["BioBERT", "BERT"\]|ok|
-|gpt\-4o\-mini||Abstract: The proposed GraphSAGE model allows scalable computation of node embeddings for large\-scale graph datasets commonly encountered in network tasks\.|\["GraphSAGE"\]|ok|
-|gpt\-4o\-mini||Abstract: We use Pix2Pix, a conditional GAN model, to learn image\-to\-image translation mappings for various visual transformation tasks\.|\["Pix2Pix"\]|ok|
-|gpt\-4o\-mini||Abstract: Our new approach with Capsule Networks shows superior results in capturing spatial hierarchies, essential for accurate image recognition\.|\["Capsule Networks"\]|ok|
-|gpt\-4o\-mini||Abstract: With the use of Swin Transformer, our system achieves breakthroughs in vision tasks, particularly by focusing on hierarchical feature maps\.|\["Swin Transformer"\]|ok|
-|gpt\-4o\-mini||Abstract: Integrating a ProGAN platform, we address the challenges of stable, high\-quality image generation and refinement in complex tasks\.|\["ProGAN"\]|ok|
-|gpt\-4o\-mini||Abstract: HyperNetworks propose a unique parameter prediction mechanism enhancing deep neural network efficiency without compromising flexibility\.|\["HyperNetworks"\]|ok|
-|gpt\-4o\-mini||Abstract: We develop AlphaFold, an innovative model that predicts 3D protein structures with unprecedented accuracy, revolutionizing biological insights\.|\["AlphaFold"\]|ok|
-|gpt\-4o\-mini||Abstract: The use of Char\-RNN facilitates character\-level language modeling effectively, producing coherent text sequences with minimal data input\.|\["Char\-RNN"\]|ok|
-|gpt\-4o\-mini||Abstract: In our research, we explore ConvLSTM architecture for spatiotemporal data, advancing the field in predictive learning across time series\.|\["ConvLSTM"\]|ok|
-|gpt\-4o\-mini||Abstract: Applying the XLNet model vastly improves permutation\-based language modeling tasks, outperforming previous autoregressive techniques\.|\["XLNet"\]|ok|
-|gpt\-4o\-mini||Abstract: We utilize BokehNet in astrophotography, providing a novel approach to blur synthesis for enhancing spatial focus and visual detail\.|\["BokehNet"\]|ok|
-|gpt\-4o\-mini||Abstract: The development of CoVeR simplifies visual question answering tasks by introducing an interpretable neural retrieval mechanism\.|\["CoVeR"\]|ok|
-|gpt\-4o\-mini||Abstract: We propose DeepMoji for sentiment analysis, capturing the emotional tone of text using emoji\-based contextual signals\.|\["DeepMoji"\]|ok|
-|gpt\-4o\-mini||Abstract: Our study employs FQEncoder, a novel encoding mechanism, optimizing both speed and precision in quantum computation simulations\.|\["FQEncoder"\]|ok|
-|gpt\-4o\-mini||Abstract: In the implementation of LightGBM, we achieve fast, distributed, and efficient training of gradient boosting decision trees, critical for large datasets\.|\["LightGBM"\]|ok|
-|gpt\-4o\-mini||Abstract: The DE:Mixed model facilitates mixed\-input data scenarios, uniquely balancing modality\-specific contributions with innovative fusion mechanisms\.|\["DE:Mixed"\]|err|
-|gpt\-4o\-mini||Abstract: Our findings show that BigGAN is capable of unprecedented high\-resolution image generation, focusing on large\-scale GAN implementations\.|\["BigGAN"\]|ok|
-|gpt\-4o\-mini||Abstract: CycleGAN enables unpaired image\-to\-image translation by leveraging cycle consistency without explicit pairings, broadening generative tasks\.|\["CycleGAN"\]|ok|
-|gpt\-4o\-mini||Abstract: The introduction of Memory Networks in our study allows complex reasoning tasks, facilitating enhanced natural language understanding\.|\["Memory Networks"\]|ok|
-|gpt\-4o\-mini||Abstract: With EdgeSTORM, we tackle edge computing challenges by proposing novel architectures tailored for decentralized, real\-time data processing\.|\["EdgeSTORM"\]|ok|
-|gpt\-4o\-mini||Abstract: DRAGAN enhances GAN stability through unique gradient penalty mechanisms, effectively reducing noise and promoting image clarity\.|\["DRAGAN"\]|ok|
-|gpt\-4o\-mini||Abstract: Our newly designed Bio2Vec model captures detailed biological interactions, proving instrumental in biomedical data analysis\.|\["Bio2Vec"\]|ok|
-|gpt\-4o\-mini||Abstract: We explore the use of SimCLR, a self\-supervised learning framework, significantly advancing representation learning in computer vision tasks\.|\["SimCLR"\]|ok|
-|gpt\-4o\-mini||Abstract: Employing the HQRinNet in our project provides robust quaternion representations essential for precise 3D object registration and manipulation\.|\["HQRinNet"\]|ok|
-|gpt\-4o\-mini||Abstract: QuantGAN introduces quantum\-inspired tensor operations, driving innovations in data generation methodologies and optimization frameworks\.|\["QuantGAN"\]|ok|
-|gpt\-4o\-mini||Abstract: SparseTransformer, used in our experiments, enables efficient attention mechanism computations, especially over lengthy sequences\.|\["SparseTransformer"\]|ok|
-|gpt\-4o\-mini||Abstract: Our work on StableVIC extends VQ\-VAE architecture, offering stability and quality enhancements in discrete latent variable modeling\.|\["StableVIC", "VQ\-VAE"\]|ok|
-|gpt\-4o\-mini||Abstract: Leveraging MMNets, we establish improvements in multi\-modal data processing tasks, enhancing interoperability and learning efficiency\.|\["MMNets"\]|ok|
-|gpt\-4o\-mini||Abstract: The newly presented NASNet automatically optimizes architecture search, providing crucial insights into evolving deep network configurations\.|\["NASNet"\]|ok|
-|gpt\-4o\-mini||Abstract: We showcase DGCNN, a dynamic graph convolutional network, which excels in learning graph\-structured data, boosting performance in network analysis tasks\.|\["DGCNN"\]|ok|
-|gpt\-4o\-mini||Abstract: With NoisyNet, our reinforcement learning tasks benefit from stochastic exploration policies, significantly refining decision\-making pathways\.|\["NoisyNet"\]|ok|
 
 ### [intent.txt](./intent.txt)
 

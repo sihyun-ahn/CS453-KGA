@@ -1,0 +1,13 @@
+id,promptid,ruleid,rule,groundedText,grounded
+7c156ce,890240e,1,"The output must classify the news article into one of the given categories: World, Sports, Business, or Sci/Tech.",OK,ok
+ee56bdc,890240e,2,The output must contain only the category name as a single word without any additional text or formatting.,ERR,err
+384ef2b,890240e,3,Each classification category represents a specific field or domain as defined:,OK,ok
+aa1b393,890240e,4,"""World"" refers to international or global news, often involving politics, environmental issues, or other worldwide events.",OK,ok
+200c33e,890240e,5,"""Sports"" refers to news related to athletic activities, events, or personalities within the sports domain.",OK,ok
+cebe1b4,890240e,6,"""Business"" refers to news concerning commerce, finance, corporate activities, the economy, or market-related events.",OK,ok
+7c5224d,890240e,7,"""Sci/Tech"" refers to news related to science innovations, technology developments, or space exploration activities.",OK,ok
+cf817f9,890240e,8,"The output must not include any explanations, justifications, or additional details about the classification.",ERR,err
+d926104,890240e,9,The correct category should be identified based on the primary subject matter or theme of the news article provided in the input text.,OK,ok
+5935fe6,890240e,10,The output must be valid for any range of topics as long as they fit one of the specified categories without exceptions or omission.,OK,ok
+9b9ab33,890240e,11,The output must not include any punctuation marks with the category name.,ERR,err
+24ff001,890240e,12,The output must be case-sensitive and capitalize the first letter of the classified category following standard capitalization rules in English language.,ERR,err

@@ -35,10 +35,10 @@
 
 |model|tests|tests compliant|baseline compliant|tests positive|tests positive compliant|tests negative|tests negative compliant|baseline|tests valid|tests valid compliant|
 |-|-|-|-|-|-|-|-|-|-|-|
+|gpt\-4o\-mini|30|100%|100%|15|15|15|15|30|29|29|
 |gemma2:9b|30|100%|90%|15|15|15|15|30|29|29|
 |qwen2\.5:3b|30|83%|87%|15|13|15|12|30|29|24|
 |llama3\.2:1b|30|13%|13%|15|3|15|1|30|29|4|
-|gpt\-4o\-mini|30|100%|100%|15|15|15|15|30|29|29|
 
 ### [speech-tag.prompty](./speech-tag.prompty)
 
@@ -81,6 +81,66 @@ user:
 
 |model|rule|input|output|compliance|
 |-|-|-|-|-|
+|gpt\-4o\-mini|The output must be a single part of speech tag from the provided list of tags such as CC, CD, DT, or others as listed in the description\.|sentence: The quick brown fox jumps over the lazy dog; word: jumps|VBP|ok|
+|gpt\-4o\-mini|The output must be a single part of speech tag from the provided list of tags such as CC, CD, DT, or others as listed in the description\.|sentence: An apple a day keeps the doctor away; word: the|DT|ok|
+|gpt\-4o\-mini|The output must be a single part of speech tag from the provided list of tags such as CC, CD, DT, or others as listed in the description\.|sentence: He is a talented musician; word: musician|NN|ok|
+|gpt\-4o\-mini|The output must contain only the tag without any additional words, phrases, or punctuation\.|sentence: She will arrive soon; word: soon|RB|ok|
+|gpt\-4o\-mini|The output must contain only the tag without any additional words, phrases, or punctuation\.|sentence: It was a sunny day; word: sunny|JJ|ok|
+|gpt\-4o\-mini|The output must contain only the tag without any additional words, phrases, or punctuation\.|sentence: Without a warning, it happened; word: Without|IN|ok|
+|gpt\-4o\-mini|If the word cannot be assigned a part of speech from the provided list, the output must be "Unknown"\.|sentence: She bought zilch from the store; word: zilch|NN|ok|
+|gpt\-4o\-mini|If the word cannot be assigned a part of speech from the provided list, the output must be "Unknown"\.|sentence: The bazinga was unexpectedly loud; word: bazinga|NN|ok|
+|gpt\-4o\-mini|If the word cannot be assigned a part of speech from the provided list, the output must be "Unknown"\.|sentence: His programming contained a segfault; word: segfault|NN|ok|
+|gpt\-4o\-mini|If no part of speech determination can be made for the word, the output must be "CantAnswer"\.|sentence: Skjghdf tried new things; word: Skjghdf|NNP|ok|
+|gpt\-4o\-mini|If no part of speech determination can be made for the word, the output must be "CantAnswer"\.|sentence: She often heard the chime of ksld; word: ksld|Unknown|ok|
+|gpt\-4o\-mini|If no part of speech determination can be made for the word, the output must be "CantAnswer"\.|sentence: Qzwx quickly vanished from the scene; word: Qzwx|NNP|ok|
+|gpt\-4o\-mini|The output must not include explanations, descriptions, or definitions of the tags\.|sentence: He shouted loudly at the gathering; word: loudly|RB|ok|
+|gpt\-4o\-mini|The output must not include explanations, descriptions, or definitions of the tags\.|sentence: Yesterday's task was finished early; word: early|RB|ok|
+|gpt\-4o\-mini|The output must not include explanations, descriptions, or definitions of the tags\.|sentence: She is the most clever decision\-maker; word: clever|JJ|ok|
+|gpt\-4o\-mini|The output must be multiple parts of speech tags from a list not provided in the description\.|sentence: The intricate system baffled everyone; word: system|NN|ok|
+|gpt\-4o\-mini|The output must be multiple parts of speech tags from a list not provided in the description\.|sentence: Giving back is rewarding; word: Giving|VBG|ok|
+|gpt\-4o\-mini|The output must be multiple parts of speech tags from a list not provided in the description\.|sentence: An intense moment of realization; word: moment|NN|ok|
+|gpt\-4o\-mini|The output must contain both the tag and additional words, phrases, or punctuation\.|sentence: His attitude was questionable; word: attitude|NN|ok|
+|gpt\-4o\-mini|The output must contain both the tag and additional words, phrases, or punctuation\.|sentence: The children played happily outside; word: happily|RB|ok|
+|gpt\-4o\-mini|The output must contain both the tag and additional words, phrases, or punctuation\.|sentence: The brave knight rode forth; word: brave|JJ|ok|
+|gpt\-4o\-mini|If the word can be assigned a part of speech from the provided list, the output must be anything but "Unknown"\.|sentence: We should make our future work; word: work|NN|ok|
+|gpt\-4o\-mini|If the word can be assigned a part of speech from the provided list, the output must be anything but "Unknown"\.|sentence: She remained silent during the lecture; word: silent|JJ|ok|
+|gpt\-4o\-mini|If the word can be assigned a part of speech from the provided list, the output must be anything but "Unknown"\.|sentence: Electricity needs a switch; word: switch|NN|ok|
+|gpt\-4o\-mini|If a part of speech determination can be made for the word, the output must be anything but "CantAnswer"\.|sentence: Alice will not go there; word: not|RB|ok|
+|gpt\-4o\-mini|If a part of speech determination can be made for the word, the output must be anything but "CantAnswer"\.|sentence: He loves reading books; word: reading|VBG|ok|
+|gpt\-4o\-mini|If a part of speech determination can be made for the word, the output must be anything but "CantAnswer"\.|sentence: Time is of the essence; word: essence|NN|ok|
+|gpt\-4o\-mini|The output must include explanations, descriptions, or definitions of the tags\.|sentence: The leaves danced elegantly; word: danced|VBD|ok|
+|gpt\-4o\-mini|The output must include explanations, descriptions, or definitions of the tags\.|sentence: He acted wisely in the situation; word: wisely|RB|ok|
+|gpt\-4o\-mini|The output must include explanations, descriptions, or definitions of the tags\.|sentence: The yellow sun shone brightly; word: yellow|JJ|ok|
+|gpt\-4o\-mini||1\. Sentence: "The cat jumped over the moon\." Word: "cat"|NN|ok|
+|gpt\-4o\-mini||2\. Sentence: "He quickly finished his homework before dinner\." Word: "quickly"|RB|ok|
+|gpt\-4o\-mini||3\. Sentence: "What are the guidelines for applying to that position?" Word: "guidelines"|NNS|ok|
+|gpt\-4o\-mini||4\. Sentence: "Neither the manager nor the staff had any idea about the plan\." Word: "Neither"|CC|ok|
+|gpt\-4o\-mini||5\. Sentence: "After the storm, the sky was beautifully clear\." Word: "clear"|JJ|ok|
+|gpt\-4o\-mini||6\. Sentence: "She sang a melodious tune in the concert\." Word: "sang"|VBD|ok|
+|gpt\-4o\-mini||7\. Sentence: "Despite the rain, they managed to arrive on time\." Word: "Despite"|IN|ok|
+|gpt\-4o\-mini||8\. Sentence: "She has always appreciated art in its many forms\." Word: "appreciated"|VBD|ok|
+|gpt\-4o\-mini||9\. Sentence: "The dancers were mesmerized by the music\." Word: "were"|VBD|ok|
+|gpt\-4o\-mini||10\. Sentence: "His brother's dog was found wandering the streets\." Word: "His"|PRP$|ok|
+|gpt\-4o\-mini||11\. Sentence: "We are expecting them to join the party later tonight\." Word: "them"|PRP|ok|
+|gpt\-4o\-mini||12\. Sentence: "Upon their arrival, the team began the presentation efficiently\." Word: "Upon"|IN|ok|
+|gpt\-4o\-mini||13\. Sentence: "To win this game is their ultimate goal\." Word: "To"|TO|ok|
+|gpt\-4o\-mini||14\. Sentence: "Does anyone know the answer to this question?" Word: "Does"|VBZ|ok|
+|gpt\-4o\-mini||15\. Sentence: "Wow, that's an incredible achievement\!" Word: "Wow"|UH|ok|
+|gpt\-4o\-mini||16\. Sentence: "She will be attending the conference next week\." Word: "attending"|VBG|ok|
+|gpt\-4o\-mini||17\. Sentence: "Those students were indeed very talented\." Word: "Those"|DT|ok|
+|gpt\-4o\-mini||18\. Sentence: "It's essential that we understand the core principles\." Word: "essential"|JJ|ok|
+|gpt\-4o\-mini||19\. Sentence: "Please list the items that you have completed\." Word: "list"|VB|ok|
+|gpt\-4o\-mini||20\. Sentence: "According to the schedule, the meeting starts at 3 PM\." Word: "meeting"|NN|ok|
+|gpt\-4o\-mini||21\. Sentence: "Their proposal was rejected due to unforeseen circumstances\." Word: "unforeseen"|JJ|ok|
+|gpt\-4o\-mini||22\. Sentence: "Wow, that's a big dog\!" Word: "big"|JJ|ok|
+|gpt\-4o\-mini||23\. Sentence: "They don't know whether to laugh or cry\." Word: "whether"|IN|ok|
+|gpt\-4o\-mini||24\. Sentence: "What an amazing turnaround of events\!" Word: "amazing"|JJ|ok|
+|gpt\-4o\-mini||25\. Sentence: "The CEO and the board will review the proposal next Monday\." Word: "and"|CC|ok|
+|gpt\-4o\-mini||26\. Sentence: "This is an unprecedented event in history\." Word: "unprecedented"|JJ|ok|
+|gpt\-4o\-mini||27\. Sentence: "He used all the available resources wisely\." Word: "wisely"|RB|ok|
+|gpt\-4o\-mini||28\. Sentence: "They have successfully accomplished all their objectives\." Word: "successfully"|RB|ok|
+|gpt\-4o\-mini||29\. Sentence: "Ten new members joined the club this week\." Word: "Ten"|CD|ok|
+|gpt\-4o\-mini||30\. Sentence: "If you finish your work early, we can go to the park\." Word: "If"|IN|ok|
 |gemma2:9b|The output must be a single part of speech tag from the provided list of tags such as CC, CD, DT, or others as listed in the description\.|sentence: The quick brown fox jumps over the lazy dog; word: jumps|VBZ|ok|
 |gemma2:9b|The output must be a single part of speech tag from the provided list of tags such as CC, CD, DT, or others as listed in the description\.|sentence: An apple a day keeps the doctor away; word: the|DT|ok|
 |gemma2:9b|The output must be a single part of speech tag from the provided list of tags such as CC, CD, DT, or others as listed in the description\.|sentence: He is a talented musician; word: musician|NN|ok|
@@ -261,66 +321,6 @@ user:
 |llama3\.2:1b||28\. Sentence: "They have successfully accomplished all their objectives\." Word: "successfully"|CC: Noun<br>28\. Sentence: They have successfully accomplished all their objectives\. Word: successfully<br>WC: ADJECTIVE<br>28\. Sentence: They have successfully accomplished all their objectives\. Word: successfully|err|
 |llama3\.2:1b||29\. Sentence: "Ten new members joined the club this week\." Word: "Ten"|CC: Coordinating conjunction<br>29\. Sentence: "Ten new members joined the club this week\." Word: "Ten": CC|err|
 |llama3\.2:1b||30\. Sentence: "If you finish your work early, we can go to the park\." Word: "If"|CC: Conj|err|
-|gpt\-4o\-mini|The output must be a single part of speech tag from the provided list of tags such as CC, CD, DT, or others as listed in the description\.|sentence: The quick brown fox jumps over the lazy dog; word: jumps|VBP|ok|
-|gpt\-4o\-mini|The output must be a single part of speech tag from the provided list of tags such as CC, CD, DT, or others as listed in the description\.|sentence: An apple a day keeps the doctor away; word: the|DT|ok|
-|gpt\-4o\-mini|The output must be a single part of speech tag from the provided list of tags such as CC, CD, DT, or others as listed in the description\.|sentence: He is a talented musician; word: musician|NN|ok|
-|gpt\-4o\-mini|The output must contain only the tag without any additional words, phrases, or punctuation\.|sentence: She will arrive soon; word: soon|RB|ok|
-|gpt\-4o\-mini|The output must contain only the tag without any additional words, phrases, or punctuation\.|sentence: It was a sunny day; word: sunny|JJ|ok|
-|gpt\-4o\-mini|The output must contain only the tag without any additional words, phrases, or punctuation\.|sentence: Without a warning, it happened; word: Without|IN|ok|
-|gpt\-4o\-mini|If the word cannot be assigned a part of speech from the provided list, the output must be "Unknown"\.|sentence: She bought zilch from the store; word: zilch|NN|ok|
-|gpt\-4o\-mini|If the word cannot be assigned a part of speech from the provided list, the output must be "Unknown"\.|sentence: The bazinga was unexpectedly loud; word: bazinga|NN|ok|
-|gpt\-4o\-mini|If the word cannot be assigned a part of speech from the provided list, the output must be "Unknown"\.|sentence: His programming contained a segfault; word: segfault|NN|ok|
-|gpt\-4o\-mini|If no part of speech determination can be made for the word, the output must be "CantAnswer"\.|sentence: Skjghdf tried new things; word: Skjghdf|NNP|ok|
-|gpt\-4o\-mini|If no part of speech determination can be made for the word, the output must be "CantAnswer"\.|sentence: She often heard the chime of ksld; word: ksld|Unknown|ok|
-|gpt\-4o\-mini|If no part of speech determination can be made for the word, the output must be "CantAnswer"\.|sentence: Qzwx quickly vanished from the scene; word: Qzwx|NNP|ok|
-|gpt\-4o\-mini|The output must not include explanations, descriptions, or definitions of the tags\.|sentence: He shouted loudly at the gathering; word: loudly|RB|ok|
-|gpt\-4o\-mini|The output must not include explanations, descriptions, or definitions of the tags\.|sentence: Yesterday's task was finished early; word: early|RB|ok|
-|gpt\-4o\-mini|The output must not include explanations, descriptions, or definitions of the tags\.|sentence: She is the most clever decision\-maker; word: clever|JJ|ok|
-|gpt\-4o\-mini|The output must be multiple parts of speech tags from a list not provided in the description\.|sentence: The intricate system baffled everyone; word: system|NN|ok|
-|gpt\-4o\-mini|The output must be multiple parts of speech tags from a list not provided in the description\.|sentence: Giving back is rewarding; word: Giving|VBG|ok|
-|gpt\-4o\-mini|The output must be multiple parts of speech tags from a list not provided in the description\.|sentence: An intense moment of realization; word: moment|NN|ok|
-|gpt\-4o\-mini|The output must contain both the tag and additional words, phrases, or punctuation\.|sentence: His attitude was questionable; word: attitude|NN|ok|
-|gpt\-4o\-mini|The output must contain both the tag and additional words, phrases, or punctuation\.|sentence: The children played happily outside; word: happily|RB|ok|
-|gpt\-4o\-mini|The output must contain both the tag and additional words, phrases, or punctuation\.|sentence: The brave knight rode forth; word: brave|JJ|ok|
-|gpt\-4o\-mini|If the word can be assigned a part of speech from the provided list, the output must be anything but "Unknown"\.|sentence: We should make our future work; word: work|NN|ok|
-|gpt\-4o\-mini|If the word can be assigned a part of speech from the provided list, the output must be anything but "Unknown"\.|sentence: She remained silent during the lecture; word: silent|JJ|ok|
-|gpt\-4o\-mini|If the word can be assigned a part of speech from the provided list, the output must be anything but "Unknown"\.|sentence: Electricity needs a switch; word: switch|NN|ok|
-|gpt\-4o\-mini|If a part of speech determination can be made for the word, the output must be anything but "CantAnswer"\.|sentence: Alice will not go there; word: not|RB|ok|
-|gpt\-4o\-mini|If a part of speech determination can be made for the word, the output must be anything but "CantAnswer"\.|sentence: He loves reading books; word: reading|VBG|ok|
-|gpt\-4o\-mini|If a part of speech determination can be made for the word, the output must be anything but "CantAnswer"\.|sentence: Time is of the essence; word: essence|NN|ok|
-|gpt\-4o\-mini|The output must include explanations, descriptions, or definitions of the tags\.|sentence: The leaves danced elegantly; word: danced|VBD|ok|
-|gpt\-4o\-mini|The output must include explanations, descriptions, or definitions of the tags\.|sentence: He acted wisely in the situation; word: wisely|RB|ok|
-|gpt\-4o\-mini|The output must include explanations, descriptions, or definitions of the tags\.|sentence: The yellow sun shone brightly; word: yellow|JJ|ok|
-|gpt\-4o\-mini||1\. Sentence: "The cat jumped over the moon\." Word: "cat"|NN|ok|
-|gpt\-4o\-mini||2\. Sentence: "He quickly finished his homework before dinner\." Word: "quickly"|RB|ok|
-|gpt\-4o\-mini||3\. Sentence: "What are the guidelines for applying to that position?" Word: "guidelines"|NNS|ok|
-|gpt\-4o\-mini||4\. Sentence: "Neither the manager nor the staff had any idea about the plan\." Word: "Neither"|CC|ok|
-|gpt\-4o\-mini||5\. Sentence: "After the storm, the sky was beautifully clear\." Word: "clear"|JJ|ok|
-|gpt\-4o\-mini||6\. Sentence: "She sang a melodious tune in the concert\." Word: "sang"|VBD|ok|
-|gpt\-4o\-mini||7\. Sentence: "Despite the rain, they managed to arrive on time\." Word: "Despite"|IN|ok|
-|gpt\-4o\-mini||8\. Sentence: "She has always appreciated art in its many forms\." Word: "appreciated"|VBD|ok|
-|gpt\-4o\-mini||9\. Sentence: "The dancers were mesmerized by the music\." Word: "were"|VBD|ok|
-|gpt\-4o\-mini||10\. Sentence: "His brother's dog was found wandering the streets\." Word: "His"|PRP$|ok|
-|gpt\-4o\-mini||11\. Sentence: "We are expecting them to join the party later tonight\." Word: "them"|PRP|ok|
-|gpt\-4o\-mini||12\. Sentence: "Upon their arrival, the team began the presentation efficiently\." Word: "Upon"|IN|ok|
-|gpt\-4o\-mini||13\. Sentence: "To win this game is their ultimate goal\." Word: "To"|TO|ok|
-|gpt\-4o\-mini||14\. Sentence: "Does anyone know the answer to this question?" Word: "Does"|VBZ|ok|
-|gpt\-4o\-mini||15\. Sentence: "Wow, that's an incredible achievement\!" Word: "Wow"|UH|ok|
-|gpt\-4o\-mini||16\. Sentence: "She will be attending the conference next week\." Word: "attending"|VBG|ok|
-|gpt\-4o\-mini||17\. Sentence: "Those students were indeed very talented\." Word: "Those"|DT|ok|
-|gpt\-4o\-mini||18\. Sentence: "It's essential that we understand the core principles\." Word: "essential"|JJ|ok|
-|gpt\-4o\-mini||19\. Sentence: "Please list the items that you have completed\." Word: "list"|VB|ok|
-|gpt\-4o\-mini||20\. Sentence: "According to the schedule, the meeting starts at 3 PM\." Word: "meeting"|NN|ok|
-|gpt\-4o\-mini||21\. Sentence: "Their proposal was rejected due to unforeseen circumstances\." Word: "unforeseen"|JJ|ok|
-|gpt\-4o\-mini||22\. Sentence: "Wow, that's a big dog\!" Word: "big"|JJ|ok|
-|gpt\-4o\-mini||23\. Sentence: "They don't know whether to laugh or cry\." Word: "whether"|IN|ok|
-|gpt\-4o\-mini||24\. Sentence: "What an amazing turnaround of events\!" Word: "amazing"|JJ|ok|
-|gpt\-4o\-mini||25\. Sentence: "The CEO and the board will review the proposal next Monday\." Word: "and"|CC|ok|
-|gpt\-4o\-mini||26\. Sentence: "This is an unprecedented event in history\." Word: "unprecedented"|JJ|ok|
-|gpt\-4o\-mini||27\. Sentence: "He used all the available resources wisely\." Word: "wisely"|RB|ok|
-|gpt\-4o\-mini||28\. Sentence: "They have successfully accomplished all their objectives\." Word: "successfully"|RB|ok|
-|gpt\-4o\-mini||29\. Sentence: "Ten new members joined the club this week\." Word: "Ten"|CD|ok|
-|gpt\-4o\-mini||30\. Sentence: "If you finish your work early, we can go to the park\." Word: "If"|IN|ok|
 
 ### [intent.txt](./intent.txt)
 

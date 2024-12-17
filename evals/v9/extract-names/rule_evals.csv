@@ -1,11 +1,11 @@
-id,promptid,ruleid,rule,groundedText,grounded,error
-642a7b1,a253756,1,The output must be an array formatted with square brackets.,OK,ok,
-324142e,a253756,2,Each model name extracted from the abstract must be enclosed within double quotation marks and must be comma-separated within the array.,OK,ok,
-aa10309,a253756,3,"If multiple model names are found, each must be individually enclosed in double quotation marks within the array.",OK,ok,
-9214955,a253756,4,"If zero model names can be definitively identified in the abstract, the output must be [""NA""].",OK,ok,
-6cf1a04,a253756,5,"If the output is [""NA""], it must be returned without any extra spaces or characters.",ERR,err,
-f2a344a,a253756,6,"The array must not contain any elements other than model names or ""NA"".",OK,ok,
-006904a,a253756,7,The response must not contain any explanatory text or additional information beyond the specified array of model names.,OK,ok,
-fd2f3e5,a253756,8,"The output must begin with an opening square bracket ""["" and end with a closing square bracket ""]"".",OK,ok,
-5aefe1b,a253756,9,"All characters within the extracted model names must be exactly as they appear in the abstract, respecting case sensitivity.",ERR,err,
-6e831d4,a253756,10,The array must not contain trailing or leading spaces inside the quotation marks enclosing each model name.,ERR,err,
+id,promptid,ruleid,rule,groundedText,grounded
+642a7b1,a253756,1,The output must be an array formatted with square brackets.,OK,ok
+324142e,a253756,2,Each model name extracted from the abstract must be enclosed within double quotation marks and must be comma-separated within the array.,OK,ok
+aa10309,a253756,3,"If multiple model names are found, each must be individually enclosed in double quotation marks within the array.",OK,ok
+9214955,a253756,4,"If zero model names can be definitively identified in the abstract, the output must be [""NA""].",OK,ok
+6cf1a04,a253756,5,"If the output is [""NA""], it must be returned without any extra spaces or characters.",ERR,err
+f2a344a,a253756,6,"The array must not contain any elements other than model names or ""NA"".",OK,ok
+006904a,a253756,7,The response must not contain any explanatory text or additional information beyond the specified array of model names.,OK,ok
+fd2f3e5,a253756,8,"The output must begin with an opening square bracket ""["" and end with a closing square bracket ""]"".",OK,ok
+5aefe1b,a253756,9,"All characters within the extracted model names must be exactly as they appear in the abstract, respecting case sensitivity.",ERR,err
+6e831d4,a253756,10,The array must not contain trailing or leading spaces inside the quotation marks enclosing each model name.,ERR,err
