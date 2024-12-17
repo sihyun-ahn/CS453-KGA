@@ -1,0 +1,13 @@
+{
+  "id": "3cbe1d5",
+  "promptid": "b70fdc4",
+  "model": "gpt-4o-2024-08-06",
+  "ruleid": 1,
+  "rule": "The output must be an HTML formatted text.",
+  "input": "Learning never stops. Growth is continuous. Knowledge is power!",
+  "validityText": "The input is a paragraph of text containing more than one sentence. It contains three separate sentences: \"Learning never stops.\", \"Growth is continuous.\", and \"Knowledge is power!\". It uses a combination of letters and punctuation. Furthermore, the input text does not consist solely of whitespace characters, as it contains meaningful text. Therefore, the input complies with the input specification.\n\nOK",
+  "validity": "ok",
+  "coverageText": "```html\n<p><em>Learning</em> <strong>never</strong> stops.</p>\n<p><strong>Growth</strong> is <em>continuous</em>.</p>\n<p><em>Knowledge</em> is <strong>power</strong>!</p>\n```",
+  "coverageEvalText": "The chatbot's output complies with the description provided. \n\n- **Three <p> Tags**: The output includes exactly three `<p>` tags, one for each sentence, which satisfies the requirement that the formatted text should have at least three `<p>` tags. \n\n- **Use of <strong> Tag**: Each `<p>` tag contains one `<strong>` tag to emphasize key words or phrases. In the first sentence, \"never\" is wrapped in a `<strong>` tag. In the second sentence, \"Growth\" is inside a `<strong>` tag. In the third sentence, \"power\" is wrapped in a `<strong>` tag.\n\n- **Use of <em> Tags**: The output also features `<em>` tags highlighting keywords and phrases. The word \"Learning\" in the first sentence, \"continuous\" in the second sentence, and \"Knowledge\" in the third sentence are all emphasized with `<em>` tags. Each `<p>` tag contains multiple `<em>` tags across the sentences collectively.\n\nTherefore, the output aligns with the chatbot's task description to format sentences with proper HTML tags, including `<p>`, `<strong>`, and `<em>`.\n\nOK",
+  "coverage": "ok"
+}

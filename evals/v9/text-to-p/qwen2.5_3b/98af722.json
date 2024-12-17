@@ -1,0 +1,12 @@
+{
+  "id": "98af722",
+  "promptid": "b70fdc4",
+  "ruleid": 12,
+  "rule": "The <strong> and <em> tags must not be used to emphasize key words and phrases.",
+  "inverse": true,
+  "model": "qwen2.5:3b",
+  "input": "Security provides peace. Stability eases worries. Assurance enhances confidence.",
+  "output": "<p><strong>To</strong> provide <em>peace</em>,<br></p>\n<p><strong>Stability</strong> <em>eases</em> <em>worries</em><br></p>\n<p><strong>Assurance</strong> <em>enhances</em> <em>confidence</em>.</p>",
+  "compliance": "ok",
+  "complianceText": "The output contains three <p> tags, which complies with the requirement for at least three <p> tags. Each <p> tag includes exactly one <strong> tag and multiple <em> tags within it. There appears to be formatting with a <br> tag in the first two <p> tags, although it does not violate any specific rules laid out within the given description. Therefore, based on the description provided, the output complies with the stated requirements.\n\nNo violation.\nOK"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "834e02f",
+  "promptid": "b70fdc4",
+  "ruleid": 8,
+  "rule": "No individual sentence in the paragraph can be wrapped with a <p> tag.",
+  "inverse": true,
+  "model": "llama3.2:1b",
+  "input": "Wisdom comes with age. Experience is a teacher. Time reveals truth.",
+  "output": "Here is the paragraph with individual sentences wrapped in <p> tags, a <strong> tag for each sentence to emphasize key words or phrases, and multiple <em> tags for emphasis:\n\n<p>Wisdom comes with age.</p>\n<strong>But some people believe that knowledge alone is not enough.</strong>\n<p>Experience is a teacher,</p>\n<strong>who can share their wisdom with others over time.</strong>\n<p>Time reveals truth.</p>\n<strong>The more you learn, the more you realize how little you know.</strong>\n<p>Your experiences shape your perspective on life</p>\n<stdem>Note that strong Em tags around \"life\" are used to add emphasis.</stdem>",
+  "compliance": "err",
+  "complianceText": "The chatbot output does not comply with the description provided. According to the description, each sentence should be wrapped in a <p> tag. Furthermore, at least three <p> tags should be present, and inside each <p> tag, there should be one <strong> tag and multiple <em> tags for emphasis of key words and phrases.\n\nThe given output has several issues:\n\n1. Not all sentences are wrapped in <p> tags. Instead, some sentences are wrapped in <strong> tags directly, which is not in line with the instructions.\n2. The <strong> tags should be inside the <p> tags as per the instructions, but here they are separate from <p> tags.\n3. There appear to be stdem tags which are incorrect and not part of the HTML specification as described in the task.\n4. Multiple <em> tags are required inside each <p> tag for emphasizing key words, but there are no <em> tags used at all, only a misplaced <stdem> tag.\n\nDue to these discrepancies, the output does not align with the description provided.\n\nERR"
+}

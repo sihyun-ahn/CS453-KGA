@@ -1,0 +1,14 @@
+{
+  "id": "06d2f72",
+  "promptid": "b70fdc4",
+  "model": "gpt-4o-2024-08-06",
+  "ruleid": 12,
+  "rule": "The <strong> and <em> tags must not be used to emphasize key words and phrases.",
+  "inverse": true,
+  "input": "Hope fuels dreams. Vision leads to achievement. Aspirations guide actions.",
+  "validityText": "The input consists of three separate sentences: \"Hope fuels dreams.\", \"Vision leads to achievement.\", and \"Aspirations guide actions.\". This complies with the requirement that the input text must contain at least three separate sentences. The input is a paragraph of text and does not consist solely of whitespace characters. It includes a combination of letters and punctuation, but the specification allows for any combination of letters, numbers, symbols, and punctuation. Therefore, the input satisfies all parts of the specification.\n\nOK",
+  "validity": "ok",
+  "coverageText": "```html\n<p><strong>Hope</strong> fuels <em>dreams</em>.</p>\n<p><strong>Vision</strong> leads to <em>achievement</em>.</p>\n<p><strong>Aspirations</strong> guide <em>actions</em>.</p>\n```",
+  "coverageEvalText": "The chatbot output consists of three HTML paragraphs, each enclosed within `<p>` tags as required. Each paragraph contains one `<strong>` tag and multiple `<em>` tags, which comply with the guideline to emphasize key words or phrases. The description mandates that there should be at least three `<p>` tags, and this condition is satisfied by the three `<p>` tags present in the output. All requirements stated in the chatbot description that can be checked without knowing the input have been met.\n\nNo violation.\nOK",
+  "coverage": "ok"
+}

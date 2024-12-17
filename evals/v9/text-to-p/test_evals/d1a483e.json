@@ -1,0 +1,14 @@
+{
+  "id": "d1a483e",
+  "promptid": "b70fdc4",
+  "model": "gpt-4o-2024-08-06",
+  "ruleid": 10,
+  "rule": "Within each <p> tag, there must be no <strong> tag used.",
+  "inverse": true,
+  "input": "Truth is unwavering. Integrity stands firm. Honor holds weight.",
+  "validityText": "The given input is a paragraph of text. It contains at least three separate sentences: \"Truth is unwavering.\", \"Integrity stands firm.\", and \"Honor holds weight.\". These sentences are distinct and are each terminated by a period. The input includes letters, punctuation, and does not consist solely of whitespace characters. Therefore, the input complies with all the conditions set out in the input specification.\n\nNo violation.\nOK",
+  "validity": "ok",
+  "coverageText": "```html\n<p><strong>Truth</strong> is <em>unwavering</em>.</p>\n<p><strong>Integrity</strong> <em>stands</em> firm.</p>\n<p><strong>Honor</strong> holds <em>weight</em>.</p>\n```",
+  "coverageEvalText": "The chatbot's output contains three `<p>` tags, which complies with the requirement of having at least three `<p>` tags. Inside each `<p>` tag, there is one `<strong>` tag and multiple `<em>` tags. Each sentence is wrapped in a separate `<p>` tag, there is one `<strong>` tag per `<p>` tag, and there are `<em>` tags emphasizing key words or phrases. \n\nNo violation.\n\nOK",
+  "coverage": "ok"
+}

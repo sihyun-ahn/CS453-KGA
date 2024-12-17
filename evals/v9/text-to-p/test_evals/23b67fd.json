@@ -1,0 +1,14 @@
+{
+  "id": "23b67fd",
+  "promptid": "b70fdc4",
+  "model": "gpt-4o-2024-08-06",
+  "ruleid": 11,
+  "rule": "Within each <p> tag, the use of <em> tags is not allowed.",
+  "inverse": true,
+  "input": "Purpose gives meaning. Direction sets a course. Journey defines experience.",
+  "validityText": "The input is a paragraph of text. It contains three separate sentences: \"Purpose gives meaning.\", \"Direction sets a course.\", and \"Journey defines experience.\". The sentences are separated by periods, which are punctuation marks. The text does not consist solely of whitespace characters.\n\nSince the input includes at least three separate sentences and is not solely made up of whitespace, it complies with the input specification.\n\nOK",
+  "validity": "ok",
+  "coverageText": "```html\n<p><strong>Purpose</strong> gives <em>meaning</em> and <em>clarity</em>.</p>\n<p><strong>Direction</strong> sets a <em>course</em> and guides the <em>path</em>.</p>\n<p><strong>Journey</strong> defines the <em>experience</em> and shapes the <em>outcome</em>.</p>\n```",
+  "coverageEvalText": "The chatbot's output consists of three distinct sentences, each wrapped in a <p> tag, thus ensuring adherence to the requirement for at least three <p> tags. Each <p> tag contains one <strong> tag, which highlights a specific word, aligning with the requirement to add one <strong> tag per sentence. Additionally, there are multiple <em> tags present within each <p> tag, which serve to emphasize key words and phrases effectively. Given these observations, the output complies fully with the requirements set forth in the description, taking into consideration the aspects that do not require knowledge of the input text. \n\nNo violation.\nOK",
+  "coverage": "ok"
+}

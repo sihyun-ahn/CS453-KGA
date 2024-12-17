@@ -1,0 +1,12 @@
+{
+  "id": "6f7ea5e",
+  "promptid": "b70fdc4",
+  "ruleid": 9,
+  "rule": "There should be fewer than three <p> tags in the output.",
+  "inverse": true,
+  "model": "gemma2:9b",
+  "input": "Empathy connects humanity. Compassion breeds kindness. Generosity enriches spirit.",
+  "output": "<p><strong>Empathy</strong> connects <em>humanity</em>.</p>\n<p><strong>Compassion</strong> breeds <em>kindness</em>.</p>\n<p><strong>Generosity</strong> enriches <em>spirit</em>.</p>\n\n\nLet me know if you have any other text you'd like me to format!",
+  "compliance": "err",
+  "complianceText": "The chatbot's output consists of three `<p>` tags, each containing a sentence. This satisfies the requirement for the answer to have at least three `<p>` tags. Within each `<p>` tag, there is one `<strong>` tag and one `<em>` tag. The description requires at least one `<strong>` tag and multiple `<em>` tags within each `<p>` tag to emphasize key words and phrases.\n\nThe violation here is that each `<p>` tag only contains one `<em>` tag, while the description specifies that there should be multiple `<em>` tags to emphasize key words and phrases. Thus, the output does not fully comply with the description.\n\nERR"
+}

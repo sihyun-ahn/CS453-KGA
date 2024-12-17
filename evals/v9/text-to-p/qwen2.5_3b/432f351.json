@@ -1,0 +1,12 @@
+{
+  "id": "432f351",
+  "promptid": "b70fdc4",
+  "ruleid": 9,
+  "rule": "There should be fewer than three <p> tags in the output.",
+  "inverse": true,
+  "model": "qwen2.5:3b",
+  "input": "Adventure is exciting. Wonders never cease. Curiosity leads to discovery.",
+  "output": "<p><strong><em>Adventure</em></strong> is exciting. <em><strong><em>Wonders</em></em></strong> never cease. <em><strong>Curiosity</strong></em> leads to <em><strong>discovery</strong></em>.</p>\n<p><strong><em>Adventure</em></strong> is exciting. <em><strong><em>Wonders</em></em></strong> never cease. <em><strong>Curiosity</strong></em> leads to <em><strong>discovery</strong></em>.</p>\n<p><strong><em>Adventure</em></strong> is exciting. <em><strong><em>Wonders</em></em></strong> never cease. <em><strong>Curiosity</strong></em> leads to <em><strong>discovery</strong></em>.</p>",
+  "compliance": "ok",
+  "complianceText": "The given output has three <p> tags, each containing a paragraph wrapped with HTML tags. Each paragraph also includes at least one <strong> tag and multiple <em> tags, as required. The content is identical across all <p> tags, which is compliant with the description provided, as the evaluation does not need to determine if the sentence splitting is correct (which would require knowing the input). Thus, in terms of compliance with the description given, the output adheres to the requirement of having at least three <p> tags, each containing <strong> and <em> tags.\n\nNo violation.\nOK"
+}

@@ -1,0 +1,14 @@
+{
+  "id": "a8f359c",
+  "promptid": "b70fdc4",
+  "model": "gpt-4o-2024-08-06",
+  "ruleid": 11,
+  "rule": "Within each <p> tag, the use of <em> tags is not allowed.",
+  "inverse": true,
+  "input": "Passion drives purpose. Vision determines path. Mission clarifies goals.",
+  "validityText": "The input is a paragraph of text consisting of three separate sentences: \"Passion drives purpose.\", \"Vision determines path.\", and \"Mission clarifies goals.\". The input includes valid punctuation and does not consist solely of whitespace characters. Based on these observations, the input meets the requirements of containing at least three sentences and consisting of valid text elements.\n\nOK",
+  "validity": "ok",
+  "coverageText": "```html\n<p><strong>Passion</strong> <em>drives</em> <em>purpose</em>.</p>\n<p><strong>Vision</strong> <em>determines</em> the <em>path</em>.</p>\n<p><strong>Mission</strong> <em>clarifies</em> the <em>goals</em>.</p>\n```",
+  "coverageEvalText": "The chatbot output is structured in HTML format, consisting of three paragraphs, each wrapped in a <p> tag.\n\n1. **Verification of <p> tags**: The output contains three <p> tags, which is in compliance with the requirement to have at least three paragraphs.\n\n2. **Inclusion of <strong> tags**: Each paragraph contains exactly one <strong> tag, highlighting a key word in each paragraph (e.g., \"Passion\", \"Vision\", \"Mission\"). This complies with the requirement to include a <strong> tag inside each <p> tag.\n\n3. **Inclusion of <em> tags**: Each paragraph contains multiple <em> tags, emphasizing additional keywords or phrases (e.g., \"drives\", \"purpose\"; \"determines\", \"path\"; \"clarifies\", \"goals\"). This is in compliance with the requirement to include multiple <em> tags inside each <p> tag.\n\nSince the chatbot's output has adhered to all elements of the description that can be checked without knowing the input, namely the presence of the required number of <p>, <strong>, and <em> tags, the output complies with the description.\n\nNo violation.\nOK",
+  "coverage": "ok"
+}

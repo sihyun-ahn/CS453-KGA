@@ -1,0 +1,11 @@
+{
+  "id": "8b073ef",
+  "promptid": "b70fdc4",
+  "ruleid": 3,
+  "rule": "There should be at least three <p> tags in the output.",
+  "model": "llama3.2:1b",
+  "input": "Books are a window to the world. Imagination is limitless. Dreams fuel ambition.",
+  "output": "Here is the paragraph with individual sentences wrapped in a <p> tag, each sentence also contained within another <p> tag for emphasis:\n\n< p><strong>Welcome</strong> to the world of reading and discovery! Dream big <!-- key phrase emphasizing dreams fuels ambition -->.\n<p><em>The</em> magic of books lies outside these pages",
+  "compliance": "err",
+  "complianceText": "The chatbot's output is incomplete, as it contains only two opening <p> tags, whereas the description requires that there be at least three <p> tags. Additionally, each <p> tag is supposed to contain one <strong> tag and multiple <em> tags, but the second <p> tag doesn't contain any <strong> tags. Therefore, the output does not fully comply with the description.\n\nERR"
+}

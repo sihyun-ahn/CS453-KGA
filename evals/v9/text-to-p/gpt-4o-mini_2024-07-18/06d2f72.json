@@ -1,0 +1,12 @@
+{
+  "id": "06d2f72",
+  "promptid": "b70fdc4",
+  "ruleid": 12,
+  "rule": "The <strong> and <em> tags must not be used to emphasize key words and phrases.",
+  "inverse": true,
+  "model": "gpt-4o-mini",
+  "input": "Hope fuels dreams. Vision leads to achievement. Aspirations guide actions.",
+  "output": "```html\n<p><strong>Hope</strong> fuels <em>dreams</em>.</p>\n<p><strong>Vision</strong> leads to <em>achievement</em>.</p>\n<p><strong>Aspirations</strong> guide <em>actions</em>.</p>\n<p><strong>Hope</strong> fuels <em>dreams</em>.</p>\n<p><strong>Vision</strong> leads to <em>achievement</em>.</p>\n<p><strong>Aspirations</strong> guide <em>actions</em>.</p>\n```",
+  "compliance": "ok",
+  "complianceText": "The chatbot's output contains six <p> tags, each wrapping a different sentence, which complies with the requirement of having at least three <p> tags. Inside each <p> tag, there is one <strong> tag and multiple <em> tags present, which aligns with the instruction to add one <strong> tag and multiple <em> tags in each sentence to emphasize key words and phrases. \n\nNo violations were detected concerning the guidelines provided by the description.\n\nOK"
+}

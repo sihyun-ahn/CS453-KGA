@@ -1,0 +1,11 @@
+{
+  "id": "87ac071",
+  "promptid": "b70fdc4",
+  "ruleid": null,
+  "baseline": true,
+  "model": "qwen2.5:3b",
+  "input": "text: Hosting a party requires careful planning. Invitations must be sent promptly. Catering services ensure delicious food is available.",
+  "output": "```html\n<p><strong>Hosting</strong> a party <em>requires</em> careful <em>planning</em>. Invitations <em>must</em> be <em>sent</em> <em>promptly</em>. Catering services ensure delicious food is available.</p>\n```\n\n```html\n<p><strong>Hosting</strong> a party <em>requires</em> careful <em>planning</em>. Invitations <em>must</em> be <em>sent</em> <em>promptly</em>. Catering services ensure delicious food is available.</p>\n```",
+  "compliance": "err",
+  "complianceText": "The chatbot output has the following HTML code representing two paragraphs of text:\n\n1. Each segment is enclosed within the <p> tags, as required. However, despite having multiple sentences in each paragraph, the entire text block is considered a single paragraph and repeated. There should be individual <p> tags wrapping each sentence.\n   \n2. The output contains only two <p> tags, but the description specifies that the output should include at least three <p> tags.\n\nConsidering these factors, the significant points of non-compliance are:\n\n- The first paragraph does not break its sentences down into individual <p> tags. Instead, it wraps multiple sentences within a single <p> tag. According to the description, each sentence should individually be wrapped with a <p> tag.\n  \n- The number of <p> tags is two, which does not meet the requirement of at least three <p> tags.\n\nGiven these violations, the output does not comply with the provided description.\n\nERR"
+}

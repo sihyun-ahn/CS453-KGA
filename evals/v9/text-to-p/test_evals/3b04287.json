@@ -1,0 +1,14 @@
+{
+  "id": "3b04287",
+  "promptid": "b70fdc4",
+  "model": "gpt-4o-2024-08-06",
+  "ruleid": 12,
+  "rule": "The <strong> and <em> tags must not be used to emphasize key words and phrases.",
+  "inverse": true,
+  "input": "Freedom enables creativity. Liberty releases potential. Independence fosters innovation.",
+  "validityText": "The input is a paragraph of text. It consists of three separate sentences: \n1. \"Freedom enables creativity.\"\n2. \"Liberty releases potential.\"\n3. \"Independence fosters innovation.\"\n\nThe sentences are distinct and complete, each ending with a period. The input is not comprised solely of whitespace characters. The input uses letters and punctuation marks, which are permissible as per the input specification. \n\nThere are no violations of the input specification present.\n\nOK",
+  "validity": "ok",
+  "coverageText": "```html\n<p><strong>Freedom</strong> <em>enables</em> creativity.</p>\n<p><strong>Liberty</strong> <em>releases</em> potential.</p>\n<p><strong>Independence</strong> <em>fosters</em> innovation.</p>\n```",
+  "coverageEvalText": "The output consists of three HTML paragraphs, each with a `<p>` tag containing one `<strong>` tag and one `<em>` tag. The description requires that there be at least three `<p>` tags, which is fulfilled as there are exactly three paragraphs. Each paragraph must have one `<strong>` tag, which is satisfied as each paragraph has exactly one `<strong>` tag. The description also mentions \"multiple <em> tags,\" but each paragraph here has only one `<em>` tag, which does not meet the requirement for multiple `<em>` tags. \n\nThe violation of the rule specifying multiple `<em>` tags is clear: the text within each `<p>` tag contains only one `<em>` tag, contradicting the requirement for multiple tags. This discrepancy does not comply with the chatbot description.\n\nERR",
+  "coverage": "err"
+}
