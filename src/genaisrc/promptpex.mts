@@ -668,6 +668,7 @@ export async function runTest(
       label: `${files.name}> run test ${testInput.slice(0, 42)}...`,
     }
   );
+  if (res.error) throw new Error(res.error.message);
   const actualOutput = res.text;
   const testRes: PromptPexTestResult = {
     id,
@@ -923,8 +924,7 @@ async function evaluateTestResult(
       label: `${files.name}> evaluate test result ${testResult.model} ${testResult.input.slice(0, 42)}...`,
     }
   );
-  if (res.error) console.warn(res.error?.message);
-
+  checkLLMResponse(res)
   const evaluation = res.text;
   return evaluation;
 }
