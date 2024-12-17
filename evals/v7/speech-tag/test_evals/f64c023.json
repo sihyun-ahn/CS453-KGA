@@ -5,7 +5,9 @@
   "ruleid": 1,
   "rule": "The output must only contain a single part of speech tag from the pre-defined list in the system prompt.",
   "input": "Sentence: The quick brown fox jumps over the lazy dog. Word: fox",
-  "coverage": "Noun",
-  "validityText": "The input consists of a sentence \"The quick brown fox jumps over the lazy dog.\" and a word \"fox\". \n\n- The sentence is a grammatically correct English sentence. It comprises a subject (\"The quick brown fox\"), a verb (\"jumps\"), and an object/prepositional phrase (\"over the lazy dog\"). \n- The sentence is not an empty string.\n- The word provided is \"fox\", which is not an empty string and does not include any punctuation.\n- The word \"fox\" is present in the sentence. \n\nBased on the above considerations, the input complies with the input specification.\n\nOK",
-  "validity": "ok"
+  "validityText": "The input consists of a sentence and a word. Let's evaluate compliance with each specification:\n\n1. The sentence is \"The quick brown fox jumps over the lazy dog.\" This is a grammatically correct English sentence with appropriate capitalization and punctuation. It meets the specification requirements regarding grammaticality and punctuation inclusion.\n\n2. The word provided is \"fox.\" This word is present within the sentence \"The quick brown fox jumps over the lazy dog.\"\n\n3. The word \"fox\" is not an empty string.\n\n4. The sentence \"The quick brown fox jumps over the lazy dog.\" is not an empty string.\n\n5. The sentence includes punctuation (a period at the end), which is allowed.\n\n6. The word \"fox\" does not include any punctuation signs.\n\nAll the conditions specified in the input specification have been met. Hence, the input is compliant with the input specification.\n\nOK",
+  "validity": "ok",
+  "coverageText": "Noun",
+  "coverageEvalText": "The chatbot output \"Noun\" does not comply with the description provided. The description specifically requires returning only the part of speech tag, not the name of the part of speech itself. According to the provided list in the description, the correct tag for a singular or mass noun should be \"NN\". The output should adhere strictly to the tags listed: CC, CD, DT, EX, FW, IN, JJ, JJR, JJS, LS, MD, NN, NNS, NNP, NNPS, PDT, POS, PRP, PRP$, RB, RBR, RBS, RP, SYM, TO, UH, VB, VBD, VBG, VBN, VBP, VBZ, WDT, WP, WP$, WRB. Since \"Noun\" is not one of these tags, the output violates the compliance rules.\n\nERR",
+  "coverage": "err"
 }

@@ -5,7 +5,9 @@
   "ruleid": 2,
   "rule": "The output must be an exact match to one of the tags in the pre-defined list, if applicable.",
   "input": "Sentence: One hundred apples fell. Word: hundred",
-  "coverage": "Adjective",
-  "validityText": "The given input consists of a sentence \"One hundred apples fell.\" and the word \"hundred\". \n\n1. **Check if the sentence is grammatically correct**: The sentence \"One hundred apples fell.\" is grammatically correct. It has a capitalization at the beginning, follows proper structure and ends with a period. \n\n2. **Verify the presence of the word in the sentence**: The word \"hundred\" is present in the sentence.\n\n3. **Check if the word is an empty string**: The word is \"hundred\", which is not an empty string.\n\n4. **Check if the sentence is an empty string**: The sentence is \"One hundred apples fell.\", which is not an empty string.\n\n5. **Ensure the word does not include punctuation**: The word \"hundred\" does not include any punctuation marks.\n\nAll conditions of the input specification are met. \n\nOK",
-  "validity": "ok"
+  "validityText": "The input consists of a sentence and a word from that sentence. Let's evaluate it based on the given specification:\n\n1. Sentence: \"One hundred apples fell.\"\n   - The sentence is grammatically correct.\n   - The sentence is not an empty string.\n   - The sentence includes punctuation (a period at the end), which is allowed by the specification.\n\n2. Word: \"hundred\"\n   - The word is present in the sentence.\n   - The word \"hundred\" is not an empty string.\n   - The word does not contain any punctuation signs.\n\nSince the sentence and the word comply with all the points mentioned in the input specification, there are no violations.\n\nOK",
+  "validity": "ok",
+  "coverageText": "CardinalNumber",
+  "coverageEvalText": "The chatbot's output is \"CardinalNumber.\" According to the guidelines, the chatbot is supposed to return only the part of speech tag for the given word. The description provides a specific list of such tags, one of which is \"CD\" which corresponds to a cardinal number. However, the chatbot output \"CardinalNumber\" does not match any of the predefined tags in the list. The correct tag should have been \"CD\". Therefore, the output does not comply with the description as it did not provide the specific part of speech tag from the list.\n\nERR",
+  "coverage": "err"
 }

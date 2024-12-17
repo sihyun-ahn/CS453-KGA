@@ -613,6 +613,14 @@ function updateTestResultCompliant(testRes: PromptPexTestResult) {
   testRes.compliance = parseOKERR(testRes.complianceText);
 }
 
+function updateTestEval(res: PromptPexTestEval) {
+  res.validity = parseOKERR(res.validityText);
+  if (!res.coverageEvalText) {
+    delete res.coverage;
+    delete res.coverageText;
+  } else res.coverage = parseOKERR(res.coverageEvalText);
+}
+
 export async function runTest(
   files: PromptPexContext,
   test: PromptPexTest,
@@ -705,6 +713,7 @@ export async function evaluateTestQuality(
   const { id, promptid, file } = await resolveTestEvalPath(files, test);
   if (file.content && !force) {
     const res = parsers.JSON5(file) as PromptPexTestEval;
+    updateTestEval(res);
     if (res && !res.error && res.coverage && res.validity) return res;
   }
 
@@ -783,7 +792,7 @@ export async function evaluateTestQuality(
     coverageText: resCoverage.text,
   } satisfies PromptPexTestEval;
 
-  const coverage = await evaluateTestResult(files, {
+  const coverageEvalText = await evaluateTestResult(files, {
     id: "cov-" + testEval.id,
     rule: testEval.rule,
     ruleid: test.ruleid,
@@ -793,7 +802,7 @@ export async function evaluateTestQuality(
     output: testEval.coverageText,
   });
 
-  testEval.coverageEvalText = coverage;
+  testEval.coverageEvalText = coverageEvalText;
   testEval.coverage = parseOKERR(testEval.coverageEvalText);
   testEval.error = error || undefined;
 
@@ -1256,13 +1265,14 @@ export async function generate(
   await generateReports(files);
 
   // test exhaustiveness
-  if (!files.testEvals.content || force || forceTestEvals) {
-    files.testEvals.content = await evaluateTestsQuality(files, {
-      ...(options || {}),
-      ...{
-        force: force || forceTestEvals,
-      },
-    });
+  const tc = await evaluateTestsQuality(files, {
+    ...(options || {}),
+    ...{
+      force: force || forceTestEvals,
+    },
+  });
+  if (tc !== files.testEvals.content) {
+    files.testEvals.content = tc;
     await workspace.writeText(
       files.testEvals.filename,
       files.testEvals.content

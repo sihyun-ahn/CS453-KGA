@@ -1,0 +1,14 @@
+{
+  "id": "c65c641",
+  "promptid": "e5ed513",
+  "model": "gpt-4o-2024-08-06",
+  "ruleid": 13,
+  "rule": "Each category label should not be followed by a colon and a single space before the list.",
+  "inverse": true,
+  "input": "Text: Elon Musk leading SpaceX, no clear formats.",
+  "validityText": "The input \"Elon Musk leading SpaceX, no clear formats.\" is an evaluation based on the given input specification. The input is a text string, as required, and it contains reference to sentences or fragments of a sentence pertaining to natural language about specific entities, specifically \"Elon Musk\" and \"SpaceX.\" Moreover, it adheres to the condition of inclusion of names of notable people and companies. The specification does not necessitate a prescribed format or structure of content as long as it is of natural language and comprehensible to some degree. There is no violation observed as the content adheres to the rules of natural language, and notable entities are present.\n\nNo violation.\nOK",
+  "validity": "ok",
+  "coverageText": "Company names: SpaceX\nPeople names: Elon Musk\nSpecific topics: \nGeneral themes: ",
+  "coverageEvalText": "The chatbot output provides entries for company names and people names but leaves the sections for specific topics and general themes empty. According to the description, the chatbot is supposed to extract and provide lists for all four categories: company names, people names, specific topics, and general themes, even if they are empty, they should retain the structure for all of them.\n\nHowever, in the output, the structure is slightly lacking because although it adheres to the format for the first two categories, the latter two do not display any indicators like \"-||-\" to signify the list structure or their emptiness. The output needs to be consistent in displaying the given structure and format for all categories outlined in the description.\n\nTherefore, the lack of structure in the latter two categories violates the explicit requirement for maintaining a structured format across all sections.\n\nERR",
+  "coverage": "err"
+}

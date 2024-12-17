@@ -1,0 +1,13 @@
+{
+  "id": "e8b18e3",
+  "promptid": "e5ed513",
+  "model": "gpt-4o-2024-08-06",
+  "ruleid": 1,
+  "rule": "Company names must be listed in a comma-separated format following the label \"Company names:\".",
+  "input": "Text: Microsoft and Google have been big players in the AI field, along with IBM investments.",
+  "validityText": "The given input is a text string containing a natural language sentence. It mentions names of companies, specifically \"Microsoft,\" \"Google,\" and \"IBM,\" and discusses the specific topic of AI investments. The input is in English, which is a comprehensible language suitable for accurate entity extraction. There are no restrictions on the length, and the input seems to be a valid sentence or paragraph of natural language.\n\nNo violation.\nOK",
+  "validity": "ok",
+  "coverageText": "Company names: Microsoft, Google, IBM  \nPeople names:   \nSpecific topics: AI  \nGeneral themes: Investments  ",
+  "coverageEvalText": "The chatbot's output follows the format specified in the description. The output lists company names under \"Company names\", specific topics under \"Specific topics\", and general themes under \"General themes\". However, for \"People names\", the chatbot has left it blank without including a comma-separated list or a placeholder indicating the absence of entities. Despite this, the format has been technically adhered to as per the guidelines provided, as it does not explicitly require a placeholder for empty categories.\n\nNo violation.\nOK",
+  "coverage": "ok"
+}

@@ -35,10 +35,10 @@
 
 |model|tests|tests compliant|baseline compliant|tests positive|tests positive compliant|tests negative|tests negative compliant|baseline|tests valid|tests valid compliant|
 |-|-|-|-|-|-|-|-|-|-|-|
-|gpt\-4o\-mini|24|96%|100%|12|12|12|11|24|0|0|
-|gemma2:9b|24|100%|100%|12|12|12|12|24|0|0|
-|qwen2\.5:3b|24|88%|100%|12|12|12|9|24|0|0|
-|llama3\.2:1b|24|75%|75%|12|9|12|9|24|0|0|
+|gpt\-4o\-mini|24|96%|100%|12|12|12|11|24|19|19|
+|gemma2:9b|24|100%|100%|12|12|12|12|24|19|19|
+|qwen2\.5:3b|24|88%|100%|12|12|12|9|24|19|19|
+|llama3\.2:1b|24|75%|75%|12|9|12|9|24|19|15|
 
 ### [classify-input-text.prompty](./classify-input-text.prompty)
 
@@ -348,30 +348,30 @@ The input should be in a language that the chatbot is trained to process correct
 
 |rule|model|input|coverage|validity|
 |-|-|-|-|-|
-|The output must classify a given input text into one and only one of the following specific categories: World, Sports, Business, or Sci/Tech\.|gpt\-4o\-2024\-08\-06|UN condemns North Korea's latest missile test|World|ok|
-|The output must classify a given input text into one and only one of the following specific categories: World, Sports, Business, or Sci/Tech\.|gpt\-4o\-2024\-08\-06|CapitalOne announces a 20% increase in quarterly earnings|Business|ok|
-|The output must classify a given input text into one and only one of the following specific categories: World, Sports, Business, or Sci/Tech\.|gpt\-4o\-2024\-08\-06|NASA's Mars rover sends back revolutionary images|Sci/Tech|ok|
-|The classification must be directly relevant to the content of the input text without any ambiguity or overlap between categories\.|gpt\-4o\-2024\-08\-06|Champions League final ends in stalemate, teams prepare for rematch|Sports|ok|
-|The classification must be directly relevant to the content of the input text without any ambiguity or overlap between categories\.|gpt\-4o\-2024\-08\-06|Global economies brace for fluctuations as oil prices soar|Business|ok|
-|The classification must be directly relevant to the content of the input text without any ambiguity or overlap between categories\.|gpt\-4o\-2024\-08\-06|Breakthrough in quantum computing promises to change tech landscape|Sci/Tech|ok|
-|The output must only include the name of the category without any additional text, explanation, or context\.|gpt\-4o\-2024\-08\-06|Google reveals out\-of\-this\-world holiday doodles|Sci/Tech|ok|
-|The output must only include the name of the category without any additional text, explanation, or context\.|gpt\-4o\-2024\-08\-06|Political tensions rise over disputed territories|World|ok|
-|The output must only include the name of the category without any additional text, explanation, or context\.|gpt\-4o\-2024\-08\-06|Olympic records shattered on day one of competition|Sports|ok|
-|The chosen category for classification must be clearly representational and consistent with the core subject matter of the input text as it fits within the provided category definitions\.|gpt\-4o\-2024\-08\-06|Fed cuts interest rates to avoid economic recession|Business|ok|
-|The chosen category for classification must be clearly representational and consistent with the core subject matter of the input text as it fits within the provided category definitions\.|gpt\-4o\-2024\-08\-06|Technology giants clash over new AI regulations|Sci/Tech|ok|
-|The chosen category for classification must be clearly representational and consistent with the core subject matter of the input text as it fits within the provided category definitions\.|gpt\-4o\-2024\-08\-06|World Health Organization warns of new pandemic threats|World|ok|
-|The output must classify a given input text into none of the following specific categories: World, Sports, Business, or Sci/Tech\.|gpt\-4o\-2024\-08\-06|Breaking: Tornado ravages Midwest, thousands displaced|World|ok|
-|The output must classify a given input text into none of the following specific categories: World, Sports, Business, or Sci/Tech\.|gpt\-4o\-2024\-08\-06|Movie stars flock to red carpet at Cannes Festival|World|err|
-|The output must classify a given input text into none of the following specific categories: World, Sports, Business, or Sci/Tech\.|gpt\-4o\-2024\-08\-06|New culinary trend takes urban kitchens by storm|Business|err|
-|The classification must be unrelated or ambiguous to the content of the input text, allowing overlap between categories\.|gpt\-4o\-2024\-08\-06|Fashion industry embraces sustainable practices for a better future|Business|err|
-|The classification must be unrelated or ambiguous to the content of the input text, allowing overlap between categories\.|gpt\-4o\-2024\-08\-06|Mountaineers prepare for ascent of K2 amidst challenging conditions|Sports|ok|
-|The classification must be unrelated or ambiguous to the content of the input text, allowing overlap between categories\.|gpt\-4o\-2024\-08\-06|Celebrity couple's breakup dominates news headlines|World|err|
-|The output should include additional text, explanation, or context rather than just the name of the category\.|gpt\-4o\-2024\-08\-06|Scientists discover new exoplanet orbiting distant star|Sci/Tech|ok|
-|The output should include additional text, explanation, or context rather than just the name of the category\.|gpt\-4o\-2024\-08\-06|Euros crisis: EU leaders convene extraordinary summit|Business|ok|
-|The output should include additional text, explanation, or context rather than just the name of the category\.|gpt\-4o\-2024\-08\-06|Historic match sees underdog triumph in final minutes|Sports|ok|
-|The chosen category for classification must not clearly represent or be consistent with the core subject matter of the input text as it fits within the provided category definitions\.|gpt\-4o\-2024\-08\-06|Global art fair showcases emerging talents from Latin America|World|ok|
-|The chosen category for classification must not clearly represent or be consistent with the core subject matter of the input text as it fits within the provided category definitions\.|gpt\-4o\-2024\-08\-06|Startups revolutionize ecommerce with new tech solutions|Business|ok|
-|The chosen category for classification must not clearly represent or be consistent with the core subject matter of the input text as it fits within the provided category definitions\.|gpt\-4o\-2024\-08\-06|Political satire highlights social issues in viral video|World|err|
+|The output must classify a given input text into one and only one of the following specific categories: World, Sports, Business, or Sci/Tech\.|gpt\-4o\-2024\-08\-06|UN condemns North Korea's latest missile test|ok|ok|
+|The output must classify a given input text into one and only one of the following specific categories: World, Sports, Business, or Sci/Tech\.|gpt\-4o\-2024\-08\-06|CapitalOne announces a 20% increase in quarterly earnings|ok|ok|
+|The output must classify a given input text into one and only one of the following specific categories: World, Sports, Business, or Sci/Tech\.|gpt\-4o\-2024\-08\-06|NASA's Mars rover sends back revolutionary images|ok|ok|
+|The classification must be directly relevant to the content of the input text without any ambiguity or overlap between categories\.|gpt\-4o\-2024\-08\-06|Champions League final ends in stalemate, teams prepare for rematch|ok|ok|
+|The classification must be directly relevant to the content of the input text without any ambiguity or overlap between categories\.|gpt\-4o\-2024\-08\-06|Global economies brace for fluctuations as oil prices soar|ok|ok|
+|The classification must be directly relevant to the content of the input text without any ambiguity or overlap between categories\.|gpt\-4o\-2024\-08\-06|Breakthrough in quantum computing promises to change tech landscape|ok|ok|
+|The output must only include the name of the category without any additional text, explanation, or context\.|gpt\-4o\-2024\-08\-06|Google reveals out\-of\-this\-world holiday doodles|ok|ok|
+|The output must only include the name of the category without any additional text, explanation, or context\.|gpt\-4o\-2024\-08\-06|Political tensions rise over disputed territories|ok|ok|
+|The output must only include the name of the category without any additional text, explanation, or context\.|gpt\-4o\-2024\-08\-06|Olympic records shattered on day one of competition|ok|ok|
+|The chosen category for classification must be clearly representational and consistent with the core subject matter of the input text as it fits within the provided category definitions\.|gpt\-4o\-2024\-08\-06|Fed cuts interest rates to avoid economic recession|ok|ok|
+|The chosen category for classification must be clearly representational and consistent with the core subject matter of the input text as it fits within the provided category definitions\.|gpt\-4o\-2024\-08\-06|Technology giants clash over new AI regulations|ok|ok|
+|The chosen category for classification must be clearly representational and consistent with the core subject matter of the input text as it fits within the provided category definitions\.|gpt\-4o\-2024\-08\-06|World Health Organization warns of new pandemic threats|ok|ok|
+|The output must classify a given input text into none of the following specific categories: World, Sports, Business, or Sci/Tech\.|gpt\-4o\-2024\-08\-06|Breaking: Tornado ravages Midwest, thousands displaced|ok|ok|
+|The output must classify a given input text into none of the following specific categories: World, Sports, Business, or Sci/Tech\.|gpt\-4o\-2024\-08\-06|Movie stars flock to red carpet at Cannes Festival|ok|err|
+|The output must classify a given input text into none of the following specific categories: World, Sports, Business, or Sci/Tech\.|gpt\-4o\-2024\-08\-06|New culinary trend takes urban kitchens by storm|ok|err|
+|The classification must be unrelated or ambiguous to the content of the input text, allowing overlap between categories\.|gpt\-4o\-2024\-08\-06|Fashion industry embraces sustainable practices for a better future|ok|err|
+|The classification must be unrelated or ambiguous to the content of the input text, allowing overlap between categories\.|gpt\-4o\-2024\-08\-06|Mountaineers prepare for ascent of K2 amidst challenging conditions|ok|ok|
+|The classification must be unrelated or ambiguous to the content of the input text, allowing overlap between categories\.|gpt\-4o\-2024\-08\-06|Celebrity couple's breakup dominates news headlines|ok|err|
+|The output should include additional text, explanation, or context rather than just the name of the category\.|gpt\-4o\-2024\-08\-06|Scientists discover new exoplanet orbiting distant star|ok|ok|
+|The output should include additional text, explanation, or context rather than just the name of the category\.|gpt\-4o\-2024\-08\-06|Euros crisis: EU leaders convene extraordinary summit|ok|ok|
+|The output should include additional text, explanation, or context rather than just the name of the category\.|gpt\-4o\-2024\-08\-06|Historic match sees underdog triumph in final minutes|ok|ok|
+|The chosen category for classification must not clearly represent or be consistent with the core subject matter of the input text as it fits within the provided category definitions\.|gpt\-4o\-2024\-08\-06|Global art fair showcases emerging talents from Latin America|ok|ok|
+|The chosen category for classification must not clearly represent or be consistent with the core subject matter of the input text as it fits within the provided category definitions\.|gpt\-4o\-2024\-08\-06|Startups revolutionize ecommerce with new tech solutions|ok|ok|
+|The chosen category for classification must not clearly represent or be consistent with the core subject matter of the input text as it fits within the provided category definitions\.|gpt\-4o\-2024\-08\-06|Political satire highlights social issues in viral video|ok|err|
 
 ### [baseline_tests.txt](./baseline_tests.txt)
 

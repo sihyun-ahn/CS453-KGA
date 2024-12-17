@@ -6,7 +6,9 @@
   "rule": "[\"unstructured_output_must_not_use_specific_format\"]",
   "inverse": true,
   "input": "Abstract: The architecture ProtonNet was benchmarked on several tasks.",
-  "coverage": "[\"ProtonNet\"]",
-  "validityText": "The input is an abstract from what can be assumed to be a machine learning paper. It includes technical terms: \"architecture\" and a specific model name, \"ProtonNet.\" The content fits the description of sentences and phrases typically found in an academic paper abstract as it describes a model being employed in benchmarks of various tasks, which is common in machine learning papers. Thus, the input adheres to the input specifications provided, which require a machine learning paper abstract in the form of textual string comprised of sentences and technical terms.\n\nNo violation.\nOK",
-  "validity": "ok"
+  "validityText": "The input provided is \"Abstract: The architecture ProtonNet was benchmarked on several tasks.\" According to the input specification, the input must be a textual string comprised of sentences and phrases from an academic paper abstract. This input is explicitly labeled as an \"Abstract,\" suggesting that it is indeed derived from one. It includes a sentence typical of machine learning papers, describing an architecture named ProtonNet and mentioning benchmarking tasks, which can be considered a technical term relevant to the field. Hence, this input complies with the input specification as it resembles a concise part of a machine learning paper abstract.\n\nNo violation.\nOK",
+  "validity": "ok",
+  "coverageText": "[\"ProtonNet\"]",
+  "coverageEvalText": "The chatbot output is [\"ProtonNet\"], which is consistent with the expected output format described in the guidelines where the response should be an array of model names. According to the guidelines, if a model name is extracted from the abstract, it should be presented in this array format. Since the output is indeed an array with a model name, with no other elements or format errors present, it aligns with the description.\n\nNo violation.\nOK",
+  "coverage": "ok"
 }

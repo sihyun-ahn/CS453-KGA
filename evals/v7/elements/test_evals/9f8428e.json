@@ -1,0 +1,14 @@
+{
+  "id": "9f8428e",
+  "promptid": "e5ed513",
+  "model": "gpt-4o-2024-08-06",
+  "ruleid": 13,
+  "rule": "Each category label should not be followed by a colon and a single space before the list.",
+  "inverse": true,
+  "input": "Text: Microsoft and Bill Gates discussed innovation without specification.",
+  "validityText": "The input is a text string, which is what the input specification requires. Moreover, the text contains natural language with recognizable sentences. It also includes names of a company (Microsoft) and a person (Bill Gates), which is permissible as per the input specification. Furthermore, the topic of innovation is a general theme that fits within the guidelines. There are no restrictions on the length, so that is not a factor here. Thus, every element of the input complies directly with the input specification.\n\nNo violation.\nOK",
+  "validity": "ok",
+  "coverageText": "Company names: Microsoft\nPeople names: Bill Gates\nSpecific topics: \nGeneral themes: innovation",
+  "coverageEvalText": "The chatbot output organizes the entities by the categories specified in the description: Company names, People names, Specific topics, and General themes. However, there is a compliance issue with the format. The category \"Specific topics\" is listed but has no values after the colon, and the general guidelines do not state that empty categories are permitted in the output. The omission of information results in a possibly incomplete adherence to the description's format expectations. Because specific topics need to fit the content, but I do not have the input, I will overlook it. But without knowing if there are other specific topics present, it is challenging to infer correctness, so compliance testing on this part inherently relies on the input - which is out of scope. However, this observation does not impact the compliance decision.\n\nThe format inconsistency relating to possibly allowing empty categories leads to concluding this output has a compliance issue.\n\nERR",
+  "coverage": "err"
+}

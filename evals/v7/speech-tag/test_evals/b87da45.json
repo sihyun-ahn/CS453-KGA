@@ -6,7 +6,9 @@
   "rule": "If the word provided in the input can be matched to one of the listed part of speech tags, return additional text and formatting rather than the corresponding tag.",
   "inverse": true,
   "input": "Sentence: Mist in the valley is enchanting. Word: enchanting",
-  "coverage": "Adjective",
-  "validityText": "The given input consists of a sentence \"Mist in the valley is enchanting.\" and a word \"enchanting\". Let's evaluate this input based on the provided specifications:\n\n1. **Grammatically Correct Sentence**: The sentence \"Mist in the valley is enchanting.\" is grammatically correct. It starts with a capital letter and ends with a period.\n\n2. **Word Present in Sentence**: The word \"enchanting\" is indeed present within the sentence \"Mist in the valley is enchanting.\"\n\n3. **Word and Sentence must not be empty**: Both the sentence and the word are non-empty strings.\n\n4. **Punctuation in Word**: The word \"enchanting\" does not include any punctuation marks.\n\nAll the conditions of the input specification are satisfied. Therefore, the input complies with the input specification.\n\nOK",
-  "validity": "ok"
+  "validityText": "The input consists of a sentence and a word from that sentence. The sentence is \"Mist in the valley is enchanting.\" which appears to be a grammatically correct English sentence. The word provided is \"enchanting,\" which is present within the sentence as the last word before the punctuation mark. \n\nAccording to the specification, the sentence is non-empty and can include punctuation, which it does - a period at the end. The word \"enchanting\" is also non-empty and does not include any punctuation signs, meeting all provided input specifications. Moreover, the word \"enchanting\" is indeed included in the sentence, satisfying the requirement that the word must be present in the sentence.\n\nSince the input complies with all the conditions from the specification, there are no violations.\n\nOK",
+  "validity": "ok",
+  "coverageText": "Adjective",
+  "coverageEvalText": "The chatbot's output does not comply with the description provided. According to the description, the chatbot should return only the specified part of speech tags provided in the list, such as JJ for Adjective. However, the output \"Adjective\" is not a tag from the list, but rather the full name of a part of speech. The correct output should be one of the specified tags. Therefore, the compliance is not met.\n\nMention the reason for violation and your thinking went into coming up with it.\nERR",
+  "coverage": "err"
 }

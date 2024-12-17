@@ -6,7 +6,9 @@
   "rule": "At least one word in the provided input must be omitted from tagging according to the conditions defined, and the output must ignore some of the listed scenarios appropriately.",
   "inverse": true,
   "input": "Sentence: Astronomically relevant grids captivate. Word: Astronomically",
-  "coverage": "Adverb",
-  "validityText": "To evaluate the compliance of the provided input with the input specification:\n\n1. The sentence provided is \"Astronomically relevant grids captivate.\"\n   - It is analyzed to be a grammatically correct English sentence. \n   - The sentence is not empty and is complete with appropriate punctuation at the end.\n\n2. The word provided is \"Astronomically.\"\n   - This word is present within the sentence. \n   - There are no punctuation marks within this word, making it valid in terms of the requirement that the word must not include punctuation.\n\n3. The word is not an empty string, and the sentence is also not an empty string, satisfying both criteria.\n\nSince all the conditions specified in the input specification are met, there are no violations.\n\nOK",
-  "validity": "ok"
+  "validityText": "The input consists of a sentence: \"Astronomically relevant grids captivate.\" and a word: \"Astronomically\". \n\nLet's evaluate the input based on the provided specification:\n\n1. The sentence \"Astronomically relevant grids captivate.\" is a grammatically correct English sentence. It consists of a subject and a verb.\n\n2. The word \"Astronomically\" is present within the sentence provided.\n\n3. The word \"Astronomically\" is not an empty string.\n\n4. The sentence is not an empty string.\n\n5. The word \"Astronomically\" does not include punctuation signs. \n\nBased on the input specification, all conditions are satisfied: the sentence is grammatically correct and contains the word, and neither the sentence nor the word are empty strings. Also, the word does not include punctuation, which aligns with the requirements.\n\nNo violation.\nOK",
+  "validity": "ok",
+  "coverageText": "Adverb",
+  "coverageEvalText": "The chatbot output is \"Adverb,\" which is not one of the part-of-speech tags listed in the description. The description indicates that the output should be a specific tag, such as \"RB\" for Adverb, not the full part-of-speech name. As \"Adverb\" is not a valid tag as per the given list, this violates the requirement to return only the part of speech tag. \n\nMention the reason for violation and your thinking went into coming up with it.\nERR",
+  "coverage": "err"
 }

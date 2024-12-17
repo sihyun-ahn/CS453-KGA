@@ -35,10 +35,10 @@
 
 |model|tests|tests compliant|baseline compliant|tests positive|tests positive compliant|tests negative|tests negative compliant|baseline|tests valid|tests valid compliant|
 |-|-|-|-|-|-|-|-|-|-|-|
-|gpt\-4o\-mini|36|100%|100%|18|18|18|18|37|29|29|
-|gemma2:9b|36|94%|84%|18|18|18|16|37|29|29|
-|qwen2\.5:3b|36|69%|78%|18|12|18|13|37|29|21|
-|llama3\.2:1b|36|39%|54%|18|8|18|6|37|29|13|
+|gpt\-4o\-mini|36|100%|100%|18|18|18|18|37|25|25|
+|gemma2:9b|36|94%|84%|18|18|18|16|37|25|24|
+|qwen2\.5:3b|36|69%|78%|18|12|18|13|37|25|17|
+|llama3\.2:1b|36|39%|54%|18|8|18|6|37|25|11|
 
 ### [extract-names.prompty](./extract-names.prompty)
 
@@ -454,42 +454,42 @@ The input can include technical terms, acronyms, and specific model names.
 
 |rule|model|input|coverage|validity|
 |-|-|-|-|-|
-|The output must be structured as an array with the specific format \["model\_name"\], where "model\_name" represents the name of a machine learning model extracted from the abstract\.|gpt\-4o\-2024\-08\-06|Abstract: We introduce NeuralMachineModel, a robust framework for image processing tasks\.|\["NeuralMachineModel"\]|ok|
-|The output must be structured as an array with the specific format \["model\_name"\], where "model\_name" represents the name of a machine learning model extracted from the abstract\.|gpt\-4o\-2024\-08\-06|Abstract: This paper proposes a novel architecture called QuantumNet for quantum computing applications\.|\["QuantumNet"\]|ok|
-|The output must be structured as an array with the specific format \["model\_name"\], where "model\_name" represents the name of a machine learning model extracted from the abstract\.|gpt\-4o\-2024\-08\-06|Abstract: A comparative study of ReinforceNet and AdvancedDL was conducted\.|\["ReinforceNet", "AdvancedDL"\]|ok|
-|Each element within the output array should be a distinct string representing an extracted model name\.|gpt\-4o\-2024\-08\-06|Abstract: Our work elaborates on the variations between ModelX, ModelY and InnovativeNet\.|\["ModelX", "ModelY", "InnovativeNet"\]|ok|
-|Each element within the output array should be a distinct string representing an extracted model name\.|gpt\-4o\-2024\-08\-06|Abstract: Comparing PerformanceMetricSystem and another framework, ABCModel showed enhancements\.|\["ABCModel"\]|ok|
-|Each element within the output array should be a distinct string representing an extracted model name\.|gpt\-4o\-2024\-08\-06|Abstract: Both EfficientNet and DeepVision are emphasized in our research methodology\.|\["EfficientNet", "DeepVision"\]|ok|
-|If no model names are found in the provided abstract or there is uncertainty regarding the identification of a model name, the output must be \["NA"\], using exactly this format including the square brackets and quotation marks\.|gpt\-4o\-2024\-08\-06|Abstract: Today, we survey advancements without focusing on specific models\.|\["NA"\]|ok|
-|If no model names are found in the provided abstract or there is uncertainty regarding the identification of a model name, the output must be \["NA"\], using exactly this format including the square brackets and quotation marks\.|gpt\-4o\-2024\-08\-06|Abstract: The survey includes theoretical concepts without explicit model references\.|\["NA"\]|ok|
-|If no model names are found in the provided abstract or there is uncertainty regarding the identification of a model name, the output must be \["NA"\], using exactly this format including the square brackets and quotation marks\.|gpt\-4o\-2024\-08\-06|Abstract: Insights from various studies highlight trends with no particular model mentioned\.|\["NA"\]|ok|
-|The output must only contain model names extracted from the abstract or \["NA"\] if no model names are identified, without any additional text, explanations, or context\.|gpt\-4o\-2024\-08\-06|Abstract: The NNetSystem, renowned for scalability, didn't outperform existing solutions\.|\["NNetSystem"\]|ok|
-|The output must only contain model names extracted from the abstract or \["NA"\] if no model names are identified, without any additional text, explanations, or context\.|gpt\-4o\-2024\-08\-06|Abstract: Discusses UsageModel and known enhancement strategies, yet fails to improve\.|\["UsageModel"\]|ok|
-|The output must only contain model names extracted from the abstract or \["NA"\] if no model names are identified, without any additional text, explanations, or context\.|gpt\-4o\-2024\-08\-06|Abstract: Highlights strengths of LinearRegressNet while excluding older methods\.|\["LinearRegressNet"\]|err|
-|The array must only contain correctly identified machine learning model names from the abstract as individual strings, ensuring precision in the identification process\.|gpt\-4o\-2024\-08\-06|Abstract: Introducing EdgeDetectorFramework, our study emphasizes precision in machine vision tasks\.|\["EdgeDetectorFramework"\]|ok|
-|The array must only contain correctly identified machine learning model names from the abstract as individual strings, ensuring precision in the identification process\.|gpt\-4o\-2024\-08\-06|Abstract: The innovative NeuralProcessor complements existing platforms like ModelFusion\.|\["NeuralProcessor", "ModelFusion"\]|ok|
-|The array must only contain correctly identified machine learning model names from the abstract as individual strings, ensuring precision in the identification process\.|gpt\-4o\-2024\-08\-06|Abstract: Mechanistic insight is provided for VectorGammaModel and ProjectAlpha\.|\["VectorGammaModel", "ProjectAlpha"\]|ok|
-|The order of model names in the array should reflect their order of appearance in the abstract, but this does not affect the requirement that the structure and format of the array are correct\.|gpt\-4o\-2024\-08\-06|Abstract: SearchNet appears in this section, followed by ExplorationModel later\.|\["SearchNet", "ExplorationModel"\]|err|
-|The order of model names in the array should reflect their order of appearance in the abstract, but this does not affect the requirement that the structure and format of the array are correct\.|gpt\-4o\-2024\-08\-06|Abstract: Our results stem from BetaNet initially, then GammaNet contributions\.|\["BetaNet", "GammaNet"\]|ok|
-|The order of model names in the array should reflect their order of appearance in the abstract, but this does not affect the requirement that the structure and format of the array are correct\.|gpt\-4o\-2024\-08\-06|Abstract: First detailing AlphaStructure, and then later covering BetaSystem\.|\["AlphaStructure", "BetaSystem"\]|err|
-|\["unstructured\_output\_must\_not\_use\_specific\_format"\]|gpt\-4o\-2024\-08\-06|Abstract: The architecture ProtonNet was benchmarked on several tasks\.|\["ProtonNet"\]|ok|
-|\["unstructured\_output\_must\_not\_use\_specific\_format"\]|gpt\-4o\-2024\-08\-06|Abstract: MNet does not rely on randomized choices as in ProjNet\.|\["MNet", "ProjNet"\]|ok|
-|\["unstructured\_output\_must\_not\_use\_specific\_format"\]|gpt\-4o\-2024\-08\-06|Abstract: In this paper, we unveil StructureX optimization\.|\["StructureX"\]|ok|
-|\["each\_element\_in\_output\_can\_be\_repeated\_and\_is\_not\_distinct"\]|gpt\-4o\-2024\-08\-06|Abstract: The system EfficientTransformer sets new benchmarks\.|\["EfficientTransformer"\]|ok|
-|\["each\_element\_in\_output\_can\_be\_repeated\_and\_is\_not\_distinct"\]|gpt\-4o\-2024\-08\-06|Abstract: We explore variants of MultiLayerNet and MultiLayerNet\.|\["MultiLayerNet"\]|ok|
-|\["each\_element\_in\_output\_can\_be\_repeated\_and\_is\_not\_distinct"\]|gpt\-4o\-2024\-08\-06|Abstract: BenchmarkNet outperforms others; BenchmarkNet remains key\.|\["BenchmarkNet"\]|ok|
-|\["output\_can\_be\_an\_empty\_list\_if\_no\_model\_names\_are\_found"\]|gpt\-4o\-2024\-08\-06|Abstract: No specific framework was central to the discussion\.|\["NA"\]|err|
-|\["output\_can\_be\_an\_empty\_list\_if\_no\_model\_names\_are\_found"\]|gpt\-4o\-2024\-08\-06|Abstract: General algorithmic strategies but no model names are ChicagoUnit found\.|\["NA"\]|err|
-|\["output\_can\_be\_an\_empty\_list\_if\_no\_model\_names\_are\_found"\]|gpt\-4o\-2024\-08\-06|Abstract: Lacks direct model identification; refers to toolkits universally\.|\["NA"\]|err|
-|\["output\_may\_contain\_any\_text\_explanation\_or\_context"\]|gpt\-4o\-2024\-08\-06|Abstract: InnovativeStruct has been developed with potential adaptations\.|\["NA"\]|ok|
-|\["output\_may\_contain\_any\_text\_explanation\_or\_context"\]|gpt\-4o\-2024\-08\-06|Abstract: While building on GraphCalc, we mobilized tools systematically\.|\["NA"\]|ok|
-|\["output\_may\_contain\_any\_text\_explanation\_or\_context"\]|gpt\-4o\-2024\-08\-06|Abstract: Achieved improvements with BlendNet and follow\-up procedures\.|\["BlendNet"\]|ok|
-|\["output\_array\_must\_include\_non\_machine\_learning\_names\_as\_well"\]|gpt\-4o\-2024\-08\-06|Abstract: Entirely devoted to GDE\-based systems like AdvancedCalc\.|\["GDE"\]|ok|
-|\["output\_array\_must\_include\_non\_machine\_learning\_names\_as\_well"\]|gpt\-4o\-2024\-08\-06|Abstract: Focusing on TheoreticalBase and also InferenceController's impact\.|\["TheoreticalBase", "InferenceController"\]|ok|
-|\["output\_array\_must\_include\_non\_machine\_learning\_names\_as\_well"\]|gpt\-4o\-2024\-08\-06|Abstract: Our BeamerModel versus GenericKit comparison highlights breakthroughs\.|\["BeamerModel", "GenericKit"\]|ok|
-|\["model\_names\_order\_can\_be\_random\_and\_structure\_format\_is\_non\_essential"\]|gpt\-4o\-2024\-08\-06|Abstract: We measure AdaptiveProtector, then ChronoModel during initial tests\.|\["AdaptiveProtector", "ChronoModel"\]|ok|
-|\["model\_names\_order\_can\_be\_random\_and\_structure\_format\_is\_non\_essential"\]|gpt\-4o\-2024\-08\-06|Abstract: Primarily, StableNet findings overshadowed by NewArrMatrix data\.|\["StableNet", "NewArrMatrix"\]|ok|
-|\["model\_names\_order\_can\_be\_random\_and\_structure\_format\_is\_non\_essential"\]|gpt\-4o\-2024\-08\-06|Abstract: Start with SystematicGain and turn to GroupingNet\.|\["SystematicGain", "GroupingNet"\]|err|
+|The output must be structured as an array with the specific format \["model\_name"\], where "model\_name" represents the name of a machine learning model extracted from the abstract\.|gpt\-4o\-2024\-08\-06|Abstract: We introduce NeuralMachineModel, a robust framework for image processing tasks\.|ok|ok|
+|The output must be structured as an array with the specific format \["model\_name"\], where "model\_name" represents the name of a machine learning model extracted from the abstract\.|gpt\-4o\-2024\-08\-06|Abstract: This paper proposes a novel architecture called QuantumNet for quantum computing applications\.|ok|ok|
+|The output must be structured as an array with the specific format \["model\_name"\], where "model\_name" represents the name of a machine learning model extracted from the abstract\.|gpt\-4o\-2024\-08\-06|Abstract: A comparative study of ReinforceNet and AdvancedDL was conducted\.|ok|ok|
+|Each element within the output array should be a distinct string representing an extracted model name\.|gpt\-4o\-2024\-08\-06|Abstract: Our work elaborates on the variations between ModelX, ModelY and InnovativeNet\.|ok|ok|
+|Each element within the output array should be a distinct string representing an extracted model name\.|gpt\-4o\-2024\-08\-06|Abstract: Comparing PerformanceMetricSystem and another framework, ABCModel showed enhancements\.|ok|ok|
+|Each element within the output array should be a distinct string representing an extracted model name\.|gpt\-4o\-2024\-08\-06|Abstract: Both EfficientNet and DeepVision are emphasized in our research methodology\.|ok|ok|
+|If no model names are found in the provided abstract or there is uncertainty regarding the identification of a model name, the output must be \["NA"\], using exactly this format including the square brackets and quotation marks\.|gpt\-4o\-2024\-08\-06|Abstract: Today, we survey advancements without focusing on specific models\.|ok|err|
+|If no model names are found in the provided abstract or there is uncertainty regarding the identification of a model name, the output must be \["NA"\], using exactly this format including the square brackets and quotation marks\.|gpt\-4o\-2024\-08\-06|Abstract: The survey includes theoretical concepts without explicit model references\.|ok|err|
+|If no model names are found in the provided abstract or there is uncertainty regarding the identification of a model name, the output must be \["NA"\], using exactly this format including the square brackets and quotation marks\.|gpt\-4o\-2024\-08\-06|Abstract: Insights from various studies highlight trends with no particular model mentioned\.|ok|ok|
+|The output must only contain model names extracted from the abstract or \["NA"\] if no model names are identified, without any additional text, explanations, or context\.|gpt\-4o\-2024\-08\-06|Abstract: The NNetSystem, renowned for scalability, didn't outperform existing solutions\.|ok|ok|
+|The output must only contain model names extracted from the abstract or \["NA"\] if no model names are identified, without any additional text, explanations, or context\.|gpt\-4o\-2024\-08\-06|Abstract: Discusses UsageModel and known enhancement strategies, yet fails to improve\.|ok|ok|
+|The output must only contain model names extracted from the abstract or \["NA"\] if no model names are identified, without any additional text, explanations, or context\.|gpt\-4o\-2024\-08\-06|Abstract: Highlights strengths of LinearRegressNet while excluding older methods\.|ok|err|
+|The array must only contain correctly identified machine learning model names from the abstract as individual strings, ensuring precision in the identification process\.|gpt\-4o\-2024\-08\-06|Abstract: Introducing EdgeDetectorFramework, our study emphasizes precision in machine vision tasks\.|ok|ok|
+|The array must only contain correctly identified machine learning model names from the abstract as individual strings, ensuring precision in the identification process\.|gpt\-4o\-2024\-08\-06|Abstract: The innovative NeuralProcessor complements existing platforms like ModelFusion\.|ok|ok|
+|The array must only contain correctly identified machine learning model names from the abstract as individual strings, ensuring precision in the identification process\.|gpt\-4o\-2024\-08\-06|Abstract: Mechanistic insight is provided for VectorGammaModel and ProjectAlpha\.|ok|ok|
+|The order of model names in the array should reflect their order of appearance in the abstract, but this does not affect the requirement that the structure and format of the array are correct\.|gpt\-4o\-2024\-08\-06|Abstract: SearchNet appears in this section, followed by ExplorationModel later\.|ok|err|
+|The order of model names in the array should reflect their order of appearance in the abstract, but this does not affect the requirement that the structure and format of the array are correct\.|gpt\-4o\-2024\-08\-06|Abstract: Our results stem from BetaNet initially, then GammaNet contributions\.|ok|ok|
+|The order of model names in the array should reflect their order of appearance in the abstract, but this does not affect the requirement that the structure and format of the array are correct\.|gpt\-4o\-2024\-08\-06|Abstract: First detailing AlphaStructure, and then later covering BetaSystem\.|ok|err|
+|\["unstructured\_output\_must\_not\_use\_specific\_format"\]|gpt\-4o\-2024\-08\-06|Abstract: The architecture ProtonNet was benchmarked on several tasks\.|ok|ok|
+|\["unstructured\_output\_must\_not\_use\_specific\_format"\]|gpt\-4o\-2024\-08\-06|Abstract: MNet does not rely on randomized choices as in ProjNet\.|ok|ok|
+|\["unstructured\_output\_must\_not\_use\_specific\_format"\]|gpt\-4o\-2024\-08\-06|Abstract: In this paper, we unveil StructureX optimization\.|ok|ok|
+|\["each\_element\_in\_output\_can\_be\_repeated\_and\_is\_not\_distinct"\]|gpt\-4o\-2024\-08\-06|Abstract: The system EfficientTransformer sets new benchmarks\.|ok|ok|
+|\["each\_element\_in\_output\_can\_be\_repeated\_and\_is\_not\_distinct"\]|gpt\-4o\-2024\-08\-06|Abstract: We explore variants of MultiLayerNet and MultiLayerNet\.|ok|ok|
+|\["each\_element\_in\_output\_can\_be\_repeated\_and\_is\_not\_distinct"\]|gpt\-4o\-2024\-08\-06|Abstract: BenchmarkNet outperforms others; BenchmarkNet remains key\.|ok|ok|
+|\["output\_can\_be\_an\_empty\_list\_if\_no\_model\_names\_are\_found"\]|gpt\-4o\-2024\-08\-06|Abstract: No specific framework was central to the discussion\.|ok|ok|
+|\["output\_can\_be\_an\_empty\_list\_if\_no\_model\_names\_are\_found"\]|gpt\-4o\-2024\-08\-06|Abstract: General algorithmic strategies but no model names are ChicagoUnit found\.|ok|err|
+|\["output\_can\_be\_an\_empty\_list\_if\_no\_model\_names\_are\_found"\]|gpt\-4o\-2024\-08\-06|Abstract: Lacks direct model identification; refers to toolkits universally\.|ok|err|
+|\["output\_may\_contain\_any\_text\_explanation\_or\_context"\]|gpt\-4o\-2024\-08\-06|Abstract: InnovativeStruct has been developed with potential adaptations\.|ok|err|
+|\["output\_may\_contain\_any\_text\_explanation\_or\_context"\]|gpt\-4o\-2024\-08\-06|Abstract: While building on GraphCalc, we mobilized tools systematically\.|ok|ok|
+|\["output\_may\_contain\_any\_text\_explanation\_or\_context"\]|gpt\-4o\-2024\-08\-06|Abstract: Achieved improvements with BlendNet and follow\-up procedures\.|ok|err|
+|\["output\_array\_must\_include\_non\_machine\_learning\_names\_as\_well"\]|gpt\-4o\-2024\-08\-06|Abstract: Entirely devoted to GDE\-based systems like AdvancedCalc\.|ok|err|
+|\["output\_array\_must\_include\_non\_machine\_learning\_names\_as\_well"\]|gpt\-4o\-2024\-08\-06|Abstract: Focusing on TheoreticalBase and also InferenceController's impact\.|ok|err|
+|\["output\_array\_must\_include\_non\_machine\_learning\_names\_as\_well"\]|gpt\-4o\-2024\-08\-06|Abstract: Our BeamerModel versus GenericKit comparison highlights breakthroughs\.|ok|ok|
+|\["model\_names\_order\_can\_be\_random\_and\_structure\_format\_is\_non\_essential"\]|gpt\-4o\-2024\-08\-06|Abstract: We measure AdaptiveProtector, then ChronoModel during initial tests\.|ok|ok|
+|\["model\_names\_order\_can\_be\_random\_and\_structure\_format\_is\_non\_essential"\]|gpt\-4o\-2024\-08\-06|Abstract: Primarily, StableNet findings overshadowed by NewArrMatrix data\.|ok|ok|
+|\["model\_names\_order\_can\_be\_random\_and\_structure\_format\_is\_non\_essential"\]|gpt\-4o\-2024\-08\-06|Abstract: Start with SystematicGain and turn to GroupingNet\.|ok|ok|
 
 ### [baseline_tests.txt](./baseline_tests.txt)
 

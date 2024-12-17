@@ -1,0 +1,14 @@
+{
+  "id": "abf3a7a",
+  "promptid": "e5ed513",
+  "model": "gpt-4o-2024-08-06",
+  "ruleid": 15,
+  "rule": "The output should not strictly follow the order: Company names, People names, Specific topics, and General themes.",
+  "inverse": true,
+  "input": "Text: Steve Jobs and Apple surfaced, unordered.",
+  "validityText": "The input is a text string, so it fits the basic requirement. The provided text string contains the names of a person (Steve Jobs) and a company (Apple), which are within the scope of \"names of companies, people\" specified in the input specification. However, the input appears to be a fragment and not a complete sentence or paragraph of natural language. According to the input specification, the text input must contain sentences or paragraphs of natural language. The term 'unordered' and the format suggests that it is a collection of keywords rather than a constructed sentence or paragraph. As such, it doesn't fully comply with the requirement of containing sentences or paragraphs of natural language.\n\nDue to the absence of a full sentence or paragraph structure, the input does not fully comply with the requirement for natural language text.\n\nERR",
+  "validity": "err",
+  "coverageText": "Company names: Apple  \nPeople names: Steve Jobs  \nSpecific topics:   \nGeneral themes:   ",
+  "coverageEvalText": "The chatbot output provides the extracted elements in the required format, listing \"Apple\" under company names and \"Steve Jobs\" under people names. However, the sections for \"Specific topics\" and \"General themes\" are left empty. According to the description, all these categories should be filled out, suggesting that the Specific topics and General themes are missing information, leading to non-compliance with the required output format.\n\nThus, the output does not fully comply with the description because it leaves two sections blank.\n\nERR",
+  "coverage": "err"
+}
