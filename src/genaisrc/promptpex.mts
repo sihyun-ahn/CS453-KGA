@@ -6,9 +6,9 @@ const RULE_EVALUATION_DIR = "rule_evals";
 
 export interface PromptPexOptions {
   /**
-   * Do not include Responsible AI safety prompts
+   * Do not include Responsible AI safety prompts and validation
    */
-  disableSafetyPrompts?: boolean;
+  disableSafety?: boolean;
 
   /**
    * Generate temperature for requests
@@ -191,11 +191,13 @@ export async function loadPromptFiles(
 }
 
 function modelOptions(
-  modelAlias: "rules" | "eval" | string
+  modelAlias: "rules" | "eval" | string,
+  options: PromptPexOptions
 ): PromptGeneratorOptions {
+  const { temperature = 1 } = options || {};
   return {
     model: modelAlias,
-    temperature: 1,
+    temperature,
     // RAI must be checked by an external service
     system: [],
   };
@@ -251,7 +253,7 @@ export async function evaluateRuleGrounded(
       });
     },
     {
-      ...modelOptions("eval"),
+      ...modelOptions("eval", options),
       choices: ["OK", "ERR"],
       label: `${files.name}> eval rule grounded ${rule.slice(0, 18)}...`,
     }
@@ -300,7 +302,7 @@ export async function generateInputSpec(
       });
     },
     {
-      ...modelOptions("rules"),
+      ...modelOptions("rules", options),
       //      logprobs: true,
       label: `${files.name}> generate input spec`,
     }
@@ -321,7 +323,7 @@ export async function generateIntent(
       });
     },
     {
-      ...modelOptions("rules"),
+      ...modelOptions("rules", options),
       //      logprobs: true,
       label: `${files.name}> generate intent`,
     }
@@ -345,7 +347,7 @@ export async function generateRules(
       });
     },
     {
-      ...modelOptions("rules"),
+      ...modelOptions("rules", options),
       //      logprobs: true,
       label: `${files.name}> generate rules`,
     }
@@ -367,7 +369,7 @@ export async function generateInverseRules(
       });
     },
     {
-      ...modelOptions("rules"),
+      ...modelOptions("rules", options),
       //      logprobs: true,
       label: `${files.name}> inverse rules`,
     }
@@ -391,7 +393,7 @@ export async function generateBaselineTests(
       });
     },
     {
-      ...modelOptions("rules"),
+      ...modelOptions("rules", options),
       //      logprobs: true,
       label: `${files.name}> generate baseline tests`,
     }
@@ -439,7 +441,7 @@ export async function generateTests(
       });
     },
     {
-      ...modelOptions("rules"),
+      ...modelOptions("rules", options),
       //      logprobs: true,
       label: `${files.name}> generate tests`,
     }
@@ -624,11 +626,11 @@ function updateTestEval(res: PromptPexTestEval) {
 export async function runTest(
   files: PromptPexContext,
   test: PromptPexTest,
-  options?: { model?: ModelType; force?: boolean }
+  options?: PromptPexOptions & { model?: ModelType; force?: boolean }
 ): Promise<PromptPexTestResult> {
   const { model, force } = options || {};
   const moptions = {
-    ...modelOptions(model),
+    ...modelOptions(model, options),
   };
   const { id, promptid, file } = await resolveTestPath(files, test, {
     model,
@@ -681,7 +683,7 @@ export async function runTest(
     output: actualOutput,
   } satisfies PromptPexTestResult;
   testRes.compliance = undefined;
-  testRes.complianceText = await evaluateTestResult(files, testRes);
+  testRes.complianceText = await evaluateTestResult(files, testRes, options);
   updateTestResultCompliant(testRes);
 
   await workspace.writeText(file.filename, JSON.stringify(testRes, null, 2));
@@ -708,7 +710,7 @@ export async function evaluateTestsQuality(
 export async function evaluateTestQuality(
   files: PromptPexContext,
   test: PromptPexTest,
-  options?: { force?: boolean }
+  options?: PromptPexOptions & { force?: boolean }
 ): Promise<PromptPexTestEval> {
   const { force } = options || {};
   const { id, promptid, file } = await resolveTestEvalPath(files, test);
@@ -740,7 +742,7 @@ export async function evaluateTestQuality(
     } satisfies PromptPexTestEval;
 
   const moptions = {
-    ...modelOptions("eval"),
+    ...modelOptions("eval", options),
   };
   const [resCoverage, resValidity] = await Promise.all([
     runPrompt(
@@ -801,7 +803,7 @@ export async function evaluateTestQuality(
     model: testEval.model,
     input: testEval.input,
     output: testEval.coverageText,
-  });
+  }, options);
 
   testEval.coverageEvalText = coverageEvalText;
   testEval.coverage = parseOKERR(testEval.coverageEvalText);
@@ -899,10 +901,11 @@ function resolveRule(
 
 async function evaluateTestResult(
   files: PromptPexContext,
-  testResult: PromptPexTestResult
+  testResult: PromptPexTestResult,
+  options: PromptPexOptions
 ): Promise<string> {
   const moptions = {
-    ...modelOptions("eval"),
+    ...modelOptions("eval", options),
   };
 
   const content = MD.content(files.prompt.content);
@@ -1188,6 +1191,7 @@ export async function generate(
   }
 ) {
   const {
+    disableSafety = false,
     force = false,
     forceBaselineTests = false,
     forceTestEvals = false,
@@ -1199,6 +1203,18 @@ export async function generate(
   } = options || {};
 
   console.log(`generating tests for ${files.name} at ${files.dir}`);
+
+  if (!disableSafety) {
+    const contentSafety = await host.contentSafety()
+    if (!contentSafety) {
+      console.warn(`content safety not configured, skipping`)
+    } else {
+      if ((await contentSafety.detectHarmfulContent?.(files.prompt))?.harmfulContentDetected)
+        throw new Error(`Harmful content detected in prompt`);
+      if ((await contentSafety.detectPromptInjection?.(files.prompt))?.attackDetected)
+        throw new Error(`Harmful content detected in rules`);
+    }
+  }
 
   // generate intent
   if (!files.intent.content || force || forceIntent) {

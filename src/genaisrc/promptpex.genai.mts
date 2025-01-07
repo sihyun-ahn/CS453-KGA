@@ -68,26 +68,27 @@ const {
   out,
 } = env.vars;
 
-const disableSafetyPrompts = !safety;
+const disableSafety = !safety;
 const prompts = await loadPromptContext(out);
 const models = (env.vars.models || "github:gpt-4o-mini")
   ?.split(/;/g)
   .map((model) => model.trim());
 
 const res = [];
+const options = Object.freeze({
+  disableSafety,
+  force,
+  forceBaselineTests,
+  forceIntent,
+  forceInputSpec,
+  forceTests,
+  forceTestEvals,
+  forceExecuteTests,
+  models,
+})
 for (const files of prompts) {
   try {
-    const ctx = await generate(files, {
-      disableSafetyPrompts,
-      force,
-      forceBaselineTests,
-      forceIntent,
-      forceInputSpec,
-      forceTests,
-      forceTestEvals,
-      forceExecuteTests,
-      models,
-    });
+    const ctx = await generate(files, options);
     const { testEvals, rules, ruleEvals, overview } = computeOverview(ctx, {
       percent: false,
     });
