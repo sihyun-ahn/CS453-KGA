@@ -64,6 +64,7 @@ for (const files of prompts) {
   }
 }
 
+/*
 res.sort((a, b) => a.prompt.localeCompare(b.prompt));
 await workspace.writeText(
   "evals/README.md",
@@ -77,3 +78,4 @@ ${CSV.markdownify(res)}
 
 `
 );
+*/
