@@ -4,6 +4,7 @@ script({
   title: "PromptPex Test Generator",
   description: "Generate tests using PromptPex.",
   files: ["samples/speech-tag/speech-tag.prompty"],
+  accept: ".prompty",
   parameters: {
     disableSafety: {
       type: "boolean",
