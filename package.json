@@ -3,8 +3,10 @@
     "prettier": "^3.3.3"
   },
   "scripts": {
+    "az:login": "az login --scope api://trapi/.default",
     "genai": "npx --yes genaiscript run",
     "gcm": "npx --yes genaiscript run gcm",
+    "serve": "npx --yes genaiscript serve",
     "build": "npx --yes genaiscript scripts compile",
     "promptpex": "npx --yes genaiscript run promptpex",
     "promptpex:speech-tag": "npx --yes genaiscript run promptpex \"samples/speech-tag/speech-tag.prompty\" --vars \"models=github:gpt-4o-mini;github:Phi-3-5-mini-instruct\"",
