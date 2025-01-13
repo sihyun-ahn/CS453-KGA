@@ -4,88 +4,45 @@ script({
   title: "PromptPex Test Generator",
   description: "Generate tests using PromptPex.",
   files: ["samples/speech-tag/speech-tag.prompty"],
+  accept: ".prompty",
   parameters: {
-    safety: {
+    disableSafety: {
       type: "boolean",
-      description: "Include Responsible AI safety prompts",
-      default: true,
+      description:
+        "Do not include safety system prompts and do not run safety content service",
+      default: false,
     },
     force: {
       type: "boolean",
       description: "Force overwrite of existing files",
       default: false,
     },
-    forceBaselineTests: {
-      type: "boolean",
-      description: "Force overwrite of existing baseline tests",
-      default: false,
-    },
-    forceIntent: {
-      type: "boolean",
-      description: "Force overwrite of existing intent files",
-      default: false,
-    },
-    forceInputSpec: {
-      type: "boolean",
-      description: "Force overwrite of existing input spec files",
-      default: false,
-    },
-    forceTests: {
-      type: "boolean",
-      description: "Force overwrite of existing test files",
-      default: false,
-    },
-    forceTestEvals: {
-      type: "boolean",
-      description: "Force overwrite of existing test evals files",
-      default: false,
-    },
-    forceExecuteTests: {
-      type: "boolean",
-      description: "Force execute tests",
-      default: false,
-    },
     models: {
       type: "string",
-      description: "Semi-column separated list of models to generate",
+      description: "List of models to generate",
+      default: "",
     },
     out: {
       type: "string",
       description: "Output directory",
+      default: "",
     },
   },
 });
 
-const {
-  safety,
-  force,
-  forceBaselineTests,
-  forceIntent,
-  forceInputSpec,
-  forceTests,
-  forceTestEvals,
-  forceExecuteTests,
-  out,
-} = env.vars;
+const { disableSafety, force, out } = env.vars;
 
-const disableSafety = !safety;
 const prompts = await loadPromptContext(out);
 const models = (env.vars.models || "github:gpt-4o-mini")
-  ?.split(/;/g)
+  ?.split(/[;\n ,]/g)
   .map((model) => model.trim());
 
 const res = [];
 const options = Object.freeze({
   disableSafety,
   force,
-  forceBaselineTests,
-  forceIntent,
-  forceInputSpec,
-  forceTests,
-  forceTestEvals,
-  forceExecuteTests,
   models,
-})
+});
 for (const files of prompts) {
   try {
     const ctx = await generate(files, options);
@@ -107,6 +64,7 @@ for (const files of prompts) {
   }
 }
 
+/*
 res.sort((a, b) => a.prompt.localeCompare(b.prompt));
 await workspace.writeText(
   "evals/README.md",
@@ -120,3 +78,4 @@ ${CSV.markdownify(res)}
 
 `
 );
+*/

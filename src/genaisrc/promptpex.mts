@@ -795,15 +795,19 @@ export async function evaluateTestQuality(
     coverageText: resCoverage.text,
   } satisfies PromptPexTestEval;
 
-  const coverageEvalText = await evaluateTestResult(files, {
-    id: "cov-" + testEval.id,
-    rule: testEval.rule,
-    ruleid: test.ruleid,
-    promptid,
-    model: testEval.model,
-    input: testEval.input,
-    output: testEval.coverageText,
-  }, options);
+  const coverageEvalText = await evaluateTestResult(
+    files,
+    {
+      id: "cov-" + testEval.id,
+      rule: testEval.rule,
+      ruleid: test.ruleid,
+      promptid,
+      model: testEval.model,
+      input: testEval.input,
+      output: testEval.coverageText,
+    },
+    options
+  );
 
   testEval.coverageEvalText = coverageEvalText;
   testEval.coverage = parseOKERR(testEval.coverageEvalText);
@@ -927,7 +931,7 @@ async function evaluateTestResult(
       label: `${files.name}> evaluate test result ${testResult.model} ${testResult.input.slice(0, 42)}...`,
     }
   );
-  checkLLMResponse(res)
+  checkLLMResponse(res);
   const evaluation = res.text;
   return evaluation;
 }
@@ -1181,49 +1185,39 @@ export async function generate(
   files: PromptPexContext,
   options?: PromptPexOptions & {
     force?: boolean;
-    forceBaselineTests?: boolean;
-    forceIntent?: boolean;
-    forceInputSpec?: boolean;
-    forceTests?: boolean;
-    forceTestEvals?: boolean;
-    forceExecuteTests?: boolean;
     models?: ModelType[];
   }
 ) {
-  const {
-    disableSafety = false,
-    force = false,
-    forceBaselineTests = false,
-    forceTestEvals = false,
-    forceIntent = false,
-    forceInputSpec = false,
-    forceTests = false,
-    forceExecuteTests = false,
-    models,
-  } = options || {};
+  const { disableSafety = false, force = false, models } = options || {};
 
   console.log(`generating tests for ${files.name} at ${files.dir}`);
 
   if (!disableSafety) {
-    const contentSafety = await host.contentSafety()
+    const contentSafety = await host.contentSafety();
     if (!contentSafety) {
-      console.warn(`content safety not configured, skipping`)
+      console.warn(`content safety not configured, skipping`);
     } else {
-      if ((await contentSafety.detectHarmfulContent?.(files.prompt))?.harmfulContentDetected)
+      if (
+        (await contentSafety.detectHarmfulContent?.(files.prompt))
+          ?.harmfulContentDetected
+      )
         throw new Error(`Harmful content detected in prompt`);
-      if ((await contentSafety.detectPromptInjection?.(files.prompt))?.attackDetected)
+      if (
+        (await contentSafety.detectPromptInjection?.(files.prompt))
+          ?.attackDetected
+      )
         throw new Error(`Harmful content detected in rules`);
     }
   }
 
   // generate intent
-  if (!files.intent.content || force || forceIntent) {
+  if (!files.intent.content || force) {
     files.intent.content = await generateIntent(files, options);
     await workspace.writeText(files.intent.filename, files.intent.content);
   }
 
   // generate input spec
-  if (!files.inputSpec.content || force || forceInputSpec) {
+  if (!files.inputSpec.content || force) {
     files.inputSpec.content = await generateInputSpec(files, options);
     await workspace.writeText(
       files.inputSpec.filename,
@@ -1257,7 +1251,7 @@ export async function generate(
   }
 
   // generate tests
-  if (!files.tests.content || force || forceTests) {
+  if (!files.tests.content || force) {
     files.tests.content = await generateTests(files, options);
     await workspace.writeText(files.tests.filename, files.tests.content);
     files.testEvals.content = undefined;
@@ -1265,7 +1259,7 @@ export async function generate(
   }
 
   // generate baseline tests
-  if (!files.baselineTests.content || force || forceBaselineTests) {
+  if (!files.baselineTests.content || force) {
     files.baselineTests.content = await generateBaselineTests(files, options);
     await workspace.writeText(
       files.baselineTests.filename,
@@ -1284,7 +1278,7 @@ export async function generate(
   const tc = await evaluateTestsQuality(files, {
     ...(options || {}),
     ...{
-      force: force || forceTestEvals,
+      force,
     },
   });
   if (tc !== files.testEvals.content) {
@@ -1299,7 +1293,7 @@ export async function generate(
   if (models?.length) {
     files.testOutputs.content = await runTests(files, {
       models,
-      force: force || forceExecuteTests,
+      force,
     });
     await workspace.writeText(
       files.testOutputs.filename,
