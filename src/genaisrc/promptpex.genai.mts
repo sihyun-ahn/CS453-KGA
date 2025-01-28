@@ -35,7 +35,7 @@ script({
   },
 });
 
-const { disableSafety, force, out } = env.vars;
+const { disableSafety, force, out, evals } = env.vars;
 
 const prompts = await loadPromptContext(out);
 const models = (env.vars.models || "github:gpt-4o-mini")
@@ -47,6 +47,7 @@ const options = Object.freeze({
   disableSafety,
   force,
   models,
+  evals
 });
 for (const files of prompts) {
   try {
