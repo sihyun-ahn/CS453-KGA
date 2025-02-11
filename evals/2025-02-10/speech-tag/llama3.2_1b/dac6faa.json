@@ -1,0 +1,12 @@
+{
+  "id": "dac6faa",
+  "promptid": "a928b14",
+  "ruleid": 10,
+  "rule": "The response should not be in plain text format but with additional text, punctuation, or formatting.",
+  "inverse": true,
+  "model": "llama3.2:1b",
+  "input": "sentence: Open the door please., word: Open",
+  "output": "CC:Open NNP: open (again)\n\nCantAnswer",
+  "compliance": "err",
+  "complianceText": "The chatbot output contains more information than just the part-of-speech tag. The output includes \"CC:Open NNP: open (again)\", which goes against the instruction to return \"just the tag\". Since the requirement is to return only the part of speech tag, and this output does not comply with that requirement, it is a violation.\n\nERR"
+}

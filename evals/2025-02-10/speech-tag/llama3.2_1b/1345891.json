@@ -1,0 +1,11 @@
+{
+  "id": "1345891",
+  "promptid": "a928b14",
+  "ruleid": null,
+  "baseline": true,
+  "model": "llama3.2:1b",
+  "input": "sentence: She asked who would be attending the meeting. word: who",
+  "output": "tag: CC",
+  "compliance": "err",
+  "complianceText": "The given output contains \"tag: \" before the actual tag \"CC\". According to the rules, the list of part-of-speech tags should be returned as is, without any prefix. The description instructs to return only the tag for the word's part of speech, but the output includes \"tag: \" which is a violation.\n\nERR"
+}

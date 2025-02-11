@@ -1,0 +1,11 @@
+{
+  "id": "64165f0",
+  "promptid": "a928b14",
+  "ruleid": null,
+  "baseline": true,
+  "model": "llama3.2:1b",
+  "input": "sentence: They moved here from Australia. word: from",
+  "output": "CC: \nNNS: \nUnknown",
+  "compliance": "err",
+  "complianceText": "The chatbot output includes multiple tags for a single word which violates the description that mentions to return only one part of speech tag for the given word. Furthermore, the output also displays an extra 'Unknown' which indicates that it is unclear which exact response is the correct one. This ambiguity and the presence of multiple tags violate the guideline that explicitly states to return just the tag, and if unable to tag, return 'CantAnswer' or 'Unknown'.\n\nERR"
+}

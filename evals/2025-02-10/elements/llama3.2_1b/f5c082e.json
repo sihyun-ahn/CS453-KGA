@@ -1,0 +1,11 @@
+{
+  "id": "f5c082e",
+  "promptid": "e2d6bac",
+  "ruleid": 5,
+  "rule": "The response should always include all four sections, even if no entities are found for some sections.",
+  "model": "llama3.2:1b",
+  "input": "Text: Health trends are changing.",
+  "output": "None\n\nCompany names: \n- None\n\nPeople names:\n- None\n\nSpecific topics:\n- General health trends\n\nGeneral themes:\n- -Health trends changing",
+  "compliance": "err",
+  "complianceText": "The output has several issues:\n1. The format under Company names and People names is inconsistent with the description as they have an extra newline and a bullet point.\n2. General themes contain an unnecessary leading dash, showing inconsistent formatting.\n\nERR"
+}

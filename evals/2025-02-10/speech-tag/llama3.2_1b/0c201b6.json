@@ -1,0 +1,12 @@
+{
+  "id": "0c201b6",
+  "promptid": "a928b14",
+  "ruleid": 6,
+  "rule": "The response should contain more than the tag corresponding to the part of speech of the given word with additional text.",
+  "inverse": true,
+  "model": "llama3.2:1b",
+  "input": "sentence: Breakfast is ready., word: Breakfast",
+  "output": "CC: verb\nNN: breakfast",
+  "compliance": "err",
+  "complianceText": "The chatbot output provides two part-of-speech tags, \"CC: verb\" and \"NN: breakfast\".\n1. The correct response should only include the part-of-speech tag without any additional explanation or words.\n2. \"CC: verb\" is incorrect because \"verb\" is not an acceptable addition in the output according to the guidelines.\n3. The appropriate output should have been just \"CC\" or \"NN\" without any additional information.\n\nERR"
+}

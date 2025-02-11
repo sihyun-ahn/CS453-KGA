@@ -1,0 +1,12 @@
+{
+  "id": "010954a",
+  "promptid": "a928b14",
+  "ruleid": 6,
+  "rule": "The response should contain more than the tag corresponding to the part of speech of the given word with additional text.",
+  "inverse": true,
+  "model": "llama3.2:1b",
+  "input": "sentence: Quickly finish., word: Quickly",
+  "output": "tag: IN (twice), VBZ (verb) \n tag: UNKNOWN",
+  "compliance": "err",
+  "complianceText": "The chatbot output includes additional text and multiple parts of speech tags, which is against the requirement to \"return just the tag for the word's part of speech\". The output should strictly return only a single, specific tag or \"Unknown\"/\"CantAnswer\", without any additional information or multiple tags.\n\nERR"
+}

@@ -211,6 +211,7 @@ function modelOptions(
     return {
         model: modelAlias,
         temperature,
+        responseType: "text",
         // RAI must be checked by an external service
         system: [],
     };

@@ -1,0 +1,11 @@
+{
+  "id": "a132f2c",
+  "promptid": "e2d6bac",
+  "ruleid": 3,
+  "rule": "The response for specific topics should list all specific topics extracted from the provided text, separated by commas, and enclosed within angle brackets following 'Specific topics:'.",
+  "model": "qwen2.5:3b",
+  "input": "Text: Topics like Quantum Computing and AI are popular.",
+  "output": "Company names: \nPeople names: -||-\nSpecific topics: Quantum Computing, AI\nGeneral themes: Popular Technology Trends",
+  "compliance": "err",
+  "complianceText": "The chatbot output fails to comply with the description in several ways. \n\n1. The \"Company names\" list is empty. While it's possible that there genuinely were no company names in the input text, the format specified in the description requires <comma_separated_list_of_company_names>. The lack of any content might suggest non-compliance.\n2. The \"People names\" category has a placeholder \"-||-\" which the description does not specify or allow. It requires a <comma_separated_list_of_people_names>.\n3. Specific topics and general themes seem to be fitting the required format.\n\nERR"
+}

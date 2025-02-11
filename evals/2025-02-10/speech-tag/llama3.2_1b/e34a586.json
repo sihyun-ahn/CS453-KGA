@@ -1,0 +1,11 @@
+{
+  "id": "e34a586",
+  "promptid": "a928b14",
+  "ruleid": null,
+  "baseline": true,
+  "model": "llama3.2:1b",
+  "input": "sentence: We are going to the concert tonight. word: tonight",
+  "output": "CC: sentence 1, tag: Verbs (VP), tag: NNPS: Pronoun, sentence 2, tag: Verb part of speech (\"going\", \"going\" is a present participle and therefore has two parts or stages in its construction, however, the word \"tonight\")",
+  "compliance": "err",
+  "complianceText": "The chatbot output violates the task description in the following ways:\n1. The output is not a single part of speech tag for a given word.\n2. The output includes extraneous text and explanations.\n3. The output contains more than one tag and information about multiple sentences.\n\nERR"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "e37ef28",
+  "promptid": "a928b14",
+  "ruleid": 7,
+  "rule": "The part of speech tag should be any tag except the ones listed in the task: CC, CD, DT, EX, FW, IN, JJ, JJR, JJS, LS, MD, NN, NNS, NNP, NNPS, PDT, POS, PRP, PRP$, RB, RBR, RBS, RP, SYM, TO, UH, VB, VBD, VBG, VBN, VBP, VBZ, WDT, WP, WP$, WRB.",
+  "inverse": true,
+  "model": "llama3.2:1b",
+  "input": "sentence: They enjoy music., word: music",
+  "output": "CC: Determiner\nJJS: Adjective, superlative",
+  "compliance": "err",
+  "complianceText": "The output \"CC: Determiner\" does not comply with the description provided. According to the description, the tag \"CC\" corresponds to \"Coordinating conjunction,\" not \"Determiner.\" Therefore, there is a clear mismatch in the part of speech label provided. \n\nERR"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "0803e41",
+  "promptid": "a928b14",
+  "ruleid": 6,
+  "rule": "The response should contain more than the tag corresponding to the part of speech of the given word with additional text.",
+  "inverse": true,
+  "model": "phi4",
+  "input": "sentence: I will run., word: run",
+  "output": "VB  \nVBG  \n\n(Note: In the context of \"I will run\", \"run\" functions as an infinitive verb without \"to\", which is represented by the tag \"VB\". If it were used in a continuous tense, such as \"running,\" it would be tagged as \"VBG\". In this sentence as given, it's best as \"VB.\")",
+  "compliance": "err",
+  "complianceText": "The output provided more than one tag, whereas the task is to return just the tag for the word's part of speech. Additionally, it provided an explanation, which is not required. Therefore, it does not comply with the description.\n\nERR"
+}

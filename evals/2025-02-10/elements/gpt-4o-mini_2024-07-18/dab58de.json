@@ -1,0 +1,11 @@
+{
+  "id": "dab58de",
+  "promptid": "e2d6bac",
+  "ruleid": 1,
+  "rule": "The response for company names should list all company names extracted from the provided text, separated by commas, and enclosed within angle brackets following 'Company names:'.",
+  "model": "gpt-4o-mini-2024-07-18",
+  "input": "Text: Google's new CEO Sundar is visiting IBM headquarters.",
+  "output": "Company names: Google, IBM\nPeople names: Sundar\nSpecific topics: CEO visit, corporate headquarters\nGeneral themes: Business leadership, corporate relations",
+  "compliance": "err",
+  "complianceText": "The output does not follow the exact format specified in the description. The description clearly states that all lists should be comma-separated, but the \"People names\" section only provides a single name without a comma. Furthermore, the format specifies that even if there's only a single item, it should still follow the consistent list pattern. Therefore, the proper format should include a comma in the \"People names\" section.\n\nERR"
+}

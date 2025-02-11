@@ -1,0 +1,11 @@
+{
+  "id": "2760a21",
+  "promptid": "a928b14",
+  "ruleid": 3,
+  "rule": "If the word cannot be tagged with any of the listed tags, the response should be \"Unknown\".",
+  "model": "llama3.2:1b",
+  "input": "sentence: Using XKCD comics can be fun., word: XKCD",
+  "output": "CC\nXKCD",
+  "compliance": "err",
+  "complianceText": "The chatbot output contains \"XKCD\" at the end, which is not a part of speech tag. According to the guidelines, the output should only contain the tag for the word's part of speech, return \"Unknown\", or \"CantAnswer\".\n\nERR"
+}

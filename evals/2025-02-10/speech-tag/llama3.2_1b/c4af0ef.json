@@ -1,0 +1,12 @@
+{
+  "id": "c4af0ef",
+  "promptid": "a928b14",
+  "ruleid": 8,
+  "rule": "If the word can be tagged with any of the listed tags, the response should not be \"Unknown\".",
+  "inverse": true,
+  "model": "llama3.2:1b",
+  "input": "sentence: He has a new job., word: job",
+  "output": "CC: Job",
+  "compliance": "err",
+  "complianceText": "The output \"CC: Job\" does not comply with the description. According to the provided description, the bot should return only the part of speech tag. The part of speech tag \"CC\" is correct, however, the inclusion of the extra text \": Job\" violates the guidelines.\n\nERR"
+}

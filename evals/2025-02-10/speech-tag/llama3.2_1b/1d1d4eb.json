@@ -1,0 +1,11 @@
+{
+  "id": "1d1d4eb",
+  "promptid": "a928b14",
+  "ruleid": null,
+  "baseline": true,
+  "model": "llama3.2:1b",
+  "input": "sentence: The scientist discovered a new element. word: discovered",
+  "output": "CC:  sentence \nJJ:  discovered \nVB: , discovered",
+  "compliance": "err",
+  "complianceText": "The output contains multiple tags for the word \"discovered\" (JJ and VB), and it includes additional words (such as \"sentence\" and \"comma\") that were not asked for, which means the tags are not being directly associated with a single specified word.\n\nERR"
+}

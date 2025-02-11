@@ -1,0 +1,11 @@
+{
+  "id": "dab58de",
+  "promptid": "e2d6bac",
+  "ruleid": 1,
+  "rule": "The response for company names should list all company names extracted from the provided text, separated by commas, and enclosed within angle brackets following 'Company names:'.",
+  "model": "llama3.2:1b",
+  "input": "Text: Google's new CEO Sundar is visiting IBM headquarters.",
+  "output": "Company names: Google, IBM\nPeople names: Sundar\nSpecific topics: CEOs, visits to IBM headquarters\nGeneral themes: Global business, leadership, geography",
+  "compliance": "err",
+  "complianceText": "The output includes a list of company names, people names, specific topics, and general themes as required by the format. However, there are issues with the output:\n\n1. People names should be full names. The name \"Sundar\" appears to be incomplete.\n2. The specific topic \"visits to IBM headquarters\" appears awkward and lacks specificity. The term does not seem to fit the request for specificity in content.\n\nERR"
+}

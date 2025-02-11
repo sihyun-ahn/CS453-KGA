@@ -1,0 +1,11 @@
+{
+  "id": "f16e317",
+  "promptid": "e2d6bac",
+  "ruleid": 5,
+  "rule": "The response should always include all four sections, even if no entities are found for some sections.",
+  "model": "deepseek-r1:7b",
+  "input": "Text: John works at Microsoft.",
+  "output": "Company names: <Microsoft>  \nPeople names: John  \nSpecific topics: Microsoft  \nGeneral themes: Employment",
+  "compliance": "err",
+  "complianceText": "The violation is that the company name is wrapped with angle brackets \"< >\" instead of being a plain, comma-separated list. Additionally, the specific topics section contains \"Microsoft,\" which has already been listed under company names, suggesting redundancy rather than a distinct topic. Specific topics should differ from company names.\n\nERR"
+}

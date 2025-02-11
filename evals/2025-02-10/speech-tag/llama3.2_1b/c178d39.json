@@ -1,0 +1,11 @@
+{
+  "id": "c178d39",
+  "promptid": "a928b14",
+  "ruleid": null,
+  "baseline": true,
+  "model": "llama3.2:1b",
+  "input": "sentence: This solution is extremely effective. word: extremely",
+  "output": "CC: sentence\nJJ: word",
+  "compliance": "err",
+  "complianceText": "The chatbot output lists two tags \"CC\" and \"JJ\" and associates them with \"sentence\" and \"word\" respectively. According to the task description, only the tag should be returned. The output should be singular without listing multiple tags without knowing the input. \n\nERR"
+}

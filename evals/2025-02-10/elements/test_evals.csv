@@ -1,0 +1,146 @@
+id,promptid,model,ruleid,rule,input,validityText,validity,coverageText,coverageEvalText,coverage,error
+fa3c842,e2d6bac,gpt-4o-2024-05-13,1,"The response for company names should list all company names extracted from the provided text, separated by commas, and enclosed within angle brackets following 'Company names:'.",Text: John works at Microsoft. Anna joined Apple.,"The input text block contains sentences and names of individuals as well as company names. It is not empty and is meaningful. The input includes periods (punctuation) correctly and aligns with the requirement that it can be of any length.
+
+OK",ok,"Company names:<Microsoft, Apple>
+People names:<John, Anna>
+Specific topics:<>
+General themes:<>","The format for the entities mentioned should be in a comma-separated list. The specific topics and general themes are empty, which is not compliant with the expected format since the angle brackets should not appear if there are no topics or themes to mention. Instead, they should be handled in a more appropriate manner, like leaving them completely blank without these angle brackets.
+
+ERR",err,
+dab58de,e2d6bac,gpt-4o-2024-05-13,1,"The response for company names should list all company names extracted from the provided text, separated by commas, and enclosed within angle brackets following 'Company names:'.",Text: Google's new CEO Sundar is visiting IBM headquarters.,"The input provided is a text block that mentions the name of a company (Google), the name of an individual (Sundar), and another company (IBM). It is meaningful and provides specific information about an event. It also includes proper punctuation and special characters. 
+
+There is no indication that the text block is empty or that it is non-meaningful.
+
+OK",ok,"Company names: <Google, IBM>
+People names: <Sundar>
+Specific topics: <>
+General themes: <>","The output does not comply with the description. The format required is a single line for each category, but the bot used angle brackets (""<"" and "">"") instead of a comma-separated list. Specifically:
+
+- For ""Company names"", angle brackets were used around the names instead of commas only.
+- For ""People names"", similar misuse of angle brackets.
+- ""Specific topics"" and ""General themes"" are compliant assuming the text did not have any specific topics or general themes. However, knowing the input is essential to fully evaluate this part.
+
+ERR",err,
+3d22a56,e2d6bac,gpt-4o-2024-05-13,1,"The response for company names should list all company names extracted from the provided text, separated by commas, and enclosed within angle brackets following 'Company names:'.",Text: Facebook is partnering with Samsung.,"This input contains a text block mentioning a partnership between Facebook and Samsung, which are names of companies. It is a meaningful sentence and is not empty. There are no violations of the input specification.
+
+OK",ok,"Company names: <Facebook, Samsung>
+People names: <>
+Specific topics: <partnership>
+General themes: <business, technology>","The output does not comply with the desired format specified in the chatbot description. Specifically:
+1. The lists for ""Company names,"" ""People names,"" ""Specific topics,"" and ""General themes"" contain angle brackets ""<>"" instead of just separating the items with commas.
+2. The description specifies that these lists should be comma-separated without any enclosing characters.
+
+ERR",err,
+fa3c842,e2d6bac,gpt-4o-2024-05-13,1,"The response for company names should list all company names extracted from the provided text, separated by commas, and enclosed within angle brackets following 'Company names:'.",Text: John works at Microsoft. Anna joined Apple.,"The input text block contains sentences and names of individuals as well as company names. It is not empty and is meaningful. The input includes periods (punctuation) correctly and aligns with the requirement that it can be of any length.
+
+OK",ok,"Company names:<Microsoft, Apple>
+People names:<John, Anna>
+Specific topics:<>
+General themes:<>","The format for the entities mentioned should be in a comma-separated list. The specific topics and general themes are empty, which is not compliant with the expected format since the angle brackets should not appear if there are no topics or themes to mention. Instead, they should be handled in a more appropriate manner, like leaving them completely blank without these angle brackets.
+
+ERR",err,
+dab58de,e2d6bac,gpt-4o-2024-05-13,1,"The response for company names should list all company names extracted from the provided text, separated by commas, and enclosed within angle brackets following 'Company names:'.",Text: Google's new CEO Sundar is visiting IBM headquarters.,"The input provided is a text block that mentions the name of a company (Google), the name of an individual (Sundar), and another company (IBM). It is meaningful and provides specific information about an event. It also includes proper punctuation and special characters. 
+
+There is no indication that the text block is empty or that it is non-meaningful.
+
+OK",ok,"Company names: <Google, IBM>
+People names: <Sundar>
+Specific topics: <>
+General themes: <>","The output does not comply with the description. The format required is a single line for each category, but the bot used angle brackets (""<"" and "">"") instead of a comma-separated list. Specifically:
+
+- For ""Company names"", angle brackets were used around the names instead of commas only.
+- For ""People names"", similar misuse of angle brackets.
+- ""Specific topics"" and ""General themes"" are compliant assuming the text did not have any specific topics or general themes. However, knowing the input is essential to fully evaluate this part.
+
+ERR",err,
+adf933b,e2d6bac,gpt-4o-2024-05-13,2,"The response for people names should list all people names extracted from the provided text, separated by commas, and enclosed within angle brackets following 'People names:'.",Text: Mark and Lisa attended a conference.,"The given input is a text block that contains a complete sentence. It includes names of individuals (Mark and Lisa) and is meaningful. It doesn't contain any greetings, specific terms, or special characters, but these are not mandatory requirements according to the specification. Since the text block is not empty and meets the criteria stated in the specification, it complies with the input specification.
+
+OK",ok,"Company names: <>
+People names: <Mark, Lisa>
+Specific topics: <>
+General themes: <>","The output provided by the chatbot does not comply with the required format fully. Specifically:
+
+1. The Company names field contains `< >`, which is not in the desired format as they should either list names of companies or be empty without these brackets.
+2. The Specific topics and General themes fields similarly contain `< >`, which is not the desired format as they should either list the topics and themes or be empty without these brackets.
+
+ERR",err,
+a132f2c,e2d6bac,gpt-4o-2024-05-13,3,"The response for specific topics should list all specific topics extracted from the provided text, separated by commas, and enclosed within angle brackets following 'Specific topics:'.",Text: Topics like Quantum Computing and AI are popular.,"The input is a text block that contains general topics/themes (Quantum Computing and AI), which makes it meaningful. It is not empty and adheres to the specification regarding the inclusion of special characters and punctuation.
+
+OK",ok,"Company names: <>
+People names: <>
+Specific topics: <Quantum Computing, AI>
+General themes: <Computing, Technology>","The output deviates from the specified format mandated in the description. The description requires the use of commas for separating names in lists, and the chatbot output should follow the format precisely even if lists are empty. Additionally, the brackets used are also not consistent with expected delimiters.
+
+ERR",err,
+e41ccbb,e2d6bac,gpt-4o-2024-05-13,3,"The response for specific topics should list all specific topics extracted from the provided text, separated by commas, and enclosed within angle brackets following 'Specific topics:'.",Text: Climate change and renewable energy are critical issues.,"The input is a text block that includes a meaningful sentence discussing critical issues related to climate change and renewable energy. It is not empty, may contain specific terms related to certain subjects, and adheres to all other elements of the input specification.
+
+OK",ok,"Company names: <>
+People names: <>
+Specific topics: <climate change, renewable energy>
+General themes: <issues>","The chatbot has failed to extract any company names and people names, leaving them empty in the output which indicates a non-compliance with the provided format, as it should show lists of company and people names if any exist. Also, it used angle brackets instead of the required comma-separated lists and it provided specific topics and general themes which while correctly listed, were enclosed in angle brackets and singular where it should not have been. 
+
+ERR",err,
+40ac337,e2d6bac,gpt-4o-2024-05-13,3,"The response for specific topics should list all specific topics extracted from the provided text, separated by commas, and enclosed within angle brackets following 'Specific topics:'.",Text: Discussions include cyber security and data privacy.,"This input is a text block that includes a complete sentence. It discusses the topics of cyber security and data privacy, which are specific terms related to certain subjects. The text block is not empty and is meaningful. There is no violation of the input specification.
+
+OK",ok,"Company names: <>
+People names: <>
+Specific topics: <cyber security, data privacy>
+General themes: <technology>","The output format for company names and people names should be a comma-separated list, not enclosed with angle brackets. The same applies to specific topics and general themes. Therefore, the output does not comply with the description provided.
+
+ERR",err,
+cb87c21,e2d6bac,gpt-4o-2024-05-13,4,"The response for general themes should list all general themes extracted from the provided text, separated by commas, and enclosed within angle brackets following 'General themes:'.",Text: This article discusses health and wellness trends.,"The provided input is a text block that includes a general topic on health and wellness trends. It is not empty, contains meaningful content, and adheres to the guidelines of the input specification. There are no violations based on the given rules.
+
+OK",ok,"Company names: <>
+People names: <>
+Specific topics: <>
+General themes: <health, wellness>","The output does not comply with the description due to the following reasons:
+
+- The desired format requires output lists to be in a comma-separated skeleton list format, which typically means either providing specific entities or explicitly stating there are none. The use of empty angle brackets ""<>"" without clear indication of no entities is ambiguous and does not align with the description format.
+- The ""Specific topics"" field is left empty which may be an intended result, but without clear indication or simply stating ""None"", it isn't explicitly clear.
+- The ""General themes"" field has values but does not clearly separate specific topics extraction from general overarching themes.
+
+ERR",err,
+d465e5e,e2d6bac,gpt-4o-2024-05-13,4,"The response for general themes should list all general themes extracted from the provided text, separated by commas, and enclosed within angle brackets following 'General themes:'.",Text: Education and technology are interlinked.,"The input is a text block that includes a sentence discussing the interconnection between education and technology. This is meaningful content related to general topics or themes. The text block is not empty and does not contain any prohibited content or structure as per the input specification.
+
+OK",ok,"Company names: <>
+People names: <>
+Specific topics: <Education, technology>
+General themes: <Interlinked>","The output format must include comma-separated lists for each category. However, the output provided here uses angle brackets with no content, which deviates from the described format. Additionally, the section for General themes does not match the required format.
+
+ERR",err,
+373778c,e2d6bac,gpt-4o-2024-05-13,4,"The response for general themes should list all general themes extracted from the provided text, separated by commas, and enclosed within angle brackets following 'General themes:'.",Text: Trends in finance and economics.,"The input is a text block discussing trends in finance and economics. It complies with the specification as it is a collection of sentences related to finance and economics, a general topic. It is not empty, and the content is meaningful.
+
+OK",ok,"Company names: <>
+People names: <>
+Specific topics: <>
+General themes: <finance, economics>","The output does not follow the specified format as it has empty angle brackets for company names, people names, and specific topics. Instead, there should be a list of entities within these brackets, even if it's just empty strings separated by commas. Additionally, even though the general themes are provided, they seem incomplete without any content in the other lists.
+
+ERR",err,
+f16e317,e2d6bac,gpt-4o-2024-05-13,5,"The response should always include all four sections, even if no entities are found for some sections.",Text: John works at Microsoft.,"The input contains a text block that is not empty. It includes a sentence with the name of an individual (John) and the name of a company (Microsoft). The text block is meaningful.
+
+OK",ok,"Company names: <Microsoft>
+People names: <John>
+Specific topics: <>
+General themes: <>","The chatbot output does not comply with the description. The desired format should use comma-separated lists for company names and people names, but it uses angle brackets instead. Additionally, empty fields for ""Specific topics"" and ""General themes"" are denoted by angle brackets, which do not conform to the description.
+
+ERR",err,
+f5c082e,e2d6bac,gpt-4o-2024-05-13,5,"The response should always include all four sections, even if no entities are found for some sections.",Text: Health trends are changing.,"The input ""Health trends are changing."" is a text block that contains a meaningful sentence about health trends. It is not empty, includes general topics or themes, and complies with all the given input specifications. 
+
+OK",ok,"Company names: <>
+People names: <>
+Specific topics: <>
+General themes: <Health trends>","The output does not comply with the description as the format used for listing the entities does not match the required comma-separated list format within angle brackets. Additionally, the entries for Company names, People names, and Specific topics are empty, indicated by ""<>"", which is not compliant.
+
+ERR",err,
+981e35a,e2d6bac,gpt-4o-2024-05-13,5,"The response should always include all four sections, even if no entities are found for some sections.",Text: Quantum computing is the future.,"The input text is a block that contains a sentence describing a topic. It is not empty and contains meaningful content related to a specific subject (quantum computing). Based on the input specification, this text complies with all the provided rules.
+
+OK",ok,"Company names: <>
+People names: <>
+Specific topics: <>
+General themes: <Quantum computing>","The output fails to comply with the required format. Specifically:
+
+1. The Company names, People names, and Specific topics sections are not populated with any entries. They are marked with ""<>"", indicating an empty or null value instead of an explicit list, even in case of no entities.
+
+2. The general themes section has been filled correctly according to the format, but the previous sections’ compliance issue leads to a failure in overall compliance.
+
+ERR",err,

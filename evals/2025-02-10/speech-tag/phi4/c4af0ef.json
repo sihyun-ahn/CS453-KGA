@@ -1,0 +1,12 @@
+{
+  "id": "c4af0ef",
+  "promptid": "a928b14",
+  "ruleid": 8,
+  "rule": "If the word can be tagged with any of the listed tags, the response should not be \"Unknown\".",
+  "inverse": true,
+  "model": "phi4",
+  "input": "sentence: He has a new job., word: job",
+  "output": "NN  \n(Proper noun, singular)\n\nNN  \n(Proper noun, singular)",
+  "compliance": "err",
+  "complianceText": "The output \"NN\" is repeated twice, followed by the description \"(Proper noun, singular)\", which is contradictory as \"NN\" is defined as \"Noun, singular or mass\" according to the given tag list. This leads to a clear violation of the chatbot description.\n\nERR"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "cb87c21",
+  "promptid": "e2d6bac",
+  "ruleid": 4,
+  "rule": "The response for general themes should list all general themes extracted from the provided text, separated by commas, and enclosed within angle brackets following 'General themes:'.",
+  "model": "llama3.2:1b",
+  "input": "Text: This article discusses health and wellness trends.",
+  "output": "**Company Names:** \n\n**People Names:**  \n- Unknown (author)\n\n**Specific Topics:** \n- Health and Wellness Trends\n- General Wellness\n\n**General Themes:** \n- Health and Nutrition\n- Lifestyle Changes",
+  "compliance": "err",
+  "complianceText": "The chatbot's output does not comply with the expected format in several ways:\n\n1. \"Company Names\" section is empty and should still include at least a placeholder if no companies are found.\n2. \"People Names\" section has an entry \"- Unknown (author)\" which is not a valid people name. It should have been left empty or properly formatted names listed if found.\n3. The \"Specific Topics\" and \"General Themes\" sections are correctly listed, but the inappropriate entries in the other sections lead to non-compliance.\n\nERR"
+}

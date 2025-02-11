@@ -1,0 +1,895 @@
+{
+  "prompt": "---\nname: Classify input text\ndescription: Given an input text, classify it into a specific category.\nsource: How to use Llama2 tutorial for text classification\nurl: https://pupuweb.com/how-use-llama-2-text-classification-tasks/\ninputs:\n    text:\n        type: \"string\"\nsample:\n    text: \"UN chief urges action on climate change as report warns of 'catastrophe'\"\n---\nsystem:\nA news article can be classified as one of the following categories: World, Sports, Business, Sci/Tech.\nExamples:\n- World: \"UN chief urges action on climate change as report warns of 'catastrophe'\"\n- Sports: \"Ronaldo scores twice in Manchester United return\"\n- Business: \"Apple delays plan to scan iPhones for child abuse images\"\n- Sci/Tech: \"SpaceX launches first all-civilian crew into orbit\"'\n\nBased on these categories, classify this news article: \nuser:\n{{ text }}\n    ",
+  "inputSpec": "The input is a news article text.\nThe news article text must be in English.\nThe news article text must belong to one of the categories: World, Sports, Business, Sci/Tech.\nThe news article text should provide enough context to classify it into one of the categories.\nThe news article text can include multiple sentences.\nThe length of the news article text can be variable. \nAll types of greetings should be ignored but are valid inputs.",
+  "rules": [
+    "The response must classify the news article into one of the following categories: World, Sports, Business, Sci/Tech.",
+    "The response must use only one of the specified categories: World, Sports, Business, Sci/Tech.",
+    "The response must provide a single category label without any additional text or explanation.",
+    "The category label must match exactly one of the terms: World, Sports, Business, Sci/Tech, without any variations in spelling, capitalization, or punctuation.",
+    "The response should not include any additional details or context about the news article."
+  ],
+  "inverseRules": [
+    "The response must classify the news article into more than one of the following categories: World, Sports, Business, Sci/Tech.",
+    "The response must use categories other than the specified categories: World, Sports, Business, Sci/Tech.",
+    "The response must provide multiple category labels with additional text or explanation.",
+    "The category label must not match exactly one of the terms: World, Sports, Business, Sci/Tech, and must include variations in spelling, capitalization, or punctuation.",
+    "The response should include additional details or context about the news article."
+  ],
+  "ruleEvals": [
+    {
+      "id": "9eb5f7a",
+      "promptid": "a37fa10",
+      "ruleid": "1",
+      "rule": "The response must classify the news article into one of the following categories: World, Sports, Business, Sci/Tech.",
+      "groundedText": "OK",
+      "grounded": "ok",
+      "error": ""
+    },
+    {
+      "id": "2092fb8",
+      "promptid": "a37fa10",
+      "ruleid": "2",
+      "rule": "The response must use only one of the specified categories: World, Sports, Business, Sci/Tech.",
+      "groundedText": "OK",
+      "grounded": "ok",
+      "error": ""
+    },
+    {
+      "id": "8db40bf",
+      "promptid": "a37fa10",
+      "ruleid": "3",
+      "rule": "The response must provide a single category label without any additional text or explanation.",
+      "groundedText": "ERR",
+      "grounded": "err",
+      "error": ""
+    },
+    {
+      "id": "1dc120f",
+      "promptid": "a37fa10",
+      "ruleid": "4",
+      "rule": "The category label must match exactly one of the terms: World, Sports, Business, Sci/Tech, without any variations in spelling, capitalization, or punctuation.",
+      "groundedText": "OK",
+      "grounded": "ok",
+      "error": ""
+    },
+    {
+      "id": "6a1e0a8",
+      "promptid": "a37fa10",
+      "ruleid": "5",
+      "rule": "The response should not include any additional details or context about the news article.",
+      "groundedText": "ERR",
+      "grounded": "err",
+      "error": ""
+    }
+  ],
+  "tests": [
+    {
+      "ruleid": "1",
+      "rule": "The response must classify the news article into one of the following categories: World, Sports, Business, Sci/Tech.",
+      "testid": "1",
+      "testinput": "The International Monetary Fund releases new global economic outlook",
+      "expectedoutput": "Business",
+      "reasoning": "Tests correct categorization of the article as Business"
+    },
+    {
+      "ruleid": "1",
+      "rule": "The response must classify the news article into one of the following categories: World, Sports, Business, Sci/Tech.",
+      "testid": "2",
+      "testinput": "NASA announces new Mars mission plans",
+      "expectedoutput": "Sci/Tech",
+      "reasoning": "Checks proper classification of the article as Sci/Tech"
+    },
+    {
+      "ruleid": "1",
+      "rule": "The response must classify the news article into one of the following categories: World, Sports, Business, Sci/Tech.",
+      "testid": "3",
+      "testinput": "An earthquake measuring 7.8 on the Richter scale hits Indonesia",
+      "expectedoutput": "World",
+      "reasoning": "Validates categorization of the article as World"
+    },
+    {
+      "ruleid": "2",
+      "rule": "The response must use only one of the specified categories: World, Sports, Business, Sci/Tech.",
+      "testid": "1",
+      "testinput": "The World Bank launches new initiatives to tackle global poverty",
+      "expectedoutput": "Business",
+      "reasoning": "Ensures response uses only one of the specified categories"
+    },
+    {
+      "ruleid": "2",
+      "rule": "The response must use only one of the specified categories: World, Sports, Business, Sci/Tech.",
+      "testid": "2",
+      "testinput": "Olympic Games postponed due to pandemic",
+      "expectedoutput": "Sports",
+      "reasoning": "Confirms response correctly classifies the sports article using single correct category"
+    },
+    {
+      "ruleid": "2",
+      "rule": "The response must use only one of the specified categories: World, Sports, Business, Sci/Tech.",
+      "testid": "3",
+      "testinput": "WHO declares an international health emergency",
+      "expectedoutput": "World",
+      "reasoning": "Verifies that the response uses one correct category without combining categories"
+    },
+    {
+      "ruleid": "3",
+      "rule": "The response must provide a single category label without any additional text or explanation.",
+      "testid": "1",
+      "testinput": "The World Health Organization issues new guidelines",
+      "expectedoutput": "World",
+      "reasoning": "Ensures the output has a single category label without extra text"
+    },
+    {
+      "ruleid": "3",
+      "rule": "The response must provide a single category label without any additional text or explanation.",
+      "testid": "2",
+      "testinput": "Elon Musk announces new Neuralink progress",
+      "expectedoutput": "Sci/Tech",
+      "reasoning": "Confirms the response only gives a single category label"
+    },
+    {
+      "ruleid": "3",
+      "rule": "The response must provide a single category label without any additional text or explanation.",
+      "testid": "3",
+      "testinput": "Annual Tech Expo showcases innovative technology",
+      "expectedoutput": "Sci/Tech",
+      "reasoning": "Validates response is limited to giving a single category label with no explanations"
+    },
+    {
+      "ruleid": "4",
+      "rule": "The category label must match exactly one of the terms: World, Sports, Business, Sci/Tech, without any variations in spelling, capitalization, or punctuation.",
+      "testid": "1",
+      "testinput": "Stock markets see significant rises after tech company's announcement",
+      "expectedoutput": "Business",
+      "reasoning": "Ensures the category label has correct spelling and punctuation"
+    },
+    {
+      "ruleid": "4",
+      "rule": "The category label must match exactly one of the terms: World, Sports, Business, Sci/Tech, without any variations in spelling, capitalization, or punctuation.",
+      "testid": "2",
+      "testinput": "NASA's Perseverance rover lands on Mars",
+      "expectedoutput": "Sci/Tech",
+      "reasoning": "Verifies exact match of the label without any variation"
+    },
+    {
+      "ruleid": "4",
+      "rule": "The category label must match exactly one of the terms: World, Sports, Business, Sci/Tech, without any variations in spelling, capitalization, or punctuation.",
+      "testid": "3",
+      "testinput": "FIFA World Cup attracts millions of viewers worldwide",
+      "expectedoutput": "Sports",
+      "reasoning": "Confirms exact category match for sports news"
+    },
+    {
+      "ruleid": "5",
+      "rule": "The response should not include any additional details or context about the news article.",
+      "testid": "1",
+      "testinput": "New trade agreements between the US and the EU",
+      "expectedoutput": "Business",
+      "reasoning": "Ensures no additional context or details are provided in the response"
+    },
+    {
+      "ruleid": "5",
+      "rule": "The response should not include any additional details or context about the news article.",
+      "testid": "2",
+      "testinput": "Scientists discover new species in the Amazon rainforest",
+      "expectedoutput": "Sci/Tech",
+      "reasoning": "Checks that response contains only the category label"
+    },
+    {
+      "ruleid": "5",
+      "rule": "The response should not include any additional details or context about the news article.",
+      "testid": "3",
+      "testinput": "Urbanization trends in rapidly developing countries",
+      "expectedoutput": "World",
+      "reasoning": "Validates minimalist response appropriate to the article subject"
+    },
+    {
+      "ruleid": "6",
+      "rule": "The response must classify the news article into more than one of the following categories: World, Sports, Business, Sci/Tech.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "UN and FIFA collaborate on global initiatives",
+      "expectedoutput": "World, Sports",
+      "reasoning": "Tests new classification into multiple categories"
+    },
+    {
+      "ruleid": "6",
+      "rule": "The response must classify the news article into more than one of the following categories: World, Sports, Business, Sci/Tech.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Tesla impacts both the automotive and space industry",
+      "expectedoutput": "Business, Sci/Tech",
+      "reasoning": "Ensures response includes multiple relevant categories"
+    },
+    {
+      "ruleid": "6",
+      "rule": "The response must classify the news article into more than one of the following categories: World, Sports, Business, Sci/Tech.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Economic impacts of global sporting events amid pandemic",
+      "expectedoutput": "Sports, Business",
+      "reasoning": "Confirms classification into more than one category"
+    },
+    {
+      "ruleid": "7",
+      "rule": "The response must use categories other than the specified categories: World, Sports, Business, Sci/Tech.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Innovative culinary trends among top chefs",
+      "expectedoutput": "Food",
+      "reasoning": "Verifies response uses an unspecified category"
+    },
+    {
+      "ruleid": "7",
+      "rule": "The response must use categories other than the specified categories: World, Sports, Business, Sci/Tech.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Impact of ancient history on modern societies",
+      "expectedoutput": "History",
+      "reasoning": "Tests classification using incorrect category"
+    },
+    {
+      "ruleid": "7",
+      "rule": "The response must use categories other than the specified categories: World, Sports, Business, Sci/Tech.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Celebrity gossip: Latest buzz in Hollywood",
+      "expectedoutput": "Entertainment",
+      "reasoning": "Ensures improper categorization check"
+    },
+    {
+      "ruleid": "8",
+      "rule": "The response must provide multiple category labels with additional text or explanation.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Technological advancements and their economic impacts",
+      "expectedoutput": "Sci/Tech, Business: This article discusses the interplay between technology and economics.",
+      "reasoning": "Confirms multiple labels with explanations"
+    },
+    {
+      "ruleid": "8",
+      "rule": "The response must provide multiple category labels with additional text or explanation.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "World conflicts impacting sports events globally",
+      "expectedoutput": "World, Sports: The article delves into how international tensions influence worldwide sports.",
+      "reasoning": "Validates response includes multiple categories and context"
+    },
+    {
+      "ruleid": "8",
+      "rule": "The response must provide multiple category labels with additional text or explanation.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Economic policies shaping scientific research funding",
+      "expectedoutput": "Business, Sci/Tech: An analysis of how business decisions affect science.",
+      "reasoning": "Ensures multiple categories and detailed context"
+    },
+    {
+      "ruleid": "9",
+      "rule": "The category label must not match exactly one of the terms: World, Sports, Business, Sci/Tech, and must include variations in spelling, capitalization, or punctuation.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Covid-19 update: global implications",
+      "expectedoutput": "world.",
+      "reasoning": "Validates that incorrect punctuation is used in the category label"
+    },
+    {
+      "ruleid": "9",
+      "rule": "The category label must not match exactly one of the terms: World, Sports, Business, Sci/Tech, and must include variations in spelling, capitalization, or punctuation.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Breakthrough tech achievements in space",
+      "expectedoutput": "sci-tech",
+      "reasoning": "Ensures wrongly capitalized category labels are detected"
+    },
+    {
+      "ruleid": "9",
+      "rule": "The category label must not match exactly one of the terms: World, Sports, Business, Sci/Tech, and must include variations in spelling, capitalization, or punctuation.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Latest in the business sector",
+      "expectedoutput": "BUssineSS",
+      "reasoning": "Tests invalid spelling of the category label"
+    },
+    {
+      "ruleid": "10",
+      "rule": "The response should include additional details or context about the news article.",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "Significant findings from the latest economic report",
+      "expectedoutput": "Business: The latest economic report reveals crucial trends that will influence global markets.",
+      "reasoning": "Ensures the response includes additional context about the article"
+    },
+    {
+      "ruleid": "10",
+      "rule": "The response should include additional details or context about the news article.",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "Breakthrough in vaccine technology",
+      "expectedoutput": "Sci/Tech: This article covers the latest advancements in vaccine development.",
+      "reasoning": "Tests incorporating additional details into the response"
+    },
+    {
+      "ruleid": "10",
+      "rule": "The response should include additional details or context about the news article.",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "United Nations convenes emergency session",
+      "expectedoutput": "World: The UN is meeting to address an urgent global crisis.",
+      "reasoning": "Validates inclusion of broader context and details in the response"
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"UN General Assembly discusses global peacekeeping measures\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Lebron James breaks NBA scoring record in thrilling game\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Tesla's new battery technology promises greater range and efficiency\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"International Monetary Fund predicts robust global economic growth\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"NASA's Perseverance rover collects samples from Mars\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Facebook announces new privacy features to protect user data\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Global markets react to new trade policies between US and China\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Olympics 2024: Paris unveils new venues and infrastructure plans\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"World Health Organization issues new guidelines for pandemic preparedness\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Japan's economy rebounds as consumer spending increases\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"European Space Agency explores collaboration with private space firms\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Amazon faces antitrust scrutiny from European regulators\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Cristiano Ronaldo transfers to a Saudi Arabian football club\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Google's AI breaks new ground in natural language processing\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"G7 leaders vow to support global vaccine distribution efforts\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"World Bank announces new funding to support developing countries\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Serena Williams announces retirement from professional tennis\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Advancements in medical technology lead to new cancer treatments\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Federal Reserve raises interest rates to combat inflation\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Olympic Games committee considers adding eSports to future events\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"New climate report highlights urgent need for renewable energy investment\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"World Cup 2022: Teams prepare for group stage matches\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Stock markets surge amid economic recovery optimism\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Elon Musk reveals plans for Martian colony development\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Bitcoin's volatility causes stir in financial markets\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"UK Prime Minister addresses nation on new trade deal\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Breakthrough in quantum computing technology announced by researchers\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Global wildlife population faces significant decline, says report\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"US Open: Djokovic claims 21st Grand Slam title\"",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "text: \"Apple announces innovative new features in upcoming iPhone model\"",
+      "baseline": true
+    }
+  ],
+  "testEvals": [
+    {
+      "id": "11b14a5",
+      "promptid": "a37fa10",
+      "model": "gpt-4o-2024-05-13",
+      "ruleid": "1",
+      "rule": "The response must classify the news article into one of the following categories: World, Sports, Business, Sci/Tech.",
+      "input": "The International Monetary Fund releases new global economic outlook",
+      "validityText": "The input is in English. The content of the input is about the International Monetary Fund's release of a new global economic outlook, which falls under the category of Business. The text provides enough context to classify it into the Business category.\n\nOK",
+      "validity": "ok",
+      "coverageText": "Business",
+      "coverageEvalText": "No violation.\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "5fd136f",
+      "promptid": "a37fa10",
+      "model": "gpt-4o-2024-05-13",
+      "ruleid": "1",
+      "rule": "The response must classify the news article into one of the following categories: World, Sports, Business, Sci/Tech.",
+      "input": "NASA announces new Mars mission plans",
+      "validityText": "The input, \"NASA announces new Mars mission plans,\" is in English and includes informative content about NASA's future mission to Mars, which aligns with the category of Sci/Tech. The text clearly provides enough context to classify it under the Science and Technology category.\n\nOK",
+      "validity": "ok",
+      "coverageText": "Sci/Tech",
+      "coverageEvalText": "No violation.\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "9fd07f7",
+      "promptid": "a37fa10",
+      "model": "gpt-4o-2024-05-13",
+      "ruleid": "1",
+      "rule": "The response must classify the news article into one of the following categories: World, Sports, Business, Sci/Tech.",
+      "input": "An earthquake measuring 7.8 on the Richter scale hits Indonesia",
+      "validityText": "The input is a news article text in English. The text provides enough context to classify it into the 'World' category as it talks about an earthquake, an international event occurring in Indonesia.\n\nOK",
+      "validity": "ok",
+      "coverageText": "World",
+      "coverageEvalText": "No violation.\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "8bf8e38",
+      "promptid": "a37fa10",
+      "model": "gpt-4o-2024-05-13",
+      "ruleid": "2",
+      "rule": "The response must use only one of the specified categories: World, Sports, Business, Sci/Tech.",
+      "input": "The World Bank launches new initiatives to tackle global poverty",
+      "validityText": "The input is in English. The text belongs to the Business or World category. It provides enough context with reference to the World Bank and tackling global poverty to be classified under one of these categories. There are no violations of the input specification.\n\nOK",
+      "validity": "ok",
+      "coverageText": "World",
+      "coverageEvalText": "No violation.\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "13c9f8b",
+      "promptid": "a37fa10",
+      "model": "gpt-4o-2024-05-13",
+      "ruleid": "2",
+      "rule": "The response must use only one of the specified categories: World, Sports, Business, Sci/Tech.",
+      "input": "Olympic Games postponed due to pandemic",
+      "validityText": "This input is in English and provides enough context to classify it into the \"Sports\" category, mentioning the Olympic Games, which clearly falls under sports events. There are no violations of the specified rules.\n\nOK",
+      "validity": "ok",
+      "coverageText": "Sports",
+      "coverageEvalText": "No violation.\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "3f67362",
+      "promptid": "a37fa10",
+      "model": "gpt-4o-2024-05-13",
+      "ruleid": "2",
+      "rule": "The response must use only one of the specified categories: World, Sports, Business, Sci/Tech.",
+      "input": "WHO declares an international health emergency",
+      "validityText": "The input appears to be a news article text in English. It relates to the World Health Organization (WHO) declaring an international health emergency, which provides enough context to classify it into the World category.\n\nNo violation.\nOK",
+      "validity": "ok",
+      "coverageText": "World",
+      "coverageEvalText": "No violation.\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "ece8e15",
+      "promptid": "a37fa10",
+      "model": "gpt-4o-2024-05-13",
+      "ruleid": "3",
+      "rule": "The response must provide a single category label without any additional text or explanation.",
+      "input": "The World Health Organization issues new guidelines",
+      "validityText": "This input mentions \"The World Health Organization\" and \"new guidelines\" but does not provide enough context to classify it into one of the specific categories: World, Sports, Business, Sci/Tech. The input is too vague and does not allow for proper classification as per the input specification requirement that enough context must be provided.\n\nERR",
+      "validity": "err",
+      "coverageText": "World",
+      "coverageEvalText": "No violation.\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "0935fd6",
+      "promptid": "a37fa10",
+      "model": "gpt-4o-2024-05-13",
+      "ruleid": "3",
+      "rule": "The response must provide a single category label without any additional text or explanation.",
+      "input": "Elon Musk announces new Neuralink progress",
+      "validityText": "The input text \"Elon Musk announces new Neuralink progress\" provides information about progress made by Neuralink, a company associated with Elon Musk that works in the field of neurotechnology. This context can classify the input into the Sci/Tech category. \n\nOK",
+      "validity": "ok",
+      "coverageText": "Sci/Tech",
+      "coverageEvalText": "No violation.\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "4b28e90",
+      "promptid": "a37fa10",
+      "model": "gpt-4o-2024-05-13",
+      "ruleid": "3",
+      "rule": "The response must provide a single category label without any additional text or explanation.",
+      "input": "Annual Tech Expo showcases innovative technology",
+      "validityText": "The input \"Annual Tech Expo showcases innovative technology\" is in English and provides context to classify it under the Sci/Tech category. The text is a news article concerning an event focused on technology, which fits one of the specified categories. \n\nOK",
+      "validity": "ok",
+      "coverageText": "Sci/Tech",
+      "coverageEvalText": "No violation.\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "05de568",
+      "promptid": "a37fa10",
+      "model": "gpt-4o-2024-05-13",
+      "ruleid": "4",
+      "rule": "The category label must match exactly one of the terms: World, Sports, Business, Sci/Tech, without any variations in spelling, capitalization, or punctuation.",
+      "input": "Stock markets see significant rises after tech company's announcement",
+      "validityText": "The input is in English and it appears to provide enough context to categorize it as a Business news article due to the mention of \"Stock markets\", \"rises\", and \"tech company's announcement\". The category 'Business' fits well with the provided context. \n\nOK",
+      "validity": "ok",
+      "coverageText": "Business",
+      "coverageEvalText": "No violation.\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "262e18c",
+      "promptid": "a37fa10",
+      "model": "gpt-4o-2024-05-13",
+      "ruleid": "4",
+      "rule": "The category label must match exactly one of the terms: World, Sports, Business, Sci/Tech, without any variations in spelling, capitalization, or punctuation.",
+      "input": "NASA's Perseverance rover lands on Mars",
+      "validityText": "The input provided is a news article text. It is in English and related to an event that is specific enough to classify it. The event is about NASA's Perseverance rover landing on Mars, which clearly falls into the Sci/Tech category. Thus, it complies with the input specification.\n\nOK",
+      "validity": "ok",
+      "coverageText": "Sci/Tech",
+      "coverageEvalText": "No violation.\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "6739120",
+      "promptid": "a37fa10",
+      "model": "gpt-4o-2024-05-13",
+      "ruleid": "4",
+      "rule": "The category label must match exactly one of the terms: World, Sports, Business, Sci/Tech, without any variations in spelling, capitalization, or punctuation.",
+      "input": "FIFA World Cup attracts millions of viewers worldwide",
+      "validityText": "The provided input is \"FIFA World Cup attracts millions of viewers worldwide.\" This is a news article text, and it is in English. The content clearly belongs to the category of Sports, satisfying the requirement of being in one of the specified categories (World, Sports, Business, Sci/Tech). The sentence provides enough context by mentioning the FIFA World Cup and the viewership details, making it classifiable into the Sports category. Therefore, it meets all the requirements set by the input specification.\n\nOK",
+      "validity": "ok",
+      "coverageText": "Sports",
+      "coverageEvalText": "No violation.\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "49b6b45",
+      "promptid": "a37fa10",
+      "model": "gpt-4o-2024-05-13",
+      "ruleid": "5",
+      "rule": "The response should not include any additional details or context about the news article.",
+      "input": "New trade agreements between the US and the EU",
+      "validityText": "To evaluate if this input complies with the input specification, I will examine the following points:\n\n1. **Language**: The input is in English.\n2. **Category**: The input appears to belong to the Business category.\n3. **Context**: The input provides context about trade agreements which is sufficient to classify it into the Business category.\n4. **Multiple sentences**: The input consists of a single sentence, which is acceptable based on the specification.\n5. **Greetings**: No greetings are present in the input.\n\nNo violations.\nOK",
+      "validity": "ok",
+      "coverageText": "Business",
+      "coverageEvalText": "No violation.\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "de67c23",
+      "promptid": "a37fa10",
+      "model": "gpt-4o-2024-05-13",
+      "ruleid": "5",
+      "rule": "The response should not include any additional details or context about the news article.",
+      "input": "Scientists discover new species in the Amazon rainforest",
+      "validityText": "The input is a news article text in English. It belongs to the Sci/Tech category because it discusses the discovery of a new species in the Amazon rainforest. The text provides enough context to classify it into the category.\n\nOK",
+      "validity": "ok",
+      "coverageText": "Sci/Tech",
+      "coverageEvalText": "No violation.\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "7e39266",
+      "promptid": "a37fa10",
+      "model": "gpt-4o-2024-05-13",
+      "ruleid": "5",
+      "rule": "The response should not include any additional details or context about the news article.",
+      "input": "Urbanization trends in rapidly developing countries",
+      "validityText": "The given input \"Urbanization trends in rapidly developing countries\" seems to discuss a general topic. However, it does not provide enough context to classify it into one of the specified categories (World, Sports, Business, Sci/Tech). The input should include more details or context to allow classification.\n\nERR",
+      "validity": "err",
+      "coverageText": "World",
+      "coverageEvalText": "No violation.\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "3a9d90b",
+      "promptid": "a37fa10",
+      "model": "gpt-4o-2024-05-13",
+      "ruleid": "6",
+      "rule": "The response must classify the news article into more than one of the following categories: World, Sports, Business, Sci/Tech.",
+      "input": "UN and FIFA collaborate on global initiatives",
+      "validityText": "The input provided appears to be a headline or very brief summary. While it hints at a collaboration between the UN and FIFA, it does not provide enough context to clearly classify it into one of the specified categories: World, Sports, Business, Sci/Tech. Given that the input specification requires the news article text to provide enough context for classification into one of these categories, the input does not meet this requirement.\n\nERR",
+      "validity": "err",
+      "coverageText": "Sports",
+      "coverageEvalText": "No violation.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "8a5fd75",
+      "promptid": "a37fa10",
+      "model": "gpt-4o-2024-05-13",
+      "ruleid": "6",
+      "rule": "The response must classify the news article into more than one of the following categories: World, Sports, Business, Sci/Tech.",
+      "input": "Tesla impacts both the automotive and space industry",
+      "validityText": "This input provides a brief statement about Tesla's impact but does not provide enough context for classification into one of the specified categories (World, Sports, Business, Sci/Tech). It lacks elaboration or additional sentences that would allow for precise categorization.\n\nERR",
+      "validity": "err",
+      "coverageText": "Business",
+      "coverageEvalText": "No violation.\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "f945dba",
+      "promptid": "a37fa10",
+      "model": "gpt-4o-2024-05-13",
+      "ruleid": "6",
+      "rule": "The response must classify the news article into more than one of the following categories: World, Sports, Business, Sci/Tech.",
+      "input": "Economic impacts of global sporting events amid pandemic",
+      "validityText": "The input \"Economic impacts of global sporting events amid pandemic\" does not provide enough context to classify it into one of the specified categories. It is vague and lacks detail required to discern whether it belongs to World, Sports, Business, or Sci/Tech. More information is needed for it to be a complete news article text.\n\nERR",
+      "validity": "err",
+      "coverageText": "Sports",
+      "coverageEvalText": "There is no violation in the chatbot output as it clearly classifies the news article as one of the specified categories: World, Sports, Business, or Sci/Tech. The given output \"Sports\" adheres to the described categories.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "0b1008b",
+      "promptid": "a37fa10",
+      "model": "gpt-4o-2024-05-13",
+      "ruleid": "7",
+      "rule": "The response must use categories other than the specified categories: World, Sports, Business, Sci/Tech.",
+      "input": "Innovative culinary trends among top chefs",
+      "validityText": "The input is a fragment that does not provide enough context to classify it into one of the specified categories: World, Sports, Business, Sci/Tech. Although it is in English and appears to pertain to Business, it does not provide sufficient information to definitively categorize it.\n\nERR",
+      "validity": "err",
+      "coverageText": "Business",
+      "coverageEvalText": "The output is a single word \"Business,\" which is one of the specified categories (World, Sports, Business, Sci/Tech) described in the chatbot description. Since there is no other information provided or non-compliance elements present, the output follows the given guidelines.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "0a134c9",
+      "promptid": "a37fa10",
+      "model": "gpt-4o-2024-05-13",
+      "ruleid": "7",
+      "rule": "The response must use categories other than the specified categories: World, Sports, Business, Sci/Tech.",
+      "input": "Impact of ancient history on modern societies",
+      "validityText": "The input is a title and does not provide enough context to classify it into one of the specified categories (World, Sports, Business, Sci/Tech). Therefore, it does not meet the requirement that the news article text should provide enough context to be classified.\n\nERR",
+      "validity": "err",
+      "coverageText": "World",
+      "coverageEvalText": "No violation.\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "0a25e78",
+      "promptid": "a37fa10",
+      "model": "gpt-4o-2024-05-13",
+      "ruleid": "7",
+      "rule": "The response must use categories other than the specified categories: World, Sports, Business, Sci/Tech.",
+      "input": "Celebrity gossip: Latest buzz in Hollywood",
+      "validityText": "The input \"Celebrity gossip: Latest buzz in Hollywood\" does not comply with the input specification. The news article text must belong to one of the categories: World, Sports, Business, Sci/Tech. \"Celebrity gossip\" is not one of the specified categories. There is also not enough context provided to classify this text into one of the valid categories mentioned.\n\nERR",
+      "validity": "err",
+      "coverageText": "World",
+      "coverageEvalText": "No violation.\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "9874db5",
+      "promptid": "a37fa10",
+      "model": "gpt-4o-2024-05-13",
+      "ruleid": "8",
+      "rule": "The response must provide multiple category labels with additional text or explanation.",
+      "input": "Technological advancements and their economic impacts",
+      "validityText": "The input is a text in English, and it mentions a topic related to technology (\"Technological advancements\") and economics (\"economic impacts\"). This input clearly belongs to the category of Sci/Tech as it discusses technological advancements and their impacts. The text implies a connection with the Business category as well due to the mention of economic impacts.\n\nOK",
+      "validity": "ok",
+      "coverageText": "Sci/Tech",
+      "coverageEvalText": "No violation.\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "882be5b",
+      "promptid": "a37fa10",
+      "model": "gpt-4o-2024-05-13",
+      "ruleid": "8",
+      "rule": "The response must provide multiple category labels with additional text or explanation.",
+      "input": "World conflicts impacting sports events globally",
+      "validityText": "The input complies with the input specification because:\n1. The input is in English.\n2. The input suggests a topic related to World, considering 'World conflicts'.\n3. The input also relates to Sports, as it mentions 'impacting sports events globally'.\n4. The input provides context suggesting a discussion on how world conflicts affect sports events, allowing classification under either World or Sports.\n\nOK",
+      "validity": "ok",
+      "coverageText": "Sports",
+      "coverageEvalText": "No violation.\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "afda890",
+      "promptid": "a37fa10",
+      "model": "gpt-4o-2024-05-13",
+      "ruleid": "8",
+      "rule": "The response must provide multiple category labels with additional text or explanation.",
+      "input": "Economic policies shaping scientific research funding",
+      "validityText": "The input \"Economic policies shaping scientific research funding\" gives context and allows it to be categorized under \"Business\" or \"Sci/Tech\". It is concise and pertains to a relevant topic that can be classified. It is in English and fits within the provided categories.\n\nOK",
+      "validity": "ok",
+      "coverageText": "Business",
+      "coverageEvalText": "No violation.\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "df4e7f1",
+      "promptid": "a37fa10",
+      "model": "gpt-4o-2024-05-13",
+      "ruleid": "9",
+      "rule": "The category label must not match exactly one of the terms: World, Sports, Business, Sci/Tech, and must include variations in spelling, capitalization, or punctuation.",
+      "input": "Covid-19 update: global implications",
+      "validityText": "The input mentions Covid-19, which fits within the category of World news due to its global implications. The input is in English and provides some context that it is related to the Covid-19 update on a global scale. Though the content is minimal, it allows classification into the World category.\n\nOK",
+      "validity": "ok",
+      "coverageText": "World",
+      "coverageEvalText": "No violation.\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "337bb65",
+      "promptid": "a37fa10",
+      "model": "gpt-4o-2024-05-13",
+      "ruleid": "9",
+      "rule": "The category label must not match exactly one of the terms: World, Sports, Business, Sci/Tech, and must include variations in spelling, capitalization, or punctuation.",
+      "input": "Breakthrough tech achievements in space",
+      "validityText": "The input \"Breakthrough tech achievements in space\" appears to be very brief and lacks enough context to clearly classify it into one of the specified categories (World, Sports, Business, Sci/Tech). While \"tech\" and \"space\" suggest it might belong to Sci/Tech, the statement as it stands does not provide adequate contextual information to confirm this.\n\nERR",
+      "validity": "err",
+      "coverageText": "Sci/Tech",
+      "coverageEvalText": "No violation.\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "7d2c512",
+      "promptid": "a37fa10",
+      "model": "gpt-4o-2024-05-13",
+      "ruleid": "9",
+      "rule": "The category label must not match exactly one of the terms: World, Sports, Business, Sci/Tech, and must include variations in spelling, capitalization, or punctuation.",
+      "input": "Latest in the business sector",
+      "validityText": "My evaluation process involves checking if the given input is a valid news article text. According to the input specification, the news article text must:\n\n1. Be in English.\n2. Belong to one of the categories: World, Sports, Business, Sci/Tech.\n3. Provide enough context to classify it into one of these categories.\n4. Can include multiple sentences, and the length of the news article text can be variable.\n5. All types of greetings should be ignored but are valid inputs.\n\nUpon careful examination, the input \"Latest in the business sector\" is in English and seems to refer to the Business category. However, the input does not provide enough context or additional information to classify it solidly into the Business category. It does not resemble a news article text (i.e., it should include more substantive content).\n\nERR",
+      "validity": "err",
+      "coverageText": "Business",
+      "coverageEvalText": "No violation. The output is one of the specified categories: World, Sports, Business, Sci/Tech.\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "0dfb7ea",
+      "promptid": "a37fa10",
+      "model": "gpt-4o-2024-05-13",
+      "ruleid": "10",
+      "rule": "The response should include additional details or context about the news article.",
+      "input": "Significant findings from the latest economic report",
+      "validityText": "The input provided is \"Significant findings from the latest economic report.\" There are several points to consider:\n\n1. The input is in English.\n2. The input could potentially belong to the category Business, but it does not provide enough context or information to definitively classify it as Business or any other category.\n3. The input is a single sentence, which is valid as the text can be of variable length.\n4. The input does not include any content that provides specific details about the news, making it difficult to classify it into one of the specified categories.\n\nThe lack of context and specific information makes it fail the requirement to provide enough context to classify it into one of the categories.\n\nERR",
+      "validity": "err",
+      "coverageText": "Business",
+      "coverageEvalText": "No violation.\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "065adb3",
+      "promptid": "a37fa10",
+      "model": "gpt-4o-2024-05-13",
+      "ruleid": "10",
+      "rule": "The response should include additional details or context about the news article.",
+      "input": "Breakthrough in vaccine technology",
+      "validityText": "The input provided is \"Breakthrough in vaccine technology\". \n\n1. The input is in English.\n2. The input could potentially belong to the Sci/Tech category.\n3. However, the input does not provide enough context to confirm its classification into one of the specified categories as it is too brief and lacks detail.\n\nERR",
+      "validity": "err",
+      "coverageText": "Sci/Tech",
+      "coverageEvalText": "No violation.\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "7a752dc",
+      "promptid": "a37fa10",
+      "model": "gpt-4o-2024-05-13",
+      "ruleid": "10",
+      "rule": "The response should include additional details or context about the news article.",
+      "input": "United Nations convenes emergency session",
+      "validityText": "The input \"United Nations convenes emergency session\" is in English and provides sufficient context to classify it into one of the specified categories, specifically World news.\n\nOK",
+      "validity": "ok",
+      "coverageText": "World",
+      "coverageEvalText": "No violation.\nOK",
+      "coverage": "ok",
+      "error": ""
+    }
+  ],
+  "testResults": []
+}

@@ -1,0 +1,13 @@
+{
+  "id": "fa3c842",
+  "promptid": "e2d6bac",
+  "model": "gpt-4o-2024-05-13",
+  "ruleid": 1,
+  "rule": "The response for company names should list all company names extracted from the provided text, separated by commas, and enclosed within angle brackets following 'Company names:'.",
+  "input": "Text: John works at Microsoft. Anna joined Apple.",
+  "validityText": "The input text block contains sentences and names of individuals as well as company names. It is not empty and is meaningful. The input includes periods (punctuation) correctly and aligns with the requirement that it can be of any length.\n\nOK",
+  "validity": "ok",
+  "coverageText": "Company names:<Microsoft, Apple>\nPeople names:<John, Anna>\nSpecific topics:<>\nGeneral themes:<>",
+  "coverageEvalText": "The format for the entities mentioned should be in a comma-separated list. The specific topics and general themes are empty, which is not compliant with the expected format since the angle brackets should not appear if there are no topics or themes to mention. Instead, they should be handled in a more appropriate manner, like leaving them completely blank without these angle brackets.\n\nERR",
+  "coverage": "err"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "dab58de",
+  "promptid": "e2d6bac",
+  "ruleid": 1,
+  "rule": "The response for company names should list all company names extracted from the provided text, separated by commas, and enclosed within angle brackets following 'Company names:'.",
+  "model": "phi4",
+  "input": "Text: Google's new CEO Sundar is visiting IBM headquarters.",
+  "output": "Company names: Google, IBM  \nPeople names: Sundar  \nSpecific topics: New CEO visit to company headquarters  \nGeneral themes: Leadership transition, corporate visits, business relations between tech companies",
+  "compliance": "err",
+  "complianceText": "The chatbot output mostly follows the format provided in the description, but there are some specific violations:\n1. People names should be comma-separated. The output has only one name, but it is not followed by a comma.\n2. Company names should also be comma-separated. The output complies with this.\n3. Specific topics should also be comma-separated, which is correct in this case, but since there is only one specific topic listed, it cannot be clearly inferred.\n4. General themes are correctly comma-separated.\n\nGiven this, the output contains all required sections but violates the comma-separation rule for the 'People names' section.\n\nERR"
+}

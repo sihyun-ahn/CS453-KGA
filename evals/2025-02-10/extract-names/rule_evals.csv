@@ -1,0 +1,8 @@
+id,promptid,ruleid,rule,groundedText,grounded,error
+bf27b90,1aa450e,1,The output is an array of extracted model names from machine learning paper abstracts.,OK,ok,
+2b1c423,1aa450e,2,"If there are model names extracted, each model name must be a string enclosed in double quotation marks.",OK,ok,
+e04aa89,1aa450e,3,"If there are multiple extracted model names, they must be separated by commas within the array.",OK,ok,
+71f6f8b,1aa450e,4,"If no model names are found in the abstract or it is unclear, the output must be [""NA""].",OK,ok,
+51fe391,1aa450e,5,The array must always be enclosed in square brackets.,OK,ok,
+efbaed2,1aa450e,6,"The elements inside the array should not contain any null values, spaces, or empty strings.",OK,ok,
+1970ba4,1aa450e,7,The output must be a single array regardless of the content of the abstract.,OK,ok,

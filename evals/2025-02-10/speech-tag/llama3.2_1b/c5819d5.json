@@ -1,0 +1,12 @@
+{
+  "id": "c5819d5",
+  "promptid": "a928b14",
+  "ruleid": 9,
+  "rule": "If the word can be tagged at all, the response should not be \"CantAnswer\".",
+  "inverse": true,
+  "model": "llama3.2:1b",
+  "input": "sentence: The project starts tomorrow., word: starts",
+  "output": "JJR Starts  \nJJS starts",
+  "compliance": "err",
+  "complianceText": "The output contains two parts of speech tags: \"JJR\" and \"JJS\". The rules specify that the return should be just the part of speech tag for the word. Therefore, having \"Starts\" included with each tag is a violation of the guideline to return only the tag.\n\nERR"
+}

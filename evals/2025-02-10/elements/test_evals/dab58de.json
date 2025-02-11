@@ -1,0 +1,13 @@
+{
+  "id": "dab58de",
+  "promptid": "e2d6bac",
+  "model": "gpt-4o-2024-05-13",
+  "ruleid": 1,
+  "rule": "The response for company names should list all company names extracted from the provided text, separated by commas, and enclosed within angle brackets following 'Company names:'.",
+  "input": "Text: Google's new CEO Sundar is visiting IBM headquarters.",
+  "validityText": "The input provided is a text block that mentions the name of a company (Google), the name of an individual (Sundar), and another company (IBM). It is meaningful and provides specific information about an event. It also includes proper punctuation and special characters. \n\nThere is no indication that the text block is empty or that it is non-meaningful.\n\nOK",
+  "validity": "ok",
+  "coverageText": "Company names: <Google, IBM>\nPeople names: <Sundar>\nSpecific topics: <>\nGeneral themes: <>",
+  "coverageEvalText": "The output does not comply with the description. The format required is a single line for each category, but the bot used angle brackets (\"<\" and \">\") instead of a comma-separated list. Specifically:\n\n- For \"Company names\", angle brackets were used around the names instead of commas only.\n- For \"People names\", similar misuse of angle brackets.\n- \"Specific topics\" and \"General themes\" are compliant assuming the text did not have any specific topics or general themes. However, knowing the input is essential to fully evaluate this part.\n\nERR",
+  "coverage": "err"
+}

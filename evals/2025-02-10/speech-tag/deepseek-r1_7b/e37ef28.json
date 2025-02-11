@@ -1,0 +1,12 @@
+{
+  "id": "e37ef28",
+  "promptid": "a928b14",
+  "ruleid": 7,
+  "rule": "The part of speech tag should be any tag except the ones listed in the task: CC, CD, DT, EX, FW, IN, JJ, JJR, JJS, LS, MD, NN, NNS, NNP, NNPS, PDT, POS, PRP, PRP$, RB, RBR, RBS, RP, SYM, TO, UH, VB, VBD, VBG, VBN, VBP, VBZ, WDT, WP, WP$, WRB.",
+  "inverse": true,
+  "model": "deepseek-r1:7b",
+  "input": "sentence: They enjoy music., word: music",
+  "output": "Noun",
+  "compliance": "err",
+  "complianceText": "The chatbot output \"Noun\" is not one of the part-of-speech tags listed in the description. The correct tag should be \"NN\" for a singular or mass noun, or another specific tag that fits the word's part of speech. The output does not comply with the specified tags.\n\nERR"
+}

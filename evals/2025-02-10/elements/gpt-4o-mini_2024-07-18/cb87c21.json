@@ -1,0 +1,11 @@
+{
+  "id": "cb87c21",
+  "promptid": "e2d6bac",
+  "ruleid": 4,
+  "rule": "The response for general themes should list all general themes extracted from the provided text, separated by commas, and enclosed within angle brackets following 'General themes:'.",
+  "model": "gpt-4o-mini-2024-07-18",
+  "input": "Text: This article discusses health and wellness trends.",
+  "output": "Company names: \nPeople names: -||-\nSpecific topics: health, wellness, trends -||-\nGeneral themes: health, well-being",
+  "compliance": "err",
+  "complianceText": "The output does not comply with the desired format specified in the description. Specifically, the format for separating elements in lists is violated. The description requires lists to be separated by commas in the format '<comma_separated_list_of_company_names>' and '-||-' for other categories. The provided specific topics 'health, wellness, trends -||-' is incorrect as it includes the incorrect separator and the general themes 'health, well-being' should be separated by -||-\n\nERR"
+}

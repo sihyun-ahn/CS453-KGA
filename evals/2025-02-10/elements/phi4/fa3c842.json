@@ -1,0 +1,11 @@
+{
+  "id": "fa3c842",
+  "promptid": "e2d6bac",
+  "ruleid": 1,
+  "rule": "The response for company names should list all company names extracted from the provided text, separated by commas, and enclosed within angle brackets following 'Company names:'.",
+  "model": "phi4",
+  "input": "Text: John works at Microsoft. Anna joined Apple.",
+  "output": "Company names: Microsoft, Apple\n\nPeople names: -||-\n\nSpecific topics: -||-\n\nGeneral themes: employment, career transitions, technology companies",
+  "compliance": "ok",
+  "complianceText": "The chatbot output lists company names and general themes but does not include any people names or specific topics, marking them as '-||-' which is the desired format. As per the guidelines, the output format should be:\n\nCompany names: <comma_seperated_list_of_company_names>\nPeople names: -||-\nSpecific topics: -||-\nGeneral themes: -||-\n\nSince it follows the format and structure described, there is no violation.\n\nOK"
+}

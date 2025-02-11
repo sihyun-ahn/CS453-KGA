@@ -1,0 +1,11 @@
+{
+  "id": "9649dbd",
+  "promptid": "a928b14",
+  "ruleid": 5,
+  "rule": "The response should be in plain text format without any additional text, punctuation, or formatting.",
+  "model": "llama3.2:1b",
+  "input": "sentence: The child played happily., word: child",
+  "output": "CC: \n- the: DET\n- child: NOUN",
+  "compliance": "err",
+  "complianceText": "The chatbot output lists multiple words and their tags in addition to 'CC', even though it should return just one single part of speech tag for the word in question. Moreover, the expected part-of-speech tags should follow a specific abbreviation format as listed in the guideline.\n\nERR"
+}

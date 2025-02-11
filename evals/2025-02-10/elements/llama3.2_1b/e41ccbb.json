@@ -1,0 +1,11 @@
+{
+  "id": "e41ccbb",
+  "promptid": "e2d6bac",
+  "ruleid": 3,
+  "rule": "The response for specific topics should list all specific topics extracted from the provided text, separated by commas, and enclosed within angle brackets following 'Specific topics:'.",
+  "model": "llama3.2:1b",
+  "input": "Text: Climate change and renewable energy are critical issues.",
+  "output": "Company names: None mentioned\nPeople names: \nSpecific topics:\nGeneral themes:\n\n## Plain Text Output\npeople names: -||-\nspecific topics: climate change, renewable energy, topics",
+  "compliance": "err",
+  "complianceText": "The output does not follow the specified format. The \"People names\", \"Specific topics\" and \"General themes\" sections are not correctly aligned with the format described. Additionally, \"General themes\" header is missing. The information provided is split inappropriately with an extra \"Plain Text Output\" section.\n\nERR"
+}

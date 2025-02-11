@@ -1,0 +1,11 @@
+{
+  "id": "fa3c842",
+  "promptid": "e2d6bac",
+  "ruleid": 1,
+  "rule": "The response for company names should list all company names extracted from the provided text, separated by commas, and enclosed within angle brackets following 'Company names:'.",
+  "model": "llama3.2:1b",
+  "input": "Text: John works at Microsoft. Anna joined Apple.",
+  "output": "Company names: Microsoft, Apple\n\nPeople names:\n- John\n- Anna\n\nSpecific topics: \n- Work\n\nGeneral themes: \n- Career",
+  "compliance": "err",
+  "complianceText": "The output does not strictly follow the desired format. The chatbot output for \"People names,\" \"Specific topics,\" and \"General themes\" uses a list format rather than a comma-separated list as required. The correct format should list the names and topics separated by commas, not as a bulleted list.\n\nERR"
+}

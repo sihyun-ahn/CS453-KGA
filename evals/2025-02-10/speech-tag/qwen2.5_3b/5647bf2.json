@@ -1,0 +1,11 @@
+{
+  "id": "5647bf2",
+  "promptid": "a928b14",
+  "ruleid": 3,
+  "rule": "If the word cannot be tagged with any of the listed tags, the response should be \"Unknown\".",
+  "model": "qwen2.5:3b",
+  "input": "sentence: The R&D team was present., word: R&D",
+  "output": "NNP NNPS",
+  "compliance": "err",
+  "complianceText": "The chatbot output \"NNP NNPS\" contains two part of speech tags. According to the description, the output should contain just the single tag for the word's part of speech. This violates the requirement of providing only one tag.\n\nERR"
+}

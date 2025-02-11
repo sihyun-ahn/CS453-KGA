@@ -1,0 +1,11 @@
+{
+  "id": "c508328",
+  "promptid": "a928b14",
+  "ruleid": null,
+  "baseline": true,
+  "model": "llama3.2:1b",
+  "input": "sentence: She has been running every morning. word: running",
+  "output": "CC: subj \nRBR: verb",
+  "compliance": "err",
+  "complianceText": "The chatbot output contains additional text (\"subj\" and \"verb\") alongside the part of speech tags (\"CC\" and \"RBR\"). The description specifies that only the part of speech tag should be returned without any additional text. Therefore, this is a clear violation.\n\nERR"
+}
