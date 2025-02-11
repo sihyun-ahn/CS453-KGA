@@ -1,0 +1,2066 @@
+{
+  "prompt": "---\nname: Speech Tag\ndescription: Determine the part of speech for a given word\nsource: \"modified from 'SAMMO: A general-purpose framework for prompt optimization'\"\nurl: https://www.microsoft.com/en-us/research/uploads/prod/2024/04/Prompts-As-Programs_A-Structure-Aware-Approach.pdf\ninputs:\n    sentenceword:\n        type: string\nsample:\n    sentenceword: \"The quick brown fox jumps over the lazy dog.; jumps\"\n---\nsystem:\nIn this task, you will be presented with a sentence and a word contained\nin that sentence. You have to determine the part of speech for a given word\nand return just the tag for the word's part of speech. \n\nReturn only the part of speech tag.  If the word cannot be tagged with\nthe listed tags, return Unknown.  If you are unable to tag the word, return\nCantAnswer.\n\nHere is the\nAlphabetical list of part-of-speech tags used in this task: CC: Coordinating conjunction, CD: Cardinal number, DT:\nDeterminer, EX: Existential there, FW: Foreign word, IN: Preposition or subordinating conjunction, JJ: Adjective, JJR:\nAdjective, comparative, JJS: Adjective, superlative, LS: List item marker, MD: Modal, NN: Noun, singular or mass, NNS: Noun,\nplural, NNP: Proper noun, singular, NNPS: Proper noun, plural, PDT: Predeterminer, POS: Possessive ending, PRP: Personal\npronoun, PRP$: Possessive pronoun, RB: Adverb, RBR: Adverb, comparative, RBS: Adverb, superlative, RP: Particle, SYM: Symbol,\nTO: to, UH: Interjection, VB: Verb, base form, VBD: Verb, past tense, VBG: Verb, gerund or present participle, VBN: Verb,\npast participle, VBP: Verb, non-3rd person singular present, VBZ: Verb, 3rd person singular present, WDT: Wh-determiner, WP:\nWh-pronoun, WP$: Possessive wh-pronoun, WRB: Wh-adverb\nuser:\n{{sentenceword}}",
+  "inputSpec": "The input is a string containing a sentence and a word.\nThe sentence can be of any length and may contain various parts of speech such as nouns, verbs, adjectives, and more.\nThe word must be contained within the given sentence.\nThe input may include punctuation marks and special characters as part of the sentence or the word.\nThere are no restrictions on the format of the input except that it must contain both a sentence and a word.",
+  "rules": [
+    "The output must be one of the following part-of-speech tags: CC, CD, DT, EX, FW, IN, JJ, JJR, JJS, LS, MD, NN, NNS, NNP, NNPS, PDT, POS, PRP, PRP$, RB, RBR, RBS, RP, SYM, TO, UH, VB, VBD, VBG, VBN, VBP, VBZ, WDT, WP, WP$, WRB, Unknown, or CantAnswer.",
+    "The output must be a single part-of-speech tag and not a phrase or a sentence.",
+    "If the word cannot be tagged with one of the listed tags, the output must be \"Unknown\".",
+    "If the chatbot is unable to tag the word, the output must be \"CantAnswer\".",
+    "The output must not contain any whitespace characters or punctuation marks.",
+    "The output must be in plain text and not in any other format such as markdown or XML."
+  ],
+  "inverseRules": [
+    "CC becomes CantAnswer",
+    "CD becomes Unknown",
+    "DT becomes JJ",
+    "EX becomes IN",
+    "FW becomes NN",
+    "IN becomes TO",
+    "JJ becomes RB",
+    "JJR becomes RBR",
+    "JJS becomes VBG",
+    "LS becomes SYM",
+    "MD becomes WP$",
+    "NN becomes NNP",
+    "NNS becomes PRP",
+    "NNP becomes MD",
+    "NNPS becomes WRB",
+    "PDT becomes WDT",
+    "POS becomes VBZ",
+    "PRP becomes RP",
+    "PRP$ becomes JJS",
+    "RB becomes EX",
+    "RBR becomes LS",
+    "RBS becomes UH",
+    "RP becomes NNPS",
+    "SYM becomes FW",
+    "TO becomes JJR",
+    "UH becomes CD",
+    "VB becomes VBP",
+    "VBD becomes DT",
+    "VBG becomes NNS",
+    "VBN becomes POS",
+    "VBP becomes RBS",
+    "VBZ becomes PDT",
+    "WDT becomes PRP$",
+    "WP becomes RB",
+    "WP$ becomes IN",
+    "WRB becomes CC"
+  ],
+  "ruleEvals": [],
+  "tests": [
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He went to the store to buy some milk, store",
+      "NN": "NN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a singular noun to check if output does not contain whitespace characters or punctuation marks",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "She loves reading books and playing games, reading",
+      "NN": "VBG",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a verb to check if output is in plain text",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The sun was shining brightly in the sky, was",
+      "NN": "VBD",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a verb to check if output is a single part-of-speech tag",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He quickly ran to catch the bus, quickly",
+      "NN": "RB",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing an adverb to check if output does not contain phrases or sentences",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The big red car drove down the street, big",
+      "NN": "JJ",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing an adjective to check if output is a valid part-of-speech tag",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He ate a sandwich for lunch, sandwich",
+      "NN": "NN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a noun that can be tagged with one of the listed tags",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The word 'xyz' cannot be found in the dictionary, xyz",
+      "NN": "Unknown",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a word that cannot be tagged with one of the listed tags to check output is Unknown",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "This sentence contains an unknown word, azerty",
+      "NN": "Unknown",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing another unknown word to check if output remains consistent",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The system encountered an error and cannot tag the word, error",
+      "NN": "CantAnswer",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a situation where the chatbot is unable to tag the word",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "There was a problem with the input sentence, problem",
+      "NN": "CantAnswer",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing another situation where the chatbot cannot process the word",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "An unexpected condition occurred in the system, condition",
+      "NN": "CantAnswer",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing if output is CantAnswer when the system encounters an error",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The first word of the sentence is 'the', the",
+      "NN": "DT",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a determiner to check if output does not contain whitespace characters",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He used all punctuation marks in his sentence!@#$, used",
+      "NN": "VBD",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a verb with surrounding punctuation marks to check if output contains no punctuation",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The word 'word' is just that - a word., word",
+      "NN": "NN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a noun surrounded by whitespace characters and punctuation marks",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "This is a **test** sentence with markdown, test",
+      "NN": "NN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a word in a sentence with markdown to check if output is plain text",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He <tag>used</tag> XML tags in his message, used",
+      "NN": "VBD",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a verb surrounded by XML tags to check if output does not contain any other format",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The #word# contains special characters, word",
+      "NN": "NN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a noun with special characters to check if output is plain text",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The determiner 'the' should be tagged as CantAnswer, the",
+      "NN": "CantAnswer",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing if CC becomes CantAnswer",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He used the preposition 'in', in",
+      "NN": "IN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a different part-of-speech to check if output is not affected by rule 7",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The determiner in this sentence should be tagged correctly, determiner",
+      "NN": "NN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a noun related to CC to check if output follows the correct tagging rule",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He used a CD tag, which becomes Unknown, cd",
+      "NN": "Unknown",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing if CD becomes Unknown",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The word 'number' should not be affected by this rule, number",
+      "NN": "NN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing an unrelated noun to check if output does not change due to rule 8",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "Another test with a different tag, rb",
+      "NN": "RB",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing an adverb to check if it is not affected by the CD rule",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The DT in 'the dog' should be tagged as JJ, dog",
+      "NN": "NN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing if DT becomes JJ",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He wrote a story about a happy man, happy",
+      "NN": "JJ",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing an adjective to check if output reflects the correct tag according to rule 9",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The JJ in 'big car' is now an RB, big",
+      "NN": "RB",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing the effect of another rule on JJ",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "EX should become IN, ex",
+      "NN": "IN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing if EX becomes IN",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He went to the store and bought milk, to",
+      "NN": "TO",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a preposition that is not affected by this rule change",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "Another test with a word that contains 'ex', example",
+      "NN": "NN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing an unrelated noun containing 'ex'",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "FW should become NN, fw",
+      "NN": "NN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing if FW becomes NN",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He wrote a foreign word in his essay, essay",
+      "NN": "NN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing an unrelated noun to check for consistency in output",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The word 'fire' is not affected by the FW rule, fire",
+      "NN": "NN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing another noun",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "IN should become TO, in",
+      "NN": "TO",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing if IN becomes TO",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He used a preposition to indicate direction, toward",
+      "NN": "TO",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a word related to the new tag TO",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "Another test with an unrelated noun, book",
+      "NN": "NN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing an unrelated noun",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "JJ should become RB, jj",
+      "NN": "RB",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing if JJ becomes RB",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He used an adjective to describe his mood, happy",
+      "NN": "RB",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a word that was previously tagged as JJ",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The big house on the hill is an example, big",
+      "NN": "RB",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing another adjective",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "JJR should become RBR, jjr",
+      "NN": "RBR",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing if JJR becomes RBR",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He compared two things using a comparative form, bigger",
+      "NN": "RBR",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a word that was previously tagged as JJR",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The house is big and old, old",
+      "NN": "RB",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing another adjective",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "JJS should become RBS, jjs",
+      "NN": "NN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "This rule does not exist, testing other tags instead",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He used a superlative form in his sentence, biggest",
+      "NN": "RBR",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing the effect of a related comparative form on output",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "Another test with an unrelated noun, car",
+      "NN": "NN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing an unrelated noun",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "LS should become NN, ls",
+      "NN": "NN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a non-existent tag to see the default behavior",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He talked about a list and its elements, element",
+      "NN": "NN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing an unrelated noun related to lists",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The word 'word' is not affected by non-existent tags, word",
+      "NN": "NN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing another unrelated noun",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "MD should become NN, md",
+      "NN": "NN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a non-existent tag in Penn Treebank tag set used here, defaulting to NN",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He used modal verbs in his essay several times, could",
+      "NN": "MD",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "This rule does not exist for modals; however, it's useful to test a modal verb's effect on the tagging system",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "Another test with an unrelated noun, pen",
+      "NN": "NN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing another unrelated noun",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "NN should become NN, nn",
+      "NN": "NN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a tag that remains unchanged",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He wrote about nouns in his grammar book, noun",
+      "NN": "NN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing the noun itself",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The word 'car' is an example of a common noun, car",
+      "NN": "NN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing another noun",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "NNS should become NN, nns",
+      "NN": "NN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing if NNS becomes NN",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He used plural nouns in his story, cats",
+      "NN": "NN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a word that was previously tagged as NNS",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The big dogs ran quickly, dogs",
+      "NN": "NN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing another plural noun",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "NNP should become NN, nnp",
+      "NN": "NN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing if NNP becomes NN",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He talked about names of people in his book, John",
+      "NN": "NNP",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "This rule does not exist; however, testing proper nouns is useful",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The city's name was mentioned several times, city",
+      "NN": "NN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing another noun",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "NNPS should become NN, nnps",
+      "NN": "NN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing if NNPS becomes NN",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He used names of organizations in his newspaper article, companies",
+      "NN": "NNS",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "This rule does not exist; however, it's useful to test a related concept",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "Another test with an unrelated noun, country",
+      "NN": "NN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing another unrelated noun",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "PDT should become DT, pdt",
+      "NN": "DT",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a non-existent tag in this simplified version, assuming it maps to DT",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He used determiners and pre-determiners correctly, all",
+      "NN": "DT",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing the correct usage of a pre-determiner",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The preposition was used before a noun, of",
+      "NN": "IN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing an unrelated part-of-speech",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "POS should become IN, pos",
+      "NN": "IN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a non-existent tag in this simplified version; it could conceptually be related to possessive or IN, here assuming the latter",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He used 's to indicate possession, cat's",
+      "NN": "NN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "This rule does not exist for POS tags as described; however, testing possession is useful",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The word 'own' can imply possession, own",
+      "NN": "VB",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a verb",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "PP$ should become IN, pp$",
+      "NN": "$",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Not using this symbol due to formatting restrictions; conceptually it's about possessive pronouns becoming IN or related tags",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He used my book without permission, my",
+      "NN": "PRP$",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a possessive pronoun's effect on the output, noting that PRP$ is used here instead of the non-existent PP$",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The word 'mine' indicates possession as well, mine",
+      "NN": "PRP",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing another related concept",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "PRP should become NN, prp",
+      "NN": "NN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "This rule does not exist; PRP refers to personal pronouns which do not become nouns in this simplified system",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He used I and me correctly in his sentences, he",
+      "NN": "PRP",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing the usage of a personal pronoun",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The word 'they' is also a pronoun, they",
+      "NN": "PRP",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing another pronoun",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "PRP$ should become PRP, prp$",
+      "NN": "$",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Similar to previous instances with the symbol; conceptually it's about possessive pronouns",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He used its and my correctly in context, hers",
+      "NN": "PRP$",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a possessive pronoun, noting that this particular one is not covered by our test but related concepts are",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The word 'his' indicates possession too, his",
+      "NN": "PRP$",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing another possessive pronoun's effect",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "QP should become CD, qp",
+      "NN": "NN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Assuming a default behavior for this less common tag which does not directly map in our simplified version",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He counted the items carefully, three",
+      "NN": "CD",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a quantity expressed as a number",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The word 'many' also indicates quantity, many",
+      "NN": "JJ",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing an adjective related to quantity",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "RB should become RB, rb",
+      "NN": "RB",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "This tag remains consistent with itself in our system",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He used adverbs like quickly and loudly, fast",
+      "NN": "RB",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing an adverb's effect on the output",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The word 'well' can also be an adverb, well",
+      "NN": "RB",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing another adverb",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "RBR should become RB, rbr",
+      "NN": "RB",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "This rule does not exist but testing comparative forms of adverbs is useful",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He used comparative forms like faster and louder, more",
+      "NN": "RB",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a word that can indicate comparison",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The word 'better' is also comparative, better",
+      "NN": "JJR",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing an adjective's comparative form",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "RBS should become RB, rbs",
+      "NN": "RB",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Similar to the previous case; this rule does not exist but it's useful for understanding superlative forms of adverbs",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He used superlatives like fastest and loudest, most",
+      "NN": "RB",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a word that can indicate comparison in a superlative manner",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The word 'best' is also superlative, best",
+      "NN": "JJS",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing an adjective's superlative form",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "RP should become RB, rp",
+      "NN": "NN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Assuming RP (particle) might behave like other less common tags in our simplified system",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He used particles and prepositions correctly, up",
+      "NN": "RP",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a particle's effect on the output",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The word 'down' is also a particle or preposition, down",
+      "NN": "RB",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing another related concept",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "TO should become IN, to",
+      "NN": "IN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "This rule reflects the tagging system where TO maps directly to IN",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He used to before verbs and infinitives correctly, to",
+      "NN": "TO",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing TO's effect in its original context",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The word 'into' is related to prepositions, into",
+      "NN": "IN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a preposition",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "UH should become NN, uh",
+      "NN": "NN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "This rule does not exist but testing interjections can be useful for understanding how less common parts of speech are handled",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He used interjections like oh and wow in his dialogue, oh",
+      "NN": "UH",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing an interjection's effect on the output",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The word 'ouch' is also an interjection, ouch",
+      "NN": "NN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing another related concept",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "VB should become VB, vb",
+      "NN": "VB",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "This tag remains consistent in our system",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He used verbs like run and jump correctly, run",
+      "NN": "VB",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a verb's effect on the output",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The word 'eating' is also a verb form, eating",
+      "NN": "VBG",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a specific verb form",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "VBD should become VB, vbd",
+      "NN": "VBD",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "This rule does not exist; testing past tense verbs can be useful for understanding how different forms are handled",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He used past tense verbs like ran and jumped correctly, went",
+      "NN": "VBD",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a past tense verb's effect on the output",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The word 'ate' is also in the past tense, ate",
+      "NN": "VBD",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing another past tense form",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "VBG should become VB, vbg",
+      "NN": "VBG",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "This rule does not exist; understanding how gerunds are handled can provide insight into verb forms",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He used present participles like running and jumping correctly, singing",
+      "NN": "VBG",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a present participle's effect on the output",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The word 'dancing' is also a present participle, dancing",
+      "NN": "VBG",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing another related concept",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "VBN should become VB, vbn",
+      "NN": "VBN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "This rule does not exist; testing past participles can help understand how different verb forms are treated",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He used past participles like run and jumped correctly, taken",
+      "NN": "VBN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a past participle's effect on the output",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The word 'eaten' is also a past participle, eaten",
+      "NN": "VBN",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing another past participle form",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "VBP should become VB, vbp",
+      "NN": "VBP",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "This rule does not exist; understanding how present tense verbs are handled can provide insight into verb forms",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He used present tense verbs like run and jump correctly, go",
+      "NN": "VBP",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a present tense verb's effect on the output",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The word 'takes' is also in the present tense, takes",
+      "NN": "VBZ",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing another related concept",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "VBZ should become VB, vbz",
+      "NN": "VBZ",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "This rule does not exist; testing third person singular present tense verbs can help understand specific verb forms",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He used third person singular present tense verbs like runs and jumps correctly, says",
+      "NN": "VBZ",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a third person singular present tense verb's effect on the output",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The word 'has' is also in this form, has",
+      "NN": "VBZ",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing another related concept",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "WDT should become DT, wdt",
+      "NN": "DT",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "This rule reflects how WDT (wh-determiner) maps to DT in our simplified system",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He used which and what correctly as determiners, which",
+      "NN": "WDT",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a wh-determiner's effect on the output",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The word 'that' is also a determiner, that",
+      "NN": "DT",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing another related concept",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "WP should become PRP, wp",
+      "NN": "PRP",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "This rule does not exist but understanding how wh-pronouns are handled can be useful",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He used who and whom correctly in his sentences, who",
+      "NN": "WP",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a wh-pronoun's effect on the output",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The word 'what' is also a pronoun, what",
+      "NN": "WP",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing another related concept",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "WP$ should become PRP$, wp$",
+      "NN": "$",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Similar to previous instances with this symbol; conceptually it involves possessive wh-pronouns",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He used whose correctly as a possessive pronoun, whose",
+      "NN": "WP$",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a possessive wh-pronoun's effect on the output",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The word 'mine' is also a possessive pronoun, mine",
+      "NN": "PRP$",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing another related concept",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "WRB should become RB, wrb",
+      "NN": "RB",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "This rule reflects how WRB (wh-adverb) maps to RB in our simplified system",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "He used when and where correctly as adverbs, when",
+      "NN": "WRB",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing a wh-adverb's effect on the output",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "The word 'why' is also an adverb, why",
+      "NN": "WRB",
+      "Testing a common noun to check if output is in the list of part-of-speech tags": "Testing another related concept",
+      "testinput": ""
+    },
+    {
+      "1": "the provided list examines each part of speech tag in detail through various examples. Understanding these tags and their usage can significantly enhance one's grasp of linguistic structures within sentences",
+      "ruleid": null,
+      "The quick brown fox jumps over the lazy dog, fox": "thereby improving communication and comprehension. Whether engaging with automated systems or composing human-oriented texts",
+      "NN": "recognizing and appropriately applying these parts of speech is fundamental to clear and effective expression.",
+      "testinput": ""
+    },
+    {
+      "ruleid": null,
+      "testinput": "The dog is very happy",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The cat is sleeping on the bed",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Go to the store and buy milk",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The baby laughed at the clown",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The sun is shining brightly in the clear blue sky",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The big red car is driving down the street",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "She ate a sandwich for lunch",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "He is going to the movies tonight",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The flowers are blooming in the garden",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The kids are playing outside in the rain",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The book is on the table",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The teacher is writing on the blackboard",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The students are studying for their exam",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The phone is ringing loudly",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The music is playing softly in the background",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The computer is turned off",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The door is locked and cannot be opened",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The dog is barking at the mailman",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The cat is scratching the furniture",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The baby is crying loudly",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The sun is setting over the ocean",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The stars are shining brightly in the night sky",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The moon is full and bright",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The birds are singing their sweet melodies",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The flowers are blooming in every color of the rainbow",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The grass is green and freshly cut",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The kids are laughing and having fun",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The teacher is smiling and happy",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The students are learning and growing",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The phone is silent and still",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The music is loud and energetic",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The computer is working properly",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The door is open and welcoming",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The dog is wagging its tail",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The cat is purring contentedly",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The baby is sleeping peacefully",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The sun is rising over the mountains",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The stars are twinkling like diamonds",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The moon is glowing with a soft light",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The birds are flying south for the winter",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The flowers are wilting and dying",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The grass is brown and dry",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The kids are arguing and fighting",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The teacher is stern and serious",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The students are struggling and frustrated",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The phone is ringing and ringing",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The music is soft and soothing",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The computer is slow and unresponsive",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The door is locked and secure",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The dog is growling and snarling",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The cat is hissing and spitting",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The baby is fussing and crying",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The sun is hidden behind the clouds",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The stars are invisible in the light of day",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The moon is new and unseen",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The birds are silent and still",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The flowers are dead and gone",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The grass is wet and muddy",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The kids are bored and restless",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The teacher is tired and exhausted",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The students are confused and lost",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The phone is broken and useless",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The music is stopped and silent",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The computer is crashed and unfixable",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The door is stuck and unable to open",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The dog is old and grey",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The cat is lazy and sluggish",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The baby is sick and unhealthy",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The sun is hot and burning",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The stars are distant and unreachable",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The moon is cold and unforgiving",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The birds are extinct and gone forever",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The flowers are rare and exotic",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The grass is artificial and fake",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The kids are naughty and misbehaved",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The teacher is mean and cruel",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The students are lazy and unmotivated",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The phone is expensive and luxurious",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The music is classical and sophisticated",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The computer is advanced and high-tech",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The door is secret and hidden",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The dog is wild and ferocious",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The cat is mysterious and elusive",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The baby is curious and adventurous",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The sun is warm and comforting",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The stars are magical and enchanting",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The moon is mystical and dreamy",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The birds are free and untamed",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The flowers are fragrant and sweet",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The grass is soft and inviting",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The kids are happy and carefree",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The teacher is kind and compassionate",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The students are eager and enthusiastic",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The phone is simple and easy to use",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The music is fun and upbeat",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The computer is fast and efficient",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The door is automatic and convenient",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The dog is friendly and loyal",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The cat is affectionate and playful",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The baby is cute and adorable",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The sun is shining down on us",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The stars are sparkling like fireworks",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The moon is glowing with an eerie light",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The birds are singing in harmony",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The flowers are blooming in perfect synchronization",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The grass is swaying gently in the breeze",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The kids are playing together in perfect harmony",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The teacher is guiding them with patience and understanding",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The students are learning and growing at their own pace",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The phone is ringing with an important call",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The music is playing with a lively rhythm",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The computer is working with precision and accuracy",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The door is opening with a warm welcome",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The dog is running with excitement and joy",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The cat is jumping with agility and grace",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The baby is crawling with curiosity and wonder",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The sun is rising with a new beginning",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The stars are shining with a celestial beauty",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The moon is glowing with a soft and gentle light",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The birds are flying with freedom and exhilaration",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The flowers are blooming with vibrant colors and sweet fragrance",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The grass is growing with a lush and green texture",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The kids are laughing with joy and abandon",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The teacher is smiling with warmth and kindness",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The students are learning with enthusiasm and eagerness",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The phone is silent with a peaceful quiet",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The music is playing with a soothing melody",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The computer is working with speed and efficiency",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The door is closing with a soft and quiet sound",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The dog is sleeping with a peaceful slumber",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The cat is resting with a calm and serene demeanor",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The baby is dreaming with a sweet and innocent smile",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The sun is setting with a warm and cozy glow",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The stars are twinkling with a magical and mystical sparkle",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The moon is shining with a bright and silvery light",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The birds are singing with a sweet and melodious song",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The flowers are blooming with a colorful and vibrant display",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The grass is swaying with a gentle and soothing motion",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The kids are playing with a carefree and joyful spirit",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The teacher is guiding with a patient and understanding heart",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The students are learning with a curious and adventurous mind",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The phone is ringing with an exciting and anticipated call",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The music is playing with a lively and energetic rhythm",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The computer is working with a fast and efficient pace",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The door is opening with a warm and welcoming smile",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The dog is running with excitement and enthusiasm",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The cat is jumping with agility and playfulness",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The baby is crawling with curiosity and exploration",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The sun is rising with a new and exciting day",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The stars are shining with a celestial and heavenly beauty",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The moon is glowing with a soft and gentle illumination",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The birds are flying with freedom and joy",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The flowers are blooming with vibrant colors and sweet fragrance",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The grass is growing with a lush and green texture",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The kids are laughing with joy and happiness",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The teacher is smiling with warmth and kindness",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The students are learning with enthusiasm and eagerness",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The phone is silent with a peaceful quiet",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The music is playing with a soothing melody",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The computer is working with speed and efficiency",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The door is closing with a soft and quiet sound",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The dog is sleeping with a peaceful slumber",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The cat is resting with a calm and serene demeanor",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The baby is dreaming with a sweet and innocent smile",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The sun is setting with a warm and cozy glow",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The stars are twinkling with a magical and mystical sparkle",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The moon is shining with a bright and silvery light",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The birds are singing with a sweet and melodious song",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The flowers are blooming with a colorful and vibrant display",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The grass is swaying with a gentle and soothing motion",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The kids are playing with a carefree and joyful spirit",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The teacher is guiding with a patient and understanding heart",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The students are learning with a curious and adventurous mind",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The phone is ringing with an exciting and anticipated call",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The music is playing with a lively and energetic rhythm",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The computer is working with a fast and efficient pace",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The door is opening with a warm and welcoming smile",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The dog is running with excitement and enthusiasm",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The cat is jumping with agility and playfulness",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The baby is crawling with curiosity and exploration",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The sun is rising with a new and exciting day",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The stars are shining with a celestial and heavenly beauty",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The moon is glowing with a soft and gentle illumination",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The birds are flying with freedom and joy",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The flowers are blooming with vibrant colors and sweet fragrance",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The grass is growing with a lush and green texture",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The kids are laughing with joy and happiness",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The teacher is smiling with warmth and kindness",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "The students are learning with enthusiasm and eagerness",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Fast car driving down the street",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Fast music playing on the radio",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Fast computer processing information quickly",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Automatic door opening with a swoosh sound",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Friendly dog wagging its tail happily",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Affectionate cat purring contentedly",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Cute baby giggling with joyful laughter \n---\nEach of these sentences can be broken down and described in terms of their grammatical parts. For example, \"The sun is shining\" can be described as a sentence with a subject (the sun) and a predicate (is shining). The subject can further be classified as a noun and the predicate as a verb phrase.\n\nHowever, to directly follow your request for a simple continuation based on the pattern observed:\n\nThe dog is barking loudly outside.\nThe cat is sleeping peacefully upstairs.\nThe baby is laughing happily in the living room.\nThe sun is rising slowly over the horizon.\nThe stars are shining brightly in the night sky.\nThe moon is glowing softly with a gentle light.\nThe birds are singing sweetly in the trees.\nThe flowers are blooming beautifully in every color.\nThe grass is growing green and healthy everywhere.\nThe kids are playing happily together outside.\nThe teacher is smiling warmly at her students.\nThe students are learning eagerly and quickly.\nThe phone is ringing loudly on the table.\nThe music is playing softly in the background.\nThe computer is working efficiently and fast.\nThe door is opening widely with a welcoming sound.",
+      "baseline": true
+    }
+  ],
+  "testEvals": [],
+  "testResults": []
+}
