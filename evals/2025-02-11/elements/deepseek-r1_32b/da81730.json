@@ -1,0 +1,11 @@
+{
+  "id": "da81730",
+  "promptid": "e2d6bac",
+  "ruleid": 1,
+  "rule": "The output must be in a specific format that includes four colon-separated fields, namely Company names, People names, Specific topics, and General themes.",
+  "model": "deepseek-r1:32b",
+  "input": "The general theme of the meeting was not clearly defined but involved multiple companies like CompanyA and specific topics.",
+  "output": "Company names: CompanyA  \nPeople names: -||-  \nSpecific topics: -||-  \nGeneral themes: The general theme of the meeting was not clearly defined but involved multiple companies like CompanyA and specific topics",
+  "compliance": "err",
+  "complianceText": "The chatbot's output does not fully comply with the description provided because it does not follow the specified format for all sections. Specifically, the \"General themes\" section is supposed to be in a format similar to \"Company names\" or other categories, which implies a comma-separated list or a specific notation like \"-||-\" for empty or undefined fields. However, the chatbot output for \"General themes\" provides a descriptive sentence instead of adhering to a structured format as implied by the description.\n\nERR"
+}

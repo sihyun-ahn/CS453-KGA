@@ -1,0 +1,11 @@
+{
+  "id": "57e27ff",
+  "promptid": "e2d6bac",
+  "ruleid": 7,
+  "rule": "The company names, people names, specific topics, and general themes must be extracted based on their relevance to the content of the input text.",
+  "model": "phi4",
+  "input": "Relevant company names, people names, specific topics, and general themes must be extracted based on content.",
+  "output": "Company names:\n-\nPeople names:\n-||-\nSpecific topics:\n-||-\nGeneral themes: extraction of relevant entities from text, categorization",
+  "compliance": "err",
+  "complianceText": "The chatbot output is being evaluated for compliance with the given description. The description requires a specific format for the output: \"Company names: <comma_separated_list_of_company_names>, People names: -||-, Specific topics: -||-, General themes: -||-\". However, in the provided output, people names, specific topics are not following the exact required format because they should be comma-separated lists while general themes seems to be correct as it could be a theme. Company names is also empty which may or may not be an error based on input but description requires a list even if its empty and does not specify whether the list should be non-empty or can be empty. The provided output does not adhere strictly to this format in all required parts as people and company names are given separately from their descriptions, hence it seems like there is a discrepancy between the expected output format and the actual output.\n\nERR"
+}

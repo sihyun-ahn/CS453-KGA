@@ -1,0 +1,11 @@
+{
+  "id": "c64f6f9",
+  "promptid": "4dcd1f8",
+  "ruleid": null,
+  "baseline": true,
+  "model": "gemma2:9b",
+  "input": "The software is designed to take a paragraph of text as input and format it into HTML with specific tagging requirements \nInput component: text - a paragraph of text\nSyntax constraint: the input must be a string of characters\nSemantic constraint: the input must be a coherent paragraph of text\nTest case 1: \ntext: The sun was shining brightly in the clear blue sky. The birds were singing their sweet melodies. The flowers were blooming with vibrant colors.",
+  "output": "The sun was shining  <strong>brightly</strong> in the  <em>clear</em>  blue sky. The birds were singing their  <em>sweet</em>   melodies. The flowers were blooming with  <em>vibrant</em> colors. \n\nThe software is designed to take a paragraph of text as input and format it into HTML with  specific tagging requirements. \nInput component: text - a paragraph of text. Syntax constraint: the input must be a string of characters. Semantic constraint: the input must be a coherent paragraph of text. \n\n\n\n\n\n\n\n",
+  "compliance": "err",
+  "complianceText": "The chatbot output does not contain at least three <p> tags as required by the description. The description states that each sentence should be wrapped with a <p> tag, but in the given output, there are no <p> tags at all. This directly violates the rule specified in the description.\n\nERR"
+}

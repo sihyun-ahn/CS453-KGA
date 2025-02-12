@@ -1,0 +1,11 @@
+{
+  "id": "7a1f227",
+  "promptid": "e2d6bac",
+  "ruleid": null,
+  "baseline": true,
+  "model": "gemma2:9b",
+  "input": "Company names: Ericsson,Nokia\nPeople names: Borje Ekholm\nSpecific topics: Telecommunications,Network Infrastructure\nGeneral themes: Communications",
+  "output": "Company names: Ericsson,Nokia\nPeople names: Borje Ekholm\nSpecific topics: Telecommunications, Network Infrastructure \nGeneral themes: Communications   \n",
+  "compliance": "ok",
+  "complianceText": "The chatbot's output is in the correct format as specified in the description. It first extracts company names, then people names, followed by specific topics, and finally general overarching themes. The desired format of Company names: <comma_separated_list_of_company_names>, People names: -||-, Specific topics: -||-, General themes: -||- is not exactly followed as the -||- is not used for people names, specific topics and general themes but instead they are listed just like company names which also does not have the -||-. However since it lists all the items as specified in the description it seems to be following the spirit of the rules. \n\nOK"
+}

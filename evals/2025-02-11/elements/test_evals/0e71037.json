@@ -1,0 +1,13 @@
+{
+  "id": "0e71037",
+  "promptid": "e2d6bac",
+  "model": "llama3.3",
+  "ruleid": 5,
+  "rule": "The general themes field must contain a list of the general overarching themes mentioned in the input text, separated by -||-, and these themes must be broader than the specific topics.",
+  "input": "The text mentioned a general theme of social justice but did not provide specific details.",
+  "validityText": "The input specification states that the input can contain general overarching themes and does not have any restrictions on the number of company names people names specific topics or general themes it can contain. It also mentions that the input can include various formats such as sentences phrases or paragraphs and must be a string containing the content of the text in a human-readable format with words separated by spaces and sentences separated by punctuation marks. Given this the provided input The text mentioned a general theme of social justice but did not provide specific details complies with the specification because it is a string that contains a sentence discussing a general theme which is allowed according to the rules.\n\nOK",
+  "validity": "ok",
+  "coverageText": "Company names: \nPeople names: -||- \nSpecific topics: -||- \nGeneral themes: social justice-||-",
+  "coverageEvalText": "The chatbot output partially follows the desired format by including the categories for company names, people names, specific topics, and general themes. However, it does not provide a comma-separated list of company names as required, instead leaving that section blank. For people names and specific topics, it uses the '-||-' separator as instructed but doesn't provide any actual names or topics. The general themes section includes 'social justice' followed by '-||-', which seems to comply with providing at least one theme.\n\nGiven these observations, the primary violation is the lack of compliance with providing a list of company names and not having any people names or specific topics listed, despite the format requiring some form of content for each category. The output does include information under general themes but misses out on fully adhering to the description by leaving other sections without actual content.\n\nERR",
+  "coverage": "err"
+}

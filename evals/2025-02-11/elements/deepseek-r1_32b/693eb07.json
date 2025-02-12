@@ -1,0 +1,11 @@
+{
+  "id": "693eb07",
+  "promptid": "e2d6bac",
+  "ruleid": 3,
+  "rule": "The people names field must contain a list of the people names mentioned in the input text separated by -||-.",
+  "model": "deepseek-r1:32b",
+  "input": "John, Jane, and Bob are discussing environmental issues and sustainability.",
+  "output": "Company names:  \nPeople names: John, Jane, Bob\nSpecific topics: Environmental issues, Sustainability\nGeneral themes: Discussion",
+  "compliance": "err",
+  "complianceText": "The chatbot output does not have a comma-separated list of company names as specified in the description. It is also supposed to list specific topics and general themes using -||- but it did not follow that format. The people names part of the output seems to be in order but other parts do not comply with the provided description.\nERR"
+}

@@ -1,0 +1,13 @@
+{
+  "id": "97e03fb",
+  "promptid": "e2d6bac",
+  "model": "llama3.3",
+  "ruleid": 5,
+  "rule": "The general themes field must contain a list of the general overarching themes mentioned in the input text, separated by -||-, and these themes must be broader than the specific topics.",
+  "input": "Education and healthcare were discussed as part of a broader theme of human development.",
+  "validityText": "The given input is a sentence that contains general overarching themes, specifically \"human development\", and also mentions specific topics, namely \"Education\" and \"healthcare\". The input specification states that the input can contain company names, people names, specific topics, and general overarching themes, with no restrictions on their number. It also mentions that the input can be of any length, include various formats such as sentences or phrases, and must be a string containing the content of the text in a human-readable format. The input provided adheres to these guidelines as it is a sentence with words separated by spaces and contains relevant themes and topics. There are no apparent violations of the input specification.\n\nOK",
+  "validity": "ok",
+  "coverageText": ": , -||- : Education-||-Healthcare : Human Development-||-",
+  "coverageEvalText": "The chatbot output does not explicitly follow the specified format as it lacks labels for each category and does not separate them as described. The description requires specific labels such as \"Company names:\", \"People names:\", \"Specific topics:\", and \"General themes:\" followed by their respective values in a particular format, which is not observed here.\n\nERR",
+  "coverage": "err"
+}

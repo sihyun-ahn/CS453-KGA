@@ -1,0 +1,11 @@
+{
+  "id": "8f74c9d",
+  "promptid": "e2d6bac",
+  "ruleid": 2,
+  "rule": "The company names field must contain a comma-separated list of the company names mentioned in the input text.",
+  "model": "phi4",
+  "input": "No companies were mentioned in the conversation between John and Jane.",
+  "output": "Company names:\n-\nPeople names: John, Jane\nSpecific topics:\n-\nGeneral themes: conversations, mentions of entities",
+  "compliance": "err",
+  "complianceText": "The chatbot output does not fully comply with the description because some fields are empty or only contain a hyphen, which seems to indicate that they were left blank. The description asks for specific formats and content in each field, such as comma-separated lists of company names and people names, and topics and themes should be listed after \"-||-\". However, since it does provide an output with the specified format for \"People names\" and \"General themes\", it shows some level of compliance. But given that company names and specific topics are requested to be filled in a certain manner which is not followed here as they are empty, this suggests a non-compliance in terms of providing actual information in those fields.\n\nERR"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "d06eb0f",
+  "promptid": "a928b14",
+  "ruleid": null,
+  "baseline": true,
+  "model": "llama3.2:1b",
+  "input": "The teacher is kind and compassionate",
+  "output": "CD: Determiner\nEX: Existential there (tagged as \"there\", but \"Existential\" is not one of the standard labels provided)\n\nReturn: Can'tAnswer",
+  "compliance": "err",
+  "complianceText": "The chatbot output does not comply with the description because it returns a tag that was instructed to be returned when the chatbot is unable to tag the word which is CantAnswer, but it also provides additional tags which seems like an attempt to solve the problem, however since one of the tags provided 'Can'tAnswer' means the model cannot answer this question we should respect this and consider other output part as irrelevant in context of evaluation so the decision can be made only on presence of 'Can'tAnswer'. Also the format is not exactly as per description which asks to return just one tag.\nERR"
+}

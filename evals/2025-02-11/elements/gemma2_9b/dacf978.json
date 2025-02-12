@@ -1,0 +1,11 @@
+{
+  "id": "dacf978",
+  "promptid": "e2d6bac",
+  "ruleid": null,
+  "baseline": true,
+  "model": "gemma2:9b",
+  "input": "Company names: General Motors,Ford Motor\nPeople names: Mary Barra\nSpecific topics: Automotive Manufacturing,Autonomous Driving\nGeneral themes: Automotive Industry",
+  "output": "Company names: General Motors,Ford Motor \nPeople names: Mary Barra\nSpecific topics: Automotive Manufacturing,Autonomous Driving\nGeneral themes: Automotive Industry \n",
+  "compliance": "err",
+  "complianceText": "The chatbot output is given and I have to check if it complies with the description provided. The description asks for a specific format, which includes company names as a comma-separated list, people names preceded by -||-, specific topics also preceded by -||-, and general themes again preceded by -||-. However, in the given output, only the company names are in a comma-separated list as requested, but people names, specific topics, and general themes do not follow the exact format specified. They should be preceded by -||- as per the description, which is not the case here.\n\nERR"
+}

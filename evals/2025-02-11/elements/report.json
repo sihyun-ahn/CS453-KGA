@@ -1,0 +1,939 @@
+{
+  "prompt": "---\nname: Extract Elements of Text\ndescription: Extract specific elements of text from a given text\nsource: OpenAI documentation\nurl: https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-the-openai-api\ninputs: \n   text:\n      type: string\n---\nsystem:\nExtract the important entities mentioned in the text below. First extract all company names, then extract all people names, then extract specific topics which fit the content and finally extract general overarching themes\n\nDesired format:\nCompany names: <comma_separated_list_of_company_names>\nPeople names: -||-\nSpecific topics: -||-\nGeneral themes: -||-\nuser:\nText: {{ text }}\n",
+  "inputSpec": "The input is a text that can contain company names, people names, specific topics, and general overarching themes.\nThe input text can be of any length and can include various formats such as sentences, phrases, or paragraphs.\nThe input does not have any restrictions on the number of company names, people names, specific topics, or general themes it can contain.\nThe input can include greetings and other forms of text that are not directly related to company names, people names, specific topics, or general themes. \nThe input must be a string containing the content of the text.\nThe input text is expected to be in a human-readable format with words separated by spaces and sentences separated by punctuation marks.",
+  "rules": [
+    "The output must be in a specific format that includes four colon-separated fields, namely Company names, People names, Specific topics, and General themes.",
+    "The company names field must contain a comma-separated list of the company names mentioned in the input text.",
+    "The people names field must contain a list of the people names mentioned in the input text separated by -||-.",
+    "The specific topics field must contain a list of the specific topics mentioned in the input text that fit the content, separated by -||-.",
+    "The general themes field must contain a list of the general overarching themes mentioned in the input text, separated by -||-, and these themes must be broader than the specific topics.",
+    "The output must not include any additional information beyond the four specified fields.",
+    "The company names, people names, specific topics, and general themes must be extracted based on their relevance to the content of the input text.",
+    "Each field in the output format must have a corresponding value, even if the value is empty."
+  ],
+  "inverseRules": [
+    "Company names: , People names: -||-, Specific topics: -||-, General themes: -||-",
+    "The company names field should not contain a comma-separated list of the company names mentioned in the input text: empty, People names: names -||- mentioned in the input text separated by -, Specific topics: no specific topics -||-, General themes: narrower themes than specific topics -||-",
+    "Company names: multiple companies, People names: first name-||-last name, Specific topics: main topic-||-sub topic, General themes: theme-||-subcategory",
+    "Company names: company1,company2, People names: John-||-Doe, Specific topics: topic1-||-topic2, General themes: theme1-||-theme2",
+    "The company names field must be empty when no companies are mentioned in the input text: , People names: people -||- not in the input, Specific topics: not relevant specific topics -||-, General themes: broader general themes than required -||-",
+    "Company names: Acme Inc.,People names: Meta Llama 3-||-,Specific topics: topic extraction-||-,General themes: information retrieval-||-",
+    "The company names field must contain a single company name when only one company is mentioned in the input text: CompanyA, People names: no people -||-, Specific topics: topic and subtopic -||-, General themes: theme and subtheme -||-",
+    "Company names: , People names: people1-||-people2, Specific topics: main topic and not relevant subtopic -||-, General themes: not broader general theme than specific topic -||-"
+  ],
+  "ruleEvals": [
+    {
+      "id": "72cc66a",
+      "promptid": "e2d6bac",
+      "ruleid": "1",
+      "rule": "The output must be in a specific format that includes four colon-separated fields, namely Company names, People names, Specific topics, and General themes.",
+      "groundedText": "OK",
+      "grounded": "ok",
+      "error": ""
+    },
+    {
+      "id": "1cdf1d5",
+      "promptid": "e2d6bac",
+      "ruleid": "2",
+      "rule": "The company names field must contain a comma-separated list of the company names mentioned in the input text.",
+      "groundedText": "OK",
+      "grounded": "ok",
+      "error": ""
+    },
+    {
+      "id": "cd62b0b",
+      "promptid": "e2d6bac",
+      "ruleid": "3",
+      "rule": "The people names field must contain a list of the people names mentioned in the input text separated by -||-.",
+      "groundedText": "ERR",
+      "grounded": "err",
+      "error": ""
+    },
+    {
+      "id": "26ab9b0",
+      "promptid": "e2d6bac",
+      "ruleid": "4",
+      "rule": "The specific topics field must contain a list of the specific topics mentioned in the input text that fit the content, separated by -||-.",
+      "groundedText": "OK",
+      "grounded": "ok",
+      "error": ""
+    },
+    {
+      "id": "b286492",
+      "promptid": "e2d6bac",
+      "ruleid": "5",
+      "rule": "The general themes field must contain a list of the general overarching themes mentioned in the input text, separated by -||-, and these themes must be broader than the specific topics.",
+      "groundedText": "OK",
+      "grounded": "ok",
+      "error": ""
+    },
+    {
+      "id": "e86c56c",
+      "promptid": "e2d6bac",
+      "ruleid": "6",
+      "rule": "The output must not include any additional information beyond the four specified fields.",
+      "groundedText": "OK",
+      "grounded": "ok",
+      "error": ""
+    },
+    {
+      "id": "e0155e3",
+      "promptid": "e2d6bac",
+      "ruleid": "7",
+      "rule": "The company names, people names, specific topics, and general themes must be extracted based on their relevance to the content of the input text.",
+      "groundedText": "OK",
+      "grounded": "ok",
+      "error": ""
+    },
+    {
+      "id": "81d5e83",
+      "promptid": "e2d6bac",
+      "ruleid": "8",
+      "rule": "Each field in the output format must have a corresponding value, even if the value is empty.",
+      "groundedText": "OK",
+      "grounded": "ok",
+      "error": ""
+    }
+  ],
+  "tests": [
+    {
+      "ruleid": "1",
+      "rule": "The output must be in a specific format that includes four colon-separated fields, namely Company names, People names, Specific topics, and General themes.",
+      "testid": "1",
+      "testinput": "The company Acme Inc. and Meta Llama 3 are working on a project.",
+      "expectedoutput": "Company names: Acme Inc.,Meta Llama 3, People names: -||-, Specific topics: -||-, General themes: -||-",
+      "reasoning": "This test case checks the output format with multiple companies."
+    },
+    {
+      "ruleid": "1",
+      "rule": "The output must be in a specific format that includes four colon-separated fields, namely Company names, People names, Specific topics, and General themes.",
+      "testid": "2",
+      "testinput": "John is discussing topic extraction and information retrieval.",
+      "expectedoutput": "Company names: , People names: John-||-, Specific topics: topic extraction-||-information retrieval, General themes: -||-",
+      "reasoning": "This test case validates the output when there are no company names and people names are present."
+    },
+    {
+      "ruleid": "1",
+      "rule": "The output must be in a specific format that includes four colon-separated fields, namely Company names, People names, Specific topics, and General themes.",
+      "testid": "3",
+      "testinput": "The general theme of the meeting was not clearly defined but involved multiple companies like CompanyA and specific topics.",
+      "expectedoutput": "Company names: CompanyA, People names: -||-, Specific topics: -||-, General themes: -||-",
+      "reasoning": "This test case ensures that company names field has one value when only one is mentioned."
+    },
+    {
+      "ruleid": "2",
+      "rule": "The company names field must contain a comma-separated list of the company names mentioned in the input text.",
+      "testid": "1",
+      "testinput": "The companies Acme Inc. and Google are discussing a potential partnership.",
+      "expectedoutput": "Company names: Acme Inc.,Google, People names: -||-, Specific topics: -||-, General themes: -||-",
+      "reasoning": "This test case evaluates the extraction of multiple company names separated by commas."
+    },
+    {
+      "ruleid": "2",
+      "rule": "The company names field must contain a comma-separated list of the company names mentioned in the input text.",
+      "testid": "2",
+      "testinput": "Meta Llama 3 is working alone on a project about AI and machine learning.",
+      "expectedoutput": "Company names: Meta Llama 3, People names: -||-, Specific topics: -||-, General themes: -||-",
+      "reasoning": "This test case checks the extraction of single company name."
+    },
+    {
+      "ruleid": "2",
+      "rule": "The company names field must contain a comma-separated list of the company names mentioned in the input text.",
+      "testid": "3",
+      "testinput": "No companies were mentioned in the conversation between John and Jane.",
+      "expectedoutput": "Company names: , People names: John-||-Jane, Specific topics: -||-, General themes: -||-",
+      "reasoning": "This test case verifies that an empty field is returned when no companies are present."
+    },
+    {
+      "ruleid": "3",
+      "rule": "The people names field must contain a list of the people names mentioned in the input text separated by -||-.",
+      "testid": "1",
+      "testinput": "John Doe and Jane Smith are attending a meeting about innovation and entrepreneurship.",
+      "expectedoutput": "Company names: , People names: John Doe-||-Jane Smith, Specific topics: innovation-||-entrepreneurship, General themes: -||-",
+      "reasoning": "This test case assesses the extraction of people names separated by -||-."
+    },
+    {
+      "ruleid": "3",
+      "rule": "The people names field must contain a list of the people names mentioned in the input text separated by -||-.",
+      "testid": "2",
+      "testinput": "There were no people mentioned in the text about technology and computing.",
+      "expectedoutput": "Company names: , People names: -||-, Specific topics: technology-||-computing, General themes: -||-",
+      "reasoning": "This test case confirms that an empty field is returned when there are no people mentioned."
+    },
+    {
+      "ruleid": "3",
+      "rule": "The people names field must contain a list of the people names mentioned in the input text separated by -||-.",
+      "testid": "3",
+      "testinput": "John, Jane, and Bob are discussing environmental issues and sustainability.",
+      "expectedoutput": "Company names: , People names: John-||-Jane-||-Bob, Specific topics: environmental issues-||-sustainability, General themes: -||-",
+      "reasoning": "This test case checks the handling of multiple people names."
+    },
+    {
+      "ruleid": "4",
+      "rule": "The specific topics field must contain a list of the specific topics mentioned in the input text that fit the content, separated by -||-.",
+      "testid": "1",
+      "testinput": "The discussion centered around climate change, renewable energy, and sustainable development.",
+      "expectedoutput": "Company names: , People names: -||-, Specific topics: climate change-||-renewable energy-||-sustainable development, General themes: -||-",
+      "reasoning": "This test case evaluates the extraction of specific topics relevant to the content."
+    },
+    {
+      "ruleid": "4",
+      "rule": "The specific topics field must contain a list of the specific topics mentioned in the input text that fit the content, separated by -||-.",
+      "testid": "2",
+      "testinput": "The text did not mention any specific topics but focused on general themes like education and healthcare.",
+      "expectedoutput": "Company names: , People names: -||-, Specific topics: -||-, General themes: education-||-healthcare, General themes: -||-",
+      "reasoning": "This test case ensures that the field remains empty when no specific topics are mentioned."
+    },
+    {
+      "ruleid": "4",
+      "rule": "The specific topics field must contain a list of the specific topics mentioned in the input text that fit the content, separated by -||-.",
+      "testid": "3",
+      "testinput": "The main topic was AI, with subtopics including machine learning and natural language processing.",
+      "expectedoutput": "Company names: , People names: -||-, Specific topics: AI-||-machine learning-||-natural language processing, General themes: -||-",
+      "reasoning": "This test case checks the extraction of specific topics and their subtopics."
+    },
+    {
+      "ruleid": "5",
+      "rule": "The general themes field must contain a list of the general overarching themes mentioned in the input text, separated by -||-, and these themes must be broader than the specific topics.",
+      "testid": "1",
+      "testinput": "The broader theme was economic development, encompassing topics like trade and investment.",
+      "expectedoutput": "Company names: , People names: -||-, Specific topics: trade-||-investment, General themes: economic development-||-",
+      "reasoning": "This test case assesses the extraction of general themes that are broader than specific topics."
+    },
+    {
+      "ruleid": "5",
+      "rule": "The general themes field must contain a list of the general overarching themes mentioned in the input text, separated by -||-, and these themes must be broader than the specific topics.",
+      "testid": "2",
+      "testinput": "The text mentioned a general theme of social justice but did not provide specific details.",
+      "expectedoutput": "Company names: , People names: -||-, Specific topics: -||-, General themes: social justice-||-",
+      "reasoning": "This test case confirms the handling of general themes without specific topics."
+    },
+    {
+      "ruleid": "5",
+      "rule": "The general themes field must contain a list of the general overarching themes mentioned in the input text, separated by -||-, and these themes must be broader than the specific topics.",
+      "testid": "3",
+      "testinput": "Education and healthcare were discussed as part of a broader theme of human development.",
+      "expectedoutput": "Company names: , People names: -||-, Specific topics: education-||-healthcare, General themes: human development-||-",
+      "reasoning": "This test case evaluates the extraction of general themes with multiple specific topics."
+    },
+    {
+      "ruleid": "6",
+      "rule": "The output must not include any additional information beyond the four specified fields.",
+      "testid": "1",
+      "testinput": "The output should not include any additional information beyond the four specified fields.",
+      "expectedoutput": "Company names: , People names: -||-, Specific topics: -||-, General themes: -||-",
+      "reasoning": "This test case ensures that no extra information is provided in the output."
+    },
+    {
+      "ruleid": "6",
+      "rule": "The output must not include any additional information beyond the four specified fields.",
+      "testid": "2",
+      "testinput": "Only company names and people names were discussed without specific topics or general themes.",
+      "expectedoutput": "Company names: CompanyA, People names: John-||-, Specific topics: -||-, General themes: -||-",
+      "reasoning": "This test case verifies that the output adheres to the specified format even with limited information."
+    },
+    {
+      "ruleid": "6",
+      "rule": "The output must not include any additional information beyond the four specified fields.",
+      "testid": "3",
+      "testinput": "The conversation included company names, people names, specific topics, and general themes.",
+      "expectedoutput": "Company names: Acme Inc., People names: Jane-||-, Specific topics: topic extraction-||-, General themes: information retrieval-||-",
+      "reasoning": "This test case checks the output format when all fields have values."
+    },
+    {
+      "ruleid": "7",
+      "rule": "The company names, people names, specific topics, and general themes must be extracted based on their relevance to the content of the input text.",
+      "testid": "1",
+      "testinput": "Relevant company names, people names, specific topics, and general themes must be extracted based on content.",
+      "expectedoutput": "Company names: Meta Llama 3, People names: John-||-, Specific topics: AI-||-, General themes: technology-||-",
+      "reasoning": "This test case assesses the relevance of extracted information to the input text."
+    },
+    {
+      "ruleid": "7",
+      "rule": "The company names, people names, specific topics, and general themes must be extracted based on their relevance to the content of the input text.",
+      "testid": "2",
+      "testinput": "The extraction should consider the context and relevance of each piece of information.",
+      "expectedoutput": "Company names: CompanyA, People names: Jane-||-, Specific topics: machine learning-||-, General themes: innovation-||-",
+      "reasoning": "This test case evaluates the ability to extract relevant information based on context."
+    },
+    {
+      "ruleid": "7",
+      "rule": "The company names, people names, specific topics, and general themes must be extracted based on their relevance to the content of the input text.",
+      "testid": "3",
+      "testinput": "All fields must have corresponding values even if they are empty.",
+      "expectedoutput": "Company names: , People names: -||-, Specific topics: -||-, General themes: -||-",
+      "reasoning": "This test case ensures that each field is present in the output regardless of whether it has a value."
+    },
+    {
+      "ruleid": "8",
+      "rule": "Each field in the output format must have a corresponding value, even if the value is empty.",
+      "testid": "1",
+      "testinput": "Each field in the output format must have a corresponding value.",
+      "expectedoutput": "Company names: Acme Inc., People names: John-||-, Specific topics: topic extraction-||-, General themes: information retrieval-||-",
+      "reasoning": "This test case checks that all fields are included with their respective values."
+    },
+    {
+      "ruleid": "8",
+      "rule": "Each field in the output format must have a corresponding value, even if the value is empty.",
+      "testid": "2",
+      "testinput": "The output should handle cases where some fields may have empty values.",
+      "expectedoutput": "Company names: , People names: Jane-||-, Specific topics: -||-, General themes: technology-||-",
+      "reasoning": "This test case verifies the handling of fields with empty values."
+    },
+    {
+      "ruleid": "8",
+      "rule": "Each field in the output format must have a corresponding value, even if the value is empty.",
+      "testid": "3",
+      "testinput": "All specified fields must be present in the output regardless of their content.",
+      "expectedoutput": "Company names: CompanyA, People names: -||-, Specific topics: machine learning-||-, General themes: innovation-||-",
+      "reasoning": "This test case confirms that all required fields are included in the output."
+    },
+    {
+      "ruleid": "9",
+      "rule": "Company names: , People names: -||-, Specific topics: -||-, General themes: -||-",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "The company name should be correctly extracted and placed in its field.",
+      "expectedoutput": "Company names: Meta Llama 3, People names: -||-, Specific topics: -||-, General themes: -||-",
+      "reasoning": "This test case evaluates the extraction of company names."
+    },
+    {
+      "ruleid": "9",
+      "rule": "Company names: , People names: -||-, Specific topics: -||-, General themes: -||-",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "People names mentioned in the text should be accurately identified and listed.",
+      "expectedoutput": "Company names: , People names: John-||-Jane, Specific topics: -||-, General themes: -||-",
+      "reasoning": "This test case assesses the identification and listing of people names."
+    },
+    {
+      "ruleid": "9",
+      "rule": "Company names: , People names: -||-, Specific topics: -||-, General themes: -||-",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "Specific topics relevant to the content must be properly extracted and separated.",
+      "expectedoutput": "Company names: , People names: -||-, Specific topics: climate change-||-renewable energy, General themes: -||-",
+      "reasoning": "This test case checks the extraction and separation of specific topics."
+    },
+    {
+      "ruleid": "10",
+      "rule": "The company names field should not contain a comma-separated list of the company names mentioned in the input text: empty, People names: names -||- mentioned in the input text separated by -, Specific topics: no specific topics -||-, General themes: narrower themes than specific topics -||-",
+      "inverse": true,
+      "testid": "1",
+      "testinput": "General themes broader than specific topics should be correctly identified.",
+      "expectedoutput": "Company names: , People names: -||-, Specific topics: education-||-healthcare, General themes: human development-||-",
+      "reasoning": "This test case evaluates the identification of general themes."
+    },
+    {
+      "ruleid": "10",
+      "rule": "The company names field should not contain a comma-separated list of the company names mentioned in the input text: empty, People names: names -||- mentioned in the input text separated by -, Specific topics: no specific topics -||-, General themes: narrower themes than specific topics -||-",
+      "inverse": true,
+      "testid": "2",
+      "testinput": "The output format must clearly distinguish between specific topics and general themes.",
+      "expectedoutput": "Company names: , People names: John-||-, Specific topics: AI-||-machine learning, General themes: technology-||-",
+      "reasoning": "This test case verifies the distinction between specific topics and general themes in the output."
+    },
+    {
+      "ruleid": "10",
+      "rule": "The company names field should not contain a comma-separated list of the company names mentioned in the input text: empty, People names: names -||- mentioned in the input text separated by -, Specific topics: no specific topics -||-, General themes: narrower themes than specific topics -||-",
+      "inverse": true,
+      "testid": "3",
+      "testinput": "All information extracted should be relevant to the content discussed.",
+      "expectedoutput": "Company names: Meta Llama 3, People names: Jane-||-, Specific topics: topic extraction-||-, General themes: information retrieval-||-",
+      "reasoning": "This test case confirms the relevance of all extracted information to the input text."
+    },
+    {
+      "ruleid": null,
+      "testinput": "Company names: \nPeople names: -||- \nSpecific topics: -||- \nGeneral themes: -||-",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Company names: Google,Microsoft\nPeople names: -||- \nSpecific topics: Natural Language Processing,Artificial Intelligence\nGeneral themes: -||-",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Company names: Amazon,Facebook\nPeople names: Mark Zuckerberg\nSpecific topics: Machine Learning,Deep Learning\nGeneral themes: Technology",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Company names: IBM,Apple\nPeople names: Tim Cook\nSpecific topics: Cloud Computing,IoT\nGeneral themes: Innovation",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Company names: Tesla,NVIDIA\nPeople names: Elon Musk\nSpecific topics: Autonomous Vehicles,AI Chips\nGeneral themes: Sustainability",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Company names: Palantir,Accenture\nPeople names: Alexander Karp\nSpecific topics: Data Analytics,Cybersecurity\nGeneral themes: Consulting",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Company names: SAP,Oracle\nPeople names: Bill McDermott\nSpecific topics: Enterprise Software,Database Management\nGeneral themes: Business Solutions",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Company names: Cisco,Juniper\nPeople names: Chuck Robbins\nSpecific topics: Networking,Security\nGeneral themes: Infrastructure",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Company names: Intel,Qualcomm\nPeople names: Bob Swan\nSpecific topics: Semiconductor,5G\nGeneral themes: Hardware",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Company names: VMware,Dell\nPeople names: Pat Gelsinger\nSpecific topics: Virtualization,Storage\nGeneral themes: IT Solutions",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Company names: Salesforce,Adobe\nPeople names: Marc Benioff\nSpecific topics: Customer Relationship Management,Marketing Automation\nGeneral themes: Customer Experience",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Company names: HP,Lenovo\nPeople names: Enrique Lores\nSpecific topics: PC Manufacturing,Printing\nGeneral themes: Consumer Electronics",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Company names: Ericsson,Nokia\nPeople names: Borje Ekholm\nSpecific topics: Telecommunications,Network Infrastructure\nGeneral themes: Communications",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Company names: GE,Caterpillar\nPeople names: H. Lawrence Culp Jr.\nSpecific topics: Industrial Equipment,Aerospace\nGeneral themes: Manufacturing",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Company names: 3M,BASF\nPeople names: Mike Roman\nSpecific topics: Chemicals,Materials Science\nGeneral themes: Industrial Products",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Company names: Siemens,Royal Dutch Shell\nPeople names: Jim Hagemann Snabe\nSpecific topics: Energy,Oil and Gas\nGeneral themes: Sustainability",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Company names: Honda,Toyota\nPeople names: Takahiro Hachigo\nSpecific topics: Automotive,Electric Vehicles\nGeneral themes: Transportation",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Company names: John Deere,CNH Industrial\nPeople names: John May\nSpecific topics: Agriculture,Heavy Machinery\nGeneral themes: Farming",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Company names: Lockheed Martin,Boeing\nPeople names: Marillyn Hewson\nSpecific topics: Defense,Aerospace Engineering\nGeneral themes: National Security",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Company names: Pfizer,Johnson & Johnson\nPeople names: Albert Bourla\nSpecific topics: Pharmaceuticals,Biotechnology\nGeneral themes: Healthcare",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Company names: ExxonMobil,Chevron\nPeople names: Darren Woods\nSpecific topics: Oil Refining,Petroleum Products\nGeneral themes: Energy Production",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Company names: Procter & Gamble,Unilever\nPeople names: David Taylor\nSpecific topics: Consumer Goods,Personal Care\nGeneral themes: Retail",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Company names: Coca-Cola,PepsiCo\nPeople names: James Quincey\nSpecific topics: Beverages,Food Processing\nGeneral themes: Food and Beverage",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Company names: McDonald's,Yum! Brands\nPeople names: Chris Kempczinski\nSpecific topics: Fast Food,Retail Hospitality\nGeneral themes: Dining",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Company names: United Airlines,Delta Air Lines\nPeople names: Scott Kirby\nSpecific topics: Aviation,Air Travel\nGeneral themes: Transportation Services",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Company names: Wells Fargo,JP Morgan Chase\nPeople names: Charlie Scharf\nSpecific topics: Banking,Financial Services\nGeneral themes: Finance",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Company names: Visa,Mastercard\nPeople names: Alfred Kelly\nSpecific topics: Payment Processing,Digital Payments\nGeneral themes: Financial Technology",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Company names: Netflix,Disney\nPeople names: Reed Hastings\nSpecific topics: Streaming Media,Entertainment\nGeneral themes: Media and Entertainment",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Company names: Twitter,Facebook\nPeople names: Jack Dorsey\nSpecific topics: Social Media,Online Advertising\nGeneral themes: Technology and Society",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Company names: AT&T,Verizon\nPeople names: John Stankey\nSpecific topics: Telecommunications,Wireless Communications\nGeneral themes: Communications Services",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Company names: FedEx,UPS\nPeople names: Raj Subramaniam\nSpecific topics: Logistics,Shipping\nGeneral themes: Supply Chain Management",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Company names: Marriott International,Hilton Worldwide\nPeople names: Arne Sorenson\nSpecific topics: Hospitality,Hotel Management\nGeneral themes: Travel and Tourism",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Company names: General Motors,Ford Motor\nPeople names: Mary Barra\nSpecific topics: Automotive Manufacturing,Autonomous Driving\nGeneral themes: Automotive Industry",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Company names: Best Buy,Walmart\nPeople names: Corie Barry\nSpecific topics: Retail,Consumer Electronics\nGeneral themes: Shopping and Commerce",
+      "baseline": true
+    }
+  ],
+  "testEvals": [
+    {
+      "id": "3aad1d3",
+      "promptid": "e2d6bac",
+      "model": "llama3.3",
+      "ruleid": "1",
+      "rule": "The output must be in a specific format that includes four colon-separated fields, namely Company names, People names, Specific topics, and General themes.",
+      "input": "The company Acme Inc. and Meta Llama 3 are working on a project.",
+      "validityText": "The input is a string containing the content of the text, which complies with the rule that \"The input must be a string containing the content of the text\" from the input specification. The text contains company names, specifically \"Acme Inc.\" and \"Meta Llama 3\", which aligns with the rule that \"The input is a text that can contain company names\". Additionally, the text is in a human-readable format with words separated by spaces and sentences separated by punctuation marks, complying with the rule that \"The input text is expected to be in a human-readable format with words separated by spaces and sentences separated by punctuation marks\". There are no restrictions on the number of company names or other elements the input can contain according to the specification, and this input does not violate any such restrictions. Therefore, the given input complies with the provided input specification.\n\nOK",
+      "validity": "ok",
+      "coverageText": "Acme Inc.,Meta Llama 3: : :",
+      "coverageEvalText": "The chatbot output seems to attempt to follow the specified format by listing some entities, but there are several issues with compliance. The description requires a specific format including \"Company names:\", \"People names:\", \"Specific topics:\", and \"General themes:\" followed by their respective lists or values. However, in the given output, these labels are missing, and it directly starts with what appears to be company names (\"Acme Inc.,Meta\") but lacks proper categorization and complete adherence to the desired format.\n\nFurthermore, the presence of \"Llama 3\" without clear context within the required categories makes it difficult to ascertain its relevance or how it fits into the specified entity types. The absence of people names, specific topics, and general themes, which are explicitly mentioned in the description as required elements, further indicates non-compliance.\n\nGiven these observations, my conclusion is that the chatbot output does not comply with the provided description due to its failure to adhere to the required format and the lack of necessary categories and their corresponding values.\n\nERR",
+      "coverage": "err",
+      "error": ""
+    },
+    {
+      "id": "314394d",
+      "promptid": "e2d6bac",
+      "model": "llama3.3",
+      "ruleid": "1",
+      "rule": "The output must be in a specific format that includes four colon-separated fields, namely Company names, People names, Specific topics, and General themes.",
+      "input": "John is discussing topic extraction and information retrieval.",
+      "validityText": "The given input \"John is discussing topic extraction and information retrieval\" appears to comply with the provided input specification because it contains a person's name (John), specific topics (topic extraction, information retrieval), and is in a human-readable format with words separated by spaces and sentences separated by punctuation marks. There are no restrictions on the number of company names, people names, specific topics, or general themes, and greetings are not required for compliance. The input does not violate any explicit rules outlined in the specification.\n\nOK",
+      "validity": "ok",
+      "coverageText": "Company names: \nPeople names: John-||- \nSpecific topics: topic extraction-||-information retrieval \nGeneral themes: technology-||-data analysis",
+      "coverageEvalText": "The chatbot output is being evaluated for compliance with its description. The description requires the extraction of company names, people names, specific topics, and general overarching themes in a specific format. \n\nLooking at the provided output, it includes people names, specific topics, and general themes as required. However, the section for \"Company names\" is empty, which technically still complies with the requested format since it does not explicitly state that this field must be populated if no company names are found.\n\nMoreover, the format for each section seems to broadly follow the descriptor's requirements: a list or single entry per category as applicable. \n\nGiven these observations and adhering strictly to the provided guidelines without speculating on input or correctness, the conclusion is that there's no violation of the description based on the explicit requirements given.\n\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "da81730",
+      "promptid": "e2d6bac",
+      "model": "llama3.3",
+      "ruleid": "1",
+      "rule": "The output must be in a specific format that includes four colon-separated fields, namely Company names, People names, Specific topics, and General themes.",
+      "input": "The general theme of the meeting was not clearly defined but involved multiple companies like CompanyA and specific topics.",
+      "validityText": "To determine if the given input complies with the provided input specification, let's analyze it step by step.\n\n1. **Content Analysis**: The input text contains a description related to the theme of a meeting, mentioning \"multiple companies\" (in this case, specifically naming one company as \"CompanyA\") and \"specific topics.\" This suggests that the input includes elements directly related to company names and specific topics.\n\n2. **Format Compliance**: The input is in a human-readable format with words separated by spaces and sentences properly punctuated, adhering to the requirement for text formatting specified in the input specification.\n\n3. **Restrictions Check**: There are no restrictions on the number of company names, people names, specific topics, or general themes that can be included, according to the input specification. The given input includes a mention of at least one company and references to specific topics without exceeding any unspecified limits, thus it does not violate this rule.\n\n4. **Input Type Verification**: The input is indeed a string containing text content as required by the specification.\n\n5. **Non-Directly Related Content Allowance**: The specification mentions that greetings or other non-directly related texts are allowed. Although the given input does not explicitly include greetings, it is predominantly focused on discussing meeting themes and companies rather than directly greeting, which aligns with the allowance for diverse content types within the specification.\n\nGiven these considerations, there's no explicit rule in the provided input specification that the given text directly violates. The input seems to be a valid string containing information about companies and topics in a human-readable format without any mentioned restrictions being exceeded.\n\nOK",
+      "validity": "ok",
+      "coverageText": "Company names: CompanyA, \nPeople names: -||- \nSpecific topics: specific topics-||- \nGeneral themes: general theme-||-",
+      "coverageEvalText": "The provided chatbot output is in the desired format as specified by the description. It starts with \"Company names:\" followed by a comma-separated list of company names, then \"People names:\", \"Specific topics:\", and finally \"General themes:\". Each section has content that fits the respective category labels. The use of \"-||-\" after people names, specific topics, and general themes seems to be an attempt to separate or indicate further details, which might be seen as a placeholder for actual information in a more detailed response.\n\nHowever, considering the strict format requirements mentioned in the description, there's a slight deviation in how \"Specific topics\" and \"General themes\" are presented. The description suggests that after the colon for each category, there should be relevant content directly, but here we see \"-||-\" which could be interpreted as either placeholders or separators.\n\nGiven this strict interpretation, if the format must be followed to the letter without any deviation, including how additional details or placeholders are represented, then one might argue there's a non-compliance due to the unconventional use of \"-||-\". But since it directly follows the labels and provides a structure that could be seen as adhering to the specified categories, it seems the chatbot is attempting to follow the instructions.\n\nYet, focusing strictly on compliance with the given format instructions without considering any potential placeholders or separating elements not explicitly described in the instructions, one notices the output does indeed provide the exact labels and attempts to fill in content. Therefore, my decision leans towards it complying because it directly mentions all required categories as specified.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "af9c323",
+      "promptid": "e2d6bac",
+      "model": "llama3.3",
+      "ruleid": "2",
+      "rule": "The company names field must contain a comma-separated list of the company names mentioned in the input text.",
+      "input": "The companies Acme Inc. and Google are discussing a potential partnership.",
+      "validityText": "To evaluate the input against the provided specification, I analyze each aspect of the input to determine if it complies with the rules outlined in the specification.\n\n1. **Content**: The input contains company names (Acme Inc., Google), which is allowed by the specification.\n2. **Format and Structure**: The text is in a human-readable format with words separated by spaces and sentences separated by punctuation marks, complying with the expected format as described in the specification.\n3. **Length and Composition**: The input can be of any length and include various formats such as sentences or phrases, according to the specification. In this case, the input is a sentence, which complies.\n4. **Types of Content Allowed**: The specification mentions that the input can contain company names, people names, specific topics, general overarching themes, greetings, and other forms of text not directly related to the mentioned categories. This input includes company names, fitting within these allowances.\n\nGiven this analysis, there are no apparent violations of the specified rules in the provided input. The input adheres to all mentioned requirements regarding content, format, length, and composition as outlined in the specification.\n\nOK",
+      "validity": "ok",
+      "coverageText": "Acme Inc.,Google:-||-:-||-:Partnership-Business Development-Technology-||-:Economy-Corporate Strategies-Innovation",
+      "coverageEvalText": "The given output from the chatbot is in the format that closely matches the description provided, with company names listed first, followed by people names (though there are no people names mentioned), then specific topics, and finally general themes. Each category of information seems to be separated as required. However, it does not strictly follow the described format, particularly in how it separates categories and lists items within those categories.\n\nGiven this observation, we need to judge if the deviations from the exact format specified are significant enough to be considered non-compliant. The description asks for a very specific format: \"Company names: <comma_separated_list_of_company_names>, People names: -||-, Specific topics: -||-, General themes: -||-\". The chatbot output combines these categories into a single line without using the named category labels or the exact separator between categories as described.\n\nDespite this, if we are lenient in our interpretation and focus on whether the categories of information (company names, people names, specific topics, general themes) are all present and separated in some manner, the output attempts to provide all the required information types, albeit not strictly adhering to the prescribed format. The critical aspect is determining if this deviation from the exact format description constitutes a failure to comply.\n\nConsidering the guidelines that emphasize direct compliance with minimal speculation and focusing solely on what is explicitly stated in the description, the non-adherence to the specified output format (use of labels and specific separators) represents a clear violation of the instructions provided. The format requested was not followed as instructed.\n\nThe thinking process involves comparing each requirement from the chatbot description against the actual output provided. Given that there's an explicit request for how information should be structured and labeled, and this structure is not adhered to in the output, it directly leads to the conclusion of non-compliance based on format alone, without needing to consider the correctness or content accuracy which would require knowing the input.\n\nERR",
+      "coverage": "err",
+      "error": ""
+    },
+    {
+      "id": "8414a78",
+      "promptid": "e2d6bac",
+      "model": "llama3.3",
+      "ruleid": "2",
+      "rule": "The company names field must contain a comma-separated list of the company names mentioned in the input text.",
+      "input": "Meta Llama 3 is working alone on a project about AI and machine learning.",
+      "validityText": "To evaluate this input against the provided specification, I must consider each aspect of the input in relation to the rules outlined in the specification. The input contains company names, specifically \"Meta\", which could refer to the well-known company Meta Platforms, Inc., it mentions \"Llama 3\" which seems related but it is not explicitly stated if this refers to a product or project name directly associated with Meta, yet for the purpose of evaluation against the given rules, we can consider it as part of the text that includes specific mentions. The input also contains general overarching themes such as \"AI and machine learning\". There are no restrictions in the specification on including company names, people names (though none are explicitly mentioned here), specific topics, or general themes. The input is a string containing the content of the text which is readable with words separated by spaces and sentences ended by punctuation marks.\n\nConsidering all these aspects, there's nothing in the given input that directly violates any rule stated in the specification. Therefore, I find no reason to conclude that this input does not comply with the provided input specification.\n\nOK",
+      "validity": "ok",
+      "coverageText": "Meta: : -||- : AI-||-machine learning : Technology-||-Innovation",
+      "coverageEvalText": "The chatbot output is given as \"Meta: : -||- : AI-||-machine learning : Technology-||-Innovation\". This can be broken down into parts that appear to correspond to the required format of company names, people names, specific topics, and general themes. The description requires a specific format with labels for each category, but the output provided does not explicitly include these labels. However, it seems to imply categories through its structure.\n\nGiven the requirement for direct compliance with the description, the lack of explicit labels like \"Company names:\", \"People names:\", \"Specific topics:\", and \"General themes:\" could be seen as a violation because the format asks for these specific descriptors followed by comma-separated lists or -||- separated entries as appropriate. However, interpreting this output in the context of the provided description suggests an attempt to follow the format without explicitly stating the category labels.\n\nConsidering the guidelines that emphasize direct and explicit compliance without speculation, and focusing strictly on what is given without inferring the input, the critical aspect is whether the chatbot's output adheres to the expected structure of providing lists or categories as described. The output does present what could be interpreted as company names, people names (which in this case seems to be absent or not applicable), specific topics, and general themes, but it does so without clearly delineating these sections with their respective labels.\n\nThe description explicitly mentions how the information should be formatted (\"Desired format: Company names: <comma_separated_list_of_company_names>, People names: -||-, Specific topics: -||-, General themes: -||-\"), and the chatbot's output does not follow this structure precisely, as it lacks the introductory labels for each category. \n\nBased on this analysis, since the output does not directly and explicitly comply with the specified format due to the absence of clear category labels, I conclude that there is a violation.\n\nERR",
+      "coverage": "err",
+      "error": ""
+    },
+    {
+      "id": "8f74c9d",
+      "promptid": "e2d6bac",
+      "model": "llama3.3",
+      "ruleid": "2",
+      "rule": "The company names field must contain a comma-separated list of the company names mentioned in the input text.",
+      "input": "No companies were mentioned in the conversation between John and Jane.",
+      "validityText": "To evaluate this input, I need to check if it meets all the criteria specified in the input specification. The input specification states that the input can be a text of any length and format, containing company names, people names, specific topics, or general themes, as well as greetings and other unrelated texts. It also must be a string with words separated by spaces and sentences separated by punctuation marks.\n\nThe given input \"No companies were mentioned in the conversation between John and Jane.\" contains people's names (John and Jane), and it discusses the absence of company names in their conversation. This meets the criteria for containing people names and general themes. The text is also a sentence with proper spacing and punctuation, adhering to the human-readable format requirement.\n\nGiven these observations, there are no apparent violations of the input specification. The input contains recognizable elements such as people's names and discuss the context of a conversation, which aligns with the broad inclusion criteria stated in the specification.\n\nOK",
+      "validity": "ok",
+      "coverageText": "Company names: \nPeople names: John-||-Jane\nSpecific topics: \nGeneral themes: conversation-||-dialogue",
+      "coverageEvalText": "The chatbot output seems to be following the desired format specified in the description, with each category of information (company names, people names, specific topics, and general themes) being listed on a new line. The company names and specific topics sections are empty, which could indicate that no such information was found in the input text, but this does not inherently violate the format requirement since the input is unknown. The people names section includes two names separated by '-||-', which aligns with the specified format for listing multiple items within a category. Similarly, the general themes section also lists its content correctly according to the description.\n\nGiven that we do not have the original text and are thus unable to evaluate the correctness or appropriateness of the extracted information, and based solely on the compliance with the described output format, it appears there's no rule violated in terms of the structure and presentation. \n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "6efec17",
+      "promptid": "e2d6bac",
+      "model": "llama3.3",
+      "ruleid": "3",
+      "rule": "The people names field must contain a list of the people names mentioned in the input text separated by -||-.",
+      "input": "John Doe and Jane Smith are attending a meeting about innovation and entrepreneurship.",
+      "validityText": "The input specification states that the input can contain company names, people names, specific topics, and general overarching themes, and this input contains people names, which is allowed according to the rule \"The input can contain company names, people names, specific topics, and general overarching themes\". The input also mentions a meeting about innovation and entrepreneurship, which can be classified as specific topics or general overarching themes. Additionally, the input is a string containing the content of the text, as required by the rule \"The input must be a string containing the content of the text\". Furthermore, the input text is in a human-readable format with words separated by spaces and sentences separated by punctuation marks, complying with the rule \"The input text is expected to be in a human-readable format with words separated by spaces and sentences separated by punctuation marks\". Therefore, there is no violation.\n\nOK",
+      "validity": "ok",
+      "coverageText": "Company names: \nPeople names: John Doe-||-Jane Smith\nSpecific topics: innovation-||-entrepreneurship\nGeneral themes: business-||-economy-||-leadership",
+      "coverageEvalText": "The chatbot's output seems to be mostly compliant with the description. It mentions \"Company names:\" but does not provide any list of company names, which could potentially be a violation since it implies that a list should follow. However, considering that an empty list might be a valid output if no company names were found in the text, this might not necessarily be a violation without knowing the input.\n\nThe \"People names:\", \"Specific topics:\", and \"General themes:\" sections are all filled with what appears to be properly formatted content according to the description. The use of commas for lists is seen under \"Company names:\", but since it's empty, we can't confirm if it would have been correctly comma-separated. For people names, specific topics, and general themes, the \"-||-\" delimiter is used as specified.\n\nSince the output format generally matches what is described except for the potentially incomplete company names section, which could be considered compliant under the assumption that no companies were mentioned, I'm inclined to consider this output compliant based solely on the information given and focusing strictly on the format without considering correctness or the content's relevance to an unknown input.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "61c53ea",
+      "promptid": "e2d6bac",
+      "model": "llama3.3",
+      "ruleid": "3",
+      "rule": "The people names field must contain a list of the people names mentioned in the input text separated by -||-.",
+      "input": "There were no people mentioned in the text about technology and computing.",
+      "validityText": "To determine if the given input complies with the provided input specification, let's break down the key points from the specification and compare them with the characteristics of the input.\n\n1. The input can contain company names, people names, specific topics, and general overarching themes.\n2. The input can be of any length and includes various formats such as sentences, phrases, or paragraphs.\n3. There are no restrictions on the number of company names, people names, specific topics, or general themes it can contain.\n4. The input can include greetings and other forms of text not directly related to the mentioned categories.\n5. The input must be a string containing the content of the text in a human-readable format.\n\nGiven these points, let's analyze the input: \"There were no people mentioned in the text about technology and computing.\"\n\n- It is a string that contains text in a human-readable format with words separated by spaces, complying with point 5.\n- The sentence does mention specific topics (\"technology\" and \"computing\"), which aligns with point 1, even though it explicitly states there were no people mentioned. This does not contravene the specification since the presence of people names is not mandatory; it merely states what can be included.\n- The input lacks company names but this does not violate any rule since the inclusion of such elements is not required according to point 3.\n- The format is a sentence, which fits within the acceptable formats mentioned in point 2.\n\nSince the input adheres to all applicable points from the specification without any violations, it complies with the given input specification.\n\nOK",
+      "validity": "ok",
+      "coverageText": "Company names: \nPeople names: -||- \nSpecific topics: technology-||-computing\nGeneral themes: science-||-innovation",
+      "coverageEvalText": "The chatbot output seems to follow the desired format as specified in the description, listing company names, people names, specific topics, and general themes. The output for company names is empty which might indicate that there were no company names found in the text, but this does not necessarily violate the format requirement since the input that generated this output is unknown. For people names, it correctly uses the -||- delimiter as instructed. Specific topics and general themes also follow the -||- delimiter as required. The absence of content in certain fields could imply a lack of relevant information in the input text rather than non-compliance with the format.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "693eb07",
+      "promptid": "e2d6bac",
+      "model": "llama3.3",
+      "ruleid": "3",
+      "rule": "The people names field must contain a list of the people names mentioned in the input text separated by -||-.",
+      "input": "John, Jane, and Bob are discussing environmental issues and sustainability.",
+      "validityText": "The input is a sentence that contains people names, which are John, Jane, and Bob, and also mentions specific topics, namely environmental issues and sustainability. According to the input specification, the input can contain company names, people names, specific topics, and general overarching themes, with no restrictions on their number. The input is a string containing the content of the text in a human-readable format with words separated by spaces and sentences separated by punctuation marks, which complies with the requirements stated in the input specification. Therefore, I conclude that this input does comply with the given input specification.\n\nOK",
+      "validity": "ok",
+      "coverageText": "Company names: \nPeople names: John-||-Jane-||-Bob\nSpecific topics: environmental issues-||-sustainability\nGeneral themes: social responsibility-||-conservation-||-ecology",
+      "coverageEvalText": "The given chatbot output seems to follow the desired format as specified in the description. It correctly separates company names, people names, specific topics, and general themes with the \"-||-\" delimiter for the latter three categories. However, it's worth noting that the \"Company names\" field is empty, which might indicate either a lack of company names in the input text or an error on the chatbot's part. Since we do not have access to the input and the format requirement does not necessarily imply that each category must be populated (but rather how they should be formatted if populated), the absence of company names could be seen as compliant with the description, assuming the description allows for empty fields.\n\nTherefore, considering only the format and structure without speculating about the correctness or completeness in relation to an unknown input, the chatbot's output does comply with the specified format requirements. There is no explicit rule stating that each field must contain data, so based solely on the format provided and adherence to the described structure for the fields that are populated, the output appears compliant.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "0fee91e",
+      "promptid": "e2d6bac",
+      "model": "llama3.3",
+      "ruleid": "4",
+      "rule": "The specific topics field must contain a list of the specific topics mentioned in the input text that fit the content, separated by -||-.",
+      "input": "The discussion centered around climate change, renewable energy, and sustainable development.",
+      "validityText": "To determine if the given input complies with the provided specification, I examined its components against the rules outlined in the specification. The input specification states that the input can contain company names, people names, specific topics, and general overarching themes. It also mentions that the input text can be of any length, include various formats, and does not have restrictions on the number of items it can contain within the specified categories.\n\nThe given input \"The discussion centered around climate change, renewable energy, and sustainable development.\" appears to fit within these guidelines as it discusses specific topics (climate change, renewable energy) and a general overarching theme (sustainable development). There are no company names or people names mentioned, but according to the specification, this is not required.\n\nConsidering all parts of the input specification, there doesn't seem to be any violation since the input is in a human-readable format with words separated by spaces and sentences appropriately punctuated. The text does not violate any of the explicitly stated rules regarding content or structure.\n\nTherefore, based on my analysis and sticking strictly to the provided guidelines without making assumptions beyond what's specified, I conclude that the input complies with the given specifications.\nOK",
+      "validity": "ok",
+      "coverageText": "Company names: \nPeople names: -||- \nSpecific topics: climate change-||-renewable energy-||-sustainable development\nGeneral themes: environment-||-energy-||-global issues",
+      "coverageEvalText": "The chatbot output seems to follow the desired format specified in the description. It has all four required fields: Company names, People names, Specific topics, and General themes. Each field is separated as per the description, with company names being comma-separated (although there are no company names listed), people names and specific topics and general themes following the -||- delimiter for each item within those categories.\n\nGiven this, it appears that the chatbot's output directly complies with the structural requirements outlined in its description. Since there is no evaluation of correctness based on input or the content itself but rather adherence to format, the provided output does indeed match what is expected according to the given guidelines.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "94dbb5f",
+      "promptid": "e2d6bac",
+      "model": "llama3.3",
+      "ruleid": "4",
+      "rule": "The specific topics field must contain a list of the specific topics mentioned in the input text that fit the content, separated by -||-.",
+      "input": "The text did not mention any specific topics but focused on general themes like education and healthcare.",
+      "validityText": "The input specification states that the input can contain company names, people names, specific topics, and general overarching themes. It also mentions that the input does not have any restrictions on the number of these elements it can contain. Additionally, it specifies that the input must be a string containing the content of the text in a human-readable format with words separated by spaces and sentences separated by punctuation marks.\n\nGiven this information, we need to evaluate if the provided input complies with these requirements. The input talks about general themes like education and healthcare but does not mention specific topics. However, according to the specification, the input is allowed to contain any combination of company names, people names, specific topics, or general overarching themes without any restrictions on their number.\n\nTherefore, since the input is a string, contains human-readable text with proper spacing and punctuation, and discusses general themes (which are among the allowable content types), it complies with the input specification provided.\n\nOK",
+      "validity": "ok",
+      "coverageText": ": : : education-||-healthcare",
+      "coverageEvalText": "The chatbot output does not comply with the description because it is missing several required fields, specifically the company names and people names. The desired format as specified in the description requires four fields: Company names, People names, Specific topics, and General themes, separated by -||-. However, the provided output only contains two topics and lacks the other necessary information.\n\nERR",
+      "coverage": "err",
+      "error": ""
+    },
+    {
+      "id": "72554a6",
+      "promptid": "e2d6bac",
+      "model": "llama3.3",
+      "ruleid": "4",
+      "rule": "The specific topics field must contain a list of the specific topics mentioned in the input text that fit the content, separated by -||-.",
+      "input": "The main topic was AI, with subtopics including machine learning and natural language processing.",
+      "validityText": "The given input is a text that contains specific topics, which complies with the input specification that states the input can contain specific topics and general overarching themes. The input is also in a human-readable format with words separated by spaces and sentences separated by punctuation marks, as required by the input specification. There are no restrictions on the number of topics it can contain, and this input does not violate any rules. \n\nOK",
+      "validity": "ok",
+      "coverageText": "Company names: \nPeople names: -||- \nSpecific topics: machine learning-||-natural language processing-||-AI \nGeneral themes: technology-||-innovation-||-computer science",
+      "coverageEvalText": "The thinking behind my decision is that the chatbot's output must comply with the specified format for each section. The company names section should be a comma-separated list, people names, specific topics, and general themes should follow their respective formats as per the description.\n\nIn this case, the \"Company names\" section is empty which technically doesn't violate any rule since there might not have been any company names mentioned in the input text. \nThe other sections have data but they are formatted according to the rules specified for each of those sections in the description. \n\nGiven that all provided sections follow their respective formats as described, it suggests that the chatbot's output does comply with the given description.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "3598f9b",
+      "promptid": "e2d6bac",
+      "model": "llama3.3",
+      "ruleid": "5",
+      "rule": "The general themes field must contain a list of the general overarching themes mentioned in the input text, separated by -||-, and these themes must be broader than the specific topics.",
+      "input": "The broader theme was economic development, encompassing topics like trade and investment.",
+      "validityText": "The input is a string containing text that can be related to general overarching themes and specific topics. It mentions a broader theme which is economic development and includes specific topics such as trade and investment. The input specification states that the input can contain company names, people names, specific topics, and general overarching themes, with no restrictions on their number. Since the given input complies with this requirement by including a general theme and specific topics without any mention of company or people names but not explicitly violating the rule of containing them, and it is also in a human-readable format with words separated by spaces and sentences separated by punctuation marks as expected, there are no apparent violations of the provided input specification. Therefore, based on direct compliance with the given rules, the input should be considered valid.\n\nOK",
+      "validity": "ok",
+      "coverageText": "Company names: \nPeople names: -||- \nSpecific topics: trade-||-investment \nGeneral themes: economic development",
+      "coverageEvalText": "To determine compliance with the description, I will analyze each part of the output given by the chatbot. The format required is \"Company names: <comma_separated_list_of_company_names>, People names: -||-, Specific topics: -||-, General themes: -||-\". However, in the provided output, there are deviations from this format and content requirements. Specifically, the \"Company names\" section is empty which might be okay if no companies were mentioned but since we do not have the input we cannot verify that, the \"People names\" section seems to follow the correct separator but lacks actual names, the \"Specific topics\" uses a different separator (\"-\" instead of \"-||-\") and seems incomplete or incorrectly formatted with \"trade-||-investment\", and the \"General themes\" also is correctly separated but has content which might be too specific for general themes.\n\nGiven these observations, I notice there's a potential non-compliance due to formatting inconsistencies, specifically with the \"Specific topics\" section not using the specified separator consistently across all categories, and potentially the empty or missing information in other sections. However, without knowing if any companies were mentioned, it is hard to judge the compliance of the company names section.\n\nSince my task is to evaluate strict format compliance where possible without needing input context, I focus on the output's structure rather than its correctness regarding the content of potential inputs.\n\nERR",
+      "coverage": "err",
+      "error": ""
+    },
+    {
+      "id": "0e71037",
+      "promptid": "e2d6bac",
+      "model": "llama3.3",
+      "ruleid": "5",
+      "rule": "The general themes field must contain a list of the general overarching themes mentioned in the input text, separated by -||-, and these themes must be broader than the specific topics.",
+      "input": "The text mentioned a general theme of social justice but did not provide specific details.",
+      "validityText": "The input specification states that the input can contain general overarching themes and does not have any restrictions on the number of company names people names specific topics or general themes it can contain. It also mentions that the input can include various formats such as sentences phrases or paragraphs and must be a string containing the content of the text in a human-readable format with words separated by spaces and sentences separated by punctuation marks. Given this the provided input The text mentioned a general theme of social justice but did not provide specific details complies with the specification because it is a string that contains a sentence discussing a general theme which is allowed according to the rules.\n\nOK",
+      "validity": "ok",
+      "coverageText": "Company names: \nPeople names: -||- \nSpecific topics: -||- \nGeneral themes: social justice-||-",
+      "coverageEvalText": "The chatbot output partially follows the desired format by including the categories for company names, people names, specific topics, and general themes. However, it does not provide a comma-separated list of company names as required, instead leaving that section blank. For people names and specific topics, it uses the '-||-' separator as instructed but doesn't provide any actual names or topics. The general themes section includes 'social justice' followed by '-||-', which seems to comply with providing at least one theme.\n\nGiven these observations, the primary violation is the lack of compliance with providing a list of company names and not having any people names or specific topics listed, despite the format requiring some form of content for each category. The output does include information under general themes but misses out on fully adhering to the description by leaving other sections without actual content.\n\nERR",
+      "coverage": "err",
+      "error": ""
+    },
+    {
+      "id": "97e03fb",
+      "promptid": "e2d6bac",
+      "model": "llama3.3",
+      "ruleid": "5",
+      "rule": "The general themes field must contain a list of the general overarching themes mentioned in the input text, separated by -||-, and these themes must be broader than the specific topics.",
+      "input": "Education and healthcare were discussed as part of a broader theme of human development.",
+      "validityText": "The given input is a sentence that contains general overarching themes, specifically \"human development\", and also mentions specific topics, namely \"Education\" and \"healthcare\". The input specification states that the input can contain company names, people names, specific topics, and general overarching themes, with no restrictions on their number. It also mentions that the input can be of any length, include various formats such as sentences or phrases, and must be a string containing the content of the text in a human-readable format. The input provided adheres to these guidelines as it is a sentence with words separated by spaces and contains relevant themes and topics. There are no apparent violations of the input specification.\n\nOK",
+      "validity": "ok",
+      "coverageText": ": , -||- : Education-||-Healthcare : Human Development-||-",
+      "coverageEvalText": "The chatbot output does not explicitly follow the specified format as it lacks labels for each category and does not separate them as described. The description requires specific labels such as \"Company names:\", \"People names:\", \"Specific topics:\", and \"General themes:\" followed by their respective values in a particular format, which is not observed here.\n\nERR",
+      "coverage": "err",
+      "error": ""
+    },
+    {
+      "id": "9244052",
+      "promptid": "e2d6bac",
+      "model": "llama3.3",
+      "ruleid": "6",
+      "rule": "The output must not include any additional information beyond the four specified fields.",
+      "input": "The output should not include any additional information beyond the four specified fields.",
+      "validityText": "The given input is a sentence that can be considered as text containing general overarching themes or specific topics. The input specification states that the input can contain company names, people names, specific topics, and general overarching themes, and it does not have any restrictions on the number of these elements it can contain. Additionally, the input specification mentions that the input can include greetings and other forms of text that are not directly related to company names, people names, specific topics, or general themes. The input is a string containing the content of the text and is in a human-readable format with words separated by spaces. Based on these observations, I conclude that the input complies with the input specification. \nOK",
+      "validity": "ok",
+      "coverageText": "Company names: \nPeople names: -||- \nSpecific topics: -||- \nGeneral themes: -||-",
+      "coverageEvalText": "The chatbot output seems to follow the desired format specified in the description, with each category mentioned and separated as instructed. The descriptions for company names, people names, specific topics, and general themes are all present, even if the list of company names is empty. This suggests that the chatbot has attempted to comply with the structural requirements outlined in its description.\n\nSince there's no requirement specified about having at least one item in each category, and given that the output format matches what was described, it appears to be compliant based on the information provided and without knowing the input.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "1fd2049",
+      "promptid": "e2d6bac",
+      "model": "llama3.3",
+      "ruleid": "6",
+      "rule": "The output must not include any additional information beyond the four specified fields.",
+      "input": "Only company names and people names were discussed without specific topics or general themes.",
+      "validityText": "To evaluate this input against the given specification, I need to examine if it complies with all the rules outlined in the specification. The input specification mentions that the input can contain company names, people names, specific topics, and general overarching themes. It also states that there are no restrictions on the number of these elements the input can contain, implying that any combination or lack thereof is acceptable as long as the input is a string with human-readable text.\n\nGiven this, the statement \"Only company names and people names were discussed without specific topics or general themes\" suggests that the input indeed contains company names and people names but lacks specific topics and general themes. Since the specification does not explicitly require the presence of all these elements (company names, people names, specific topics, and general themes) in every input, an input focusing solely on company names and people names should still be considered valid.\n\nTherefore, based on my analysis, this input complies with the given specification because it contains human-readable text related to the permissible categories (though only two of them are represented), and there's no requirement for all categories to be present in each input.\n\nOK",
+      "validity": "ok",
+      "coverageText": "Microsoft, Google, Apple: John Smith-||-Jane Doe: :",
+      "coverageEvalText": "To evaluate the compliance of the chatbot's output with its description, I need to carefully examine the output and compare it against the specified format and requirements. The desired format is Company names: <comma_separated_list_of_company_names>, People names: -||-, Specific topics: -||-, General themes: -||-. \n\nThe given output is \"Microsoft, Google, Apple: John Smith-||-Jane Doe:\". This output separates company names from people names but does not follow the exact format specified. It lacks the labels for each category (Company names:, People names:) and does not provide any specific topics or general themes as required.\n\nGiven these observations, my decision is based on whether the output adheres to the description's requirements without needing to know the input. The output fails to comply with the format instructions fully, particularly in labeling each section correctly and providing all required categories (specific topics and general themes are missing).\n\nERR",
+      "coverage": "err",
+      "error": ""
+    },
+    {
+      "id": "cf01e1f",
+      "promptid": "e2d6bac",
+      "model": "llama3.3",
+      "ruleid": "6",
+      "rule": "The output must not include any additional information beyond the four specified fields.",
+      "input": "The conversation included company names, people names, specific topics, and general themes.",
+      "validityText": "The input is a string containing the content of the text as specified in the input specification. It does not have any restrictions on the number of company names, people names, specific topics, or general themes it can contain, which this input adheres to by simply mentioning their inclusion without exceeding any unspecified limits. The text is also in a human-readable format with words separated by spaces and sentences separated by punctuation marks, as required. Since the input does not violate any of the rules outlined in the specification and complies with all mentioned requirements, it should be considered valid.\n\nOK",
+      "validity": "ok",
+      "coverageText": "Company names: \nPeople names: -||- \nSpecific topics: -||- \nGeneral themes: -||-",
+      "coverageEvalText": "The chatbot output seems to follow the desired format specified in the description, which requires the output to be in the following structure: Company names: <comma_separated_list_of_company_names>, People names: -||-, Specific topics: -||-, General themes: -||-. In this case, even though there are no company names provided, the structure is still followed as it provides the respective placeholders for each category. Therefore, based on the given description and without needing to know the input, the output does comply with the format requirements.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "57e27ff",
+      "promptid": "e2d6bac",
+      "model": "llama3.3",
+      "ruleid": "7",
+      "rule": "The company names, people names, specific topics, and general themes must be extracted based on their relevance to the content of the input text.",
+      "input": "Relevant company names, people names, specific topics, and general themes must be extracted based on content.",
+      "validityText": "The input specification mentions that the input can contain company names, people names, specific topics, and general overarching themes, but it does not specify that the input must be a set of instructions or requirements for extracting these elements. It states that the input is a text that can include various formats such as sentences, phrases, or paragraphs, and can contain greetings and other forms of text that are not directly related to company names, people names, specific topics, or general themes. The given input appears to be more of an instruction or statement about processing text rather than an actual text that contains the specified elements.\n\nERR",
+      "validity": "err",
+      "coverageText": "Company names: \nPeople names: -||- \nSpecific topics: -||- \nGeneral themes: information extraction-||-content analysis",
+      "coverageEvalText": "The chatbot output seems to follow the desired format as specified in the description, with each category of extracted entities being separated and labeled correctly. The company names section is empty, which could be due to various reasons such as no companies being mentioned in the input text, but this does not affect compliance with the description since we cannot know the input. The people names, specific topics sections are also empty except for the -||- separator which might indicate that there were no people or specific topics found, again this is in compliance with the format specified. The general themes section contains \"information extraction-||-content analysis\" which seems to be a valid overarching theme related to text analysis tasks, and it follows the required format of using -||- as a separator.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "e5752ef",
+      "promptid": "e2d6bac",
+      "model": "llama3.3",
+      "ruleid": "7",
+      "rule": "The company names, people names, specific topics, and general themes must be extracted based on their relevance to the content of the input text.",
+      "input": "The extraction should consider the context and relevance of each piece of information.",
+      "validityText": "Based on the provided input specification, I have examined the given input to determine its compliance. The input is a text that contains a general overarching theme related to information extraction, which aligns with the input specification that states the input can contain specific topics or general overarching themes. Additionally, the input text is in a human-readable format, with words separated by spaces and sentences separated by punctuation marks, as required by the input specification.\n\nThe input does not appear to violate any rules specified in the input specification, such as containing invalid characters, exceeding a certain length, or being in an unreadable format. It also complies with the rule that the input can include various formats such as sentences, phrases, or paragraphs.\n\nTherefore, based on my analysis and direct compliance with the provided input specification, I conclude that there are no violations.\nOK",
+      "validity": "ok",
+      "coverageText": "Company names: \nPeople names: -||- \nSpecific topics: -||- \nGeneral themes: information extraction-||-context analysis-||-relevance evaluation",
+      "coverageEvalText": "To determine if the chatbot output complies with its description, I examined the structure and content of the given output. The description requires a specific format for presenting extracted entities, including company names, people names, specific topics, and general themes, each separated in a particular way.\n\nThe output provided is: \nCompany names: \nPeople names: -||- \nSpecific topics: -||- \nGeneral themes: information extraction-||-context analysis-||-relevance evaluation\n\nThe description instructs to list company names as a comma-separated list, people names and specific topics with -||-, and general themes also separated by -||-. \n\nIn the given output:\n- Company names are not provided in a comma-separated list; instead, there's an empty space which doesn't directly violate the format but since it requires input knowledge to check correctness, this aspect can be overlooked for compliance checking.\n- People names and Specific topics are correctly formatted as per instructions with -||-, indicating no data or placeholder.\n- General themes are provided with -||- separation, complying with the required format.\n\nConsidering the guidelines that allow overlooking aspects requiring input knowledge for correctness but focusing on compliance, the output adheres to the structural requirements outlined in the description.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "10188d5",
+      "promptid": "e2d6bac",
+      "model": "llama3.3",
+      "ruleid": "7",
+      "rule": "The company names, people names, specific topics, and general themes must be extracted based on their relevance to the content of the input text.",
+      "input": "All fields must have corresponding values even if they are empty.",
+      "validityText": "The given input does not comply with the input specification because it is a sentence that appears to describe a requirement for data fields rather than being a text that can contain company names, people names, specific topics, and general overarching themes as specified in the input specification. The input specification explicitly states that the input is a text that can contain certain types of information but does not mention anything about field requirements or data structures. Therefore, the input seems to be related to a completely different context than what the chatbot's input specification is designed for.\n\nERR",
+      "validity": "err",
+      "coverageText": "Company names: , People names: -||-, Specific topics: -||-, General themes: -||-",
+      "coverageEvalText": "The chatbot's output is a direct replication of the format specified in the description without any actual extraction or provision of entities, people names, specific topics, or general themes. This indicates that while it follows the structural guidelines for presentation as outlined in the description, it does not actually provide any content to evaluate against the rules requiring the input text for assessment. Given this, my thinking is focused on whether the provided output complies with the given format and instructions without considering the correctness of extracted information since no actual extraction was performed.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "d9f90e2",
+      "promptid": "e2d6bac",
+      "model": "llama3.3",
+      "ruleid": "8",
+      "rule": "Each field in the output format must have a corresponding value, even if the value is empty.",
+      "input": "Each field in the output format must have a corresponding value.",
+      "validityText": "The given input is \"Each field in the output format must have a corresponding value.\" To evaluate this input against the provided specification, we should examine if it complies with each point of the SPEC.\n\nFirst, the input is indeed a text as required by the first part of the SPEC, indicating that the input can contain company names, people names, specific topics, and general overarching themes. However, in this case, it appears to be more about a formatting requirement for an output rather than containing those elements. Despite this, the SPEC does mention that the input text \"can include greetings and other forms of text that are not directly related to company names, people names, specific topics, or general themes,\" which suggests flexibility in what can be included.\n\nSecond, the input text is of a length that does not violate any restrictions since there's no specified limit on the number of characters or words. It also includes various formats such as sentences.\n\nThird, the SPEC mentions that the input must be a string containing the content of the text and should be in a human-readable format with words separated by spaces and sentences separated by punctuation marks. The given input satisfies these conditions: it is a string (\"Each field in the output format must have a corresponding value.\") with spaces separating words and ending with a period, adhering to human-readable formatting standards.\n\nConsidering all points, there's no explicit violation of the SPEC since the input:\n- Is text-based\n- Contains information (albeit about an output requirement rather than companies, people, etc.)\n- Does not violate length restrictions\n- Meets the criteria for string and readability formats\n\nTherefore, my reasoning concludes that this input complies with the provided input specification despite initially seeming unrelated to its described content focus.\n\nOK",
+      "validity": "ok",
+      "coverageText": "Company names: \nPeople names: -||- \nSpecific topics: output format-||-values-||-corresponding value \nGeneral themes: format requirements-||-output structure-||-content organization",
+      "coverageEvalText": "The chatbot's output seems to be following the desired format specified in the description, with each category (Company names, People names, Specific topics, General themes) being addressed. The use of -||- as a delimiter between different entries within the categories for people names, specific topics, and general themes also aligns with the provided description. Although some fields like \"Company names\" are empty, it does not necessarily indicate non-compliance since the input that generated this output is unknown and could potentially lack company names. Therefore, based on the information given and adhering strictly to the guidelines without making assumptions about the input, the chatbot's output complies with the description in terms of format.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "2de5968",
+      "promptid": "e2d6bac",
+      "model": "llama3.3",
+      "ruleid": "8",
+      "rule": "Each field in the output format must have a corresponding value, even if the value is empty.",
+      "input": "The output should handle cases where some fields may have empty values.",
+      "validityText": "The given input is a sentence that discusses the expectation from an output, specifically its ability to manage fields with empty values. Upon careful evaluation of this input against the provided specification, it's noted that the input specification allows for text of any length and format, including sentences or phrases, without restrictions on the content as long as it's in a human-readable format.\n\nThe given sentence \"The output should handle cases where some fields may have empty values\" does indeed comply with these criteria because it is a string containing text that discusses an expectation regarding output handling, which could be interpreted as related to general overarching themes or topics of discussion about system capabilities. The input is in a human-readable format with words separated by spaces and sentences ended with punctuation marks, adhering to the specified requirements.\n\nTherefore, considering the broad and inclusive nature of the input specification, this sentence complies with all stated rules without any violations. \n\nOK",
+      "validity": "ok",
+      "coverageText": "Company names: , People names: -||-, Specific topics: -||-, General themes: -||-",
+      "coverageEvalText": "The chatbot's output is in the desired format specified by the description, which includes the labels for company names, people names, specific topics, and general themes, all followed by -||- as required. Although the fields are empty or contain only the separator -||-, this does not violate any part of the description related to the format, since the description asks for specific labels followed by comma-separated lists or -||- where applicable. The fact that no actual company names, people names, topics, or themes are listed suggests an issue with content rather than format compliance per the provided chatbot description.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "083972a",
+      "promptid": "e2d6bac",
+      "model": "llama3.3",
+      "ruleid": "8",
+      "rule": "Each field in the output format must have a corresponding value, even if the value is empty.",
+      "input": "All specified fields must be present in the output regardless of their content.",
+      "validityText": "To evaluate this input, I will carefully consider each point of the provided specification and compare it to the given input. The input is \"All specified fields must be present in the output regardless of their content.\" This text appears to be a sentence that discusses requirements for output rather than being an output itself that contains company names, people names, specific topics, or general themes as described in the specification.\n\nThe key points from the specification are that the input can contain various elements such as company names, people names, specific topics, and general overarching themes, it can be of any length, include different formats, and does not have restrictions on the number of these elements. However, the given input seems to discuss a rule or requirement for output rather than being an example of input that could contain these specified types of content.\n\nGiven this analysis, I conclude that the input does not comply with the specification because it doesn't seem to fit the description of what the input should be. It talks about output specifications rather than acting as the kind of input described in the specification.\n\nThe thinking process here involves understanding each point of the specification and comparing it directly with the characteristics of the given input. Since the input discusses output requirements and does not contain or imply content related to company names, people names, specific topics, or general themes as expected by the specification, I find it doesn't comply.\n\nERR",
+      "validity": "err",
+      "coverageText": ": : :",
+      "coverageEvalText": "Given the chatbot output is \":\", it's clear that this does not match the desired format specified in the description. The description requires specific labels and a structure for presenting company names, people names, specific topics, and general themes. Since \":\" does not align with any of these requirements, nor does it provide any lists or information under the categories specified, the output does not comply with the chatbot's description.\n\nERR",
+      "coverage": "err",
+      "error": ""
+    },
+    {
+      "id": "5c472af",
+      "promptid": "e2d6bac",
+      "model": "llama3.3",
+      "ruleid": "9",
+      "rule": "Company names: , People names: -||-, Specific topics: -||-, General themes: -||-",
+      "input": "The company name should be correctly extracted and placed in its field.",
+      "validityText": "The given input is a sentence that contains a statement related to company names and their extraction. To evaluate this input against the provided specification, we must analyze each aspect of the specification.\n\nFirstly, the input specification states that the input can contain company names, people names, specific topics, and general overarching themes. The input given does indeed mention \"company name,\" which falls under one of these categories, thus complying with this rule.\n\nSecondly, it mentions that the input text can be of any length and include various formats such as sentences, phrases, or paragraphs. The given input is a sentence, so it complies with this rule as well.\n\nThirdly, there are no restrictions on the number of company names, people names, specific topics, or general themes the input can contain. Since our input only mentions \"company name\" once, it doesn't violate any non-existent restriction on counts, thus complying with this rule by default.\n\nFourthly, greetings and other forms of text not directly related to the mentioned categories are allowed. The given sentence does contain a directive (\"should be correctly extracted\"), which could be considered as not being directly related to company names but is still within the context of processing or discussing them, so it can be seen as complying with this rule due to its relevance.\n\nLastly, the input must be a string containing the content of the text in a human-readable format. The given input is indeed in a human-readable format with words separated by spaces and sentences properly structured with punctuation, thus complying with the final rule.\n\nGiven that the input complies with all the specified rules without any violations, my conclusion is based on the explicit compliance with each aspect of the provided specification.\n\nOK",
+      "validity": "ok",
+      "coverageText": "Company names:  , People names: -||- , Specific topics: -||- , General themes: -||-",
+      "coverageEvalText": "The chatbot output seems to follow the desired format specified in the description, which requires the output to be in the following structure: Company names: <comma_separated_list_of_company_names>, People names: -||-, Specific topics: -||-, General themes: -||-. The given output matches this format exactly, with each field being separated as required and using the -||- separator where necessary. Since the description does not specify that any of these fields must be non-empty or contain specific data (and evaluating correctness based on input is outside our guidelines), we cannot fault the chatbot for not providing actual company names, people names, specific topics, or general themes. Therefore, based solely on format compliance without considering the absence of actual extracted entities due to not having access to the input text, the output adheres to the description's structural requirements.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "cf743a8",
+      "promptid": "e2d6bac",
+      "model": "llama3.3",
+      "ruleid": "9",
+      "rule": "Company names: , People names: -||-, Specific topics: -||-, General themes: -||-",
+      "input": "People names mentioned in the text should be accurately identified and listed.",
+      "validityText": "The given input is \"People names mentioned in the text should be accurately identified and listed.\" To evaluate this input against the provided specification, I must consider whether it meets all the criteria outlined.\n\nThe input specification states that the input can contain company names, people names, specific topics, and general overarching themes. It also mentions that the input can include greetings and other forms of text not directly related to these categories. Furthermore, it specifies that the input must be a string containing the content of the text in a human-readable format with words separated by spaces and sentences separated by punctuation marks.\n\nThe given input is a sentence that discusses the identification and listing of people names mentioned in a text. It does not contain any company names, specific topics, or general overarching themes directly but focuses on the task related to people names. The sentence itself is in a human-readable format, with words separated by spaces and sentences properly punctuated.\n\nConsidering these observations, the input complies with the specification because it is a string containing text content, formatted correctly, and although its content seems instructional rather than a typical example of input that might contain company names, people names, etc., for analysis, it doesn't violate any explicit rules regarding the structure or components of the input.\n\nOK",
+      "validity": "ok",
+      "coverageText": "Company names: \nPeople names: \nSpecific topics: -||- \nGeneral themes: information extraction-||-text analysis",
+      "coverageEvalText": "The chatbot output seems to partially follow the desired format specified in the description. It correctly starts with \"Company names:\" and \"People names:\", although no actual company or people names are listed. The \"Specific topics:\" section is also present but contains a delimiter \"-||-\" without any specific topics listed before it, which may not fully comply with the intent of extracting and listing specific topics as described. However, since the description does allow for flexibility in what constitutes \"specific topics,\" this might not be considered a direct violation.\n\nThe most noticeable aspect of non-compliance is the format and content of the \"General themes:\" section. It includes \"information extraction-||-text analysis,\" which lists two general themes but uses the \"-||-\" delimiter within the list instead of simply separating the themes with commas as implied by the format for company names. The description suggests a format where each category (Company names, People names, Specific topics, General themes) should be followed by its respective list items, preferably in a comma-separated list for categories that are expected to have multiple items.\n\nGiven these observations, my reasoning leads me to conclude that there is non-compliance due to the inconsistent use of delimiters and format in listing general themes. \n\nERR",
+      "coverage": "err",
+      "error": ""
+    },
+    {
+      "id": "74c8068",
+      "promptid": "e2d6bac",
+      "model": "llama3.3",
+      "ruleid": "9",
+      "rule": "Company names: , People names: -||-, Specific topics: -||-, General themes: -||-",
+      "input": "Specific topics relevant to the content must be properly extracted and separated.",
+      "validityText": "The input specification does not explicitly state that specific topics must be extracted and separated in the input text itself, but rather that the input can contain specific topics along with company names, people names, and general overarching themes. The requirement for extraction and separation seems to imply a processing or analysis step that is not described in the input specification as a necessary condition for the input itself. Therefore, based on the given input specification, this statement appears to introduce an additional requirement not originally outlined.\n\nERR",
+      "validity": "err",
+      "coverageText": "Company names: \nPeople names: -||- \nSpecific topics: specific topics extraction-||-content analysis \nGeneral themes: information extraction-||-text analysis",
+      "coverageEvalText": "The chatbot output is being evaluated for compliance with its description. The description requires the output to follow a specific format, which includes listing company names, people names, specific topics, and general themes in a particular structure. \n\nIn this case, the chatbot output starts by correctly labeling each category as required: \"Company names:\", \"People names:\", \"Specific topics:\", and \"General themes:\". However, for \"Company names:\", it does not provide any list of company names, which could be seen as non-compliance since the input is expected to generate specific lists. \n\nYet, given the directive that we are only evaluating direct and explicit compliance without knowing the input or making assumptions about the chatbot's output correctness, and considering the format for company names, people names, specific topics, and general themes seems to be generally followed, the question becomes whether this absence of a list constitutes a violation based on the given description alone.\n\nGiven that we cannot assume what the correct content should be without knowing the input and focusing strictly on the structure provided in the description, it's crucial to note the format is partially preserved but lacks specific details in one category. For \"People names:\", \"Specific topics:\", and \"General themes:\", the chatbot provides some form of response that at least includes a separator \"-||-\" as indicated in the description for people names, which suggests an attempt to follow the required formatting.\n\nThe reasoning process involves analyzing each line of the output against the requirements outlined in the description. While there might be an expectation for more detailed content under \"Company names:\", and potentially under other categories depending on the input (which is unknown), the decision to classify this as compliant or non-compliant hinges on whether the absence of specific details (like company names) constitutes a violation based solely on the provided structural guidelines.\n\nHowever, considering the strict adherence to the evaluation process without making assumptions about the content's correctness and focusing purely on format compliance as dictated by the description, one might argue that the presence of labels and an attempt at populating categories according to the specified separators could suggest an effort towards compliance with the description's structure.\n\nGiven this thought process and considering we're evaluating for direct compliance with the provided structure rather than inferred content correctness, and noting that the input is not available to determine if any company names should have been listed, the critical factor is how strictly one interprets the requirement for \"company names\" and other categories to be populated.\n\nThe final determination should consider whether the absence of a list under \"Company names:\" and potentially brief or placeholder-like responses in other areas directly violates the explicit structural requirements outlined in the description. \n\nSince we cannot verify if any company names were supposed to be extracted without knowing the input, and given that the output at least attempts to adhere to the specified format for people names, specific topics, and general themes, though with potential shortcomings in content detail for company names, a balanced evaluation focuses on whether this meets the minimum structural compliance criteria as outlined.\n\nTherefore, considering these points and focusing strictly on compliance with the description without evaluating the correctness or completeness of the content provided (which would require knowledge of the input), it seems reasonable to consider that while there are areas where more detailed information could be expected, the output attempts to follow the required format to some extent.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "98bf35a",
+      "promptid": "e2d6bac",
+      "model": "llama3.3",
+      "ruleid": "10",
+      "rule": "The company names field should not contain a comma-separated list of the company names mentioned in the input text: empty, People names: names -||- mentioned in the input text separated by -, Specific topics: no specific topics -||-, General themes: narrower themes than specific topics -||-",
+      "input": "General themes broader than specific topics should be correctly identified.",
+      "validityText": "The input is a text that contains general overarching themes which is allowed according to the input specification that states the input can contain company names people names specific topics and general overarching themes. The input does not specify any particular length or format restrictions and it is indeed a string containing the content of the text with words separated by spaces. Therefore there are no violations of the input specification.\n\nOK",
+      "validity": "ok",
+      "coverageText": "Company names: \nPeople names: -||- \nSpecific topics: -||- \nGeneral themes: identification of general themes-||-broader context understanding-||-information analysis",
+      "coverageEvalText": "The chatbot's output is partially compliant with the description, as it provides the desired format for company names, people names, specific topics, and general themes. However, upon closer examination, we notice that the company names section is empty, which could potentially be a violation if the input contained company names. Nevertheless, based solely on direct compliance without knowing the input, this cannot be evaluated as a violation.\n\nThe output for people names and specific topics is '-||-', which seems to be a placeholder or an indication of no extracted information, but it does follow the required format in terms of structure.\n\nThe general themes section is filled with what appears to be relevant information: \"identification of general themes-||-broader context understanding-||-information analysis\". This suggests that the chatbot has indeed attempted to extract and present general themes as per the description. However, it's crucial to note that while this part of the output contains content, its adherence to the expected format is debatable due to the lack of a clear comma-separated list or explicit indication of separate themes beyond the '-||-' delimiter.\n\nDespite these observations, since we are evaluating based on direct and explicit compliance without knowing the input, the critical aspect is whether the chatbot's output fits the described structure without considering correctness or completeness regarding the input content. The format for people names, specific topics, and general themes (despite its unconventional use of '-||-' within the list) does not deviate from what could be expected given the placeholder nature of '-||-' and the potential interpretation that it signifies an empty set or a delimiter in this context.\n\nGiven these considerations, the output structure appears to align with the description provided, focusing solely on format compliance without input knowledge. Thus, the reasoning leads to the conclusion that there is no direct violation based on the given guidelines for evaluation.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "da28af3",
+      "promptid": "e2d6bac",
+      "model": "llama3.3",
+      "ruleid": "10",
+      "rule": "The company names field should not contain a comma-separated list of the company names mentioned in the input text: empty, People names: names -||- mentioned in the input text separated by -, Specific topics: no specific topics -||-, General themes: narrower themes than specific topics -||-",
+      "input": "The output format must clearly distinguish between specific topics and general themes.",
+      "validityText": "The input does not explicitly mention that the input text itself has to follow a specific structure or format for distinguishing between different elements such as company names, people names, specific topics, or general themes. However, it does specify that the input is expected to be in a human-readable format with words separated by spaces and sentences separated by punctuation marks. The given input \"The output format must clearly distinguish between specific topics and general themes\" seems to discuss the requirements for the output rather than providing an actual text that might contain company names, people names, specific topics, or general themes as specified in the input specification. This implies a confusion between what is expected as input versus how the output should be formatted, which suggests non-compliance with the provided input specification because it talks about the output rather than being the input itself.\n\nERR",
+      "validity": "err",
+      "coverageText": "Company names: \nPeople names: -||- \nSpecific topics: output format-||-specificity-||-clarity\nGeneral themes: organization-||-classification-||-distinction",
+      "coverageEvalText": "To evaluate the given chatbot output, I will carefully examine each part to ensure it complies with the provided description. The description outlines a specific format for presenting extracted information: company names followed by people names, specific topics, and general themes, all separated in a distinct manner.\n\nThe output starts with \"Company names:\", which is in line with the description asking to extract company names first. However, there are no actual company names provided after this label. The description does not explicitly state that there must always be content under each category if no items were found, but it implies that content should follow the labels as per the format instructions.\n\nNext, \"People names: -||-\" is given. This part follows the requested format directly by having the \"-||-\" separator after mentioning people names, indicating compliance with the description for formatting even when there are no actual people names listed.\n\nThe \"Specific topics:\" section includes several items (output format-||-specificity-||-clarity) separated by \"-||-\", which aligns perfectly with the requested format. This part of the output is clearly structured as per the instructions, suggesting compliance.\n\nLastly, the \"General themes: organization-||-classification-||-distinction\" section also adheres to the specified format by listing items separated by \"-||-\", indicating compliance with the structural requirements outlined in the description.\n\nGiven these observations, it appears that while there is an absence of company names and people names, the structure provided does follow the requested format for organizing the information. The critical aspect here is whether the lack of content under certain categories violates the rules since the description emphasizes extracting entities but doesn't specify how to handle cases where no entities are found.\n\nSince the focus is on compliance without knowing the input and considering the output's adherence to the specified format (even when not providing actual names due to potentially none being present), I lean towards accepting this as compliant based solely on structural requirements provided in the description.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "143d401",
+      "promptid": "e2d6bac",
+      "model": "llama3.3",
+      "ruleid": "10",
+      "rule": "The company names field should not contain a comma-separated list of the company names mentioned in the input text: empty, People names: names -||- mentioned in the input text separated by -, Specific topics: no specific topics -||-, General themes: narrower themes than specific topics -||-",
+      "input": "All information extracted should be relevant to the content discussed.",
+      "validityText": "The input is a sentence that can be considered as a general overarching theme or a specific topic, and it does not contain any company names or people names. The input specification states that the input text can be of any length and can include various formats such as sentences, phrases, or paragraphs, which this input complies with. Additionally, the input specification mentions that the input must be a string containing the content of the text, and this input meets that requirement as it is a string. The input also follows the expected human-readable format with words separated by spaces and sentences separated by punctuation marks. There are no restrictions on the number of company names, people names, specific topics, or general themes, so the lack of specific examples in this input does not violate any rules.\n\nOK",
+      "validity": "ok",
+      "coverageText": "Company names: \nPeople names: -||- \nSpecific topics: -||- \nGeneral themes: information extraction-||-relevance discussion",
+      "coverageEvalText": "The chatbot's output appears to follow the general structure specified in the description, with separate sections for company names, people names, specific topics, and general themes. However, upon closer examination, it is evident that the section for company names is empty, which might not necessarily be a violation since there could be cases where no company names are found in the text, but this cannot be determined without knowing the input. The People names and Specific topics sections contain '-||-' as specified in the description indicating they might be placeholders or actual outputs when there are no people names or specific topics to report. The General themes section does list some themes which is in compliance with its format.\n\nThe reason I am not marking it as a violation is that an empty company name field could potentially comply with the description if the input text did not contain any company names, and this cannot be verified without knowing the input. All other sections seem to follow their respective formats as specified.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    }
+  ],
+  "testResults": []
+}

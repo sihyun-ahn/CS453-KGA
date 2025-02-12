@@ -1,0 +1,11 @@
+{
+  "id": "693eb07",
+  "promptid": "e2d6bac",
+  "ruleid": 3,
+  "rule": "The people names field must contain a list of the people names mentioned in the input text separated by -||-.",
+  "model": "gemma2:9b",
+  "input": "John, Jane, and Bob are discussing environmental issues and sustainability.",
+  "output": "Company names: \n\nPeople names: John, Jane, Bob \nSpecific topics: environmental issues, sustainability\nGeneral themes: discussion about important social topics  \n",
+  "compliance": "ok",
+  "complianceText": "The chatbot output provides a format that closely resembles the desired format described in the chatbot description, which requires the extraction of company names, people names, specific topics, and general themes. The key elements to check for compliance without knowing the input are the presence of the required categories (Company names, People names, Specific topics, General themes) and their formatting.\n\nIn the given output:\n- \"Company names:\" is present but empty, which indicates that either no company names were found or it was not filled. However, the category itself is correctly labeled.\n- \"People names: John, Jane, Bob\" lists specific people's names as required, separated by commas, and correctly uses the label \"People names:\".\n- \"Specific topics: environmental issues, sustainability\" provides specific topics, also comma-separated, under the correct label.\n- \"General themes: discussion about important social topics\" gives a general theme, labeled appropriately.\n\nGiven these observations, the output directly complies with the format requirements outlined in the description. It includes all required categories correctly labeled and formatted as instructed.\n\nOK"
+}

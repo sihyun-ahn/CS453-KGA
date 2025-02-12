@@ -1,0 +1,834 @@
+{
+  "prompt": "---\nname: Classify input text\ndescription: Given an input text, classify it into a specific category.\nsource: How to use Llama2 tutorial for text classification\nurl: https://pupuweb.com/how-use-llama-2-text-classification-tasks/\ninputs:\n    text:\n        type: \"string\"\nsample:\n    text: \"UN chief urges action on climate change as report warns of 'catastrophe'\"\n---\nsystem:\nA news article can be classified as one of the following categories: World, Sports, Business, Sci/Tech.\nExamples:\n- World: \"UN chief urges action on climate change as report warns of 'catastrophe'\"\n- Sports: \"Ronaldo scores twice in Manchester United return\"\n- Business: \"Apple delays plan to scan iPhones for child abuse images\"\n- Sci/Tech: \"SpaceX launches first all-civilian crew into orbit\"'\n\nBased on these categories, classify this news article: \nuser:\n{{ text }}\n    ",
+  "inputSpec": "The input is a news article title which can be a string of words describing an event or topic.\nThe input string should contain a sequence of alphanumeric characters and spaces that form a coherent sentence or phrase.\nThe length of the input string should be between 1 and 200 characters to accommodate typical news article titles.\nThe input may include proper nouns, such as names of people or organizations, and common nouns, like locations or objects.",
+  "rules": [
+    "The output of the chatbot must be one of the following four categories: World, Sports, Business, or Sci/Tech.",
+    "The output of the chatbot must be a single category that best classifies the given news article.",
+    "The output of the chatbot should not contain any additional text or information other than the category.",
+    "The output of the chatbot must be in plain text without any formatting or special characters.",
+    "The output of the chatbot is case-sensitive and must match one of the exact category names: World, Sports, Business, or Sci/Tech."
+  ],
+  "inverseRules": [
+    "Output of the chatbot can be any category outside of World, Sports, Business, or Sci/Tech.",
+    "Output of the chatbot must be multiple categories that classify the given news article.",
+    "Output of the chatbot should contain additional text or information besides the category.",
+    "Output of the chatbot must include formatting or special characters in plain text.",
+    "Output of the chatbot is not case-sensitive and can have different names than World, Sports, Business, or Sci/Tech."
+  ],
+  "ruleEvals": [
+    {
+      "id": "80acada",
+      "promptid": "a37fa10",
+      "ruleid": "1",
+      "rule": "The output of the chatbot must be one of the following four categories: World, Sports, Business, or Sci/Tech.",
+      "groundedText": "OK",
+      "grounded": "ok",
+      "error": ""
+    },
+    {
+      "id": "b149024",
+      "promptid": "a37fa10",
+      "ruleid": "2",
+      "rule": "The output of the chatbot must be a single category that best classifies the given news article.",
+      "groundedText": "OK",
+      "grounded": "ok",
+      "error": ""
+    },
+    {
+      "id": "126daf3",
+      "promptid": "a37fa10",
+      "ruleid": "3",
+      "rule": "The output of the chatbot should not contain any additional text or information other than the category.",
+      "groundedText": "OK",
+      "grounded": "ok",
+      "error": ""
+    },
+    {
+      "id": "2f7c497",
+      "promptid": "a37fa10",
+      "ruleid": "4",
+      "rule": "The output of the chatbot must be in plain text without any formatting or special characters.",
+      "groundedText": "OK",
+      "grounded": "ok",
+      "error": ""
+    },
+    {
+      "id": "864ae7c",
+      "promptid": "a37fa10",
+      "ruleid": "5",
+      "rule": "The output of the chatbot is case-sensitive and must match one of the exact category names: World, Sports, Business, or Sci/Tech.",
+      "groundedText": "OK",
+      "grounded": "ok",
+      "error": ""
+    }
+  ],
+  "tests": [
+    {
+      "1": "2",
+      "ruleid": null,
+      "UN chief urges action on climate change as report warns of 'catastrophe'": "Ronaldo scores twice in Manchester United return",
+      "World": "Sports",
+      "This test case checks if the chatbot correctly classifies a news article under the World category and follows input specification for title length and alphanumeric characters": "This test case evaluates the chatbot's ability to classify a sports-related news article and adheres to input specification for typical sentence structure",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "UN chief urges action on climate change as report warns of 'catastrophe'": "Apple delays plan to scan iPhones for child abuse images",
+      "World": "Business",
+      "This test case checks if the chatbot correctly classifies a news article under the World category and follows input specification for title length and alphanumeric characters": "This test case assesses the chatbot's classification of a business-related news article and meets input specification requirements for proper nouns and common nouns",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "UN chief urges action on climate change as report warns of 'catastrophe'": "SpaceX launches first all-civilian crew into orbit",
+      "World": "Sci/Tech",
+      "This test case checks if the chatbot correctly classifies a news article under the World category and follows input specification for title length and alphanumeric characters": "This test case verifies that the chatbot selects a single category for a news article and follows input specification for concise title length",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "UN chief urges action on climate change as report warns of 'catastrophe'": "New iPhone release rumored to include advanced camera features",
+      "World": "Business",
+      "This test case checks if the chatbot correctly classifies a news article under the World category and follows input specification for title length and alphanumeric characters": "This test case checks if the chatbot correctly classifies a news article under one category when multiple categories could apply and meets input specification for alphanumeric characters",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "UN chief urges action on climate change as report warns of 'catastrophe'": "Climate change protest held in major cities worldwide",
+      "World": "World",
+      "This test case checks if the chatbot correctly classifies a news article under the World category and follows input specification for title length and alphanumeric characters": "This test case evaluates the chatbot's ability to choose the most relevant category for a news article with broad implications and adheres to input specification for sentence coherence",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "UN chief urges action on climate change as report warns of 'catastrophe'": "Biden signs executive order on economic policy",
+      "World": "Business",
+      "This test case checks if the chatbot correctly classifies a news article under the World category and follows input specification for title length and alphanumeric characters": "This test case checks if the chatbot's output contains only the category without additional text and follows input specification for proper nouns",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "UN chief urges action on climate change as report warns of 'catastrophe'": "NASA mission discovers new planet in distant galaxy",
+      "World": "Sci/Tech",
+      "This test case checks if the chatbot correctly classifies a news article under the World category and follows input specification for title length and alphanumeric characters": "This test case assesses the chatbot's ability to provide a response with just the category name and meets input specification requirements for common nouns",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "UN chief urges action on climate change as report warns of 'catastrophe'": "European Union leaders meet to discuss trade agreements",
+      "World": "World",
+      "This test case checks if the chatbot correctly classifies a news article under the World category and follows input specification for title length and alphanumeric characters": "This test case verifies that the chatbot does not include extra information beyond the category and adheres to input specification for title length",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "UN chief urges action on climate change as report warns of 'catastrophe'": "Amazon announces new sustainability initiatives",
+      "World": "Business",
+      "This test case checks if the chatbot correctly classifies a news article under the World category and follows input specification for title length and alphanumeric characters": "This test case checks if the chatbot's output is in plain text without formatting and follows input specification for alphanumeric characters",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "UN chief urges action on climate change as report warns of 'catastrophe'": "Facebook faces scrutiny over data privacy practices",
+      "World": "Business",
+      "This test case checks if the chatbot correctly classifies a news article under the World category and follows input specification for title length and alphanumeric characters": "This test case evaluates the chatbot's ability to provide a response in plain text and meets input specification requirements for sentence structure",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "UN chief urges action on climate change as report warns of 'catastrophe'": "Microsoft releases updates to enhance security features",
+      "World": "Business",
+      "This test case checks if the chatbot correctly classifies a news article under the World category and follows input specification for title length and alphanumeric characters": "This test case assesses the chatbot's output for the absence of special characters and adheres to input specification for proper nouns",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "UN chief urges action on climate change as report warns of 'catastrophe'": "Google introduces new AI-powered tools",
+      "World": "Sci/Tech",
+      "This test case checks if the chatbot correctly classifies a news article under the World category and follows input specification for title length and alphanumeric characters": "This test case checks if the chatbot's output matches one of the exact category names and follows input specification for title length",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "UN chief urges action on climate change as report warns of 'catastrophe'": "WHO reports on global health trends and challenges",
+      "World": "World",
+      "This test case checks if the chatbot correctly classifies a news article under the World category and follows input specification for title length and alphanumeric characters": "This test case evaluates the chatbot's ability to provide a response with an exact category match and meets input specification requirements for common nouns",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "UN chief urges action on climate change as report warns of 'catastrophe'": "Tesla stock prices fluctuate amid market changes",
+      "World": "Business",
+      "This test case checks if the chatbot correctly classifies a news article under the World category and follows input specification for title length and alphanumeric characters": "This test case verifies that the chatbot's output is case-sensitive and adheres to input specification for alphanumeric characters",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "UN chief urges action on climate change as report warns of 'catastrophe'": "Local community event raises funds for charity",
+      "World": "None",
+      "This test case checks if the chatbot correctly classifies a news article under the World category and follows input specification for title length and alphanumeric characters": "This test case checks if the chatbot can classify a news article outside of the given categories and does not follow input specification for category names",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "UN chief urges action on climate change as report warns of 'catastrophe'": "New restaurant opening in downtown area",
+      "World": "None",
+      "This test case checks if the chatbot correctly classifies a news article under the World category and follows input specification for title length and alphanumeric characters": "This test case evaluates the chatbot's ability to handle news articles that do not fit into World, Sports, Business, or Sci/Tech and meets no specific input specification",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "UN chief urges action on climate change as report warns of 'catastrophe'": "Upcoming concert features local music artists",
+      "World": "None",
+      "This test case checks if the chatbot correctly classifies a news article under the World category and follows input specification for title length and alphanumeric characters": "This test case assesses the chatbot's output for categories beyond the specified ones but does not adhere to any specific input specification",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "UN chief urges action on climate change as report warns of 'catastrophe'": "Olympic games feature athletes from around the world",
+      "World": "Sports, World",
+      "This test case checks if the chatbot correctly classifies a news article under the World category and follows input specification for title length and alphanumeric characters": "This test case checks if the chatbot can provide multiple categories for a news article and does not follow input specification for single category output",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "UN chief urges action on climate change as report warns of 'catastrophe'": "New technology improves sports equipment performance",
+      "World": "Sci/Tech, Sports",
+      "This test case checks if the chatbot correctly classifies a news article under the World category and follows input specification for title length and alphanumeric characters": "This test case evaluates the chatbot's ability to classify a news article under more than one relevant category and meets no specific input specification for category names",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "UN chief urges action on climate change as report warns of 'catastrophe'": "Global economic trends impact local businesses",
+      "World": "Business, World",
+      "This test case checks if the chatbot correctly classifies a news article under the World category and follows input specification for title length and alphanumeric characters": "This test case verifies that the chatbot can output multiple categories when applicable but does not adhere to input specification for single category response",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "UN chief urges action on climate change as report warns of 'catastrophe'": "Facebook update includes new features and security enhancements - a detailed analysis",
+      "World": "Business",
+      "This test case checks if the chatbot correctly classifies a news article under the World category and follows input specification for title length and alphanumeric characters": "This test case checks if the chatbot's output contains additional text beyond the category and does not follow input specification for plain text output",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "UN chief urges action on climate change as report warns of 'catastrophe'": "Google's new AI tools have the potential to revolutionize industries",
+      "World": "Sci/Tech",
+      "This test case checks if the chatbot correctly classifies a news article under the World category and follows input specification for title length and alphanumeric characters": "This test case evaluates the chatbot's ability to provide a response with extra information and meets no specific input specification for concise output",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "UN chief urges action on climate change as report warns of 'catastrophe'": "The impact of climate change on global economies is significant",
+      "World": "World",
+      "This test case checks if the chatbot correctly classifies a news article under the World category and follows input specification for title length and alphanumeric characters": "This test case assesses the chatbot's output for the inclusion of supplementary text and does not adhere to input specification for category-only response",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "UN chief urges action on climate change as report warns of 'catastrophe'": "New *iPhone* release **includes** advanced camera features",
+      "World": "Business",
+      "This test case checks if the chatbot correctly classifies a news article under the World category and follows input specification for title length and alphanumeric characters": "This test case checks if the chatbot's output includes formatting or special characters and does not follow input specification for plain text",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "UN chief urges action on climate change as report warns of 'catastrophe'": "**NASA** mission _discovers_ new planet in distant galaxy",
+      "World": "Sci/Tech",
+      "This test case checks if the chatbot correctly classifies a news article under the World category and follows input specification for title length and alphanumeric characters": "This test case evaluates the chatbot's ability to provide a response with special characters and meets no specific input specification for character usage",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "UN chief urges action on climate change as report warns of 'catastrophe'": "#Google introduces new AI-powered tools",
+      "World": "Sci/Tech",
+      "This test case checks if the chatbot correctly classifies a news article under the World category and follows input specification for title length and alphanumeric characters": "This test case verifies that the chatbot can output text with formatting and does not adhere to input specification for plain text output",
+      "testinput": ""
+    },
+    {
+      "1": "1",
+      "ruleid": null,
+      "UN chief urges action on climate change as report warns of 'catastrophe'": "google introduces new ai-powered tools",
+      "World": "Sci/Tech",
+      "This test case checks if the chatbot correctly classifies a news article under the World category and follows input specification for title length and alphanumeric characters": "This test case checks if the chatbot's output is not case-sensitive and follows no specific input specification for category name sensitivity",
+      "testinput": ""
+    },
+    {
+      "1": "2",
+      "ruleid": null,
+      "UN chief urges action on climate change as report warns of 'catastrophe'": "WORLD leaders meet to discuss trade agreements",
+      "World": "World",
+      "This test case checks if the chatbot correctly classifies a news article under the World category and follows input specification for title length and alphanumeric characters": "This test case evaluates the chatbot's ability to provide a response that matches categories regardless of case and meets no specific input specification for exact category names",
+      "testinput": ""
+    },
+    {
+      "1": "3",
+      "ruleid": null,
+      "UN chief urges action on climate change as report warns of 'catastrophe'": "bUsInEsS news: amazon announces new sustainability initiatives",
+      "World": "Business",
+      "This test case checks if the chatbot correctly classifies a news article under the World category and follows input specification for title length and alphanumeric characters": "This test case assesses the chatbot's output for insensitivity to case and does not adhere to input specification for standard category naming",
+      "testinput": ""
+    },
+    {
+      "ruleid": null,
+      "testinput": "World category: UN chief urges action on climate change as report warns of 'catastrophe'",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sports category: Ronaldo scores twice in Manchester United return",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Business category: Apple delays plan to scan iPhones for child abuse images",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sci/Tech category: SpaceX launches first all-civilian crew into orbit",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "World category: European Union leaders meet to discuss economic growth and trade agreements",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sports category: NBA playoffs see surprise upset with underdog team winning the championship",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Business category: Amazon announces plans to expand its warehouse and logistics operations",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sci/Tech category: Google unveils new artificial intelligence technology for healthcare applications",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "World category: Leaders of G7 countries gather for summit on global economic issues",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sports category: Tennis star Serena Williams wins record-breaking Grand Slam title",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Business category: Tesla reports significant increase in electric vehicle sales and revenue",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sci/Tech category: NASA's Perseverance rover discovers evidence of ancient lake on Mars",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "World category: International community responds to humanitarian crisis in war-torn country",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sports category: NFL team owner announces plans for new state-of-the-art stadium",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Business category: Facebook faces scrutiny over data privacy and security concerns",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sci/Tech category: Breakthrough in medical research leads to new cancer treatment options",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "World category: Diplomatic tensions rise between major world powers over trade disagreements",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sports category: Olympics see record number of participants and historic performances",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Business category: Starbucks announces plans to increase sustainability and reduce environmental impact",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sci/Tech category: Microsoft develops innovative virtual reality technology for gaming applications",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "World category: Global response to natural disaster sees international aid efforts mobilized",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sports category: Boxing match between undefeated champions ends in shocking knockout",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Business category: Uber reports significant growth in ride-sharing services and revenue",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sci/Tech category: Scientists discover new species of plant with potential medicinal properties",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "World category: International leaders meet to discuss solutions to global refugee crisis",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sports category: Golf tournament sees unexpected winner take home championship title",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Business category: Walmart announces plans to invest in renewable energy and reduce carbon footprint",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sci/Tech category: IBM develops advanced quantum computing technology for business applications",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "World category: Human rights organization reports on abuses in conflict zones around the world",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Sports category: Cycling event sees new record set for fastest completion time",
+      "baseline": true
+    },
+    {
+      "ruleid": null,
+      "testinput": "Business category: Alibaba reports significant increase in e-commerce sales and revenue growth",
+      "baseline": true
+    }
+  ],
+  "testEvals": [
+    {
+      "id": "a37fa10",
+      "promptid": "a37fa10",
+      "model": "llama3.3",
+      "ruleid": "NaN",
+      "input": "",
+      "validityText": "There is no input provided to evaluate against the given input specification. The input specification requires a string of words describing an event or topic with a length between 1 and 200 characters. Since there is no input, it does not comply with the specification as it does not meet the requirement of having a length between 1 and 200 characters.\n\nERR",
+      "validity": "err",
+      "coverageText": "World",
+      "coverageEvalText": "The chatbot's output is \"World\", which seems to be one of the categories listed in the description as an example of a news article classification. The description mentions that a news article can be classified into one of the following categories: World, Sports, Business, Sci/Tech. Since \"World\" is directly mentioned as one of these categories, it appears to comply with the chatbot's description without requiring knowledge of the input.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "a37fa10",
+      "promptid": "a37fa10",
+      "model": "llama3.3",
+      "ruleid": "",
+      "input": "",
+      "validityText": "There is no input provided to evaluate against the given input specification. The input specification requires a string of words describing an event or topic with a length between 1 and 200 characters. Since there is no input, it does not comply with the specification as it does not meet the requirement of having a length between 1 and 200 characters.\n\nERR",
+      "validity": "err",
+      "coverageText": "World",
+      "coverageEvalText": "The chatbot's output is \"World\", which seems to be one of the categories listed in the description as an example of a news article classification. The description mentions that a news article can be classified into one of the following categories: World, Sports, Business, Sci/Tech. Since \"World\" is directly mentioned as one of these categories, it appears to comply with the chatbot's description without requiring knowledge of the input.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "a37fa10",
+      "promptid": "a37fa10",
+      "model": "llama3.3",
+      "ruleid": "",
+      "input": "",
+      "validityText": "There is no input provided to evaluate against the given input specification. The input specification requires a string of words describing an event or topic with a length between 1 and 200 characters. Since there is no input, it does not comply with the specification as it does not meet the requirement of having a length between 1 and 200 characters.\n\nERR",
+      "validity": "err",
+      "coverageText": "World",
+      "coverageEvalText": "The chatbot's output is \"World\", which seems to be one of the categories listed in the description as an example of a news article classification. The description mentions that a news article can be classified into one of the following categories: World, Sports, Business, Sci/Tech. Since \"World\" is directly mentioned as one of these categories, it appears to comply with the chatbot's description without requiring knowledge of the input.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "a37fa10",
+      "promptid": "a37fa10",
+      "model": "llama3.3",
+      "ruleid": "",
+      "input": "",
+      "validityText": "There is no input provided to evaluate against the given input specification. The input specification requires a string of words describing an event or topic with a length between 1 and 200 characters. Since there is no input, it does not comply with the specification as it does not meet the requirement of having a length between 1 and 200 characters.\n\nERR",
+      "validity": "err",
+      "coverageText": "World",
+      "coverageEvalText": "The chatbot's output is \"World\", which seems to be one of the categories listed in the description as an example of a news article classification. The description mentions that a news article can be classified into one of the following categories: World, Sports, Business, Sci/Tech. Since \"World\" is directly mentioned as one of these categories, it appears to comply with the chatbot's description without requiring knowledge of the input.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "a37fa10",
+      "promptid": "a37fa10",
+      "model": "llama3.3",
+      "ruleid": "",
+      "input": "",
+      "validityText": "There is no input provided to evaluate against the given input specification. The input specification requires a string of words describing an event or topic with a length between 1 and 200 characters. Since there is no input, it does not comply with the specification as it does not meet the requirement of having a length between 1 and 200 characters.\n\nERR",
+      "validity": "err",
+      "coverageText": "World",
+      "coverageEvalText": "The chatbot's output is \"World\", which seems to be one of the categories listed in the description as an example of a news article classification. The description mentions that a news article can be classified into one of the following categories: World, Sports, Business, Sci/Tech. Since \"World\" is directly mentioned as one of these categories, it appears to comply with the chatbot's description without requiring knowledge of the input.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "a37fa10",
+      "promptid": "a37fa10",
+      "model": "llama3.3",
+      "ruleid": "",
+      "input": "",
+      "validityText": "There is no input provided to evaluate against the given input specification. The input specification requires a string of words describing an event or topic with a length between 1 and 200 characters. Since there is no input, it does not comply with the specification as it does not meet the requirement of having a length between 1 and 200 characters.\n\nERR",
+      "validity": "err",
+      "coverageText": "World",
+      "coverageEvalText": "The chatbot's output is \"World\", which seems to be one of the categories listed in the description as an example of a news article classification. The description mentions that a news article can be classified into one of the following categories: World, Sports, Business, Sci/Tech. Since \"World\" is directly mentioned as one of these categories, it appears to comply with the chatbot's description without requiring knowledge of the input.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "a37fa10",
+      "promptid": "a37fa10",
+      "model": "llama3.3",
+      "ruleid": "",
+      "input": "",
+      "validityText": "There is no input provided to evaluate against the given input specification. The input specification requires a string of words describing an event or topic with a length between 1 and 200 characters. Since there is no input, it does not comply with the specification as it does not meet the requirement of having a length between 1 and 200 characters.\n\nERR",
+      "validity": "err",
+      "coverageText": "World",
+      "coverageEvalText": "The chatbot's output is \"World\", which seems to be one of the categories listed in the description as an example of a news article classification. The description mentions that a news article can be classified into one of the following categories: World, Sports, Business, Sci/Tech. Since \"World\" is directly mentioned as one of these categories, it appears to comply with the chatbot's description without requiring knowledge of the input.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "a37fa10",
+      "promptid": "a37fa10",
+      "model": "llama3.3",
+      "ruleid": "",
+      "input": "",
+      "validityText": "There is no input provided to evaluate against the given input specification. The input specification requires a string of words describing an event or topic with a length between 1 and 200 characters. Since there is no input, it does not comply with the specification as it does not meet the requirement of having a length between 1 and 200 characters.\n\nERR",
+      "validity": "err",
+      "coverageText": "World",
+      "coverageEvalText": "The chatbot's output is \"World\", which seems to be one of the categories listed in the description as an example of a news article classification. The description mentions that a news article can be classified into one of the following categories: World, Sports, Business, Sci/Tech. Since \"World\" is directly mentioned as one of these categories, it appears to comply with the chatbot's description without requiring knowledge of the input.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "a37fa10",
+      "promptid": "a37fa10",
+      "model": "llama3.3",
+      "ruleid": "",
+      "input": "",
+      "validityText": "There is no input provided to evaluate against the given input specification. The input specification requires a string of words describing an event or topic with a length between 1 and 200 characters. Since there is no input, it does not comply with the specification as it does not meet the requirement of having a length between 1 and 200 characters.\n\nERR",
+      "validity": "err",
+      "coverageText": "World",
+      "coverageEvalText": "The chatbot's output is \"World\", which seems to be one of the categories listed in the description as an example of a news article classification. The description mentions that a news article can be classified into one of the following categories: World, Sports, Business, Sci/Tech. Since \"World\" is directly mentioned as one of these categories, it appears to comply with the chatbot's description without requiring knowledge of the input.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "a37fa10",
+      "promptid": "a37fa10",
+      "model": "llama3.3",
+      "ruleid": "",
+      "input": "",
+      "validityText": "There is no input provided to evaluate against the given input specification. The input specification requires a string of words describing an event or topic with a length between 1 and 200 characters. Since there is no input, it does not comply with the specification as it does not meet the requirement of having a length between 1 and 200 characters.\n\nERR",
+      "validity": "err",
+      "coverageText": "World",
+      "coverageEvalText": "The chatbot's output is \"World\", which seems to be one of the categories listed in the description as an example of a news article classification. The description mentions that a news article can be classified into one of the following categories: World, Sports, Business, Sci/Tech. Since \"World\" is directly mentioned as one of these categories, it appears to comply with the chatbot's description without requiring knowledge of the input.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "a37fa10",
+      "promptid": "a37fa10",
+      "model": "llama3.3",
+      "ruleid": "",
+      "input": "",
+      "validityText": "There is no input provided to evaluate against the given input specification. The input specification requires a string of words describing an event or topic with a length between 1 and 200 characters. Since there is no input, it does not comply with the specification as it does not meet the requirement of having a length between 1 and 200 characters.\n\nERR",
+      "validity": "err",
+      "coverageText": "World",
+      "coverageEvalText": "The chatbot's output is \"World\", which seems to be one of the categories listed in the description as an example of a news article classification. The description mentions that a news article can be classified into one of the following categories: World, Sports, Business, Sci/Tech. Since \"World\" is directly mentioned as one of these categories, it appears to comply with the chatbot's description without requiring knowledge of the input.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "a37fa10",
+      "promptid": "a37fa10",
+      "model": "llama3.3",
+      "ruleid": "",
+      "input": "",
+      "validityText": "There is no input provided to evaluate against the given input specification. The input specification requires a string of words describing an event or topic with a length between 1 and 200 characters. Since there is no input, it does not comply with the specification as it does not meet the requirement of having a length between 1 and 200 characters.\n\nERR",
+      "validity": "err",
+      "coverageText": "World",
+      "coverageEvalText": "The chatbot's output is \"World\", which seems to be one of the categories listed in the description as an example of a news article classification. The description mentions that a news article can be classified into one of the following categories: World, Sports, Business, Sci/Tech. Since \"World\" is directly mentioned as one of these categories, it appears to comply with the chatbot's description without requiring knowledge of the input.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "a37fa10",
+      "promptid": "a37fa10",
+      "model": "llama3.3",
+      "ruleid": "",
+      "input": "",
+      "validityText": "There is no input provided to evaluate against the given input specification. The input specification requires a string of words describing an event or topic with a length between 1 and 200 characters. Since there is no input, it does not comply with the specification as it does not meet the requirement of having a length between 1 and 200 characters.\n\nERR",
+      "validity": "err",
+      "coverageText": "World",
+      "coverageEvalText": "The chatbot's output is \"World\", which seems to be one of the categories listed in the description as an example of a news article classification. The description mentions that a news article can be classified into one of the following categories: World, Sports, Business, Sci/Tech. Since \"World\" is directly mentioned as one of these categories, it appears to comply with the chatbot's description without requiring knowledge of the input.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "a37fa10",
+      "promptid": "a37fa10",
+      "model": "llama3.3",
+      "ruleid": "",
+      "input": "",
+      "validityText": "There is no input provided to evaluate against the given input specification. The input specification requires a string of words describing an event or topic with a length between 1 and 200 characters. Since there is no input, it does not comply with the specification as it does not meet the requirement of having a length between 1 and 200 characters.\n\nERR",
+      "validity": "err",
+      "coverageText": "World",
+      "coverageEvalText": "The chatbot's output is \"World\", which seems to be one of the categories listed in the description as an example of a news article classification. The description mentions that a news article can be classified into one of the following categories: World, Sports, Business, Sci/Tech. Since \"World\" is directly mentioned as one of these categories, it appears to comply with the chatbot's description without requiring knowledge of the input.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "a37fa10",
+      "promptid": "a37fa10",
+      "model": "llama3.3",
+      "ruleid": "",
+      "input": "",
+      "validityText": "There is no input provided to evaluate against the given input specification. The input specification requires a string of words describing an event or topic with a length between 1 and 200 characters. Since there is no input, it does not comply with the specification as it does not meet the requirement of having a length between 1 and 200 characters.\n\nERR",
+      "validity": "err",
+      "coverageText": "World",
+      "coverageEvalText": "The chatbot's output is \"World\", which seems to be one of the categories listed in the description as an example of a news article classification. The description mentions that a news article can be classified into one of the following categories: World, Sports, Business, Sci/Tech. Since \"World\" is directly mentioned as one of these categories, it appears to comply with the chatbot's description without requiring knowledge of the input.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "a37fa10",
+      "promptid": "a37fa10",
+      "model": "llama3.3",
+      "ruleid": "",
+      "input": "",
+      "validityText": "There is no input provided to evaluate against the given input specification. The input specification requires a string of words describing an event or topic with a length between 1 and 200 characters. Since there is no input, it does not comply with the specification as it does not meet the requirement of having a length between 1 and 200 characters.\n\nERR",
+      "validity": "err",
+      "coverageText": "World",
+      "coverageEvalText": "The chatbot's output is \"World\", which seems to be one of the categories listed in the description as an example of a news article classification. The description mentions that a news article can be classified into one of the following categories: World, Sports, Business, Sci/Tech. Since \"World\" is directly mentioned as one of these categories, it appears to comply with the chatbot's description without requiring knowledge of the input.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "a37fa10",
+      "promptid": "a37fa10",
+      "model": "llama3.3",
+      "ruleid": "",
+      "input": "",
+      "validityText": "There is no input provided to evaluate against the given input specification. The input specification requires a string of words describing an event or topic with a length between 1 and 200 characters. Since there is no input, it does not comply with the specification as it does not meet the requirement of having a length between 1 and 200 characters.\n\nERR",
+      "validity": "err",
+      "coverageText": "World",
+      "coverageEvalText": "The chatbot's output is \"World\", which seems to be one of the categories listed in the description as an example of a news article classification. The description mentions that a news article can be classified into one of the following categories: World, Sports, Business, Sci/Tech. Since \"World\" is directly mentioned as one of these categories, it appears to comply with the chatbot's description without requiring knowledge of the input.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "a37fa10",
+      "promptid": "a37fa10",
+      "model": "llama3.3",
+      "ruleid": "",
+      "input": "",
+      "validityText": "There is no input provided to evaluate against the given input specification. The input specification requires a string of words describing an event or topic with a length between 1 and 200 characters. Since there is no input, it does not comply with the specification as it does not meet the requirement of having a length between 1 and 200 characters.\n\nERR",
+      "validity": "err",
+      "coverageText": "World",
+      "coverageEvalText": "The chatbot's output is \"World\", which seems to be one of the categories listed in the description as an example of a news article classification. The description mentions that a news article can be classified into one of the following categories: World, Sports, Business, Sci/Tech. Since \"World\" is directly mentioned as one of these categories, it appears to comply with the chatbot's description without requiring knowledge of the input.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "a37fa10",
+      "promptid": "a37fa10",
+      "model": "llama3.3",
+      "ruleid": "",
+      "input": "",
+      "validityText": "There is no input provided to evaluate against the given input specification. The input specification requires a string of words describing an event or topic with a length between 1 and 200 characters. Since there is no input, it does not comply with the specification as it does not meet the requirement of having a length between 1 and 200 characters.\n\nERR",
+      "validity": "err",
+      "coverageText": "World",
+      "coverageEvalText": "The chatbot's output is \"World\", which seems to be one of the categories listed in the description as an example of a news article classification. The description mentions that a news article can be classified into one of the following categories: World, Sports, Business, Sci/Tech. Since \"World\" is directly mentioned as one of these categories, it appears to comply with the chatbot's description without requiring knowledge of the input.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "a37fa10",
+      "promptid": "a37fa10",
+      "model": "llama3.3",
+      "ruleid": "",
+      "input": "",
+      "validityText": "There is no input provided to evaluate against the given input specification. The input specification requires a string of words describing an event or topic with a length between 1 and 200 characters. Since there is no input, it does not comply with the specification as it does not meet the requirement of having a length between 1 and 200 characters.\n\nERR",
+      "validity": "err",
+      "coverageText": "World",
+      "coverageEvalText": "The chatbot's output is \"World\", which seems to be one of the categories listed in the description as an example of a news article classification. The description mentions that a news article can be classified into one of the following categories: World, Sports, Business, Sci/Tech. Since \"World\" is directly mentioned as one of these categories, it appears to comply with the chatbot's description without requiring knowledge of the input.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "a37fa10",
+      "promptid": "a37fa10",
+      "model": "llama3.3",
+      "ruleid": "",
+      "input": "",
+      "validityText": "There is no input provided to evaluate against the given input specification. The input specification requires a string of words describing an event or topic with a length between 1 and 200 characters. Since there is no input, it does not comply with the specification as it does not meet the requirement of having a length between 1 and 200 characters.\n\nERR",
+      "validity": "err",
+      "coverageText": "World",
+      "coverageEvalText": "The chatbot's output is \"World\", which seems to be one of the categories listed in the description as an example of a news article classification. The description mentions that a news article can be classified into one of the following categories: World, Sports, Business, Sci/Tech. Since \"World\" is directly mentioned as one of these categories, it appears to comply with the chatbot's description without requiring knowledge of the input.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "a37fa10",
+      "promptid": "a37fa10",
+      "model": "llama3.3",
+      "ruleid": "",
+      "input": "",
+      "validityText": "There is no input provided to evaluate against the given input specification. The input specification requires a string of words describing an event or topic with a length between 1 and 200 characters. Since there is no input, it does not comply with the specification as it does not meet the requirement of having a length between 1 and 200 characters.\n\nERR",
+      "validity": "err",
+      "coverageText": "World",
+      "coverageEvalText": "The chatbot's output is \"World\", which seems to be one of the categories listed in the description as an example of a news article classification. The description mentions that a news article can be classified into one of the following categories: World, Sports, Business, Sci/Tech. Since \"World\" is directly mentioned as one of these categories, it appears to comply with the chatbot's description without requiring knowledge of the input.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "a37fa10",
+      "promptid": "a37fa10",
+      "model": "llama3.3",
+      "ruleid": "",
+      "input": "",
+      "validityText": "There is no input provided to evaluate against the given input specification. The input specification requires a string of words describing an event or topic with a length between 1 and 200 characters. Since there is no input, it does not comply with the specification as it does not meet the requirement of having a length between 1 and 200 characters.\n\nERR",
+      "validity": "err",
+      "coverageText": "World",
+      "coverageEvalText": "The chatbot's output is \"World\", which seems to be one of the categories listed in the description as an example of a news article classification. The description mentions that a news article can be classified into one of the following categories: World, Sports, Business, Sci/Tech. Since \"World\" is directly mentioned as one of these categories, it appears to comply with the chatbot's description without requiring knowledge of the input.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "a37fa10",
+      "promptid": "a37fa10",
+      "model": "llama3.3",
+      "ruleid": "",
+      "input": "",
+      "validityText": "There is no input provided to evaluate against the given input specification. The input specification requires a string of words describing an event or topic with a length between 1 and 200 characters. Since there is no input, it does not comply with the specification as it does not meet the requirement of having a length between 1 and 200 characters.\n\nERR",
+      "validity": "err",
+      "coverageText": "World",
+      "coverageEvalText": "The chatbot's output is \"World\", which seems to be one of the categories listed in the description as an example of a news article classification. The description mentions that a news article can be classified into one of the following categories: World, Sports, Business, Sci/Tech. Since \"World\" is directly mentioned as one of these categories, it appears to comply with the chatbot's description without requiring knowledge of the input.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "a37fa10",
+      "promptid": "a37fa10",
+      "model": "llama3.3",
+      "ruleid": "",
+      "input": "",
+      "validityText": "There is no input provided to evaluate against the given input specification. The input specification requires a string of words describing an event or topic with a length between 1 and 200 characters. Since there is no input, it does not comply with the specification as it does not meet the requirement of having a length between 1 and 200 characters.\n\nERR",
+      "validity": "err",
+      "coverageText": "World",
+      "coverageEvalText": "The chatbot's output is \"World\", which seems to be one of the categories listed in the description as an example of a news article classification. The description mentions that a news article can be classified into one of the following categories: World, Sports, Business, Sci/Tech. Since \"World\" is directly mentioned as one of these categories, it appears to comply with the chatbot's description without requiring knowledge of the input.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "a37fa10",
+      "promptid": "a37fa10",
+      "model": "llama3.3",
+      "ruleid": "",
+      "input": "",
+      "validityText": "There is no input provided to evaluate against the given input specification. The input specification requires a string of words describing an event or topic with a length between 1 and 200 characters. Since there is no input, it does not comply with the specification as it does not meet the requirement of having a length between 1 and 200 characters.\n\nERR",
+      "validity": "err",
+      "coverageText": "World",
+      "coverageEvalText": "The chatbot's output is \"World\", which seems to be one of the categories listed in the description as an example of a news article classification. The description mentions that a news article can be classified into one of the following categories: World, Sports, Business, Sci/Tech. Since \"World\" is directly mentioned as one of these categories, it appears to comply with the chatbot's description without requiring knowledge of the input.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "a37fa10",
+      "promptid": "a37fa10",
+      "model": "llama3.3",
+      "ruleid": "",
+      "input": "",
+      "validityText": "There is no input provided to evaluate against the given input specification. The input specification requires a string of words describing an event or topic with a length between 1 and 200 characters. Since there is no input, it does not comply with the specification as it does not meet the requirement of having a length between 1 and 200 characters.\n\nERR",
+      "validity": "err",
+      "coverageText": "World",
+      "coverageEvalText": "The chatbot's output is \"World\", which seems to be one of the categories listed in the description as an example of a news article classification. The description mentions that a news article can be classified into one of the following categories: World, Sports, Business, Sci/Tech. Since \"World\" is directly mentioned as one of these categories, it appears to comply with the chatbot's description without requiring knowledge of the input.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "a37fa10",
+      "promptid": "a37fa10",
+      "model": "llama3.3",
+      "ruleid": "",
+      "input": "",
+      "validityText": "There is no input provided to evaluate against the given input specification. The input specification requires a string of words describing an event or topic with a length between 1 and 200 characters. Since there is no input, it does not comply with the specification as it does not meet the requirement of having a length between 1 and 200 characters.\n\nERR",
+      "validity": "err",
+      "coverageText": "World",
+      "coverageEvalText": "The chatbot's output is \"World\", which seems to be one of the categories listed in the description as an example of a news article classification. The description mentions that a news article can be classified into one of the following categories: World, Sports, Business, Sci/Tech. Since \"World\" is directly mentioned as one of these categories, it appears to comply with the chatbot's description without requiring knowledge of the input.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    },
+    {
+      "id": "a37fa10",
+      "promptid": "a37fa10",
+      "model": "llama3.3",
+      "ruleid": "",
+      "input": "",
+      "validityText": "There is no input provided to evaluate against the given input specification. The input specification requires a string of words describing an event or topic with a length between 1 and 200 characters. Since there is no input, it does not comply with the specification as it does not meet the requirement of having a length between 1 and 200 characters.\n\nERR",
+      "validity": "err",
+      "coverageText": "World",
+      "coverageEvalText": "The chatbot's output is \"World\", which seems to be one of the categories listed in the description as an example of a news article classification. The description mentions that a news article can be classified into one of the following categories: World, Sports, Business, Sci/Tech. Since \"World\" is directly mentioned as one of these categories, it appears to comply with the chatbot's description without requiring knowledge of the input.\n\nOK",
+      "coverage": "ok",
+      "error": ""
+    }
+  ],
+  "testResults": []
+}

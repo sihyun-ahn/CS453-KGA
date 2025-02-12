@@ -1,0 +1,13 @@
+{
+  "id": "94dbb5f",
+  "promptid": "e2d6bac",
+  "model": "llama3.3",
+  "ruleid": 4,
+  "rule": "The specific topics field must contain a list of the specific topics mentioned in the input text that fit the content, separated by -||-.",
+  "input": "The text did not mention any specific topics but focused on general themes like education and healthcare.",
+  "validityText": "The input specification states that the input can contain company names, people names, specific topics, and general overarching themes. It also mentions that the input does not have any restrictions on the number of these elements it can contain. Additionally, it specifies that the input must be a string containing the content of the text in a human-readable format with words separated by spaces and sentences separated by punctuation marks.\n\nGiven this information, we need to evaluate if the provided input complies with these requirements. The input talks about general themes like education and healthcare but does not mention specific topics. However, according to the specification, the input is allowed to contain any combination of company names, people names, specific topics, or general overarching themes without any restrictions on their number.\n\nTherefore, since the input is a string, contains human-readable text with proper spacing and punctuation, and discusses general themes (which are among the allowable content types), it complies with the input specification provided.\n\nOK",
+  "validity": "ok",
+  "coverageText": ": : : education-||-healthcare",
+  "coverageEvalText": "The chatbot output does not comply with the description because it is missing several required fields, specifically the company names and people names. The desired format as specified in the description requires four fields: Company names, People names, Specific topics, and General themes, separated by -||-. However, the provided output only contains two topics and lacks the other necessary information.\n\nERR",
+  "coverage": "err"
+}

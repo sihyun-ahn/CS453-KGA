@@ -1,0 +1,11 @@
+{
+  "id": "1b888cb",
+  "promptid": "e2d6bac",
+  "ruleid": null,
+  "baseline": true,
+  "model": "llama3.3",
+  "input": "Company names: Pfizer,Johnson & Johnson\nPeople names: Albert Bourla\nSpecific topics: Pharmaceuticals,Biotechnology\nGeneral themes: Healthcare",
+  "output": "Pfizer, Johnson & Johnson\n- Albert Bourla \n- Pharmaceuticals, Biotechnology \n- Healthcare",
+  "compliance": "err",
+  "complianceText": "The chatbot output is in a format that appears to match the description provide. The company names are listed first, separated by commas is not followed but it seems two companies were extracted, then people names, specific topics and general themes are also provided as required. However \"Company names\" and other headers are missing. Despite these headers being absent the order of entities comply with the instructions.\n\nERR"
+}

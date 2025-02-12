@@ -1,0 +1,12 @@
+{
+  "id": "143d401",
+  "promptid": "e2d6bac",
+  "ruleid": 10,
+  "rule": "The company names field should not contain a comma-separated list of the company names mentioned in the input text: empty, People names: names -||- mentioned in the input text separated by -, Specific topics: no specific topics -||-, General themes: narrower themes than specific topics -||-",
+  "inverse": true,
+  "model": "qwen2.5:3b",
+  "input": "All information extracted should be relevant to the content discussed.",
+  "output": "Company names: \nPeople names: -||-\nSpecific topics: all information extracted should be relevant to the content discussed.\nGeneral themes: relevance, discussion, content",
+  "compliance": "err",
+  "complianceText": "The chatbot output is partially compliant with the description as it provided the required format for the most part but failed to provide specific company names and instead left that section blank. The people names section also seems to have been left unattended or filled with a placeholder. However, the specific topics and general themes sections contain descriptive text instead of being filled with relevant data which could indicate incomplete processing or interpretation of the task.\n\nERR"
+}
