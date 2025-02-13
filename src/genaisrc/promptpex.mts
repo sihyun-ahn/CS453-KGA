@@ -1356,7 +1356,7 @@ export async function generate(
     output.heading(3, `PromptPex for ${files.name}`);
     output.heading(4, `Prompt Under Test`)
     output.itemValue(`dir`, files.dir);
-    output.fence(files.prompt, 'md');
+    output.fence(files.prompt.content, 'md');
 
     if (!disableSafety) {
         const contentSafety = await host.contentSafety();
