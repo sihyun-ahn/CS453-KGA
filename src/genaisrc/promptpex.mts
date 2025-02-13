@@ -14,6 +14,11 @@ export interface PromptPexOptions {
      * Generate temperature for requests
      */
     temperature?: number;
+
+    /**
+     * Add PromptPex prompts to the output
+     */
+    outputPrompts?: boolean;
 }
 
 /**
@@ -169,7 +174,10 @@ export async function loadPromptFiles(
     promptFile: WorkspaceFile,
     out?: string
 ): Promise<PromptPexContext> {
-    if (!promptFile) throw new Error("No prompt file found, did you forget to the prompt file?");
+    if (!promptFile)
+        throw new Error(
+            "No prompt file found, did you forget to the prompt file?"
+        );
 
     const basename = path
         .basename(promptFile.filename)
@@ -402,8 +410,8 @@ export async function generateInputSpec(
     options?: PromptPexOptions
 ) {
     const context = MD.content(files.prompt.content);
-    const pn = "src/prompts/input_spec.prompty"
-    await outputPrompty(pn)
+    const pn = "src/prompts/input_spec.prompty";
+    await outputPrompty(pn, options);
     const res = await runPrompt(
         (ctx) => {
             ctx.importTemplate(pn, {
@@ -420,8 +428,13 @@ export async function generateInputSpec(
     return tidyRules(res.text);
 }
 
-async function outputPrompty(filename: string) {
-    env.output.detailsFenced(filename, (await workspace.readText(filename)).content, "md")
+async function outputPrompty(filename: string, options: PromptPexOptions) {
+    if (options?.outputPrompts)
+        env.output.detailsFenced(
+            filename,
+            (await workspace.readText(filename)).content,
+            "md"
+        );
 }
 
 export async function generateIntent(
@@ -429,8 +442,8 @@ export async function generateIntent(
     options?: PromptPexOptions
 ) {
     const context = MD.content(files.prompt.content);
-    const pn = 'src/prompts/extract_intent.prompty'
-    await outputPrompty(pn)
+    const pn = "src/prompts/extract_intent.prompty";
+    await outputPrompty(pn, options);
     const res = await runPrompt(
         (ctx) => {
             ctx.importTemplate(pn, {
@@ -454,8 +467,8 @@ export async function generateRules(
     const { numRules = RULES_NUM } = options || {};
     // generate rules
     const input_data = MD.content(files.prompt.content);
-    const pn = "src/prompts/rules_global.prompty"
-    await outputPrompty(pn)
+    const pn = "src/prompts/rules_global.prompty";
+    await outputPrompty(pn, options);
     const res = await runPrompt(
         (ctx) => {
             ctx.importTemplate(pn, {
@@ -479,8 +492,8 @@ export async function generateInverseRules(
     options?: PromptPexOptions
 ) {
     const rule = MD.content(files.rules.content);
-    const pn = "src/prompts/inverse_rule.prompty"
-    await outputPrompty(pn)
+    const pn = "src/prompts/inverse_rule.prompty";
+    await outputPrompty(pn, options);
     const res = await runPrompt(
         (ctx) => {
             ctx.importTemplate(pn, {
@@ -504,8 +517,8 @@ export async function generateBaselineTests(
     const tests = parseRulesTests(files.tests.content);
     const { num = tests.length } = options || {};
     const context = MD.content(files.prompt.content);
-    const pn = "src/prompts/baseline_test.prompty"
-    await outputPrompty(pn)
+    const pn = "src/prompts/baseline_test.prompty";
+    await outputPrompty(pn, options);
     const res = await runPrompt(
         (ctx) => {
             ctx.importTemplate(pn, {
@@ -538,8 +551,8 @@ export async function generateTests(
 
     const context = MD.content(files.prompt.content);
     let repaired = false;
-    const pn = "src/prompts/test.prompty"
-    await outputPrompty(pn)
+    const pn = "src/prompts/test.prompty";
+    await outputPrompty(pn, options);
     const res = await runPrompt(
         (ctx) => {
             ctx.importTemplate(pn, {
@@ -1334,7 +1347,7 @@ export async function generateReports(files: PromptPexContext) {
 
 function outputFile(file: WorkspaceFile) {
     const { output } = env;
-    const contentType = path.extname(file.filename)
+    const contentType = path.extname(file.filename);
     output.fence(file.content, contentType);
 }
 
@@ -1345,18 +1358,14 @@ export async function generate(
         models?: ModelType[];
     }
 ) {
-    const {
-        disableSafety = false,
-        force = false,
-        models,
-    } = options || {};
-    const evals = !!models?.length
+    const { disableSafety = false, force = false, models } = options || {};
+    const evals = !!models?.length;
     const { output } = env;
 
     output.heading(3, `PromptPex for ${files.name}`);
-    output.heading(4, `Prompt Under Test`)
+    output.heading(4, `Prompt Under Test`);
     output.itemValue(`dir`, files.dir);
-    output.fence(files.prompt.content, 'md');
+    output.fence(files.prompt.content, "md");
 
     if (!disableSafety) {
         const contentSafety = await host.contentSafety();
@@ -1441,7 +1450,7 @@ export async function generate(
 
     if (!evals) return files;
 
-    output.heading(3, "Evaluation")    
+    output.heading(3, "Evaluation");
 
     // generate baseline tests
     output.heading(4, "Baseline Tests");
@@ -1499,8 +1508,6 @@ export async function generate(
     }
 
     outputFile(files.testEvals);
-
-
 
     if (models?.length) {
         output.heading(3, "Cross Model Evaluations");
