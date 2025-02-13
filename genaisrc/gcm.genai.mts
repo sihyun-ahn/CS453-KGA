@@ -4,6 +4,7 @@
 script({
     title: "git commit message",
     description: "Generate a commit message for all staged changes",
+    unlisted: true
 })
 
 // TODO: update this diff command to match your workspace
