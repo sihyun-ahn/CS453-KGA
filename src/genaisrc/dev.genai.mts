@@ -8,6 +8,8 @@ import {
     generateInverseRules,
     PromptPexOptions,
     evaluateRulesGrounded,
+    evaluateRulesCoverage,
+    generateTests,
 } from "./promptpex.mts";
 
 script({
@@ -26,16 +28,18 @@ script({
     ],
 });
 const { output } = env;
-const out = "evals/dev"
+const out = "evals/dev";
 const options: PromptPexOptions = {
     outputPrompts: true,
 };
 
 const repeatIntent = 1;
 const repeatInputSpec = 1;
-const repeatRules = 5;
-const repeatInverseRules = 3;
-const repeatBaselineTests = 3;
+const repeatRules = 1;
+const repeatInverseRules = 1;
+const repeatTests = 1;
+const repeatBaselineTests = 1;
+const repeastRulesGroundedness = 5;
 
 output.heading(1, "PromptPex Dev Mode");
 output.itemValue(`model`, env.meta.model);
@@ -72,7 +76,11 @@ await apply("Rules", repeatRules, async (files) => {
     output.heading(3, "Evaluating Rules Groundedness");
     const groundedness = await evaluateRulesGrounded(files, options);
     output.table([
-        ...groundedness.map(({ rule, grounded }) => ({ rule, grounded })),
+        ...groundedness.map(({ rule, grounded, groundedText }) => ({
+            rule,
+            grounded,
+            groundedText,
+        })),
         {
             rule: "ok",
             grounded: groundedness.reduce(
@@ -81,12 +89,40 @@ await apply("Rules", repeatRules, async (files) => {
             ),
         },
     ]);
+    output.detailsFenced(`data`, groundedness, "json");
 });
 await apply("Inverse Rules", repeatInverseRules, async (files) => {
     files.inverseRules.content = await generateInverseRules(files, options);
     output.fence(files.inverseRules.content, "text");
 });
+await apply("Tests", repeatTests, async (files) => {
+    files.tests.content = await generateTests(files, options);
+    output.fence(files.tests.content, "csv");
+});
 await apply("Baseline Tests", repeatBaselineTests, async (files) => {
     files.baselineTests.content = await generateBaselineTests(files, options);
     output.fence(files.baselineTests.content, "text");
 });
+await apply(
+    "Evaluating Rules Coverage",
+    repeastRulesGroundedness,
+    async (files) => {
+        output.heading(3, "Evaluating Rules Coverage");
+        const coverage = await evaluateRulesCoverage(files, options);
+        output.table([
+            ...coverage.map(({ rule, coverage, coverageText }) => ({
+                rule,
+                coverage,
+                coverageText,
+            })),
+            {
+                rule: "ok",
+                coverage: coverage.reduce(
+                    (acc, { coverage }) => acc + (coverage === "ok" ? 1 : 0),
+                    0
+                ),
+            },
+        ]);
+        output.detailsFenced(`data`, coverage, "json");
+    }
+);

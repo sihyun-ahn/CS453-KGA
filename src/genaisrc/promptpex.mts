@@ -3,7 +3,12 @@ const RULES_NUM = 0;
 const TESTS_NUM = 3;
 const TEST_EVALUATION_DIR = "test_evals";
 const RULE_EVALUATION_DIR = "rule_evals";
+
+const PROMPT_GENERATE_INTENT = "src/prompts/extract_intent.prompty";
 const PROMPT_GENERATE_RULES = "src/prompts/rules_global.prompty";
+const PROMPT_GENERATE_BASELINE_TESTS = "src/prompts/baseline_test.prompty";
+const PROMPT_GENERATE_INVERSE_RULES = "src/prompts/inverse_rule.prompty";
+const PROMPT_GENERATE_TESTS = "src/prompts/test.prompty";
 const PROMPT_CHECK_RULE_GROUNDED = "src/prompts/check_rule_grounded.prompty";
 
 export interface PromptPexOptions {
@@ -355,7 +360,7 @@ export async function evaluateRulesCoverage(
     const intent = files.intent.content;
     const rules = files.rules.content;
 
-    const results = [];
+    const results: PromptPexTestEval[] = [];
     for (const baselineTest of validBaselineTests) {
         const res = await runPrompt(
             (ctx) => {
@@ -376,7 +381,10 @@ export async function evaluateRulesCoverage(
         );
         results.push({
             ...baselineTest,
-            coverage: res.text,
+            // TODO: review
+            coverage: res.text as any,
+            //coverageText: res.text,
+            //coverage: parseOKERR(res.text),
         });
     }
     files.ruleCoverages.content = CSV.stringify(results, { header: true });
@@ -445,7 +453,7 @@ export async function generateIntent(
     options?: PromptPexOptions
 ) {
     const context = MD.content(files.prompt.content);
-    const pn = "src/prompts/extract_intent.prompty";
+    const pn = PROMPT_GENERATE_INTENT;
     await outputPrompty(pn, options);
     const res = await runPrompt(
         (ctx) => {
@@ -495,7 +503,7 @@ export async function generateInverseRules(
     options?: PromptPexOptions
 ) {
     const rule = MD.content(files.rules.content);
-    const pn = "src/prompts/inverse_rule.prompty";
+    const pn = PROMPT_GENERATE_INVERSE_RULES;
     await outputPrompty(pn, options);
     const res = await runPrompt(
         (ctx) => {
@@ -520,7 +528,7 @@ export async function generateBaselineTests(
     const tests = parseRulesTests(files.tests.content);
     const { num = tests.length } = options || {};
     const context = MD.content(files.prompt.content);
-    const pn = "src/prompts/baseline_test.prompty";
+    const pn = PROMPT_GENERATE_BASELINE_TESTS;
     await outputPrompty(pn, options);
     const res = await runPrompt(
         (ctx) => {
@@ -554,7 +562,7 @@ export async function generateTests(
 
     const context = MD.content(files.prompt.content);
     let repaired = false;
-    const pn = "src/prompts/test.prompty";
+    const pn = PROMPT_GENERATE_TESTS;
     await outputPrompty(pn, options);
     const res = await runPrompt(
         (ctx) => {
