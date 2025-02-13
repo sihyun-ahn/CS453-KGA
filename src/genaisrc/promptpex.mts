@@ -3,6 +3,8 @@ const RULES_NUM = 0;
 const TESTS_NUM = 3;
 const TEST_EVALUATION_DIR = "test_evals";
 const RULE_EVALUATION_DIR = "rule_evals";
+const PROMPT_GENERATE_RULES = "src/prompts/rules_global.prompty";
+const PROMPT_CHECK_RULE_GROUNDED = "src/prompts/check_rule_grounded.prompty";
 
 export interface PromptPexOptions {
     /**
@@ -271,7 +273,7 @@ export async function evaluateRuleGrounded(
     const description = MD.content(files.prompt.content);
     const res = await runPrompt(
         (ctx) => {
-            ctx.importTemplate("src/prompts/check_rule_grounded.prompty", {
+            ctx.importTemplate(PROMPT_CHECK_RULE_GROUNDED, {
                 rule,
                 description,
             });
@@ -391,6 +393,7 @@ export async function evaluateRulesGrounded(
 ) {
     const rules = parseRules(files.rules.content);
     if (!rules) throw new Error("No rules found");
+    await outputPrompty(PROMPT_CHECK_RULE_GROUNDED, options);
     const res: PromptPexRuleEval[] = [];
     for (let i = 0; i < rules.length; ++i) {
         const ev = await evaluateRuleGrounded(files, i + 1, rules[i], options);
@@ -467,7 +470,7 @@ export async function generateRules(
     const { numRules = RULES_NUM } = options || {};
     // generate rules
     const input_data = MD.content(files.prompt.content);
-    const pn = "src/prompts/rules_global.prompty";
+    const pn = PROMPT_GENERATE_RULES;
     await outputPrompty(pn, options);
     const res = await runPrompt(
         (ctx) => {

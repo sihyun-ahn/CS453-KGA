@@ -7,6 +7,7 @@ import {
     generateBaselineTests,
     generateInverseRules,
     PromptPexOptions,
+    evaluateRulesGrounded,
 } from "./promptpex.mts";
 
 script({
@@ -25,20 +26,21 @@ script({
     ],
 });
 const { output } = env;
+const out = "evals/dev"
 const options: PromptPexOptions = {
-    outputPrompts: true
+    outputPrompts: true,
 };
 
 const repeatIntent = 1;
-const repeatInputSpec = 5;
-const repeatRules = 1;
+const repeatInputSpec = 1;
+const repeatRules = 5;
 const repeatInverseRules = 3;
 const repeatBaselineTests = 3;
 
 output.heading(1, "PromptPex Dev Mode");
 output.itemValue(`model`, env.meta.model);
 const prompts = await Promise.all(
-    env.files.map((file) => loadPromptFiles(file, ""))
+    env.files.map((file) => loadPromptFiles(file, out))
 );
 
 async function apply(
@@ -66,6 +68,19 @@ await apply("Input Specs", repeatInputSpec, async (files) => {
 await apply("Rules", repeatRules, async (files) => {
     files.rules.content = await generateRules(files, options);
     output.fence(files.rules.content, "text");
+
+    output.heading(3, "Evaluating Rules Groundedness");
+    const groundedness = await evaluateRulesGrounded(files, options);
+    output.table([
+        ...groundedness.map(({ rule, grounded }) => ({ rule, grounded })),
+        {
+            rule: "ok",
+            grounded: groundedness.reduce(
+                (acc, { grounded }) => acc + (grounded === "ok" ? 1 : 0),
+                0
+            ),
+        },
+    ]);
 });
 await apply("Inverse Rules", repeatInverseRules, async (files) => {
     files.inverseRules.content = await generateInverseRules(files, options);
