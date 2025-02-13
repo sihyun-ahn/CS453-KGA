@@ -4,10 +4,13 @@ import {
     generateRules,
     loadPromptFiles,
     PromptPexContext,
+    generateBaselineTests,
+    generateInverseRules,
 } from "./promptpex.mts";
 
 script({
     title: "PromptPex Dev",
+    model: "large",
     unlisted: true,
     files: [
         "samples/speech-tag/speech-tag.prompty",
@@ -25,9 +28,12 @@ const options = {};
 
 const repeatIntent = 1;
 const repeatInputSpec = 1;
-const repeatRules = 5;
+const repeatRules = 1;
+const repeatInverseRules = 3;
+const repeatBaselineTests = 3;
 
 output.heading(1, "PromptPex Dev Mode");
+output.itemValue(`model`, env.meta.model);
 const prompts = await Promise.all(
     env.files.map((file) => loadPromptFiles(file, ""))
 );
@@ -57,4 +63,12 @@ await apply("Input Specs", repeatInputSpec, async (files) => {
 await apply("Rules", repeatRules, async (files) => {
     files.rules.content = await generateRules(files, options);
     output.fence(files.rules.content, "text");
+});
+await apply("Inverse Rules", repeatInverseRules, async (files) => {
+    files.inverseRules.content = await generateInverseRules(files, options);
+    output.fence(files.inverseRules.content, "text");
+});
+await apply("Baseline Tests", repeatBaselineTests, async (files) => {
+    files.baselineTests.content = await generateBaselineTests(files, options);
+    output.fence(files.baselineTests.content, "text");
 });
