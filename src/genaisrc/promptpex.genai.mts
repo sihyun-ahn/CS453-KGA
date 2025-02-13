@@ -1,10 +1,21 @@
-import { loadPromptContext, generate, computeOverview } from "./promptpex.mts";
+import { generate, loadPromptFiles } from "./promptpex.mts";
 
 script({
   title: "PromptPex Test Generator",
-  description: "Generate tests using PromptPex.",
-  files: ["samples/speech-tag/speech-tag.prompty"],
-  accept: ".prompty",
+  description: `Generate tests for a LLM prompt. 
+  This tool accepts a prompt file formatted in the Prompty language 
+  and generates tests for them. The tests can be used to validate your prompt
+  for various models automatically.
+
+  - [Prompty Language](https://prompty.ai/docs)
+  - [GitHub](https://github.com/microsoft/promptpex/)
+  - [Archiv](https://github.com/microsoft/promptpex/)
+
+  PromptPex uses an LLM internally to generate and evaluate test cases and results.
+  PromptPex was tested using OpenAI GPT-4o. Results on other models may vary.
+`,
+  files: ["samples/demo/demo.prompty"],
+  accept: ".prompty,*.md",
   parameters: {
     disableSafety: {
       type: "boolean",
@@ -16,11 +27,6 @@ script({
       type: "boolean",
       description: "Force overwrite of existing files",
       default: false,
-    },
-    evals: {
-      type: "boolean",
-      description: "Evaluate quality of generated tests",
-      default: true,
     },
     models: {
       type: "string",
@@ -35,53 +41,13 @@ script({
   },
 });
 
-const { disableSafety, force, out, evals } = env.vars;
-
-const prompts = await loadPromptContext(out);
-const models = (env.vars.models || "github:gpt-4o-mini")
-  ?.split(/[;\n ,]/g)
+const { disableSafety, force, out } = env.vars;
+const files = await loadPromptFiles(env.files[0], out)
+const models = env.vars.models
+  .split(/[;\n ,]/g)
   .map((model) => model.trim());
-
-const res = [];
-const options = Object.freeze({
+await generate(files, {
   disableSafety,
   force,
-  models,
-  evals
+  models
 });
-for (const files of prompts) {
-  try {
-    const ctx = await generate(files, options);
-    const { testEvals, rules, ruleEvals, overview } = computeOverview(ctx, {
-      percent: false,
-    });
-    res.push({
-      prompt: files.name,
-      rules: rules.filter((r) => !r.inverse).length,
-      ["rules grounded"]: ruleEvals.filter((g) => g.grounded === "ok").length,
-      tests: testEvals.length,
-      ...Object.fromEntries(
-        overview.map((o) => [o.model, o["tests compliant"]])
-      ),
-    });
-  } catch (e) {
-    console.error(e);
-    console.debug(e.stack);
-  }
-}
-
-/*
-res.sort((a, b) => a.prompt.localeCompare(b.prompt));
-await workspace.writeText(
-  "evals/README.md",
-  `# Eval summary
-  
-## Test Results
-
-- % represent compliance rate
-
-${CSV.markdownify(res)}
-
-`
-);
-*/

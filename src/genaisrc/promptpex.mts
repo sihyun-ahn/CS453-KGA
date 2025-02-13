@@ -169,6 +169,8 @@ export async function loadPromptFiles(
     promptFile: WorkspaceFile,
     out?: string
 ): Promise<PromptPexContext> {
+    if (!promptFile) throw new Error("No prompt file found, did you forget to the prompt file?");
+
     const basename = path
         .basename(promptFile.filename)
         .slice(0, -path.extname(promptFile.filename).length);
@@ -1319,7 +1321,7 @@ export async function generateReports(files: PromptPexContext) {
 function outputFile(title: string, file: WorkspaceFile) {
     const { output } = env;
     output.heading(4, title);
-    const contentType = /\.csv$/i.test(file.filename) ? "csv" : "md";
+    const contentType = path.extname(file.filename)
     output.fence(file.content, contentType);
 }
 
@@ -1328,20 +1330,20 @@ export async function generate(
     options?: PromptPexOptions & {
         force?: boolean;
         models?: ModelType[];
-        evals?: boolean;
     }
 ) {
     const {
         disableSafety = false,
         force = false,
         models,
-        evals,
     } = options || {};
+    const evals = !!models?.length
     const { output } = env;
 
-    output.heading(3, `generating tests for ${files.name}`);
-    output.detailsFenced(`prompt under test`, files.prompt);
+    output.heading(3, `PromptPex for ${files.name}`);
+    output.heading(4, `Prompt Under Test`)
     output.itemValue(`dir`, files.dir);
+    output.fence(files.prompt, 'md');
 
     if (!disableSafety) {
         const contentSafety = await host.contentSafety();
