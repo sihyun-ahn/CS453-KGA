@@ -14,7 +14,6 @@ script({
   PromptPex uses an LLM internally to generate and evaluate test cases and results.
   PromptPex was tested using OpenAI GPT-4o. Results on other models may vary.
 `,
-    files: "samples/openai-examples/elements.prompty",
     accept: ".prompty,*.md",
     parameters: {
         disableSafety: {
@@ -26,16 +25,11 @@ script({
         force: {
             type: "boolean",
             description: "Force overwrite of existing files",
-            default: false,
+            default: true,
         },
         models: {
             type: "string",
             description: "List of models to evaluate",
-            default: "",
-        },
-        out: {
-            type: "string",
-            description: "Output directory",
             default: "",
         },
     },

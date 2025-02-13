@@ -36,9 +36,9 @@ export interface PromptPexOptions {
  */
 export interface PromptPexContext {
     /**
-     * Prompt folder location
+     * Prompt folder location if any
      */
-    dir: string;
+    dir?: string;
     /**
      * Prompt name
      */
@@ -185,11 +185,13 @@ export async function loadPromptFiles(
         throw new Error(
             "No prompt file found, did you forget to the prompt file?"
         );
-
-    const basename = path
-        .basename(promptFile.filename)
-        .slice(0, -path.extname(promptFile.filename).length);
-    const dir = path.join(out || path.dirname(promptFile.filename), basename);
+    const filename = promptFile.filename;
+    const basename = filename
+        ? path.basename(filename).slice(0, -path.extname(filename).length)
+        : "prompt";
+    const dir = filename
+        ? path.join(out || path.dirname(filename), basename)
+        : "";
     const intent = path.join(dir, "intent.txt");
     const rules = path.join(dir, "rules.txt");
     const inverseRules = path.join(dir, "inverse_rules.txt");
@@ -1374,8 +1376,10 @@ export async function generate(
     const { output } = env;
 
     output.heading(3, `PromptPex for ${files.name}`);
+    output.itemValue(`model`, env.meta.model);
     output.heading(4, `Prompt Under Test`);
-    output.itemValue(`dir`, files.dir);
+    output.itemValue(`filename`, files.prompt.filename);
+    output.itemValue(`out`, files.dir);
     output.fence(files.prompt.content, "md");
 
     if (!disableSafety) {
