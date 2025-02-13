@@ -30,6 +30,7 @@ PromptPex provides the following capabilities:
 
 - Input Specification (IS) - Extracting input constraints of PUT using MPP (input_spec)
 - Output Rules (OR) - Extracting output constraints of PUT using MPP (rules_global)
+- Inverse Output Rules (IOR) - Inverse of the generated Output Rules
 - Output Rules Groundedness (ORG) - Checks if OR is grounded in PUT using MPP (check_rule_grounded)
 
 - Prompt Under Test Intent (PUTI) - Extracting the exact task from PUT using MMP (extract_intent)
@@ -50,16 +51,19 @@ graph TD
     PUT(["Prompt Under Test (PUT)"])
     IS["Input Specification (IS)"]
     OR["Output Rules (OR)"]
+    IOR["Inverse Output Rules (IOR)"]
     PPT["PromptPex Tests (PPT)"]
     TO["Test Output (TO) for MUT"]
 
     PUT --> IS
 
     PUT --> OR
+    OR --> IOR
 
     PUT --> PPT
     IS --> PPT
     OR --> PPT
+    IOR --> PPT
 
     PPT --> TO
     PUT --> TO
@@ -96,7 +100,7 @@ Tests generated from the rules:
 3. sentence: 'She sings beautifully.', word: 'sings'
 ```
 
-## Test Generation Flow
+## Test and Eval Workflow
 
 The diagram below shows the flow of test generation in PromptPex, starting from the PUT (database shape).
 
@@ -105,6 +109,7 @@ graph TD
     PUT[("Prompt Under Test (PUT)")]
     IS(["Input Specification (IS)"])
     OR(["Output Rules (OR)"])
+    IOR(["Inverse Output Rules (IOR)"])
     ORG["Output Rules Groundedness (ORG)"]
     PUTI(["Prompt Under Test Intent (PUTI)"])
     PPT{{"PromptPex Tests (PPT)"}}
@@ -118,6 +123,7 @@ graph TD
     PUT ==> IS
 
     PUT ==> OR
+    OR ==> IOR
 
     OR --> ORG
     PUT --> ORG
@@ -127,6 +133,7 @@ graph TD
     PUT --> PPT
     IS ==> PPT
     OR ==> PPT
+    IOR ==> PPT
 
     PPT --> TIC
     IS --> TIC

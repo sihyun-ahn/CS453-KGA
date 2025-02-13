@@ -4,6 +4,7 @@ import {
     generateRules,
     generateTests,
     loadPromptFiles,
+    outputBackgroundInformation,
     outputFile,
     parseRulesTests,
     PromptPexOptions,
@@ -43,6 +44,7 @@ const files = await loadPromptFiles(env.files[0], { disableSafety });
 
 output.heading(2, `PromptPex for ${files.name}`);
 output.itemValue(`model`, meta.model);
+await outputBackgroundInformation()
 
 // prompt info
 output.heading(3, `Prompt Under Test`);
