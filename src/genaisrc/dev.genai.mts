@@ -6,6 +6,7 @@ import {
     PromptPexContext,
     generateBaselineTests,
     generateInverseRules,
+    PromptPexOptions,
 } from "./promptpex.mts";
 
 script({
@@ -24,10 +25,12 @@ script({
     ],
 });
 const { output } = env;
-const options = {};
+const options: PromptPexOptions = {
+    outputPrompts: true
+};
 
 const repeatIntent = 1;
-const repeatInputSpec = 1;
+const repeatInputSpec = 5;
 const repeatRules = 1;
 const repeatInverseRules = 3;
 const repeatBaselineTests = 3;
