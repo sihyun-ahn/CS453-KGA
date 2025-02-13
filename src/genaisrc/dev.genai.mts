@@ -44,7 +44,7 @@ const repeastRulesGroundedness = 5;
 output.heading(1, "PromptPex Dev Mode");
 output.itemValue(`model`, env.meta.model);
 const prompts = await Promise.all(
-    env.files.map((file) => loadPromptFiles(file, out))
+    env.files.map((file) => loadPromptFiles(file, { disableSafety: true, out }))
 );
 
 async function apply(

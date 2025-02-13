@@ -26,6 +26,8 @@ export interface PromptPexOptions {
      * Add PromptPex prompts to the output
      */
     outputPrompts?: boolean;
+
+    workflowDiagram?: boolean;
 }
 
 /**
@@ -179,12 +181,16 @@ export async function loadPromptContext(
 
 export async function loadPromptFiles(
     promptFile: WorkspaceFile,
-    out?: string
+    options?: {
+        out?: string;
+        disableSafety?: boolean;
+    }
 ): Promise<PromptPexContext> {
     if (!promptFile)
         throw new Error(
             "No prompt file found, did you forget to the prompt file?"
         );
+    const { out, disableSafety } = options || {};
     const filename = promptFile.filename;
     const basename = filename
         ? path.basename(filename).slice(0, -path.extname(filename).length)
@@ -204,7 +210,7 @@ export async function loadPromptFiles(
     const ruleCoverage = path.join(dir, "rule_coverage.csv");
     const baselineTestEvals = path.join(dir, "baseline_test_evals.csv");
 
-    return {
+    const res = {
         dir,
         name: basename,
         prompt: promptFile,
@@ -220,6 +226,9 @@ export async function loadPromptFiles(
         ruleCoverages: await workspace.readText(ruleCoverage),
         baselineTestEvals: await workspace.readText(baselineTestEvals),
     } satisfies PromptPexContext;
+
+    if (!disableSafety) await checkPromptSafety(res);
+    return res;
 }
 
 function modelOptions(
@@ -422,6 +431,18 @@ export async function generateInputSpec(
     files: PromptPexContext,
     options?: PromptPexOptions
 ) {
+    const { workflowDiagram } = options || {};
+    if (workflowDiagram)
+        env.output.fence(
+            `
+            graph TD
+                PUT(["Prompt Under Test (PUT)"])
+                IS["Input Specification (IS)"]
+                PUT --> IS            
+            `,
+            "mermaid"
+        );
+
     const context = MD.content(files.prompt.content);
     const pn = "src/prompts/input_spec.prompty";
     await outputPrompty(pn, options);
@@ -477,7 +498,19 @@ export async function generateRules(
     files: PromptPexContext,
     options?: PromptPexOptions & { numRules?: number }
 ) {
-    const { numRules = RULES_NUM } = options || {};
+    const { numRules = RULES_NUM, workflowDiagram } = options || {};
+
+    env.output.fence(
+        `
+    graph TD
+        PUT(["Prompt Under Test (PUT)"])
+        OR["Output Rules (OR)"]
+    
+        PUT --> OR        
+    `,
+        "mermaid"
+    );
+
     // generate rules
     const input_data = MD.content(files.prompt.content);
     const pn = PROMPT_GENERATE_RULES;
@@ -504,6 +537,20 @@ export async function generateInverseRules(
     files: PromptPexContext,
     options?: PromptPexOptions
 ) {
+    const { workflowDiagram } = options || {};
+    if (workflowDiagram)
+        env.output.fence(
+            `
+            graph TD
+                OR["Output Rules (OR)"]
+                IOR["Output Rules (IOR)"]
+            
+                OR --> IOR
+                
+            `,
+            "mermaid"
+        );
+
     const rule = MD.content(files.rules.content);
     const pn = PROMPT_GENERATE_INVERSE_RULES;
     await outputPrompty(pn, options);
@@ -555,12 +602,35 @@ export async function generateTests(
     files: PromptPexContext,
     options?: PromptPexOptions & { num?: number }
 ) {
-    const { num = TESTS_NUM } = options || {};
+    const { num = TESTS_NUM, workflowDiagram } = options || {};
 
     if (!files.rules.content) throw new Error("No rules found");
     if (!files.inputSpec.content) throw new Error("No input spec found");
     const allRules = parseAllRules(files);
     if (!allRules) throw new Error("No rules found");
+
+    if (workflowDiagram)
+        env.output.fence(
+            `
+            graph TD
+                PUT(["Prompt Under Test (PUT)"])
+                IS["Input Specification (IS)"]
+                OR["Output Rules (OR)"]
+                IOR["Inverse Output Rules (IOR)"]
+                PPT["PromptPex Tests (PPT)"]
+            
+                PUT --> IS
+            
+                PUT --> OR
+                OR --> IOR
+            
+                PUT --> PPT
+                IS --> PPT
+                OR --> PPT
+                IOR --> PPT        
+            `,
+            "mermaid"
+        );
 
     const context = MD.content(files.prompt.content);
     let repaired = false;
@@ -987,7 +1057,7 @@ function parseRules(rules: string) {
         : [];
 }
 
-function parseRulesTests(text: string): PromptPexTest[] {
+export function parseRulesTests(text: string): PromptPexTest[] {
     if (isUnassistedResponse(text)) return [];
     const content = text?.replace(/\\"/g, '""');
     const rulesTests = content
@@ -1358,10 +1428,28 @@ export async function generateReports(files: PromptPexContext) {
     return fn;
 }
 
-function outputFile(file: WorkspaceFile) {
+export function outputFile(file: WorkspaceFile) {
     const { output } = env;
     const contentType = path.extname(file.filename);
     output.fence(file.content, contentType);
+}
+
+export async function checkPromptSafety(files: PromptPexContext) {
+    const contentSafety = await host.contentSafety();
+    if (!contentSafety) {
+        env.output.warn(`content safety not configured, skipping`);
+    } else {
+        if (
+            (await contentSafety.detectHarmfulContent?.(files.prompt))
+                ?.harmfulContentDetected
+        )
+            throw new Error(`Harmful content detected in prompt`);
+        if (
+            (await contentSafety.detectPromptInjection?.(files.prompt))
+                ?.attackDetected
+        )
+            throw new Error(`Harmful content detected in rules`);
+    }
 }
 
 export async function generate(
@@ -1382,23 +1470,7 @@ export async function generate(
     output.itemValue(`out`, files.dir);
     output.fence(files.prompt.content, "md");
 
-    if (!disableSafety) {
-        const contentSafety = await host.contentSafety();
-        if (!contentSafety) {
-            output.warn(`content safety not configured, skipping`);
-        } else {
-            if (
-                (await contentSafety.detectHarmfulContent?.(files.prompt))
-                    ?.harmfulContentDetected
-            )
-                throw new Error(`Harmful content detected in prompt`);
-            if (
-                (await contentSafety.detectPromptInjection?.(files.prompt))
-                    ?.attackDetected
-            )
-                throw new Error(`Harmful content detected in rules`);
-        }
-    }
+    if (!disableSafety) await checkPromptSafety(files);
 
     // generate intent
     output.heading(4, "Intent");
