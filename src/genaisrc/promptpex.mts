@@ -1123,7 +1123,7 @@ export function parseRulesTests(text: string): PromptPexTest[] {
     return rulesTests.map((r) => ({ ...r, testinput: r.testinput || "" }));
 }
 
-function parseTestResults(files: PromptPexContext): PromptPexTestResult[] {
+export function parseTestResults(files: PromptPexContext): PromptPexTestResult[] {
     const rules = parseRules(files.rules.content);
     const res = CSV.parse(files.testOutputs.content, {
         delimiter: ",",

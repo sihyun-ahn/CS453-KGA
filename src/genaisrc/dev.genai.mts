@@ -10,7 +10,6 @@ import {
     evaluateRulesGrounded,
     evaluateRulesCoverage,
     generateTests,
-    outputBackgroundInformation,
 } from "./promptpex.mts";
 
 script({
@@ -48,7 +47,6 @@ const prompts = await Promise.all(
     env.files.map((file) => loadPromptFiles(file, { disableSafety: true, out }))
 );
 prompts.forEach((files) => output.itemValue(files.name, files.prompt.filename));
-await outputBackgroundInformation();
 
 async function apply(
     title: string,
@@ -68,6 +66,7 @@ async function apply(
                 output.fence(file.content, "text");
             }
         }
+        if (file) await workspace.writeText(file.filename, file.content);
     }
 }
 
@@ -109,7 +108,7 @@ await apply("Rules", repeatRules, undefined, async (files) => {
 await apply(
     "Inverse Rules",
     repeatInverseRules,
-    (_ = _.inverseRules),
+    (_) => _.inverseRules,
     (files) => generateInverseRules(files, options)
 );
 await apply(

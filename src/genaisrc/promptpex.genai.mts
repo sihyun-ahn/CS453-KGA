@@ -7,12 +7,15 @@ import {
     outputBackgroundInformation,
     outputFile,
     parseRulesTests,
+    parseTestResults,
     PromptPexOptions,
+    runTests,
 } from "./promptpex.mts";
 
 script({
     title: "PromptPex Test Generator",
     description: `Generate tests for a LLM prompt. 
+<details><summary>What is PromptPex?</summary>
   This tool accepts a prompt file formatted in the Prompty language 
   and generates tests for them. The tests can be used to validate your prompt
   for various models automatically.
@@ -23,6 +26,7 @@ script({
 
   PromptPex uses an LLM internally to generate and evaluate test cases and results.
   PromptPex was tested using OpenAI GPT-4o / Llama3.3 70b. Results on other models may vary.
+</details>
 `,
     accept: ".prompty,*.md",
     parameters: {
@@ -32,11 +36,17 @@ script({
                 "Do not include safety system prompts and do not run safety content service",
             default: false,
         },
+        models: {
+            type: "string",
+            description:
+                "List of models to run the prompt again; semi-colon separated",
+        },
     },
 });
 
 const { output, meta, vars } = env;
 const { disableSafety } = vars;
+const models = (vars.models || "").split(/;/g).filter((m) => !!m);
 const options: PromptPexOptions = {
     workflowDiagram: true,
 };
@@ -44,7 +54,7 @@ const files = await loadPromptFiles(env.files[0], { disableSafety });
 
 output.heading(2, `PromptPex for ${files.name}`);
 output.itemValue(`model`, meta.model);
-await outputBackgroundInformation()
+await outputBackgroundInformation();
 
 // prompt info
 output.heading(3, `Prompt Under Test`);
@@ -75,3 +85,12 @@ const tests = parseRulesTests(files.tests.content).map(
 output.table(tests);
 output.detailsFenced(`data`, tests, "json");
 output.detailsFenced(`generated`, files.tests.content);
+
+// run tests against the model(s)
+for (const model of models) {
+    output.heading(3, `Testing against ${model}`);
+    files.testOutputs.content = await runTests(files, model);
+    const results = parseTestResults(files);
+    output.table(results);
+    output.detailsFenced(`data`, results, "json");
+}
