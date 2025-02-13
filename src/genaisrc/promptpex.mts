@@ -553,16 +553,17 @@ export async function generateRules(
 ) {
     const { numRules = RULES_NUM, workflowDiagram } = options || {};
 
-    env.output.fence(
-        `
+    if (workflowDiagram)
+        env.output.fence(
+            `
     graph TD
         PUT(["Prompt Under Test (PUT)"])
         OR["Output Rules (OR)"]
     
         PUT --> OR        
     `,
-        "mermaid"
-    );
+            "mermaid"
+        );
 
     // generate rules
     const input_data = MD.content(files.prompt.content);

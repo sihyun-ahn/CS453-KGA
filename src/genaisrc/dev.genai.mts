@@ -10,6 +10,7 @@ import {
     evaluateRulesGrounded,
     evaluateRulesCoverage,
     generateTests,
+    outputBackgroundInformation,
 } from "./promptpex.mts";
 
 script({
@@ -46,30 +47,43 @@ output.itemValue(`model`, env.meta.model);
 const prompts = await Promise.all(
     env.files.map((file) => loadPromptFiles(file, { disableSafety: true, out }))
 );
+prompts.forEach((files) => output.itemValue(files.name, files.prompt.filename));
+await outputBackgroundInformation();
 
 async function apply(
     title: string,
     repeat: number,
-    fn: (files: PromptPexContext) => Awaitable<void>
+    selector: (files: PromptPexContext) => WorkspaceFile,
+    fn: (files: PromptPexContext) => Awaitable<string>
 ) {
     output.heading(2, title);
     for (const files of prompts) {
         output.heading(3, files.prompt.filename.replace(/^samples\//, ""));
-        for (let i = 0; i < Math.max(1, repeat); ++i) {
-            await fn(files);
+        const file = selector?.(files);
+        if (repeat === 0 && file?.content) continue;
+        for (let i = 0; i < repeat; ++i) {
+            const res = await fn(files);
+            if (file) {
+                file.content = res;
+                output.fence(file.content, "text");
+            }
         }
     }
 }
 
-await apply("Intents", repeatIntent, async (files) => {
-    files.intent.content = await generateIntent(files, options);
-    output.fence(files.intent.content, "text");
-});
-await apply("Input Specs", repeatInputSpec, async (files) => {
-    files.inputSpec.content = await generateInputSpec(files, options);
-    output.fence(files.inputSpec.content, "text");
-});
-await apply("Rules", repeatRules, async (files) => {
+await apply(
+    "Intents",
+    repeatIntent,
+    (_) => _.intent,
+    (files) => generateIntent(files, options)
+);
+await apply(
+    "Input Specs",
+    repeatInputSpec,
+    (_) => _.inputSpec,
+    (files) => generateInputSpec(files, options)
+);
+await apply("Rules", repeatRules, undefined, async (files) => {
     files.rules.content = await generateRules(files, options);
     output.fence(files.rules.content, "text");
 
@@ -90,22 +104,30 @@ await apply("Rules", repeatRules, async (files) => {
         },
     ]);
     output.detailsFenced(`data`, groundedness, "json");
+    return "";
 });
-await apply("Inverse Rules", repeatInverseRules, async (files) => {
-    files.inverseRules.content = await generateInverseRules(files, options);
-    output.fence(files.inverseRules.content, "text");
-});
-await apply("Tests", repeatTests, async (files) => {
-    files.tests.content = await generateTests(files, options);
-    output.fence(files.tests.content, "csv");
-});
-await apply("Baseline Tests", repeatBaselineTests, async (files) => {
-    files.baselineTests.content = await generateBaselineTests(files, options);
-    output.fence(files.baselineTests.content, "text");
-});
+await apply(
+    "Inverse Rules",
+    repeatInverseRules,
+    (_ = _.inverseRules),
+    (files) => generateInverseRules(files, options)
+);
+await apply(
+    "Tests",
+    repeatTests,
+    (_) => _.tests,
+    (files) => generateTests(files, options)
+);
+await apply(
+    "Baseline Tests",
+    repeatBaselineTests,
+    (_) => _.baselineTests,
+    (files) => generateBaselineTests(files, options)
+);
 await apply(
     "Evaluating Rules Coverage",
     repeastRulesGroundedness,
+    undefined,
     async (files) => {
         output.heading(3, "Evaluating Rules Coverage");
         const coverage = await evaluateRulesCoverage(files, options);
@@ -124,5 +146,6 @@ await apply(
             },
         ]);
         output.detailsFenced(`data`, coverage, "json");
+        return "";
     }
 );
