@@ -1,4 +1,4 @@
-import { loadPromptContext, generate, computeOverview } from "./promptpex.mts";
+import { loadPromptContext, generate, computeOverview } from "./paper-runtime.mts";
 
 script({
   title: "PromptPex Test Generator",
