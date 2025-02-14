@@ -70,6 +70,7 @@ const configs: (PromptPexOptions & { name: string })[] = [
             eval: "ollama:deepseek-r1:8b",
         },
     },
+    /*
     {
         name: "deepskeep-r1:32b",
         modelAliases: {
@@ -78,6 +79,7 @@ const configs: (PromptPexOptions & { name: string })[] = [
             eval: "ollama:deepseek-r1:32b",
         },
     },
+    */
     /*
     {
         name: "deepskeep-r1:70b",
