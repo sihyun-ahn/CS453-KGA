@@ -6,8 +6,8 @@ import {
     parseRulesTests,
     parseTestEvals,
     parseTestResults,
-    resolveRule,
 } from "./parsers.mts";
+import { resolveRule } from "./resolvers.mts";
 import type { PromptPexContext, PromptPexTestResult } from "./types.mts";
 
 export function computeOverview(

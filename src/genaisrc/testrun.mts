@@ -4,10 +4,12 @@ import {
     parseBaselineTests,
     parseOKERR,
     parseRulesTests,
+} from "./parsers.mts";
+import {
+    resolveTestPath,
     resolvePromptArgs,
     resolveRule,
-    resolveTestPath,
-} from "./parsers.mts";
+} from "./resolvers.mts";
 import { evaluateTestResult } from "./testresulteval.mts";
 import type {
     PromptPexContext,

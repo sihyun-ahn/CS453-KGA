@@ -4,9 +4,9 @@ import {
     modelOptions,
     checkLLMResponse,
     parseOKERR,
-    resolveRuleEvalPath,
     parseRules,
 } from "./parsers.mts";
+import { resolveRuleEvalPath } from "./resolvers.mts";
 import type {
     PromptPexContext,
     PromptPexOptions,

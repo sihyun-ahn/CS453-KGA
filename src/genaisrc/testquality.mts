@@ -3,10 +3,12 @@ import {
     parseOKERR,
     parseAllRules,
     parseRulesTests,
+} from "./parsers.mts";
+import {
+    resolveTestEvalPath,
     resolveRule,
     resolvePromptArgs,
-    resolveTestEvalPath,
-} from "./parsers.mts";
+} from "./resolvers.mts";
 import { evaluateTestResult } from "./testresulteval.mts";
 import type {
     PromptPexContext,
