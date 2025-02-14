@@ -1,7 +1,7 @@
 import {
     generateInputSpec,
-    generateRules,
-    generateInverseRules,
+    generateOutputRules,
+    generateInverseOutputRules,
     generateTests,
 } from "./generation.mts";
 import { outputBackgroundInformation, outputFile } from "./output.mts";
@@ -153,12 +153,12 @@ outputFile(files.inputSpec);
 
 // generate rules
 output.heading(3, "Output Rules");
-files.rules.content = await generateRules(files, options);
+files.rules.content = await generateOutputRules(files, options);
 outputFile(files.rules);
 
 // generate inverse rules
 output.heading(3, "Inverse Output Rules");
-files.inverseRules.content = await generateInverseRules(files, options);
+files.inverseRules.content = await generateInverseOutputRules(files, options);
 outputFile(files.inverseRules);
 
 // generate tests

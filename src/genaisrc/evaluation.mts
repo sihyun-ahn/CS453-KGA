@@ -1,14 +1,8 @@
-import {
-    PROMPT_CHECK_RULE_GROUNDED,
-    RULE_EVALUATION_DIR,
-    TEST_EVALUATION_DIR,
-} from "./constants.mts";
-import { outputPrompty } from "./output.mts";
+import { TEST_EVALUATION_DIR } from "./constants.mts";
 import {
     modelOptions,
     checkLLMResponse,
     parseOKERR,
-    parseRules,
     parsBaselineTestEvals,
     parseBaselineTests,
     resolvePromptId,
@@ -16,59 +10,15 @@ import {
     parseRulesTests,
     resolveRule,
     resolveTestId,
+    resolvePromptArgs,
 } from "./parsers.mts";
-import {
+import type {
     PromptPexContext,
     PromptPexOptions,
-    PromptPexRuleEval,
     PromptPexTest,
     PromptPexTestEval,
     PromptPexTestResult,
 } from "./types.mts";
-
-export async function evaluateRuleGrounded(
-    files: PromptPexContext,
-    ruleid: number,
-    rule: string,
-    options?: PromptPexOptions
-): Promise<PromptPexRuleEval> {
-    const { id, promptid, file } = await resolveRuleEvalPath(files, rule);
-    if (file.content) {
-        const res = parsers.JSON5(file) as PromptPexRuleEval;
-        if (res && !res.error) {
-            res.ruleid = ruleid;
-            return res;
-        }
-    }
-
-    const description = MD.content(files.prompt.content);
-    const res = await runPrompt(
-        (ctx) => {
-            ctx.importTemplate(PROMPT_CHECK_RULE_GROUNDED, {
-                rule,
-                description,
-            });
-        },
-        {
-            ...modelOptions("eval", options),
-            choices: ["OK", "ERR"],
-            label: `${files.name}> eval rule grounded ${rule.slice(0, 18)}...`,
-        }
-    );
-    checkLLMResponse(res);
-
-    const ruleEval: PromptPexRuleEval = {
-        id,
-        promptid,
-        ruleid,
-        rule,
-        groundedText: res.text,
-        grounded: parseOKERR(res.text),
-        error: res.error?.message,
-    };
-    await workspace.writeText(file.filename, JSON.stringify(ruleEval, null, 2));
-    return ruleEval;
-}
 
 export async function evaluateBaselineTests(
     files: PromptPexContext,
@@ -159,43 +109,6 @@ export async function evaluateRulesCoverage(
         files.ruleCoverages.content
     );
     return results;
-}
-
-export async function evaluateRulesGrounded(
-    files: PromptPexContext,
-    options?: PromptPexOptions
-) {
-    const rules = parseRules(files.rules.content);
-    if (!rules) throw new Error("No rules found");
-    await outputPrompty(PROMPT_CHECK_RULE_GROUNDED, options);
-    const res: PromptPexRuleEval[] = [];
-    for (let i = 0; i < rules.length; ++i) {
-        const ev = await evaluateRuleGrounded(files, i + 1, rules[i], options);
-        res.push(ev);
-    }
-
-    files.ruleEvals.content = CSV.stringify(res, { header: true });
-    await workspace.writeText(
-        files.ruleEvals.filename,
-        files.ruleEvals.content
-    );
-    return res;
-}
-
-async function resolveRuleEvalPath(files: PromptPexContext, rule: string) {
-    const hash = await resolveRuleHash(files, rule);
-    const promptid = await resolvePromptId(files);
-    const dir = path.join(files.dir, RULE_EVALUATION_DIR);
-    const file = await workspace.readText(path.join(dir, `${hash}.json`));
-    return { id: hash, promptid, file };
-}
-
-async function resolveRuleHash(files: PromptPexContext, rule: string) {
-    const content = MD.content(files.prompt.content);
-    const ruleid = await parsers.hash(content + rule, {
-        length: 7,
-    });
-    return ruleid;
 }
 
 async function resolveTestEvalPath(

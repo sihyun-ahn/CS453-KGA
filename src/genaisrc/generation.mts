@@ -76,7 +76,7 @@ export async function generateIntent(
     return res.text;
 }
 
-export async function generateRules(
+export async function generateOutputRules(
     files: PromptPexContext,
     options?: PromptPexOptions & { numRules?: number }
 ) {
@@ -115,7 +115,7 @@ PUT --> OR
     return rules;
 }
 
-export async function generateInverseRules(
+export async function generateInverseOutputRules(
     files: PromptPexContext,
     options?: PromptPexOptions
 ) {

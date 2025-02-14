@@ -1,4 +1,4 @@
-import { CONCURRENCY } from "./constants.mts";
+import { CONCURRENCY, RULE_EVALUATION_DIR } from "./constants.mts";
 import { checkPromptSafety } from "./safety.mts";
 import type {
     PromptPexContext,
@@ -309,4 +309,23 @@ export function resolvePromptArgs(
     */
     }
     return { inputs, args, testInput, expectedOutput };
+}
+
+export async function resolveRuleEvalPath(
+    files: PromptPexContext,
+    rule: string
+) {
+    const hash = await resolveRuleHash(files, rule);
+    const promptid = await resolvePromptId(files);
+    const dir = path.join(files.dir, RULE_EVALUATION_DIR);
+    const file = await workspace.readText(path.join(dir, `${hash}.json`));
+    return { id: hash, promptid, file };
+}
+
+export async function resolveRuleHash(files: PromptPexContext, rule: string) {
+    const content = MD.content(files.prompt.content);
+    const ruleid = await parsers.hash(content + rule, {
+        length: 7,
+    });
+    return ruleid;
 }

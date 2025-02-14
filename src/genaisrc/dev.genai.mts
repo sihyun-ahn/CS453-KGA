@@ -1,13 +1,14 @@
-import { evaluateRulesCoverage, evaluateRulesGrounded } from "./evaluation.mts";
+import { evaluateRulesCoverage } from "./evaluation.mts";
 import {
     generateBaselineTests,
     generateInputSpec,
     generateIntent,
-    generateInverseRules,
-    generateRules,
+    generateInverseOutputRules,
+    generateOutputRules,
     generateTests,
 } from "./generation.mts";
 import { loadPromptFiles } from "./parsers.mts";
+import { evaluateRulesGrounded } from "./rulesgroundeness.mts";
 import type { PromptPexContext, PromptPexOptions } from "./types.mts";
 
 script({
@@ -147,7 +148,7 @@ await apply(
     (files, options) => generateInputSpec(files, options)
 );
 await apply("Rules", repeatRules, undefined, async (files, options) => {
-    files.rules.content = await generateRules(files, options);
+    files.rules.content = await generateOutputRules(files, options);
     output.fence(files.rules.content, "text");
 
     output.heading(3, "Evaluating Rules Groundedness");
@@ -172,7 +173,7 @@ await apply(
     "Inverse Rules",
     repeatInverseRules,
     (_) => _.inverseRules,
-    (files, options) => generateInverseRules(files, options)
+    (files, options) => generateInverseOutputRules(files, options)
 );
 await apply(
     "Tests",
