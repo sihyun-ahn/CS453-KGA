@@ -1,4 +1,4 @@
-import { evaluateBaselineTests } from "./baselinetestseval.mts";
+import { evaluateBaselineTests } from "./src/baselinetestseval.mts";
 import {
     generateIntent,
     generateInputSpec,
@@ -6,16 +6,16 @@ import {
     generateBaselineTests,
     generateInverseOutputRules,
     generateOutputRules,
-} from "./generation.mts";
-import { toLatexTable } from "./latex.mts";
-import { outputFile } from "./output.mts";
-import { loadPromptContext } from "./parsers.mts";
-import { computeOverview, generateReports } from "./reports.mts";
-import { evaluateRulesGrounded } from "./rulesgroundeness.mts";
-import { evaluateRulesSpecAgreement } from "./rulesspecagreement.mts";
-import { evaluateTestsQuality } from "./testquality.mts";
-import { runTests } from "./testrun.mts";
-import { PromptPexContext, PromptPexOptions } from "./types.mts";
+} from "./src/generation.mts";
+import { toLatexTable } from "./src/latex.mts";
+import { outputFile } from "./src/output.mts";
+import { loadPromptContext } from "./src/parsers.mts";
+import { computeOverview, generateReports } from "./src/reports.mts";
+import { evaluateRulesGrounded } from "./src/rulesgroundeness.mts";
+import { evaluateRulesSpecAgreement } from "./src/rulesspecagreement.mts";
+import { evaluateTestsQuality } from "./src/testquality.mts";
+import { runTests } from "./src/testrun.mts";
+import { PromptPexContext, PromptPexOptions } from "./src/types.mts";
 
 script({
     title: "PromptPex Paper Evaluation",

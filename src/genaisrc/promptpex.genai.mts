@@ -3,15 +3,15 @@ import {
     generateOutputRules,
     generateInverseOutputRules,
     generateTests,
-} from "./generation.mts";
-import { outputBackgroundInformation, outputFile } from "./output.mts";
+} from "./src/generation.mts";
+import { outputBackgroundInformation, outputFile } from "./src/output.mts";
 import {
     loadPromptFiles,
     parseRulesTests,
     parseTestResults,
-} from "./parsers.mts";
-import { runTests } from "./testrun.mts";
-import type { PromptPexOptions } from "./types.mts";
+} from "./src/parsers.mts";
+import { runTests } from "./src/testrun.mts";
+import type { PromptPexOptions } from "./src/types.mts";
 
 script({
     title: "PromptPex Test Generator",

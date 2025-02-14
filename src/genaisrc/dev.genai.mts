@@ -1,4 +1,4 @@
-import { evaluateRulesSpecAgreement } from "./rulesspecagreement.mts";
+import { evaluateRulesSpecAgreement } from "./src/rulesspecagreement.mts";
 import {
     generateBaselineTests,
     generateInputSpec,
@@ -6,10 +6,10 @@ import {
     generateInverseOutputRules,
     generateOutputRules,
     generateTests,
-} from "./generation.mts";
-import { loadPromptFiles } from "./parsers.mts";
-import { evaluateRulesGrounded } from "./rulesgroundeness.mts";
-import type { PromptPexContext, PromptPexOptions } from "./types.mts";
+} from "./src/generation.mts";
+import { loadPromptFiles } from "./src/parsers.mts";
+import { evaluateRulesGrounded } from "./src/rulesgroundeness.mts";
+import type { PromptPexContext, PromptPexOptions } from "./src/types.mts";
 
 script({
     title: "PromptPex Dev",
