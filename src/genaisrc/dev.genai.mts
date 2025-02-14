@@ -41,6 +41,7 @@ const repeatTests = 1;
 const repeatBaselineTests = 1;
 const repeastRulesGroundedness = 5;
 const configs: (PromptPexOptions & { name: string })[] = [
+    /*
     {
         name: "gpt-4o",
         modelAliases: {
@@ -50,19 +51,39 @@ const configs: (PromptPexOptions & { name: string })[] = [
             eval: "azure:gpt-4o_2024-08-06",
         },
     },
-/*    
+    */
+    /*
     {
-        name: "llama3.3",
+        name: "llama3.3:70b",
         modelAliases: {
             large: "not-supported",
             rules: "ollama:llama3.3",
             eval: "ollama:llama3.3",
         },
-    },*/
-];
+    },
+    */
+    {
+        name: "deepskeep-r1:8b",
+        modelAliases: {
+            large: "not-supported",
+            rules: "ollama:deepseek-r1:8b",
+            eval: "ollama:deepseek-r1:8b",
+        },
+    },
+    /*
+    {
+        name: "deepskeep-r1:70b",
+        modelAliases: {
+            large: "not-supported",
+            rules: "ollama:deepseek-r1:70b",
+            eval: "ollama:deepseek-r1:70b",
+        },
+    },
+    */
+].filter((c) => !!c);
 
 output.heading(1, "PromptPex Dev Mode");
-output.itemValue(`model`, env.meta.model);
+output.detailsFenced(`configurations`, configs, "yaml");
 const prompts = await Promise.all(
     env.files.map((file) => loadPromptFiles(file, { disableSafety: true, out }))
 );
@@ -89,7 +110,7 @@ async function apply(
 
         for (const config of configs) {
             const { name, ...restConfig } = config;
-            output.heading(3, name)
+            output.heading(3, name);
             for (let i = 0; i < repeat; ++i) {
                 const res = await fn(files, { ...commOptions, ...restConfig });
                 if (file) {
