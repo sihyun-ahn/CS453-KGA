@@ -3,14 +3,14 @@ import {
     generateRules,
     generateInverseRules,
     generateTests,
-} from "./generation.genai.mts";
+} from "./generation.mts";
 import { outputBackgroundInformation, outputFile } from "./output.mts";
 import {
     loadPromptFiles,
     parseRulesTests,
     parseTestResults,
 } from "./parsers.mts";
-import { runTests } from "./promptpex.mts";
+import { runTests } from "./testrun.mts";
 import type { PromptPexOptions } from "./types.mts";
 
 script({

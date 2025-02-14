@@ -6,7 +6,7 @@ import {
     generateInverseRules,
     generateRules,
     generateTests,
-} from "./generation.genai.mts";
+} from "./generation.mts";
 import { loadPromptFiles } from "./parsers.mts";
 import type { PromptPexContext, PromptPexOptions } from "./types.mts";
 
