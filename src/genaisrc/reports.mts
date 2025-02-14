@@ -5,8 +5,8 @@ import {
     parseRules,
     parseRulesTests,
     parseTestResults,
-    PromptPexContext,
 } from "./promptpex.mts";
+import type { PromptPexContext } from "./types.mts";
 
 export async function generateMarkdownReport(files: PromptPexContext) {
     const tests = [
