@@ -76,7 +76,7 @@ promptPex:
 
 </details>
 `,
-    accept: ".prompty,*.md",
+    accept: ".prompty,*.md,*.txt",
     parameters: {
         disableSafety: {
             type: "boolean",
