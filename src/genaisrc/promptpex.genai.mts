@@ -15,11 +15,52 @@ import {
 script({
     title: "PromptPex Test Generator",
     description: `Generate tests for a LLM prompt using PromptPex.
-<details><summary>Frontmatter configuration</summary>
-You can override parts of the test generation
-process by providing values in the frontmatter of the prompt.
 
-\`\`\`yaml
+<details><summary>What is PromptPex?</summary>
+  This tool accepts a prompt file formatted in Markdown
+  and generates tests for them. The tests can be used to validate your prompt
+  for various models automatically.
+
+  - [Markdown Prompty Syntax](https://prompty.ai/docs)
+  - [GitHub](https://github.com/microsoft/promptpex/)
+  - [Archiv](https://github.com/microsoft/promptpex/)
+
+  PromptPex uses an LLM internally to generate and evaluate test cases and results.
+  PromptPex was tested using OpenAI GPT-4o / Llama3.3 70b. Results on other models may vary.
+</details>
+
+<details><summary>Prompt format</summary>
+
+PromptPex accepts prompts formatted in Markdown with a YAML frontmatter section (optional).
+
+\`\`\`markdown
+---
+...
+inputs:
+  some_imput:
+    type: "string"
+---
+system:
+This is your system prompt.
+
+user:
+This is your user prompt.
+{{ some_input }}
+ \`\`\`
+
+- The content of the markdoown is the chat conversation. 
+\`system:\` is the system prompt and \`user:\` is the user prompt.
+- The input variables are defined in the frontmatter of the prompt.
+- If not input variables are defined, PromptPex will append the generated test to the user prompt.
+
+### Frontmatter
+
+You can override parts of the test generation
+process by providing values in the frontmatter of the prompt (all values are optional).
+
+\`\`\`markdown
+---
+...
 promptPex:
   inputSpec: "input constraints"
   outputRules: "output constraints"
@@ -30,20 +71,9 @@ promptPex:
     outputRules: "Additional output rules instructions"
     inverseOutputRules: "Additional inverse output rules instructions"
     intent: "Additional intent of the prompt"
+---
 \`\`\`
 
-</details>
-<details><summary>What is PromptPex?</summary>
-  This tool accepts a prompt file formatted in Markdown (Prompty format)
-  and generates tests for them. The tests can be used to validate your prompt
-  for various models automatically.
-
-  - [Markdown Prompty Syntax](https://prompty.ai/docs)
-  - [GitHub](https://github.com/microsoft/promptpex/)
-  - [Archiv](https://github.com/microsoft/promptpex/)
-
-  PromptPex uses an LLM internally to generate and evaluate test cases and results.
-  PromptPex was tested using OpenAI GPT-4o / Llama3.3 70b. Results on other models may vary.
 </details>
 `,
     accept: ".prompty,*.md",
