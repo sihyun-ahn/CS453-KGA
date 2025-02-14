@@ -1,14 +1,12 @@
-import { outputBackgroundInformation, outputFile } from "./output.mts";
 import {
     generateInputSpec,
-    generateInverseRules,
     generateRules,
+    generateInverseRules,
     generateTests,
-    loadPromptFiles,
-    parseRulesTests,
-    parseTestResults,
-    runTests,
-} from "./promptpex.mts";
+} from "./generation.genai.mts";
+import { outputBackgroundInformation, outputFile } from "./output.mts";
+import { parseRulesTests, parseTestResults } from "./parsers.mts";
+import { loadPromptFiles, runTests } from "./promptpex.mts";
 import type { PromptPexOptions } from "./types.mts";
 
 script({

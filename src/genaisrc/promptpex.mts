@@ -1,25 +1,24 @@
-import { outputPrompty, outputWorkflowDiagram } from "./output.mts";
-import { checkPromptSafety } from "./safety.mts";
+import { CONCURRENCY, PROMPT_CHECK_RULE_GROUNDED } from "./constants.mts";
+import { outputPrompty } from "./output.mts";
 import {
-    PromptPexContext,
-    PromptPexModelAliases,
-    PromptPexOptions,
-    PromptPexTest,
-} from "./types.mts";
+    checkLLMResponse,
+    modelOptions,
+    parsBaselineTestEvals,
+    parseAllRules,
+    parseBaselineTests,
+    parseInputs,
+    parseRuleEvals,
+    parseRules,
+    parseRulesTests,
+    parseTestEvals,
+    parseTestResults,
+    tidyRulesFile,
+} from "./parsers.mts";
+import { checkPromptSafety } from "./safety.mts";
+import { PromptPexContext, PromptPexOptions, PromptPexTest } from "./types.mts";
 
-const CONCURRENCY = 2;
-const RULES_NUM = 0;
-const TESTS_NUM = 3;
 const TEST_EVALUATION_DIR = "test_evals";
 const RULE_EVALUATION_DIR = "rule_evals";
-
-const PROMPT_GENERATE_INPUT_SPEC = "src/prompts/input_spec.prompty";
-const PROMPT_GENERATE_INTENT = "src/prompts/extract_intent.prompty";
-const PROMPT_GENERATE_RULES = "src/prompts/rules_global.prompty";
-const PROMPT_GENERATE_BASELINE_TESTS = "src/prompts/baseline_test.prompty";
-const PROMPT_GENERATE_INVERSE_RULES = "src/prompts/inverse_rule.prompty";
-const PROMPT_GENERATE_TESTS = "src/prompts/test.prompty";
-const PROMPT_CHECK_RULE_GROUNDED = "src/prompts/check_rule_grounded.prompty";
 
 export interface PromptPexTestResult {
     id: string;
@@ -133,46 +132,6 @@ export async function loadPromptFiles(
         res.inverseRules.content = meta.inverseOutputRules;
     if (!disableSafety) await checkPromptSafety(res);
     return res;
-}
-
-function modelOptions(
-    modelAlias: PromptPexModelAliases,
-    options: PromptPexOptions
-): PromptGeneratorOptions {
-    const { temperature = 1, modelAliases } = options || {};
-    return {
-        model: modelAliases?.[modelAlias] || modelAlias,
-        temperature,
-        responseType: "text",
-        // RAI must be checked by an external service
-        system: [],
-    };
-}
-
-function isUnassistedResponse(text: string) {
-    return /i can't assist with that|i'm sorry/i.test(text);
-}
-
-function checkLLMResponse(res: RunPromptResult) {
-    if (res.error) throw new Error(res.error.message);
-    if (isUnassistedResponse(res.text))
-        throw new Error("LLM failed to generate response");
-    return res.text;
-}
-
-function tidyRules(text: string) {
-    if (isUnassistedResponse(text)) return "";
-    return text
-        .split(/\n/g)
-        .map((line) => line.replace(/^(\d+\.|_|-|\*)\s+/i, "")) // unneded numbering
-        .filter((s) => !!s)
-        .filter((s) => !/^\s*Rules:\s*$/i.test(s))
-        .join("\n");
-}
-
-function tidyRulesFile(file: WorkspaceFile) {
-    if (file?.content) file.content = tidyRules(file.content);
-    return file;
 }
 
 export async function evaluateRuleGrounded(
@@ -329,253 +288,6 @@ export async function evaluateRulesGrounded(
         files.ruleEvals.content
     );
     return res;
-}
-
-export async function generateInputSpec(
-    files: PromptPexContext,
-    options?: PromptPexOptions
-) {
-    const instructions = options?.instructions?.inputSpec || "";
-    outputWorkflowDiagram(
-        `PUT(["Prompt Under Test (PUT)"])
-IS["Input Specification (IS)"]
-PUT --> IS`,
-        options
-    );
-
-    const context = MD.content(files.prompt.content);
-    const pn = PROMPT_GENERATE_INPUT_SPEC;
-    await outputPrompty(pn, options);
-    const res = await runPrompt(
-        (ctx) => {
-            ctx.importTemplate(pn, {
-                context,
-                instructions,
-            });
-        },
-        {
-            ...modelOptions("rules", options),
-            //      logprobs: true,
-            label: `${files.name}> generate input spec`,
-        }
-    );
-    checkLLMResponse(res);
-    return tidyRules(res.text);
-}
-
-export async function generateIntent(
-    files: PromptPexContext,
-    options?: PromptPexOptions
-) {
-    const context = MD.content(files.prompt.content);
-    const instructions = options?.instructions?.intent || "";
-    const pn = PROMPT_GENERATE_INTENT;
-    await outputPrompty(pn, options);
-    const res = await runPrompt(
-        (ctx) => {
-            ctx.importTemplate(pn, {
-                prompt: context,
-                instructions,
-            });
-        },
-        {
-            ...modelOptions("rules", options),
-            //      logprobs: true,
-            label: `${files.name}> generate intent`,
-        }
-    );
-    checkLLMResponse(res);
-    return res.text;
-}
-
-export async function generateRules(
-    files: PromptPexContext,
-    options?: PromptPexOptions & { numRules?: number }
-) {
-    const { numRules = RULES_NUM } = options || {};
-    const instructions = options?.instructions?.outputRules || "";
-
-    outputWorkflowDiagram(
-        `PUT(["Prompt Under Test (PUT)"])
-OR["Output Rules (OR)"]
-
-PUT --> OR        
-`,
-        options
-    );
-
-    // generate rules
-    const input_data = MD.content(files.prompt.content);
-    const pn = PROMPT_GENERATE_RULES;
-    await outputPrompty(pn, options);
-    const res = await runPrompt(
-        (ctx) => {
-            ctx.importTemplate(pn, {
-                num_rules: numRules,
-                input_data,
-                instructions,
-            });
-        },
-        {
-            ...modelOptions("rules", options),
-            //      logprobs: true,
-            label: `${files.name}> generate rules`,
-        }
-    );
-    checkLLMResponse(res);
-    const rules = tidyRules(res.text);
-    return rules;
-}
-
-export async function generateInverseRules(
-    files: PromptPexContext,
-    options?: PromptPexOptions
-) {
-    const instructions = options?.instructions?.inverseOutputRules || "";
-    outputWorkflowDiagram(
-        `OR["Output Rules (OR)"]
-IOR["Inverse Output Rules (IOR)"]
-OR --> IOR    
-`,
-        options
-    );
-
-    const rule = MD.content(files.rules.content);
-    const pn = PROMPT_GENERATE_INVERSE_RULES;
-    await outputPrompty(pn, options);
-    const res = await runPrompt(
-        (ctx) => {
-            ctx.importTemplate(pn, {
-                rule,
-                instructions,
-            });
-        },
-        {
-            ...modelOptions("rules", options),
-            //      logprobs: true,
-            label: `${files.name}> inverse rules`,
-        }
-    );
-    checkLLMResponse(res);
-    return tidyRules(res.text);
-}
-
-export async function generateBaselineTests(
-    files: PromptPexContext,
-    options?: PromptPexOptions & { num?: number }
-): Promise<string> {
-    const tests = parseRulesTests(files.tests.content);
-    const { num = tests.length } = options || {};
-    const context = MD.content(files.prompt.content);
-    const pn = PROMPT_GENERATE_BASELINE_TESTS;
-    await outputPrompty(pn, options);
-    const res = await runPrompt(
-        (ctx) => {
-            ctx.importTemplate(pn, {
-                num,
-                prompt: context,
-            });
-        },
-        {
-            ...modelOptions("rules", options),
-            //      logprobs: true,
-            label: `${files.name}> generate baseline tests`,
-        }
-    );
-
-    if (isUnassistedResponse(res.text)) return "";
-    checkLLMResponse(res);
-    return cleanBaselineTests(res.text).join("\n===\n");
-}
-
-export async function generateTests(
-    files: PromptPexContext,
-    options?: PromptPexOptions & { num?: number }
-) {
-    const { num = TESTS_NUM } = options || {};
-
-    if (!files.rules.content) throw new Error("No rules found");
-    if (!files.inputSpec.content) throw new Error("No input spec found");
-    const allRules = parseAllRules(files);
-    if (!allRules) throw new Error("No rules found");
-
-    outputWorkflowDiagram(
-        `PUT(["Prompt Under Test (PUT)"])
-IS["Input Specification (IS)"]
-OR["Output Rules (OR)"]
-IOR["Inverse Output Rules (IOR)"]
-PPT["PromptPex Tests (PPT)"]
-
-PUT --> IS
-
-PUT --> OR
-OR --> IOR
-
-PUT --> PPT
-IS --> PPT
-OR --> PPT
-IOR --> PPT        
-`,
-        options
-    );
-
-    const context = MD.content(files.prompt.content);
-    let repaired = false;
-    const pn = PROMPT_GENERATE_TESTS;
-    await outputPrompty(pn, options);
-    const res = await runPrompt(
-        (ctx) => {
-            ctx.importTemplate(pn, {
-                input_spec: files.inputSpec.content,
-                context,
-                num,
-                rule: allRules
-                    .map((r, index) => `${index + 1}. ${r.rule}`)
-                    .join("\n"),
-                num_rules: allRules.length,
-            });
-            ctx.defChatParticipant((p, c) => {
-                const last: string = c.at(-1)?.content;
-                const csv = parseRulesTests(last);
-                if (!csv.length) {
-                    if (!repaired) {
-                        console.warn(
-                            "Invalid generated test format or no test generated, trying to repair"
-                        );
-                        repaired = true;
-                        p.$`The generated tests are not valid CSV. Please fix formatting issues and try again.`;
-                    } else {
-                        env.output.warn(
-                            "Invalid generated test format, skipping repair."
-                        );
-                        env.output.fence(last, "txt");
-                    }
-                }
-            });
-        },
-        {
-            ...modelOptions("rules", options),
-            //      logprobs: true,
-            label: `${files.name}> generate tests`,
-        }
-    );
-    checkLLMResponse(res);
-    return res.text;
-}
-
-function parseInputs(file: WorkspaceFile) {
-    const frontmatter = MD.frontmatter(file.content) || {};
-    const inputs = frontmatter["inputs"] || {};
-    // under specified inputs, try to find any missing inputs
-    // using regex
-    if (!Object.keys(inputs).length) {
-        file.content.replace(/{{\s*([^}\s]+)\s*}}/g, (_, key) => {
-            inputs[key] = { type: "string" };
-            return "";
-        });
-    }
-
-    return inputs;
 }
 
 export async function runTests(
@@ -927,97 +639,6 @@ export async function evaluateTestQuality(
     await workspace.writeText(file.filename, JSON.stringify(testEval, null, 2));
 
     return testEval;
-}
-
-export function parseRules(rules: string) {
-    return rules
-        ? tidyRules(rules)
-              .split(/\r?\n/g)
-              .map((l) => l.trim())
-              .filter((l) => !!l)
-        : [];
-}
-
-export function parseRulesTests(text: string): PromptPexTest[] {
-    if (!text) return [];
-    if (isUnassistedResponse(text)) return [];
-    const content = text.trim().replace(/\\"/g, '""');
-    const rulesTests = content
-        ? (CSV.parse(content, {
-              delimiter: ",",
-              repair: true,
-          }) as PromptPexTest[])
-        : [];
-    return rulesTests.map((r) => ({ ...r, testinput: r.testinput || "" }));
-}
-
-export function parseTestResults(
-    files: PromptPexContext
-): PromptPexTestResult[] {
-    const rules = parseRules(files.rules.content);
-    const res = CSV.parse(files.testOutputs.content, {
-        delimiter: ",",
-    }) as PromptPexTestResult[];
-    res?.forEach((r) => {
-        r.inverse =
-            r.ruleid !== null && parseInt(r.ruleid as any) > rules.length;
-    });
-    if (res.some((r) => !r.model))
-        throw new Error(
-            `invalid test results in ${files.testOutputs.filename}`
-        );
-    return res;
-}
-
-function cleanBaselineTests(content: string) {
-    const tests = parsers
-        .unfence(content, "")
-        .split(/\s*===\s*/g)
-        .map((l) =>
-            l
-                .trim()
-                .replace(/^(#+\s+)?(test case)( \d+)?:?$/gim, "")
-                .trim()
-        )
-        .filter((l) => !!l);
-    return tests;
-}
-
-export function parseBaselineTests(files: PromptPexContext): PromptPexTest[] {
-    const tests = cleanBaselineTests(files.baselineTests.content).map(
-        (l) => ({ testinput: l, baseline: true }) satisfies PromptPexTest
-    );
-    return tests;
-}
-
-export function parseTestEvals(files: PromptPexContext) {
-    return CSV.parse(files.testEvals.content, {
-        delimiter: ",",
-    }) as PromptPexTestEval[];
-}
-
-export function parseRuleEvals(files: PromptPexContext) {
-    return CSV.parse(files.ruleEvals.content, {
-        delimiter: ",",
-    }) as PromptPexRuleEval[];
-}
-
-export function parsBaselineTestEvals(files: PromptPexContext) {
-    return CSV.parse(files.baselineTestEvals.content, {
-        delimiter: ",",
-    }) as PromptPexTestEval[];
-}
-
-export function parseAllRules(
-    files: PromptPexContext
-): { rule: string; inverse?: boolean }[] {
-    const rules = parseRules(files.rules.content);
-    const inverseRules = parseRules(files.inverseRules.content);
-    const allRules = [
-        ...rules.map((rule) => ({ rule })),
-        ...inverseRules.map((rule) => ({ rule, inverse: true })),
-    ];
-    return allRules;
 }
 
 function resolveRule(
