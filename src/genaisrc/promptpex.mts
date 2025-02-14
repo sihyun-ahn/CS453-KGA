@@ -4,12 +4,32 @@ const TESTS_NUM = 3;
 const TEST_EVALUATION_DIR = "test_evals";
 const RULE_EVALUATION_DIR = "rule_evals";
 
+const PROMPT_GENERATE_INPUT_SPEC = "src/prompts/input_spec.prompty";
 const PROMPT_GENERATE_INTENT = "src/prompts/extract_intent.prompty";
 const PROMPT_GENERATE_RULES = "src/prompts/rules_global.prompty";
 const PROMPT_GENERATE_BASELINE_TESTS = "src/prompts/baseline_test.prompty";
 const PROMPT_GENERATE_INVERSE_RULES = "src/prompts/inverse_rule.prompty";
 const PROMPT_GENERATE_TESTS = "src/prompts/test.prompty";
 const PROMPT_CHECK_RULE_GROUNDED = "src/prompts/check_rule_grounded.prompty";
+
+export interface PromptPexPrompts {
+    /**
+     * Input specifications, overrides input spec generation
+     */
+    inputSpec?: string;
+    /**
+     * Output rules, overrides output rules generation
+     */
+    outputRules?: string;
+    /**
+     * Inverse output rules, overrides inverse output rules generation
+     */
+    inverseOutputRules?: string;
+    /**
+     * Prompt intent, overrides intent generation
+     */
+    intent?: string;
+}
 
 export interface PromptPexOptions {
     /**
@@ -27,7 +47,14 @@ export interface PromptPexOptions {
      */
     outputPrompts?: boolean;
 
+    /**
+     * Emit diagrams in output
+     */
     workflowDiagram?: boolean;
+    /**
+     * Aditional instructions
+     */
+    instructions?: PromptPexPrompts;
 }
 
 /**
@@ -45,6 +72,19 @@ export interface PromptPexContext {
      * Prompt name
      */
     name: string;
+    /**
+     * Prompt parsed frontmatter section
+     */
+    frontmatter: any;
+    /**
+     * Inputs extracted from the prompt frontmatter
+     */
+    inputs: Record<string, any>;
+    /**
+     * Metadata extract from the prompt frontmatter
+     */
+    meta: PromptPexPrompts;
+
     /**
      * Prompt Under Test
      */
@@ -262,10 +302,16 @@ export async function loadPromptFiles(
     const ruleEvals = path.join(dir, "rule_evals.csv");
     const ruleCoverage = path.join(dir, "rule_coverage.csv");
     const baselineTestEvals = path.join(dir, "baseline_test_evals.csv");
+    const frontmatter = MD.frontmatter(promptFile.content) || {};
+    const meta: PromptPexContext["meta"] = frontmatter.promptPex || {};
+    const inputs = parseInputs(promptFile);
 
     const res = {
         dir,
         name: basename,
+        frontmatter,
+        meta,
+        inputs,
         prompt: promptFile,
         testOutputs: await workspace.readText(testResults),
         intent: await workspace.readText(intent),
@@ -280,6 +326,11 @@ export async function loadPromptFiles(
         baselineTestEvals: await workspace.readText(baselineTestEvals),
     } satisfies PromptPexContext;
 
+    if (meta.intent) res.intent.content = meta.intent;
+    if (meta.inputSpec) res.inputSpec.content = meta.inputSpec;
+    if (meta.outputRules) res.rules.content = meta.outputRules;
+    if (meta.inverseOutputRules)
+        res.inverseRules.content = meta.inverseOutputRules;
     if (!disableSafety) await checkPromptSafety(res);
     return res;
 }
@@ -485,6 +536,7 @@ export async function generateInputSpec(
     options?: PromptPexOptions
 ) {
     const { workflowDiagram } = options || {};
+    const instructions = options?.instructions?.inputSpec || "";
     if (workflowDiagram)
         env.output.fence(
             `
@@ -497,12 +549,13 @@ export async function generateInputSpec(
         );
 
     const context = MD.content(files.prompt.content);
-    const pn = "src/prompts/input_spec.prompty";
+    const pn = PROMPT_GENERATE_INPUT_SPEC;
     await outputPrompty(pn, options);
     const res = await runPrompt(
         (ctx) => {
             ctx.importTemplate(pn, {
                 context,
+                instructions,
             });
         },
         {
@@ -529,12 +582,14 @@ export async function generateIntent(
     options?: PromptPexOptions
 ) {
     const context = MD.content(files.prompt.content);
+    const instructions = options?.instructions?.intent || "";
     const pn = PROMPT_GENERATE_INTENT;
     await outputPrompty(pn, options);
     const res = await runPrompt(
         (ctx) => {
             ctx.importTemplate(pn, {
                 prompt: context,
+                instructions
             });
         },
         {
@@ -552,6 +607,7 @@ export async function generateRules(
     options?: PromptPexOptions & { numRules?: number }
 ) {
     const { numRules = RULES_NUM, workflowDiagram } = options || {};
+    const instructions = options?.instructions?.outputRules || "";
 
     if (workflowDiagram)
         env.output.fence(
@@ -574,6 +630,7 @@ export async function generateRules(
             ctx.importTemplate(pn, {
                 num_rules: numRules,
                 input_data,
+                instructions,
             });
         },
         {
@@ -592,6 +649,7 @@ export async function generateInverseRules(
     options?: PromptPexOptions
 ) {
     const { workflowDiagram } = options || {};
+    const instructions = options?.instructions?.inverseOutputRules || "";
     if (workflowDiagram)
         env.output.fence(
             `
@@ -612,6 +670,7 @@ export async function generateInverseRules(
         (ctx) => {
             ctx.importTemplate(pn, {
                 rule,
+                instructions,
             });
         },
         {
@@ -730,7 +789,7 @@ export async function generateTests(
 }
 
 function parseInputs(file: WorkspaceFile) {
-    const frontmatter = MD.frontmatter(file.content);
+    const frontmatter = MD.frontmatter(file.content) || {};
     const inputs = frontmatter["inputs"] || {};
     // under specified inputs, try to find any missing inputs
     // using regex
@@ -857,7 +916,7 @@ async function resolveTestEvalPath(
 }
 
 function resolvePromptArgs(files: PromptPexContext, test: PromptPexTest) {
-    const inputs = parseInputs(files.prompt);
+    const inputs = files.inputs;
     const inputKeys = Object.keys(inputs);
     const expectedOutput = test["expectedoutput"];
     const testInput = test["testinput"];
@@ -1123,7 +1182,9 @@ export function parseRulesTests(text: string): PromptPexTest[] {
     return rulesTests.map((r) => ({ ...r, testinput: r.testinput || "" }));
 }
 
-export function parseTestResults(files: PromptPexContext): PromptPexTestResult[] {
+export function parseTestResults(
+    files: PromptPexContext
+): PromptPexTestResult[] {
     const rules = parseRules(files.rules.content);
     const res = CSV.parse(files.testOutputs.content, {
         delimiter: ",",

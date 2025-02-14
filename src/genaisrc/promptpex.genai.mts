@@ -14,13 +14,31 @@ import {
 
 script({
     title: "PromptPex Test Generator",
-    description: `Generate tests for a LLM prompt. 
+    description: `Generate tests for a LLM prompt using PromptPex.
+<details><summary>Frontmatter configuration</summary>
+You can override parts of the test generation
+process by providing values in the frontmatter of the prompt.
+
+\`\`\`yaml
+promptPex:
+  inputSpec: "input constraints"
+  outputRules: "output constraints"
+  inverseOutputRules: "inverted output constraints"
+  intent: "intent of the prompt"
+  instructions:
+    inputSpec: "Additional input specification instructions"
+    outputRules: "Additional output rules instructions"
+    inverseOutputRules: "Additional inverse output rules instructions"
+    intent: "Additional intent of the prompt"
+\`\`\`
+
+</details>
 <details><summary>What is PromptPex?</summary>
-  This tool accepts a prompt file formatted in the Prompty language 
+  This tool accepts a prompt file formatted in Markdown (Prompty format)
   and generates tests for them. The tests can be used to validate your prompt
   for various models automatically.
 
-  - [Prompty Language](https://prompty.ai/docs)
+  - [Markdown Prompty Syntax](https://prompty.ai/docs)
   - [GitHub](https://github.com/microsoft/promptpex/)
   - [Archiv](https://github.com/microsoft/promptpex/)
 
@@ -41,19 +59,49 @@ script({
             description:
                 "List of models to run the prompt again; semi-colon separated",
         },
+        inputSpecInstructions: {
+            type: "string",
+            title: "Input Specification instructions",
+            description:
+                "These instructions will be added to the input specification generation prompt.",
+        },
+        outputRulesInstructions: {
+            type: "string",
+            title: "Output Rules instructions",
+            description:
+                "These instructions will be added to the output rules generation prompt.",
+        },
+        inverseOutputRulesInstructions: {
+            type: "string",
+            title: "Inverse Output Rules instructions",
+            description:
+                "These instructions will be added to the inverse output rules generation prompt.",
+        },
     },
 });
 
 const { output, meta, vars } = env;
-const { disableSafety } = vars;
+const {
+    disableSafety,
+    inputSpecInstructions,
+    outputRulesInstructions,
+    inverseOutputRulesInstructions,
+} = vars;
 const models = (vars.models || "").split(/;/g).filter((m) => !!m);
 const options: PromptPexOptions = {
+    disableSafety,
+    instructions: {
+        inputSpec: inputSpecInstructions,
+        outputRules: outputRulesInstructions,
+        inverseOutputRules: inverseOutputRulesInstructions,
+    },
     workflowDiagram: true,
 };
-const files = await loadPromptFiles(env.files[0], { disableSafety });
+const files = await loadPromptFiles(env.files[0], options);
 
 output.heading(2, `PromptPex for ${files.name}`);
 output.itemValue(`model`, meta.model);
+output.detailsFenced(`options`, options, "yaml");
 await outputBackgroundInformation();
 
 // prompt info
