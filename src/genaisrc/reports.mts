@@ -246,3 +246,16 @@ export async function generateJSONReport(files: PromptPexContext) {
         errors: errors.length ? errors : undefined,
     };
 }
+
+export async function generateReports(files: PromptPexContext) {
+    const jsonreport = await generateJSONReport(files);
+    await workspace.writeText(
+        path.join(files.dir, "report.json"),
+        JSON.stringify(jsonreport, null, 2)
+    );
+
+    const mdreport = await generateMarkdownReport(files);
+    const fn = path.join(files.dir, "README.md");
+    await workspace.writeText(fn, mdreport);
+    return fn;
+}
