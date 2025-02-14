@@ -6,11 +6,8 @@ import {
     generateRules,
     generateTests,
 } from "./generation.genai.mts";
-import {
-    loadPromptFiles,
-    evaluateRulesGrounded,
-    evaluateRulesCoverage,
-} from "./promptpex.mts";
+import { loadPromptFiles } from "./parsers.mts";
+import { evaluateRulesGrounded, evaluateRulesCoverage } from "./promptpex.mts";
 import type { PromptPexContext, PromptPexOptions } from "./types.mts";
 
 script({

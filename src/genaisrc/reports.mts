@@ -1,12 +1,89 @@
 import {
-    computeOverview,
+    parseAllRules,
     parseBaselineTests,
     parseRuleEvals,
     parseRules,
     parseRulesTests,
+    parseTestEvals,
     parseTestResults,
-} from "./promptpex.mts";
-import type { PromptPexContext } from "./types.mts";
+} from "./parsers.mts";
+import type { PromptPexContext, PromptPexTestResult } from "./types.mts";
+
+export function computeOverview(
+    files: PromptPexContext,
+    options?: { percent?: boolean }
+) {
+    const { percent } = options || {};
+    const testResults = parseTestResults(files);
+    const testEvals = parseTestEvals(files);
+    const rules = parseAllRules(files);
+    const ruleEvals = parseRuleEvals(files);
+    const testResultsPerModels = testResults.reduce(
+        (acc, result) => {
+            if (!acc[result.model]) {
+                acc[result.model] = [];
+            }
+            acc[result.model].push(result);
+            return acc;
+        },
+        {} as Record<string, PromptPexTestResult[]>
+    );
+    const overview = Object.entries(testResultsPerModels).map(
+        ([model, results]) => {
+            const tests = results.filter((tr) => tr.rule).length;
+            const norm = (v: number) =>
+                percent ? Math.round((v / tests) * 100) + "%" : v;
+            const baseline = results.filter((tr) => !tr.rule).length;
+            const bnorm = (v: number) =>
+                percent ? Math.round((v / baseline) * 100) + "%" : v;
+            return {
+                model,
+                tests,
+                ["tests compliant"]: norm(
+                    results.filter((tr) => tr.rule && tr.compliance === "ok")
+                        .length
+                ),
+                ["baseline compliant"]: bnorm(
+                    results.filter((tr) => !tr.rule && tr.compliance === "ok")
+                        .length
+                ),
+                ["tests positive"]: results.filter(
+                    (tr) => tr.rule && !tr.inverse
+                ).length,
+                ["tests positive compliant"]: results.filter(
+                    (tr) => tr.rule && !tr.inverse && tr.compliance === "ok"
+                ).length,
+                ["tests negative"]: results.filter(
+                    (tr) => tr.rule && tr.inverse
+                ).length,
+                ["tests negative compliant"]: results.filter(
+                    (tr) => tr.rule && tr.inverse && tr.compliance === "ok"
+                ).length,
+                baseline,
+                ["tests valid"]: results.filter(
+                    (tr) =>
+                        tr.rule &&
+                        testEvals.find((te) => te.id === tr.id)?.validity ===
+                            "ok"
+                ).length,
+                ["tests valid compliant"]: results.filter(
+                    (tr) =>
+                        tr.rule &&
+                        tr.compliance === "ok" &&
+                        testEvals.find((te) => te.id === tr.id)?.validity ===
+                            "ok"
+                ).length,
+            };
+        }
+    );
+    return {
+        testResults,
+        testEvals,
+        rules,
+        ruleEvals,
+        overview,
+    };
+}
 
 export async function generateMarkdownReport(files: PromptPexContext) {
     const tests = [

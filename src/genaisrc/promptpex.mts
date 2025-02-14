@@ -14,125 +14,17 @@ import {
     parseTestResults,
     tidyRulesFile,
 } from "./parsers.mts";
-import { checkPromptSafety } from "./safety.mts";
-import { PromptPexContext, PromptPexOptions, PromptPexTest } from "./types.mts";
+import type {
+    PromptPexContext,
+    PromptPexOptions,
+    PromptPexRuleEval,
+    PromptPexTest,
+    PromptPexTestEval,
+    PromptPexTestResult,
+} from "./types.mts";
 
 const TEST_EVALUATION_DIR = "test_evals";
 const RULE_EVALUATION_DIR = "rule_evals";
-
-export interface PromptPexTestResult {
-    id: string;
-    promptid: string;
-    ruleid: number;
-    rule: string;
-    inverse?: boolean;
-    baseline?: boolean;
-    model: string;
-    input: string;
-    output: string;
-    error?: string;
-
-    compliance?: "ok" | "err";
-    complianceText?: string;
-}
-
-export interface PromptPexTestEval {
-    id: string;
-    promptid: string;
-    model?: string;
-    rule: string;
-    inverse?: boolean;
-    input: string;
-    coverage?: "ok" | "err";
-    coverageEvalText?: string;
-    coverageText?: string;
-    validity?: "ok" | "err";
-    validityText?: string;
-    error?: string;
-}
-
-export interface PromptPexRuleEval {
-    id: string;
-    promptid: string;
-    ruleid: number;
-    rule: string;
-    groundedText?: string;
-    grounded?: "ok" | "err";
-    error?: string;
-}
-
-export async function loadPromptContext(
-    out?: string
-): Promise<PromptPexContext[]> {
-    const q = host.promiseQueue(CONCURRENCY);
-    return q.mapAll(
-        env.files.filter((f) => /\.(md|txt|prompty)$/i.test(f.filename)),
-        async (f) => await loadPromptFiles(f, { out })
-    );
-}
-
-export async function loadPromptFiles(
-    promptFile: WorkspaceFile,
-    options?: {
-        out?: string;
-        disableSafety?: boolean;
-    }
-): Promise<PromptPexContext> {
-    if (!promptFile)
-        throw new Error(
-            "No prompt file found, did you forget to the prompt file?"
-        );
-    const { out, disableSafety } = options || {};
-    const filename = promptFile.filename;
-    const basename = filename
-        ? path.basename(filename).slice(0, -path.extname(filename).length)
-        : "prompt";
-    const dir = filename
-        ? path.join(out || path.dirname(filename), basename)
-        : "";
-    const intent = path.join(dir, "intent.txt");
-    const rules = path.join(dir, "rules.txt");
-    const inverseRules = path.join(dir, "inverse_rules.txt");
-    const inputSpec = path.join(dir, "input_spec.txt");
-    const baselineTests = path.join(dir, "baseline_tests.txt");
-    const tests = path.join(dir, "tests.csv");
-    const testResults = path.join(dir, "test_results.csv");
-    const testEvals = path.join(dir, "test_evals.csv");
-    const ruleEvals = path.join(dir, "rule_evals.csv");
-    const ruleCoverage = path.join(dir, "rule_coverage.csv");
-    const baselineTestEvals = path.join(dir, "baseline_test_evals.csv");
-    const frontmatter = MD.frontmatter(promptFile.content) || {};
-    const meta: PromptPexContext["meta"] = frontmatter.promptPex || {};
-    const inputs = parseInputs(promptFile);
-
-    const res = {
-        dir,
-        name: basename,
-        frontmatter,
-        meta,
-        inputs,
-        prompt: promptFile,
-        testOutputs: await workspace.readText(testResults),
-        intent: await workspace.readText(intent),
-        inputSpec: await workspace.readText(inputSpec),
-        rules: tidyRulesFile(await workspace.readText(rules)),
-        ruleEvals: await workspace.readText(ruleEvals),
-        inverseRules: tidyRulesFile(await workspace.readText(inverseRules)),
-        tests: await workspace.readText(tests),
-        testEvals: await workspace.readText(testEvals),
-        baselineTests: await workspace.readText(baselineTests),
-        ruleCoverages: await workspace.readText(ruleCoverage),
-        baselineTestEvals: await workspace.readText(baselineTestEvals),
-    } satisfies PromptPexContext;
-
-    if (meta.intent) res.intent.content = meta.intent;
-    if (meta.inputSpec) res.inputSpec.content = meta.inputSpec;
-    if (meta.outputRules) res.rules.content = meta.outputRules;
-    if (meta.inverseOutputRules)
-        res.inverseRules.content = meta.inverseOutputRules;
-    if (!disableSafety) await checkPromptSafety(res);
-    return res;
-}
 
 export async function evaluateRuleGrounded(
     files: PromptPexContext,
@@ -723,81 +615,5 @@ export async function generateJSONReport(files: PromptPexContext) {
         testEvals,
         testResults,
         errors: errors.length ? errors : undefined,
-    };
-}
-
-export function computeOverview(
-    files: PromptPexContext,
-    options?: { percent?: boolean }
-) {
-    const { percent } = options || {};
-    const testResults = parseTestResults(files);
-    const testEvals = parseTestEvals(files);
-    const rules = parseAllRules(files);
-    const ruleEvals = parseRuleEvals(files);
-    const testResultsPerModels = testResults.reduce(
-        (acc, result) => {
-            if (!acc[result.model]) {
-                acc[result.model] = [];
-            }
-            acc[result.model].push(result);
-            return acc;
-        },
-        {} as Record<string, PromptPexTestResult[]>
-    );
-    const overview = Object.entries(testResultsPerModels).map(
-        ([model, results]) => {
-            const tests = results.filter((tr) => tr.rule).length;
-            const norm = (v: number) =>
-                percent ? Math.round((v / tests) * 100) + "%" : v;
-            const baseline = results.filter((tr) => !tr.rule).length;
-            const bnorm = (v: number) =>
-                percent ? Math.round((v / baseline) * 100) + "%" : v;
-            return {
-                model,
-                tests,
-                ["tests compliant"]: norm(
-                    results.filter((tr) => tr.rule && tr.compliance === "ok")
-                        .length
-                ),
-                ["baseline compliant"]: bnorm(
-                    results.filter((tr) => !tr.rule && tr.compliance === "ok")
-                        .length
-                ),
-                ["tests positive"]: results.filter(
-                    (tr) => tr.rule && !tr.inverse
-                ).length,
-                ["tests positive compliant"]: results.filter(
-                    (tr) => tr.rule && !tr.inverse && tr.compliance === "ok"
-                ).length,
-                ["tests negative"]: results.filter(
-                    (tr) => tr.rule && tr.inverse
-                ).length,
-                ["tests negative compliant"]: results.filter(
-                    (tr) => tr.rule && tr.inverse && tr.compliance === "ok"
-                ).length,
-                baseline,
-                ["tests valid"]: results.filter(
-                    (tr) =>
-                        tr.rule &&
-                        testEvals.find((te) => te.id === tr.id)?.validity ===
-                            "ok"
-                ).length,
-                ["tests valid compliant"]: results.filter(
-                    (tr) =>
-                        tr.rule &&
-                        tr.compliance === "ok" &&
-                        testEvals.find((te) => te.id === tr.id)?.validity ===
-                            "ok"
-                ).length,
-            };
-        }
-    );
-    return {
-        testResults,
-        testEvals,
-        rules,
-        ruleEvals,
-        overview,
     };
 }

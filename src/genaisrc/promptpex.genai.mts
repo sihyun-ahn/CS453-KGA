@@ -5,8 +5,12 @@ import {
     generateTests,
 } from "./generation.genai.mts";
 import { outputBackgroundInformation, outputFile } from "./output.mts";
-import { parseRulesTests, parseTestResults } from "./parsers.mts";
-import { loadPromptFiles, runTests } from "./promptpex.mts";
+import {
+    loadPromptFiles,
+    parseRulesTests,
+    parseTestResults,
+} from "./parsers.mts";
+import { runTests } from "./promptpex.mts";
 import type { PromptPexOptions } from "./types.mts";
 
 script({

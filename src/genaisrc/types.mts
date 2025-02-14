@@ -158,3 +158,44 @@ export interface PromptPexTest {
      */
     reasoning?: string;
 }
+
+export interface PromptPexTestResult {
+    id: string;
+    promptid: string;
+    ruleid: number;
+    rule: string;
+    inverse?: boolean;
+    baseline?: boolean;
+    model: string;
+    input: string;
+    output: string;
+    error?: string;
+
+    compliance?: "ok" | "err";
+    complianceText?: string;
+}
+
+export interface PromptPexTestEval {
+    id: string;
+    promptid: string;
+    model?: string;
+    rule: string;
+    inverse?: boolean;
+    input: string;
+    coverage?: "ok" | "err";
+    coverageEvalText?: string;
+    coverageText?: string;
+    validity?: "ok" | "err";
+    validityText?: string;
+    error?: string;
+}
+
+export interface PromptPexRuleEval {
+    id: string;
+    promptid: string;
+    ruleid: number;
+    rule: string;
+    groundedText?: string;
+    grounded?: "ok" | "err";
+    error?: string;
+}
