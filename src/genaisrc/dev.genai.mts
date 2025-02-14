@@ -29,7 +29,7 @@ script({
 });
 const { output } = env;
 const out = "evals/dev";
-const options: PromptPexOptions = {
+const commOptions: PromptPexOptions = {
     outputPrompts: true,
 };
 
@@ -40,6 +40,26 @@ const repeatInverseRules = 1;
 const repeatTests = 1;
 const repeatBaselineTests = 1;
 const repeastRulesGroundedness = 5;
+const configs: (PromptPexOptions & { name: string })[] = [
+    {
+        name: "gpt-4o",
+        modelAliases: {
+            large: "not-supported",
+            small: "not-supported",
+            rules: "azure:gpt-4o_2024-08-06",
+            eval: "azure:gpt-4o_2024-08-06",
+        },
+    },
+/*    
+    {
+        name: "llama3.3",
+        modelAliases: {
+            large: "not-supported",
+            rules: "ollama:llama3.3",
+            eval: "ollama:llama3.3",
+        },
+    },*/
+];
 
 output.heading(1, "PromptPex Dev Mode");
 output.itemValue(`model`, env.meta.model);
@@ -52,7 +72,10 @@ async function apply(
     title: string,
     repeat: number,
     selector: (files: PromptPexContext) => WorkspaceFile,
-    fn: (files: PromptPexContext) => Awaitable<string>
+    fn: (
+        files: PromptPexContext,
+        options: PromptPexOptions
+    ) => Awaitable<string>
 ) {
     output.heading(2, title);
     const table = [];
@@ -63,14 +86,18 @@ async function apply(
         output.heading(3, files.prompt.filename.replace(/^samples\//, ""));
         const file = selector?.(files);
         if (repeat === 0 && file?.content) continue;
-        for (let i = 0; i < repeat; ++i) {
-            const model = env.meta.model;
-            const res = await fn(files);
-            if (file) {
-                file.content = res;
-                output.fence(file.content, "text");
+
+        for (const config of configs) {
+            const { name, ...restConfig } = config;
+            output.heading(3, name)
+            for (let i = 0; i < repeat; ++i) {
+                const res = await fn(files, { ...commOptions, ...restConfig });
+                if (file) {
+                    file.content = res;
+                    output.fence(file.content, "text");
+                }
+                row[`${config.name}/${i}`] = res;
             }
-            row[`${model}/${i}`] = res;
         }
         if (file) await workspace.writeText(file.filename, file.content);
     }
@@ -81,15 +108,15 @@ await apply(
     "Intents",
     repeatIntent,
     (_) => _.intent,
-    (files) => generateIntent(files, options)
+    (files, options) => generateIntent(files, options)
 );
 await apply(
     "Input Specs",
     repeatInputSpec,
     (_) => _.inputSpec,
-    (files) => generateInputSpec(files, options)
+    (files, options) => generateInputSpec(files, options)
 );
-await apply("Rules", repeatRules, undefined, async (files) => {
+await apply("Rules", repeatRules, undefined, async (files, options) => {
     files.rules.content = await generateRules(files, options);
     output.fence(files.rules.content, "text");
 
@@ -115,25 +142,25 @@ await apply(
     "Inverse Rules",
     repeatInverseRules,
     (_) => _.inverseRules,
-    (files) => generateInverseRules(files, options)
+    (files, options) => generateInverseRules(files, options)
 );
 await apply(
     "Tests",
     repeatTests,
     (_) => _.tests,
-    (files) => generateTests(files, options)
+    (files, options) => generateTests(files, options)
 );
 await apply(
     "Baseline Tests",
     repeatBaselineTests,
     (_) => _.baselineTests,
-    (files) => generateBaselineTests(files, options)
+    (files, options) => generateBaselineTests(files, options)
 );
 await apply(
     "Evaluating Rules Coverage",
     repeastRulesGroundedness,
     undefined,
-    async (files) => {
+    async (files, options) => {
         output.heading(3, "Evaluating Rules Coverage");
         const coverage = await evaluateRulesCoverage(files, options);
         output.table([

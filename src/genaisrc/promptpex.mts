@@ -12,6 +12,8 @@ const PROMPT_GENERATE_INVERSE_RULES = "src/prompts/inverse_rule.prompty";
 const PROMPT_GENERATE_TESTS = "src/prompts/test.prompty";
 const PROMPT_CHECK_RULE_GROUNDED = "src/prompts/check_rule_grounded.prompty";
 
+export type PromptPexModelAliases = OptionsOrString<"rules" | "eval" | "large">;
+
 export interface PromptPexPrompts {
     /**
      * Input specifications, overrides input spec generation
@@ -36,7 +38,6 @@ export interface PromptPexOptions {
      * Do not include Responsible AI safety prompts and validation
      */
     disableSafety?: boolean;
-
     /**
      * Generate temperature for requests
      */
@@ -55,6 +56,10 @@ export interface PromptPexOptions {
      * Aditional instructions
      */
     instructions?: PromptPexPrompts;
+    /**
+     * Custom model aliases
+     */
+    modelAliases?: Partial<Record<PromptPexModelAliases, string>>
 }
 
 /**
@@ -336,12 +341,12 @@ export async function loadPromptFiles(
 }
 
 function modelOptions(
-    modelAlias: "rules" | "eval" | string,
+    modelAlias: PromptPexModelAliases,
     options: PromptPexOptions
 ): PromptGeneratorOptions {
-    const { temperature = 1 } = options || {};
+    const { temperature = 1, modelAliases } = options || {};
     return {
-        model: modelAlias,
+        model: modelAliases?.[modelAlias] || modelAlias,
         temperature,
         responseType: "text",
         // RAI must be checked by an external service
@@ -589,7 +594,7 @@ export async function generateIntent(
         (ctx) => {
             ctx.importTemplate(pn, {
                 prompt: context,
-                instructions
+                instructions,
             });
         },
         {
