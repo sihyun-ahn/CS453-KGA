@@ -545,11 +545,11 @@ export async function generateInputSpec(
     if (workflowDiagram)
         env.output.fence(
             `
-            graph TD
-                PUT(["Prompt Under Test (PUT)"])
-                IS["Input Specification (IS)"]
-                PUT --> IS            
-            `,
+graph TD
+    PUT(["Prompt Under Test (PUT)"])
+    IS["Input Specification (IS)"]
+    PUT --> IS            
+`,
             "mermaid"
         );
 
@@ -617,12 +617,12 @@ export async function generateRules(
     if (workflowDiagram)
         env.output.fence(
             `
-    graph TD
-        PUT(["Prompt Under Test (PUT)"])
-        OR["Output Rules (OR)"]
-    
-        PUT --> OR        
-    `,
+graph TD
+    PUT(["Prompt Under Test (PUT)"])
+    OR["Output Rules (OR)"]
+
+    PUT --> OR        
+`,
             "mermaid"
         );
 
@@ -657,14 +657,14 @@ export async function generateInverseRules(
     const instructions = options?.instructions?.inverseOutputRules || "";
     if (workflowDiagram)
         env.output.fence(
-            `
-            graph TD
-                OR["Output Rules (OR)"]
-                IOR["Output Rules (IOR)"]
-            
-                OR --> IOR
-                
-            `,
+`
+graph TD
+    OR["Output Rules (OR)"]
+    IOR["Inverse Output Rules (IOR)"]
+
+    OR --> IOR
+    
+`,
             "mermaid"
         );
 
@@ -730,23 +730,23 @@ export async function generateTests(
     if (workflowDiagram)
         env.output.fence(
             `
-            graph TD
-                PUT(["Prompt Under Test (PUT)"])
-                IS["Input Specification (IS)"]
-                OR["Output Rules (OR)"]
-                IOR["Inverse Output Rules (IOR)"]
-                PPT["PromptPex Tests (PPT)"]
-            
-                PUT --> IS
-            
-                PUT --> OR
-                OR --> IOR
-            
-                PUT --> PPT
-                IS --> PPT
-                OR --> PPT
-                IOR --> PPT        
-            `,
+graph TD
+    PUT(["Prompt Under Test (PUT)"])
+    IS["Input Specification (IS)"]
+    OR["Output Rules (OR)"]
+    IOR["Inverse Output Rules (IOR)"]
+    PPT["PromptPex Tests (PPT)"]
+
+    PUT --> IS
+
+    PUT --> OR
+    OR --> IOR
+
+    PUT --> PPT
+    IS --> PPT
+    OR --> PPT
+    IOR --> PPT        
+`,
             "mermaid"
         );
 
@@ -813,7 +813,7 @@ export async function runTests(
     files: PromptPexContext,
     options?: { models?: ModelType[]; force?: boolean; q?: PromiseQueue }
 ): Promise<string> {
-    const { force, models } = options || {};
+    const { force, models = [] } = options || {};
     const rulesTests = parseRulesTests(files.tests.content);
     const baselineTests = parseBaselineTests(files);
     const tests = [...rulesTests, ...baselineTests];
