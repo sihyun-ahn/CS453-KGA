@@ -89,6 +89,11 @@ promptPex:
             description:
                 "List of models to run the prompt again; semi-colon separated",
         },
+        compliance: {
+            type: "boolean",
+            description: "Evaluate Test Result compliance",
+            default: false,
+        },
         inputSpecInstructions: {
             type: "string",
             title: "Input Specification instructions",
@@ -116,6 +121,7 @@ const {
     inputSpecInstructions,
     outputRulesInstructions,
     inverseOutputRulesInstructions,
+    compliance,
 } = vars;
 const models = (vars.models || "").split(/;/g).filter((m) => !!m);
 const options: PromptPexOptions = {
@@ -165,19 +171,33 @@ output.detailsFenced(`data`, tests, "csv");
 output.detailsFenced(`generated`, files.tests.content);
 
 // run tests against the model(s)
-output.heading(3, `Testing against ${models.length}`);
+output.heading(3, `Test Results`);
 files.testOutputs.content = await runTests(files, {
     models,
+    compliance,
 });
 const results = parseTestResults(files);
 output.table(
-    results.map(({ rule, inverse, model, input, output, compliance }) => ({
-        rule,
-        model,
-        input,
-        output,
-        compliance: compliance === "ok" ? "✓" : "✗",
-        inverse: inverse ? "✓" : "",
-    }))
+    results.map(
+        ({
+            rule,
+            inverse,
+            model,
+            input,
+            output,
+            compliance: testCompliance,
+        }) => ({
+            rule,
+            model,
+            input,
+            output,
+            compliance: compliance
+                ? testCompliance === "ok"
+                    ? "✓"
+                    : "✗"
+                : undefined,
+            inverse: inverse ? "✓" : "",
+        })
+    )
 );
 output.detailsFenced(`data`, results, "csv");

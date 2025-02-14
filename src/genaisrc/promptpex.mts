@@ -807,9 +807,14 @@ function parseInputs(file: WorkspaceFile) {
 
 export async function runTests(
     files: PromptPexContext,
-    options?: { models?: ModelType[]; force?: boolean; q?: PromiseQueue }
+    options?: {
+        models?: ModelType[];
+        force?: boolean;
+        compliance?: boolean;
+        q?: PromiseQueue;
+    }
 ): Promise<string> {
-    const { force, models = [] } = options || {};
+    const { force, models = [], compliance } = options || {};
     const rulesTests = parseRulesTests(files.tests.content);
     const baselineTests = parseBaselineTests(files);
     const tests = [...rulesTests, ...baselineTests];
@@ -823,7 +828,7 @@ export async function runTests(
             console.log(
                 `${files.name}> ${model}: run test ${testi + 1}/${tests.length} ${test.testinput.slice(0, 42)}...`
             );
-            const testRes = await runTest(files, test, { model, force });
+            const testRes = await runTest(files, test, { model, force, compliance });
             if (testRes) testResults.push(testRes);
         }
     }
@@ -967,9 +972,13 @@ function updateTestEval(res: PromptPexTestEval) {
 export async function runTest(
     files: PromptPexContext,
     test: PromptPexTest,
-    options?: PromptPexOptions & { model?: ModelType; force?: boolean }
+    options?: PromptPexOptions & {
+        model?: ModelType;
+        compliance?: boolean;
+        force?: boolean;
+    }
 ): Promise<PromptPexTestResult> {
-    const { model, force } = options || {};
+    const { model, force, compliance } = options || {};
     const moptions = {
         ...modelOptions(model, options),
     };
@@ -1024,9 +1033,16 @@ export async function runTest(
         input: testInput,
         output: actualOutput,
     } satisfies PromptPexTestResult;
-    testRes.compliance = undefined;
-    testRes.complianceText = await evaluateTestResult(files, testRes, options);
-    updateTestResultCompliant(testRes);
+
+    if (compliance) {
+        testRes.compliance = undefined;
+        testRes.complianceText = await evaluateTestResult(
+            files,
+            testRes,
+            options
+        );
+        updateTestResultCompliant(testRes);
+    }
 
     await workspace.writeText(file.filename, JSON.stringify(testRes, null, 2));
     return testRes;
@@ -1719,6 +1735,7 @@ export async function generate(
         files.testOutputs.content = await runTests(files, {
             models,
             force,
+            compliance: true,
         });
         await workspace.writeText(
             files.testOutputs.filename,
