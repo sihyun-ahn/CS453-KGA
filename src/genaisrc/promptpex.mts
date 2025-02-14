@@ -828,7 +828,11 @@ export async function runTests(
             console.log(
                 `${files.name}> ${model}: run test ${testi + 1}/${tests.length} ${test.testinput.slice(0, 42)}...`
             );
-            const testRes = await runTest(files, test, { model, force, compliance });
+            const testRes = await runTest(files, test, {
+                model,
+                force,
+                compliance,
+            });
             if (testRes) testResults.push(testRes);
         }
     }
@@ -836,33 +840,6 @@ export async function runTests(
     return CSV.stringify(testResults, { header: true });
 }
 
-/*
-function toLatexTable(
-    data: any[],
-    options?: { headers?: string[]; label?: string; caption?: string }
-) {
-    if (!data?.length) return "no data";
-    const { headers = Object.keys(data[0]), label, caption } = options || {};
-    const latexTable = `
-  \\begin{table}[h!]
-  \\centering
-  \\begin{tabular}{|${headers.map(() => `c`).join("|")}|}
-  \\hline
-  ${headers.join(" & ")} \\\\
-  \\hline
-  ${data
-      .map((raw) =>
-          headers.map((k) => ("" + raw[k]).replace(/&/g, "\\&")).join(" & ")
-      )
-      .join(`\\\\\n\\hline\n`)}
-  \\end{tabular}
-  ${caption ? `\\caption{${caption}}` : ""}
-  ${label ? `\\label{${label}}` : ""}
-  \\end{table}
-  `;
-    return latexTable;
-}
-*/
 async function resolveTestId(files: PromptPexContext, test: PromptPexTest) {
     const content = MD.content(files.prompt.content);
     const testid = await parsers.hash(
@@ -1179,7 +1156,7 @@ export async function evaluateTestQuality(
     return testEval;
 }
 
-function parseRules(rules: string) {
+export function parseRules(rules: string) {
     return rules
         ? tidyRules(rules)
               .split(/\r?\n/g)
@@ -1233,32 +1210,32 @@ function cleanBaselineTests(content: string) {
     return tests;
 }
 
-function parseBaselineTests(files: PromptPexContext): PromptPexTest[] {
+export function parseBaselineTests(files: PromptPexContext): PromptPexTest[] {
     const tests = cleanBaselineTests(files.baselineTests.content).map(
         (l) => ({ testinput: l, baseline: true }) satisfies PromptPexTest
     );
     return tests;
 }
 
-function parseTestEvals(files: PromptPexContext) {
+export function parseTestEvals(files: PromptPexContext) {
     return CSV.parse(files.testEvals.content, {
         delimiter: ",",
     }) as PromptPexTestEval[];
 }
 
-function parseRuleEvals(files: PromptPexContext) {
+export function parseRuleEvals(files: PromptPexContext) {
     return CSV.parse(files.ruleEvals.content, {
         delimiter: ",",
     }) as PromptPexRuleEval[];
 }
 
-function parsBaselineTestEvals(files: PromptPexContext) {
+export function parsBaselineTestEvals(files: PromptPexContext) {
     return CSV.parse(files.baselineTestEvals.content, {
         delimiter: ",",
     }) as PromptPexTestEval[];
 }
 
-function parseAllRules(
+export function parseAllRules(
     files: PromptPexContext
 ): { rule: string; inverse?: boolean }[] {
     const rules = parseRules(files.rules.content);
@@ -1355,13 +1332,6 @@ export async function generateJSONReport(files: PromptPexContext) {
     };
 }
 
-function addLineNumbers(text: string, start: number) {
-    return text
-        .split(/\r?\n/gi)
-        .map((l, i) => `${start + i}: ${l}`)
-        .join("\n");
-}
-
 export function computeOverview(
     files: PromptPexContext,
     options?: { percent?: boolean }
@@ -1438,130 +1408,6 @@ export function computeOverview(
     };
 }
 
-export async function generateMarkdownReport(files: PromptPexContext) {
-    const tests = [
-        ...parseRulesTests(files.tests.content),
-        ...parseBaselineTests(files),
-    ];
-    const rules = parseRules(files.rules.content);
-    const ruleEvals = parseRuleEvals(files);
-    const groundedRuleEvals = ruleEvals.filter((r) => r.grounded === "ok");
-    const inverseRules = parseRules(files.inverseRules.content);
-    const testResults = parseTestResults(files);
-    const ts = testResults.length;
-    const oks = testResults.filter((t) => t.compliance === "ok").length;
-    const errs = testResults.filter((t) => t.compliance === "err").length;
-    const rp = (n: number, t: number) =>
-        `${n}/${t} (${Math.floor((n / t) * 100)}%)`;
-
-    const res: string[] = [
-        `## ${files.name} ([json](./${files.dir}/report.json))`,
-        ``,
-        `- ${rules?.length ?? 0} rules, ${rp(groundedRuleEvals.length, ruleEvals.length)} grounded`,
-        `- ${inverseRules?.length ?? 0} inverse rules`,
-        `- ${tests.length ?? 0} tests, ${tests.filter((t) => t.baseline).length} baseline tests`,
-        testResults?.length
-            ? `- ${testResults?.length ?? 0} test results, ${rp(oks, ts)} oks, ${rp(errs, ts)} errs`
-            : undefined,
-        ``,
-    ].filter((l) => l !== undefined);
-
-    res.push("### Overview", "");
-    res.push(`<details><summary>Glossary</summary>
-    
-- Prompt Under Test (PUT) - like Program Under Test; the prompt
-- Model Under Test (MUT) - Model which we are testing against with specific temperature, etc example: gpt-4o-mini
-- Model Used by PromptPex (MPP) - gpt-4o/llama3.3
-
-- Intent (I) - 
-- Input Specification (IS) - Extracting input constraints of PUT using MPP
-- Output Rules (OR) - Extracting output constraints of PUT using MPP
-- Output Rules Groundedness (ORG) - Checks if OR is grounded in PUT using MPP
-
-- Prompt Under Test Intent (PUTI) - Extracting the exact task from PUT using MMP
-
-- PromptPex Tests (PPT) - Test cases generated for PUT with MPP using IS and OR
-- Baseline Tests (BT) - Zero shot test cases generated for PUT with MPP
-
-- Test Input Compliance (TIC) - Checking if PPT and BT meets the constraints in IS using MPP
-- Test Coverage (TC) - Result generated for PPT and BT on PUTI + OR with MPP
-
-- Test Output (TO) - Result generated for PPT and BT on PUT with each MUT
-- Test Output Compliance (TOC) - Checking if TO meets the constraints in PUT using MPP
-
-</details>
-`);
-    const { overview } = computeOverview(files, { percent: true });
-    await workspace.writeText(
-        path.join(files.dir, "overview.csv"),
-        CSV.stringify(overview, { header: true })
-    );
-    res.push(
-        "",
-        `### [${path.basename(files.testOutputs.filename)}](./${path.basename(files.testOutputs.filename)})`,
-        "",
-        // Three more same columns with the same data but only for valid tests
-        CSV.markdownify(overview)
-    );
-
-    const fence = "`````";
-    const appendFile = (file: WorkspaceFile) => {
-        const ext = path.extname(file.filename).slice(1);
-        const headers =
-            file === files.testOutputs
-                ? ["model", "rule", "input", "output", "compliance"]
-                : file === files.tests
-                  ? ["testinput", "expectedoutput", "reasoning"]
-                  : file === files.baselineTests
-                    ? ["testinput"]
-                    : file === files.testEvals
-                      ? ["rule", "model", "input", "coverage", "validity"]
-                      : file === files.ruleEvals
-                        ? ["ruleid", "rule", "grounded"]
-                        : file === files.baselineTestEvals
-                          ? ["input", "validity"]
-                          : undefined;
-        const lang =
-            {
-                prompty: "md",
-            }[ext] || ext;
-        res.push(
-            "",
-            `### [${path.basename(file.filename)}](./${path.basename(file.filename)})`,
-            ""
-        );
-
-        if (lang === "csv")
-            res.push(CSV.markdownify(CSV.parse(file.content), { headers }));
-        else {
-            let content = file.content;
-            if (file === files.rules) content = addLineNumbers(content, 1);
-            else if (file === files.inverseRules)
-                content = addLineNumbers(content, 1 + inverseRules.length);
-            res.push(`${fence}${lang}`, content || "", `${fence}`, ``);
-        }
-    };
-
-    for (const file of Object.values(files))
-        if (typeof file === "object" && file.filename && file.content)
-            appendFile(file as WorkspaceFile);
-
-    return res.filter((l) => l !== undefined).join("\n");
-}
-
-export async function generateReports(files: PromptPexContext) {
-    const jsonreport = await generateJSONReport(files);
-    await workspace.writeText(
-        path.join(files.dir, "report.json"),
-        JSON.stringify(jsonreport, null, 2)
-    );
-
-    const mdreport = await generateMarkdownReport(files);
-    const fn = path.join(files.dir, "README.md");
-    await workspace.writeText(fn, mdreport);
-    return fn;
-}
-
 export function outputFile(file: WorkspaceFile) {
     const { output } = env;
     const contentType = path.extname(file.filename);
@@ -1584,170 +1430,4 @@ export async function checkPromptSafety(files: PromptPexContext) {
         )
             throw new Error(`Harmful content detected in rules`);
     }
-}
-
-export async function generate(
-    files: PromptPexContext,
-    options?: PromptPexOptions & {
-        force?: boolean;
-        models?: ModelType[];
-    }
-) {
-    const { disableSafety = false, force = false, models } = options || {};
-    const evals = !!models?.length;
-    const { output } = env;
-
-    output.heading(3, `PromptPex for ${files.name}`);
-    output.itemValue(`model`, env.meta.model);
-    output.heading(4, `Prompt Under Test`);
-    output.itemValue(`filename`, files.prompt.filename);
-    output.itemValue(`out`, files.dir);
-    output.fence(files.prompt.content, "md");
-
-    if (!disableSafety) await checkPromptSafety(files);
-
-    // generate intent
-    output.heading(4, "Intent");
-    if (!files.intent.content || force) {
-        files.intent.content = await generateIntent(files, options);
-        await workspace.writeText(files.intent.filename, files.intent.content);
-    }
-
-    outputFile(files.intent);
-
-    // generate input spec
-    output.heading(4, "Input Specification");
-    if (!files.inputSpec.content || force) {
-        files.inputSpec.content = await generateInputSpec(files, options);
-        await workspace.writeText(
-            files.inputSpec.filename,
-            files.inputSpec.content
-        );
-        files.tests.content = undefined;
-        files.testOutputs.content = undefined;
-    }
-
-    outputFile(files.inputSpec);
-
-    // generate rules
-    output.heading(4, "Rules");
-    if (!files.rules.content || force) {
-        files.rules.content = await generateRules(files, options);
-        await workspace.writeText(files.rules.filename, files.rules.content);
-        files.inverseRules.content = undefined;
-        files.tests.content = undefined;
-        files.testOutputs.content = undefined;
-        files.testEvals.content = undefined;
-        files.ruleEvals.content = undefined;
-    }
-
-    outputFile(files.rules);
-
-    // generate inverse rules
-    output.heading(4, "Inverse Rules");
-    if (!files.inverseRules.content || force) {
-        files.inverseRules.content = await generateInverseRules(files, options);
-        await workspace.writeText(
-            files.inverseRules.filename,
-            files.inverseRules.content
-        );
-        files.tests.content = undefined;
-        files.testOutputs.content = undefined;
-        files.testEvals.content = undefined;
-    }
-
-    outputFile(files.inverseRules);
-
-    // generate tests
-    output.heading(4, "Tests");
-    if (!files.tests.content || force) {
-        files.tests.content = await generateTests(files, options);
-        await workspace.writeText(files.tests.filename, files.tests.content);
-        files.testEvals.content = undefined;
-        files.testOutputs.content = undefined;
-    }
-
-    outputFile(files.tests);
-
-    if (!evals) return files;
-
-    output.heading(3, "Evaluation");
-
-    // generate baseline tests
-    output.heading(4, "Baseline Tests");
-    if (!files.baselineTests.content || force) {
-        files.baselineTests.content = await generateBaselineTests(
-            files,
-            options
-        );
-        await workspace.writeText(
-            files.baselineTests.filename,
-            files.baselineTests.content
-        );
-        files.testEvals.content = undefined;
-        files.testOutputs.content = undefined;
-    }
-
-    outputFile(files.baselineTests);
-
-    await generateReports(files);
-
-    output.heading(4, "Baseline Test Evals");
-    if (!files.baselineTestEvals.content || force) {
-        files.baselineTestEvals.content = await evaluateBaselineTests(files, {
-            force: force,
-        });
-        await workspace.writeText(
-            files.baselineTestEvals.filename,
-            files.baselineTestEvals.content
-        );
-    }
-
-    output.heading(4, "Rules Groundedness");
-    await evaluateRulesGrounded(files, options);
-    await generateReports(files);
-
-    output.heading(4, "Rules Coverage - TODO");
-    await evaluateRulesCoverage(files, { ...options, model: models[0] });
-    await generateReports(files);
-
-    // test exhaustiveness
-    output.heading(4, "Test Evals - TODO");
-    const tc = await evaluateTestsQuality(files, {
-        ...(options || {}),
-        ...{
-            force,
-        },
-    });
-    if (tc !== files.testEvals.content) {
-        files.testEvals.content = tc;
-        await workspace.writeText(
-            files.testEvals.filename,
-            files.testEvals.content
-        );
-        await generateReports(files);
-    }
-
-    outputFile(files.testEvals);
-
-    if (models?.length) {
-        output.heading(3, "Cross Model Evaluations");
-        files.testOutputs.content = await runTests(files, {
-            models,
-            force,
-            compliance: true,
-        });
-        await workspace.writeText(
-            files.testOutputs.filename,
-            files.testOutputs.content
-        );
-    }
-
-    outputFile(files.testOutputs);
-
-    // final report
-    const report = await generateReports(files);
-    console.log(`  report: ${report}`);
-
-    return files;
 }
