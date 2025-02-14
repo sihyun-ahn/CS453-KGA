@@ -59,7 +59,7 @@ export interface PromptPexOptions {
     /**
      * Custom model aliases
      */
-    modelAliases?: Partial<Record<PromptPexModelAliases, string>>
+    modelAliases?: Partial<Record<PromptPexModelAliases, string>>;
 }
 
 /**
@@ -771,14 +771,15 @@ export async function generateTests(
                 if (!csv.length) {
                     if (!repaired) {
                         console.warn(
-                            "invalid generated test format, trying to repair"
+                            "Invalid generated test format or no test generated, trying to repair"
                         );
                         repaired = true;
-                        p.$`The generated tests are not valid CSV. Please try again.`;
+                        p.$`The generated tests are not valid CSV. Please fix formatting issues and try again.`;
                     } else {
-                        console.warn(
-                            "invalid generated test format, skipping repair"
+                        env.output.warn(
+                            "Invalid generated test format, skipping repair."
                         );
+                        env.output.fence(last, "txt");
                     }
                 }
             });
@@ -1176,8 +1177,9 @@ function parseRules(rules: string) {
 }
 
 export function parseRulesTests(text: string): PromptPexTest[] {
+    if (!text) return [];
     if (isUnassistedResponse(text)) return [];
-    const content = text?.replace(/\\"/g, '""');
+    const content = text.trim().replace(/\\"/g, '""');
     const rulesTests = content
         ? (CSV.parse(content, {
               delimiter: ",",
