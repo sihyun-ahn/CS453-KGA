@@ -536,22 +536,31 @@ export async function evaluateRulesGrounded(
     return res;
 }
 
+function outputWorkflowDiagram(diagram: string, options: PromptPexOptions) {
+    if (!options?.workflowDiagram) return;
+
+    env.output.detailsFenced(
+        `workflow`,
+        `
+graph TD
+    ${diagram.trim().split(`\n`).join("\n    ")}
+`,
+        "mermaid"
+    );
+}
+
 export async function generateInputSpec(
     files: PromptPexContext,
     options?: PromptPexOptions
 ) {
     const { workflowDiagram } = options || {};
     const instructions = options?.instructions?.inputSpec || "";
-    if (workflowDiagram)
-        env.output.fence(
-            `
-graph TD
-    PUT(["Prompt Under Test (PUT)"])
-    IS["Input Specification (IS)"]
-    PUT --> IS            
-`,
-            "mermaid"
-        );
+    outputWorkflowDiagram(
+        `PUT(["Prompt Under Test (PUT)"])
+IS["Input Specification (IS)"]
+PUT --> IS`,
+        options
+    );
 
     const context = MD.content(files.prompt.content);
     const pn = PROMPT_GENERATE_INPUT_SPEC;
@@ -614,17 +623,14 @@ export async function generateRules(
     const { numRules = RULES_NUM, workflowDiagram } = options || {};
     const instructions = options?.instructions?.outputRules || "";
 
-    if (workflowDiagram)
-        env.output.fence(
-            `
-graph TD
-    PUT(["Prompt Under Test (PUT)"])
-    OR["Output Rules (OR)"]
+    outputWorkflowDiagram(
+        `PUT(["Prompt Under Test (PUT)"])
+OR["Output Rules (OR)"]
 
-    PUT --> OR        
+PUT --> OR        
 `,
-            "mermaid"
-        );
+        options
+    );
 
     // generate rules
     const input_data = MD.content(files.prompt.content);
@@ -655,18 +661,13 @@ export async function generateInverseRules(
 ) {
     const { workflowDiagram } = options || {};
     const instructions = options?.instructions?.inverseOutputRules || "";
-    if (workflowDiagram)
-        env.output.fence(
-`
-graph TD
-    OR["Output Rules (OR)"]
-    IOR["Inverse Output Rules (IOR)"]
-
-    OR --> IOR
-    
+    outputWorkflowDiagram(
+        `OR["Output Rules (OR)"]
+IOR["Inverse Output Rules (IOR)"]
+OR --> IOR    
 `,
-            "mermaid"
-        );
+        options
+    );
 
     const rule = MD.content(files.rules.content);
     const pn = PROMPT_GENERATE_INVERSE_RULES;
@@ -727,28 +728,25 @@ export async function generateTests(
     const allRules = parseAllRules(files);
     if (!allRules) throw new Error("No rules found");
 
-    if (workflowDiagram)
-        env.output.fence(
-            `
-graph TD
-    PUT(["Prompt Under Test (PUT)"])
-    IS["Input Specification (IS)"]
-    OR["Output Rules (OR)"]
-    IOR["Inverse Output Rules (IOR)"]
-    PPT["PromptPex Tests (PPT)"]
+    outputWorkflowDiagram(
+        `PUT(["Prompt Under Test (PUT)"])
+IS["Input Specification (IS)"]
+OR["Output Rules (OR)"]
+IOR["Inverse Output Rules (IOR)"]
+PPT["PromptPex Tests (PPT)"]
 
-    PUT --> IS
+PUT --> IS
 
-    PUT --> OR
-    OR --> IOR
+PUT --> OR
+OR --> IOR
 
-    PUT --> PPT
-    IS --> PPT
-    OR --> PPT
-    IOR --> PPT        
+PUT --> PPT
+IS --> PPT
+OR --> PPT
+IOR --> PPT        
 `,
-            "mermaid"
-        );
+        options
+    );
 
     const context = MD.content(files.prompt.content);
     let repaired = false;

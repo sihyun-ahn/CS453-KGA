@@ -170,5 +170,14 @@ files.testOutputs.content = await runTests(files, {
     models,
 });
 const results = parseTestResults(files);
-output.table(results);
+output.table(
+    results.map(({ rule, inverse, model, input, output, compliance }) => ({
+        rule,
+        model,
+        input,
+        output,
+        compliance: compliance === "ok" ? "✓" : "✗",
+        inverse: inverse ? "✓" : "",
+    }))
+);
 output.detailsFenced(`data`, results, "json");
