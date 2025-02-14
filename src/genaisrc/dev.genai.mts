@@ -133,6 +133,7 @@ async function apply(
         if (file) await workspace.writeText(file.filename, file.content);
     }
     output.table(table);
+    output.detailsFenced(`data`, table, "json");
 }
 
 await apply(
