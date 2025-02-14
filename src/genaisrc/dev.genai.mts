@@ -1,3 +1,4 @@
+import { evaluateRulesCoverage, evaluateRulesGrounded } from "./evaluation.mts";
 import {
     generateBaselineTests,
     generateInputSpec,
@@ -7,7 +8,6 @@ import {
     generateTests,
 } from "./generation.genai.mts";
 import { loadPromptFiles } from "./parsers.mts";
-import { evaluateRulesGrounded, evaluateRulesCoverage } from "./promptpex.mts";
 import type { PromptPexContext, PromptPexOptions } from "./types.mts";
 
 script({

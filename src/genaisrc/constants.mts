@@ -11,3 +11,6 @@ export const PROMPT_CHECK_RULE_GROUNDED =
 export const CONCURRENCY = 2;
 export const RULES_NUM = 0;
 export const TESTS_NUM = 3;
+
+export const TEST_EVALUATION_DIR = "test_evals";
+export const RULE_EVALUATION_DIR = "rule_evals";

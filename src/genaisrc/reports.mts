@@ -6,6 +6,7 @@ import {
     parseRulesTests,
     parseTestEvals,
     parseTestResults,
+    resolveRule,
 } from "./parsers.mts";
 import type { PromptPexContext, PromptPexTestResult } from "./types.mts";
 
@@ -201,4 +202,47 @@ function addLineNumbers(text: string, start: number) {
         .split(/\r?\n/gi)
         .map((l, i) => `${start + i}: ${l}`)
         .join("\n");
+}
+
+export async function generateJSONReport(files: PromptPexContext) {
+    const prompt = files.prompt.content;
+    const inputSpec = files.inputSpec.content;
+    const errors: string[] = [];
+    const rules = parseRules(files.rules.content);
+    const inverseRules = parseRules(files.inverseRules.content);
+    const allRules = parseAllRules(files);
+    const rulesTests = parseRulesTests(files.tests.content);
+    const baseLineTests = parseBaselineTests(files);
+    const testEvals = parseTestEvals(files);
+    const ruleEvals = parseRuleEvals(files);
+    const testResults = parseTestResults(files);
+    if (files.tests.content && !rulesTests.length) {
+        console.warn(`failed to parse tests in ${files.tests.filename}`);
+        errors.push(`failed to parse tests in ${files.tests.filename}`);
+    }
+
+    const tests = [...rulesTests, ...baseLineTests].map((test) => {
+        const rule = resolveRule(allRules, test);
+        if (!rule && !test.baseline)
+            errors.push(
+                `test '${test.ruleid}' references non-existent rule in ${files.tests.filename}`
+            );
+        const res: any = {
+            ...rule,
+            ...test,
+        };
+        return res;
+    });
+
+    return {
+        prompt,
+        inputSpec,
+        rules,
+        inverseRules,
+        ruleEvals,
+        tests,
+        testEvals,
+        testResults,
+        errors: errors.length ? errors : undefined,
+    };
 }
