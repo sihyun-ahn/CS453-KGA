@@ -3,14 +3,13 @@ import {
     generateIntent,
     generateRules,
     loadPromptFiles,
-    PromptPexContext,
     generateBaselineTests,
     generateInverseRules,
-    PromptPexOptions,
     evaluateRulesGrounded,
     evaluateRulesCoverage,
     generateTests,
 } from "./promptpex.mts";
+import type { PromptPexContext, PromptPexOptions } from "./types.mts";
 
 script({
     title: "PromptPex Dev",

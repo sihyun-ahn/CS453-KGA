@@ -8,9 +8,9 @@ import {
     outputFile,
     parseRulesTests,
     parseTestResults,
-    PromptPexOptions,
     runTests,
 } from "./promptpex.mts";
+import type { PromptPexOptions } from "./types.mts";
 
 script({
     title: "PromptPex Test Generator",
