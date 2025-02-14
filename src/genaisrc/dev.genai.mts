@@ -133,7 +133,7 @@ async function apply(
         if (file) await workspace.writeText(file.filename, file.content);
     }
     output.table(table);
-    output.detailsFenced(`data`, table, "json");
+    output.detailsFenced(`data`, table, "csv");
 }
 
 await apply(
@@ -167,7 +167,7 @@ await apply("Rules", repeatRules, undefined, async (files, options) => {
             ),
         },
     ]);
-    output.detailsFenced(`data`, groundedness, "json");
+    output.detailsFenced(`data`, groundedness, "csv");
     return "";
 });
 await apply(
@@ -209,7 +209,7 @@ await apply(
                 ),
             },
         ]);
-        output.detailsFenced(`data`, coverage, "json");
+        output.detailsFenced(`data`, coverage, "csv");
         return "";
     }
 );

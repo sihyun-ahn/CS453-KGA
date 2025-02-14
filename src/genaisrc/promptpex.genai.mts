@@ -161,7 +161,7 @@ const tests = parseRulesTests(files.tests.content).map(
     ({ testinput, expectedoutput }) => ({ testinput, expectedoutput })
 );
 output.table(tests);
-output.detailsFenced(`data`, tests, "json");
+output.detailsFenced(`data`, tests, "csv");
 output.detailsFenced(`generated`, files.tests.content);
 
 // run tests against the model(s)
@@ -180,4 +180,4 @@ output.table(
         inverse: inverse ? "✓" : "",
     }))
 );
-output.detailsFenced(`data`, results, "json");
+output.detailsFenced(`data`, results, "csv");

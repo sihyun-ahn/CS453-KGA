@@ -553,7 +553,6 @@ export async function generateInputSpec(
     files: PromptPexContext,
     options?: PromptPexOptions
 ) {
-    const { workflowDiagram } = options || {};
     const instructions = options?.instructions?.inputSpec || "";
     outputWorkflowDiagram(
         `PUT(["Prompt Under Test (PUT)"])
@@ -620,7 +619,7 @@ export async function generateRules(
     files: PromptPexContext,
     options?: PromptPexOptions & { numRules?: number }
 ) {
-    const { numRules = RULES_NUM, workflowDiagram } = options || {};
+    const { numRules = RULES_NUM } = options || {};
     const instructions = options?.instructions?.outputRules || "";
 
     outputWorkflowDiagram(
@@ -659,7 +658,6 @@ export async function generateInverseRules(
     files: PromptPexContext,
     options?: PromptPexOptions
 ) {
-    const { workflowDiagram } = options || {};
     const instructions = options?.instructions?.inverseOutputRules || "";
     outputWorkflowDiagram(
         `OR["Output Rules (OR)"]
@@ -721,7 +719,7 @@ export async function generateTests(
     files: PromptPexContext,
     options?: PromptPexOptions & { num?: number }
 ) {
-    const { num = TESTS_NUM, workflowDiagram } = options || {};
+    const { num = TESTS_NUM } = options || {};
 
     if (!files.rules.content) throw new Error("No rules found");
     if (!files.inputSpec.content) throw new Error("No input spec found");
