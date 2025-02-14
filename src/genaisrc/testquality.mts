@@ -1,15 +1,11 @@
-import { TEST_EVALUATION_DIR } from "./constants.mts";
 import {
     modelOptions,
     parseOKERR,
-    parsBaselineTestEvals,
-    parseBaselineTests,
-    resolvePromptId,
     parseAllRules,
     parseRulesTests,
     resolveRule,
-    resolveTestId,
     resolvePromptArgs,
+    resolveTestEvalPath,
 } from "./parsers.mts";
 import { evaluateTestResult } from "./testresulteval.mts";
 import type {
@@ -18,108 +14,6 @@ import type {
     PromptPexTest,
     PromptPexTestEval,
 } from "./types.mts";
-
-export async function evaluateBaselineTests(
-    files: PromptPexContext,
-    options?: PromptPexOptions & { model?: ModelType; force?: boolean }
-) {
-    const { model } = options || {};
-    const moptions = {
-        ...modelOptions(model, options),
-    };
-    const inputSpec = files.inputSpec.content;
-    const baselineTests = parseBaselineTests(files);
-
-    const results = [];
-    for (const baselineTest of baselineTests) {
-        const { testinput, ...rest } = baselineTest;
-        const resValidity = await runPrompt(
-            (ctx) => {
-                ctx.importTemplate(
-                    "src/prompts/check_violation_with_input_spec.prompty",
-                    {
-                        input_spec: inputSpec,
-                        test: testinput,
-                    }
-                );
-            },
-            {
-                ...moptions,
-                cache: "promptpex",
-                choices: ["OK", "ERR"],
-                label: `evaluate validity of baseline test ${baselineTest.testinput.slice(0, 42)}...`,
-            }
-        );
-        const valid = parseOKERR(resValidity.text);
-        results.push({
-            input: testinput,
-            validity: valid,
-            validityText: resValidity.text,
-            ...rest,
-        });
-    }
-    return CSV.stringify(results, { header: true });
-}
-
-export async function evaluateRulesCoverage(
-    files: PromptPexContext,
-    options?: PromptPexOptions & { model?: ModelType; force?: boolean }
-) {
-    const { model } = options || {};
-    const moptions = {
-        ...modelOptions(model, options),
-    };
-    const baselineTests = parsBaselineTestEvals(files);
-    const validBaselineTests = baselineTests.filter((t) => t.validity === "ok");
-
-    const intent = files.intent.content;
-    const rules = files.rules.content;
-
-    const results: PromptPexTestEval[] = [];
-    for (const baselineTest of validBaselineTests) {
-        const res = await runPrompt(
-            (ctx) => {
-                ctx.importTemplate(
-                    "src/prompts/evaluate_test_coverage.prompty",
-                    {
-                        intent,
-                        rules,
-                        testInput: baselineTest.input,
-                    }
-                );
-            },
-            {
-                ...moptions,
-                cache: "promptpex",
-                label: `evaluate rules/baseline coverage for ${model}...`,
-            }
-        );
-        results.push({
-            ...baselineTest,
-            // TODO: review
-            coverage: res.text as any,
-            //coverageText: res.text,
-            //coverage: parseOKERR(res.text),
-        });
-    }
-    files.ruleCoverages.content = CSV.stringify(results, { header: true });
-    await workspace.writeText(
-        files.ruleCoverages.filename,
-        files.ruleCoverages.content
-    );
-    return results;
-}
-
-async function resolveTestEvalPath(
-    files: PromptPexContext,
-    test: PromptPexTest
-) {
-    const id = await resolveTestId(files, test);
-    const promptid = await resolvePromptId(files);
-    const dir = path.join(files.dir, TEST_EVALUATION_DIR);
-    const file = await workspace.readText(path.join(dir, `${id}.json`));
-    return { id, promptid, file };
-}
 
 export async function evaluateTestsQuality(
     files: PromptPexContext,

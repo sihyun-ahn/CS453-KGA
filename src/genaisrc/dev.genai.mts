@@ -1,4 +1,4 @@
-import { evaluateRulesCoverage } from "./evaluation.mts";
+import { evaluateRulesSpecAgreement } from "./rulesspecagreement.mts";
 import {
     generateBaselineTests,
     generateInputSpec,
@@ -192,23 +192,22 @@ await apply(
     repeastRulesGroundedness,
     undefined,
     async (files, options) => {
-        output.heading(3, "Evaluating Rules Coverage");
-        const coverage = await evaluateRulesCoverage(files, options);
+        output.heading(3, "Evaluating Rules Spec Agreement");
+        const res = await evaluateRulesSpecAgreement(files, options);
         output.table([
-            ...coverage.map(({ rule, coverage, coverageText }) => ({
+            ...res.map(({ rule, coverage, coverageText }) => ({
                 rule,
-                coverage,
-                coverageText,
+                agreement: coverage,
             })),
             {
                 rule: "ok",
-                coverage: coverage.reduce(
+                agreement: res.reduce(
                     (acc, { coverage }) => acc + (coverage === "ok" ? 1 : 0),
                     0
                 ),
             },
         ]);
-        output.detailsFenced(`data`, coverage, "csv");
+        output.detailsFenced(`data`, res, "csv");
         return "";
     }
 );

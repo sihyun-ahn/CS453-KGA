@@ -1,4 +1,3 @@
-import { evaluateTestResult } from "./evaluation.mts";
 import {
     modelOptions,
     parseAllRules,
@@ -9,6 +8,7 @@ import {
     resolveRule,
     resolveTestPath,
 } from "./parsers.mts";
+import { evaluateTestResult } from "./testresulteval.mts";
 import type {
     PromptPexContext,
     PromptPexOptions,
