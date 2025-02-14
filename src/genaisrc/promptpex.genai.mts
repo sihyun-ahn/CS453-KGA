@@ -1,11 +1,10 @@
+import { outputBackgroundInformation, outputFile } from "./output.mts";
 import {
     generateInputSpec,
     generateInverseRules,
     generateRules,
     generateTests,
     loadPromptFiles,
-    outputBackgroundInformation,
-    outputFile,
     parseRulesTests,
     parseTestResults,
     runTests,
