@@ -1,3 +1,4 @@
+import { resolveTestPath } from "./filecache.mts";
 import {
     modelOptions,
     parseAllRules,
@@ -5,11 +6,7 @@ import {
     parseOKERR,
     parseRulesTests,
 } from "./parsers.mts";
-import {
-    resolveTestPath,
-    resolvePromptArgs,
-    resolveRule,
-} from "./resolvers.mts";
+import { resolvePromptArgs, resolveRule } from "./resolvers.mts";
 import { evaluateTestResult } from "./testresulteval.mts";
 import type {
     PromptPexContext,
@@ -73,7 +70,7 @@ export async function runTest(
     const { id, promptid, file } = await resolveTestPath(files, test, {
         model,
     });
-    if (file.content && !force) {
+    if (file?.content && !force) {
         const res = parsers.JSON5(file) as PromptPexTestResult;
         if (res && !res.error && res.complianceText) {
             if (!res.model)
@@ -131,7 +128,10 @@ export async function runTest(
         );
         updateTestResultCompliant(testRes);
     }
-
-    await workspace.writeText(file.filename, JSON.stringify(testRes, null, 2));
+    if (file)
+        await workspace.writeText(
+            file.filename,
+            JSON.stringify(testRes, null, 2)
+        );
     return testRes;
 }

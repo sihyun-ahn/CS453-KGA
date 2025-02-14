@@ -4,11 +4,7 @@ import {
     parseAllRules,
     parseRulesTests,
 } from "./parsers.mts";
-import {
-    resolveTestEvalPath,
-    resolveRule,
-    resolvePromptArgs,
-} from "./resolvers.mts";
+import { resolveRule, resolvePromptArgs } from "./resolvers.mts";
 import { evaluateTestResult } from "./testresulteval.mts";
 import type {
     PromptPexContext,
@@ -16,6 +12,7 @@ import type {
     PromptPexTest,
     PromptPexTestEval,
 } from "./types.mts";
+import { resolveTestEvalPath } from "./filecache.mts";
 
 export async function evaluateTestsQuality(
     files: PromptPexContext,
@@ -48,8 +45,12 @@ export async function evaluateTestQuality(
     options?: PromptPexOptions & { force?: boolean }
 ): Promise<PromptPexTestEval> {
     const { force } = options || {};
-    const { id, promptid, file } = await resolveTestEvalPath(files, test);
-    if (file.content && !force) {
+    const { id, promptid, file } = await resolveTestEvalPath(
+        files,
+        test,
+        options
+    );
+    if (file?.content && !force) {
         const res = parsers.JSON5(file) as PromptPexTestEval;
         updateTestEval(res);
         if (res && !res.error && res.coverage && res.validity) return res;
@@ -151,7 +152,11 @@ export async function evaluateTestQuality(
     testEval.coverage = parseOKERR(testEval.coverageEvalText);
     testEval.error = error || undefined;
 
-    await workspace.writeText(file.filename, JSON.stringify(testEval, null, 2));
+    if (file)
+        await workspace.writeText(
+            file.filename,
+            JSON.stringify(testEval, null, 2)
+        );
 
     return testEval;
 }

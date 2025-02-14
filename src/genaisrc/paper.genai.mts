@@ -17,6 +17,12 @@ import { evaluateTestsQuality } from "./src/testquality.mts";
 import { runTests } from "./src/testrun.mts";
 import { PromptPexContext, PromptPexOptions } from "./src/types.mts";
 
+type PaperOptions = PromptPexOptions & {
+    force?: boolean;
+    models?: ModelType[];
+    evals?: boolean;
+};
+
 script({
     title: "PromptPex Paper Evaluation",
     description:
@@ -67,7 +73,8 @@ const options = Object.freeze({
     force,
     models,
     evals,
-});
+    evalCache: true,
+} satisfies PaperOptions);
 for (const files of prompts) {
     try {
         const ctx = await generate(files, options);

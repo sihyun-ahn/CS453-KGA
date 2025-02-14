@@ -1,5 +1,4 @@
-import { RULE_EVALUATION_DIR, TEST_EVALUATION_DIR } from "./constants.mts";
-import { PromptPexContext, PromptPexTest } from "./types.mts";
+import type { PromptPexContext, PromptPexTest } from "./types.mts";
 
 export async function resolveTestId(
     files: PromptPexContext,
@@ -15,26 +14,6 @@ export async function resolveTestId(
     return testid;
 }
 
-export async function resolveTestPath(
-    files: PromptPexContext,
-    test: PromptPexTest,
-    options: { model: string }
-) {
-    const { model } = options;
-    const id = await resolveTestId(files, test);
-    const promptid = await resolvePromptId(files);
-    const dir = path.join(
-        files.dir,
-        model
-            .replace(/^[^:]+:/g, "")
-            .replace(/[^a-z0-9\.\-]/g, "_")
-            .replace(/_+/g, "_")
-            .replace(/^_+|_+$/g, "")
-            .toLowerCase()
-    );
-    const file = await workspace.readText(path.join(dir, `${id}.json`));
-    return { id, promptid, file };
-}
 
 export function resolvePromptArgs(
     files: PromptPexContext,
@@ -61,34 +40,12 @@ export function resolvePromptArgs(
     return { inputs, args, testInput, expectedOutput };
 }
 
-export async function resolveRuleEvalPath(
-    files: PromptPexContext,
-    rule: string
-) {
-    const hash = await resolveRuleHash(files, rule);
-    const promptid = await resolvePromptId(files);
-    const dir = path.join(files.dir, RULE_EVALUATION_DIR);
-    const file = await workspace.readText(path.join(dir, `${hash}.json`));
-    return { id: hash, promptid, file };
-}
-
 export async function resolveRuleHash(files: PromptPexContext, rule: string) {
     const content = MD.content(files.prompt.content);
     const ruleid = await parsers.hash(content + rule, {
         length: 7,
     });
     return ruleid;
-}
-
-export async function resolveTestEvalPath(
-    files: PromptPexContext,
-    test: PromptPexTest
-) {
-    const id = await resolveTestId(files, test);
-    const promptid = await resolvePromptId(files);
-    const dir = path.join(files.dir, TEST_EVALUATION_DIR);
-    const file = await workspace.readText(path.join(dir, `${id}.json`));
-    return { id, promptid, file };
 }
 
 export function resolveRule(

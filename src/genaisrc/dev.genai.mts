@@ -30,6 +30,7 @@ const { output } = env;
 const out = "evals/dev";
 const commOptions: PromptPexOptions = {
     outputPrompts: true,
+    evalCache: true,
 };
 
 const repeatIntent = 1;

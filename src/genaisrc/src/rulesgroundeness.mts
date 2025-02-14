@@ -6,7 +6,7 @@ import {
     parseOKERR,
     parseRules,
 } from "./parsers.mts";
-import { resolveRuleEvalPath } from "./resolvers.mts";
+import { resolveRuleEvalPath } from "./filecache.mts";
 import type {
     PromptPexContext,
     PromptPexOptions,
@@ -19,8 +19,12 @@ export async function evaluateRuleGrounded(
     rule: string,
     options?: PromptPexOptions
 ): Promise<PromptPexRuleEval> {
-    const { id, promptid, file } = await resolveRuleEvalPath(files, rule);
-    if (file.content) {
+    const { id, promptid, file } = await resolveRuleEvalPath(
+        files,
+        rule,
+        options
+    );
+    if (file?.content) {
         const res = parsers.JSON5(file) as PromptPexRuleEval;
         if (res && !res.error) {
             res.ruleid = ruleid;
@@ -53,7 +57,11 @@ export async function evaluateRuleGrounded(
         grounded: parseOKERR(res.text),
         error: res.error?.message,
     };
-    await workspace.writeText(file.filename, JSON.stringify(ruleEval, null, 2));
+    if (file)
+        await workspace.writeText(
+            file.filename,
+            JSON.stringify(ruleEval, null, 2)
+        );
     return ruleEval;
 }
 

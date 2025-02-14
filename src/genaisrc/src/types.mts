@@ -46,6 +46,11 @@ export interface PromptPexOptions {
      * Custom model aliases
      */
     modelAliases?: Partial<Record<PromptPexModelAliases, string>>;
+
+    /**
+     * Caches resuls in the file system
+     */
+    evalCache?: boolean;
 }
 
 /**
