@@ -55,19 +55,26 @@ async function apply(
     fn: (files: PromptPexContext) => Awaitable<string>
 ) {
     output.heading(2, title);
+    const table = [];
     for (const files of prompts) {
+        const row = { prompt: files.name };
+        table.push(row);
+
         output.heading(3, files.prompt.filename.replace(/^samples\//, ""));
         const file = selector?.(files);
         if (repeat === 0 && file?.content) continue;
         for (let i = 0; i < repeat; ++i) {
+            const model = env.meta.model;
             const res = await fn(files);
             if (file) {
                 file.content = res;
                 output.fence(file.content, "text");
             }
+            row[`${model}/${i}`] = res;
         }
         if (file) await workspace.writeText(file.filename, file.content);
     }
+    output.table(table);
 }
 
 await apply(
