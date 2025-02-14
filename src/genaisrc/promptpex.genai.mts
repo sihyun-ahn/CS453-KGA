@@ -165,10 +165,10 @@ output.detailsFenced(`data`, tests, "json");
 output.detailsFenced(`generated`, files.tests.content);
 
 // run tests against the model(s)
-for (const model of models) {
-    output.heading(3, `Testing against ${model}`);
-    files.testOutputs.content = await runTests(files, model);
-    const results = parseTestResults(files);
-    output.table(results);
-    output.detailsFenced(`data`, results, "json");
-}
+output.heading(3, `Testing against ${models.length}`);
+files.testOutputs.content = await runTests(files, {
+    models,
+});
+const results = parseTestResults(files);
+output.table(results);
+output.detailsFenced(`data`, results, "json");
