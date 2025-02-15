@@ -86,3 +86,12 @@ export function outputFile(file: WorkspaceFile) {
     const contentType = path.extname(file.filename);
     output.fence(file.content, contentType);
 }
+
+export function outputLines(file: WorkspaceFile, name: string) {
+    const { output } = env;
+    const { content, filename } = file;
+    const contentType = path.extname(filename);
+    const lines = content?.split("\n").map((line) => ({ [name]: line })) || [];
+    output.table(lines);
+    output.detailsFenced(`data`, content, contentType);
+}

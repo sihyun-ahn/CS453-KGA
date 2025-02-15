@@ -4,7 +4,11 @@ import {
     generateInverseOutputRules,
     generateTests,
 } from "./src/generation.mts";
-import { outputBackgroundInformation, outputFile } from "./src/output.mts";
+import {
+    outputBackgroundInformation,
+    outputFile,
+    outputLines,
+} from "./src/output.mts";
 import {
     loadPromptFiles,
     parseRulesTests,
@@ -154,12 +158,12 @@ outputFile(files.inputSpec);
 // generate rules
 output.heading(3, "Output Rules");
 files.rules.content = await generateOutputRules(files, options);
-outputFile(files.rules);
+outputLines(files.rules, "rule");
 
 // generate inverse rules
 output.heading(3, "Inverse Output Rules");
 files.inverseRules.content = await generateInverseOutputRules(files, options);
-outputFile(files.inverseRules);
+outputLines(files.inverseRules, "inverse rule");
 
 // generate tests
 output.heading(3, "Tests");
@@ -171,34 +175,38 @@ output.table(tests);
 output.detailsFenced(`data`, tests, "csv");
 output.detailsFenced(`generated`, files.tests.content);
 
-// run tests against the model(s)
-output.heading(3, `Test Results`);
-files.testOutputs.content = await runTests(files, {
-    models,
-    compliance,
-});
-const results = parseTestResults(files);
-output.table(
-    results.map(
-        ({
-            rule,
-            inverse,
-            model,
-            input,
-            output,
-            compliance: testCompliance,
-        }) => ({
-            rule,
-            model,
-            input,
-            output,
-            compliance: compliance
-                ? testCompliance === "ok"
-                    ? "✓"
-                    : "✗"
-                : undefined,
-            inverse: inverse ? "✓" : "",
-        })
-    )
-);
-output.detailsFenced(`data`, results, "csv");
+if (!models?.length) {
+    output.warn(`No models specified. Skipping test run.`);
+} else {
+    // run tests against the model(s)
+    output.heading(3, `Test Results`);
+    files.testOutputs.content = await runTests(files, {
+        models,
+        compliance,
+    });
+    const results = parseTestResults(files);
+    output.table(
+        results.map(
+            ({
+                rule,
+                inverse,
+                model,
+                input,
+                output,
+                compliance: testCompliance,
+            }) => ({
+                rule,
+                model,
+                input,
+                output,
+                compliance: compliance
+                    ? testCompliance === "ok"
+                        ? "✓"
+                        : "✗"
+                    : undefined,
+                inverse: inverse ? "✓" : "",
+            })
+        )
+    );
+    output.detailsFenced(`data`, results, "csv");
+}
