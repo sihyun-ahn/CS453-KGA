@@ -20,6 +20,7 @@ PromptPex provides the following capabilities:
     performance of the prompt on any given model**. For example,
     a user can determine if a set of unit tests succeeds on gpt-4o-mini
     but fails on phi3.
+-   PromptPex uses an LLM to automatically determine whether model outputs meet the specified requirements.
 
 <details>
 <summary>Glossary</summary>
@@ -76,28 +77,35 @@ Here is an example of PromptPex in practice.
 Prompt:
 
 ```text
-You are given two items: 1) a sentence and 2) a word contained in that sentence.
-You have to determine the part of speech for a given word and return just the tag for the word's part of speech.
-Return only the part of speech tag.
-If the input isn't a word, return Unknown.
+In this task, you will be presented with a sentence and a word contained in that sentence. You have to determine the part of speech
+for a given word and return just the tag for the word's part of speech. Return only the part of speech tag.
+If the word cannot be tagged with the listed tags, return Unknown. If you are unable to tag the word, return CantAnswer.
+```
+
+Input Specification:
+
+```text
+1. The input consists of a sentence combined with a specific word from that sentence.
+2. The sentence must contain natural language text.
+3. The word must be a single word from the provided sentence.
 ```
 
 Extracted rules:
 
 ```text
-1. The output must be a valid part of speech tag in abbreviated form (such as ""NN"" for noun, ""VB"" for verb, etc.)
-when the input word is identified as a known part of speech.
-2. If the input word does not match the standard parts of speech, the output should be the string ""Unknown"".
-3. The output must be a single word or abbreviation and should not include any additional text or formatting.
+1. The output must return only the part of speech tag without any additional text or formatting.
+2. If the given word can be identified with one of the listed part of speech tags, the output must include only the specific tag for that word from the provided alphabetical list.
+3. If the given word cannot be tagged with any of the listed part of speech tags, the output should be the word "Unknown".
+4. If tagging the given word is not possible for any reason, the output should be the word "CantAnswer".
 ```
 
 Tests generated from the rules:
 
 ```text
-1. sentence: 'The quick brown fox jumps over the lazy dog.', word: 'fox'
-2. sentence: 'Quickly running towards success.', word: 'successful'
+1. sentence: 'An aura of mystery surrounded them.', word: 'aura'
+2. sentence: 'The researchers documented carefully.', word: 'carefully'
 (Note this tests the Unknown corner case)
-3. sentence: 'She sings beautifully.', word: 'sings'
+3. sentence: 'This is such a unique perspective.', word: 'such'
 ```
 
 ## Getting started
