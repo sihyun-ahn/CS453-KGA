@@ -41,20 +41,24 @@ Effective and responsible use of PromptPex requires:
 - Active engagement with the developer community to share insights and gathered feedback for improvements.
 
 ## How do I provide feedback on PromptPex?
-To provide feedback on PromptPex, users can engage through:
-- GitHub repository contributions and discussions.
-- Direct communication with the development team via provided point-of-contact emails.
-- Participation in community forums and developer events to share insights and suggestions for improvement.
+We welcome feedback and collaboration from our audience. If you have suggestions, questions, or observe unexpected/offensive behavior in our technology, please contact us at: <jhalleux@microsoft.com>, <reshabh@cs.washington.edu>, <sbarke@microsoft.com>, <zorn@microsoft.com>.
+
+If the team receives reports of undesired behavior or identifies issues independently, we will update this repository with appropriate mitigations. 
 
 ## Foundation model best practices
 
-Users are encouraged to leverage foundation models and LLMs that support responsible AI practices, such as Azure OpenAI. These services continually update safety and responsible AI mitigations to align with best practices in AI deployment.
+We strongly encourage users to use LLMs/MLLMs that support robust Responsible AI mitigations, such as Azure Open AI (AOAI) services. Such services continually update their safety and RAI mitigations with the latest industry standards for responsible use. For more on AOAI’s best practices when employing foundations models for scripts and applications: 
 
-## What are plugins and how does PromptPex use them?
-PromptPex does not incorporate plugins, focusing instead on the core functionalities of prompt generation and testing. Expansion into plugin capabilities is an area for potential future development based on user needs and feedback.
+[Blog post on responsible AI features in AOAI that were presented at Ignite 2023](https://techcommunity.microsoft.com/t5/ai-azure-ai-services-blog/announcing-new-ai-safety-amp-responsible-ai-features-in-azure/ba-p/3983686) 
 
-## What data can PromptPex provide to plugins? What permissions do PromptPex plugins have?
-As PromptPex currently does not utilize plugins, there are no data or permission considerations applicable at this stage of development.
+[Overview of Responsible AI practices for Azure OpenAI models](https://learn.microsoft.com/en-us/legal/cognitive-services/openai/overview) 
+
+[Azure OpenAI Transparency Note](https://learn.microsoft.com/en-us/legal/cognitive-services/openai/transparency-note) 
+
+[OpenAI’s Usage policies](https://openai.com/policies/usage-policies) 
+
+[Azure OpenAI’s Code of Conduct](https://learn.microsoft.com/en-us/legal/cognitive-services/openai/code-of-conduct) "
+
 
 ## What kinds of issues may arise when using PromptPex?
 Issues may arise from:
@@ -63,25 +67,9 @@ Issues may arise from:
 - Unexpected results due to testing models that were not part of the initial PromptPex testing suite.
 To mitigate these issues, it is crucial to thoroughly educate users on the prompt crafting process and the importance of contextual understanding.  Please see the related technical paper for more details.
 
-
-### Best practices for improving system performance
-
-Users are encouraged to familiarize themselves with effective prompt authoring practices and to remain aware of the tool's capabilities and limitations to enhance system performance.
-
-## Learn more about responsible AI
-
-[Microsoft AI principles](https://www.microsoft.com/en-us/ai/responsible-ai)
-
-[Microsoft responsible AI resources](https://www.microsoft.com/en-us/ai/responsible-ai-resources)
-
-[Microsoft Azure Learning courses on responsible AI](https://docs.microsoft.com/en-us/learn/paths/responsible-ai-business-principles/)
-
 ## Learn more about PromptPex
 
 For more information, visit the PromptPex project page on GitHub.
 Read the [PromptPex technical paper](https://arxiv.org/abs/2402.00001) for more details.
 
-## Contact us
-
-For feedback on this document: <zorn@microsoft.com>, <jhalleux@microsoft.com>
 
