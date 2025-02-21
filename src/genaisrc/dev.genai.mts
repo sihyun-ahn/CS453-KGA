@@ -13,7 +13,7 @@ import type { PromptPexContext, PromptPexOptions } from "./src/types.mts";
 
 script({
     title: "PromptPex Dev",
-    model: "large",
+    model: "none",
     unlisted: true,
     files: [
         "samples/speech-tag/speech-tag.prompty",
@@ -52,7 +52,6 @@ const configs: (PromptPexOptions & { name: string })[] = [
         },
     },
     */
-    /*
     {
         name: "llama3.3:70b",
         modelAliases: {
@@ -61,7 +60,7 @@ const configs: (PromptPexOptions & { name: string })[] = [
             eval: "ollama:llama3.3",
         },
     },
-    */
+    /*
     {
         name: "deepskeep-r1:8b",
         modelAliases: {
@@ -70,6 +69,7 @@ const configs: (PromptPexOptions & { name: string })[] = [
             eval: "ollama:deepseek-r1:8b",
         },
     },
+    */
     /*
     {
         name: "deepskeep-r1:32b",

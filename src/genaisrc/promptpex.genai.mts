@@ -19,6 +19,7 @@ import type { PromptPexOptions } from "./src/types.mts";
 
 script({
     title: "PromptPex Test Generator",
+    model: "none",
     description: `Generate tests for a LLM prompt using PromptPex.
 
 <details><summary>What is PromptPex?</summary>

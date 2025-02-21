@@ -25,6 +25,7 @@ type PaperOptions = PromptPexOptions & {
 
 script({
     title: "PromptPex Paper Evaluation",
+    model: "none",
     description:
         "Evaluate the performance of PromptPex and generate results for the paper.",
     files: ["samples/speech-tag/speech-tag.prompty"],
