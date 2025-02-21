@@ -39,11 +39,11 @@ PromptPex provides the following capabilities:
 -   PromptPex Tests (PPT) - Test cases generated for PUT with MPP using IS and OR (test)
 -   Baseline Tests (BT) - Zero shot test cases generated for PUT with MPP (baseline_test)
 
--   Test Input Compliance (TIC) - Checking if PPT and BT meets the constraints in IS using MPP (check_violation_with_input_spec)
--   Test Coverage (TC) - Result generated for PPT and BT on PUTI + OR with MPP (evaluate_test_coverage)
+-   Test Validity (TV) - Checking if PPT and BT meets the constraints in IS using MPP (check_violation_with_input_spec)
+-   Spec Agreement (SA) - Result generated for PPT and BT on PUTI + OR with MPP (evaluate_test_coverage)
 
 -   Test Output (TO) - Result generated for PPT and BT on PUT with each MUT (the template is PUT)
--   Test Output Compliance (TOC) - Checking if TO meets the constraints in PUT using MPP (check_violation_with_system_prompt)
+-   Test Non-Compliance (TNC) - Checking if TO meets the constraints in PUT using MPP (check_violation_with_system_prompt)
 
 </details>
 
@@ -136,11 +136,11 @@ graph TD
     ORG["Output Rules Groundedness (ORG)"]
     PUTI(["Prompt Under Test Intent (PUTI)"])
     PPT{{"PromptPex Tests (PPT)"}}
-    TC["Test Coverage (TC)"]
-    TCE["Test Coverage Evaluation (TCE)"]
+    SA["Spec Agreement (SA)"]
+    SAE["Spec Agreement Evaluation (SAE)"]
     TO["Test Output (TO) for MUT"]
-    TOC["Test Output Compliance (TOC)"]
-    TIC["Test Input Compliance (TIC)"]
+    TNC["Test Non-Compliance (TNC)"]
+    TV["Test Validity (TV)"]
     BT{{"Baseline Tests (BT)"}}
 
     PUT ==> IS
@@ -158,25 +158,25 @@ graph TD
     OR ==> PPT
     IOR ==> PPT
 
-    PPT --> TIC
-    IS --> TIC
+    PPT --> TV
+    IS --> TV
 
-    PPT --> TC
-    PUTI --> TC
-    OR --> TC
+    PPT --> SA
+    PUTI --> SA
+    OR --> SA
 
-    TC --> TCE
-    PUT --> TCE
+    SA --> SAE
+    PUT --> SAE
 
 
     PPT --> TO
     PUT --> TO
 
-    TO --> TOC
-    PUT --> TOC
+    TO --> TNC
+    PUT --> TNC
 
     PUT --> BT
-    BT --> TOC
+    BT --> TNC
 ```
 
 <br/>
