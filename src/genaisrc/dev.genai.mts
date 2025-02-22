@@ -13,7 +13,6 @@ import type { PromptPexContext, PromptPexOptions } from "./src/types.mts";
 
 script({
     title: "PromptPex Dev",
-    model: "none",
     unlisted: true,
     files: [
         "samples/speech-tag/speech-tag.prompty",

@@ -25,7 +25,6 @@ type PaperOptions = PromptPexOptions & {
 
 script({
     title: "PromptPex Paper Evaluation",
-    model: "none",
     description:
         "Evaluate the performance of PromptPex and generate results for the paper.",
     files: ["samples/speech-tag/speech-tag.prompty"],
@@ -51,7 +50,6 @@ script({
         models: {
             type: "string",
             description: "List of models to evaluate",
-            default: "",
         },
         out: {
             type: "string",
@@ -64,9 +62,8 @@ script({
 const { disableSafety, force, out, evals } = env.vars;
 
 const prompts = await loadPromptContext(out);
-const models = (env.vars.models || "github:gpt-4o-mini")
-    ?.split(/[;\n ,]/g)
-    .map((model) => model.trim());
+const models = env.vars.models?.split(/[;\n ,]/g).map((model) => model.trim());
+if (!models?.length) throw new Error(`no models provided for evaluation`);
 
 const res = [];
 const options = Object.freeze({
@@ -265,22 +262,20 @@ async function generate(
 
     outputFile(files.testEvals);
 
-    if (models?.length) {
-        files.testOutputs.content = await runTests(files, {
-            models,
-            force,
-        });
-        await workspace.writeText(
-            files.testOutputs.filename,
-            files.testOutputs.content
-        );
-        await workspace.writeText(
-            files.testOutputs.filename + ".tex",
-            toLatexTable(CSV.parse(files.testOutputs.content), {
-                caption: "Test results and compliance",
-            })
-        );
-    }
+    files.testOutputs.content = await runTests(files, {
+        models,
+        force,
+    });
+    await workspace.writeText(
+        files.testOutputs.filename,
+        files.testOutputs.content
+    );
+    await workspace.writeText(
+        files.testOutputs.filename + ".tex",
+        toLatexTable(CSV.parse(files.testOutputs.content), {
+            caption: "Test results and compliance",
+        })
+    );
 
     outputFile(files.testOutputs);
 
