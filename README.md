@@ -110,6 +110,9 @@ Tests generated from the rules:
 
 ## Getting started
 
+PromptPex uses [GenAIScript](https://microsoft.github.io/genaiscript)
+to execute.
+
 -   Install [Node.js v20+](https://nodejs.org/)
 -   Configure your LLM credentials in `.env`
 

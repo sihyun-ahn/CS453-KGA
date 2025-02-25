@@ -7,7 +7,6 @@ import {
     generateInverseOutputRules,
     generateOutputRules,
 } from "./src/generation.mts";
-import { toLatexTable } from "./src/latex.mts";
 import { outputFile } from "./src/output.mts";
 import { loadPromptContext } from "./src/parsers.mts";
 import { computeOverview, generateReports } from "./src/reports.mts";
@@ -47,15 +46,8 @@ script({
             description: "Evaluate quality of generated tests",
             default: true,
         },
-        models: {
-            type: "string",
-            description: "List of models to evaluate",
-        },
-        out: {
-            type: "string",
-            description: "Output directory",
-            default: "",
-        },
+        models: { type: "string", description: "List of models to evaluate" },
+        out: { type: "string", description: "Output directory", default: "" },
     },
 });
 
@@ -247,9 +239,7 @@ async function generate(
     // test exhaustiveness
     const tc = await evaluateTestsQuality(files, {
         ...(options || {}),
-        ...{
-            force,
-        },
+        ...{ force },
     });
     if (tc !== files.testEvals.content) {
         files.testEvals.content = tc;
@@ -262,21 +252,11 @@ async function generate(
 
     outputFile(files.testEvals);
 
-    files.testOutputs.content = await runTests(files, {
-        models,
-        force,
-    });
+    files.testOutputs.content = await runTests(files, { models, force });
     await workspace.writeText(
         files.testOutputs.filename,
         files.testOutputs.content
     );
-    await workspace.writeText(
-        files.testOutputs.filename + ".tex",
-        toLatexTable(CSV.parse(files.testOutputs.content), {
-            caption: "Test results and compliance",
-        })
-    );
-
     outputFile(files.testOutputs);
 
     // final report
