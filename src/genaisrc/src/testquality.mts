@@ -3,40 +3,40 @@ import {
     parseOKERR,
     parseAllRules,
     parseRulesTests,
-} from "./parsers.mts";
-import { resolveRule, resolvePromptArgs } from "./resolvers.mts";
-import { evaluateTestResult } from "./testresulteval.mts";
+} from "./parsers.mts"
+import { resolveRule, resolvePromptArgs } from "./resolvers.mts"
+import { evaluateTestResult } from "./testresulteval.mts"
 import type {
     PromptPexContext,
     PromptPexOptions,
     PromptPexTest,
     PromptPexTestEval,
-} from "./types.mts";
-import { resolveTestEvalPath } from "./filecache.mts";
+} from "./types.mts"
+import { resolveTestEvalPath } from "./filecache.mts"
 
 export async function evaluateTestsQuality(
     files: PromptPexContext,
     options?: { force?: boolean }
 ): Promise<string> {
-    const { force } = options || {};
-    const tests = parseRulesTests(files.tests.content);
-    if (!tests?.length) throw new Error("No tests found");
+    const { force } = options || {}
+    const tests = parseRulesTests(files.tests.content)
+    if (!tests?.length) throw new Error("No tests found")
 
-    console.log(`evaluating quality of ${tests.length} tests`);
-    const testEvals: PromptPexTestEval[] = [];
+    console.log(`evaluating quality of ${tests.length} tests`)
+    const testEvals: PromptPexTestEval[] = []
     for (const test of tests) {
-        const testEval = await evaluateTestQuality(files, test, { force });
-        if (testEval) testEvals.push(testEval);
+        const testEval = await evaluateTestQuality(files, test, { force })
+        if (testEval) testEvals.push(testEval)
     }
-    return CSV.stringify(testEvals, { header: true });
+    return CSV.stringify(testEvals, { header: true })
 }
 
 function updateTestEval(res: PromptPexTestEval) {
-    res.validity = parseOKERR(res.validityText);
+    res.validity = parseOKERR(res.validityText)
     if (!res.coverageEvalText) {
-        delete res.coverage;
-        delete res.coverageText;
-    } else res.coverage = parseOKERR(res.coverageEvalText);
+        delete res.coverage
+        delete res.coverageText
+    } else res.coverage = parseOKERR(res.coverageEvalText)
 }
 
 export async function evaluateTestQuality(
@@ -44,30 +44,30 @@ export async function evaluateTestQuality(
     test: PromptPexTest,
     options?: PromptPexOptions & { force?: boolean }
 ): Promise<PromptPexTestEval> {
-    const { force, evalModel = "eval" } = options || {};
+    const { force, evalModel = "eval" } = options || {}
     const { id, promptid, file } = await resolveTestEvalPath(
         files,
         test,
         options
-    );
+    )
     if (file?.content && !force) {
-        const res = parsers.JSON5(file) as PromptPexTestEval;
-        updateTestEval(res);
-        if (res && !res.error && res.coverage && res.validity) return res;
+        const res = parsers.JSON5(file) as PromptPexTestEval
+        updateTestEval(res)
+        if (res && !res.error && res.coverage && res.validity) return res
     }
 
-    const intent = files.intent.content;
-    if (!intent) throw new Error("No intent found");
-    const inputSpec = files.inputSpec.content;
-    if (!inputSpec) throw new Error("No input spec found");
-    const allRules = parseAllRules(files);
-    if (!allRules) throw new Error("No rules found");
+    const intent = files.intent.content
+    if (!intent) throw new Error("No intent found")
+    const inputSpec = files.inputSpec.content
+    if (!inputSpec) throw new Error("No input spec found")
+    const allRules = parseAllRules(files)
+    if (!allRules) throw new Error("No rules found")
 
-    const rule = resolveRule(allRules, test);
+    const rule = resolveRule(allRules, test)
     if (!rule && !test.baseline)
-        throw new Error(`No rule found for test ${test["ruleid"]}`);
+        throw new Error(`No rule found for test ${test["ruleid"]}`)
 
-    const { args, testInput } = resolvePromptArgs(files, test);
+    const { args, testInput } = resolvePromptArgs(files, test)
     if (!args || testInput === undefined)
         return {
             id,
@@ -75,11 +75,11 @@ export async function evaluateTestQuality(
             ...rule,
             input: testInput,
             error: "invalid test input",
-        } satisfies PromptPexTestEval;
+        } satisfies PromptPexTestEval
 
     const moptions = {
         ...modelOptions(evalModel, options),
-    };
+    }
     const [resCoverage, resValidity] = await Promise.all([
         runPrompt(
             (ctx) => {
@@ -93,7 +93,7 @@ export async function evaluateTestQuality(
                             .join("\n"),
                         testInput,
                     }
-                );
+                )
             },
             {
                 ...moptions,
@@ -109,7 +109,7 @@ export async function evaluateTestQuality(
                         input_spec: inputSpec,
                         test: testInput,
                     }
-                );
+                )
             },
             {
                 ...moptions,
@@ -118,11 +118,11 @@ export async function evaluateTestQuality(
                 label: `${files.name}> evaluate validity of test ${testInput.slice(0, 42)}...`,
             }
         ),
-    ]);
+    ])
 
     const error = [resCoverage.error?.message, resValidity?.error?.message]
         .filter((s) => !!s)
-        .join(" ");
+        .join(" ")
     const testEval: PromptPexTestEval = {
         id,
         promptid,
@@ -132,7 +132,7 @@ export async function evaluateTestQuality(
         validityText: resValidity.text,
         validity: parseOKERR(resValidity.text),
         coverageText: resCoverage.text,
-    } satisfies PromptPexTestEval;
+    } satisfies PromptPexTestEval
 
     const coverageEvalText = await evaluateTestResult(
         files,
@@ -146,17 +146,17 @@ export async function evaluateTestQuality(
             output: testEval.coverageText,
         },
         options
-    );
+    )
 
-    testEval.coverageEvalText = coverageEvalText;
-    testEval.coverage = parseOKERR(testEval.coverageEvalText);
-    testEval.error = error || undefined;
+    testEval.coverageEvalText = coverageEvalText
+    testEval.coverage = parseOKERR(testEval.coverageEvalText)
+    testEval.error = error || undefined
 
     if (file)
         await workspace.writeText(
             file.filename,
             JSON.stringify(testEval, null, 2)
-        );
+        )
 
-    return testEval;
+    return testEval
 }

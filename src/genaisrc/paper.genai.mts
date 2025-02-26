@@ -1,4 +1,4 @@
-import { evaluateBaselineTests } from "./src/baselinetestseval.mts";
+import { evaluateBaselineTests } from "./src/baselinetestseval.mts"
 import {
     generateIntent,
     generateInputSpec,
@@ -6,21 +6,21 @@ import {
     generateBaselineTests,
     generateInverseOutputRules,
     generateOutputRules,
-} from "./src/generation.mts";
-import { outputFile } from "./src/output.mts";
-import { loadPromptContext } from "./src/parsers.mts";
-import { computeOverview, generateReports } from "./src/reports.mts";
-import { evaluateRulesGrounded } from "./src/rulesgroundeness.mts";
-import { evaluateRulesSpecAgreement } from "./src/rulesspecagreement.mts";
-import { evaluateTestsQuality } from "./src/testquality.mts";
-import { runTests } from "./src/testrun.mts";
-import { PromptPexContext, PromptPexOptions } from "./src/types.mts";
+} from "./src/generation.mts"
+import { outputFile } from "./src/output.mts"
+import { loadPromptContext } from "./src/parsers.mts"
+import { computeOverview, generateReports } from "./src/reports.mts"
+import { evaluateRulesGrounded } from "./src/rulesgroundeness.mts"
+import { evaluateRulesSpecAgreement } from "./src/rulesspecagreement.mts"
+import { evaluateTestsQuality } from "./src/testquality.mts"
+import { runTests } from "./src/testrun.mts"
+import { PromptPexContext, PromptPexOptions } from "./src/types.mts"
 
 type PaperOptions = PromptPexOptions & {
-    force?: boolean;
-    models?: ModelType[];
-    evals?: boolean;
-};
+    force?: boolean
+    models?: ModelType[]
+    evals?: boolean
+}
 
 script({
     title: "PromptPex Paper Evaluation",
@@ -50,28 +50,28 @@ script({
         models: { type: "string", description: "List of models to evaluate" },
         out: { type: "string", description: "Output directory", default: "" },
     },
-});
+})
 
-const { disableSafety, force, out, evals } = env.vars;
+const { disableSafety, force, out, evals } = env.vars
 
-const prompts = await loadPromptContext(out);
-const models = env.vars.models?.split(/[;\n ,]/g).map((model) => model.trim());
-if (!models?.length) throw new Error(`no models provided for evaluation`);
+const prompts = await loadPromptContext(out)
+const models = env.vars.models?.split(/[;\n ,]/g).map((model) => model.trim())
+if (!models?.length) throw new Error(`no models provided for evaluation`)
 
-const res = [];
+const res = []
 const options = Object.freeze({
     disableSafety,
     force,
     models,
     evals,
     evalCache: true,
-} satisfies PaperOptions);
+} satisfies PaperOptions)
 for (const files of prompts) {
     try {
-        const ctx = await generate(files, options);
+        const ctx = await generate(files, options)
         const { testEvals, rules, ruleEvals, overview } = computeOverview(ctx, {
             percent: false,
-        });
+        })
         res.push({
             prompt: files.name,
             rules: rules.filter((r) => !r.inverse).length,
@@ -81,16 +81,16 @@ for (const files of prompts) {
             ...Object.fromEntries(
                 overview.map((o) => [o.model, o["tests compliant"]])
             ),
-        });
+        })
     } catch (e) {
-        console.error(e);
-        console.debug(e.stack);
+        console.error(e)
+        console.debug(e.stack)
     }
 }
 
-res.sort((a, b) => a.prompt.localeCompare(b.prompt));
+res.sort((a, b) => a.prompt.localeCompare(b.prompt))
 await workspace.writeText(
-    path.join(out,"evals/README.md"),
+    path.join(out, "evals/README.md"),
     `# Eval summary
   
 ## Test Results
@@ -100,14 +100,14 @@ await workspace.writeText(
 ${CSV.markdownify(res)}
 
 `
-);
+)
 
 async function generate(
     files: PromptPexContext,
     options?: PromptPexOptions & {
-        force?: boolean;
-        models?: ModelType[];
-        evals?: boolean;
+        force?: boolean
+        models?: ModelType[]
+        evals?: boolean
     }
 ) {
     const {
@@ -115,154 +115,158 @@ async function generate(
         force = false,
         models,
         evals,
-    } = options || {};
-    const { output } = env;
+    } = options || {}
+    const { output } = env
 
-    output.heading(3, `generating tests for ${files.name}`);
-    output.detailsFenced(`prompt under test`, files.prompt);
-    output.itemValue(`dir`, files.dir);
+    output.heading(3, `generating tests for ${files.name}`)
+    output.detailsFenced(`prompt under test`, files.prompt)
+    output.itemValue(`dir`, files.dir)
 
     if (!disableSafety) {
-        const contentSafety = await host.contentSafety();
+        const contentSafety = await host.contentSafety()
         if (!contentSafety) {
-            output.warn(`content safety not configured, skipping`);
+            output.warn(`content safety not configured, skipping`)
         } else {
             if (
                 (await contentSafety.detectHarmfulContent?.(files.prompt))
                     ?.harmfulContentDetected
             )
-                throw new Error(`Harmful content detected in prompt`);
+                throw new Error(`Harmful content detected in prompt`)
             if (
                 (await contentSafety.detectPromptInjection?.(files.prompt))
                     ?.attackDetected
             )
-                throw new Error(`Harmful content detected in rules`);
+                throw new Error(`Harmful content detected in rules`)
         }
     }
 
     // generate intent
     if (!files.intent.content || force) {
-        files.intent.content = await generateIntent(files, options);
-        await workspace.writeText(files.intent.filename, files.intent.content);
+        files.intent.content = await generateIntent(files, options)
+        await workspace.writeText(files.intent.filename, files.intent.content)
     }
 
-    outputFile(files.intent);
+    outputFile(files.intent)
 
     // generate input spec
     if (!files.inputSpec.content || force) {
-        files.inputSpec.content = await generateInputSpec(files, options);
+        files.inputSpec.content = await generateInputSpec(files, options)
         await workspace.writeText(
             files.inputSpec.filename,
             files.inputSpec.content
-        );
-        files.tests.content = undefined;
-        files.testOutputs.content = undefined;
+        )
+        files.tests.content = undefined
+        files.testOutputs.content = undefined
     }
 
-    outputFile(files.inputSpec);
+    outputFile(files.inputSpec)
 
     // generate rules
     if (!files.rules.content || force) {
-        files.rules.content = await generateOutputRules(files, options);
-        await workspace.writeText(files.rules.filename, files.rules.content);
-        files.inverseRules.content = undefined;
-        files.tests.content = undefined;
-        files.testOutputs.content = undefined;
-        files.testEvals.content = undefined;
-        files.ruleEvals.content = undefined;
+        files.rules.content = await generateOutputRules(files, options)
+        await workspace.writeText(files.rules.filename, files.rules.content)
+        files.inverseRules.content = undefined
+        files.tests.content = undefined
+        files.testOutputs.content = undefined
+        files.testEvals.content = undefined
+        files.ruleEvals.content = undefined
     }
 
-    outputFile(files.rules);
+    outputFile(files.rules)
 
     // generate inverse rules
     if (!files.inverseRules.content || force) {
         files.inverseRules.content = await generateInverseOutputRules(
             files,
             options
-        );
+        )
         await workspace.writeText(
             files.inverseRules.filename,
             files.inverseRules.content
-        );
-        files.tests.content = undefined;
-        files.testOutputs.content = undefined;
-        files.testEvals.content = undefined;
+        )
+        files.tests.content = undefined
+        files.testOutputs.content = undefined
+        files.testEvals.content = undefined
     }
 
-    outputFile(files.inverseRules);
+    outputFile(files.inverseRules)
 
     // generate tests
     if (!files.tests.content || force) {
-        files.tests.content = await generateTests(files, options);
-        await workspace.writeText(files.tests.filename, files.tests.content);
-        files.testEvals.content = undefined;
-        files.testOutputs.content = undefined;
+        files.tests.content = await generateTests(files, options)
+        await workspace.writeText(files.tests.filename, files.tests.content)
+        files.testEvals.content = undefined
+        files.testOutputs.content = undefined
     }
 
-    outputFile(files.tests);
+    outputFile(files.tests)
 
     // generate baseline tests
     if (!files.baselineTests.content || force) {
         files.baselineTests.content = await generateBaselineTests(
             files,
             options
-        );
+        )
         await workspace.writeText(
             files.baselineTests.filename,
             files.baselineTests.content
-        );
-        files.testEvals.content = undefined;
-        files.testOutputs.content = undefined;
+        )
+        files.testEvals.content = undefined
+        files.testOutputs.content = undefined
     }
 
-    outputFile(files.baselineTests);
+    outputFile(files.baselineTests)
 
-    await generateReports(files);
+    await generateReports(files)
 
-    if (!evals) return files;
+    if (!evals) return files
 
     if (!files.baselineTestEvals.content || force) {
         files.baselineTestEvals.content = await evaluateBaselineTests(files, {
             force: force,
-        });
+        })
         await workspace.writeText(
             files.baselineTestEvals.filename,
             files.baselineTestEvals.content
-        );
+        )
     }
 
-    await evaluateRulesGrounded(files, options);
-    await generateReports(files);
+    await evaluateRulesGrounded(files, options)
+    await generateReports(files)
 
-    await evaluateRulesSpecAgreement(files, { ...options, model: models[0] });
-    await generateReports(files);
+    await evaluateRulesSpecAgreement(files, { ...options, model: models[0] })
+    await generateReports(files)
 
     // test exhaustiveness
     const tc = await evaluateTestsQuality(files, {
         ...(options || {}),
         ...{ force },
-    });
+    })
     if (tc !== files.testEvals.content) {
-        files.testEvals.content = tc;
+        files.testEvals.content = tc
         await workspace.writeText(
             files.testEvals.filename,
             files.testEvals.content
-        );
-        await generateReports(files);
+        )
+        await generateReports(files)
     }
 
-    outputFile(files.testEvals);
+    outputFile(files.testEvals)
 
-    files.testOutputs.content = await runTests(files, { models, force, compliance: true });
+    files.testOutputs.content = await runTests(files, {
+        models,
+        force,
+        compliance: true,
+    })
     await workspace.writeText(
         files.testOutputs.filename,
         files.testOutputs.content
-    );
-    outputFile(files.testOutputs);
+    )
+    outputFile(files.testOutputs)
 
     // final report
-    const report = await generateReports(files);
-    console.log(`  report: ${report}`);
+    const report = await generateReports(files)
+    console.log(`  report: ${report}`)
 
-    return files;
+    return files
 }

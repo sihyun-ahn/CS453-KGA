@@ -1,21 +1,21 @@
-import { modelOptions, checkLLMResponse } from "./parsers.mts";
+import { modelOptions, checkLLMResponse } from "./parsers.mts"
 import {
     PromptPexContext,
     PromptPexTestResult,
     PromptPexOptions,
-} from "./types.mts";
+} from "./types.mts"
 
 export async function evaluateTestResult(
     files: PromptPexContext,
     testResult: PromptPexTestResult,
     options: PromptPexOptions
 ): Promise<string> {
-    const { evalModel = "eval" } = options || {};
+    const { evalModel = "eval" } = options || {}
     const moptions = {
         ...modelOptions(evalModel, options),
-    };
+    }
 
-    const content = MD.content(files.prompt.content);
+    const content = MD.content(files.prompt.content)
     const res = await runPrompt(
         (ctx) => {
             // removes frontmatter
@@ -25,7 +25,7 @@ export async function evaluateTestResult(
                     system: content.replace(/^(system|user):/gm, ""),
                     result: testResult.output,
                 }
-            );
+            )
         },
         {
             ...moptions,
@@ -33,8 +33,8 @@ export async function evaluateTestResult(
             //      logprobs: true,
             label: `${files.name}> evaluate test result ${testResult.model} ${testResult.input.slice(0, 42)}...`,
         }
-    );
-    checkLLMResponse(res);
-    const evaluation = res.text;
-    return evaluation;
+    )
+    checkLLMResponse(res)
+    const evaluation = res.text
+    return evaluation
 }

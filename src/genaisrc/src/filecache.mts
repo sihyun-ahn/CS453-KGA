@@ -1,29 +1,29 @@
-import { RULE_EVALUATION_DIR, TEST_EVALUATION_DIR } from "./constants.mts";
+import { RULE_EVALUATION_DIR, TEST_EVALUATION_DIR } from "./constants.mts"
 import {
     resolveTestId,
     resolvePromptId,
     resolveRuleHash,
-} from "./resolvers.mts";
+} from "./resolvers.mts"
 import type {
     PromptPexContext,
     PromptPexOptions,
     PromptPexTest,
-} from "./types.mjs";
+} from "./types.mjs"
 
 export async function resolveTestEvalPath(
     files: PromptPexContext,
     test: PromptPexTest,
     options: PromptPexOptions
 ) {
-    const { evalCache } = options || {};
-    const id = await resolveTestId(files, test);
-    const promptid = await resolvePromptId(files);
+    const { evalCache } = options || {}
+    const id = await resolveTestId(files, test)
+    const promptid = await resolvePromptId(files)
     const file = evalCache
         ? await workspace.readText(
               path.join(files.dir, TEST_EVALUATION_DIR, `${id}.json`)
           )
-        : undefined;
-    return { id, promptid, file };
+        : undefined
+    return { id, promptid, file }
 }
 
 export async function resolveRuleEvalPath(
@@ -31,15 +31,15 @@ export async function resolveRuleEvalPath(
     rule: string,
     options: PromptPexOptions
 ) {
-    const { evalCache } = options || {};
-    const hash = await resolveRuleHash(files, rule);
-    const promptid = await resolvePromptId(files);
+    const { evalCache } = options || {}
+    const hash = await resolveRuleHash(files, rule)
+    const promptid = await resolvePromptId(files)
     const file = evalCache
         ? await workspace.readText(
               path.join(files.dir, RULE_EVALUATION_DIR, `${hash}.json`)
           )
-        : undefined;
-    return { id: hash, promptid, file };
+        : undefined
+    return { id: hash, promptid, file }
 }
 
 export async function resolveTestPath(
@@ -47,9 +47,9 @@ export async function resolveTestPath(
     test: PromptPexTest,
     options: { model: string } & PromptPexOptions
 ) {
-    const { model, evalCache } = options;
-    const id = await resolveTestId(files, test);
-    const promptid = await resolvePromptId(files);
+    const { model, evalCache } = options
+    const id = await resolveTestId(files, test)
+    const promptid = await resolvePromptId(files)
     const file = evalCache
         ? await workspace.readText(
               path.join(
@@ -63,6 +63,6 @@ export async function resolveTestPath(
                   `${id}.json`
               )
           )
-        : undefined;
-    return { id, promptid, file };
+        : undefined
+    return { id, promptid, file }
 }

@@ -3,19 +3,19 @@ import {
     generateOutputRules,
     generateInverseOutputRules,
     generateTests,
-} from "./src/generation.mts";
+} from "./src/generation.mts"
 import {
     outputBackgroundInformation,
     outputFile,
     outputLines,
-} from "./src/output.mts";
+} from "./src/output.mts"
 import {
     loadPromptFiles,
     parseRulesTests,
     parseTestResults,
-} from "./src/parsers.mts";
-import { runTests } from "./src/testrun.mts";
-import type { PromptPexOptions } from "./src/types.mts";
+} from "./src/parsers.mts"
+import { runTests } from "./src/testrun.mts"
+import type { PromptPexOptions } from "./src/types.mts"
 
 script({
     title: "PromptPex Test Generator",
@@ -143,9 +143,9 @@ promptPex:
                 "These instructions will be added to the inverse output rules generation prompt.",
         },
     },
-});
+})
 
-const { output, meta, vars } = env;
+const { output, meta, vars } = env
 const {
     disableSafety,
     inputSpecInstructions,
@@ -155,8 +155,8 @@ const {
     rulesModel,
     evalModel,
     maxTests,
-} = vars;
-const models = (vars.models || "").split(/;/g).filter((m) => !!m);
+} = vars
+const models = (vars.models || "").split(/;/g).filter((m) => !!m)
 const options: PromptPexOptions = {
     disableSafety,
     instructions: {
@@ -167,56 +167,56 @@ const options: PromptPexOptions = {
     workflowDiagram: true,
     rulesModel,
     evalModel,
-};
-const files = await loadPromptFiles(env.files[0], options);
+}
+const files = await loadPromptFiles(env.files[0], options)
 
-output.heading(2, `PromptPex for ${files.name}`);
-output.itemValue(`model`, meta.model);
-output.detailsFenced(`options`, options, "yaml");
-await outputBackgroundInformation();
+output.heading(2, `PromptPex for ${files.name}`)
+output.itemValue(`model`, meta.model)
+output.detailsFenced(`options`, options, "yaml")
+await outputBackgroundInformation()
 
 // prompt info
-output.heading(3, `Prompt Under Test`);
-output.itemValue(`filename`, files.prompt.filename);
-output.fence(files.prompt.content, "md");
+output.heading(3, `Prompt Under Test`)
+output.itemValue(`filename`, files.prompt.filename)
+output.fence(files.prompt.content, "md")
 
 // generate input spec
-output.heading(3, "Input Specification");
-files.inputSpec.content = await generateInputSpec(files, options);
-outputFile(files.inputSpec);
+output.heading(3, "Input Specification")
+files.inputSpec.content = await generateInputSpec(files, options)
+outputFile(files.inputSpec)
 
 // generate rules
-output.heading(3, "Output Rules");
-files.rules.content = await generateOutputRules(files, options);
-outputLines(files.rules, "rule");
+output.heading(3, "Output Rules")
+files.rules.content = await generateOutputRules(files, options)
+outputLines(files.rules, "rule")
 
 // generate inverse rules
-output.heading(3, "Inverse Output Rules");
-files.inverseRules.content = await generateInverseOutputRules(files, options);
-outputLines(files.inverseRules, "inverse rule");
+output.heading(3, "Inverse Output Rules")
+files.inverseRules.content = await generateInverseOutputRules(files, options)
+outputLines(files.inverseRules, "inverse rule")
 
 // generate tests
-output.heading(3, "Tests");
-files.tests.content = await generateTests(files, options);
+output.heading(3, "Tests")
+files.tests.content = await generateTests(files, options)
 const tests = parseRulesTests(files.tests.content).map(
     ({ testinput, expectedoutput }) => ({ testinput, expectedoutput })
-);
-output.table(tests);
-output.detailsFenced(`data`, tests, "csv");
-output.detailsFenced(`generated`, files.tests.content);
+)
+output.table(tests)
+output.detailsFenced(`data`, tests, "csv")
+output.detailsFenced(`generated`, files.tests.content)
 
 if (!models?.length) {
-    output.warn(`No models specified. Skipping test run.`);
+    output.warn(`No models specified. Skipping test run.`)
 } else {
     // run tests against the model(s)
-    output.heading(3, `Test Results`);
+    output.heading(3, `Test Results`)
     files.testOutputs.content = await runTests(files, {
         models,
         compliance,
         maxTests,
         ignoreBaseline: true,
-    });
-    const results = parseTestResults(files);
+    })
+    const results = parseTestResults(files)
     output.table(
         results.map(
             ({
@@ -239,6 +239,6 @@ if (!models?.length) {
                 inverse: inverse ? "✓" : "",
             })
         )
-    );
-    output.detailsFenced(`data`, results, "csv");
+    )
+    output.detailsFenced(`data`, results, "csv")
 }
