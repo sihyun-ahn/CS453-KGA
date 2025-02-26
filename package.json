@@ -1,11 +1,12 @@
 {
     "devDependencies": {
-        "genaiscript": "^1.106.0",
+        "genaiscript": "^1.108.0",
         "prettier": "^3.5.2"
     },
     "scripts": {
         "postinstall": "genaiscript scripts fix",
         "postupdate": "genaiscript scripts fix",
+        "upgrade": "npx --yes npm-check-updates -u && npm install",
         "genaiscript": "genaiscript",
         "az:login": "az login --scope api://trapi/.default",
         "genai": "genaiscript run",

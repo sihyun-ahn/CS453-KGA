@@ -242,6 +242,12 @@ npm run gcm
 -   Put a breakpoint in your script
 -   Launch the script
 
+### Upgrade dependencies
+
+```sh
+npm run upgrade
+```
+
 ## Responsible AI Transparency Note
 
 Please reference [RESPONSIBLE_AI_TRANSPARENCY_NOTE.md](./RESPONSIBLE_AI_TRANSPARENCY_NOTE.md) for more information.
