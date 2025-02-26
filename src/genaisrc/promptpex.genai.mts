@@ -91,20 +91,22 @@ promptPex:
         },
         rulesModel: {
             type: "string",
-            description: "Model used to generate rules (you can also override the model alias 'rules'",
+            description:
+                "Model used to generate rules (you can also override the model alias 'rules'",
             enum: [
                 "openai:gpt-4o",
                 "ollama:llama3.3:70b",
-                "lmstudio:llama-3.3-70b"
+                "lmstudio:llama-3.3-70b",
             ],
         },
         evalModel: {
             type: "string",
-            description: "Model used to evaluate rules (you can also override the model alias 'eval'",
+            description:
+                "Model used to evaluate rules (you can also override the model alias 'eval'",
             enum: [
                 "openai:gpt-4o",
                 "ollama:llama3.3:70b",
-                "lmstudio:llama-3.3-70b"
+                "lmstudio:llama-3.3-70b",
             ],
         },
         models: {
@@ -116,6 +118,11 @@ promptPex:
             type: "boolean",
             description: "Evaluate Test Result compliance",
             default: false,
+        },
+        maxTests: {
+            type: "number",
+            description: "Maximum number of tests to run",
+            required: false,
         },
         inputSpecInstructions: {
             type: "string",
@@ -147,6 +154,7 @@ const {
     compliance,
     rulesModel,
     evalModel,
+    maxTests,
 } = vars;
 const models = (vars.models || "").split(/;/g).filter((m) => !!m);
 const options: PromptPexOptions = {
@@ -205,6 +213,8 @@ if (!models?.length) {
     files.testOutputs.content = await runTests(files, {
         models,
         compliance,
+        maxTests,
+        ignoreBaseline: true,
     });
     const results = parseTestResults(files);
     output.table(

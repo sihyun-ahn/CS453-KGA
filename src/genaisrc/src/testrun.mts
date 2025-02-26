@@ -22,13 +22,21 @@ export async function runTests(
         force?: boolean;
         compliance?: boolean;
         q?: PromiseQueue;
+        maxTests?: number;
+        ignoreBaseline?: boolean;
     }
 ): Promise<string> {
-    const { force, models = [], compliance } = options || {};
+    const {
+        force,
+        models = [],
+        compliance,
+        maxTests,
+        ignoreBaseline,
+    } = options || {};
     const rulesTests = parseRulesTests(files.tests.content);
-    const baselineTests = parseBaselineTests(files);
-    const tests = [...rulesTests, ...baselineTests];
-    if (!tests?.length) throw new Error("No tests found");
+    const baselineTests = ignoreBaseline ? [] : parseBaselineTests(files);
+    const tests = [...rulesTests, ...baselineTests].slice(0, maxTests);
+    if (!tests?.length) throw new Error("No tests found to run");
 
     console.log(`executing ${tests.length} tests with ${models.length} models`);
     const testResults: PromptPexTestResult[] = [];
