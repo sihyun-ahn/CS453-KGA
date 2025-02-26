@@ -102,6 +102,7 @@ export function parseTestResults(
         throw new Error(
             `invalid test results in ${files.testOutputs.filename}`
         );
+    for(const r of res) if (isNaN(r.ruleid)) r.ruleid = null
     return res;
 }
 

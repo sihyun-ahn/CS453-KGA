@@ -89,7 +89,7 @@ for (const files of prompts) {
 
 res.sort((a, b) => a.prompt.localeCompare(b.prompt));
 await workspace.writeText(
-    "evals/README.md",
+    path.join(out,"evals/README.md"),
     `# Eval summary
   
 ## Test Results

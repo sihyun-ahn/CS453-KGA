@@ -29,7 +29,7 @@ export async function evaluateBaselineTests(
                 ...moptions,
                 cache: "promptpex",
                 choices: ["OK", "ERR"],
-                label: `evaluate validity of baseline test ${baselineTest.testinput.slice(0, 42)}...`,
+                label: `${files.name}> evaluate validity of baseline test ${baselineTest.testinput.slice(0, 42)}...`,
             }
         );
         const valid = parseOKERR(resValidity.text);
