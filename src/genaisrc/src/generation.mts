@@ -18,6 +18,7 @@ import {
 } from "./parsers.mts"
 import { parseRulesTests, parseAllRules } from "./parsers.mts"
 import { PromptPexContext, PromptPexOptions } from "./types.mts"
+const { generator, output } = env
 
 export async function generateInputSpec(
     files: PromptPexContext,
@@ -35,7 +36,7 @@ PUT --> IS`,
     const context = MD.content(files.prompt.content)
     const pn = PROMPT_GENERATE_INPUT_SPEC
     await outputPrompty(pn, options)
-    const res = await runPrompt(
+    const res = await generator.runPrompt(
         (ctx) => {
             ctx.importTemplate(pn, {
                 context,
@@ -61,7 +62,7 @@ export async function generateIntent(
     const instructions = options?.instructions?.intent || ""
     const pn = PROMPT_GENERATE_INTENT
     await outputPrompty(pn, options)
-    const res = await runPrompt(
+    const res = await generator.runPrompt(
         (ctx) => {
             ctx.importTemplate(pn, {
                 prompt: context,
@@ -98,7 +99,7 @@ PUT --> OR
     const input_data = MD.content(files.prompt.content)
     const pn = PROMPT_GENERATE_RULES
     await outputPrompty(pn, options)
-    const res = await runPrompt(
+    const res = await generator.runPrompt(
         (ctx) => {
             ctx.importTemplate(pn, {
                 num_rules: numRules,
@@ -134,7 +135,7 @@ OR --> IOR
     const rule = MD.content(files.rules.content)
     const pn = PROMPT_GENERATE_INVERSE_RULES
     await outputPrompty(pn, options)
-    const res = await runPrompt(
+    const res = await generator.runPrompt(
         (ctx) => {
             ctx.importTemplate(pn, {
                 rule,
@@ -161,7 +162,7 @@ export async function generateBaselineTests(
     const context = MD.content(files.prompt.content)
     const pn = PROMPT_GENERATE_BASELINE_TESTS
     await outputPrompty(pn, options)
-    const res = await runPrompt(
+    const res = await generator.runPrompt(
         (ctx) => {
             ctx.importTemplate(pn, {
                 num,
@@ -215,7 +216,7 @@ IOR --> PPT
     let repaired = false
     const pn = PROMPT_GENERATE_TESTS
     await outputPrompty(pn, options)
-    const res = await runPrompt(
+    const res = await generator.runPrompt(
         (ctx) => {
             ctx.importTemplate(pn, {
                 input_spec: files.inputSpec.content,
@@ -237,10 +238,10 @@ IOR --> PPT
                         repaired = true
                         p.$`The generated tests are not valid CSV. Please fix formatting issues and try again.`
                     } else {
-                        env.output.warn(
+                        output.warn(
                             "Invalid generated test format, skipping repair."
                         )
-                        env.output.fence(last, "txt")
+                        output.fence(last, "txt")
                     }
                 }
             })

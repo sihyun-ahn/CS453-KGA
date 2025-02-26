@@ -10,6 +10,8 @@ import type {
     PromptPexTestResult,
 } from "./types.mts"
 
+const { files } = env
+
 export function modelOptions(
     modelAlias: PromptPexModelAliases,
     options: PromptPexOptions
@@ -160,7 +162,7 @@ export async function loadPromptContext(
 ): Promise<PromptPexContext[]> {
     const q = host.promiseQueue(CONCURRENCY)
     return q.mapAll(
-        env.files.filter((f) => /\.(md|txt|prompty)$/i.test(f.filename)),
+        files.filter((f) => /\.(md|txt|prompty)$/i.test(f.filename)),
         async (f) => await loadPromptFiles(f, { out })
     )
 }

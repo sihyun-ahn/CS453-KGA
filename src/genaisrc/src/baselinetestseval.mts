@@ -1,6 +1,8 @@
 import { modelOptions, parseOKERR, parseBaselineTests } from "./parsers.mts"
 import type { PromptPexContext, PromptPexOptions } from "./types.mts"
 
+const { generator } = env
+
 export async function evaluateBaselineTests(
     files: PromptPexContext,
     options?: PromptPexOptions & { model?: ModelType; force?: boolean }
@@ -15,7 +17,7 @@ export async function evaluateBaselineTests(
     const results = []
     for (const baselineTest of baselineTests) {
         const { testinput, ...rest } = baselineTest
-        const resValidity = await runPrompt(
+        const resValidity = await generator.runPrompt(
             (ctx) => {
                 ctx.importTemplate(
                     "src/prompts/check_violation_with_input_spec.prompty",
@@ -27,7 +29,6 @@ export async function evaluateBaselineTests(
             },
             {
                 ...moptions,
-                cache: "promptpex",
                 choices: ["OK", "ERR"],
                 label: `${files.name}> evaluate validity of baseline test ${baselineTest.testinput.slice(0, 42)}...`,
             }

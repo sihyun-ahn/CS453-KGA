@@ -1,9 +1,10 @@
 import type { PromptPexContext } from "./types.mts"
+const { output } = env
 
 export async function checkPromptSafety(files: PromptPexContext) {
     const contentSafety = await host.contentSafety()
     if (!contentSafety) {
-        env.output.warn(`content safety not configured, skipping`)
+        output.warn(`content safety not configured, skipping`)
     } else {
         if (
             (await contentSafety.detectHarmfulContent?.(files.prompt))

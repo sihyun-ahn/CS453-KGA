@@ -13,6 +13,7 @@ import type {
     PromptPexTestEval,
 } from "./types.mts"
 import { resolveTestEvalPath } from "./filecache.mts"
+const { generator } = env
 
 export async function evaluateTestsQuality(
     files: PromptPexContext,
@@ -81,7 +82,7 @@ export async function evaluateTestQuality(
         ...modelOptions(evalModel, options),
     }
     const [resCoverage, resValidity] = await Promise.all([
-        runPrompt(
+        generator.runPrompt(
             (ctx) => {
                 ctx.importTemplate(
                     "src/prompts/evaluate_test_coverage.prompty",
@@ -101,7 +102,7 @@ export async function evaluateTestQuality(
                 label: `${files.name}> evaluate coverage of test ${testInput.slice(0, 42)}...`,
             }
         ),
-        runPrompt(
+        generator.runPrompt(
             (ctx) => {
                 ctx.importTemplate(
                     "src/prompts/check_violation_with_input_spec.prompty",

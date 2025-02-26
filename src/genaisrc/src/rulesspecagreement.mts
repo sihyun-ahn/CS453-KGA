@@ -4,6 +4,7 @@ import type {
     PromptPexOptions,
     PromptPexTestEval,
 } from "./types.mts"
+const { generator } = env
 
 export async function evaluateRulesSpecAgreement(
     files: PromptPexContext,
@@ -21,7 +22,7 @@ export async function evaluateRulesSpecAgreement(
 
     const results: PromptPexTestEval[] = []
     for (const baselineTest of validBaselineTests) {
-        const res = await runPrompt(
+        const res = await generator.runPrompt(
             (ctx) => {
                 ctx.importTemplate(
                     "src/prompts/evaluate_test_coverage.prompty",

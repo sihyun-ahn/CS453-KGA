@@ -1,10 +1,11 @@
 import { DOCS_GLOSSARY, DOCS_TEST_GENERATION_DIAGRAM } from "./constants.mts"
 import type { PromptPexOptions } from "./types.mts"
+const { output } = env
 
 export async function outputBackgroundInformation() {
     const { output } = env
     output.startDetails(`information`)
-    env.output.appendContent(
+    output.appendContent(
         `
 \`\`\`mermaid
 ${DOCS_TEST_GENERATION_DIAGRAM}
@@ -23,7 +24,7 @@ export function outputWorkflowDiagram(
 ) {
     if (!options?.workflowDiagram) return
 
-    env.output.detailsFenced(
+    output.detailsFenced(
         `workflow`,
         `
 graph TD
@@ -38,7 +39,7 @@ export async function outputPrompty(
     options: PromptPexOptions
 ) {
     if (options?.outputPrompts)
-        env.output.detailsFenced(
+        output.detailsFenced(
             filename,
             (await workspace.readText(filename)).content,
             "md"

@@ -15,6 +15,8 @@ import type {
     PromptPexTestResult,
 } from "./types.mts"
 
+const { generator } = env
+
 export async function runTests(
     files: PromptPexContext,
     options?: {
@@ -103,9 +105,8 @@ export async function runTest(
             output: "invalid test input",
         } satisfies PromptPexTestResult
 
-    const res = await runPrompt(
+    const res = await generator.runPrompt(
         (ctx) => {
-            // removes frontmatter
             ctx.importTemplate(files.prompt.filename, args)
             if (!inputs.length) ctx.writeText(testInput)
         },

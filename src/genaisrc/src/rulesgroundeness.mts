@@ -12,6 +12,7 @@ import type {
     PromptPexOptions,
     PromptPexRuleEval,
 } from "./types.mts"
+const { generator } = env
 
 export async function evaluateRuleGrounded(
     files: PromptPexContext,
@@ -34,7 +35,7 @@ export async function evaluateRuleGrounded(
     }
 
     const description = MD.content(files.prompt.content)
-    const res = await runPrompt(
+    const res = await generator.runPrompt(
         (ctx) => {
             ctx.importTemplate(PROMPT_CHECK_RULE_GROUNDED, {
                 rule,

@@ -4,6 +4,7 @@ import {
     PromptPexTestResult,
     PromptPexOptions,
 } from "./types.mts"
+const { generator } = env
 
 export async function evaluateTestResult(
     files: PromptPexContext,
@@ -16,7 +17,7 @@ export async function evaluateTestResult(
     }
 
     const content = MD.content(files.prompt.content)
-    const res = await runPrompt(
+    const res = await generator.runPrompt(
         (ctx) => {
             // removes frontmatter
             ctx.importTemplate(
@@ -30,7 +31,6 @@ export async function evaluateTestResult(
         {
             ...moptions,
             choices: ["OK", "ERR"],
-            //      logprobs: true,
             label: `${files.name}> evaluate test result ${testResult.model} ${testResult.input.slice(0, 42)}...`,
         }
     )
