@@ -252,7 +252,7 @@ async function generate(
 
     outputFile(files.testEvals);
 
-    files.testOutputs.content = await runTests(files, { models, force });
+    files.testOutputs.content = await runTests(files, { models, force, compliance: true });
     await workspace.writeText(
         files.testOutputs.filename,
         files.testOutputs.content
