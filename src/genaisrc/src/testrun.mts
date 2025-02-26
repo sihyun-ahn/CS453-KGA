@@ -71,7 +71,7 @@ export async function runTest(
         force?: boolean
     }
 ): Promise<PromptPexTestResult> {
-    const { model, force, compliance } = options || {}
+    const { model, force, compliance, ...restOptions } = options || {}
     const moptions = {
         ...modelOptions(model, options),
     }
@@ -132,7 +132,7 @@ export async function runTest(
         testRes.complianceText = await evaluateTestResult(
             files,
             testRes,
-            options
+            restOptions
         )
         updateTestResultCompliant(testRes)
     }
