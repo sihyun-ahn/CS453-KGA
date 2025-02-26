@@ -5,7 +5,7 @@ script({
     title: "git commit message",
     description: "Generate a commit message for all staged changes",
     unlisted: true,
-    model: "none"
+    model: "none",
 })
 
 // lint
@@ -49,7 +49,12 @@ Please generate a concise, one-line commit message for these changes.
 - do NOT add quotes
 ` // TODO: add a better prompt
         },
-        { label: "generate commit message", cache: false, temperature: 0.8 }
+        {
+            model: "large",
+            label: "generate commit message",
+            cache: false,
+            temperature: 0.8,
+        }
     )
     if (res.error) throw res.error
 
