@@ -4,7 +4,8 @@
 script({
     title: "git commit message",
     description: "Generate a commit message for all staged changes",
-    unlisted: true
+    unlisted: true,
+    model: "none"
 })
 
 // lint
