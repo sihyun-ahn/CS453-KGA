@@ -84,7 +84,9 @@ export async function runTest(
         const res = parsers.JSON5(file) as PromptPexTestResult
         if (res && !res.error && res.complianceText) {
             if (!res.model)
-                throw new Error(`invalid test result ${file.filename}`)
+                throw new Error(
+                    `invalid test result ${file.filename}, missing model field`
+                )
             updateTestResultCompliant(res)
             res.baseline = test.baseline
             return res

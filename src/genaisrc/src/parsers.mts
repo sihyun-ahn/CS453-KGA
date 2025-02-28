@@ -100,8 +100,10 @@ export function parseTestResults(
         r.inverse =
             r.ruleid !== null && parseInt(r.ruleid as any) > rules.length
     })
-    if (res.some((r) => !r.model))
-        throw new Error(`invalid test results in ${files.testOutputs.filename}`)
+    if (res.some((r) => !r.error && !r.model))
+        throw new Error(
+            `invalid test results in ${files.testOutputs.filename}, missing model field`
+        )
     for (const r of res) if (isNaN(r.ruleid)) r.ruleid = null
     return res
 }
