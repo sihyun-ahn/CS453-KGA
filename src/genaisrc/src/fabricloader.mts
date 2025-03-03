@@ -35,6 +35,9 @@ export async function loadFabricPrompts(
             : ""
         const prompty = `---
 name: ${pattern.name}
+tags:
+    - fabric
+    - unlisted
 ---
 ${
     systemText
