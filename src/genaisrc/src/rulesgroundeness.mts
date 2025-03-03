@@ -48,15 +48,15 @@ export async function evaluateRuleGrounded(
             label: `${files.name}> eval rule grounded ${rule.slice(0, 18)}...`,
         }
     )
-    checkLLMResponse(res)
+    const resText = checkLLMResponse(res)
 
     const ruleEval: PromptPexRuleEval = {
         id,
         promptid,
         ruleid,
         rule,
-        groundedText: res.text,
-        grounded: parseOKERR(res.text),
+        groundedText: resText,
+        grounded: parseOKERR(resText),
         error: res.error?.message,
     }
     if (file)

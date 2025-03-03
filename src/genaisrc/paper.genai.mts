@@ -1,14 +1,14 @@
 import { generateBaselineTests } from "./src/baselinetestgen.mts"
 import { evaluateBaselineTests } from "./src/baselinetestseval.mts"
-import {
-    generateIntent,
-    generateInputSpec,
-    generateInverseOutputRules,
-    generateOutputRules,
-} from "./src/generation.mts"
+import { generateInputSpec } from "./src/inputspecgen.mts"
+import { generateIntent } from "./src/intentgen.mts"
 import { outputFile } from "./src/output.mts"
 import { loadPromptContext } from "./src/parsers.mts"
 import { computeOverview, generateReports } from "./src/reports.mts"
+import {
+    generateOutputRules,
+    generateInverseOutputRules,
+} from "./src/rulesgen.mts"
 import { evaluateRulesGrounded } from "./src/rulesgroundeness.mts"
 import { evaluateRulesSpecAgreement } from "./src/rulesspecagreement.mts"
 import { generateTests } from "./src/testgen.mts"

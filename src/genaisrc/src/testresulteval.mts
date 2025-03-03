@@ -34,7 +34,6 @@ export async function evaluateTestResult(
             label: `${files.name}> evaluate test result ${testResult.model} ${testResult.input.slice(0, 42)}...`,
         }
     )
-    checkLLMResponse(res)
-    const evaluation = res.text
+    const evaluation = checkLLMResponse(res)
     return evaluation
 }

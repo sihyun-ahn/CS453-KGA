@@ -1,15 +1,15 @@
 import { evaluateRulesSpecAgreement } from "./src/rulesspecagreement.mts"
-import {
-    generateInputSpec,
-    generateIntent,
-    generateInverseOutputRules,
-    generateOutputRules,
-} from "./src/generation.mts"
 import { loadPromptFiles } from "./src/parsers.mts"
 import { evaluateRulesGrounded } from "./src/rulesgroundeness.mts"
 import type { PromptPexContext, PromptPexOptions } from "./src/types.mts"
 import { generateBaselineTests } from "./src/baselinetestgen.mts"
 import { generateTests } from "./src/testgen.mts"
+import { generateInputSpec } from "./src/inputspecgen.mts"
+import { generateIntent } from "./src/intentgen.mts"
+import {
+    generateOutputRules,
+    generateInverseOutputRules,
+} from "./src/rulesgen.mts"
 
 script({
     title: "PromptPex Dev",

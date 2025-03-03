@@ -80,6 +80,6 @@ IOR --> PPT
             label: `${files.name}> generate tests`,
         }
     )
-    checkLLMResponse(res)
-    return parsers.unfence(parsers.unfence(res.text, ""), "csv")
+    const text = checkLLMResponse(res)
+    return parsers.unfence(text, "csv")
 }

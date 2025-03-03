@@ -1,8 +1,4 @@
-import {
-    generateInputSpec,
-    generateOutputRules,
-    generateInverseOutputRules,
-} from "./src/generation.mts"
+import { generateInputSpec } from "./src/inputspecgen.mts"
 import {
     outputBackgroundInformation,
     outputFile,
@@ -13,6 +9,10 @@ import {
     parseRulesTests,
     parseTestResults,
 } from "./src/parsers.mts"
+import {
+    generateOutputRules,
+    generateInverseOutputRules,
+} from "./src/rulesgen.mts"
 import { generateTests } from "./src/testgen.mts"
 import { runTests } from "./src/testrun.mts"
 import type { PromptPexOptions } from "./src/types.mts"
@@ -200,7 +200,7 @@ outputLines(files.rules, "rule")
 // generate inverse rules
 output.heading(3, "Inverse Output Rules")
 files.inverseRules.content = await generateInverseOutputRules(files, options)
-outputLines(files.inverseRules, "inverse rule")
+outputLines(files.inverseRules, "generate inverse output rule")
 
 // generate tests
 output.heading(3, "Tests")

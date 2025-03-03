@@ -49,12 +49,13 @@ export function checkLLMResponse(res: RunPromptResult) {
     if (res.error) throw new Error(res.error.message)
     if (isUnassistedResponse(res.text))
         throw new Error("LLM failed to generate response")
-    return res.text
+    return parsers.unfence(res.text, "")
 }
 
 export function tidyRules(text: string) {
     if (isUnassistedResponse(text)) return ""
-    return text
+    return parsers
+        .unfence(text, "")
         .split(/\n/g)
         .map((line) => line.replace(/^(\d+\.|_|-|\*)\s+/i, "")) // unneded numbering
         .filter((s) => !!s)
