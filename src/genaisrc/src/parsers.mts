@@ -10,7 +10,7 @@ import type {
     PromptPexTestResult,
 } from "./types.mts"
 
-const { files } = env
+const { files, output } = env
 
 export function modelOptions(
     modelAlias: PromptPexModelAliases,
@@ -101,7 +101,7 @@ export function parseTestResults(
             r.ruleid !== null && parseInt(r.ruleid as any) > rules.length
     })
     if (res.some((r) => !r.error && !r.model)) {
-        console.error(
+        output.warn(
             `invalid test results in ${files.testOutputs.filename}, missing model field`
         )
     }

@@ -209,7 +209,7 @@ const tests = parseRulesTests(files.tests.content).map(
     ({ testinput, expectedoutput }) => ({ testinput, expectedoutput })
 )
 output.table(tests)
-output.detailsFenced(`data`, tests, "csv")
+output.detailsFenced(`tests (csv)`, tests, "csv")
 output.detailsFenced(`generated`, files.tests.content)
 
 if (!models?.length) {
@@ -247,5 +247,5 @@ if (!models?.length) {
             })
         )
     )
-    output.detailsFenced(`data`, results, "csv")
+    output.detailsFenced(`results`, results, "csv")
 }

@@ -15,7 +15,7 @@ import type {
     PromptPexTestResult,
 } from "./types.mts"
 
-const { generator } = env
+const { generator, output } = env
 
 export async function runTests(
     files: PromptPexContext,
@@ -84,7 +84,7 @@ export async function runTest(
         const res = parsers.JSON5(file) as PromptPexTestResult
         if (res && !res.error && res.complianceText) {
             if (!res.model)
-                console.error(
+                output.warn(
                     `invalid test result ${file.filename}, missing model field`
                 )
             updateTestResultCompliant(res)
