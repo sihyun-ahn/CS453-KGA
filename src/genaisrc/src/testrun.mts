@@ -110,7 +110,7 @@ export async function runTest(
     const res = await generator.runPrompt(
         (ctx) => {
             ctx.importTemplate(files.prompt.filename, args)
-            if (!inputs.length) ctx.writeText(testInput)
+            if (!Object.keys(inputs || {}).length) ctx.writeText(testInput)
         },
         {
             ...moptions,
