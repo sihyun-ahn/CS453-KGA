@@ -1,9 +1,9 @@
+import { generateBaselineTests } from "./src/baselinetestgen.mts"
 import { evaluateBaselineTests } from "./src/baselinetestseval.mts"
 import {
     generateIntent,
     generateInputSpec,
     generateTests,
-    generateBaselineTests,
     generateInverseOutputRules,
     generateOutputRules,
 } from "./src/generation.mts"

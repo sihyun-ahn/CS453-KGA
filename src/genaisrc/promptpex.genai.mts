@@ -109,6 +109,11 @@ promptPex:
                 "lmstudio:llama-3.3-70b",
             ],
         },
+        baselineModel: {
+            type: "string",
+            description: "Model used to generate baseline tests",
+            enum: ["openai:gpt-4o"],
+        },
         models: {
             type: "string",
             description:

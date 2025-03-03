@@ -1,4 +1,6 @@
-export type PromptPexModelAliases = OptionsOrString<"rules" | "eval" | "large">
+export type PromptPexModelAliases = OptionsOrString<
+    "rules" | "eval" | "large" | "baseline"
+>
 
 export interface PromptPexPrompts {
     /**
@@ -61,6 +63,11 @@ export interface PromptPexOptions {
      * Model used to evaluate rules
      */
     evalModel?: string
+
+    /**
+     * Model used to generate baseline tests
+     */
+    baselineModel?: string
 }
 
 /**
