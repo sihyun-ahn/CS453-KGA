@@ -31,10 +31,18 @@ script({
             description: "Fabric version to use",
             required: false,
         },
+        samplePrompts: {
+            type: "integer",
+            description: "Number of prompts to sample",
+            required: false,
+        },
     },
 })
 const { output, vars } = env
-const { fabric } = vars
+const { fabric, samplePrompts } = vars as {
+    fabric: string
+    samplePrompts: number
+}
 const out = "evals/dev"
 const commOptions: PromptPexOptions = {
     outputPrompts: true,
@@ -101,7 +109,7 @@ const configs: (PromptPexOptions & { name: string })[] = [
 
 output.heading(1, "PromptPex Dev Mode")
 output.detailsFenced(`configurations`, configs, "yaml")
-const prompts = await Promise.all([
+let prompts = await Promise.all([
     ...(!fabric
         ? env.files.map((file) =>
               loadPromptFiles(file, { disableSafety: true, out })
@@ -111,6 +119,11 @@ const prompts = await Promise.all([
         ? await loadFabricPrompts(fabric, { disableSafety: true, out })
         : []),
 ])
+if (samplePrompts)
+    prompts = parsers.tidyData(prompts, {
+        sliceSample: samplePrompts,
+    }) as PromptPexContext[]
+output.itemValue("prompts", prompts.length)
 prompts.forEach((files) => output.itemValue(files.name, files.prompt.filename))
 
 async function apply(

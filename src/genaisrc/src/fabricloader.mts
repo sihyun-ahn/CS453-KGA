@@ -8,8 +8,7 @@ export async function loadFabricPrompts(
     branch: string,
     options?: PromptPexLoaderOptions
 ): Promise<PromptPexContext[]> {
-    output.heading(4, "Fabric prompts")
-    output.itemValue("version", branch)
+    output.itemValue("fabric version", branch)
 
     const fabricGit = await git.shallowClone("danielmiessler/fabric", {
         branch,
@@ -19,7 +18,7 @@ export async function loadFabricPrompts(
     const patterns = (await readdir(fabricDir, { withFileTypes: true })).filter(
         (f) => f.isDirectory()
     )
-    output.itemValue("patterns", patterns.length)
+    output.itemValue("fabric patterns", patterns.length)
 
     const res: WorkspaceFile[] = []
     for (const pattern of patterns) {
