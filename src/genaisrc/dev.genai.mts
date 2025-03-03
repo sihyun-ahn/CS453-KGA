@@ -4,12 +4,12 @@ import {
     generateIntent,
     generateInverseOutputRules,
     generateOutputRules,
-    generateTests,
 } from "./src/generation.mts"
 import { loadPromptFiles } from "./src/parsers.mts"
 import { evaluateRulesGrounded } from "./src/rulesgroundeness.mts"
 import type { PromptPexContext, PromptPexOptions } from "./src/types.mts"
 import { generateBaselineTests } from "./src/baselinetestgen.mts"
+import { generateTests } from "./src/testgen.mts"
 
 script({
     title: "PromptPex Dev",

@@ -9,6 +9,7 @@ script({
 
 // lint
 await host.exec("npm", ["run", "lint"])
+await host.exec("npm", ["run", "build"])
 
 // TODO: update this diff command to match your workspace
 const diffCmd = "git diff --cached -- . :!**/genaiscript.d.ts"

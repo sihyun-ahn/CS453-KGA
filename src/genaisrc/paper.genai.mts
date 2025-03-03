@@ -3,7 +3,6 @@ import { evaluateBaselineTests } from "./src/baselinetestseval.mts"
 import {
     generateIntent,
     generateInputSpec,
-    generateTests,
     generateInverseOutputRules,
     generateOutputRules,
 } from "./src/generation.mts"
@@ -12,6 +11,7 @@ import { loadPromptContext } from "./src/parsers.mts"
 import { computeOverview, generateReports } from "./src/reports.mts"
 import { evaluateRulesGrounded } from "./src/rulesgroundeness.mts"
 import { evaluateRulesSpecAgreement } from "./src/rulesspecagreement.mts"
+import { generateTests } from "./src/testgen.mts"
 import { evaluateTestsQuality } from "./src/testquality.mts"
 import { runTests } from "./src/testrun.mts"
 import { PromptPexContext, PromptPexOptions } from "./src/types.mts"

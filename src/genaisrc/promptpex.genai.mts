@@ -2,7 +2,6 @@ import {
     generateInputSpec,
     generateOutputRules,
     generateInverseOutputRules,
-    generateTests,
 } from "./src/generation.mts"
 import {
     outputBackgroundInformation,
@@ -14,6 +13,7 @@ import {
     parseRulesTests,
     parseTestResults,
 } from "./src/parsers.mts"
+import { generateTests } from "./src/testgen.mts"
 import { runTests } from "./src/testrun.mts"
 import type { PromptPexOptions } from "./src/types.mts"
 
@@ -157,6 +157,7 @@ const {
     outputRulesInstructions,
     inverseOutputRulesInstructions,
     compliance,
+    baselineModel,
     rulesModel,
     evalModel,
     maxTests,
@@ -170,6 +171,7 @@ const options: PromptPexOptions = {
         inverseOutputRules: inverseOutputRulesInstructions,
     },
     workflowDiagram: true,
+    baselineModel,
     rulesModel,
     evalModel,
 }
@@ -177,7 +179,7 @@ const files = await loadPromptFiles(env.files[0], options)
 
 output.heading(2, `PromptPex for ${files.name}`)
 output.itemValue(`model`, meta.model)
-output.detailsFenced(`options`, options, "yaml")
+output.detailsFenced(`options`, { options, models }, "yaml")
 await outputBackgroundInformation()
 
 // prompt info
