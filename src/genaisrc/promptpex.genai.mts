@@ -1,14 +1,11 @@
 import { generateInputSpec } from "./src/inputspecgen.mts"
+import { loadPromptFiles } from "./src/loaders.mts"
 import {
     outputBackgroundInformation,
     outputFile,
     outputLines,
 } from "./src/output.mts"
-import {
-    loadPromptFiles,
-    parseRulesTests,
-    parseTestResults,
-} from "./src/parsers.mts"
+import { parseRulesTests, parseTestResults } from "./src/parsers.mts"
 import {
     generateOutputRules,
     generateInverseOutputRules,

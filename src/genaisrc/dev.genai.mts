@@ -1,5 +1,5 @@
 import { evaluateRulesSpecAgreement } from "./src/rulesspecagreement.mts"
-import { loadPromptFiles } from "./src/parsers.mts"
+import { loadPromptFiles } from "./src/loaders.mts"
 import { evaluateRulesGrounded } from "./src/rulesgroundeness.mts"
 import type { PromptPexContext, PromptPexOptions } from "./src/types.mts"
 import { generateBaselineTests } from "./src/baselinetestgen.mts"
@@ -10,6 +10,7 @@ import {
     generateOutputRules,
     generateInverseOutputRules,
 } from "./src/rulesgen.mts"
+import { loadFabricPrompts } from "./src/fabricloader.mts"
 
 script({
     title: "PromptPex Dev",
@@ -24,8 +25,16 @@ script({
         "samples/big-prompt-lib/sentence-rewrite.prompty",
         "samples/azure-ai-studio/shakespearean-writing-assistant.prompty",
     ],
+    parameters: {
+        fabric: {
+            type: "string",
+            description: "Fabric version to use",
+            required: false,
+        },
+    },
 })
-const { output } = env
+const { output, vars } = env
+const { fabric } = vars
 const out = "evals/dev"
 const commOptions: PromptPexOptions = {
     outputPrompts: true,
@@ -40,7 +49,6 @@ const repeatTests = 1
 const repeatBaselineTests = 1
 const repeastRulesGroundedness = 5
 const configs: (PromptPexOptions & { name: string })[] = [
-    /*
     {
         name: "gpt-4o",
         modelAliases: {
@@ -48,17 +56,17 @@ const configs: (PromptPexOptions & { name: string })[] = [
             small: "not-supported",
             rules: "azure:gpt-4o_2024-08-06",
             eval: "azure:gpt-4o_2024-08-06",
+            baseline: "azure:gpt-4o_2024-08-06",
         },
     },
-    */
-    {
+    /*    {
         name: "llama3.3:70b",
         modelAliases: {
             large: "not-supported",
             rules: "ollama:llama3.3",
             eval: "ollama:llama3.3",
         },
-    },
+    },*/
     /*
     {
         name: "deepskeep-r1:8b",
@@ -93,9 +101,16 @@ const configs: (PromptPexOptions & { name: string })[] = [
 
 output.heading(1, "PromptPex Dev Mode")
 output.detailsFenced(`configurations`, configs, "yaml")
-const prompts = await Promise.all(
-    env.files.map((file) => loadPromptFiles(file, { disableSafety: true, out }))
-)
+const prompts = await Promise.all([
+    ...(!fabric
+        ? env.files.map((file) =>
+              loadPromptFiles(file, { disableSafety: true, out })
+          )
+        : []),
+    ...(fabric
+        ? await loadFabricPrompts(fabric, { disableSafety: true, out })
+        : []),
+])
 prompts.forEach((files) => output.itemValue(files.name, files.prompt.filename))
 
 async function apply(

@@ -3,7 +3,7 @@ import { evaluateBaselineTests } from "./src/baselinetestseval.mts"
 import { generateInputSpec } from "./src/inputspecgen.mts"
 import { generateIntent } from "./src/intentgen.mts"
 import { outputFile } from "./src/output.mts"
-import { loadPromptContext } from "./src/parsers.mts"
+import { loadPromptContext } from "./src/loaders.mts"
 import { computeOverview, generateReports } from "./src/reports.mts"
 import {
     generateOutputRules,
@@ -51,9 +51,10 @@ script({
     },
 })
 
-const { disableSafety, force, out, evals } = env.vars
+const { vars, files, output } = env
+const { disableSafety, force, out, evals } = vars
 
-const prompts = await loadPromptContext(out)
+const prompts = await loadPromptContext(files, { disableSafety, out })
 const models = env.vars.models?.split(/[;\n ,]/g).map((model) => model.trim())
 if (!models?.length) throw new Error(`no models provided for evaluation`)
 

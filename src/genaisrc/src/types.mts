@@ -221,3 +221,8 @@ export interface PromptPexRuleEval {
     grounded?: "ok" | "err"
     error?: string
 }
+
+export interface PromptPexLoaderOptions {
+    out?: string
+    disableSafety?: boolean
+}
