@@ -126,6 +126,16 @@ npx --yes genaiscript configure
 npx --yes genaiscript serve --remote microsoft/promptpex
 ```
 
+### Configure the eval, rules, baseline aliases
+
+If you are using a specific set of models, you can use `.env` to override the eval/rules/baseline aliases.
+
+```text
+GENAISCRIPT_MODEL_EVAL="azure:gpt-4o_2024-08-06"
+GENAISCRIPT_MODEL_RULES="azure:gpt-4o_2024-08-06"
+GENAISCRIPT_MODEL_BASELINE="azure:gpt-4o_2024-08-06"
+```
+
 ## Test and Eval Workflow
 
 The diagram below shows the flow of test generation in PromptPex, starting from the PUT (database shape).
