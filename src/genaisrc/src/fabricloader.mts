@@ -55,7 +55,10 @@ ${userText}
 }
 `
         const file = {
-            filename: path.join(patternDir, `${pattern.name}.prompty`),
+            filename: path.relative(
+                process.cwd(),
+                path.join(patternDir, `${pattern.name}.prompty`)
+            ),
             content: prompty,
         } satisfies WorkspaceFile
         await writeFile(file.filename, prompty)
