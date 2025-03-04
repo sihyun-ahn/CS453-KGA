@@ -94,7 +94,7 @@ export function computeOverview(
     }
 }
 
-export async function generateMarkdownReport(files: PromptPexContext) {
+async function generateMarkdownReport(files: PromptPexContext) {
     const tests = [
         ...parseRulesTests(files.tests.content),
         ...parseBaselineTests(files),

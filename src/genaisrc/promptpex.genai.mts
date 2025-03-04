@@ -1,3 +1,4 @@
+import { diagnostics } from "./src/flags.mts"
 import { generateInputSpec } from "./src/inputspecgen.mts"
 import { loadPromptFiles } from "./src/loaders.mts"
 import {
@@ -6,6 +7,7 @@ import {
     outputLines,
 } from "./src/output.mts"
 import { parseRulesTests, parseTestResults } from "./src/parsers.mts"
+import { generateReports } from "./src/reports.mts"
 import {
     generateOutputRules,
     generateInverseOutputRules,
@@ -173,6 +175,8 @@ const options: PromptPexOptions = {
     evalModel,
 }
 const files = await loadPromptFiles(env.files[0], options)
+
+if (diagnostics) await generateReports(files)
 
 output.heading(2, `PromptPex for ${files.name}`)
 output.itemValue(`model`, meta.model)
