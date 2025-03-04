@@ -49,7 +49,7 @@ const commOptions: PromptPexOptions = {
     evalCache: true,
 }
 
-const repeatIntent = 1
+const repeatIntent = 2
 const repeatInputSpec = 1
 const repeatRules = 1
 const repeatInverseRules = 1
