@@ -132,21 +132,21 @@ export function parseBaselineTests(files: PromptPexContext): PromptPexTest[] {
 }
 
 export function parseTestEvals(files: PromptPexContext) {
-    return parsers.JSON5(files.testEvals.content, {
+    return (parsers.JSON5(files.testEvals.content, {
         defaultValue: [],
-    }) as PromptPexTestEval[]
+    }) || []) as PromptPexTestEval[]
 }
 
 export function parseRuleEvals(files: PromptPexContext) {
-    return parsers.JSON5(files.ruleEvals.content, {
+    return (parsers.JSON5(files.ruleEvals.content, {
         defaultValue: [],
-    }) as PromptPexRuleEval[]
+    }) || []) as PromptPexRuleEval[]
 }
 
 export function parsBaselineTestEvals(files: PromptPexContext) {
-    return parsers.JSON5(files.baselineTestEvals.content, {
+    return (parsers.JSON5(files.baselineTestEvals.content, {
         defaultValue: [],
-    }) as PromptPexTestEval[]
+    }) || []) as PromptPexTestEval[]
 }
 
 export function parseAllRules(
