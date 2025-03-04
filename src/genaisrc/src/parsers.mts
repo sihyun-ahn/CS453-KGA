@@ -1,5 +1,4 @@
-import { CONCURRENCY } from "./constants.mts"
-import { checkPromptSafety } from "./safety.mts"
+import { diagnostics } from "./flags.mts"
 import type {
     PromptPexContext,
     PromptPexModelAliases,
@@ -101,10 +100,12 @@ export function parseTestResults(
         r.inverse =
             r.ruleid !== null && parseInt(r.ruleid as any) > rules.length
     })
-    if (res.some((r) => !r.error && !r.model)) {
+    for (const r of res.filter((r) => !r.error && !r.model)) {
         output.warn(
-            `invalid test results in ${files.testOutputs.filename}, missing model field`
+            `missing 'model' for test result ${r.id} in ${files.testOutputs.filename}`
         )
+        if (diagnostics)
+            throw new Error(`missing 'model' for test result ${r.id}`)
     }
     for (const r of res) if (isNaN(r.ruleid)) r.ruleid = null
     return res

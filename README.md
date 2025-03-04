@@ -258,6 +258,14 @@ npm run gcm
 npm run upgrade
 ```
 
+### Diagnostics mode
+
+Set the `DEBUG` or `GENAISCRIPT_DEBUG` environment variable to enable dianostics modes.
+
+```sh
+export GENAISCRIPT_DEBUG=1
+```
+
 ## Responsible AI Transparency Note
 
 Please reference [RESPONSIBLE_AI_TRANSPARENCY_NOTE.md](./RESPONSIBLE_AI_TRANSPARENCY_NOTE.md) for more information.

@@ -15,6 +15,8 @@ import { generateTests } from "./src/testgen.mts"
 import { evaluateTestsQuality } from "./src/testquality.mts"
 import { runTests } from "./src/testrun.mts"
 import { PromptPexContext, PromptPexOptions } from "./src/types.mts"
+import { parseTestResults } from "./src/parsers.mts"
+import { diagnostics } from "./src/flags.mts"
 
 type PaperOptions = PromptPexOptions & {
     force?: boolean
@@ -57,6 +59,13 @@ const { disableSafety, force, out, evals } = vars
 const prompts = await loadPromptContext(files, { disableSafety, out })
 const models = env.vars.models?.split(/[;\n ,]/g).map((model) => model.trim())
 if (!models?.length) throw new Error(`no models provided for evaluation`)
+
+if (diagnostics) {
+    for (const files of prompts) {
+        parseTestResults(files) // parse early for warnings
+        await generateReports(files)
+    }
+}
 
 const res = []
 const options = Object.freeze({

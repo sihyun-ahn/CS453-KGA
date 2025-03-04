@@ -14,6 +14,7 @@ import type {
     PromptPexTest,
     PromptPexTestResult,
 } from "./types.mts"
+import assert from "node:assert/strict"
 
 const { generator, output } = env
 
@@ -35,6 +36,7 @@ export async function runTests(
         maxTests,
         ignoreBaseline,
     } = options || {}
+    assert(models.every((m) => !!m))
     const rulesTests = parseRulesTests(files.tests.content)
     const baselineTests = ignoreBaseline ? [] : parseBaselineTests(files)
     const tests = [...rulesTests, ...baselineTests].slice(0, maxTests)
@@ -53,6 +55,7 @@ export async function runTests(
                 force,
                 compliance,
             })
+            assert(testRes.model)
             if (testRes) testResults.push(testRes)
         }
     }

@@ -22,10 +22,9 @@ export function computeOverview(
     const ruleEvals = parseRuleEvals(files)
     const testResultsPerModels = testResults.reduce(
         (acc, result) => {
-            if (!acc[result.model]) {
-                acc[result.model] = []
-            }
-            acc[result.model].push(result)
+            const group = result.error ? "error" : result.model || "???"
+            if (!acc[group]) acc[group] = []
+            acc[group].push(result)
             return acc
         },
         {} as Record<string, PromptPexTestResult[]>
@@ -34,10 +33,18 @@ export function computeOverview(
         ([model, results]) => {
             const tests = results.filter((tr) => tr.rule).length
             const norm = (v: number) =>
-                percent ? Math.round((v / tests) * 100) + "%" : v
+                tests === 0
+                    ? "--"
+                    : percent
+                      ? Math.round((v / tests) * 100) + "%"
+                      : v
             const baseline = results.filter((tr) => !tr.rule).length
             const bnorm = (v: number) =>
-                percent ? Math.round((v / baseline) * 100) + "%" : v
+                baseline === 0
+                    ? "--"
+                    : percent
+                      ? Math.round((v / baseline) * 100) + "%"
+                      : v
             return {
                 model,
                 tests,
