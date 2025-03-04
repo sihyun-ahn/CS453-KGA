@@ -93,10 +93,9 @@ export function parseTestResults(
     files: PromptPexContext
 ): PromptPexTestResult[] {
     const rules = parseRules(files.rules.content)
-    const res = CSV.parse(files.testOutputs.content, {
-        delimiter: ",",
-    }) as PromptPexTestResult[]
-    res?.forEach((r) => {
+    const res = (parsers.JSON5(files.testOutputs.content) ||
+        []) as PromptPexTestResult[]
+    res.forEach((r) => {
         r.inverse =
             r.ruleid !== null && parseInt(r.ruleid as any) > rules.length
     })
@@ -133,20 +132,20 @@ export function parseBaselineTests(files: PromptPexContext): PromptPexTest[] {
 }
 
 export function parseTestEvals(files: PromptPexContext) {
-    return CSV.parse(files.testEvals.content, {
-        delimiter: ",",
+    return parsers.JSON5(files.testEvals.content, {
+        defaultValue: [],
     }) as PromptPexTestEval[]
 }
 
 export function parseRuleEvals(files: PromptPexContext) {
-    return CSV.parse(files.ruleEvals.content, {
-        delimiter: ",",
+    return parsers.JSON5(files.ruleEvals.content, {
+        defaultValue: [],
     }) as PromptPexRuleEval[]
 }
 
 export function parsBaselineTestEvals(files: PromptPexContext) {
-    return CSV.parse(files.baselineTestEvals.content, {
-        delimiter: ",",
+    return parsers.JSON5(files.baselineTestEvals.content, {
+        defaultValue: [],
     }) as PromptPexTestEval[]
 }
 
