@@ -15,7 +15,7 @@
         "build": "genaiscript scripts compile",
         "promptpex": "genaiscript run promptpex",
         "dev": "genaiscript run dev",
-        "dev:fabric": "genaiscript run dev --vars \"fabric=v1.4.149\" --vars \"samplePrompts=5\"",
+        "dev:fabric": "genaiscript run dev --vars \"fabric=v1.4.149\" --vars \"samplePrompts=1\"",
         "lint": "prettier --write src/**/*.mts",
         "promptpex:demo:ollama": "genaiscript run promptpex \"samples/demo/demo.prompty\" --vars \"force=true\" --vars \"evals=true\" --vars \"models=ollama:llama3.2:1b;ollama:qwen2.5:3b\"",
         "promptpex:demo:github": "genaiscript run promptpex \"samples/demo/demo.prompty\" --vars \"force=true\" --model \"github:gpt-4o\" --vars \"evals=true\" --vars \"models=github:gpt-4o-mini;github:Phi-3-5-mini-instruct\"",
