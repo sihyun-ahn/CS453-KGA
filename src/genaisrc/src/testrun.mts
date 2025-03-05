@@ -77,12 +77,13 @@ export async function runTest(
         force?: boolean
     }
 ): Promise<PromptPexTestResult> {
-    const { model, force, compliance, ...restOptions } = options || {}
+    const { model, force, compliance, evalCache } = options || {}
     const moptions = {
         ...modelOptions(model, options),
     }
     const { id, promptid, file } = await resolveTestPath(files, test, {
         model,
+        evalCache,
     })
     if (file?.content && !force) {
         const res = parsers.JSON5(file) as PromptPexTestResult
@@ -139,7 +140,7 @@ export async function runTest(
         testRes.complianceText = await evaluateTestResult(
             files,
             testRes,
-            restOptions
+            options
         )
         updateTestResultCompliant(testRes)
     }

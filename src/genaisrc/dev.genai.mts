@@ -147,7 +147,7 @@ async function apply(
 
         for (const config of configs) {
             const { name, ...restConfig } = config
-            output.heading(3, name)
+            output.heading(4, name)
             for (let i = 0; i < repeat; ++i) {
                 const res = await fn(files, { ...commOptions, ...restConfig })
                 if (file) {
@@ -172,7 +172,7 @@ await apply(
 await apply(
     "Input Specs",
     repeatInputSpec,
-    (_) => _.inputSpec,
+    (ctx) => ctx.inputSpec,
     (files, options) => generateInputSpec(files, options)
 )
 await apply("Rules", repeatRules, undefined, async (files, options) => {
