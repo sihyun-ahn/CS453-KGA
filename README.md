@@ -9,6 +9,8 @@ intended to be used by developers who have prompts as part of their code base.
 PromptPex treats a prompt as a function and automatically generates test inputs
 to the function to support unit testing.
 
+- [Article PDF](https://github.com/microsoft/promptpex/blob/main/papers/PromptPex.pdf)
+
 PromptPex provides the following capabilities:
 
 -   It will **automatically extract output rules** that are expressed in natural language in the
