@@ -48,6 +48,10 @@ script({
             description: "Evaluate quality of generated tests",
             default: true,
         },
+        maxTests: {
+            type: "integer",
+            description: "Maximum number of tests to runs",
+        },
         models: { type: "string", description: "List of models to evaluate" },
         out: { type: "string", description: "Output directory", default: "" },
     },
@@ -55,6 +59,7 @@ script({
 
 const { vars, files, output } = env
 const { disableSafety, force, out, evals } = vars
+let maxTests = diagnostics ? 2 : vars.maxTests
 
 const prompts = await loadPromptContext(files, { disableSafety, out })
 const models = env.vars.models?.split(/[;\n ,]/g).map((model) => model.trim())
@@ -265,6 +270,7 @@ async function generate(
     files.testOutputs.content = await runTests(files, {
         models,
         force,
+        maxTests,
         compliance: true,
     })
     await workspace.writeText(
