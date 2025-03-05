@@ -2,7 +2,7 @@ import { readdir, readFile, writeFile } from "node:fs/promises"
 import type { PromptPexContext, PromptPexLoaderOptions } from "./types.mts"
 import { loadPromptContext } from "./loaders.mts"
 
-const { output, generator, vars } = env
+const { output } = env
 
 export async function loadFabricPrompts(
     branch: string,
