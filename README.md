@@ -2,7 +2,9 @@
 
 **Prompts** are an important part of any software project that incorporates
 the power of AI models. As a result, tools to help developers create and maintain
-effective prompts are increasingly important.
+effective prompts are increasingly important. 
+
+- [Prompts Are Programs - ACM Blog Post](https://blog.sigplan.org/2024/10/22/prompts-are-programs/)
 
 **PromptPex** is a tool for exploring and testing AI model prompts. PromptPex is
 intended to be used by developers who have prompts as part of their code base.
