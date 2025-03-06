@@ -46,8 +46,7 @@ export function reportPerf(output: OutputTrace) {
     output.table(
         Object.entries(totals).map(([id, duration]) => ({
             id,
-            duration,
-            durationMs: ms(duration),
+            duration: Math.ceil(duration),
         }))
     )
 }
