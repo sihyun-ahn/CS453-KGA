@@ -7,6 +7,7 @@ import {
     outputLines,
 } from "./src/output.mts"
 import { parseRulesTests, parseTestResults } from "./src/parsers.mts"
+import { initPerf, reportPerf } from "./src/perf.mts"
 import { generateReports } from "./src/reports.mts"
 import {
     generateOutputRules,
@@ -174,6 +175,7 @@ const options: PromptPexOptions = {
     rulesModel,
     evalModel,
 }
+initPerf({ output })
 const files = await loadPromptFiles(env.files[0], options)
 
 if (diagnostics) await generateReports(files)
@@ -250,3 +252,5 @@ if (!models?.length) {
     )
     output.detailsFenced(`results`, results, "csv")
 }
+
+reportPerf(output)

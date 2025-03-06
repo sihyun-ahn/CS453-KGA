@@ -5,6 +5,7 @@ import {
 } from "./constants.mts"
 import { outputWorkflowDiagram, outputPrompty } from "./output.mts"
 import { modelOptions, checkLLMResponse, tidyRules } from "./parsers.mts"
+import { measure } from "./perf.mts"
 import { PromptPexContext, PromptPexOptions } from "./types.mts"
 const { generator } = env
 
@@ -28,19 +29,21 @@ PUT --> OR
     const input_data = MD.content(files.prompt.content)
     const pn = PROMPT_GENERATE_RULES
     await outputPrompty(pn, options)
-    const res = await generator.runPrompt(
-        (ctx) => {
-            ctx.importTemplate(pn, {
-                num_rules: numRules,
-                input_data,
-                instructions,
-            })
-        },
-        {
-            ...modelOptions(rulesModel, options),
-            //      logprobs: true,
-            label: `${files.name}> generate rules`,
-        }
+    const res = await measure("llm.gen.outputrules", () =>
+        generator.runPrompt(
+            (ctx) => {
+                ctx.importTemplate(pn, {
+                    num_rules: numRules,
+                    input_data,
+                    instructions,
+                })
+            },
+            {
+                ...modelOptions(rulesModel, options),
+                //      logprobs: true,
+                label: `${files.name}> generate rules`,
+            }
+        )
     )
     const rules = tidyRules(checkLLMResponse(res))
     return rules
@@ -63,18 +66,20 @@ OR --> IOR
     const rule = MD.content(files.rules.content)
     const pn = PROMPT_GENERATE_INVERSE_RULES
     await outputPrompty(pn, options)
-    const res = await generator.runPrompt(
-        (ctx) => {
-            ctx.importTemplate(pn, {
-                rule,
-                instructions,
-            })
-        },
-        {
-            ...modelOptions(rulesModel, options),
-            //      logprobs: true,
-            label: `${files.name}> inverse rules`,
-        }
+    const res = await measure("llm.gen.inverseoutputrules", () =>
+        generator.runPrompt(
+            (ctx) => {
+                ctx.importTemplate(pn, {
+                    rule,
+                    instructions,
+                })
+            },
+            {
+                ...modelOptions(rulesModel, options),
+                //      logprobs: true,
+                label: `${files.name}> inverse rules`,
+            }
+        )
     )
     return tidyRules(checkLLMResponse(res))
 }

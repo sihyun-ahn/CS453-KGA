@@ -1,6 +1,7 @@
 import { PROMPT_GENERATE_INTENT } from "./constants.mts"
 import { outputPrompty } from "./output.mts"
 import { modelOptions, checkLLMResponse } from "./parsers.mts"
+import { measure } from "./perf.mts"
 import { PromptPexContext, PromptPexOptions } from "./types.mts"
 const { generator } = env
 
@@ -13,18 +14,20 @@ export async function generateIntent(
     const instructions = options?.instructions?.intent || ""
     const pn = PROMPT_GENERATE_INTENT
     await outputPrompty(pn, options)
-    const res = await generator.runPrompt(
-        (ctx) => {
-            ctx.importTemplate(pn, {
-                prompt: context,
-                instructions,
-            })
-        },
-        {
-            ...modelOptions(rulesModel, options),
-            //      logprobs: true,
-            label: `${files.name}> generate intent`,
-        }
+    const res = await measure("llm.gen.intent", () =>
+        generator.runPrompt(
+            (ctx) => {
+                ctx.importTemplate(pn, {
+                    prompt: context,
+                    instructions,
+                })
+            },
+            {
+                ...modelOptions(rulesModel, options),
+                //      logprobs: true,
+                label: `${files.name}> generate intent`,
+            }
+        )
     )
     return checkLLMResponse(res)
 }

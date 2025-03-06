@@ -1,4 +1,5 @@
 import { modelOptions, checkLLMResponse } from "./parsers.mts"
+import { measure } from "./perf.mts"
 import {
     PromptPexContext,
     PromptPexTestResult,
@@ -17,22 +18,24 @@ export async function evaluateTestResult(
     }
 
     const content = MD.content(files.prompt.content)
-    const res = await generator.runPrompt(
-        (ctx) => {
-            // removes frontmatter
-            ctx.importTemplate(
-                "src/prompts/check_violation_with_system_prompt.prompty",
-                {
-                    system: content.replace(/^(system|user):/gm, ""),
-                    result: testResult.output,
-                }
-            )
-        },
-        {
-            ...moptions,
-            choices: ["OK", "ERR"],
-            label: `${files.name}> evaluate test result ${testResult.model} ${testResult.input.slice(0, 42)}...`,
-        }
+    const res = await measure("llm.eval.test", () =>
+        generator.runPrompt(
+            (ctx) => {
+                // removes frontmatter
+                ctx.importTemplate(
+                    "src/prompts/check_violation_with_system_prompt.prompty",
+                    {
+                        system: content.replace(/^(system|user):/gm, ""),
+                        result: testResult.output,
+                    }
+                )
+            },
+            {
+                ...moptions,
+                choices: ["OK", "ERR"],
+                label: `${files.name}> evaluate test result ${testResult.model} ${testResult.input.slice(0, 42)}...`,
+            }
+        )
     )
     const evaluation = checkLLMResponse(res)
     return evaluation

@@ -12,6 +12,7 @@ import type {
     PromptPexOptions,
     PromptPexRuleEval,
 } from "./types.mts"
+import { measure } from "./perf.mts"
 const { generator } = env
 
 export async function evaluateRuleGrounded(
@@ -35,18 +36,20 @@ export async function evaluateRuleGrounded(
     }
 
     const description = MD.content(files.prompt.content)
-    const res = await generator.runPrompt(
-        (ctx) => {
-            ctx.importTemplate(PROMPT_CHECK_RULE_GROUNDED, {
-                rule,
-                description,
-            })
-        },
-        {
-            ...modelOptions(evalModel, options),
-            choices: ["OK", "ERR"],
-            label: `${files.name}> eval rule grounded ${rule.slice(0, 18)}...`,
-        }
+    const res = await measure("llm.eval.rules.grounding", () =>
+        generator.runPrompt(
+            (ctx) => {
+                ctx.importTemplate(PROMPT_CHECK_RULE_GROUNDED, {
+                    rule,
+                    description,
+                })
+            },
+            {
+                ...modelOptions(evalModel, options),
+                choices: ["OK", "ERR"],
+                label: `${files.name}> eval rule grounded ${rule.slice(0, 18)}...`,
+            }
+        )
     )
     const resText = checkLLMResponse(res)
 

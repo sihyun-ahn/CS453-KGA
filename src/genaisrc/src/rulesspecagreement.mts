@@ -1,4 +1,5 @@
 import { modelOptions, parsBaselineTestEvals } from "./parsers.mts"
+import { measure } from "./perf.mts"
 import type {
     PromptPexContext,
     PromptPexOptions,
@@ -22,22 +23,24 @@ export async function evaluateRulesSpecAgreement(
 
     const results: PromptPexTestEval[] = []
     for (const baselineTest of validBaselineTests) {
-        const res = await generator.runPrompt(
-            (ctx) => {
-                ctx.importTemplate(
-                    "src/prompts/evaluate_test_coverage.prompty",
-                    {
-                        intent,
-                        rules,
-                        testInput: baselineTest.input,
-                    }
-                )
-            },
-            {
-                ...moptions,
-                cache: "promptpex",
-                label: `evaluate rules spec agreement for ${model}...`,
-            }
+        const res = await measure("llm.eval.rules.agreement", () =>
+            generator.runPrompt(
+                (ctx) => {
+                    ctx.importTemplate(
+                        "src/prompts/evaluate_test_coverage.prompty",
+                        {
+                            intent,
+                            rules,
+                            testInput: baselineTest.input,
+                        }
+                    )
+                },
+                {
+                    ...moptions,
+                    cache: "promptpex",
+                    label: `evaluate rules spec agreement for ${model}...`,
+                }
+            )
         )
         results.push({
             ...baselineTest,

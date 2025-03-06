@@ -13,6 +13,7 @@ import type {
     PromptPexTestEval,
 } from "./types.mts"
 import { resolveTestEvalPath } from "./filecache.mts"
+import { measure } from "./perf.mts"
 const { generator } = env
 
 export async function evaluateTestsQuality(
@@ -81,45 +82,49 @@ export async function evaluateTestQuality(
     const moptions = {
         ...modelOptions(evalModel, options),
     }
-    const [resCoverage, resValidity] = await Promise.all([
-        generator.runPrompt(
-            (ctx) => {
-                ctx.importTemplate(
-                    "src/prompts/evaluate_test_coverage.prompty",
+    const [resCoverage, resValidity] = await measure(
+        "llm.eval.test.quality",
+        () =>
+            Promise.all([
+                generator.runPrompt(
+                    (ctx) => {
+                        ctx.importTemplate(
+                            "src/prompts/evaluate_test_coverage.prompty",
+                            {
+                                intent,
+                                rules: allRules
+                                    .filter((r) => !r.inverse)
+                                    .map((r) => r.rule)
+                                    .join("\n"),
+                                testInput,
+                            }
+                        )
+                    },
                     {
-                        intent,
-                        rules: allRules
-                            .filter((r) => !r.inverse)
-                            .map((r) => r.rule)
-                            .join("\n"),
-                        testInput,
+                        ...moptions,
+                        //        logprobs: true,
+                        label: `${files.name}> evaluate coverage of test ${testInput.slice(0, 42)}...`,
                     }
-                )
-            },
-            {
-                ...moptions,
-                //        logprobs: true,
-                label: `${files.name}> evaluate coverage of test ${testInput.slice(0, 42)}...`,
-            }
-        ),
-        generator.runPrompt(
-            (ctx) => {
-                ctx.importTemplate(
-                    "src/prompts/check_violation_with_input_spec.prompty",
+                ),
+                generator.runPrompt(
+                    (ctx) => {
+                        ctx.importTemplate(
+                            "src/prompts/check_violation_with_input_spec.prompty",
+                            {
+                                input_spec: inputSpec,
+                                test: testInput,
+                            }
+                        )
+                    },
                     {
-                        input_spec: inputSpec,
-                        test: testInput,
+                        ...moptions,
+                        choices: ["OK", "ERR"],
+                        //        logprobs: true,
+                        label: `${files.name}> evaluate validity of test ${testInput.slice(0, 42)}...`,
                     }
-                )
-            },
-            {
-                ...moptions,
-                choices: ["OK", "ERR"],
-                //        logprobs: true,
-                label: `${files.name}> evaluate validity of test ${testInput.slice(0, 42)}...`,
-            }
-        ),
-    ])
+                ),
+            ])
+    )
 
     const error = [resCoverage.error?.message, resValidity?.error?.message]
         .filter((s) => !!s)

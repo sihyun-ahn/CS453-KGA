@@ -6,6 +6,7 @@ import {
     parseOKERR,
     parseRulesTests,
 } from "./parsers.mts"
+import { measure } from "./perf.mts"
 import { resolvePromptArgs, resolveRule } from "./resolvers.mts"
 import { evaluateTestResult } from "./testresulteval.mts"
 import type {
@@ -112,15 +113,17 @@ export async function runTest(
             output: "invalid test input",
         } satisfies PromptPexTestResult
 
-    const res = await generator.runPrompt(
-        (ctx) => {
-            ctx.importTemplate(files.prompt.filename, args)
-            if (!Object.keys(inputs || {}).length) ctx.writeText(testInput)
-        },
-        {
-            ...moptions,
-            label: `${files.name}> run test ${testInput.slice(0, 42)}...`,
-        }
+    const res = await measure("llm.test-run", () =>
+        generator.runPrompt(
+            (ctx) => {
+                ctx.importTemplate(files.prompt.filename, args)
+                if (!Object.keys(inputs || {}).length) ctx.writeText(testInput)
+            },
+            {
+                ...moptions,
+                label: `${files.name}> run test ${testInput.slice(0, 42)}...`,
+            }
+        )
     )
     if (res.error) throw new Error(res.error.message)
     const actualOutput = res.text

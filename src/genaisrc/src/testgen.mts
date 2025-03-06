@@ -6,6 +6,7 @@ import {
     modelOptions,
     checkLLMResponse,
 } from "./parsers.mts"
+import { measure } from "./perf.mts"
 import { PromptPexContext, PromptPexOptions } from "./types.mts"
 const { generator, output } = env
 
@@ -44,41 +45,43 @@ IOR --> PPT
     let repaired = false
     const pn = PROMPT_GENERATE_TESTS
     await outputPrompty(pn, options)
-    const res = await generator.runPrompt(
-        (ctx) => {
-            ctx.importTemplate(pn, {
-                input_spec: files.inputSpec.content,
-                context,
-                num,
-                rule: allRules
-                    .map((r, index) => `${index + 1}. ${r.rule}`)
-                    .join("\n"),
-                num_rules: allRules.length,
-            })
-            ctx.defChatParticipant((p, c) => {
-                const last: string = c.at(-1)?.content
-                const csv = parseRulesTests(last)
-                if (!csv.length) {
-                    if (!repaired) {
-                        console.warn(
-                            "Invalid generated test format or no test generated, trying to repair"
-                        )
-                        repaired = true
-                        p.$`The generated tests are not valid CSV. Please fix formatting issues and try again.`
-                    } else {
-                        output.warn(
-                            "Invalid generated test format, skipping repair."
-                        )
-                        output.fence(last, "txt")
+    const res = await measure("llm.gen.tests", () =>
+        generator.runPrompt(
+            (ctx) => {
+                ctx.importTemplate(pn, {
+                    input_spec: files.inputSpec.content,
+                    context,
+                    num,
+                    rule: allRules
+                        .map((r, index) => `${index + 1}. ${r.rule}`)
+                        .join("\n"),
+                    num_rules: allRules.length,
+                })
+                ctx.defChatParticipant((p, c) => {
+                    const last: string = c.at(-1)?.content
+                    const csv = parseRulesTests(last)
+                    if (!csv.length) {
+                        if (!repaired) {
+                            console.warn(
+                                "Invalid generated test format or no test generated, trying to repair"
+                            )
+                            repaired = true
+                            p.$`The generated tests are not valid CSV. Please fix formatting issues and try again.`
+                        } else {
+                            output.warn(
+                                "Invalid generated test format, skipping repair."
+                            )
+                            output.fence(last, "txt")
+                        }
                     }
-                }
-            })
-        },
-        {
-            ...modelOptions(rulesModel, options),
-            //      logprobs: true,
-            label: `${files.name}> generate tests`,
-        }
+                })
+            },
+            {
+                ...modelOptions(rulesModel, options),
+                //      logprobs: true,
+                label: `${files.name}> generate tests`,
+            }
+        )
     )
     const text = checkLLMResponse(res)
     return parsers.unfence(text, "csv")

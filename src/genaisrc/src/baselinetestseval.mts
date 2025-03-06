@@ -1,4 +1,5 @@
 import { modelOptions, parseOKERR, parseBaselineTests } from "./parsers.mts"
+import { measure } from "./perf.mts"
 import type { PromptPexContext, PromptPexOptions } from "./types.mts"
 
 const { generator } = env
@@ -17,21 +18,23 @@ export async function evaluateBaselineTests(
     const results = []
     for (const baselineTest of baselineTests) {
         const { testinput, ...rest } = baselineTest
-        const resValidity = await generator.runPrompt(
-            (ctx) => {
-                ctx.importTemplate(
-                    "src/prompts/check_violation_with_input_spec.prompty",
-                    {
-                        input_spec: inputSpec,
-                        test: testinput,
-                    }
-                )
-            },
-            {
-                ...moptions,
-                choices: ["OK", "ERR"],
-                label: `${files.name}> evaluate validity of baseline test ${baselineTest.testinput.slice(0, 42)}...`,
-            }
+        const resValidity = await measure("llm.eval.baseline", () =>
+            generator.runPrompt(
+                (ctx) => {
+                    ctx.importTemplate(
+                        "src/prompts/check_violation_with_input_spec.prompty",
+                        {
+                            input_spec: inputSpec,
+                            test: testinput,
+                        }
+                    )
+                },
+                {
+                    ...moptions,
+                    choices: ["OK", "ERR"],
+                    label: `${files.name}> evaluate validity of baseline test ${baselineTest.testinput.slice(0, 42)}...`,
+                }
+            )
         )
         const valid = parseOKERR(resValidity.text)
         results.push({

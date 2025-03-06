@@ -7,6 +7,7 @@ import {
     checkLLMResponse,
     cleanBaselineTests,
 } from "./parsers.mts"
+import { measure } from "./perf.mts"
 import { PromptPexContext, PromptPexOptions } from "./types.mts"
 const { generator } = env
 
@@ -20,18 +21,20 @@ export async function generateBaselineTests(
     const context = MD.content(files.prompt.content)
     const pn = PROMPT_GENERATE_BASELINE_TESTS
     await outputPrompty(pn, options)
-    const res = await generator.runPrompt(
-        (ctx) => {
-            ctx.importTemplate(pn, {
-                num,
-                prompt: context,
-            })
-        },
-        {
-            ...modelOptions(baselineModel, options),
-            //      logprobs: true,
-            label: `${files.name}> generate baseline tests`,
-        }
+    const res = await measure("llm.gen.baseline", () =>
+        generator.runPrompt(
+            (ctx) => {
+                ctx.importTemplate(pn, {
+                    num,
+                    prompt: context,
+                })
+            },
+            {
+                ...modelOptions(baselineModel, options),
+                //      logprobs: true,
+                label: `${files.name}> generate baseline tests`,
+            }
+        )
     )
 
     if (isUnassistedResponse(res.text)) return ""
