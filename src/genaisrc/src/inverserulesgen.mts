@@ -1,8 +1,4 @@
-import {
-    RULES_NUM,
-    PROMPT_GENERATE_RULES,
-    PROMPT_GENERATE_INVERSE_RULES,
-} from "./constants.mts"
+import { PROMPT_GENERATE_INVERSE_RULES } from "./constants.mts"
 import { outputWorkflowDiagram, outputPrompty } from "./output.mts"
 import {
     modelOptions,

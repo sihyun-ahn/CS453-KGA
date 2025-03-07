@@ -12,9 +12,10 @@ const { generator, output } = env
 
 export async function generateTests(
     files: PromptPexContext,
-    options?: PromptPexOptions & { num?: number }
+    options?: PromptPexOptions
 ) {
-    const { num = TESTS_NUM, rulesModel = "rules" } = options || {}
+    const { testsPerRule: num = TESTS_NUM, rulesModel = "rules" } =
+        options || {}
 
     if (!files.rules.content) throw new Error("No rules found")
     if (!files.inputSpec.content) throw new Error("No input spec found")

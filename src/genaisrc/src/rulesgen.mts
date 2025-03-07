@@ -1,8 +1,4 @@
-import {
-    RULES_NUM,
-    PROMPT_GENERATE_RULES,
-    PROMPT_GENERATE_INVERSE_RULES,
-} from "./constants.mts"
+import { RULES_NUM, PROMPT_GENERATE_RULES } from "./constants.mts"
 import { outputWorkflowDiagram, outputPrompty } from "./output.mts"
 import { modelOptions, checkLLMResponse, tidyRules } from "./parsers.mts"
 import { measure } from "./perf.mts"
@@ -48,4 +44,3 @@ PUT --> OR
     const rules = tidyRules(checkLLMResponse(res))
     return rules
 }
-

@@ -68,6 +68,11 @@ export interface PromptPexOptions {
      * Model used to generate baseline tests
      */
     baselineModel?: string
+
+    /**
+     * Number of tests to generate per rule
+     */
+    testsPerRule?: number
 }
 
 /**

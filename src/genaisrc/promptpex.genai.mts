@@ -88,6 +88,13 @@ promptPex:
             required: false,
             uiType: "textarea",
         },
+        testsPerRule: {
+            type: "integer",
+            description: "Number of tests to generate per rule",
+            minimum: 1,
+            maximum: 10,
+            default: 3,
+        },
         disableSafety: {
             type: "boolean",
             description:
@@ -167,6 +174,7 @@ const {
     evalModel,
     maxTests,
     prompt: promptText,
+    testsPerRule,
 } = vars
 const models = (vars.models || "").split(/;/g).filter((m) => !!m)
 const options: PromptPexOptions = {
@@ -180,6 +188,7 @@ const options: PromptPexOptions = {
     baselineModel,
     rulesModel,
     evalModel,
+    testsPerRule,
 }
 initPerf({ output })
 if (env.files[0] && promptText)
