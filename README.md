@@ -132,7 +132,14 @@ npx --yes genaiscript serve --remote microsoft/promptpex
 
 ### Configure the eval, rules, baseline aliases
 
-If you are using a specific set of models, you can use `.env` to override the eval/rules/baseline aliases.
+PromptPex defines the following model aliases for the different phases of the test generation:
+
+- `rules`: rule, inverse rules, test generation
+- `eval`: rule and test quality evaluations
+- `baseline`: baseline test generation
+
+If you are using a specific set of models, you can use a `.env` file to override the eval/rules/baseline aliases
+
 
 ```text
 GENAISCRIPT_MODEL_EVAL="azure:gpt-4o_2024-08-06"
