@@ -5,10 +5,7 @@ import { generateIntent } from "./src/intentgen.mts"
 import { outputFile } from "./src/output.mts"
 import { loadPromptContext } from "./src/loaders.mts"
 import { computeOverview, generateReports } from "./src/reports.mts"
-import {
-    generateOutputRules,
-    generateInverseOutputRules,
-} from "./src/rulesgen.mts"
+import { generateOutputRules } from "./src/rulesgen.mts"
 import { evaluateRulesGrounded } from "./src/rulesgroundeness.mts"
 import { evaluateRulesSpecAgreement } from "./src/rulesspecagreement.mts"
 import { generateTests } from "./src/testgen.mts"
@@ -17,6 +14,7 @@ import { runTests } from "./src/testrun.mts"
 import { PromptPexContext, PromptPexOptions } from "./src/types.mts"
 import { parseTestResults } from "./src/parsers.mts"
 import { diagnostics } from "./src/flags.mts"
+import { generateInverseOutputRules } from "./src/inverserulesgen.mts"
 
 type PaperOptions = PromptPexOptions & {
     force?: boolean

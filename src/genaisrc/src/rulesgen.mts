@@ -49,37 +49,3 @@ PUT --> OR
     return rules
 }
 
-export async function generateInverseOutputRules(
-    files: PromptPexContext,
-    options?: PromptPexOptions
-) {
-    const { rulesModel = "rules" } = options || {}
-    const instructions = options?.instructions?.inverseOutputRules || ""
-    outputWorkflowDiagram(
-        `OR["Output Rules (OR)"]
-IOR["Inverse Output Rules (IOR)"]
-OR --> IOR    
-`,
-        options
-    )
-
-    const rule = MD.content(files.rules.content)
-    const pn = PROMPT_GENERATE_INVERSE_RULES
-    await outputPrompty(pn, options)
-    const res = await measure("llm.gen.inverseoutputrules", () =>
-        generator.runPrompt(
-            (ctx) => {
-                ctx.importTemplate(pn, {
-                    rule,
-                    instructions,
-                })
-            },
-            {
-                ...modelOptions(rulesModel, options),
-                //      logprobs: true,
-                label: `${files.name}> inverse rules`,
-            }
-        )
-    )
-    return tidyRules(checkLLMResponse(res))
-}

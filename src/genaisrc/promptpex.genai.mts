@@ -1,5 +1,6 @@
 import { diagnostics } from "./src/flags.mts"
 import { generateInputSpec } from "./src/inputspecgen.mts"
+import { generateInverseOutputRules } from "./src/inverserulesgen.mts"
 import { loadPromptFiles } from "./src/loaders.mts"
 import {
     outputBackgroundInformation,
@@ -9,10 +10,7 @@ import {
 import { parseRulesTests, parseTestResults } from "./src/parsers.mts"
 import { initPerf, reportPerf } from "./src/perf.mts"
 import { generateReports } from "./src/reports.mts"
-import {
-    generateOutputRules,
-    generateInverseOutputRules,
-} from "./src/rulesgen.mts"
+import { generateOutputRules } from "./src/rulesgen.mts"
 import { generateTests } from "./src/testgen.mts"
 import { runTests } from "./src/testrun.mts"
 import type { PromptPexOptions } from "./src/types.mts"

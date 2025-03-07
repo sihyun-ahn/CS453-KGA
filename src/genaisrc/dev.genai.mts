@@ -6,11 +6,9 @@ import { generateBaselineTests } from "./src/baselinetestgen.mts"
 import { generateTests } from "./src/testgen.mts"
 import { generateInputSpec } from "./src/inputspecgen.mts"
 import { generateIntent } from "./src/intentgen.mts"
-import {
-    generateOutputRules,
-    generateInverseOutputRules,
-} from "./src/rulesgen.mts"
+import { generateOutputRules } from "./src/rulesgen.mts"
 import { loadFabricPrompts } from "./src/fabricloader.mts"
+import { generateInverseOutputRules } from "./src/inverserulesgen.mts"
 
 script({
     title: "PromptPex Dev",
