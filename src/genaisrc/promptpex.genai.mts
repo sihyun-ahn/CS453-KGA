@@ -81,6 +81,13 @@ promptPex:
 `,
     accept: ".prompty,.md,.txt",
     parameters: {
+        prompt: {
+            type: "string",
+            description:
+                "Prompt template to analyze. You can either copy the source here or upload a file prompt.",
+            required: false,
+            uiType: "textarea",
+        },
         disableSafety: {
             type: "boolean",
             description:
@@ -159,6 +166,7 @@ const {
     rulesModel,
     evalModel,
     maxTests,
+    prompt: promptText,
 } = vars
 const models = (vars.models || "").split(/;/g).filter((m) => !!m)
 const options: PromptPexOptions = {
@@ -174,7 +182,16 @@ const options: PromptPexOptions = {
     evalModel,
 }
 initPerf({ output })
-const files = await loadPromptFiles(env.files[0], options)
+if (env.files[0] && promptText)
+    cancel(
+        "You can only provide either a prompt file or prompt text, not both."
+    )
+if (!env.files[0] && !promptText)
+    cancel("No prompt file or prompt text provided.")
+const files = await loadPromptFiles(
+    env.files[0] || { filename: "", content: promptText },
+    options
+)
 
 if (diagnostics) await generateReports(files)
 

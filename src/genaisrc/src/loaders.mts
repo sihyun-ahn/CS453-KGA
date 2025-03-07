@@ -23,7 +23,12 @@ export async function loadPromptFiles(
             "No prompt file found, did you forget to the prompt file?"
         )
     const { out, disableSafety } = options || {}
-    const filename = promptFile.filename
+    const filename =
+        promptFile.filename ||
+        (await parsers.hash(promptFile.content, {
+            length: 16,
+            version: true,
+        })) + ".md"
     const basename = filename
         ? path.basename(filename).slice(0, -path.extname(filename).length)
         : "prompt"
