@@ -195,7 +195,6 @@ const files = await loadPromptFiles(
 
 if (diagnostics) await generateReports(files)
 
-output.heading(2, `PromptPex for ${files.name}`)
 output.itemValue(`model`, meta.model)
 output.detailsFenced(`options`, { options, models }, "yaml")
 await outputBackgroundInformation()
