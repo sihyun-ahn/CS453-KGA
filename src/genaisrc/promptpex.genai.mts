@@ -268,4 +268,4 @@ if (!models?.length) {
     output.detailsFenced(`results`, results, "csv")
 }
 
-reportPerf(output)
+reportPerf()

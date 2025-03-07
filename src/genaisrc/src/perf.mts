@@ -13,13 +13,12 @@ export function initPerf(options: { filename?: string; output?: OutputTrace }) {
         writer.write("id,duration\n")
     }
     output = options.output
-    if (output) output.heading(3, "Performance")
 }
 
 export function start(id: string) {
-    const start = performance.mark(id + ".start")
+    performance.mark(id + ".start")
     return () => {
-        const end = performance.mark(id + ".end")
+        performance.mark(id + ".end")
         const m = performance.measure(id, id + ".start", id + ".end")
         const duration = Math.ceil(m.duration)
         totals[id] = (totals[id] || 0) + m.duration
@@ -42,7 +41,10 @@ export async function measure<T>(
     }
 }
 
-export function reportPerf(output: OutputTrace) {
+export function reportPerf() {
+    if (!output) return
+
+    output.heading(3, "Performance")
     output.table(
         Object.entries(totals).map(([id, duration]) => ({
             id,
