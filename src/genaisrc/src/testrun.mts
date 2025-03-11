@@ -118,7 +118,7 @@ export async function runTest(
     const res = await measure("llm.test.run", () =>
         generator.runPrompt(
             (ctx) => {
-                ctx.importTemplate(files.prompt.filename, args, {
+                ctx.importTemplate(files.prompt, args, {
                     allowExtraArguments: true,
                 })
                 if (!Object.keys(inputs || {}).length) ctx.writeText(testInput)

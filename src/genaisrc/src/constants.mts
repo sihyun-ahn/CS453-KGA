@@ -14,7 +14,6 @@ export const TESTS_NUM = 3
 
 export const TEST_EVALUATION_DIR = "test_evals"
 export const RULE_EVALUATION_DIR = "rule_evals"
-
 export const DOCS_TEST_GENERATION_DIAGRAM = `
 graph TD
     PUT(["Prompt Under Test (PUT)"])

@@ -3,7 +3,6 @@ import { generateInputSpec } from "./src/inputspecgen.mts"
 import { generateInverseOutputRules } from "./src/inverserulesgen.mts"
 import { loadPromptFiles } from "./src/loaders.mts"
 import {
-    outputBackgroundInformation,
     outputFile,
     outputLines,
 } from "./src/output.mts"
@@ -36,7 +35,7 @@ script({
 
 PromptPex accepts prompts formatted in Markdown with a YAML frontmatter section (optional).
 
-\`\`\`markdown
+\`\`\`text
 ---
 ...
 inputs:
@@ -167,7 +166,7 @@ promptPex:
             description: `This prompt will be used to evaluate the test results.
 <details><summary>Template</summary>
 
-\`\`\`markdown
+\`\`\`text
 ---
 name: Custom Test Result Evaluation
 description: |
@@ -264,16 +263,13 @@ if (env.files[0] && promptText)
     )
 if (!env.files[0] && !promptText)
     cancel("No prompt file or prompt text provided.")
-const files = await loadPromptFiles(
-    env.files[0] || { filename: "", content: promptText },
-    options
-)
+const file = env.files[0] || { filename: "", content: promptText }
+const files = await loadPromptFiles(file, options)
 
 if (diagnostics) await generateReports(files)
 
 output.itemValue(`model`, meta.model)
 output.detailsFenced(`options`, { options, models }, "yaml")
-await outputBackgroundInformation()
 
 // prompt info
 output.heading(3, `Prompt Under Test`)

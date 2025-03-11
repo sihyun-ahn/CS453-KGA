@@ -1,22 +1,5 @@
-import { DOCS_GLOSSARY, DOCS_TEST_GENERATION_DIAGRAM } from "./constants.mts"
 import type { PromptPexOptions } from "./types.mts"
 const { output } = env
-
-export async function outputBackgroundInformation() {
-    const { output } = env
-    output.startDetails(`information`)
-    output.appendContent(
-        `
-\`\`\`mermaid
-${DOCS_TEST_GENERATION_DIAGRAM}
-\`\`\`
-
-${DOCS_GLOSSARY}
-
-`
-    )
-    output.endDetails()
-}
 
 export function outputWorkflowDiagram(
     diagram: string,
