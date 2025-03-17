@@ -17,12 +17,12 @@ export function initPerf(options: { filename?: string; output?: OutputTrace }) {
 
 export function start(id: string) {
     const uid = id + Math.random().toString(36).substring(7)
-    performance.mark(uid + ".start")
+    const start = performance.mark(uid + ".start")
     return () => {
-        performance.mark(uid + ".end")
-        const m = performance.measure(uid, uid + ".start", uid + ".end")
-        const duration = Math.ceil(m.duration)
-        totals[id] = (totals[id] || 0) + m.duration
+        const end = performance.mark(uid + ".end")
+        performance.measure(uid, start.name, end.name)
+        const duration = Math.ceil(end.startTime - start.startTime)
+        totals[id] = (totals[id] || 0) + duration
 
         if (writer) writer.write(`${id},${duration}\n`)
         if (output) output.itemValue(id, `${duration}ms`)
