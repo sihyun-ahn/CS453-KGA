@@ -69,7 +69,7 @@ script({
     },
 })
 
-const { vars, files } = env
+const { vars, files, output } = env
 const { disableSafety, force, out, evals, testsPerRule, runsPerTest } =
     vars as PromptPexOptions & {
         force?: boolean
@@ -99,6 +99,10 @@ const options = Object.freeze({
     testsPerRule,
     runsPerTest,
 } satisfies PaperOptions)
+
+output.heading(3, `Configuration`)
+output.fence(YAML.stringify(options), "yaml")
+
 for (const files of prompts) {
     try {
         const ctx = await generate(files, options)
