@@ -69,8 +69,13 @@ script({
     },
 })
 
-const { vars, files, output } = env
-const { disableSafety, force, out, evals, testsPerRule, runsPerTest } = vars
+const { vars, files } = env
+const { disableSafety, force, out, evals, testsPerRule, runsPerTest } =
+    vars as PromptPexOptions & {
+        force?: boolean
+        out?: string
+        evals?: boolean
+    }
 let maxTests = diagnostics ? 2 : vars.maxTests
 
 const prompts = await loadPromptContext(files, { disableSafety, out })
@@ -285,6 +290,7 @@ async function generate(
         models,
         force,
         maxTests,
+        runsPerTest,
         compliance: true,
     })
     await workspace.writeText(
