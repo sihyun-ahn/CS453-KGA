@@ -74,6 +74,12 @@ export interface PromptPexOptions {
      */
     testsPerRule?: number
 
+
+    /**
+     * Number of run to execute per test
+     */
+    runsPerTest?: number
+
     /**
      * Custom test evaluation template
      */

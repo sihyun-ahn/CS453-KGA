@@ -78,6 +78,13 @@ promptPex:
             maximum: 10,
             default: 3,
         },
+        runsPerTest: {
+            type: "integer",
+            description: "Number of runs to execute per test",
+            minimum: 1,
+            maximum: 100,
+            default: 2,
+        },
         disableSafety: {
             type: "boolean",
             description:
@@ -223,6 +230,7 @@ const {
     testsPerRule,
     customTestEvalTemplate,
     customTestEvalModel,
+    runsPerTest,
 } = vars
 const models = (vars.models || "").split(/;/g).filter((m) => !!m)
 const options: PromptPexOptions = {
@@ -237,6 +245,7 @@ const options: PromptPexOptions = {
     rulesModel,
     evalModel,
     testsPerRule,
+    runsPerTest,
     customTestEvalTemplate,
     customTestEvalModel,
 }
@@ -295,6 +304,7 @@ if (!models?.length) {
         models,
         compliance,
         maxTests,
+        runsPerTest,
         ignoreBaseline: true,
     })
     const results = parseTestResults(files)

@@ -53,6 +53,13 @@ script({
             maximum: 10,
             default: 3,
         },
+        runsPerTest: {
+            type: "integer",
+            description: "Number of runs to execute per test",
+            minimum: 1,
+            maximum: 100,
+            default: 1,
+        },
         maxTests: {
             type: "integer",
             description: "Maximum number of tests to runs",
@@ -63,7 +70,7 @@ script({
 })
 
 const { vars, files, output } = env
-const { disableSafety, force, out, evals, testsPerRule } = vars
+const { disableSafety, force, out, evals, testsPerRule, runsPerTest } = vars
 let maxTests = diagnostics ? 2 : vars.maxTests
 
 const prompts = await loadPromptContext(files, { disableSafety, out })
@@ -85,6 +92,7 @@ const options = Object.freeze({
     evals,
     evalCache: true,
     testsPerRule,
+    runsPerTest,
 } satisfies PaperOptions)
 for (const files of prompts) {
     try {

@@ -37,6 +37,7 @@ export async function runTests(
         compliance,
         maxTests,
         ignoreBaseline,
+        runsPerTest = 1,
     } = options || {}
     console.debug({ models })
     assert(models.every((m) => !!m))
@@ -45,22 +46,24 @@ export async function runTests(
     const tests = [...rulesTests, ...baselineTests].slice(0, maxTests)
     if (!tests?.length) throw new Error("No tests found to run")
 
-    console.log(`executing ${tests.length} tests with ${models.length} models`)
+    console.log(`running ${tests.length} tests (x ${runsPerTest}) with ${models.length} models`)
     const testResults: PromptPexTestResult[] = []
     for (const model of models) {
         for (let testi = 0; testi < tests.length; ++testi) {
             const test = tests[testi]
             console.log(
-                `${files.name}> ${model}: run test ${testi + 1}/${tests.length} ${test.testinput.slice(0, 42)}...`
+                `${files.name}> ${model}: run test ${testi + 1}/${tests.length}x${runsPerTest} ${test.testinput.slice(0, 42)}...`
             )
-            const testRes = await runTest(files, test, {
-                ...options,
-                model,
-                force,
-                compliance,
-            })
-            assert(testRes.model)
-            if (testRes) testResults.push(testRes)
+            for (let ri = 0; ri < runsPerTest; ++ri) {
+                const testRes = await runTest(files, test, {
+                    ...options,
+                    model,
+                    force,
+                    compliance,
+                })
+                assert(testRes.model)
+                if (testRes) testResults.push(testRes)
+            }
         }
     }
 
@@ -80,7 +83,14 @@ export async function runTest(
         force?: boolean
     }
 ): Promise<PromptPexTestResult> {
-    const { model, force, compliance, customTestEvalModel, customTestEvalTemplate, evalCache } = options || {}
+    const {
+        model,
+        force,
+        compliance,
+        customTestEvalModel,
+        customTestEvalTemplate,
+        evalCache,
+    } = options || {}
     const moptions = {
         ...modelOptions(model, options),
     }
@@ -153,8 +163,12 @@ export async function runTest(
     }
 
     if (customTestEvalTemplate) {
-        const customTestEval = await evaluateCustomTestResult(files, testRes, options)
-        testRes.customEvalText = customTestEval        
+        const customTestEval = await evaluateCustomTestResult(
+            files,
+            testRes,
+            options
+        )
+        testRes.customEvalText = customTestEval
     }
 
     if (file)
