@@ -46,7 +46,9 @@ export async function runTests(
     const tests = [...rulesTests, ...baselineTests].slice(0, maxTests)
     if (!tests?.length) throw new Error("No tests found to run")
 
-    console.log(`running ${tests.length} tests (x ${runsPerTest}) with ${models.length} models`)
+    console.log(
+        `running ${tests.length} tests (x ${runsPerTest}) with ${models.length} models`
+    )
     const testResults: PromptPexTestResult[] = []
     for (const model of models) {
         for (let testi = 0; testi < tests.length; ++testi) {
@@ -139,7 +141,11 @@ export async function runTest(
             }
         )
     )
-    if (res.error) throw new Error(res.error.message)
+    if (res.error) {
+        console.debug(res.finishReason)
+        console.debug(JSON.stringify(res.error, null, 2))
+        throw new Error(res.error.message)
+    }
     const actualOutput = res.text
     const testRes: PromptPexTestResult = {
         id,
