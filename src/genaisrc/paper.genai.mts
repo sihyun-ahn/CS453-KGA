@@ -46,6 +46,13 @@ script({
             description: "Evaluate quality of generated tests",
             default: true,
         },
+        testsPerRule: {
+            type: "integer",
+            description: "Number of tests to generate per rule",
+            minimum: 1,
+            maximum: 10,
+            default: 3,
+        },
         maxTests: {
             type: "integer",
             description: "Maximum number of tests to runs",
@@ -56,7 +63,7 @@ script({
 })
 
 const { vars, files, output } = env
-const { disableSafety, force, out, evals } = vars
+const { disableSafety, force, out, evals, testsPerRule } = vars
 let maxTests = diagnostics ? 2 : vars.maxTests
 
 const prompts = await loadPromptContext(files, { disableSafety, out })
@@ -77,6 +84,7 @@ const options = Object.freeze({
     models,
     evals,
     evalCache: true,
+    testsPerRule,
 } satisfies PaperOptions)
 for (const files of prompts) {
     try {
