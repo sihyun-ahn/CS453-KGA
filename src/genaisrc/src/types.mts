@@ -62,18 +62,17 @@ export interface PromptPexOptions {
     /**
      * Model used to evaluate rules
      */
-    evalModel?: string
+    evalModel?: ModelType
 
     /**
      * Model used to generate baseline tests
      */
-    baselineModel?: string
+    baselineModel?: ModelType
 
     /**
      * Number of tests to generate per rule
      */
     testsPerRule?: number
-
 
     /**
      * Number of run to execute per test
@@ -87,7 +86,7 @@ export interface PromptPexOptions {
     /**
      * Custom model to use for test evaluation
      */
-    customTestEvalModel?: string
+    customTestEvalModel?: ModelType
 }
 
 /**

@@ -6,11 +6,11 @@ const { generator } = env
 
 export async function evaluateBaselineTests(
     files: PromptPexContext,
-    options?: PromptPexOptions & { model?: ModelType; force?: boolean }
+    options?: PromptPexOptions & { force?: boolean }
 ) {
-    const { model } = options || {}
+    const { evalModel = "eval" } = options || {}
     const moptions = {
-        ...modelOptions(model, options),
+        ...modelOptions(evalModel, options),
     }
     const inputSpec = files.inputSpec.content
     const baselineTests = parseBaselineTests(files)
