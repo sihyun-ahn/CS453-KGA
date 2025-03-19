@@ -106,7 +106,7 @@ do {
             }
         )
         if (res.error) throw res.error
-        message += res.text + "\n"
+        message += (res.fences?.[0]?.content || res.text) + "\n"
     }
 
     // since we've concatenated the chunks, let's compress it back into a single sentence again
