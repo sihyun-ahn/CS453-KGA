@@ -1,4 +1,4 @@
-export const PROMPT_GENERATE_INPUT_SPEC = "src/prompts/input_spec.prompty"
+export const PROMPT_GENERATE_INPUT_SPEC = "src/prompts/generate_input_spec.prompty"
 export const PROMPT_GENERATE_INTENT = "src/prompts/extract_intent.prompty"
 export const PROMPT_GENERATE_RULES = "src/prompts/rules_global.prompty"
 export const PROMPT_GENERATE_BASELINE_TESTS =
