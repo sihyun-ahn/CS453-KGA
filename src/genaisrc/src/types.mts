@@ -87,6 +87,21 @@ export interface PromptPexOptions {
      * Custom model to use for test evaluation
      */
     customTestEvalModel?: ModelType
+
+    /**
+     * Evaluate test result coverage and validity
+     */
+    compliance?: boolean
+
+    /**
+     * Generate and evaluate baseline tests
+     */
+    baselineTests?: boolean
+
+    /**
+     * Maximum number of tests to run
+     */
+    maxTestsToRun?: number
 }
 
 /**

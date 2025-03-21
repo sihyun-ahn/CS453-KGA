@@ -60,7 +60,7 @@ script({
             maximum: 100,
             default: 1,
         },
-        maxTests: {
+        maxTestsToRun: {
             type: "integer",
             description: "Maximum number of tests to runs",
         },
@@ -76,7 +76,7 @@ const { disableSafety, force, out, evals, testsPerRule, runsPerTest } =
         out?: string
         evals?: boolean
     }
-let maxTests = diagnostics ? 2 : vars.maxTests
+let maxTestsToRun = diagnostics ? 2 : vars.maxTestsToRun
 
 const prompts = await loadPromptContext(files, { disableSafety, out })
 const models = env.vars.models?.split(/[;\n ,]/g).map((model) => model.trim())
@@ -98,6 +98,9 @@ const options = Object.freeze({
     evalCache: true,
     testsPerRule,
     runsPerTest,
+    maxTestsToRun,
+    compliance: true,
+    baselineTests: true,
 } satisfies PaperOptions)
 
 output.heading(3, `Configuration`)
@@ -291,11 +294,9 @@ async function generate(
     outputFile(files.testEvals)
 
     files.testOutputs.content = await runTests(files, {
+        ...options,
         models,
         force,
-        maxTests,
-        runsPerTest,
-        compliance: true,
     })
     await workspace.writeText(
         files.testOutputs.filename,

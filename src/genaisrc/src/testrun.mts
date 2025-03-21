@@ -27,23 +27,24 @@ export async function runTests(
         force?: boolean
         compliance?: boolean
         q?: PromiseQueue
-        maxTests?: number
-        ignoreBaseline?: boolean
+        maxTestsToRun?: number
+        baselineTests?: boolean
     }
 ): Promise<string> {
     const {
         force,
         models = [],
         compliance,
-        maxTests,
-        ignoreBaseline,
+        maxTestsToRun,
         runsPerTest = 1,
     } = options || {}
     console.debug({ models })
     assert(models.every((m) => !!m))
     const rulesTests = parseRulesTests(files.tests.content)
-    const baselineTests = ignoreBaseline ? [] : parseBaselineTests(files)
-    const tests = [...rulesTests, ...baselineTests].slice(0, maxTests)
+    const baselineTests = options?.baselineTests
+        ? []
+        : parseBaselineTests(files)
+    const tests = [...rulesTests, ...baselineTests].slice(0, maxTestsToRun)
     if (!tests?.length) throw new Error("No tests found to run")
 
     console.log(

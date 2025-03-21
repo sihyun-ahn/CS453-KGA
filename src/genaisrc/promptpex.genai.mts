@@ -129,7 +129,7 @@ promptPex:
             default: false,
             uiType: "runOption",
         },
-        maxTests: {
+        maxTestsToRun: {
             type: "number",
             description: "Maximum number of tests to run",
             required: false,
@@ -228,7 +228,7 @@ const {
     baselineModel,
     rulesModel,
     evalModel,
-    maxTests,
+    maxTestsToRun,
     prompt: promptText,
     testsPerRule,
     customTestEvalTemplate,
@@ -248,9 +248,12 @@ const options: PromptPexOptions = {
     rulesModel,
     evalModel,
     testsPerRule,
+    maxTestsToRun,
     runsPerTest,
     customTestEvalTemplate,
     customTestEvalModel,
+    compliance,
+    baselineTests: false,
 }
 
 initPerf({ output })
@@ -303,13 +306,7 @@ if (!models?.length) {
 } else {
     // run tests against the model(s)
     output.heading(3, `Test Results`)
-    files.testOutputs.content = await runTests(files, {
-        models,
-        compliance,
-        maxTests,
-        runsPerTest,
-        ignoreBaseline: true,
-    })
+    files.testOutputs.content = await runTests(files, options)
     const results = parseTestResults(files)
     output.table(
         results.map(
