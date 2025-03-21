@@ -1,3 +1,4 @@
+import { PROMPT_EVAL_TEST_VALIDITY } from "./constants.mts"
 import { modelOptions, parseOKERR, parseBaselineTests } from "./parsers.mts"
 import { measure } from "./perf.mts"
 import type { PromptPexContext, PromptPexOptions } from "./types.mts"
@@ -21,13 +22,10 @@ export async function evaluateBaselineTests(
         const resValidity = await measure("llm.eval.baseline", () =>
             generator.runPrompt(
                 (ctx) => {
-                    ctx.importTemplate(
-                        "src/prompts/check_violation_with_input_spec.prompty",
-                        {
-                            input_spec: inputSpec,
-                            test: testinput,
-                        }
-                    )
+                    ctx.importTemplate(PROMPT_EVAL_TEST_VALIDITY, {
+                        input_spec: inputSpec,
+                        test: testinput,
+                    })
                 },
                 {
                     ...moptions,

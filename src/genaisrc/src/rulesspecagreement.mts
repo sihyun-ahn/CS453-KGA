@@ -1,3 +1,4 @@
+import { PROMPT_EVAL_TEST_COVERAGE } from "./constants.mts"
 import { modelOptions, parsBaselineTestEvals } from "./parsers.mts"
 import { measure } from "./perf.mts"
 import type {
@@ -26,14 +27,11 @@ export async function evaluateRulesSpecAgreement(
         const res = await measure("llm.eval.rules.agreement", () =>
             generator.runPrompt(
                 (ctx) => {
-                    ctx.importTemplate(
-                        "src/prompts/evaluate_test_coverage.prompty",
-                        {
-                            intent,
-                            rules,
-                            testInput: baselineTest.input,
-                        }
-                    )
+                    ctx.importTemplate(PROMPT_EVAL_TEST_COVERAGE, {
+                        intent,
+                        rules,
+                        testInput: baselineTest.input,
+                    })
                 },
                 {
                     ...moptions,

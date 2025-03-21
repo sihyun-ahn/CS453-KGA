@@ -97,6 +97,7 @@ promptPex:
                 "Model used to generate rules (you can also override the model alias 'rules'",
             uiSuggestions: [
                 "openai:gpt-4o",
+                "ollama:gemma3:27b",
                 "ollama:llama3.3:70b",
                 "lmstudio:llama-3.3-70b",
             ],
@@ -107,6 +108,7 @@ promptPex:
                 "Model used to evaluate rules (you can also override the model alias 'eval')",
             uiSuggestions: [
                 "openai:gpt-4o",
+                "ollama:gemma3:27b",
                 "ollama:llama3.3:70b",
                 "lmstudio:llama-3.3-70b",
             ],
@@ -208,6 +210,7 @@ user:
                 "Model used to evaluate custom test results (you can also override the model alias 'usereval')",
             uiSuggestions: [
                 "openai:gpt-4o",
+                "ollama:gemma3:27b",
                 "ollama:llama3.3:70b",
                 "lmstudio:llama-3.3-70b",
             ],

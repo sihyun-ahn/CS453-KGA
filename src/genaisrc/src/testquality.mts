@@ -14,6 +14,7 @@ import type {
 } from "./types.mts"
 import { resolveTestEvalPath } from "./filecache.mts"
 import { measure } from "./perf.mts"
+import { PROMPT_EVAL_TEST_COVERAGE, PROMPT_EVAL_TEST_VALIDITY } from "./constants.mts"
 const { generator } = env
 
 export async function evaluateTestsQuality(
@@ -89,7 +90,7 @@ export async function evaluateTestQuality(
                 generator.runPrompt(
                     (ctx) => {
                         ctx.importTemplate(
-                            "src/prompts/evaluate_test_coverage.prompty",
+                            PROMPT_EVAL_TEST_COVERAGE,
                             {
                                 intent,
                                 rules: allRules
@@ -108,13 +109,10 @@ export async function evaluateTestQuality(
                 ),
                 generator.runPrompt(
                     (ctx) => {
-                        ctx.importTemplate(
-                            "src/prompts/check_violation_with_input_spec.prompty",
-                            {
-                                input_spec: inputSpec,
-                                test: testInput,
-                            }
-                        )
+                        ctx.importTemplate(PROMPT_EVAL_TEST_VALIDITY, {
+                            input_spec: inputSpec,
+                            test: testInput,
+                        })
                     },
                     {
                         ...moptions,

@@ -7,6 +7,10 @@ export const PROMPT_GENERATE_INVERSE_RULES = "src/prompts/inverse_rule.prompty"
 export const PROMPT_GENERATE_TESTS = "src/prompts/test.prompty"
 export const PROMPT_CHECK_RULE_GROUNDED =
     "src/prompts/check_rule_grounded.prompty"
+export const PROMPT_EVAL_TEST_VALIDITY =
+    "src/prompts/check_violation_with_input_spec.prompty"
+export const PROMPT_EVAL_TEST_COVERAGE =
+    "src/prompts/evaluate_test_coverage.prompty"
 
 export const CONCURRENCY = 2
 export const RULES_NUM = 0
