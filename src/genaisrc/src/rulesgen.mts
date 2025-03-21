@@ -1,4 +1,4 @@
-import { RULES_NUM, PROMPT_GENERATE_RULES } from "./constants.mts"
+import { RULES_NUM, PROMPT_GENERATE_OUTPUT_RULES } from "./constants.mts"
 import { outputWorkflowDiagram, outputPrompty } from "./output.mts"
 import { modelOptions, checkLLMResponse, tidyRules } from "./parsers.mts"
 import { measure } from "./perf.mts"
@@ -23,7 +23,7 @@ PUT --> OR
 
     // generate rules
     const input_data = MD.content(files.prompt.content)
-    const pn = PROMPT_GENERATE_RULES
+    const pn = PROMPT_GENERATE_OUTPUT_RULES
     await outputPrompty(pn, options)
     const res = await measure("llm.gen.outputrules", () =>
         generator.runPrompt(

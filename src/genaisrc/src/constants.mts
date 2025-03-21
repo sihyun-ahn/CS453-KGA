@@ -1,6 +1,6 @@
 export const PROMPT_GENERATE_INPUT_SPEC = "src/prompts/generate_input_spec.prompty"
-export const PROMPT_GENERATE_INTENT = "src/prompts/extract_intent.prompty"
-export const PROMPT_GENERATE_RULES = "src/prompts/rules_global.prompty"
+export const PROMPT_GENERATE_INTENT = "src/prompts/generate_intent.prompty"
+export const PROMPT_GENERATE_OUTPUT_RULES = "src/prompts/generate_output_rules.prompty"
 export const PROMPT_GENERATE_BASELINE_TESTS =
     "src/prompts/baseline_test.prompty"
 export const PROMPT_GENERATE_INVERSE_RULES = "src/prompts/inverse_rule.prompty"
@@ -17,7 +17,7 @@ export const PROMPT_EVAL_TEST_RESULT =
 export const PROMPT_ALL = [
     PROMPT_GENERATE_INPUT_SPEC,
     PROMPT_GENERATE_INTENT,
-    PROMPT_GENERATE_RULES,
+    PROMPT_GENERATE_OUTPUT_RULES,
     PROMPT_GENERATE_BASELINE_TESTS,
     PROMPT_GENERATE_INVERSE_RULES,
     PROMPT_GENERATE_TESTS,
