@@ -1,4 +1,4 @@
-import { CONCURRENCY } from "./constants.mts"
+import { CONCURRENCY, PROMPT_ALL } from "./constants.mts"
 import { parseInputs, tidyRulesFile } from "./parsers.mts"
 import { checkPromptSafety } from "./safety.mts"
 import type { PromptPexContext, PromptPexLoaderOptions } from "./types.mts"
@@ -22,6 +22,7 @@ export async function loadPromptFiles(
         throw new Error(
             "No prompt file found, did you forget to the prompt file?"
         )
+    await checkPromptFiles()
     const { out, disableSafety } = options || {}
     const filename =
         promptFile.filename ||
@@ -77,4 +78,16 @@ export async function loadPromptFiles(
         res.inverseRules.content = meta.inverseOutputRules
     if (!disableSafety) await checkPromptSafety(res)
     return res
+}
+
+async function checkPromptFiles() {
+    for (const filename of PROMPT_ALL) {
+        const file = await workspace.readText(filename)
+        if (!file) throw new Error(`Prompt file ${filename} not found`)
+        const frontmatter = MD.frontmatter(file)
+        if (!frontmatter)
+            throw new Error(`Prompt file ${filename} has no frontmatter`)
+        const content = MD.content(file)
+        if (!content) throw new Error(`Prompt file ${filename} is empty`)
+    }
 }

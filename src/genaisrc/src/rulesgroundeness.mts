@@ -1,4 +1,4 @@
-import { PROMPT_CHECK_RULE_GROUNDED } from "./constants.mts"
+import { PROMPT_EVAL_RULE_GROUNDED } from "./constants.mts"
 import { outputPrompty } from "./output.mts"
 import {
     modelOptions,
@@ -39,7 +39,7 @@ export async function evaluateRuleGrounded(
     const res = await measure("llm.eval.rules.grounding", () =>
         generator.runPrompt(
             (ctx) => {
-                ctx.importTemplate(PROMPT_CHECK_RULE_GROUNDED, {
+                ctx.importTemplate(PROMPT_EVAL_RULE_GROUNDED, {
                     rule,
                     description,
                 })
@@ -76,7 +76,7 @@ export async function evaluateRulesGrounded(
 ) {
     const rules = parseRules(files.rules.content)
     if (!rules) throw new Error("No rules found")
-    await outputPrompty(PROMPT_CHECK_RULE_GROUNDED, options)
+    await outputPrompty(PROMPT_EVAL_RULE_GROUNDED, options)
     const res: PromptPexRuleEval[] = []
     for (let i = 0; i < rules.length; ++i) {
         const ev = await evaluateRuleGrounded(files, i + 1, rules[i], options)

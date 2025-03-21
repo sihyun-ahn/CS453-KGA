@@ -4,13 +4,28 @@ export const PROMPT_GENERATE_RULES = "src/prompts/rules_global.prompty"
 export const PROMPT_GENERATE_BASELINE_TESTS =
     "src/prompts/baseline_test.prompty"
 export const PROMPT_GENERATE_INVERSE_RULES = "src/prompts/inverse_rule.prompty"
-export const PROMPT_GENERATE_TESTS = "src/prompts/test.prompty"
-export const PROMPT_CHECK_RULE_GROUNDED =
+export const PROMPT_GENERATE_TESTS = "src/prompts/generate_tests.prompty"
+export const PROMPT_EVAL_RULE_GROUNDED =
     "src/prompts/check_rule_grounded.prompty"
 export const PROMPT_EVAL_TEST_VALIDITY =
     "src/prompts/check_violation_with_input_spec.prompty"
 export const PROMPT_EVAL_TEST_COVERAGE =
     "src/prompts/evaluate_test_coverage.prompty"
+export const PROMPT_EVAL_TEST_RESULT =
+    "src/prompts/check_violation_with_system_prompt.prompty"
+
+export const PROMPT_ALL = [
+    PROMPT_GENERATE_INPUT_SPEC,
+    PROMPT_GENERATE_INTENT,
+    PROMPT_GENERATE_RULES,
+    PROMPT_GENERATE_BASELINE_TESTS,
+    PROMPT_GENERATE_INVERSE_RULES,
+    PROMPT_GENERATE_TESTS,
+    PROMPT_EVAL_RULE_GROUNDED,
+    PROMPT_EVAL_TEST_VALIDITY,
+    PROMPT_EVAL_TEST_COVERAGE,
+    PROMPT_EVAL_TEST_RESULT,
+]
 
 export const CONCURRENCY = 2
 export const RULES_NUM = 0

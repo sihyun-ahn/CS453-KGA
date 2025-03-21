@@ -1,3 +1,4 @@
+import { PROMPT_EVAL_TEST_RESULT } from "./constants.mts"
 import { modelOptions, checkLLMResponse } from "./parsers.mts"
 import { measure } from "./perf.mts"
 import {
@@ -22,13 +23,10 @@ export async function evaluateTestResult(
         generator.runPrompt(
             (ctx) => {
                 // removes frontmatter
-                ctx.importTemplate(
-                    "src/prompts/check_violation_with_system_prompt.prompty",
-                    {
-                        system: content.replace(/^(system|user):/gm, ""),
-                        result: testResult.output,
-                    }
-                )
+                ctx.importTemplate(PROMPT_EVAL_TEST_RESULT, {
+                    system: content.replace(/^(system|user):/gm, ""),
+                    result: testResult.output,
+                })
             },
             {
                 ...moptions,

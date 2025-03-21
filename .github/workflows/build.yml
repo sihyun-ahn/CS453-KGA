@@ -1,22 +1,31 @@
 name: build
 
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-
+    push:
+        branches: [main]
+    pull_request:
+        branches: [main]
+    workflow_dispatch:
+concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}-ollama
+    cancel-in-progress: true
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      - name: Set up Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - name: install node
-        run: npm install 
-      - name: build genaiscript
-        run: npm run build
+    build:
+        env:
+            OLLAMA_HOST: "http://localhost:11434"
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+            - name: Set up Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+            - name: install node
+              run: npm install
+            - name: build genaiscript
+              run: npm run build
+            - name: start ollama
+              run: npm run ollama:start
+            - name: run tests
+              run: npm run test
