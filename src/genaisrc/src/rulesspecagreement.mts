@@ -13,9 +13,8 @@ export async function evaluateRulesSpecAgreement(
     options?: PromptPexOptions & { model?: ModelType; force?: boolean }
 ) {
     const { model } = options || {}
-    const moptions = {
-        ...modelOptions(model, options),
-    }
+    const moptions = modelOptions(model, options)
+
     const baselineTests = parsBaselineTestEvals(files)
     const validBaselineTests = baselineTests.filter((t) => t.validity === "ok")
 
@@ -24,7 +23,7 @@ export async function evaluateRulesSpecAgreement(
 
     const results: PromptPexTestEval[] = []
     for (const baselineTest of validBaselineTests) {
-        const res = await measure("llm.eval.rules.agreement", () =>
+        const res = await measure("eval.rules.agreement", () =>
             generator.runPrompt(
                 (ctx) => {
                     ctx.importTemplate(PROMPT_EVAL_OUTPUT_RULE_AGREEMENT, {

@@ -10,16 +10,14 @@ export async function evaluateBaselineTests(
     options?: PromptPexOptions & { force?: boolean }
 ) {
     const { evalModel = "eval" } = options || {}
-    const moptions = {
-        ...modelOptions(evalModel, options),
-    }
+    const moptions = modelOptions(evalModel, options)
     const inputSpec = files.inputSpec.content
     const baselineTests = parseBaselineTests(files)
 
     const results = []
     for (const baselineTest of baselineTests) {
         const { testinput, ...rest } = baselineTest
-        const resValidity = await measure("llm.eval.baseline", () =>
+        const resValidity = await measure("eval.baseline", () =>
             generator.runPrompt(
                 (ctx) => {
                     ctx.importTemplate(PROMPT_EVAL_TEST_VALIDITY, {

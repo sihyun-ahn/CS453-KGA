@@ -14,12 +14,10 @@ export async function evaluateTestResult(
     options: PromptPexOptions
 ): Promise<string> {
     const { evalModel = "eval" } = options || {}
-    const moptions = {
-        ...modelOptions(evalModel, options),
-    }
+    const moptions = modelOptions(evalModel, options)
 
     const content = MD.content(files.prompt.content)
-    const res = await measure("llm.eval.test", () =>
+    const res = await measure("eval.test", () =>
         generator.runPrompt(
             (ctx) => {
                 // removes frontmatter

@@ -15,12 +15,10 @@ export async function evaluateCustomTestResult(
     const { customTestEvalTemplate, customTestEvalModel = "usereval" } =
         options || {}
     if (!customTestEvalTemplate) throw new Error("No custom test eval template")
-    const moptions = {
-        ...modelOptions(customTestEvalModel, options),
-    }
+    const moptions = modelOptions(customTestEvalModel, options)
 
     const content = MD.content(files.prompt.content)
-    const res = await measure("llm.eval.user", () =>
+    const res = await measure("eval.user", () =>
         generator.runPrompt(
             (ctx) => {
                 // removes frontmatter

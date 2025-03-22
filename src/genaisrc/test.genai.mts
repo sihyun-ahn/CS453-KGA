@@ -8,7 +8,7 @@ import {
     parseRulesTests,
     parseTestResults,
 } from "./src/parsers.mts"
-import { initPerf } from "./src/perf.mts"
+import { initPerf, reportPerf } from "./src/perf.mts"
 import { generateOutputRules } from "./src/rulesgen.mts"
 import { generateTests } from "./src/testgen.mts"
 import { runTests } from "./src/testrun.mts"
@@ -20,19 +20,22 @@ script({
     files: "samples/demo/demo.prompty",
 })
 
-const { output, vars } = env
-const testModel = "ollama:gemma3:4b"
-const models = ["ollama:gemma3:1b", "ollama:llama3.2:1b"]
+const { output } = env
+const modelsUnderTest = process.env.PROMPTPEX_MODELS.split(";").filter(
+    (s) => !!s
+)
+if (!modelsUnderTest?.length)
+    throw new Error("No models found in PROMPTPEX_MODELS")
 const options: PromptPexOptions = {
     disableSafety: true,
     workflowDiagram: false,
-    baselineModel: testModel,
-    rulesModel: testModel,
-    evalModel: testModel,
     testsPerRule: 2,
     runsPerTest: 2,
+    maxTestsToRun: 4,
     compliance: true,
     baselineTests: true,
+    cache: true,
+    modelsUnderTest,
 }
 
 initPerf({ output })
@@ -55,13 +58,6 @@ output.fence(files.inverseRules.content, "text")
 const inverseRules = parseRules(files.inverseRules.content)
 if (!inverseRules?.length) throw new Error("No inverse rules found")
 
-output.heading(3, "Baseline tests")
-files.baselineTests.content = await generateBaselineTests(files, options)
-output.fence(files.baselineTests.content, "text")
-const baselineTests = parseBaselineTests(files)
-if (!baselineTests?.length) throw new Error("No baseline tests found")
-output.table(baselineTests)
-
 output.heading(3, "Tests")
 files.tests.content = await generateTests(files, options)
 output.fence(files.tests.content, "text")
@@ -71,12 +67,19 @@ const tests = parseRulesTests(files.tests.content).map(
 if (!tests?.length) throw new Error("No tests found")
 output.table(tests)
 
+output.heading(3, "Baseline tests")
+files.baselineTests.content = await generateBaselineTests(files, options)
+output.fence(files.baselineTests.content, "text")
+const baselineTests = parseBaselineTests(files)
+if (!baselineTests?.length) throw new Error("No baseline tests found")
+output.table(baselineTests)
+
 output.heading(3, "Test results")
 files.testOutputs.content = await runTests(files, {
     ...options,
-    maxTestsToRun: 4,
-    models,
     force: true,
 })
 const testResultsParsed = parseTestResults(files)
 if (!testResultsParsed) throw new Error("No test results found")
+
+reportPerf()
