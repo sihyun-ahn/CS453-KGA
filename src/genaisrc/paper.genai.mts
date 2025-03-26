@@ -78,9 +78,10 @@ const { disableSafety, force, out, evals, testsPerRule, runsPerTest } =
 let maxTestsToRun = diagnostics ? 2 : vars.maxTestsToRun
 
 const prompts = await loadPromptContext(files, { disableSafety, out })
-const modelsUnderTest = env.vars.models
+const modelsUnderTest: ModelType[] = env.vars.models
     ?.split(/[;\n ,]/g)
     .map((model) => model.trim())
+    .filter((m) => !!m)
 if (!modelsUnderTest?.length)
     throw new Error(`no modelsUnderTest provided for evaluation`)
 
@@ -148,14 +149,13 @@ async function generate(
     files: PromptPexContext,
     options?: PromptPexOptions & {
         force?: boolean
-        models?: ModelType[]
         evals?: boolean
     }
 ) {
     const {
         disableSafety = false,
         force = false,
-        models,
+        modelsUnderTest,
         evals,
     } = options || {}
     const { output } = env
@@ -276,8 +276,13 @@ async function generate(
     await evaluateRulesGrounded(files, options)
     await generateReports(files)
 
-    await evaluateRulesSpecAgreement(files, { ...options, model: models[0] })
-    await generateReports(files)
+    if (modelsUnderTest?.length) {
+        await evaluateRulesSpecAgreement(files, {
+            ...options,
+            model: modelsUnderTest[0],
+        })
+        await generateReports(files)
+    }
 
     // test exhaustiveness
     const tc = await evaluateTestsQuality(files, {
