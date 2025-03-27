@@ -8,7 +8,7 @@ import {
     cleanBaselineTests,
 } from "./parsers.mts"
 import { measure } from "./perf.mts"
-import { PromptPexContext, PromptPexOptions } from "./types.mts"
+import type { PromptPexContext, PromptPexOptions } from "./types.mts"
 const { generator } = env
 
 export async function generateBaselineTests(

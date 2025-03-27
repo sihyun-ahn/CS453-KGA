@@ -1,6 +1,6 @@
 import { modelOptions, checkLLMResponse } from "./parsers.mts"
 import { measure } from "./perf.mts"
-import {
+import type {
     PromptPexContext,
     PromptPexTestResult,
     PromptPexOptions,

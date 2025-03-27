@@ -2,7 +2,7 @@ import { PROMPT_GENERATE_INPUT_SPEC } from "./constants.mts"
 import { outputWorkflowDiagram, outputPrompty } from "./output.mts"
 import { modelOptions, checkLLMResponse, tidyRules } from "./parsers.mts"
 import { measure } from "./perf.mts"
-import { PromptPexContext, PromptPexOptions } from "./types.mts"
+import type { PromptPexContext, PromptPexOptions } from "./types.mts"
 const { generator } = env
 
 export async function generateInputSpec(

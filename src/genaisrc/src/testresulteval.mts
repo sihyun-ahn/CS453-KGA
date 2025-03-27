@@ -1,7 +1,7 @@
 import { PROMPT_EVAL_TEST_RESULT } from "./constants.mts"
 import { modelOptions, checkLLMResponse } from "./parsers.mts"
 import { measure } from "./perf.mts"
-import {
+import type {
     PromptPexContext,
     PromptPexTestResult,
     PromptPexOptions,
