@@ -29,6 +29,10 @@ script({
     accept: ".prompty",
     unlisted: true,
     parameters: {
+        cache: {
+            type: "boolean",
+            description: "Cache all LLM calls",
+        },
         disableSafety: {
             type: "boolean",
             description:
@@ -69,12 +73,20 @@ script({
 })
 
 const { vars, files, output } = env
-const { disableSafety, force, out, evals, testsPerRule, runsPerTest } =
-    vars as PromptPexOptions & {
-        force?: boolean
-        out?: string
-        evals?: boolean
-    }
+const {
+    cache,
+    evalCache,
+    disableSafety,
+    force,
+    out,
+    evals,
+    testsPerRule,
+    runsPerTest,
+} = vars as PromptPexOptions & {
+    force?: boolean
+    out?: string
+    evals?: boolean
+}
 let maxTestsToRun = diagnostics ? 2 : vars.maxTestsToRun
 
 const prompts = await loadPromptContext(files, { disableSafety, out })
@@ -94,11 +106,12 @@ if (diagnostics) {
 
 const res = []
 const options = Object.freeze({
+    cache,
+    evalCache: true,
     disableSafety,
     force,
     modelsUnderTest,
     evals,
-    evalCache: true,
     testsPerRule,
     runsPerTest,
     maxTestsToRun,
