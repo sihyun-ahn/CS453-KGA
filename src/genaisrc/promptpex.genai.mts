@@ -71,6 +71,14 @@ promptPex:
             required: false,
             uiType: "textarea",
         },
+        cache: {
+            type: "boolean",
+            description: "Cache all LLM calls",
+        },
+        evalCache: {
+            type: "boolean",
+            description: "Cache eval evaluation results",
+        },
         testsPerRule: {
             type: "integer",
             description: "Number of tests to generate per rule",
@@ -220,6 +228,8 @@ user:
 
 const { output, meta, vars } = env
 const {
+    cache,
+    evalCache,
     disableSafety,
     inputSpecInstructions,
     outputRulesInstructions,
@@ -239,6 +249,8 @@ const modelsUnderTest = (vars.modelsUnderTest || "")
     .split(/;/g)
     .filter((m) => !!m)
 const options: PromptPexOptions = {
+    cache,
+    evalCache,
     disableSafety,
     instructions: {
         inputSpec: inputSpecInstructions,
