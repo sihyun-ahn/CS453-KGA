@@ -273,11 +273,15 @@ npm run upgrade
 
 ### Diagnostics mode
 
-Set the `DEBUG` or `GENAISCRIPT_DEBUG` environment variable to enable dianostics modes.
+Set the `DEBUG=promptpex:*` environment variable to enable additional logging.
 
 ```sh
-export GENAISCRIPT_DEBUG=1
+DEBUG=promptpex:* npm run ...
 ```
+
+### Caching
+
+Add `--vars cache=true` to the command line to enable caching of LLM calls.
 
 ## Responsible AI Transparency Note
 
