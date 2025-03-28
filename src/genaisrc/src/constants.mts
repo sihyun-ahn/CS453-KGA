@@ -1,18 +1,43 @@
-export const PROMPT_GENERATE_INPUT_SPEC = "src/prompts/generate_input_spec.prompty"
-export const PROMPT_GENERATE_INTENT = "src/prompts/generate_intent.prompty"
-export const PROMPT_GENERATE_OUTPUT_RULES = "src/prompts/generate_output_rules.prompty"
-export const PROMPT_GENERATE_BASELINE_TESTS =
-    "src/prompts/generate_baseline_tests.prompty"
-export const PROMPT_GENERATE_INVERSE_RULES = "src/prompts/generate_inverse_rules.prompty"
-export const PROMPT_GENERATE_TESTS = "src/prompts/generate_tests.prompty"
-export const PROMPT_EVAL_RULE_GROUNDED =
-    "src/prompts/eval_rule_grounded.prompty"
-export const PROMPT_EVAL_TEST_VALIDITY =
-    "src/prompts/eval_test_validity.prompty"
-export const PROMPT_EVAL_OUTPUT_RULE_AGREEMENT =
-    "src/prompts/eval_output_rule_agreement.prompty"
-export const PROMPT_EVAL_TEST_RESULT =
-    "src/prompts/eval_test_result.prompty"
+import { fileURLToPath } from "node:url"
+import { dirname, join, resolve } from "node:path"
+
+const genaisrcSrcDir = dirname(fileURLToPath(import.meta.url))
+const promptDir = resolve(genaisrcSrcDir, "..", "..", "prompts")
+
+export const PROMPT_GENERATE_INPUT_SPEC = join(
+    promptDir,
+    "generate_input_spec.prompty"
+)
+export const PROMPT_GENERATE_INTENT = join(promptDir, "generate_intent.prompty")
+export const PROMPT_GENERATE_OUTPUT_RULES = join(
+    promptDir,
+    "generate_output_rules.prompty"
+)
+export const PROMPT_GENERATE_BASELINE_TESTS = join(
+    promptDir,
+    "generate_baseline_tests.prompty"
+)
+export const PROMPT_GENERATE_INVERSE_RULES = join(
+    promptDir,
+    "generate_inverse_rules.prompty"
+)
+export const PROMPT_GENERATE_TESTS = join(promptDir, "generate_tests.prompty")
+export const PROMPT_EVAL_RULE_GROUNDED = join(
+    promptDir,
+    "eval_rule_grounded.prompty"
+)
+export const PROMPT_EVAL_TEST_VALIDITY = join(
+    promptDir,
+    "eval_test_validity.prompty"
+)
+export const PROMPT_EVAL_OUTPUT_RULE_AGREEMENT = join(
+    promptDir,
+    "eval_output_rule_agreement.prompty"
+)
+export const PROMPT_EVAL_TEST_RESULT = join(
+    promptDir,
+    "eval_test_result.prompty"
+)
 
 export const PROMPT_ALL = [
     PROMPT_GENERATE_INPUT_SPEC,

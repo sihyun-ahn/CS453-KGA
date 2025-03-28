@@ -73,20 +73,12 @@ script({
 })
 
 const { vars, files, output } = env
-const {
-    cache,
-    evalCache,
-    disableSafety,
-    force,
-    out,
-    evals,
-    testsPerRule,
-    runsPerTest,
-} = vars as PromptPexOptions & {
-    force?: boolean
-    out?: string
-    evals?: boolean
-}
+const { cache, disableSafety, force, out, evals, testsPerRule, runsPerTest } =
+    vars as PromptPexOptions & {
+        force?: boolean
+        out?: string
+        evals?: boolean
+    }
 let maxTestsToRun = diagnostics ? 2 : vars.maxTestsToRun
 
 const prompts = await loadPromptContext(files, { disableSafety, out })
