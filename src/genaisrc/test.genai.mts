@@ -12,7 +12,7 @@ import { initPerf, reportPerf } from "./src/perf.mts"
 import { generateOutputRules } from "./src/rulesgen.mts"
 import { generateTests } from "./src/testgen.mts"
 import { runTests } from "./src/testrun.mts"
-import { PromptPexOptions } from "./src/types.mts"
+import type { PromptPexOptions } from "./src/types.mts"
 
 script({
     accept: ".prompty",
