@@ -2,6 +2,7 @@ import { CONCURRENCY, PROMPT_ALL } from "./constants.mts"
 import { parseInputs, tidyRulesFile } from "./parsers.mts"
 import { checkPromptSafety } from "./safety.mts"
 import type { PromptPexContext, PromptPexLoaderOptions } from "./types.mts"
+const dbg = host.logger("promptpex:loader")
 
 export async function loadPromptContext(
     files: WorkspaceFile[],
@@ -30,6 +31,7 @@ export async function loadPromptFiles(
             length: 16,
             version: true,
         })) + ".md"
+    dbg(`filename: ${filename}`)
     const basename = filename
         ? path.basename(filename).slice(0, -path.extname(filename).length)
         : "prompt"
@@ -82,12 +84,13 @@ export async function loadPromptFiles(
 
 async function checkPromptFiles() {
     for (const filename of PROMPT_ALL) {
+        dbg(`validating ${filename}`)
         const file = await workspace.readText(filename)
-        if (!file) throw new Error(`Prompt file ${filename} not found`)
+        if (!file?.content) throw new Error(`prompt file ${filename} not found`)
         const frontmatter = MD.frontmatter(file)
         if (!frontmatter)
-            throw new Error(`Prompt file ${filename} has no frontmatter`)
+            throw new Error(`prompt file ${filename} has no frontmatter`)
         const content = MD.content(file)
-        if (!content) throw new Error(`Prompt file ${filename} is empty`)
+        if (!content) throw new Error(`prompt file ${filename} is empty`)
     }
 }

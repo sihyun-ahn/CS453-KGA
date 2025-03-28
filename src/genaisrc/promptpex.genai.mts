@@ -271,13 +271,14 @@ const options: PromptPexOptions = {
     modelsUnderTest,
 }
 
-initPerf({ output })
 if (env.files[0] && promptText)
     cancel(
         "You can only provide either a prompt file or prompt text, not both."
     )
 if (!env.files[0] && !promptText)
     cancel("No prompt file or prompt text provided.")
+
+initPerf({ output })
 const file = env.files[0] || { filename: "", content: promptText }
 const files = await loadPromptFiles(file, options)
 
