@@ -137,10 +137,11 @@ export async function runTest(
         throw new Error(res.error.message)
     }
     const actualOutput = res.text
-    output.detailsFenced(
-        `test result: ${testInput.slice(0, 42)}}...`,
-        testInput + "\n\n---\n\n" + actualOutput
-    )
+    output.startDetails(`test result: ${testInput.slice(0, 42)}}...`)
+    output.itemValue("model", model)
+    output.fence(testInput)
+    output.fence(actualOutput)
+    output.endDetails()
 
     const testRes: PromptPexTestResult = {
         id,
