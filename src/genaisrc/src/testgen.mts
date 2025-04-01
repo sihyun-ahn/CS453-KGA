@@ -5,15 +5,22 @@ import {
     parseRulesTests,
     modelOptions,
     checkLLMResponse,
+    isUnassistedResponse,
 } from "./parsers.mts"
 import { measure } from "./perf.mts"
-import type { PromptPexContext, PromptPexOptions } from "./types.mts"
+import type {
+    PromptPexContext,
+    PromptPexOptions,
+    PromptPexRule,
+    PromptPexTest,
+} from "./types.mts"
+const dbg = host.logger("promptpex:gen:test")
 const { generator, output } = env
 
 export async function generateTests(
     files: PromptPexContext,
     options?: PromptPexOptions
-) {
+): Promise<string> {
     const { testsPerRule: num = TESTS_NUM, rulesModel = "rules" } =
         options || {}
 
@@ -46,45 +53,93 @@ IOR --> PPT
     let repaired = false
     const pn = PROMPT_GENERATE_TESTS
     await outputPrompty(pn, options)
-    const res = await measure("gen.tests", () =>
-        generator.runPrompt(
-            (ctx) => {
-                ctx.importTemplate(pn, {
-                    input_spec: files.inputSpec.content,
-                    context,
-                    num,
-                    rule: allRules
-                        .map((r, index) => `${index + 1}. ${r.rule}`)
-                        .join("\n"),
-                    num_rules: allRules.length,
-                })
-                ctx.defChatParticipant((p, c) => {
-                    const last: string = c.at(-1)?.content
-                    const csv = parseRulesTests(last)
-                    if (!csv.length) {
-                        if (!repaired) {
-                            console.warn(
-                                "Invalid generated test format or no test generated, trying to repair"
+
+    const rulesGroups = splitRules(allRules, options)
+    const tests: PromptPexTest[] = []
+    let rulesCount = 0
+
+    dbg(`${allRules.length} rules, ${rulesGroups.length} groups`)
+    for (const rulesGroup of rulesGroups) {
+        const res = await measure("gen.tests", () =>
+            generator.runPrompt(
+                (ctx) => {
+                    ctx.importTemplate(pn, {
+                        input_spec: files.inputSpec.content,
+                        context,
+                        num,
+                        rule: rulesGroup
+                            .map(
+                                (r, index) =>
+                                    `${rulesCount + index + 1}. ${r.rule}`
                             )
-                            repaired = true
-                            p.$`The generated tests are not valid CSV. Please fix formatting issues and try again.`
-                        } else {
-                            output.warn(
-                                "Invalid generated test format, skipping repair."
-                            )
-                            output.fence(last, "txt")
+                            .join("\n"),
+                        num_rules: rulesGroup.length,
+                    })
+                    ctx.defChatParticipant((p, c) => {
+                        const last: string = c.at(-1)?.content
+                        const csv = parseCsvTests(last)
+                        if (!csv.length) {
+                            if (!repaired) {
+                                dbg(`no tests found, trying to repair`)
+                                console.warn(
+                                    "Invalid generated test format or no test generated, trying to repair"
+                                )
+                                repaired = true
+                                p.$`The generated tests are not valid CSV. Please fix formatting issues and try again.`
+                            } else {
+                                output.warn(
+                                    "Invalid generated test format, skipping repair."
+                                )
+                                output.fence(last, "txt")
+                            }
                         }
-                    }
-                })
-            },
-            {
-                ...modelOptions(rulesModel, options),
-                //      logprobs: true,
-                label: `${files.name}> generate tests`,
-            }
+                    })
+                },
+                {
+                    ...modelOptions(rulesModel, options),
+                    //      logprobs: true,
+                    label: `${files.name}> generate tests`,
+                }
+            )
         )
-    )
-    const text = checkLLMResponse(res)
-    const csv = parsers.unfence(text, "csv")
-    return csv
+        const text = checkLLMResponse(res)
+        const csv = parsers.unfence(text, "csv")
+        const current = parseCsvTests(csv)
+        if (current?.length) tests.push(...current)
+        // TODO retry
+        rulesCount += rulesGroup.length
+    }
+    const resc = JSON.stringify(tests, null, 2)
+    return resc
+}
+
+function splitRules(rules: PromptPexRule[], options?: PromptPexOptions) {
+    const { splitRules, maxRulesPerTestGeneration } = options || {}
+    let res = splitRules
+        ? [rules.filter((r) => !r.inverse), rules.filter((r) => r.inverse)]
+        : [rules.slice(0)]
+    if (maxRulesPerTestGeneration > 0)
+        res = res.flatMap((r) => chunkArray(r, maxRulesPerTestGeneration))
+    return res
+}
+
+function chunkArray<T>(array: T[], n: number): T[][] {
+    const result: T[][] = []
+    for (let i = 0; i < array.length; i += n) {
+        result.push(array.slice(i, i + n))
+    }
+    return result
+}
+
+function parseCsvTests(text: string): PromptPexTest[] {
+    if (!text) return []
+    if (isUnassistedResponse(text)) return []
+    const content = text.trim().replace(/\\"/g, '""')
+    const rulesTests = content
+        ? (CSV.parse(content, {
+              delimiter: ",",
+              repair: true,
+          }) as PromptPexTest[])
+        : []
+    return rulesTests.map((r) => ({ ...r, testinput: r.testinput || "" }))
 }

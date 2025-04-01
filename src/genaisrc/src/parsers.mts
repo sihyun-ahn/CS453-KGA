@@ -3,6 +3,7 @@ import type {
     PromptPexContext,
     PromptPexModelAliases,
     PromptPexOptions,
+    PromptPexRule,
     PromptPexRuleEval,
     PromptPexTest,
     PromptPexTestEval,
@@ -81,13 +82,7 @@ export function parseRules(rules: string) {
 export function parseRulesTests(text: string): PromptPexTest[] {
     if (!text) return []
     if (isUnassistedResponse(text)) return []
-    const content = text.trim().replace(/\\"/g, '""')
-    const rulesTests = content
-        ? (CSV.parse(content, {
-              delimiter: ",",
-              repair: true,
-          }) as PromptPexTest[])
-        : []
+    const rulesTests: PromptPexTest[] = parsers.JSON5(text) || []
     return rulesTests.map((r) => ({ ...r, testinput: r.testinput || "" }))
 }
 
@@ -152,9 +147,7 @@ export function parsBaselineTestEvals(files: PromptPexContext) {
     }) || []) as PromptPexTestEval[]
 }
 
-export function parseAllRules(
-    files: PromptPexContext
-): { rule: string; inverse?: boolean }[] {
+export function parseAllRules(files: PromptPexContext): PromptPexRule[] {
     const rules = parseRules(files.rules.content)
     const inverseRules = parseRules(files.inverseRules.content)
     const allRules = [
