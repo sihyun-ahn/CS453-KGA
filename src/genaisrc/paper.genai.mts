@@ -67,18 +67,37 @@ script({
             type: "integer",
             description: "Maximum number of tests to runs",
         },
+        splitRules: {
+            type: "boolean",
+            description:
+                "Split rules and inverse rules in separate prompts for generation",
+            default: false,
+        },
+        maxRulesPerTestGeneration: {
+            type: "integer",
+            description: "Maximum number of rules to use per test generation",
+        },
         models: { type: "string", description: "List of models to evaluate" },
         out: { type: "string", description: "Output directory", default: "" },
     },
 })
 
 const { vars, files, output } = env
-const { cache, disableSafety, force, out, evals, testsPerRule, runsPerTest } =
-    vars as PromptPexOptions & {
-        force?: boolean
-        out?: string
-        evals?: boolean
-    }
+const {
+    cache,
+    disableSafety,
+    force,
+    out,
+    evals,
+    testsPerRule,
+    runsPerTest,
+    splitRules,
+    maxRulesPerTestGeneration,
+} = vars as PromptPexOptions & {
+    force?: boolean
+    out?: string
+    evals?: boolean
+}
 let maxTestsToRun = diagnostics ? 2 : vars.maxTestsToRun
 
 const prompts = await loadPromptContext(files, { disableSafety, out })
@@ -107,6 +126,8 @@ const options = Object.freeze({
     testsPerRule,
     runsPerTest,
     maxTestsToRun,
+    splitRules,
+    maxRulesPerTestGeneration,
     compliance: true,
     baselineTests: true,
 } satisfies PaperOptions)
