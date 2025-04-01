@@ -101,9 +101,9 @@ IOR --> PPT
                                 dbg(`adding ${csv.length} tests`)
                                 tests.push(...csv)
                             }
+                            testGeneration++
                             if (testGeneration < testGenerations) {
-                                testGeneration++
-                                dbg(`test generation ${testGeneration + 1}`)
+                                dbg(`next test generation ${testGeneration}`)
                                 repaired = false
                                 p.$`Generate ${num} more tests for the same rules. Do not duplicate the previous tests.`
                             }
