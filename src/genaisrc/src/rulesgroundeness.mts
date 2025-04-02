@@ -51,7 +51,7 @@ export async function evaluateRuleGrounded(
             }
         )
     )
-    const resText = checkLLMResponse(res)
+    const resText = checkLLMResponse(res, { allowUnassisted: true })
 
     const ruleEval: PromptPexRuleEval = {
         id,
@@ -75,7 +75,10 @@ export async function evaluateRulesGrounded(
     options?: PromptPexOptions
 ) {
     const rules = parseRules(files.rules.content)
-    if (!rules) throw new Error("No rules found")
+    if (!rules) {
+        dbg(`failed to parse rules in ${files.rules.filename} %O`, files.rules.content)
+        throw new Error("No rules found")
+    }
     await outputPrompty(PROMPT_EVAL_RULE_GROUNDED, options)
     const res: PromptPexRuleEval[] = []
     for (let i = 0; i < rules.length; ++i) {

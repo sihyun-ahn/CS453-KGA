@@ -107,6 +107,9 @@ async function generateMarkdownReport(files: PromptPexContext) {
     const ts = testResults.length
     const oks = testResults.filter((t) => t.compliance === "ok").length
     const errs = testResults.filter((t) => t.compliance === "err").length
+    const unknowns = testResults.filter(
+        (t) => t.compliance !== "ok" && t.compliance !== "err"
+    ).length
     const rp = (n: number, t: number) =>
         `${n}/${t} (${Math.floor((n / t) * 100)}%)`
 
@@ -117,7 +120,7 @@ async function generateMarkdownReport(files: PromptPexContext) {
         `- ${inverseRules?.length ?? 0} inverse rules`,
         `- ${tests.length ?? 0} tests, ${tests.filter((t) => t.baseline).length} baseline tests`,
         testResults?.length
-            ? `- ${testResults?.length ?? 0} test results, ${rp(oks, ts)} oks, ${rp(errs, ts)} errs`
+            ? `- ${testResults?.length ?? 0} test results, ${rp(oks, ts)} oks, ${rp(errs, ts)} errs, ${rp(unknowns, ts)} unknowns`
             : undefined,
         ``,
     ].filter((l) => l !== undefined)

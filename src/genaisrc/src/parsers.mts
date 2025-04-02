@@ -1,6 +1,7 @@
 import { diagnostics } from "./flags.mts"
 import type {
     PromptPexContext,
+    PromptPexEvalResultType,
     PromptPexModelAliases,
     PromptPexOptions,
     PromptPexRule,
@@ -46,10 +47,14 @@ export function isUnassistedResponse(text: string) {
     return /i can't assist with that|i'm sorry/i.test(text)
 }
 
-export function checkLLMResponse(res: RunPromptResult) {
+export function checkLLMResponse(
+    res: RunPromptResult,
+    options?: { allowUnassisted: boolean }
+) {
     if (res.error) throw new Error(res.error.message)
-    if (isUnassistedResponse(res.text))
+    if (!options?.allowUnassisted && isUnassistedResponse(res.text))
         throw new Error("LLM failed to generate response")
+    else output.warn(`unassisted response: ${res.text}`)
     return parsers.unfence(res.text, "")
 }
 
@@ -157,10 +162,10 @@ export function parseAllRules(files: PromptPexContext): PromptPexRule[] {
     return allRules
 }
 
-export function parseOKERR(text: string): "err" | "ok" | undefined {
+export function parseOKERR(text: string): PromptPexEvalResultType | undefined {
     return /(^|\W)ERR\s*$/.test(text)
         ? "err"
         : /(^|\W)OK\s*$/.test(text)
           ? "ok"
-          : undefined
+          : "unknown"
 }

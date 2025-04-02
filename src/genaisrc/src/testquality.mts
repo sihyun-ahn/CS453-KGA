@@ -140,6 +140,7 @@ export async function evaluateTestQuality(
         files,
         {
             id: "cov-" + testEval.id,
+            scenario: test.scenario,
             rule: testEval.rule,
             ruleid: test.ruleid,
             promptid,

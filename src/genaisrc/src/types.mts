@@ -263,7 +263,7 @@ export interface PromptPexTestResult {
     output: string
     error?: string
 
-    compliance?: "ok" | "err"
+    compliance?: PromptPexEvalResultType
     complianceText?: string
 
     customEvalText?: string
@@ -276,10 +276,10 @@ export interface PromptPexTestEval {
     rule: string
     inverse?: boolean
     input: string
-    coverage?: "ok" | "err"
+    coverage?: PromptPexEvalResultType
     coverageEvalText?: string
     coverageText?: string
-    validity?: "ok" | "err"
+    validity?: PromptPexEvalResultType
     validityText?: string
     error?: string
 }
@@ -289,13 +289,15 @@ export interface PromptPexRule {
     inverse?: boolean
 }
 
+export type PromptPexEvalResultType = "ok" | "err" | "unknown"
+
 export interface PromptPexRuleEval {
     id: string
     promptid: string
     ruleid: number
     rule: string
     groundedText?: string
-    grounded?: "ok" | "err"
+    grounded?: PromptPexEvalResultType
     error?: string
 }
 

@@ -1,4 +1,5 @@
 import type { PromptPexContext, PromptPexTest } from "./types.mts"
+const dbg = host.logger("promptpex:resolvers")
 
 export async function resolveTestId(
     files: PromptPexContext,
@@ -26,15 +27,8 @@ export function resolvePromptArgs(
     if (inputKeys.length === 1) args[inputKeys[0]] = testInput
     else if (inputKeys.length > 1) {
         // not supported yet
+        dbg(`multiple inputs not supported: %O`, { inputKeys, testInput })
         throw new Error("multiple inputs not supported yet")
-        /*
-    const testInputArgs =
-      parsers.INI(testInput) ||
-      parsers.YAML(testInput) ||
-      parsers.JSON5(testInput);
-    if (!testInputArgs) return undefined;
-    for (const key of inputKeys) args[key] = testInputArgs[key];
-    */
     }
     return { inputs, args, testInput, expectedOutput }
 }

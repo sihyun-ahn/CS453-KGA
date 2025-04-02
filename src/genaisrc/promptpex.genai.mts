@@ -371,7 +371,9 @@ if (!modelsUnderTest?.length) {
                 compliance: compliance
                     ? testCompliance === "ok"
                         ? "✓"
-                        : "✗"
+                        : testCompliance === "err"
+                          ? "✗"
+                          : "?"
                     : undefined,
                 inverse: inverse ? "✓" : "",
             })

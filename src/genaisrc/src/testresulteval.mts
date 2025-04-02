@@ -33,6 +33,6 @@ export async function evaluateTestResult(
             }
         )
     )
-    const evaluation = checkLLMResponse(res)
+    const evaluation = checkLLMResponse(res, { allowUnassisted: true })
     return evaluation
 }
