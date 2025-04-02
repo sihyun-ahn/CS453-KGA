@@ -52,7 +52,8 @@ export function checkLLMResponse(
     options?: { allowUnassisted: boolean }
 ) {
     if (res.error) {
-        console.debug(YAML.stringify(res.error))
+        output.warn(`LLM error: ${res.error.message}`)
+        output.fence(res.error, "yaml")
         throw new Error(res.error.message)
     }
     if (isUnassistedResponse(res.text)) {
