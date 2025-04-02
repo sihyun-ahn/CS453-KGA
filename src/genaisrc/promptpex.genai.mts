@@ -5,7 +5,7 @@ import { loadPromptFiles } from "./src/loaders.mts"
 import { outputFile, outputLines } from "./src/output.mts"
 import { parseRulesTests, parseTestResults } from "./src/parsers.mts"
 import { initPerf, reportPerf } from "./src/perf.mts"
-import { generateReports } from "./src/reports.mts"
+import { computeOverview, generateReports } from "./src/reports.mts"
 import { generateOutputRules } from "./src/rulesgen.mts"
 import { generateTests } from "./src/testgen.mts"
 import { runTests } from "./src/testrun.mts"
@@ -381,5 +381,8 @@ if (!modelsUnderTest?.length) {
     )
     output.detailsFenced(`results`, results, "csv")
 }
+
+const { overview } = await computeOverview(files, { percent: true })
+output.table(overview)
 
 reportPerf()

@@ -146,9 +146,9 @@ If you are using a specific set of models, you can use a `.env` file to override
 
 
 ```text
-GENAISCRIPT_MODEL_EVAL="azure:gpt-4o_2024-08-06"
-GENAISCRIPT_MODEL_RULES="azure:gpt-4o_2024-08-06"
-GENAISCRIPT_MODEL_BASELINE="azure:gpt-4o_2024-08-06"
+GENAISCRIPT_MODEL_EVAL="azure:gpt-4o_2024-11-20"
+GENAISCRIPT_MODEL_RULES="azure:gpt-4o_2024-11-20"
+GENAISCRIPT_MODEL_BASELINE="azure:gpt-4o_2024-11-20"
 ```
 
 ## Test Generation Scenarios

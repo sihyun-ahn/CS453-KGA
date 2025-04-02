@@ -8,6 +8,7 @@ import {
     parseTestEvals,
     parseTestResults,
 } from "./parsers.mts"
+import { groupBy } from "genaiscript/runtime"
 import { resolveRule } from "./resolvers.mts"
 import type { PromptPexContext, PromptPexTestResult } from "./types.mts"
 
@@ -20,64 +21,61 @@ export function computeOverview(
     const testEvals = parseTestEvals(files)
     const rules = parseAllRules(files)
     const ruleEvals = parseRuleEvals(files)
-    const testResultsPerModels = testResults.reduce(
-        (acc, result) => {
-            const group = result.error ? "error" : result.model || "???"
-            if (!acc[group]) acc[group] = []
-            acc[group].push(result)
-            return acc
-        },
-        {} as Record<string, PromptPexTestResult[]>
+    const testResultsPerModelsAndScenario = groupBy(
+        testResults,
+        (result) => `${result.model},${result.scenario}`
     )
-    const overview = Object.entries(testResultsPerModels).map(
-        ([model, results]) => {
-            const tests = results.filter((tr) => tr.rule).length
+    const overview = Object.entries(testResultsPerModelsAndScenario).map(
+        ([, results]) => {
+            const { model, scenario, error } = results[0]
+            const tests = results.filter((tr) => !tr.error && tr.rule)
+            const errors = results.filter((tr) => tr.error).length
             const norm = (v: number) =>
-                tests === 0
+                tests.length === 0
                     ? "--"
                     : percent
-                      ? Math.round((v / tests) * 100) + "%"
+                      ? Math.round((v / tests.length) * 100) + "%"
                       : v
-            const baseline = results.filter((tr) => !tr.rule).length
+            const baseline = results.filter((tr) => !tr.error && !tr.rule)
             const bnorm = (v: number) =>
-                baseline === 0
+                baseline.length === 0
                     ? "--"
                     : percent
-                      ? Math.round((v / baseline) * 100) + "%"
+                      ? Math.round((v / baseline.length) * 100) + "%"
                       : v
             return {
                 model,
+                scenario,
+                errors,
                 tests,
                 ["tests compliant"]: norm(
-                    results.filter((tr) => tr.rule && tr.compliance === "ok")
-                        .length
+                    tests.filter((tr) => tr.compliance === "ok").length
+                ),
+                ["tests compliance unknown"]: norm(
+                    tests.filter(
+                        (tr) =>
+                            tr.compliance !== "ok" && tr.compliance !== "err"
+                    ).length
                 ),
                 ["baseline compliant"]: bnorm(
-                    results.filter((tr) => !tr.rule && tr.compliance === "ok")
-                        .length
+                    baseline.filter((tr) => tr.compliance === "ok").length
                 ),
-                ["tests positive"]: results.filter(
-                    (tr) => tr.rule && !tr.inverse
+                ["tests positive"]: tests.filter((tr) => !tr.inverse).length,
+                ["tests positive compliant"]: tests.filter(
+                    (tr) => tr.compliance === "ok"
                 ).length,
-                ["tests positive compliant"]: results.filter(
-                    (tr) => tr.rule && !tr.inverse && tr.compliance === "ok"
-                ).length,
-                ["tests negative"]: results.filter(
-                    (tr) => tr.rule && tr.inverse
-                ).length,
-                ["tests negative compliant"]: results.filter(
-                    (tr) => tr.rule && tr.inverse && tr.compliance === "ok"
+                ["tests negative"]: tests.filter((tr) => tr.inverse).length,
+                ["tests negative compliant"]: tests.filter(
+                    (tr) => tr.compliance === "ok"
                 ).length,
                 baseline,
-                ["tests valid"]: results.filter(
+                ["tests valid"]: tests.filter(
                     (tr) =>
-                        tr.rule &&
                         testEvals.find((te) => te.id === tr.id)?.validity ===
-                            "ok"
+                        "ok"
                 ).length,
-                ["tests valid compliant"]: results.filter(
+                ["tests valid compliant"]: tests.filter(
                     (tr) =>
-                        tr.rule &&
                         tr.compliance === "ok" &&
                         testEvals.find((te) => te.id === tr.id)?.validity ===
                             "ok"
@@ -126,12 +124,7 @@ async function generateMarkdownReport(files: PromptPexContext) {
     ].filter((l) => l !== undefined)
 
     res.push("### Overview", "")
-    res.push(`<details><summary>Glossary</summary>
-    
-${DOCS_GLOSSARY}
 
-</details>
-`)
     const { overview } = computeOverview(files, { percent: true })
     await workspace.writeText(
         path.join(files.dir, "overview.csv"),

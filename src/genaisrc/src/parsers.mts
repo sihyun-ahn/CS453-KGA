@@ -52,9 +52,11 @@ export function checkLLMResponse(
     options?: { allowUnassisted: boolean }
 ) {
     if (res.error) throw new Error(res.error.message)
-    if (!options?.allowUnassisted && isUnassistedResponse(res.text))
-        throw new Error("LLM failed to generate response")
-    else output.warn(`unassisted response: ${res.text}`)
+    if (isUnassistedResponse(res.text)) {
+        if (!options?.allowUnassisted)
+            throw new Error("LLM failed to generate response")
+        else output.warn(`unassisted response: ${res.text}`)
+    }
     return parsers.unfence(res.text, "")
 }
 

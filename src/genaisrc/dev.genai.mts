@@ -60,9 +60,9 @@ const configs: (PromptPexOptions & { name: string })[] = [
         modelAliases: {
             large: "not-supported",
             small: "not-supported",
-            rules: "azure:gpt-4o_2024-08-06",
-            eval: "azure:gpt-4o_2024-08-06",
-            baseline: "azure:gpt-4o_2024-08-06",
+            rules: "azure:gpt-4o_2024-11-20",
+            eval: "azure:gpt-2024-11-20",
+            baseline: "azure:gpt-4o_2024-11-20",
         },
     },
     /*    {
