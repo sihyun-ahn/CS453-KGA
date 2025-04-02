@@ -326,6 +326,12 @@ Set the `DEBUG=promptpex:*` environment variable to enable additional logging.
 DEBUG=promptpex:* npm run ...
 ```
 
+To pipe the stderr, stdout to a file,
+
+```sh
+DEBUG=* npm run ... > output.txt 2>&1
+```
+
 ### Caching
 
 Add `--vars cache=true` to the command line to enable caching of LLM calls.

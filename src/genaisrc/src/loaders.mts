@@ -2,7 +2,7 @@ import { CONCURRENCY, PROMPT_ALL } from "./constants.mts"
 import { parseInputs, tidyRulesFile } from "./parsers.mts"
 import { checkPromptSafety } from "./safety.mts"
 import type { PromptPexContext, PromptPexLoaderOptions } from "./types.mts"
-const dbg = host.logger("promptpex:loader")
+const dbg = host.logger("promptpex:loaders")
 
 export async function loadPromptContext(
     files: WorkspaceFile[],
@@ -17,12 +17,14 @@ export async function loadPromptContext(
 
 export async function loadPromptFiles(
     promptFile: WorkspaceFile,
-    options?: PromptPexLoaderOptions
+    options?: PromptPexLoaderOptions    
 ): Promise<PromptPexContext> {
     if (!promptFile)
         throw new Error(
             "No prompt file found, did you forget to the prompt file?"
         )
+    dbg(`loading files from ${promptFile.filename}`)
+    
     await checkPromptFiles()
     const { out, disableSafety } = options || {}
     const filename =
@@ -83,6 +85,7 @@ export async function loadPromptFiles(
 }
 
 async function checkPromptFiles() {
+    dbg(`checking prompt files`)
     for (const filename of PROMPT_ALL) {
         dbg(`validating ${filename}`)
         const file = await workspace.readText(filename)
