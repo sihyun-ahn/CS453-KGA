@@ -187,8 +187,10 @@ The scenario are currently encoded in the prompty frontmatter as an string array
 
 ```yaml
 scenarios:
-  - "generate English"
-  - "generate French"
+    - name: English
+      instructions: The user speaks and writes in English.
+    - name: French
+      instructions: The user speaks and writes in French. 
 ```  
 
 ## Test and Eval Workflow

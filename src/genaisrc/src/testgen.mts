@@ -37,8 +37,9 @@ export async function generateTests(
 
     outputWorkflowDiagram(DIAGRAM_GENERATE_TESTS, options)
 
-    const { scenarios = [""] }: PromptPexPromptyFrontmatter =
-        MD.frontmatter(files.prompt.content) || {}
+    const {
+        scenarios = [{ name: "", instructions: "" }],
+    }: PromptPexPromptyFrontmatter = MD.frontmatter(files.prompt.content) || {}
     const context = MD.content(files.prompt.content)
     const pn = PROMPT_GENERATE_TESTS
     await outputPrompty(pn, options)
@@ -51,7 +52,7 @@ export async function generateTests(
     )
     for (let si = 0; si < scenarios.length; si++) {
         const scenario = scenarios[si]
-        dbg(`scenario: ${JSON.stringify(scenario)}`)
+        dbg(`scenario: ${scenario.name}`)
         let rulesCount = 0
         for (let ri = 0; ri < rulesGroups.length; ri++) {
             const rulesGroup = rulesGroups[ri]
@@ -68,7 +69,7 @@ export async function generateTests(
                             input_spec: files.inputSpec.content,
                             context,
                             num,
-                            scenario,
+                            scenario: scenario.instructions,
                             rule,
                             num_rules: rulesGroup.length,
                         })
@@ -92,7 +93,13 @@ export async function generateTests(
                             } else {
                                 if (csv?.length) {
                                     dbg(`adding ${csv.length} tests`)
-                                    tests.push(...csv)
+                                    tests.push(
+                                        ...csv.map((t) => ({
+                                            ...t,
+                                            scenario: scenario.name,
+                                            generation: testGeneration
+                                        }))
+                                    )
                                 }
                                 testGeneration++
                                 if (testGeneration < testGenerations) {
@@ -108,7 +115,7 @@ export async function generateTests(
                     {
                         ...modelOptions(rulesModel, options),
                         //      logprobs: true,
-                        label: `${files.name}> generate tests (scenario ${si + 1}/${scenarios.length}, rules ${ri + 1}/${rulesGroups.length}, generation ${testGeneration + 1}/${testGenerations})`,
+                        label: `${files.name}> generate tests (scenario ${scenario.name} ${si + 1}/${scenarios.length}, rules ${ri + 1}/${rulesGroups.length}, generation ${testGeneration + 1}/${testGenerations})`,
                     }
                 )
             )

@@ -65,7 +65,11 @@ output.heading(3, "Tests")
 files.tests.content = await generateTests(files, options)
 output.fence(files.tests.content, "text")
 const tests = parseRulesTests(files.tests.content).map(
-    ({ testinput, expectedoutput }) => ({ testinput, expectedoutput })
+    ({ scenario, testinput, expectedoutput }) => ({
+        scenario,
+        testinput,
+        expectedoutput,
+    })
 )
 if (!tests?.length) throw new Error("No tests found")
 output.table(tests)

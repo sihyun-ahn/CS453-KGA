@@ -335,10 +335,14 @@ outputLines(files.inverseRules, "generate inverse output rule")
 output.heading(3, "Tests")
 files.tests.content = await generateTests(files, options)
 const tests = parseRulesTests(files.tests.content).map(
-    ({ testinput, expectedoutput }) => ({ testinput, expectedoutput })
+    ({ scenario, testinput, expectedoutput }) => ({
+        scenario,
+        testinput,
+        expectedoutput,
+    })
 )
 output.table(tests)
-output.detailsFenced(`tests (csv)`, tests, "csv")
+output.detailsFenced(`tests (json)`, tests, "json")
 output.detailsFenced(`generated`, files.tests.content)
 
 if (!modelsUnderTest?.length) {
@@ -351,6 +355,7 @@ if (!modelsUnderTest?.length) {
     output.table(
         results.map(
             ({
+                scenario,
                 rule,
                 inverse,
                 model,
@@ -360,6 +365,7 @@ if (!modelsUnderTest?.length) {
             }) => ({
                 rule,
                 model,
+                scenario,
                 input,
                 output,
                 compliance: compliance

@@ -147,13 +147,20 @@ ${DOCS_GLOSSARY}
         const ext = path.extname(file.filename).slice(1)
         const headers =
             file === files.testOutputs
-                ? ["model", "rule", "input", "output", "compliance"]
+                ? ["model", "scenario", "rule", "input", "output", "compliance"]
                 : file === files.tests
-                  ? ["testinput", "expectedoutput", "reasoning"]
+                  ? ["scenario", "testinput", "expectedoutput", "reasoning"]
                   : file === files.baselineTests
                     ? ["testinput"]
                     : file === files.testEvals
-                      ? ["rule", "model", "input", "coverage", "validity"]
+                      ? [
+                            "scenario",
+                            "rule",
+                            "model",
+                            "input",
+                            "coverage",
+                            "validity",
+                        ]
                       : file === files.ruleEvals
                         ? ["ruleid", "rule", "grounded"]
                         : file === files.baselineTestEvals

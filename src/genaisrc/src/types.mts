@@ -238,6 +238,16 @@ export interface PromptPexTest {
      * Explanation of the test generation process
      */
     reasoning?: string
+
+    /**
+     * Scenario name
+     */
+    scenario?: string
+
+    /**
+     * Test generation iteration index
+     */
+    generation?: number
 }
 
 export interface PromptPexTestResult {
@@ -245,6 +255,7 @@ export interface PromptPexTestResult {
     promptid: string
     ruleid: number
     rule: string
+    scenario: string
     inverse?: boolean
     baseline?: boolean
     model: string
@@ -293,9 +304,14 @@ export interface PromptPexLoaderOptions {
     disableSafety?: boolean
 }
 
+export interface PromptPexTestGenerationScenario {
+    name: string
+    instructions: string
+}
+
 export interface PromptPexPromptyFrontmatter {
     name?: string
     inputs?: any
     outputs?: any
-    scenarios?: string[]
+    scenarios?: PromptPexTestGenerationScenario[]
 }
