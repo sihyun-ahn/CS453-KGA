@@ -44,6 +44,11 @@ script({
             description: "Force overwrite of existing files",
             default: false,
         },
+        baselineTests: {
+            type: "boolean",
+            description: "Generate baseline tests",
+            default: true,
+        },
         evals: {
             type: "boolean",
             description: "Evaluate quality of generated tests",
@@ -100,6 +105,7 @@ const {
     splitRules,
     maxRulesPerTestGeneration,
     testGenerations,
+    baselineTests,
 } = vars as PromptPexOptions & {
     force?: boolean
     out?: string
@@ -137,7 +143,7 @@ const options = Object.freeze({
     maxRulesPerTestGeneration,
     testGenerations,
     compliance: true,
-    baselineTests: true,
+    baselineTests,
 } satisfies PaperOptions)
 
 output.heading(3, `Configuration`)
@@ -191,6 +197,7 @@ async function generate(
         force = false,
         modelsUnderTest,
         evals,
+        baselineTests,
     } = options || {}
     const { output } = env
 
@@ -278,20 +285,21 @@ async function generate(
     outputFile(files.tests)
 
     // generate baseline tests
-    if (!files.baselineTests.content || force) {
-        files.baselineTests.content = await generateBaselineTests(
-            files,
-            options
-        )
-        await workspace.writeText(
-            files.baselineTests.filename,
-            files.baselineTests.content
-        )
-        files.testEvals.content = undefined
-        files.testOutputs.content = undefined
+    if (baselineTests) {
+        if (!files.baselineTests.content || force) {
+            files.baselineTests.content = await generateBaselineTests(
+                files,
+                options
+            )
+            await workspace.writeText(
+                files.baselineTests.filename,
+                files.baselineTests.content
+            )
+            files.testEvals.content = undefined
+            files.testOutputs.content = undefined
+        }
+        outputFile(files.baselineTests)
     }
-
-    outputFile(files.baselineTests)
 
     await generateReports(files)
 
