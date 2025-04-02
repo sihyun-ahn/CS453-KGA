@@ -51,7 +51,10 @@ export function checkLLMResponse(
     res: RunPromptResult,
     options?: { allowUnassisted: boolean }
 ) {
-    if (res.error) throw new Error(res.error.message)
+    if (res.error) {
+        console.debug(YAML.stringify(res.error))
+        throw new Error(res.error.message)
+    }
     if (isUnassistedResponse(res.text)) {
         if (!options?.allowUnassisted)
             throw new Error("LLM failed to generate response")
