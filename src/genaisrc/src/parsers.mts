@@ -32,17 +32,24 @@ export function parseInputs(
     file: WorkspaceFile
 ): Record<string, JSONSchemaSimpleType> {
     const frontmatter = MD.frontmatter(file.content) || {}
-    const inputs = frontmatter["inputs"] || {}
+    let inputs = JSONSchema.fromParameters(
+        frontmatter["inputs"]
+    ) as JSONSchemaObject
+    if (!inputs) inputs = { type: "object", properties: {} }
     // under specified inputs, try to find any missing inputs
     // using regex
     if (!Object.keys(inputs).length) {
         file.content.replace(/{{\s*([^}\s]+)\s*}}/g, (_, key) => {
-            inputs[key] = { type: "string" }
+            inputs.properties[key] = {
+                type: "string",
+            } satisfies JSONSchemaString
             return ""
         })
     }
-
-    return inputs
+    return inputs.properties as any satisfies Record<
+        string,
+        JSONSchemaSimpleType
+    >
 }
 
 export function isUnassistedResponse(text: string) {

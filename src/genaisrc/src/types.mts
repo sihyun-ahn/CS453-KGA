@@ -309,12 +309,12 @@ export interface PromptPexLoaderOptions {
 export interface PromptPexTestGenerationScenario {
     name: string
     instructions: string
-    parameters?: Record<string, any>
+    parameters?: Record<string, number | string | boolean>
 }
 
 export interface PromptPexPromptyFrontmatter {
     name?: string
-    inputs?: any
-    outputs?: any
+    inputs?: PromptParametersSchema
+    outputs?: JSONSchemaObject["properties"]
     scenarios?: PromptPexTestGenerationScenario[]
 }
