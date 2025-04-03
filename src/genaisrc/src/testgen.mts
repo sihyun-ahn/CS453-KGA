@@ -2,6 +2,9 @@ import {
     TESTS_NUM,
     PROMPT_GENERATE_TESTS,
     DIAGRAM_GENERATE_TESTS,
+    GENERATION_SYMBOL,
+    SCENARIO_SYMBOL,
+    RULE_SYMBOL,
 } from "./constants.mts"
 import { outputWorkflowDiagram, outputPrompty } from "./output.mts"
 import {
@@ -117,7 +120,7 @@ export async function generateTests(
                     {
                         ...modelOptions(rulesModel, options),
                         //      logprobs: true,
-                        label: `${files.name}> generate tests (scenario ${scenario.name} ${si + 1}/${scenarios.length}, rules ${ri + 1}/${rulesGroups.length}, generation ${testGeneration + 1}/${testGenerations})`,
+                        label: `${files.name}> generate tests (${SCENARIO_SYMBOL} ${scenario.name} ${si + 1}/${scenarios.length}, ${RULE_SYMBOL} ${ri + 1}/${rulesGroups.length}, ${GENERATION_SYMBOL} ${testGeneration + 1}/${testGenerations})`,
                     }
                 )
             )
