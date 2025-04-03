@@ -10,16 +10,16 @@ import {
 } from "./parsers.mts"
 import { groupBy } from "genaiscript/runtime"
 import { resolveRule } from "./resolvers.mts"
-import type { PromptPexContext, PromptPexTestResult } from "./types.mts"
+import type { PromptPexContext, PromptPexOptions } from "./types.mts"
 
 export function computeOverview(
     files: PromptPexContext,
-    options?: { percent?: boolean }
+    options?: PromptPexOptions & { percent?: boolean }
 ) {
     const { percent } = options || {}
     const testResults = parseTestResults(files)
     const testEvals = parseTestEvals(files)
-    const rules = parseAllRules(files)
+    const rules = parseAllRules(files, options)
     const ruleEvals = parseRuleEvals(files)
     const testResultsPerModelsAndScenario = groupBy(
         testResults,
@@ -47,7 +47,7 @@ export function computeOverview(
                 model,
                 scenario,
                 errors,
-                tests,
+                tests: tests.length,
                 ["tests compliant"]: norm(
                     tests.filter((tr) => tr.compliance === "ok").length
                 ),

@@ -169,7 +169,7 @@ export function parsBaselineTestEvals(files: PromptPexContext) {
     }) || []) as PromptPexTestEval[]
 }
 
-export function parseAllRules(files: PromptPexContext, options) {
+export function parseAllRules(files: PromptPexContext, options?: PromptPexOptions) {
     const rules = parseRules(files.rules.content, options)
     const inverseRules = parseRules(files.inverseRules.content, options)
     const allRules = [

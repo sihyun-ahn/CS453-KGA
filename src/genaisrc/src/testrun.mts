@@ -103,7 +103,7 @@ export async function runTest(
         }
     }
     const { inputs, args, testInput } = resolvePromptArgs(files, test)
-    const allRules = parseAllRules(files)
+    const allRules = parseAllRules(files, options)
     const rule = resolveRule(allRules, test)
     if (!args)
         return {
