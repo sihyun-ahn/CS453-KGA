@@ -33,21 +33,22 @@ export async function generateTests(
     if (!files.rules.content) throw new Error("No rules found")
     if (!files.inputSpec.content) throw new Error("No input spec found")
     const allRules = parseAllRules(files, options)
+    dbg(`rules: ${allRules.length}`)
     if (!allRules) throw new Error("No rules found")
 
     outputWorkflowDiagram(DIAGRAM_GENERATE_TESTS, options)
 
     const scenarios = resolveScenarios(files)
+    dbg(`scenarios: ${scenarios.length}`)
     const context = MD.content(files.prompt.content)
     const pn = PROMPT_GENERATE_TESTS
+
     await outputPrompty(pn, options)
 
     const rulesGroups = splitRules(allRules, options)
     const tests: PromptPexTest[] = []
 
-    dbg(
-        `${scenarios.length} scenarios, ${allRules.length} rules, ${rulesGroups.length} groups`
-    )
+    dbg(`rule groups: ${rulesGroups.length}`)
     for (let si = 0; si < scenarios.length; si++) {
         const scenario = scenarios[si]
         dbg(`scenario: ${scenario.name}`)

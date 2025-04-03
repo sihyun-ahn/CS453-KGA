@@ -27,6 +27,7 @@ export function resolveScenarios(
         files.frontmatter?.scenarios || [
             {
                 name: "",
+                instructions: "",
                 parameters: {},
             } satisfies PromptPexTestGenerationScenario,
         ]
