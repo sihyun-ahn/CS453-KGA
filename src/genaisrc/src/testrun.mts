@@ -17,6 +17,7 @@ import type {
     PromptPexTestResult,
 } from "./types.mts"
 import assert from "node:assert/strict"
+const dbg = host.logger("promptpex:eval:run")
 
 const { generator, output } = env
 
@@ -26,11 +27,7 @@ export async function runTests(
         q?: PromiseQueue
     }
 ): Promise<string> {
-    const {
-        modelsUnderTest,
-        maxTestsToRun,
-        runsPerTest = 1,
-    } = options || {}
+    const { modelsUnderTest, maxTestsToRun, runsPerTest = 1 } = options || {}
     if (!modelsUnderTest?.length) throw new Error("No models to run tests on")
 
     const rulesTests = parseRulesTests(files.tests.content)
@@ -38,6 +35,10 @@ export async function runTests(
         ? []
         : parseBaselineTests(files)
     const tests = [...rulesTests, ...baselineTests].slice(0, maxTestsToRun)
+
+    dbg(
+        `running ${tests.length} tests (x ${runsPerTest}) with ${modelsUnderTest.length} models`
+    )
     if (!tests?.length) throw new Error("No tests found to run")
 
     console.log(
@@ -105,7 +106,8 @@ export async function runTest(
     const { inputs, args, testInput } = resolvePromptArgs(files, test)
     const allRules = parseAllRules(files, options)
     const rule = resolveRule(allRules, test)
-    if (!args)
+    if (!args) {
+        dbg(`invalid test input %O`, { test, inputs, testInput })
         return {
             id,
             promptid,
@@ -117,6 +119,7 @@ export async function runTest(
             input: testInput,
             output: "invalid test input",
         } satisfies PromptPexTestResult
+    }
 
     const res = await measure("test.run", () =>
         generator.runPrompt(
@@ -133,8 +136,12 @@ export async function runTest(
         )
     )
     if (res.error) {
-        console.debug(res.finishReason)
-        console.debug(JSON.stringify(res.error, null, 2))
+        dbg(`test run error ${res.finishReason}, ${res.error.message}`, {
+            test,
+            inputs,
+            args,
+            testInput,
+        })
         throw new Error(res.error.message)
     }
     const actualOutput = res.text
@@ -158,11 +165,8 @@ export async function runTest(
 
     if (compliance) {
         testRes.compliance = undefined
-        testRes.complianceText = await evaluateTestResult(
-            files,
-            testRes,
-            options
-        )
+        const compliance = await evaluateTestResult(files, testRes, options)
+        testRes.complianceText = compliance.content
         updateTestResultCompliant(testRes)
     }
 

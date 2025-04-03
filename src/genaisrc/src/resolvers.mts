@@ -41,6 +41,7 @@ export function resolvePromptArgs(
     const inputs = files.inputs
     const inputKeys = Object.keys(inputs)
     const unresolved = new Set(inputKeys)
+    dbg(`unresolved inputs: %s`, inputKeys)
     const expectedOutput = test["expectedoutput"]
     const testInput = test["testinput"]
     const args: Record<string, any> = {}
@@ -71,9 +72,11 @@ export function resolvePromptArgs(
     }
 
     // fill last whole with generated input
+    dbg(`remaining unresolved inputs: %s`, unresolved)
     if (unresolved.size === 1) {
-        dbg(`last unresolved input: ${unresolved[0]}`)
-        args[unresolved[0]] = testInput
+        const key = Array.from(unresolved)[0]
+        dbg(`input %s <- %s`, key, testInput)
+        args[key] = testInput
     } else if (unresolved.size > 1) {
         // not supported yet
         dbg(`multiple unspecified inputs not supported: %O`, {
