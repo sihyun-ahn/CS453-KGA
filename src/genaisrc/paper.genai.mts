@@ -98,7 +98,7 @@ script({
             minimum: 1,
             maximum: 10,
         },
-        models: { type: "string", description: "List of models to evaluate" },
+        modelsUnderTest: { type: "string", description: "List of models to evaluate" },
         out: { type: "string", description: "Output directory", default: "" },
     },
 })
@@ -125,7 +125,7 @@ const {
 let maxTestsToRun = diagnostics ? 2 : vars.maxTestsToRun
 
 const prompts = await loadPromptContext(files, { disableSafety, out })
-const modelsUnderTest: ModelType[] = env.vars.models
+const modelsUnderTest: ModelType[] = env.vars.modelsUnderTest
     ?.split(/[;\n ,]/g)
     .map((model) => model.trim())
     .filter((m) => !!m)
