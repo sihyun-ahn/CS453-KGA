@@ -32,7 +32,7 @@ export async function generateTests(
 
     if (!files.rules.content) throw new Error("No rules found")
     if (!files.inputSpec.content) throw new Error("No input spec found")
-    const allRules = parseAllRules(files)
+    const allRules = parseAllRules(files, options)
     if (!allRules) throw new Error("No rules found")
 
     outputWorkflowDiagram(DIAGRAM_GENERATE_TESTS, options)

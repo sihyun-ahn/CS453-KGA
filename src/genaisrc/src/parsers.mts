@@ -90,13 +90,15 @@ export function tidyRulesFile(file: WorkspaceFile) {
     return file
 }
 
-export function parseRules(rules: string) {
-    return rules
+export function parseRules(rules: string, options?: PromptPexOptions) {
+    const { maxRules } = options || {}
+    const res = rules
         ? tidyRules(rules)
               .split(/\r?\n/g)
               .map((l) => l.trim())
               .filter((l) => !!l)
         : []
+    return maxRules > 0 ? res.slice(0, maxRules) : res
 }
 
 export function parseRulesTests(text: string): PromptPexTest[] {
@@ -167,9 +169,9 @@ export function parsBaselineTestEvals(files: PromptPexContext) {
     }) || []) as PromptPexTestEval[]
 }
 
-export function parseAllRules(files: PromptPexContext): PromptPexRule[] {
-    const rules = parseRules(files.rules.content)
-    const inverseRules = parseRules(files.inverseRules.content)
+export function parseAllRules(files: PromptPexContext, options) {
+    const rules = parseRules(files.rules.content, options)
+    const inverseRules = parseRules(files.inverseRules.content, options)
     const allRules = [
         ...rules.map((rule) => ({ rule })),
         ...inverseRules.map((rule) => ({ rule, inverse: true })),

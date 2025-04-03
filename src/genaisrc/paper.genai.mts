@@ -71,6 +71,12 @@ script({
         maxTestsToRun: {
             type: "integer",
             description: "Maximum number of tests to runs",
+            minimum: 0,
+        },
+        maxRules: {
+            type: "integer",
+            description: "Maximum number of output rules to use",
+            minimum: 1,
         },
         splitRules: {
             type: "boolean",

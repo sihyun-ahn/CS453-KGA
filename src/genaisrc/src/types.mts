@@ -40,8 +40,9 @@ export interface PromptPexOptions {
      * Emit diagrams in output
      */
     workflowDiagram?: boolean
+
     /**
-     * Aditional instructions
+     * Additional instructions
      */
     instructions?: PromptPexPrompts
     /**
@@ -102,6 +103,11 @@ export interface PromptPexOptions {
      * Maximum number of tests to run
      */
     maxTestsToRun?: number
+
+    /**
+     * Maximum number of output rules (and inverse rules) to use
+     */
+    maxRules?: number
 
     /**
      * Cache applied to all runPrompts
