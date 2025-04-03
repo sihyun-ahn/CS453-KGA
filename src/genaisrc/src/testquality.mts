@@ -15,6 +15,7 @@ import type {
 import { resolveTestEvalPath } from "./filecache.mts"
 import { measure } from "./perf.mts"
 import {
+    OK_ERR_CHOICES,
     PROMPT_EVAL_OUTPUT_RULE_AGREEMENT,
     PROMPT_EVAL_TEST_VALIDITY,
 } from "./constants.mts"
@@ -114,7 +115,7 @@ export async function evaluateTestQuality(
                     },
                     {
                         ...moptions,
-                        choices: ["OK", "ERR"],
+                        choices: OK_ERR_CHOICES,
                         //        logprobs: true,
                         label: `${files.name}> evaluate validity of test ${testInput.slice(0, 42)}...`,
                     }
@@ -125,6 +126,7 @@ export async function evaluateTestQuality(
     const error = [resCoverage.error?.message, resValidity?.error?.message]
         .filter((s) => !!s)
         .join(" ")
+    const validity = parseOKERR(resValidity.text)
     const testEval: PromptPexTestEval = {
         id,
         promptid,
@@ -132,11 +134,12 @@ export async function evaluateTestQuality(
         ...rule,
         input: testInput,
         validityText: resValidity.text,
-        validity: parseOKERR(resValidity.text),
+        validity: validity,
+        validityUncertainty: resValidity.uncertainty,
         coverageText: resCoverage.text,
     } satisfies PromptPexTestEval
 
-    const coverageEvalText = await evaluateTestResult(
+    const coverageEval = await evaluateTestResult(
         files,
         {
             id: "cov-" + testEval.id,
@@ -151,8 +154,10 @@ export async function evaluateTestQuality(
         options
     )
 
-    testEval.coverageEvalText = coverageEvalText
+    testEval.coverageEvalText = coverageEval.content
     testEval.coverage = parseOKERR(testEval.coverageEvalText)
+    if (!isNaN(coverageEval.uncertainty))
+        testEval.coverageUncertainty = coverageEval.uncertainty
     testEval.error = error || undefined
 
     if (file)

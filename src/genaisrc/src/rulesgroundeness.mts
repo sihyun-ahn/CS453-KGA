@@ -1,4 +1,4 @@
-import { PROMPT_EVAL_RULE_GROUNDED } from "./constants.mts"
+import { OK_ERR_CHOICES, PROMPT_EVAL_RULE_GROUNDED } from "./constants.mts"
 import { outputPrompty } from "./output.mts"
 import {
     modelOptions,
@@ -47,7 +47,7 @@ export async function evaluateRuleGrounded(
             },
             {
                 ...modelOptions(evalModel, options),
-                choices: ["OK", "ERR"],
+                choices: OK_ERR_CHOICES,
                 label: `${files.name}> eval rule grounded ${rule.slice(0, 18)}...`,
             }
         )

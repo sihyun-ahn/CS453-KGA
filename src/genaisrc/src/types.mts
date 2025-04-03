@@ -290,8 +290,10 @@ export interface PromptPexTestEval {
     coverage?: PromptPexEvalResultType
     coverageEvalText?: string
     coverageText?: string
+    coverageUncertainty?: number
     validity?: PromptPexEvalResultType
     validityText?: string
+    validityUncertainty?: number
     error?: string
 }
 
@@ -329,4 +331,10 @@ export interface PromptPexPromptyFrontmatter {
     outputs?: JSONSchemaObject["properties"]
     instructions?: PromptPexPrompts
     scenarios?: PromptPexTestGenerationScenario[]
+}
+
+export interface PromptPexEvaluation {
+    content: string
+    uncertainty?: number
+    perplexity?: number
 }

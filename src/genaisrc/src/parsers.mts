@@ -2,9 +2,9 @@ import { diagnostics } from "./flags.mts"
 import type {
     PromptPexContext,
     PromptPexEvalResultType,
+    PromptPexEvaluation,
     PromptPexModelAliases,
     PromptPexOptions,
-    PromptPexRule,
     PromptPexRuleEval,
     PromptPexTest,
     PromptPexTestEval,
@@ -69,6 +69,18 @@ export function checkLLMResponse(
         else output.warn(`unassisted response: ${res.text}`)
     }
     return parsers.unfence(res.text, "")
+}
+
+export function checkLLMEvaluation(
+    res: RunPromptResult,
+    options?: { allowUnassisted: boolean }
+): PromptPexEvaluation {
+    const content = checkLLMResponse(res, options)
+    return {
+        content,
+        uncertainty: res.uncertainty,
+        perplexity: res.perplexity,
+    } satisfies PromptPexEvaluation
 }
 
 export function tidyRules(text: string) {
@@ -167,7 +179,10 @@ export function parsBaselineTestEvals(files: PromptPexContext) {
     }) || []) as PromptPexTestEval[]
 }
 
-export function parseAllRules(files: PromptPexContext, options?: PromptPexOptions) {
+export function parseAllRules(
+    files: PromptPexContext,
+    options?: PromptPexOptions
+) {
     const rules = parseRules(files.rules.content, options)
     const inverseRules = parseRules(files.inverseRules.content, options)
     const allRules = [

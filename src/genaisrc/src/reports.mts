@@ -155,7 +155,9 @@ async function generateMarkdownReport(files: PromptPexContext) {
                             "model",
                             "input",
                             "coverage",
+                            "coverageUncertainty",
                             "validity",
+                            "validityUncertainty",
                         ]
                       : file === files.ruleEvals
                         ? ["ruleid", "rule", "grounded"]

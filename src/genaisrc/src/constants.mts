@@ -134,3 +134,5 @@ export const DOCS_GLOSSARY = `
 - Test Generation Scenario ${SCENARIO_SYMBOL} (TGS) - A scenario used to generate tests
 - Test Generation Iteration ${GENERATION_SYMBOL} (TGI) - A scenario used to generate tests
 `
+
+export const OK_ERR_CHOICES = ["OK", "ERR"]

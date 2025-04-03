@@ -1,4 +1,4 @@
-import { PROMPT_EVAL_TEST_VALIDITY } from "./constants.mts"
+import { OK_ERR_CHOICES, PROMPT_EVAL_TEST_VALIDITY } from "./constants.mts"
 import { modelOptions, parseOKERR, parseBaselineTests } from "./parsers.mts"
 import { measure } from "./perf.mts"
 import type { PromptPexContext, PromptPexOptions } from "./types.mts"
@@ -27,7 +27,7 @@ export async function evaluateBaselineTests(
                 },
                 {
                     ...moptions,
-                    choices: ["OK", "ERR"],
+                    choices: OK_ERR_CHOICES,
                     label: `${files.name}> evaluate validity of baseline test ${baselineTest.testinput.slice(0, 42)}...`,
                 }
             )
