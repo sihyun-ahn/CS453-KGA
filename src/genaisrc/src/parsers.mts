@@ -171,7 +171,7 @@ export function parseAllRules(files: PromptPexContext, options?: PromptPexOption
     const rules = parseRules(files.rules.content, options)
     const inverseRules = parseRules(files.inverseRules.content, options)
     const allRules = [
-        ...rules.map((rule) => ({ rule })),
+        ...rules.map((rule) => ({ rule, inverse: false })),
         ...inverseRules.map((rule) => ({ rule, inverse: true })),
     ]
     return allRules
