@@ -22,7 +22,7 @@ const { generator } = env
 
 export async function evaluateTestsQuality(
     files: PromptPexContext,
-    options?: { force?: boolean }
+    options?: PromptPexOptions & { force?: boolean }
 ): Promise<string> {
     const { force } = options || {}
     const tests = parseRulesTests(files.tests.content)
@@ -31,7 +31,7 @@ export async function evaluateTestsQuality(
     console.log(`evaluating quality of ${tests.length} tests`)
     const testEvals: PromptPexTestEval[] = []
     for (const test of tests) {
-        const testEval = await evaluateTestQuality(files, test, { force })
+        const testEval = await evaluateTestQuality(files, test, options)
         if (testEval) testEvals.push(testEval)
     }
     return JSON.stringify(testEvals, null, 2)
