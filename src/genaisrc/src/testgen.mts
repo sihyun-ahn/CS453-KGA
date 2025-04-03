@@ -10,10 +10,10 @@ import {
     isUnassistedResponse,
 } from "./parsers.mts"
 import { measure } from "./perf.mts"
+import { resolveScenarios } from "./resolvers.mts"
 import type {
     PromptPexContext,
     PromptPexOptions,
-    PromptPexPromptyFrontmatter,
     PromptPexRule,
     PromptPexTest,
 } from "./types.mts"
@@ -37,9 +37,7 @@ export async function generateTests(
 
     outputWorkflowDiagram(DIAGRAM_GENERATE_TESTS, options)
 
-    const {
-        scenarios = [{ name: "", instructions: "" }],
-    }: PromptPexPromptyFrontmatter = MD.frontmatter(files.prompt.content) || {}
+    const scenarios = resolveScenarios(files)
     const context = MD.content(files.prompt.content)
     const pn = PROMPT_GENERATE_TESTS
     await outputPrompty(pn, options)
@@ -97,7 +95,7 @@ export async function generateTests(
                                         ...csv.map((t) => ({
                                             ...t,
                                             scenario: scenario.name,
-                                            generation: testGeneration
+                                            generation: testGeneration,
                                         }))
                                     )
                                 }

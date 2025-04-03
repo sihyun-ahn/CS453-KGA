@@ -309,6 +309,7 @@ export interface PromptPexLoaderOptions {
 export interface PromptPexTestGenerationScenario {
     name: string
     instructions: string
+    parameters?: Record<string, any>
 }
 
 export interface PromptPexPromptyFrontmatter {

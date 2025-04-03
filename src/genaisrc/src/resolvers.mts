@@ -1,4 +1,9 @@
-import type { PromptPexContext, PromptPexTest } from "./types.mts"
+import type {
+    PromptPexContext,
+    PromptPexPromptyFrontmatter,
+    PromptPexTest,
+    PromptPexTestGenerationScenario,
+} from "./types.mts"
 const dbg = host.logger("promptpex:resolvers")
 
 export async function resolveTestId(
@@ -15,6 +20,15 @@ export async function resolveTestId(
     return testid
 }
 
+export function resolveScenarios(
+    files: PromptPexContext
+): PromptPexTestGenerationScenario[] {
+    const {
+        scenarios = [{ name: "", instructions: "" }],
+    }: PromptPexPromptyFrontmatter = MD.frontmatter(files.prompt.content) || {}
+    return scenarios
+}
+
 export function resolvePromptArgs(
     files: PromptPexContext,
     test: PromptPexTest
@@ -29,12 +43,29 @@ export function resolvePromptArgs(
     // apply defaults
     for (const [iname, ivalue] of Object.entries(inputs)) {
         if (unresolved.has(iname) && ivalue?.default) {
-            dbg(`input %s has default value: %s`, iname, ivalue.default)
+            dbg(`input %s default: %s`, iname, ivalue.default)
             args[iname] = ivalue.default
             unresolved.delete(iname)
         }
     }
 
+    // apply scenario values
+    if (test.scenario) {
+        const scenarios = resolveScenarios(files)
+        const scenario = scenarios.find((s) => s.name === test.scenario)
+        if (!scenario) throw new Error(`Scenario ${test.scenario} not found`)
+        for (const [iname, ivalue] of Object.entries(
+            scenario.parameters || {}
+        )) {
+            if (unresolved.has(iname) && ivalue?.default) {
+                dbg(`input %s scenario: %s`, iname, ivalue.default)
+                args[iname] = ivalue.default
+                unresolved.delete(iname)
+            }
+        }
+    }
+
+    // fill last whole with generated input
     if (unresolved.size === 1) {
         dbg(`last unresolved input: ${unresolved[0]}`)
         args[unresolved[0]] = testInput
