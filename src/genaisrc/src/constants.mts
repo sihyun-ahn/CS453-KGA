@@ -108,7 +108,7 @@ PUT --> OR
 
 export const SCENARIO_SYMBOL = "⚙"
 export const RULE_SYMBOL = "⊢"
-export const GENERATION_SYMBOL = "⟳"
+export const GENERATION_SYMBOL = "◎"
 
 export const DOCS_GLOSSARY = `
 - Prompt Under Test (PUT) - like Program Under Test; the prompt
