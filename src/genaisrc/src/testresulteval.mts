@@ -29,6 +29,7 @@ export async function evaluateTestResult(
             {
                 ...moptions,
                 choices: ["OK", "ERR"],
+                logprobs: true,
                 label: `${files.name}> evaluate test result ${testResult.model} ${testResult.input.slice(0, 42)}...`,
             }
         )
