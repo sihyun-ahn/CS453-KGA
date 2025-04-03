@@ -23,10 +23,7 @@ export async function resolveTestId(
 export function resolveScenarios(
     files: PromptPexContext
 ): PromptPexTestGenerationScenario[] {
-    const {
-        scenarios = [{ name: "", instructions: "" }],
-    }: PromptPexPromptyFrontmatter = MD.frontmatter(files.prompt.content) || {}
-    return scenarios
+    return files.frontmatter?.scenarios || []
 }
 
 export function resolvePromptArgs(

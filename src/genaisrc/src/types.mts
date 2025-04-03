@@ -153,7 +153,7 @@ export interface PromptPexContext {
     /**
      * Prompt parsed frontmatter section
      */
-    frontmatter: any
+    frontmatter: PromptPexPromptyFrontmatter
     /**
      * Inputs extracted from the prompt frontmatter
      */
@@ -322,5 +322,6 @@ export interface PromptPexPromptyFrontmatter {
     name?: string
     inputs?: PromptParametersSchema
     outputs?: JSONSchemaObject["properties"]
+    instructions?: PromptPexPrompts
     scenarios?: PromptPexTestGenerationScenario[]
 }

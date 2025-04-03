@@ -1,4 +1,7 @@
-import { DIAGRAM_GENERATE_INPUT_SPEC, PROMPT_GENERATE_INPUT_SPEC } from "./constants.mts"
+import {
+    DIAGRAM_GENERATE_INPUT_SPEC,
+    PROMPT_GENERATE_INPUT_SPEC,
+} from "./constants.mts"
 import { outputWorkflowDiagram, outputPrompty } from "./output.mts"
 import { modelOptions, checkLLMResponse, tidyRules } from "./parsers.mts"
 import { measure } from "./perf.mts"
@@ -9,7 +12,10 @@ export async function generateInputSpec(
     files: PromptPexContext,
     options?: PromptPexOptions
 ) {
-    const instructions = options?.instructions?.inputSpec || ""
+    const instructions =
+        options?.instructions?.inputSpec ||
+        files.frontmatter?.instructions?.inputSpec ||
+        ""
     outputWorkflowDiagram(DIAGRAM_GENERATE_INPUT_SPEC, options)
 
     const { rulesModel = "rules" } = options || {}

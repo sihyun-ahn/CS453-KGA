@@ -17,14 +17,14 @@ export async function loadPromptContext(
 
 export async function loadPromptFiles(
     promptFile: WorkspaceFile,
-    options?: PromptPexLoaderOptions    
+    options?: PromptPexLoaderOptions
 ): Promise<PromptPexContext> {
     if (!promptFile)
         throw new Error(
             "No prompt file found, did you forget to the prompt file?"
         )
     dbg(`loading files from ${promptFile.filename}`)
-    
+
     await checkPromptFiles()
     const { out, disableSafety } = options || {}
     const filename =

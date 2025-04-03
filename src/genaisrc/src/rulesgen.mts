@@ -17,7 +17,10 @@ export async function generateOutputRules(
     const { numRules = RULES_NUM, rulesModel = "rules" } = options || {}
 
     dbg(`generating ${numRules} output rules`)
-    const instructions = options?.instructions?.outputRules || ""
+    const instructions =
+        options?.instructions?.outputRules ||
+        files.frontmatter?.instructions?.outputRules ||
+        ""
 
     outputWorkflowDiagram(DIAGRAM_GENERATE_OUTPUT_RULES, options)
 
