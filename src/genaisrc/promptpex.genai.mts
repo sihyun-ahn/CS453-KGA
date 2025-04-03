@@ -360,9 +360,11 @@ if (!modelsUnderTest?.length) {
     output.warn(`No modelsUnderTest specified. Skipping test run.`)
 } else {
     // run tests against the model(s)
-    output.heading(3, `Test Results`)
+    output.heading(3, `Test with Models Under Test`)
+    output.itemValue(`models under test`, modelsUnderTest.join(", "))
     files.testOutputs.content = await runTests(files, options)
     const results = parseTestResults(files)
+    output.startDetails(`results (table)`)
     output.table(
         results.map(
             ({
@@ -390,6 +392,7 @@ if (!modelsUnderTest?.length) {
             })
         )
     )
+    output.endDetails()
     output.detailsFenced(`results`, results, "csv")
 }
 

@@ -319,7 +319,7 @@ export interface PromptPexLoaderOptions {
 
 export interface PromptPexTestGenerationScenario {
     name: string
-    instructions: string
+    instructions?: string
     parameters?: Record<string, number | string | boolean>
 }
 

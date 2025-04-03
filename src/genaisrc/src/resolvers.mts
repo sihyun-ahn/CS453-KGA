@@ -23,7 +23,14 @@ export async function resolveTestId(
 export function resolveScenarios(
     files: PromptPexContext
 ): PromptPexTestGenerationScenario[] {
-    return files.frontmatter?.scenarios || []
+    return (
+        files.frontmatter?.scenarios || [
+            {
+                name: "",
+                parameters: {},
+            } satisfies PromptPexTestGenerationScenario,
+        ]
+    )
 }
 
 export function resolvePromptArgs(
@@ -54,9 +61,9 @@ export function resolvePromptArgs(
         for (const [iname, ivalue] of Object.entries(
             scenario.parameters || {}
         )) {
-            if (unresolved.has(iname) && ivalue?.default) {
-                dbg(`input %s scenario: %s`, iname, ivalue.default)
-                args[iname] = ivalue.default
+            if (unresolved.has(iname) && ivalue !== undefined) {
+                dbg(`input %s scenario: %s`, iname, ivalue)
+                args[iname] = ivalue
                 unresolved.delete(iname)
             }
         }

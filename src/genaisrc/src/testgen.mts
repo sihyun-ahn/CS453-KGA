@@ -72,7 +72,10 @@ export async function generateTests(
                             num_rules: rulesGroup.length,
                         })
                         ctx.defChatParticipant((p, c) => {
-                            const last: string = c.at(-1)?.content
+                            const last: string = c.at(-1)?.content as string
+                            dbg(`last message: %s`, last)
+                            if (typeof last !== "string")
+                                throw new Error("Invalid last message")
                             const csv = parseCsvTests(last)
                             if (!csv.length) {
                                 if (!repaired) {
