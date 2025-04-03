@@ -13,6 +13,7 @@ import type {
     PromptPexRuleEval,
 } from "./types.mts"
 import { measure } from "./perf.mts"
+const dbg = host.logger("promptpex:gen:rules:groundedness")
 const { generator } = env
 
 export async function evaluateRuleGrounded(
@@ -76,7 +77,10 @@ export async function evaluateRulesGrounded(
 ) {
     const rules = parseRules(files.rules.content)
     if (!rules) {
-        dbg(`failed to parse rules in ${files.rules.filename} %O`, files.rules.content)
+        dbg(
+            `failed to parse rules in ${files.rules.filename} %O`,
+            files.rules.content
+        )
         throw new Error("No rules found")
     }
     await outputPrompty(PROMPT_EVAL_RULE_GROUNDED, options)
