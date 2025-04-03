@@ -31,9 +31,14 @@ export async function runTests(
     const rulesTests = parseRulesTests(files.tests.content)
     dbg(`found ${rulesTests.length} tests`)
     const baselineTests = options?.baselineTests
+<<<<<<< HEAD
         ? []
         : parseBaselineTests(files)
     dbg(`found ${baselineTests.length} tests`)
+=======
+        ? parseBaselineTests(files)
+        : []
+>>>>>>> f7aaebb0 (fixed reversed logic for running baseline tests)
     const tests = [...rulesTests, ...baselineTests].slice(0, maxTestsToRun)
 
     dbg(
