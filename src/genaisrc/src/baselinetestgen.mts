@@ -46,5 +46,8 @@ export async function generateBaselineTests(
         return ""
     }
     checkLLMResponse(res)
-    return cleanBaselineTests(res.text).join("\n===\n")
+    const cleaned = cleanBaselineTests(res.text)
+    dbg(`cleaned baseline tests: %O`, cleaned)
+    const txt = cleaned.join("\n===\n")
+    return txt
 }

@@ -1,4 +1,3 @@
-import { DOCS_GLOSSARY } from "./constants.mts"
 import {
     parseAllRules,
     parseBaselineTests,
@@ -11,6 +10,7 @@ import {
 import { groupBy } from "genaiscript/runtime"
 import { resolveRule } from "./resolvers.mts"
 import type { PromptPexContext, PromptPexOptions } from "./types.mts"
+const dbg = host.logger("promptpex:reports")
 
 export function computeOverview(
     files: PromptPexContext,
@@ -29,7 +29,9 @@ export function computeOverview(
         ([, results]) => {
             const { model, scenario, error } = results[0]
             const tests = results.filter((tr) => !tr.error && tr.rule)
-            const errors = results.filter((tr) => tr.error).length
+            const errors =
+                (error ? 1 : 0) + results.filter((tr) => tr.error).length
+            dbg(`${model} ${scenario} ${errors} errors %O`, tests)
             const norm = (v: number) =>
                 tests.length === 0
                     ? "--"
