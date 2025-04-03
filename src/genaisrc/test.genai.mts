@@ -82,10 +82,7 @@ if (!baselineTests?.length) throw new Error("No baseline tests found")
 output.table(baselineTests)
 
 output.heading(3, "Test results")
-files.testOutputs.content = await runTests(files, {
-    ...options,
-    force: true,
-})
+files.testOutputs.content = await runTests(files, options)
 const testResultsParsed = parseTestResults(files)
 if (!testResultsParsed) throw new Error("No test results found")
 

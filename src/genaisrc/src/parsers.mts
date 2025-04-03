@@ -21,8 +21,6 @@ export function modelOptions(
     return {
         model: modelAliases?.[modelAlias] || modelAlias,
         temperature,
-        // responseType: "text",
-        // RAI must be checked by an external service
         system: [],
         cache,
     }

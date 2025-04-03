@@ -23,12 +23,10 @@ const { generator, output } = env
 export async function runTests(
     files: PromptPexContext,
     options?: PromptPexOptions & {
-        force?: boolean
         q?: PromiseQueue
     }
 ): Promise<string> {
     const {
-        force,
         modelsUnderTest,
         maxTestsToRun,
         runsPerTest = 1,
@@ -56,7 +54,6 @@ export async function runTests(
                 const testRes = await runTest(files, test, {
                     ...options,
                     model: modelUnderTest,
-                    force,
                 })
                 assert(testRes.model)
                 if (testRes) testResults.push(testRes)
@@ -77,20 +74,23 @@ export async function runTest(
     options?: PromptPexOptions & {
         model?: ModelType
         compliance?: boolean
-        force?: boolean
     }
 ): Promise<PromptPexTestResult> {
-    const { model, force, compliance, customTestEvalTemplate, evalCache } =
+    const { model, compliance, customTestEvalTemplate, evalCache } =
         options || {}
     if (!model) throw new Error("No model provided for test")
 
-    const moptions = modelOptions(model, options)
+    const { cache, testRunCache, ...optionsNoCache } = options || {}
+    const moptions = modelOptions(model, {
+        ...optionsNoCache,
+        cache: testRunCache,
+    })
 
     const { id, promptid, file } = await resolveTestPath(files, test, {
         model,
         evalCache,
     })
-    if (file?.content && !force) {
+    /* if (file?.content && !force) {
         const res = parsers.JSON5(file) as PromptPexTestResult
         if (res && !res.error && res.complianceText) {
             if (!res.model)
@@ -101,7 +101,7 @@ export async function runTest(
             res.baseline = test.baseline
             return res
         }
-    }
+    }*/
     const { inputs, args, testInput } = resolvePromptArgs(files, test)
     const allRules = parseAllRules(files, options)
     const rule = resolveRule(allRules, test)

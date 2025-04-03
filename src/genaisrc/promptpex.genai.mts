@@ -75,6 +75,10 @@ promptPex:
             type: "boolean",
             description: "Cache all LLM calls",
         },
+        testRunCache: {
+            type: "boolean",
+            description: "Cache test run results",
+        },
         evalCache: {
             type: "boolean",
             description: "Cache eval evaluation results",
@@ -249,6 +253,7 @@ const {
     cache,
     evalCache,
     disableSafety,
+    testRunCache,
     inputSpecInstructions,
     outputRulesInstructions,
     inverseOutputRulesInstructions,
@@ -265,12 +270,18 @@ const {
     splitRules,
     maxRulesPerTestGeneration,
     testGenerations,
-} = vars
+} = vars as PromptPexOptions & {
+    prompt?: string
+    inputSpecInstructions?: string
+    outputRulesInstructions?: string
+    inverseOutputRulesInstructions?: string
+}
 const modelsUnderTest = (vars.modelsUnderTest || "")
     .split(/;/g)
     .filter((m) => !!m)
 const options: PromptPexOptions = {
     cache,
+    testRunCache,
     evalCache,
     disableSafety,
     instructions: {

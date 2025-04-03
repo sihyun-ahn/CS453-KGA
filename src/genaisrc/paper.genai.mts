@@ -33,6 +33,10 @@ script({
             type: "boolean",
             description: "Cache all LLM calls",
         },
+        testRunCache: {
+            type: "boolean",
+            description: "Cache test run results",
+        },
         disableSafety: {
             type: "boolean",
             description:
@@ -102,6 +106,7 @@ script({
 const { vars, files, output } = env
 const {
     cache,
+    testRunCache,
     disableSafety,
     force,
     out,
@@ -137,6 +142,7 @@ if (diagnostics) {
 const res = []
 const options = Object.freeze({
     cache,
+    testRunCache,
     evalCache: true,
     disableSafety,
     force,
@@ -348,10 +354,7 @@ async function generate(
 
     outputFile(files.testEvals)
 
-    files.testOutputs.content = await runTests(files, {
-        ...options,
-        force,
-    })
+    files.testOutputs.content = await runTests(files, options)
     await workspace.writeText(
         files.testOutputs.filename,
         files.testOutputs.content

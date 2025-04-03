@@ -56,6 +56,11 @@ export interface PromptPexOptions {
     evalCache?: boolean
 
     /**
+     * Cache runTest results
+     */
+    testRunCache?: boolean
+
+    /**
      * Model used to generate rules
      */
     rulesModel?: string
@@ -110,7 +115,7 @@ export interface PromptPexOptions {
     maxRules?: number
 
     /**
-     * Cache applied to all runPrompts
+     * Cache applied to all prompts, expect run test.
      */
     cache?: boolean | string
 

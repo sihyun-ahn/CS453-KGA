@@ -1,6 +1,6 @@
 {
     "devDependencies": {
-        "genaiscript": "^1.124.3",
+        "genaiscript": "^1.124.4",
         "prettier": "^3.5.3"
     },
     "scripts": {
@@ -19,9 +19,9 @@
         "dev:fabric": "genaiscript run dev --vars \"fabric=v1.4.149\" --vars \"samplePrompts=1\"",
         "lint": "prettier --write src/**/*.mts",
         "test": "genaiscript run test --env .env.test",
-        "promptpex:demo:ollama": "genaiscript run promptpex \"samples/demo/demo.prompty\" --vars \"compliance=true\" --vars \"modelsUnderTest=ollama:llama3.2:1b;ollama:qwen2.5:3b\" --vars cache=true --vars evalCache=true",
-        "promptpex:demo:github": "genaiscript run promptpex \"samples/demo/demo.prompty\" --vars \"compliance=true\" --model \"github:gpt-4o\" --vars \"modelsUnderTest=github:gpt-4o-mini;github:Phi-4-mini-instruct\" --vars cache=true --vars evalCache=true",
-        "promptpex:demo:azure": "genaiscript run promptpex \"samples/demo/demo.prompty\" --vars \"compliance=true\" --model \"azure:gpt-4o_2024-11-20\" --vars \"modelsUnderTest=azure:gpt-4o-mini_2024-07-18\" --vars cache=true --vars evalCache=true",
+        "promptpex:demo:ollama": "genaiscript run promptpex \"samples/demo/demo.prompty\" --vars \"compliance=true\" --vars \"modelsUnderTest=ollama:llama3.2:1b;ollama:qwen2.5:3b\" --vars cache=true --vars evalCache=true --vars testRunCache=true",
+        "promptpex:demo:github": "genaiscript run promptpex \"samples/demo/demo.prompty\" --vars \"compliance=true\" --model \"github:gpt-4o\" --vars \"modelsUnderTest=github:gpt-4o-mini;github:Phi-4-mini-instruct\" --vars cache=true --vars evalCache=true --vars testRunCache=true",
+        "promptpex:demo:azure": "genaiscript run promptpex \"samples/demo/demo.prompty\" --vars \"compliance=true\" --model \"azure:gpt-4o_2024-11-20\" --vars \"modelsUnderTest=azure:gpt-4o-mini_2024-07-18\" --vars cache=true --vars evalCache=true --vars testRunCache=true",
         "promptpex:speech-tag:github": "genaiscript run paper \"samples/speech-tag/speech-tag.prompty\" --vars \"evals=true\" --vars \"modelsUnderTest=github:gpt-4o-mini;github:Phi-4-mini-instruct\"",
         "promptpex:speech-tag:azure": "genaiscript run paper \"samples/speech-tag/speech-tag.prompty\" --vars \"evals=true\" --model \"azure:gpt-4o_2024-11-20\" --vars \"modelsUnderTest=azure:gpt-4o-mini_2024-07-18\" --vars \"out=evals/paper\"",
         "promptpex:paper-newm-newp": "genaiscript run paper \"samples/speech-tag/speech-tag.prompty\" \"samples/text-to-p/text-to-p.prompty\" \"samples/openai-examples/elements.prompty\" \"samples/big-prompt-lib/art-prompt.prompty\" \"samples/prompt-guide/extract-names.prompty\" \"samples/text-classification/classify-input-text.prompty\" \"samples/big-prompt-lib/sentence-rewrite.prompty\" \"samples/azure-ai-studio/shakespearean-writing-assistant.prompty\" \"samples/big-prompt-lib/wine-expert.prompty\" \"samples/big-prompt-lib/text-to-emoji.prompty\" \"samples/big-prompt-lib/topic-breakdown.prompty\" \"samples/big-prompt-lib/shield-challenge.prompty\" \"samples/big-prompt-lib/survival.prompty\" \"samples/big-prompt-lib/email-responder.prompty\" \"samples/hugging-face/llm-as-judge.prompty\" --vars \"evals=true\" --vars \"modelsUnderTest=ollama:deepseek-r1:32b;azure:gpt-4o-mini_2024-07-18;ollama:qwen2.5:3b\" --vars \"out=evals/p-newm-newp-02-14\"",
