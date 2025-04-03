@@ -23,9 +23,7 @@ const { generator, output } = env
 
 export async function runTests(
     files: PromptPexContext,
-    options?: PromptPexOptions & {
-        q?: PromiseQueue
-    }
+    options?: PromptPexOptions
 ): Promise<string> {
     const { modelsUnderTest, maxTestsToRun, runsPerTest = 1 } = options || {}
     if (!modelsUnderTest?.length) throw new Error("No models to run tests on")
