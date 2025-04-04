@@ -27,6 +27,7 @@ export async function loadPromptFiles(
 
     await checkPromptFiles()
     const { out, disableSafety } = options || {}
+    dbg(`out: ${out}`)
     const filename =
         promptFile.filename ||
         (await parsers.hash(promptFile.content, {
@@ -40,6 +41,7 @@ export async function loadPromptFiles(
     const dir = filename
         ? path.join(out || path.dirname(filename), basename)
         : ""
+    dbg(`dir: ${dir}`)
     const intent = path.join(dir, "intent.txt")
     const rules = path.join(dir, "rules.txt")
     const inverseRules = path.join(dir, "inverse_rules.txt")
@@ -80,6 +82,11 @@ export async function loadPromptFiles(
     if (meta.outputRules) res.rules.content = meta.outputRules
     if (meta.inverseOutputRules)
         res.inverseRules.content = meta.inverseOutputRules
+
+    for (const [k, v] of Object.entries(res)) {
+        if (v?.content) dbg(`${k}: ${Math.ceil(v.content.length / 1000)}kc`)
+    }
+
     if (!disableSafety) await checkPromptSafety(res)
     return res
 }

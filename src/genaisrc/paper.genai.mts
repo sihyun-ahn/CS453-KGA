@@ -128,6 +128,15 @@ const {
 }
 
 const prompts = await loadPromptContext(files, { disableSafety, out })
+
+if (diagnostics) {
+    for (const files of prompts) {
+        const res = await generateReports(files)
+        console.log(res)
+    }
+    cancel("Diagnostics complete")
+}
+
 const modelsUnderTest: ModelType[] = env.vars.modelsUnderTest
     ?.split(/[;\n ,]/g)
     .map((model) => model.trim())
@@ -135,12 +144,6 @@ const modelsUnderTest: ModelType[] = env.vars.modelsUnderTest
 if (!modelsUnderTest?.length)
     throw new Error(`no modelsUnderTest provided for evaluation`)
 
-if (diagnostics) {
-    for (const files of prompts) {
-        parseTestResults(files) // parse early for warnings
-        await generateReports(files)
-    }
-}
 
 const res = []
 const options = Object.freeze({

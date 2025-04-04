@@ -70,7 +70,7 @@ export function computeOverview(
                 ["tests negative compliant"]: tests.filter(
                     (tr) => tr.compliance === "ok"
                 ).length,
-                baseline: baseline.length, 
+                baseline: baseline.length,
                 ["tests valid"]: tests.filter(
                     (tr) =>
                         testEvals.find((te) => te.id === tr.id)?.validity ===
@@ -251,13 +251,13 @@ export async function generateJSONReport(files: PromptPexContext) {
 
 export async function generateReports(files: PromptPexContext) {
     const jsonreport = await generateJSONReport(files)
-    await workspace.writeText(
-        path.join(files.dir, "report.json"),
-        JSON.stringify(jsonreport, null, 2)
-    )
+    const fnjson = path.join(files.dir, "report.json")
+    dbg(`report (json): ${fnjson}`)
+    await workspace.writeText(fnjson, JSON.stringify(jsonreport, null, 2))
 
     const mdreport = await generateMarkdownReport(files)
     const fn = path.join(files.dir, "README.md")
+    dbg(`report (markdown): ${fn}`)
     await workspace.writeText(fn, mdreport)
     return fn
 }
