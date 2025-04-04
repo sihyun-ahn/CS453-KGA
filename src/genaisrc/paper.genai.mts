@@ -120,12 +120,12 @@ const {
     maxRulesPerTestGeneration,
     testGenerations,
     baselineTests,
+    maxTestsToRun,
 } = vars as PromptPexOptions & {
     force?: boolean
     out?: string
     evals?: boolean
 }
-let maxTestsToRun = diagnostics ? 2 : vars.maxTestsToRun
 
 const prompts = await loadPromptContext(files, { disableSafety, out })
 const modelsUnderTest: ModelType[] = env.vars.modelsUnderTest
