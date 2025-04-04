@@ -11,6 +11,7 @@ import { groupBy } from "genaiscript/runtime"
 import { resolveRule } from "./resolvers.mts"
 import type { PromptPexContext, PromptPexOptions } from "./types.mts"
 const dbg = host.logger("promptpex:reports")
+const dbgtests = host.logger("promptpex:reports:tests")
 
 export function computeOverview(
     files: PromptPexContext,
@@ -18,27 +19,38 @@ export function computeOverview(
 ) {
     const { percent } = options || {}
     const testResults = parseTestResults(files)
+    dbg(`testResults: %d`, testResults.length)
     const testEvals = parseTestEvals(files)
+    dbg(`testEvals: %d`, testEvals.length)
     const rules = parseAllRules(files, options)
+    dbg(`rules: %d`, rules.length)
     const ruleEvals = parseRuleEvals(files)
+    dbg(`ruleEvals: %d`, ruleEvals.length)
     const testResultsPerModelsAndScenario = groupBy(
         testResults,
-        (result) => `${result.model},${result.scenario}`
+        (result) => `${result.model}:${result.scenario}`
+    )
+    dbg(
+        `testResultsPerModelsAndScenario: %O`,
+        Object.keys(testResultsPerModelsAndScenario)
     )
     const overview = Object.entries(testResultsPerModelsAndScenario).map(
-        ([, results]) => {
+        ([key, results]) => {
             const { model, scenario, error } = results[0]
             const tests = results.filter((tr) => !tr.error && tr.rule)
             const errors =
                 (error ? 1 : 0) + results.filter((tr) => tr.error).length
-            dbg(`${model} ${scenario} ${errors} errors %O`, tests)
+            const baseline = results.filter((tr) => !tr.error && !tr.rule)
+            dbg(
+                `${key}: ${tests.length} tests, ${baseline.length} baseline, ${errors} errors`
+            )
+            dbgtests("%O", tests)
             const norm = (v: number) =>
                 tests.length === 0
                     ? "--"
                     : percent
                       ? Math.round((v / tests.length) * 100) + "%"
                       : v
-            const baseline = results.filter((tr) => !tr.error && !tr.rule)
             const bnorm = (v: number) =>
                 baseline.length === 0
                     ? "--"
