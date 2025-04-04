@@ -98,7 +98,10 @@ script({
             minimum: 1,
             maximum: 10,
         },
-        modelsUnderTest: { type: "string", description: "List of models to evaluate" },
+        modelsUnderTest: {
+            type: "string",
+            description: "List of models to evaluate",
+        },
         out: { type: "string", description: "Output directory", default: "" },
     },
 })
