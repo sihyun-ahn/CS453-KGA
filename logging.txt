@@ -1,0 +1,292 @@
+
+> promptpex:paper-speech-tag
+> genaiscript run paper "samples/speech-tag/speech-tag.prompty" --vars "evals=true" --vars "models=azure:gpt-4o-mini_2024-07-18;ollama:gemma2:9b;ollama:qwen2.5:3b;ollama:llama3.2:1b" --vars "out=evals/paper-speech-tag"
+
+genaiscript: paper (run: DFCp6MbmBzT88jZxOfySf)
+trace: /home/zorn/promptpex/.genaiscript/runs/paper/2025-04-03T18-55-05-210Z-DFCp6MbmBzT88jZxOfySf/trace.md
+output: /home/zorn/promptpex/.genaiscript/runs/paper/2025-04-03T18-55-05-210Z-DFCp6MbmBzT88jZxOfySf/output.md
+diagnostics enabled
+
+> [!WARNING]
+> content safety not configured, skipping
+
+
+### Configuration
+
+
+```yaml
+evalCache: true
+disableSafety: false
+force: false
+modelsUnderTest:
+  - azure:gpt-4o-mini_2024-07-18
+  - ollama:gemma2:9b
+  - ollama:qwen2.5:3b
+  - ollama:llama3.2:1b
+evals: true
+testsPerRule: 3
+runsPerTest: 1
+maxTestsToRun: 2
+splitRules: false
+compliance: true
+baselineTests: true
+```
+
+
+### generating tests for speech-tag
+
+
+
+<details class="genaiscript">
+<summary>
+prompt under test
+</summary>
+
+
+```yaml
+filename: samples/speech-tag/speech-tag.prompty
+type: text/markdown
+content: |-
+  ---
+  name: Speech Tag
+  description: Determine the part of speech for a given word
+  source: "modified from 'SAMMO: A general-purpose framework for prompt optimization'"
+  url: https://www.microsoft.com/en-us/research/uploads/prod/2024/04/Prompts-As-Programs_A-Structure-Aware-Approach.pdf
+  inputs:
+      sentenceword:
+          type: string
+  sample:
+      sentenceword: "The quick brown fox jumps over the lazy dog.; jumps"
+  tags:
+    - sample
+    - unlisted
+    - paper
+  ---
+  system:
+  In this task, you will be presented with a sentence and a word contained
+  in that sentence. You have to determine the part of speech for a given word
+  and return just the tag for the word's part of speech. 
+
+  Return only the part of speech tag.  If the word cannot be tagged with
+  the listed tags, return Unknown.  If you are unable to tag the word, return
+  CantAnswer.
+
+  Here is the
+  Alphabetical list of part-of-speech tags used in this task: CC: Coordinating conjunction, CD: Cardinal number, DT:
+  Determiner, EX: Existential there, FW: Foreign word, IN: Preposition or subordinating conjunction, JJ: Adjective, JJR:
+  Adjective, comparative, JJS: Adjective, superlative, LS: List item marker, MD: Modal, NN: Noun, singular or mass, NNS: Noun,
+  plural, NNP: Proper noun, singular, NNPS: Proper noun, plural, PDT: Predeterminer, POS: Possessive ending, PRP: Personal
+  pronoun, PRP$: Possessive pronoun, RB: Adverb, RBR: Adverb, comparative, RBS: Adverb, superlative, RP: Particle, SYM: Symbol,
+  TO: to, UH: Interjection, VB: Verb, base form, VBD: Verb, past tense, VBG: Verb, gerund or present participle, VBN: Verb,
+  past participle, VBP: Verb, non-3rd person singular present, VBZ: Verb, 3rd person singular present, WDT: Wh-determiner, WP:
+  Wh-pronoun, WP$: Possessive wh-pronoun, WRB: Wh-adverb
+  user:
+  {{sentenceword}}
+```
+
+</details>
+
+-   dir: evals/paper-speech-tag/speech-tag
+
+> [!WARNING]
+> content safety not configured, skipping
+speech-tag> generate intent
+┌─💬 chat with azure:gpt-4o_2024-11-20 (✉ 2, ~↑556t)
+┌─📙 system
+│...
+│Only output the extracted intent and nothing else. 
+│Do not include any additional information in the output.
+│Do not start with "The chatbot is designed to", it is implied.
+┌─👤 user
+│...
+│Here is the
+│Alphabetical list of part-of-speech tags used in this task: CC: Coordinating conjunction, CD: Cardinal number, DT:
+│Determiner, EX: Existential there, FW: Foreign word, IN: Preposition or subordinating conjunction, JJ: Adjective, JJR:
+│Adjective, comparative, JJS: Adjective, superlative, LS: List item marker, MD: Modal, NN: Noun, singular or mass, NNS: N…
+│plural, NNP: Proper noun, singular, NNPS: Proper noun, plural, PDT: Predeterminer, POS: Possessive ending, PRP: Personal
+│pronoun, PRP$: Possessive pronoun, RB: Adverb, RBR: Adverb, comparative, RBS: Adverb, superlative, RP: Particle, SYM: Sy…
+│TO: to, UH: Interjection, VB: Verb, base form, VBD: Verb, past tense, VBG: Verb, gerund or present participle, VBN: Verb,
+│past participle, VBP: Verb, non-3rd person singular present, VBZ: Verb, 3rd person singular present, WDT: Wh-determiner,…
+│Wh-pronoun, WP$: Possessive wh-pronoun, WRB: Wh-adverb
+│user:
+│{{sentenceword}}
+│</PROMPT>
+
+
+Determine the part of speech for a given word and return only its corresponding part-of-speech tag.
+
+gen.intent: 1314ms
+
+```.txt
+Determine the part of speech for a given word and return only its corresponding part-of-speech tag.
+```
+speech-tag> generate input spec
+┌─💬 chat with azure:gpt-4o_2024-11-20 (✉ 2, ~↑858t)
+┌─📙 system
+│...
+│ - Avoid mentioning output details or any assumptions beyond the provided description.
+│ - Do not add unnecessary details, generate max two rules for each compenent of the input.
+│Focus only on what types of inputs can be given to the chatbot based on its description, output each input rule in a lin…
+┌─👤 user
+│...
+│Here is the
+│Alphabetical list of part-of-speech tags used in this task: CC: Coordinating conjunction, CD: Cardinal number, DT:
+│Determiner, EX: Existential there, FW: Foreign word, IN: Preposition or subordinating conjunction, JJ: Adjective, JJR:
+│Adjective, comparative, JJS: Adjective, superlative, LS: List item marker, MD: Modal, NN: Noun, singular or mass, NNS: N…
+│plural, NNP: Proper noun, singular, NNPS: Proper noun, plural, PDT: Predeterminer, POS: Possessive ending, PRP: Personal
+│pronoun, PRP$: Possessive pronoun, RB: Adverb, RBR: Adverb, comparative, RBS: Adverb, superlative, RP: Particle, SYM: Sy…
+│TO: to, UH: Interjection, VB: Verb, base form, VBD: Verb, past tense, VBG: Verb, gerund or present participle, VBN: Verb,
+│past participle, VBP: Verb, non-3rd person singular present, VBZ: Verb, 3rd person singular present, WDT: Wh-determiner,…
+│Wh-pronoun, WP$: Possessive wh-pronoun, WRB: Wh-adverb
+│user:
+│{{sentenceword}}
+│</PROMPT>
+
+
+The input is a sentence and a word extracted from that sentence presented in a paired format.
+
+The input sentence must be written in natural language using grammatical structures and punctuation.
+
+The input word can be any single word exactly as it appears within the corresponding sentence.
+
+The sentence must contain the input word explicitly.
+
+The input word must not be malformed or contain special characters (e.g., emojis).
+
+There is no restriction on the length of the sentence.
+
+The input sentence must not be entirely non-English (although some foreign words within a sentence are valid).
+
+The case of the input word and sentence must match as it appears in the sentence.
+
+If the input string is empty for either the sentence or the word, it is still valid. 
+
+Input strings must be unrestricted in terms of encoding formatting, as long as they convey text accurately. 
+
+If greetings or improperly structured formats are passed, they are still valid as input cases. 
+
+gen.inputspec: 3004ms
+
+```.txt
+The input is a sentence and a word extracted from that sentence presented in a paired format.
+The input sentence must be written in natural language using grammatical structures and punctuation.
+The input word can be any single word exactly as it appears within the corresponding sentence.
+The sentence must contain the input word explicitly.
+The input word must not be malformed or contain special characters (e.g., emojis).
+There is no restriction on the length of the sentence.
+The input sentence must not be entirely non-English (although some foreign words within a sentence are valid).
+The case of the input word and sentence must match as it appears in the sentence.
+If the input string is empty for either the sentence or the word, it is still valid. 
+Input strings must be unrestricted in terms of encoding formatting, as long as they convey text accurately. 
+If greetings or improperly structured formats are passed, they are still valid as input cases. 
+```
+speech-tag> generate rules
+┌─💬 chat with azure:gpt-4o_2024-11-20 (✉ 2, ~↑671t)
+┌─📙 system
+│...
+│Generalize the rules so that they will apply for other possible inputs. 
+│Ensure the rules are clear, specific and very verbose such that they define everything in the rules based on the provide…
+│Only output all the rules related to the output or response generated by the chatbot based on the given description, one…
+┌─👤 user
+│...
+│Here is the
+│Alphabetical list of part-of-speech tags used in this task: CC: Coordinating conjunction, CD: Cardinal number, DT:
+│Determiner, EX: Existential there, FW: Foreign word, IN: Preposition or subordinating conjunction, JJ: Adjective, JJR:
+│Adjective, comparative, JJS: Adjective, superlative, LS: List item marker, MD: Modal, NN: Noun, singular or mass, NNS: N…
+│plural, NNP: Proper noun, singular, NNPS: Proper noun, plural, PDT: Predeterminer, POS: Possessive ending, PRP: Personal
+│pronoun, PRP$: Possessive pronoun, RB: Adverb, RBR: Adverb, comparative, RBS: Adverb, superlative, RP: Particle, SYM: Sy…
+│TO: to, UH: Interjection, VB: Verb, base form, VBD: Verb, past tense, VBG: Verb, gerund or present participle, VBN: Verb,
+│past participle, VBP: Verb, non-3rd person singular present, VBZ: Verb, 3rd person singular present, WDT: Wh-determiner,…
+│Wh-pronoun, WP$: Possessive wh-pronoun, WRB: Wh-adverb
+│user:
+│{{sentenceword}}
+│</PROMPT>
+
+
+The output must consist of only the part-of-speech tag corresponding to the provided word from the given sentence and should not include any additional text or commentary.  
+
+The part-of-speech tag presented must be selected from the alphabetical list of tags described in the prompt: CC, CD, DT, EX, FW, IN, JJ, JJR, JJS, LS, MD, NN, NNS, NNP, NNPS, PDT, POS, PRP, PRP$, RB, RBR, RBS, RP, SYM, TO, UH, VB, VBD, VBG, VBN, VBP, VBZ, WDT, WP, WP$, WRB.
+
+The output must consist of only one tag for the provided word and must not include multiple tags or any additional information outside the single appropriate tag.
+
+If the word in the sentence cannot be ambiguously tagged using one of the predefined part-of-speech tags listed in the prompt, the output must be "Unknown" written exactly as shown, without quotes or any additional information.
+
+If the word cannot be tagged due to insufficient information or ambiguity, the output must be "CantAnswer" written exactly as shown, without quotes or any additional information.
+
+The output must be case-sensitive and written exactly as provided in the prompt, ensuring the part-of-speech tags, "Unknown," or "CantAnswer" are spelled and capitalized precisely.
+
+The output must not contain any characters, spaces, punctuation, explanatory text, or formatting other than the valid tag, "Unknown," or "CantAnswer."
+
+gen.outputrules: 7020ms
+
+```.txt
+The output must consist of only the part-of-speech tag corresponding to the provided word from the given sentence and should not include any additional text or commentary.  
+The part-of-speech tag presented must be selected from the alphabetical list of tags described in the prompt: CC, CD, DT, EX, FW, IN, JJ, JJR, JJS, LS, MD, NN, NNS, NNP, NNPS, PDT, POS, PRP, PRP$, RB, RBR, RBS, RP, SYM, TO, UH, VB, VBD, VBG, VBN, VBP, VBZ, WDT, WP, WP$, WRB.
+The output must consist of only one tag for the provided word and must not include multiple tags or any additional information outside the single appropriate tag.
+If the word in the sentence cannot be ambiguously tagged using one of the predefined part-of-speech tags listed in the prompt, the output must be "Unknown" written exactly as shown, without quotes or any additional information.
+If the word cannot be tagged due to insufficient information or ambiguity, the output must be "CantAnswer" written exactly as shown, without quotes or any additional information.
+The output must be case-sensitive and written exactly as provided in the prompt, ensuring the part-of-speech tags, "Unknown," or "CantAnswer" are spelled and capitalized precisely.
+The output must not contain any characters, spaces, punctuation, explanatory text, or formatting other than the valid tag, "Unknown," or "CantAnswer."
+```
+speech-tag> inverse rules
+┌─💬 chat with azure:gpt-4o_2024-11-20 (✉ 2, ~↑449t)
+┌─📙 system
+│...
+│Come up with smart edge case scenarios. 
+│Please ensure that each generated rule is only in a single line. 
+│Output only the generated rules and nothing else.
+┌─👤 user
+│<RULES>
+│The output must consist of only the part-of-speech tag corresponding to the provided word from the given sentence and sh…
+│The part-of-speech tag presented must be selected from the alphabetical list of tags described in the prompt: CC, CD, DT…
+│The output must consist of only one tag for the provided word and must not include multiple tags or any additional infor…
+│If the word in the sentence cannot be ambiguously tagged using one of the predefined part-of-speech tags listed in the p…
+│If the word cannot be tagged due to insufficient information or ambiguity, the output must be "CantAnswer" written exact…
+│The output must be case-sensitive and written exactly as provided in the prompt, ensuring the part-of-speech tags, "Unkn…
+│The output must not contain any characters, spaces, punctuation, explanatory text, or formatting other than the valid ta…
+│</RULES>
+
+
+The output must include additional explanatory text or commentary alongside the part-of-speech tag corresponding to the provided word.
+
+The part-of-speech tag presented must be selected from a numerical list of tags rather than the alphabetical list described in the prompt.
+
+The output must consist of multiple tags for the provided word and include additional unrelated information.
+
+If the word in the sentence cannot be ambiguously tagged using one of the predefined part-of-speech tags, the output must be "Unidentified" instead of "Unknown."
+
+If the word cannot be tagged due to insufficient information or ambiguity, the output must exclude the option of "CantAnswer" and instead provide all possible tags.
+
+The output must be case-insensitive and may use variations of capitalization for the tags, "unknown," or "Cantanswer."
+
+The output may include characters, spaces, punctuation, explanatory text, or formatting, violating the requirement for strict adherence to the valid formats.
+
+gen.inverseoutputrules: 2604ms
+
+```.txt
+The output must include additional explanatory text or commentary alongside the part-of-speech tag corresponding to the provided word.
+The part-of-speech tag presented must be selected from a numerical list of tags rather than the alphabetical list described in the prompt.
+The output must consist of multiple tags for the provided word and include additional unrelated information.
+If the word in the sentence cannot be ambiguously tagged using one of the predefined part-of-speech tags, the output must be "Unidentified" instead of "Unknown."
+If the word cannot be tagged due to insufficient information or ambiguity, the output must exclude the option of "CantAnswer" and instead provide all possible tags.
+The output must be case-insensitive and may use variations of capitalization for the tags, "unknown," or "Cantanswer."
+The output may include characters, spaces, punctuation, explanatory text, or formatting, violating the requirement for strict adherence to the valid formats.
+```
+2025-04-03T18:55:20.827Z promptpex:gen:test 0 scenarios, 14 rules, 1 groups
+
+```.json
+[]
+```
+[Error: No tests found to generate baseline tests]
+Error: No tests found to generate baseline tests
+    at generateBaselineTests (/home/zorn/promptpex/src/genaisrc/src/baselinetestgen.mts:22:15)
+    at generate (/home/zorn/promptpex/src/genaisrc/paper.genai.mts:302:49)
+    at async <anonymous> (/home/zorn/promptpex/src/genaisrc/paper.genai.mts:166:21)
+genaiscript: success
+> ⇅ 4 ↑2.3kt ↓706t 221.05t/s 0.11$ 13.8s
+  speech-tag> generate intent:azure:gpt-4o-2024-11-20> ↑507t ↓21t 410.86t/s 1.65¢ 1286ms
+  speech-tag> generate input spec:azure:gpt-4o-2024-11-20> ↑807t ↓183t 340.40t/s 3.52¢ 2909ms
+  speech-tag> generate rules:azure:gpt-4o-2024-11-20> ↑616t ↓318t 133.35t/s 3.76¢ 7005ms
+  speech-tag> inverse rules:azure:gpt-4o-2024-11-20> ↑412t ↓184t 230.05t/s 2.34¢ 2591ms
+   trace: /home/zorn/promptpex/.genaiscript/runs/paper/2025-04-03T18-55-05-210Z-DFCp6MbmBzT88jZxOfySf/trace.md
+  output: /home/zorn/promptpex/.genaiscript/runs/paper/2025-04-03T18-55-05-210Z-DFCp6MbmBzT88jZxOfySf/output.md

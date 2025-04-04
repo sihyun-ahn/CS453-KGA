@@ -70,7 +70,7 @@ export function computeOverview(
                 ["tests negative compliant"]: tests.filter(
                     (tr) => tr.compliance === "ok"
                 ).length,
-                baseline,
+                baseline: baseline.length, 
                 ["tests valid"]: tests.filter(
                     (tr) =>
                         testEvals.find((te) => te.id === tr.id)?.validity ===
