@@ -27,7 +27,7 @@ export function computeOverview(
     const ruleEvals = parseRuleEvals(files)
     dbg(`ruleEvals: %d`, ruleEvals.length)
 
-    const defaultScenario = testResults.find((tr) => tr.scenario).scenario
+    const defaultScenario = testResults.find((tr) => tr.scenario)?.scenario
     const testResultsPerModelsAndScenario = groupBy(
         testResults.filter((tr) => tr.scenario),
         (result) => `${result.model}:${result.scenario || defaultScenario}`
