@@ -97,6 +97,7 @@ export function computeOverview(
             }
         }
     )
+    dbg(`overview: %d rows`, overview.length)
     return {
         testResults,
         testEvals,
@@ -140,8 +141,10 @@ async function generateMarkdownReport(files: PromptPexContext) {
     res.push("### Overview", "")
 
     const { overview } = computeOverview(files, { percent: true })
+    const overviewfn = path.join(files.dir, "overview.csv")
+    dbg(`overview: %s`, overviewfn)
     await workspace.writeText(
-        path.join(files.dir, "overview.csv"),
+        overviewfn,
         CSV.stringify(overview, { header: true })
     )
     res.push(
@@ -182,11 +185,25 @@ async function generateMarkdownReport(files: PromptPexContext) {
             {
                 prompty: "md",
             }[ext] || ext
-        res.push(
-            "",
-            `### [${path.basename(file.filename)}](./${path.basename(file.filename)})`,
-            ""
-        )
+        const title = `[${path.basename(file.filename)}](./${path.basename(file.filename)})`
+        const useDetails =
+            file === files.baselineTestEvals ||
+            file === files.baselineTests ||
+            file === files.ruleEvals ||
+            file === files.testEvals ||
+            file === files.tests ||
+            file === files.ruleCoverages ||
+            file === files.testOutputs
+        if (useDetails)
+            res.push(
+                "",
+                "<details>",
+                `<summary>${path.basename(file.filename)}</summary>`,
+                "",
+                `- ${title}`,
+                ""
+            )
+        else res.push("", `### ${title}`, "")
 
         if (lang === "csv")
             res.push(CSV.markdownify(CSV.parse(file.content), { headers }))
@@ -202,6 +219,8 @@ async function generateMarkdownReport(files: PromptPexContext) {
                 content = addLineNumbers(content, 1 + inverseRules.length)
             res.push(`${fence}${lang}`, content || "", `${fence}`, ``)
         }
+
+        if (useDetails) res.push("</details>", "")
     }
 
     for (const file of Object.values(files))
