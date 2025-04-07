@@ -12,9 +12,10 @@ import { generateTests } from "./src/testgen.mts"
 import { evaluateTestsQuality } from "./src/testquality.mts"
 import { runTests } from "./src/testrun.mts"
 import type { PromptPexContext, PromptPexOptions } from "./src/types.mts"
-import { parseTestResults } from "./src/parsers.mts"
 import { diagnostics } from "./src/flags.mts"
 import { generateInverseOutputRules } from "./src/inverserulesgen.mts"
+import { checkConfirm } from "./src/confirm.mts"
+const dbg = host.logger("promptpex:paper")
 
 type PaperOptions = PromptPexOptions & {
     force?: boolean
@@ -128,8 +129,10 @@ const {
 }
 
 const prompts = await loadPromptContext(files, { disableSafety, out })
+dbg(`loaded ${prompts.length} prompts`)
 
 if (diagnostics) {
+    dbg(`generating reports`)
     for (const files of prompts) {
         const res = await generateReports(files)
         console.log(res)
@@ -143,7 +146,7 @@ const modelsUnderTest: ModelType[] = env.vars.modelsUnderTest
     .filter((m) => !!m)
 if (!modelsUnderTest?.length)
     throw new Error(`no modelsUnderTest provided for evaluation`)
-
+dbg(`modelsUnderTest: %o`, modelsUnderTest)
 
 const res = []
 const options = Object.freeze({
@@ -166,6 +169,7 @@ const options = Object.freeze({
 
 output.heading(3, `Configuration`)
 output.fence(YAML.stringify(options), "yaml")
+await checkConfirm("config")
 
 for (const files of prompts) {
     try {
@@ -183,6 +187,9 @@ for (const files of prompts) {
                 overview.map((o) => [o.model, o["tests compliant"]])
             ),
         })
+
+        dbg(`results for ${files.name}: %o`, res.at(-1))
+        await checkConfirm("run")
     } catch (e) {
         console.error(e)
         console.debug(e.stack)
@@ -248,6 +255,7 @@ async function generate(
     }
 
     outputFile(files.intent)
+    await checkConfirm("intent")
 
     // generate input spec
     if (!files.inputSpec.content || force) {
@@ -261,6 +269,7 @@ async function generate(
     }
 
     outputFile(files.inputSpec)
+    await checkConfirm("inputspec")
 
     // generate rules
     if (!files.rules.content || force) {
@@ -274,6 +283,7 @@ async function generate(
     }
 
     outputFile(files.rules)
+    await checkConfirm("rules")
 
     // generate inverse rules
     if (!files.inverseRules.content || force) {
@@ -291,6 +301,8 @@ async function generate(
     }
 
     outputFile(files.inverseRules)
+    await checkConfirm("inverse")
+
 
     // generate tests
     if (!files.tests.content || force) {
@@ -301,6 +313,7 @@ async function generate(
     }
 
     outputFile(files.tests)
+    await checkConfirm("tests")
 
     // generate baseline tests
     if (baselineTests) {
@@ -317,6 +330,7 @@ async function generate(
             files.testOutputs.content = undefined
         }
         outputFile(files.baselineTests)
+        await checkConfirm("baseline")
     }
 
     await generateReports(files)
@@ -331,10 +345,12 @@ async function generate(
             files.baselineTestEvals.filename,
             files.baselineTestEvals.content
         )
+        await checkConfirm("evalbaseline")
     }
 
     await evaluateRulesGrounded(files, options)
     await generateReports(files)
+    await checkConfirm("evalgrounded")
 
     if (modelsUnderTest?.length) {
         await evaluateRulesSpecAgreement(files, {
@@ -342,6 +358,7 @@ async function generate(
             model: modelsUnderTest[0],
         })
         await generateReports(files)
+        await checkConfirm("evalrulespec")
     }
 
     // test exhaustiveness
@@ -357,8 +374,8 @@ async function generate(
         )
         await generateReports(files)
     }
-
     outputFile(files.testEvals)
+    await checkConfirm("evaltests")
 
     files.testOutputs.content = await runTests(files, options)
     await workspace.writeText(
@@ -366,6 +383,7 @@ async function generate(
         files.testOutputs.content
     )
     outputFile(files.testOutputs)
+    await checkConfirm("runtests")
 
     // final report
     const report = await generateReports(files)
