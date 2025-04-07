@@ -249,7 +249,7 @@ user:
     },
 })
 
-const { output, meta, vars } = env
+const { output, vars } = env
 const {
     cache,
     evalCache,
@@ -320,7 +320,6 @@ const files = await loadPromptFiles(file, options)
 
 if (diagnostics) await generateReports(files)
 
-output.itemValue(`model`, meta.model)
 output.detailsFenced(`options`, options, "yaml")
 
 // prompt info

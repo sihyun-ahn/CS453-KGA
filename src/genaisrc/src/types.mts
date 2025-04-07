@@ -164,11 +164,6 @@ export interface PromptPexContext {
      */
     inputs: Record<string, JSONSchemaSimpleType>
     /**
-     * Metadata extract from the prompt frontmatter
-     */
-    meta: PromptPexPrompts
-
-    /**
      * Prompt Under Test
      */
     prompt: WorkspaceFile

@@ -2,8 +2,16 @@ import { checkConfirm } from "./confirm.mts"
 import { CONCURRENCY, PROMPT_ALL } from "./constants.mts"
 import { parseInputs, tidyRulesFile } from "./parsers.mts"
 import { checkPromptSafety } from "./safety.mts"
-import type { PromptPexContext, PromptPexLoaderOptions } from "./types.mts"
+import type {
+    PromptPexContext,
+    PromptPexLoaderOptions,
+    PromptPexPromptyFrontmatter,
+} from "./types.mts"
+import frontMatterSchema from "./frontmatter.json" with { type: "json" }
 const dbg = host.logger("promptpex:loaders")
+
+if (!frontMatterSchema) throw new Error("frontmatter schema not found")
+dbg(`schema %O`, frontMatterSchema)
 
 export async function loadPromptContext(
     files: WorkspaceFile[],
@@ -54,15 +62,13 @@ export async function loadPromptFiles(
     const baselineTestEvals = path.join(dir, "baseline_test_evals.json")
     const ruleEvals = path.join(dir, "rule_evals.json")
     const ruleCoverage = path.join(dir, "rule_coverage.json")
-    const frontmatter = MD.frontmatter(promptFile.content) || {}
-    const meta: PromptPexContext["meta"] = frontmatter.promptPex || {}
+    const frontmatter = await validateFrontmatter(promptFile)
     const inputs = parseInputs(promptFile)
 
     const res = {
         dir,
         name: basename,
         frontmatter,
-        meta,
         inputs,
         prompt: promptFile,
         testOutputs: await workspace.readText(testResults),
@@ -78,18 +84,7 @@ export async function loadPromptFiles(
         baselineTestEvals: await workspace.readText(baselineTestEvals),
     } satisfies PromptPexContext
 
-    if (meta.intent) res.intent.content = meta.intent
-    if (meta.inputSpec) res.inputSpec.content = meta.inputSpec
-    if (meta.outputRules) res.rules.content = meta.outputRules
-    if (meta.inverseOutputRules)
-        res.inverseRules.content = meta.inverseOutputRules
-
-    for (const [k, v] of Object.entries(res)) {
-        if (v?.content) dbg(`${k}: ${Math.ceil(v.content.length / 1000)}kc`)
-    }
-
     if (!disableSafety) await checkPromptSafety(res)
-
     await checkConfirm("loader")
 
     return res
@@ -101,10 +96,27 @@ async function checkPromptFiles() {
         dbg(`validating ${filename}`)
         const file = await workspace.readText(filename)
         if (!file?.content) throw new Error(`prompt file ${filename} not found`)
-        const frontmatter = MD.frontmatter(file)
-        if (!frontmatter)
-            throw new Error(`prompt file ${filename} has no frontmatter`)
+        await validateFrontmatter(file)
         const content = MD.content(file)
         if (!content) throw new Error(`prompt file ${filename} is empty`)
     }
+}
+
+export async function validateFrontmatter(
+    file: WorkspaceFile
+): Promise<PromptPexPromptyFrontmatter> {
+    const frontmatter = MD.frontmatter(file)
+    if (!frontmatter) return {}
+
+    const res = parsers.validateJSON(
+        frontMatterSchema as JSONSchema,
+        frontmatter
+    )
+    if (res.schemaError) {
+        dbg(`schema error for ${file.filename}`)
+        dbg(`error: %O`, res.schemaError)
+        dbg(`frontmatter: %O`, frontmatter)
+        throw new Error(`schema error for ${file.filename}: ${res.schemaError}`)
+    }
+    return frontmatter
 }
