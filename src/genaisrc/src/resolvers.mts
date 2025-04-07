@@ -45,15 +45,6 @@ export function resolvePromptArgs(
     const testInput = test["testinput"]
     const args: Record<string, any> = {}
 
-    // apply defaults
-    for (const [iname, ivalue] of Object.entries(inputs)) {
-        if (unresolved.has(iname) && ivalue?.default !== undefined) {
-            dbg(`input %s default: %s`, iname, ivalue.default)
-            args[iname] = ivalue.default
-            unresolved.delete(iname)
-        }
-    }
-
     // apply scenario values
     if (test.scenario) {
         const scenarios = resolveScenarios(files)
@@ -67,6 +58,15 @@ export function resolvePromptArgs(
                 args[iname] = ivalue
                 unresolved.delete(iname)
             }
+        }
+    }
+
+    // apply defaults
+    for (const [iname, ivalue] of Object.entries(inputs)) {
+        if (unresolved.has(iname) && ivalue?.default !== undefined) {
+            dbg(`input %s default: %s`, iname, ivalue.default)
+            args[iname] = ivalue.default
+            unresolved.delete(iname)
         }
     }
 
