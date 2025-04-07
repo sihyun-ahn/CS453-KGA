@@ -47,7 +47,7 @@ export function resolvePromptArgs(
 
     // apply defaults
     for (const [iname, ivalue] of Object.entries(inputs)) {
-        if (unresolved.has(iname) && ivalue?.default) {
+        if (unresolved.has(iname) && ivalue?.default !== undefined) {
             dbg(`input %s default: %s`, iname, ivalue.default)
             args[iname] = ivalue.default
             unresolved.delete(iname)
@@ -71,7 +71,7 @@ export function resolvePromptArgs(
     }
 
     // fill last whole with generated input
-    dbg(`remaining unresolved inputs: %s`, unresolved)
+    dbg(`remaining unresolved inputs: %s`, Array.from(unresolved))
     if (unresolved.size === 1) {
         const key = Array.from(unresolved)[0]
         dbg(`input %s <- %s`, key, testInput)
