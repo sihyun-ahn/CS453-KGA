@@ -36,6 +36,8 @@ export function computeOverview(
         ([key, results]) => {
             const { model, scenario, error } = results[0]
             const tests = results.filter((tr) => !tr.error && tr.rule)
+            const testPositives = tests.filter((tr) => !tr.inverse)
+            const testNegatives = tests.filter((tr) => tr.inverse)
             const errors =
                 (error ? 1 : 0) + results.filter((tr) => tr.error).length
             const baseline = results.filter((tr) => !tr.error && !tr.rule)
@@ -72,12 +74,12 @@ export function computeOverview(
                 ["baseline compliant"]: bnorm(
                     baseline.filter((tr) => tr.compliance === "ok").length
                 ),
-                ["tests positive"]: tests.filter((tr) => !tr.inverse).length,
-                ["tests positive compliant"]: tests.filter(
+                ["tests positive"]: testPositives.length,
+                ["tests positive compliant"]: testPositives.filter(
                     (tr) => tr.compliance === "ok"
                 ).length,
-                ["tests negative"]: tests.filter((tr) => tr.inverse).length,
-                ["tests negative compliant"]: tests.filter(
+                ["tests negative"]: testNegatives.length,
+                ["tests negative compliant"]: testNegatives.filter(
                     (tr) => tr.compliance === "ok"
                 ).length,
                 baseline: baseline.length,
