@@ -54,6 +54,8 @@ export async function generateTests(
     dbg(`rule groups: ${rulesGroups.length}`)
     for (let si = 0; si < scenarios.length; si++) {
         const scenario = scenarios[si]
+        const { instructions, parameters = {} } = scenario
+
         dbg(`scenario: ${scenario.name}`)
         let rulesCount = 0
         for (let ri = 0; ri < rulesGroups.length; ri++) {
@@ -64,6 +66,15 @@ export async function generateTests(
                 .map((r, index) => `${rulesCount + index + 1}. ${r.rule}`)
                 .join("\n")
             dbg(`rule: ${rule}`)
+            const scenarioInstructions = [
+                instructions,
+                ...Object.entries(parameters).map(
+                    ([k, v]) => `'{{${k}}}' = ${v}`
+                ),
+            ]
+                .filter((l) => !!l)
+                .map((l) => `- ${l}`)
+                .join("\n")
             await measure("gen.tests", () =>
                 generator.runPrompt(
                     (ctx) => {
@@ -71,7 +82,7 @@ export async function generateTests(
                             input_spec: files.inputSpec.content,
                             context,
                             num,
-                            scenario: scenario.instructions,
+                            scenario: scenarioInstructions,
                             rule,
                             num_rules: rulesGroup.length,
                         })
