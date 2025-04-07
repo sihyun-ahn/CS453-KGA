@@ -1,6 +1,5 @@
 import type {
     PromptPexContext,
-    PromptPexPromptyFrontmatter,
     PromptPexTest,
     PromptPexTestGenerationScenario,
 } from "./types.mts"

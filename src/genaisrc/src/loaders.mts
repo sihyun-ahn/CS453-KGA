@@ -1,3 +1,4 @@
+import { checkConfirm } from "./confirm.mts"
 import { CONCURRENCY, PROMPT_ALL } from "./constants.mts"
 import { parseInputs, tidyRulesFile } from "./parsers.mts"
 import { checkPromptSafety } from "./safety.mts"
@@ -88,6 +89,9 @@ export async function loadPromptFiles(
     }
 
     if (!disableSafety) await checkPromptSafety(res)
+
+    await checkConfirm("loader")
+
     return res
 }
 

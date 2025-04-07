@@ -1,3 +1,4 @@
+import { checkConfirm } from "./src/confirm.mts"
 import { diagnostics } from "./src/flags.mts"
 import { generateInputSpec } from "./src/inputspecgen.mts"
 import { generateInverseOutputRules } from "./src/inverserulesgen.mts"
@@ -331,16 +332,19 @@ output.fence(files.prompt.content, "md")
 output.heading(3, "Input Specification")
 files.inputSpec.content = await generateInputSpec(files, options)
 outputFile(files.inputSpec)
+await checkConfirm("inputspec")
 
 // generate rules
 output.heading(3, "Output Rules")
 files.rules.content = await generateOutputRules(files, options)
 outputLines(files.rules, "rule")
+await checkConfirm("rule")
 
 // generate inverse rules
 output.heading(3, "Inverse Output Rules")
 files.inverseRules.content = await generateInverseOutputRules(files, options)
 outputLines(files.inverseRules, "generate inverse output rule")
+await checkConfirm("inverse")
 
 // generate tests
 output.heading(3, "Tests")
@@ -355,6 +359,7 @@ const tests = parseRulesTests(files.tests.content).map(
 output.table(tests)
 output.detailsFenced(`tests (json)`, tests, "json")
 output.detailsFenced(`generated`, files.tests.content)
+await checkConfirm("test")
 
 if (!modelsUnderTest?.length) {
     output.warn(`No modelsUnderTest specified. Skipping test run.`)

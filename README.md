@@ -182,18 +182,6 @@ graph TD
     PUT --> TO
 ```
 
-The scenario are currently encoded in the prompty front-matter as an string array:
-
-```yaml
-scenarios:
-    - name: English
-      instructions: The user speaks and writes in English.
-    - name: French
-      instructions: The user speaks and writes in French.
-      parameters:
-          locale: fr-Fr
-```
-
 ## Prompt format: prompty
 
 PromptPex takes [Prompty](https://www.prompty.ai/) file as inputs; these are just markdown with a bit of syntax to
@@ -228,6 +216,31 @@ The input local is {{locale}}.
 
 user:
 {{joke}}
+```
+
+### Instructions
+
+You can provide custom instructions for the test generation for each step
+in the prompty front-matter.
+
+```yaml
+instructions:
+    inputSpec: "Do not generate input rules for the 'locale' input."
+    outputRules: "The chatbox output should always be in English."
+```
+
+### Scenarios
+
+The scenario are encoded in the prompty front-matter as an string array:
+
+```yaml
+scenarios:
+    - name: English
+      instructions: The user speaks and writes in English.
+    - name: French
+      instructions: The user speaks and writes in French.
+      parameters:
+          locale: fr-Fr
 ```
 
 ## Test and Eval Workflow
