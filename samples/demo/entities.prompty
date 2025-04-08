@@ -1,0 +1,25 @@
+---
+name: "Entity Extraction"
+description: "AI generated prompt file, please review"
+inputs:
+  text:
+    type: "string"
+    description: "The input text to process for extracting entities."
+instructions:
+  outputRules: "Ensure the output follows the exact format specified in the 'Desired format' section of the prompt."
+tags:
+  - entity_extraction
+scenarios:
+  - name: Default
+    instructions: "Run the extraction process using default settings."
+---
+
+Extract the important entities mentioned in the text below. First extract all company names, then extract all people names, then extract specific topics which fit the content and finally extract general overarching themes
+
+Desired format:
+Company names: <comma_separated_list_of_company_names>
+People names: -||-
+Specific topics: -||-
+General themes: -||-
+
+Text: {{text}}
