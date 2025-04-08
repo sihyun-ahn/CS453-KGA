@@ -39,6 +39,8 @@ export const PROMPT_EVAL_TEST_RESULT = join(
     "eval_test_result.prompty"
 )
 
+export const PROMPT_EXPAND_TEST = join(promptDir, "expand_test.prompty")
+
 export const PROMPT_ALL = [
     PROMPT_GENERATE_INPUT_SPEC,
     PROMPT_GENERATE_INTENT,
@@ -50,6 +52,7 @@ export const PROMPT_ALL = [
     PROMPT_EVAL_TEST_VALIDITY,
     PROMPT_EVAL_OUTPUT_RULE_AGREEMENT,
     PROMPT_EVAL_TEST_RESULT,
+    PROMPT_EXPAND_TEST,
 ]
 
 export const CONCURRENCY = 2
