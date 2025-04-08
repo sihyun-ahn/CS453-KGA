@@ -72,6 +72,11 @@ promptPex:
             required: false,
             uiType: "textarea",
         },
+        out: {
+            type: "string",
+            description: "Output folder for the generated files",
+            default: true,
+        },
         cache: {
             type: "boolean",
             description: "Cache all LLM calls",
@@ -251,6 +256,7 @@ user:
 
 const { output, vars } = env
 const {
+    out,
     cache,
     evalCache,
     disableSafety,
@@ -280,7 +286,7 @@ const {
 const modelsUnderTest = (vars.modelsUnderTest || "")
     .split(/;/g)
     .filter((m) => !!m)
-const options: PromptPexOptions = {
+const options = {
     cache,
     testRunCache,
     evalCache,
@@ -305,7 +311,8 @@ const options: PromptPexOptions = {
     splitRules,
     maxRulesPerTestGeneration,
     testGenerations,
-}
+    out,
+} satisfies PromptPexOptions
 
 if (env.files[0] && promptText)
     cancel(
@@ -317,6 +324,10 @@ if (!env.files[0] && !promptText)
 initPerf({ output })
 const file = env.files[0] || { filename: "", content: promptText }
 const files = await loadPromptFiles(file, options)
+const writeFile = async (f: WorkspaceFile) =>
+    files.writeResults
+        ? await workspace.writeText(f.filename, f.content)
+        : undefined
 
 if (diagnostics) await generateReports(files)
 
@@ -331,18 +342,21 @@ output.fence(files.prompt.content, "md")
 output.heading(3, "Input Specification")
 files.inputSpec.content = await generateInputSpec(files, options)
 outputFile(files.inputSpec)
+await writeFile(files.inputSpec)
 await checkConfirm("inputspec")
 
 // generate rules
 output.heading(3, "Output Rules")
 files.rules.content = await generateOutputRules(files, options)
 outputLines(files.rules, "rule")
+await writeFile(files.rules)
 await checkConfirm("rule")
 
 // generate inverse rules
 output.heading(3, "Inverse Output Rules")
 files.inverseRules.content = await generateInverseOutputRules(files, options)
 outputLines(files.inverseRules, "generate inverse output rule")
+await writeFile(files.inverseRules)
 await checkConfirm("inverse")
 
 // generate tests
@@ -359,10 +373,12 @@ const tests = parseRulesTests(files.tests.content).map(
 output.table(tests)
 output.detailsFenced(`tests (json)`, tests, "json")
 output.detailsFenced(`generated`, files.tests.content, "json")
+await writeFile(files.tests)
 await checkConfirm("test")
 
 await converTestsToTestData(files)
 output.detailsFenced(`test data (json)`, files.testData.content, "json")
+await writeFile(files.testData)
 
 if (!modelsUnderTest?.length) {
     output.warn(`No modelsUnderTest specified. Skipping test run.`)
@@ -371,6 +387,7 @@ if (!modelsUnderTest?.length) {
     output.heading(3, `Test with Models Under Test`)
     output.itemValue(`models under test`, modelsUnderTest.join(", "))
     files.testOutputs.content = await runTests(files, options)
+    await writeFile(files.testOutputs)
     const results = parseTestResults(files)
     output.startDetails(`results (table)`)
     output.table(

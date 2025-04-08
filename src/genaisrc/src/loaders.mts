@@ -37,6 +37,7 @@ export async function loadPromptFiles(
     await checkPromptFiles()
     const { out, disableSafety } = options || {}
     dbg(`out: ${out}`)
+    const writeResults = !!out
     const filename =
         promptFile.filename ||
         (await parsers.hash(promptFile.content, {
@@ -67,6 +68,7 @@ export async function loadPromptFiles(
     const inputs = parseInputs(promptFile)
 
     const res = {
+        writeResults,
         dir,
         name: basename,
         frontmatter,

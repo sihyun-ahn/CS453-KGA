@@ -23,6 +23,10 @@ export interface PromptPexPrompts {
 
 export interface PromptPexOptions {
     /**
+     * Output folder for the generated files
+     */
+    out?: string
+    /**
      * Do not include Responsible AI safety prompts and validation
      */
     disableSafety?: boolean
@@ -147,6 +151,8 @@ export interface PromptPexOptions {
  * - Model Under Test (MUT) - Model which we are testing against with specific temperature, etc example: gpt-4o-mini
  */
 export interface PromptPexContext {
+    /** Should write results to files */
+    writeResults?: boolean
     /**
      * Prompt folder location if any
      */
