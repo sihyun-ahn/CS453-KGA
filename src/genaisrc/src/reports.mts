@@ -29,7 +29,7 @@ export function computeOverview(
 
     const defaultScenario = testResults.find((tr) => tr.scenario)?.scenario
     const testResultsPerModelsAndScenario = groupBy(
-        testResults.filter((tr) => tr.scenario),
+        testResults,
         (result) => `${result.model}:${result.scenario || defaultScenario}`
     )
     const overview = Object.entries(testResultsPerModelsAndScenario).map(
