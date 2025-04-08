@@ -8,7 +8,7 @@ import { parseRulesTests, parseTestResults } from "./src/parsers.mts"
 import { initPerf, reportPerf } from "./src/perf.mts"
 import { computeOverview, generateReports } from "./src/reports.mts"
 import { generateOutputRules } from "./src/rulesgen.mts"
-import { generateTests } from "./src/testgen.mts"
+import { converTestsToTestData, generateTests } from "./src/testgen.mts"
 import { runTests } from "./src/testrun.mts"
 import type { PromptPexOptions } from "./src/types.mts"
 
@@ -355,10 +355,14 @@ const tests = parseRulesTests(files.tests.content).map(
         expectedoutput,
     })
 )
+
 output.table(tests)
 output.detailsFenced(`tests (json)`, tests, "json")
-output.detailsFenced(`generated`, files.tests.content)
+output.detailsFenced(`generated`, files.tests.content, "json")
 await checkConfirm("test")
+
+await converTestsToTestData(files)
+output.detailsFenced(`test data (json)`, files.testData.content, "json")
 
 if (!modelsUnderTest?.length) {
     output.warn(`No modelsUnderTest specified. Skipping test run.`)

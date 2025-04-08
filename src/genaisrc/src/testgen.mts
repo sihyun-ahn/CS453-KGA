@@ -11,9 +11,10 @@ import {
     parseAllRules,
     modelOptions,
     isUnassistedResponse,
+    parseRulesTests,
 } from "./parsers.mts"
 import { measure } from "./perf.mts"
-import { resolveScenarios } from "./resolvers.mts"
+import { resolvePromptArgs, resolveScenarios } from "./resolvers.mts"
 import type {
     PromptPexContext,
     PromptPexOptions,
@@ -141,6 +142,17 @@ export async function generateTests(
     }
     const resc = JSON.stringify(tests, null, 2)
     return resc
+}
+
+export function converTestsToTestData(files: PromptPexContext) {
+    const tests = parseRulesTests(files.tests.content)
+    const testData = tests.map((test) => ({
+        input: {
+            parameters: JSON.stringify(resolvePromptArgs(files, test).args),
+        },
+        output: [],
+    }))
+    files.testData.content = JSON.stringify(testData, null, 2)
 }
 
 function splitRules(rules: PromptPexRule[], options?: PromptPexOptions) {

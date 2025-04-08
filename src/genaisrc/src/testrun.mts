@@ -93,18 +93,6 @@ export async function runTest(
         model,
         evalCache,
     })
-    /* if (file?.content && !force) {
-        const res = parsers.JSON5(file) as PromptPexTestResult
-        if (res && !res.error && res.complianceText) {
-            if (!res.model)
-                output.warn(
-                    `invalid test result ${file.filename}, missing model field`
-                )
-            updateTestResultCompliant(res)
-            res.baseline = test.baseline
-            return res
-        }
-    }*/
     const { inputs, args, testInput } = resolvePromptArgs(files, test)
     const allRules = parseAllRules(files, options)
     const rule = resolveRule(allRules, test)

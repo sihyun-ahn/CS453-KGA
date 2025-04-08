@@ -195,6 +195,11 @@ export interface PromptPexContext {
     tests: WorkspaceFile
 
     /**
+     * PromptPex Test with resolved input parameters
+     */
+    testData: WorkspaceFile
+
+    /**
      * Test Output (TO) - Result generated for PPT and BT on PUT with each MUT (the template is PUT)
      */
     testOutputs: WorkspaceFile
