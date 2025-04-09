@@ -35,6 +35,7 @@ export function checkLLMResponse(
     res: RunPromptResult,
     options?: { allowUnassisted: boolean }
 ) {
+    if (!res) throw new Error("LLM response is undefined")
     if (res.error) {
         dbg(`LLM error: %O`, res.error)
         output.warn(`LLM error: ${res.error.message}`)
