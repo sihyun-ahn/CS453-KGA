@@ -91,6 +91,6 @@ export async function evaluateRulesGrounded(
     }
 
     files.ruleEvals.content = JSON.stringify(res, null, 2)
-    await workspace.writeText(files.ruleEvals.filename, files.ruleEvals.content)
+    if (files.writeResults) await workspace.writeFiles(files.ruleEvals)
     return res
 }

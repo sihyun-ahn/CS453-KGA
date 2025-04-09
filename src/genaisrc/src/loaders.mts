@@ -123,7 +123,7 @@ function parseInputs(
         inputs["text"] = {
             type: "string",
         } satisfies JSONSchemaString
-        file.content += `\n{{text}}`
+        file.content += `\n{{inputtext}}`
     }
 
     return { patched, inputs }

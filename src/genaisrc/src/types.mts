@@ -277,6 +277,7 @@ export interface PromptPexTestResult {
     ruleid: number
     rule: string
     scenario: string
+    testinput: string
     inverse?: boolean
     baseline?: boolean
     model: string

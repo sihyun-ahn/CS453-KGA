@@ -48,9 +48,6 @@ export async function evaluateRulesSpecAgreement(
         })
     }
     files.ruleCoverages.content = JSON.stringify(results, null, 2)
-    await workspace.writeText(
-        files.ruleCoverages.filename,
-        files.ruleCoverages.content
-    )
+    if (files.writeResults) await workspace.writeFiles(files.ruleCoverages)
     return results
 }

@@ -146,6 +146,7 @@ export async function evaluateTestQuality(
             scenario: test.scenario,
             rule: testEval.rule,
             ruleid: test.ruleid,
+            testinput: test.testinput,
             promptid,
             model: testEval.model,
             input: testEval.input,

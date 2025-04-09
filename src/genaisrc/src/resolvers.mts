@@ -37,21 +37,21 @@ export function resolvePromptArgs(
     files: PromptPexContext,
     test: PromptPexTest
 ) {
-    const inputs = files.inputs
+    const { inputs } = files
+    const { testinput, expectedoutput, scenario } = test
+
     const inputKeys = Object.keys(inputs)
     const unresolved = new Set(inputKeys)
     dbg(`unresolved inputs: %s`, inputKeys)
-    const expectedOutput = test["expectedoutput"]
-    const testInput = test["testinput"]
     const args: Record<string, any> = {}
 
     // apply scenario values
-    if (test.scenario) {
+    if (scenario) {
         const scenarios = resolveScenarios(files)
-        const scenario = scenarios.find((s) => s.name === test.scenario)
-        if (!scenario) throw new Error(`Scenario ${test.scenario} not found`)
+        const scenarioInstance = scenarios.find((s) => s.name === scenario)
+        if (!scenarioInstance) throw new Error(`Scenario ${scenario} not found`)
         for (const [iname, ivalue] of Object.entries(
-            scenario.parameters || {}
+            scenarioInstance.parameters || {}
         )) {
             if (unresolved.has(iname) && ivalue !== undefined) {
                 dbg(`input %s scenario: %s`, iname, ivalue)
@@ -74,14 +74,14 @@ export function resolvePromptArgs(
     dbg(`remaining unresolved inputs: %s`, Array.from(unresolved))
     if (unresolved.size === 1) {
         const key = Array.from(unresolved)[0]
-        dbg(`input %s <- %s`, key, testInput)
-        args[key] = testInput
+        dbg(`input %s <- %s`, key, testinput)
+        args[key] = testinput
     } else if (unresolved.size > 1) {
         // not supported yet
         dbg(`multiple unspecified inputs not supported: %O`, {
             inputKeys,
             unresolved,
-            testInput,
+            testInput: testinput,
         })
         throw new Error("multiple unspecified inputs not supported yet")
     } else if (unresolved.size === 0 && inputKeys.length > 0) {
@@ -89,9 +89,14 @@ export function resolvePromptArgs(
             `all inputs prefilled, replacing first (%s) with test input`,
             inputKeys[0]
         )
-        args[inputKeys[0]] = testInput
+        args[inputKeys[0]] = testinput
     }
-    return { inputs, args, testInput, expectedOutput }
+    return {
+        inputs,
+        args,
+        testInput: testinput,
+        expectedOutput: expectedoutput,
+    }
 }
 
 export async function resolveRuleHash(files: PromptPexContext, rule: string) {

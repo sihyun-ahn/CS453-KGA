@@ -384,9 +384,8 @@ if (!modelsUnderTest?.length) {
     // run tests against the model(s)
     output.heading(3, `Test with Models Under Test`)
     output.itemValue(`models under test`, modelsUnderTest.join(", "))
-    files.testOutputs.content = await runTests(files, options)
+    const results = await runTests(files, options)
     await writeFile(files.testOutputs)
-    const results = parseTestResults(files)
     output.startDetails(`results (table)`)
     output.table(
         results.map(

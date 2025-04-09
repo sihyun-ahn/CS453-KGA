@@ -24,19 +24,18 @@ const { generator, output } = env
 export async function runTests(
     files: PromptPexContext,
     options?: PromptPexOptions
-): Promise<string> {
+): Promise<PromptPexTestResult[]> {
     const { modelsUnderTest, maxTestsToRun, runsPerTest = 1 } = options || {}
     if (!modelsUnderTest?.length) throw new Error("No models to run tests on")
 
     const rulesTests = parseRulesTests(files.tests.content)
     dbg(`found ${rulesTests.length} tests`)
     const baselineTests = options?.baselineTests
-
         ? parseBaselineTests(files)
         : []
 
-    dbg(`found ${baselineTests.length} tests`)      
-const tests = [...rulesTests, ...baselineTests].slice(0, maxTestsToRun)
+    dbg(`found ${baselineTests.length} tests`)
+    const tests = [...rulesTests, ...baselineTests].slice(0, maxTestsToRun)
 
     dbg(
         `running ${tests.length} tests (x ${runsPerTest}) with ${modelsUnderTest.length} models`
@@ -64,14 +63,16 @@ const tests = [...rulesTests, ...baselineTests].slice(0, maxTestsToRun)
         }
     }
 
-    return JSON.stringify(testResults, null, 2)
+    files.testOutputs.content = JSON.stringify(testResults, null, 2)
+    if (files.writeResults) await workspace.writeFiles(files.testOutputs)
+    return testResults
 }
 
 function updateTestResultCompliant(testRes: PromptPexTestResult) {
     testRes.compliance = parseOKERR(testRes.complianceText)
 }
 
-export async function runTest(
+async function runTest(
     files: PromptPexContext,
     test: PromptPexTest,
     options?: PromptPexOptions & {
@@ -104,6 +105,7 @@ export async function runTest(
             ...rule,
             scenario: test.scenario,
             baseline: test.baseline,
+            testinput: testInput,
             model: "",
             error: "invalid test input",
             input: testInput,
@@ -147,6 +149,7 @@ export async function runTest(
         ...rule,
         scenario: test.scenario,
         baseline: test.baseline,
+        testinput: testInput,
         model: res.model,
         error: res.error?.message,
         input: testInput,

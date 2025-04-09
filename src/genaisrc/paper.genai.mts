@@ -380,7 +380,7 @@ async function generate(
     outputFile(files.testEvals)
     await checkConfirm("evaltests")
 
-    files.testOutputs.content = await runTests(files, options)
+    await runTests(files, options)
     await workspace.writeText(
         files.testOutputs.filename,
         files.testOutputs.content

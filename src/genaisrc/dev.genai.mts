@@ -215,12 +215,14 @@ await apply(
     (_) => _.inverseRules,
     (files, options) => generateInverseOutputRules(files, options)
 )
+/*
 await apply(
     "Tests",
     repeatTests,
     (_) => _.tests,
     (files, options) => generateTests(files, options)
 )
+*/
 await apply(
     "Baseline Tests",
     repeatBaselineTests,

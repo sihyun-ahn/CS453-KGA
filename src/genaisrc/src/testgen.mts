@@ -15,6 +15,7 @@ import {
 } from "./parsers.mts"
 import { measure } from "./perf.mts"
 import { resolvePromptArgs, resolveScenarios } from "./resolvers.mts"
+import { convertToTestData } from "./testdata.mts"
 import type {
     PromptPexContext,
     PromptPexOptions,
@@ -27,7 +28,7 @@ const { generator, output } = env
 export async function generateTests(
     files: PromptPexContext,
     options?: PromptPexOptions
-): Promise<void> {
+): Promise<PromptPexTest[]> {
     const {
         testsPerRule: num = TESTS_NUM,
         rulesModel = "rules",
@@ -143,20 +144,9 @@ export async function generateTests(
     const resc = JSON.stringify(tests, null, 2)
 
     files.tests.content = resc
-    await convertTestsToTestData(files, tests)
-}
-
-function convertTestsToTestData(
-    files: PromptPexContext,
-    tests: PromptPexTest[]
-) {
-    const testData = tests.map((test) => ({
-        input: {
-            parameters: JSON.stringify(resolvePromptArgs(files, test).args),
-        },
-        output: [],
-    }))
-    files.testData.content = JSON.stringify(testData, null, 2)
+    if (files.writeResults) await workspace.writeFiles(files.tests)
+    await convertToTestData(files, tests)
+    return tests
 }
 
 function splitRules(rules: PromptPexRule[], options?: PromptPexOptions) {
