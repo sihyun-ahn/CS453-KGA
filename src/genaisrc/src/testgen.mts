@@ -27,7 +27,7 @@ const { generator, output } = env
 export async function generateTests(
     files: PromptPexContext,
     options?: PromptPexOptions
-): Promise<string> {
+): Promise<void> {
     const {
         testsPerRule: num = TESTS_NUM,
         rulesModel = "rules",
@@ -141,11 +141,15 @@ export async function generateTests(
         }
     }
     const resc = JSON.stringify(tests, null, 2)
-    return resc
+
+    files.tests.content = resc
+    await convertTestsToTestData(files, tests)
 }
 
-export function converTestsToTestData(files: PromptPexContext) {
-    const tests = parseRulesTests(files.tests.content)
+function convertTestsToTestData(
+    files: PromptPexContext,
+    tests: PromptPexTest[]
+) {
     const testData = tests.map((test) => ({
         input: {
             parameters: JSON.stringify(resolvePromptArgs(files, test).args),

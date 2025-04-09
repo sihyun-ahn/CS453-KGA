@@ -62,7 +62,7 @@ const inverseRules = parseRules(files.inverseRules.content)
 if (!inverseRules?.length) throw new Error("No inverse rules found")
 
 output.heading(3, "Tests")
-files.tests.content = await generateTests(files, options)
+await generateTests(files, options)
 output.fence(files.tests.content, "text")
 const tests = parseRulesTests(files.tests.content).map(
     ({ scenario, testinput, expectedoutput }) => ({

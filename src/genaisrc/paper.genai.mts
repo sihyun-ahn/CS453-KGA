@@ -303,11 +303,14 @@ async function generate(
     outputFile(files.inverseRules)
     await checkConfirm("inverse")
 
-
     // generate tests
     if (!files.tests.content || force) {
-        files.tests.content = await generateTests(files, options)
+        await generateTests(files, options)
         await workspace.writeText(files.tests.filename, files.tests.content)
+        await workspace.writeText(
+            files.testData.filename,
+            files.testData.content
+        )
         files.testEvals.content = undefined
         files.testOutputs.content = undefined
     }

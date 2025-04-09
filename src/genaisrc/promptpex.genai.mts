@@ -8,7 +8,7 @@ import { parseRulesTests, parseTestResults } from "./src/parsers.mts"
 import { initPerf, reportPerf } from "./src/perf.mts"
 import { computeOverview, generateReports } from "./src/reports.mts"
 import { generateOutputRules } from "./src/rulesgen.mts"
-import { converTestsToTestData, generateTests } from "./src/testgen.mts"
+import { generateTests } from "./src/testgen.mts"
 import { runTests } from "./src/testrun.mts"
 import type { PromptPexOptions } from "./src/types.mts"
 
@@ -24,7 +24,7 @@ PromptPex accepts prompts formatted in Markdown with a YAML frontmatter section 
 ---
 ...
 inputs:
-  some_imput:
+  some_input:
     type: "string"
 ---
 system:
@@ -361,7 +361,7 @@ await checkConfirm("inverse")
 
 // generate tests
 output.heading(3, "Tests")
-files.tests.content = await generateTests(files, options)
+await generateTests(files, options)
 const tests = parseRulesTests(files.tests.content).map(
     ({ scenario, testinput, expectedoutput }) => ({
         scenario,
@@ -375,7 +375,6 @@ output.detailsFenced(`tests (json)`, tests, "json")
 output.detailsFenced(`generated`, files.tests.content, "json")
 await writeFile(files.tests)
 
-await converTestsToTestData(files)
 output.detailsFenced(`test data (json)`, files.testData.content, "json")
 await writeFile(files.testData)
 await checkConfirm("test")
