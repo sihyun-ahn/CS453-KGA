@@ -374,11 +374,11 @@ output.table(tests)
 output.detailsFenced(`tests (json)`, tests, "json")
 output.detailsFenced(`generated`, files.tests.content, "json")
 await writeFile(files.tests)
-await checkConfirm("test")
 
 await converTestsToTestData(files)
 output.detailsFenced(`test data (json)`, files.testData.content, "json")
 await writeFile(files.testData)
+await checkConfirm("test")
 
 if (!modelsUnderTest?.length) {
     output.warn(`No modelsUnderTest specified. Skipping test run.`)
