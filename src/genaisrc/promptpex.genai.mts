@@ -75,7 +75,6 @@ promptPex:
         out: {
             type: "string",
             description: "Output folder for the generated files",
-            default: true,
         },
         cache: {
             type: "boolean",
