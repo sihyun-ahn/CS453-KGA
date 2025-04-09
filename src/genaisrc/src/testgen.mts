@@ -53,6 +53,14 @@ export async function generateTests(
     const rulesGroups = splitRules(allRules, options)
     const tests: PromptPexTest[] = []
 
+    const checkpoint = async () => {
+        dbg(`saving ${tests.length} tests`)
+        const resc = JSON.stringify(tests, null, 2)
+        files.tests.content = resc
+        if (files.writeResults) await workspace.writeFiles(files.tests)
+        await convertToTestData(files, tests)
+    }
+
     dbg(`rule groups: ${rulesGroups.length}`)
     for (let si = 0; si < scenarios.length; si++) {
         const scenario = scenarios[si]
@@ -137,15 +145,13 @@ export async function generateTests(
                     }
                 )
             )
+            await checkpoint()
             // TODO retry
             rulesCount += rulesGroup.length
         }
     }
-    const resc = JSON.stringify(tests, null, 2)
 
-    files.tests.content = resc
-    if (files.writeResults) await workspace.writeFiles(files.tests)
-    await convertToTestData(files, tests)
+    await checkpoint()
     return tests
 }
 
