@@ -10,6 +10,7 @@ import type {
     PromptPexTestEval,
     PromptPexTestResult,
 } from "./types.mts"
+const dbg = host.logger("promptpex:parsers")
 
 const { output } = env
 
@@ -26,30 +27,6 @@ export function modelOptions(
     }
 }
 
-export function parseInputs(
-    file: WorkspaceFile
-): Record<string, JSONSchemaSimpleType> {
-    const frontmatter = MD.frontmatter(file.content) || {}
-    let inputs = JSONSchema.fromParameters(
-        frontmatter["inputs"]
-    ) as JSONSchemaObject
-    if (!inputs) inputs = { type: "object", properties: {} }
-    // under specified inputs, try to find any missing inputs
-    // using regex
-    if (!Object.keys(inputs).length) {
-        file.content.replace(/{{\s*([^}\s]+)\s*}}/g, (_, key) => {
-            inputs.properties[key] = {
-                type: "string",
-            } satisfies JSONSchemaString
-            return ""
-        })
-    }
-    return inputs.properties as any satisfies Record<
-        string,
-        JSONSchemaSimpleType
-    >
-}
-
 export function isUnassistedResponse(text: string) {
     return /i can't assist with that|i'm sorry/i.test(text)
 }
@@ -59,6 +36,7 @@ export function checkLLMResponse(
     options?: { allowUnassisted: boolean }
 ) {
     if (res.error) {
+        dbg(`LLM error: %O`, res.error)
         output.warn(`LLM error: ${res.error.message}`)
         output.fence(res.error, "yaml")
         throw new Error(res.error.message)

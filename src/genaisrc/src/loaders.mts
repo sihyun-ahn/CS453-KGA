@@ -1,6 +1,6 @@
 import { checkConfirm } from "./confirm.mts"
 import { CONCURRENCY, PROMPT_ALL } from "./constants.mts"
-import { parseInputs, tidyRulesFile } from "./parsers.mts"
+import { tidyRulesFile } from "./parsers.mts"
 import { checkPromptSafety } from "./safety.mts"
 import type {
     PromptPexContext,
@@ -64,8 +64,11 @@ export async function loadPromptFiles(
     const baselineTestEvals = path.join(dir, "baseline_test_evals.json")
     const ruleEvals = path.join(dir, "rule_evals.json")
     const ruleCoverage = path.join(dir, "rule_coverage.json")
-    const frontmatter = await validateFrontmatter(promptFile)
-    const inputs = parseInputs(promptFile)
+    const frontmatter = await validateFrontmatter(promptFile, {
+        patchFrontmatter: true,
+    })
+    const inputs = frontmatter.inputs as Record<string, JSONSchemaSimpleType>
+    if (!inputs) throw new Error(`prompt ${promptFile.filename} has no inputs`)
 
     const res = {
         writeResults,
@@ -94,6 +97,38 @@ export async function loadPromptFiles(
     return res
 }
 
+function parseInputs(
+    file: WorkspaceFile,
+    frontmatter: PromptPexPromptyFrontmatter
+) {
+    const content = MD.content(file)
+    const inputs: Record<string, JSONSchemaSimpleType> = ((
+        JSONSchema.fromParameters(frontmatter["inputs"]) as JSONSchemaObject
+    )?.properties || {}) as any
+    dbg(`inputs: %O`, inputs)
+    let patched = false
+    content.replace(/{{\s*(\w+)\s*}}/g, (_, key) => {
+        if (!inputs[key]) {
+            dbg(`found unspecified input %s`, key)
+            patched = true
+            inputs[key] = {
+                type: "string",
+            } satisfies JSONSchemaString
+        }
+        return ""
+    })
+    if (!Object.keys(inputs).length) {
+        dbg(`no inputs found, appending default`)
+        patched = true
+        inputs["text"] = {
+            type: "string",
+        } satisfies JSONSchemaString
+        file.content += `\n{{text}}`
+    }
+
+    return { patched, inputs }
+}
+
 async function checkPromptFiles() {
     dbg(`checking prompt files`)
     for (const filename of PROMPT_ALL) {
@@ -107,10 +142,22 @@ async function checkPromptFiles() {
 }
 
 export async function validateFrontmatter(
-    file: WorkspaceFile
+    file: WorkspaceFile,
+    options?: { patchFrontmatter?: boolean }
 ): Promise<PromptPexPromptyFrontmatter> {
-    const frontmatter = MD.frontmatter(file)
-    if (!frontmatter) return {}
+    const { patchFrontmatter } = options || {}
+    let frontmatter = MD.frontmatter(file)
+    if (!frontmatter) frontmatter = {}
+
+    const { patched, inputs } = parseInputs(file, frontmatter)
+    if (patched && !patchFrontmatter)
+        throw new Error(`prompt ${file.filename} has unspecified inputs`)
+    if (patched && patchFrontmatter) {
+        frontmatter.inputs = inputs
+        file.content = MD.updateFrontmatter(file.content, frontmatter)
+        frontmatter = MD.frontmatter(file)
+        dbg(`updated frontmatter: %O`, frontmatter)
+    }
 
     const res = parsers.validateJSON(
         frontMatterSchema as JSONSchema,
@@ -122,5 +169,6 @@ export async function validateFrontmatter(
         dbg(`frontmatter: %O`, frontmatter)
         throw new Error(`schema error for ${file.filename}: ${res.schemaError}`)
     }
+
     return frontmatter
 }
