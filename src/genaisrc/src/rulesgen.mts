@@ -13,7 +13,7 @@ const { generator } = env
 export async function generateOutputRules(
     files: PromptPexContext,
     options?: PromptPexOptions & { numRules?: number }
-) {
+): Promise<void> {
     const { numRules = RULES_NUM, rulesModel = "rules" } = options || {}
 
     dbg(`generating ${numRules} output rules`)
@@ -45,5 +45,7 @@ export async function generateOutputRules(
         )
     )
     const rules = tidyRules(checkLLMResponse(res))
-    return rules
+    files.rules.content = rules 
+    if (files.writeResults)
+        await workspace.writeFiles([files.rules])   
 }

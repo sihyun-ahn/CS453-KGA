@@ -15,7 +15,7 @@ const dbg = host.logger("promptpex:gen:baseline")
 export async function generateBaselineTests(
     files: PromptPexContext,
     options?: PromptPexOptions & { num?: number }
-): Promise<string> {
+): Promise<void> {
     const { baselineModel = "baseline" } = options || {}
     const tests = parseRulesTests(files.tests.content)
     if (!tests?.length)
@@ -43,11 +43,12 @@ export async function generateBaselineTests(
 
     if (isUnassistedResponse(res.text)) {
         dbg(`unassisted response: ${res.text}`)
-        return ""
+        return
     }
     checkLLMResponse(res)
     const cleaned = cleanBaselineTests(res.text)
     dbg(`cleaned baseline tests: %O`, cleaned)
     const txt = cleaned.join("\n===\n")
-    return txt
+    files.baselineTests.content = txt
+    if (files.writeResults) await workspace.writeFiles(files.baselineTests)
 }

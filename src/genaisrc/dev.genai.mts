@@ -145,7 +145,7 @@ async function apply(
     fn: (
         files: PromptPexContext,
         options: PromptPexOptions
-    ) => Awaitable<string>
+    ) => Awaitable<unknown>
 ) {
     output.heading(2, title)
     const table = []
@@ -163,7 +163,6 @@ async function apply(
             for (let i = 0; i < repeat; ++i) {
                 const res = await fn(files, { ...commOptions, ...restConfig })
                 if (file) {
-                    file.content = res
                     output.fence(file.content, "text")
                 }
                 row[`${config.name}/${i}`] = res
@@ -188,7 +187,7 @@ await apply(
     (files, options) => generateInputSpec(files, options)
 )
 await apply("Rules", repeatRules, undefined, async (files, options) => {
-    files.rules.content = await generateOutputRules(files, options)
+    await generateOutputRules(files, options)
     output.fence(files.rules.content, "text")
 
     output.heading(3, "Evaluating Rules Groundedness")
@@ -215,14 +214,12 @@ await apply(
     (_) => _.inverseRules,
     (files, options) => generateInverseOutputRules(files, options)
 )
-/*
 await apply(
     "Tests",
     repeatTests,
     (_) => _.tests,
     (files, options) => generateTests(files, options)
 )
-*/
 await apply(
     "Baseline Tests",
     repeatBaselineTests,

@@ -11,7 +11,7 @@ const { generator } = env
 export async function generateInputSpec(
     files: PromptPexContext,
     options?: PromptPexOptions
-) {
+): Promise<void> {
     const instructions =
         options?.instructions?.inputSpec ||
         files.frontmatter?.instructions?.inputSpec ||
@@ -37,5 +37,6 @@ export async function generateInputSpec(
             }
         )
     )
-    return tidyRules(checkLLMResponse(res))
+    files.inputSpec.content = tidyRules(checkLLMResponse(res))
+    if (files.writeResults) await workspace.writeFiles([files.inputSpec])
 }

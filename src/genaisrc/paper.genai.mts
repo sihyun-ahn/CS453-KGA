@@ -259,11 +259,7 @@ async function generate(
 
     // generate input spec
     if (!files.inputSpec.content || force) {
-        files.inputSpec.content = await generateInputSpec(files, options)
-        await workspace.writeText(
-            files.inputSpec.filename,
-            files.inputSpec.content
-        )
+        await generateInputSpec(files, options)
         files.tests.content = undefined
         files.testOutputs.content = undefined
     }
@@ -273,8 +269,7 @@ async function generate(
 
     // generate rules
     if (!files.rules.content || force) {
-        files.rules.content = await generateOutputRules(files, options)
-        await workspace.writeText(files.rules.filename, files.rules.content)
+        await generateOutputRules(files, options)
         files.inverseRules.content = undefined
         files.tests.content = undefined
         files.testOutputs.content = undefined
@@ -287,14 +282,7 @@ async function generate(
 
     // generate inverse rules
     if (!files.inverseRules.content || force) {
-        files.inverseRules.content = await generateInverseOutputRules(
-            files,
-            options
-        )
-        await workspace.writeText(
-            files.inverseRules.filename,
-            files.inverseRules.content
-        )
+        await generateInverseOutputRules(files, options)
         files.tests.content = undefined
         files.testOutputs.content = undefined
         files.testEvals.content = undefined
@@ -306,11 +294,6 @@ async function generate(
     // generate tests
     if (!files.tests.content || force) {
         await generateTests(files, options)
-        await workspace.writeText(files.tests.filename, files.tests.content)
-        await workspace.writeText(
-            files.testData.filename,
-            files.testData.content
-        )
         files.testEvals.content = undefined
         files.testOutputs.content = undefined
     }
@@ -321,14 +304,7 @@ async function generate(
     // generate baseline tests
     if (baselineTests) {
         if (!files.baselineTests.content || force) {
-            files.baselineTests.content = await generateBaselineTests(
-                files,
-                options
-            )
-            await workspace.writeText(
-                files.baselineTests.filename,
-                files.baselineTests.content
-            )
+            await generateBaselineTests(files, options)
             files.testEvals.content = undefined
             files.testOutputs.content = undefined
         }

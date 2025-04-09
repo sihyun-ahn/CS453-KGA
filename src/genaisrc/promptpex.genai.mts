@@ -323,10 +323,6 @@ if (!env.files[0] && !promptText)
 initPerf({ output })
 const file = env.files[0] || { filename: "", content: promptText }
 const files = await loadPromptFiles(file, options)
-const writeFile = async (f: WorkspaceFile) =>
-    files.writeResults
-        ? await workspace.writeText(f.filename, f.content)
-        : undefined
 
 if (diagnostics) await generateReports(files)
 
@@ -339,43 +335,35 @@ output.fence(files.prompt.content, "md")
 
 // generate input spec
 output.heading(3, "Input Specification")
-files.inputSpec.content = await generateInputSpec(files, options)
+await generateInputSpec(files, options)
 outputFile(files.inputSpec)
-await writeFile(files.inputSpec)
 await checkConfirm("inputspec")
 
 // generate rules
 output.heading(3, "Output Rules")
-files.rules.content = await generateOutputRules(files, options)
+await generateOutputRules(files, options)
 outputLines(files.rules, "rule")
-await writeFile(files.rules)
 await checkConfirm("rule")
 
 // generate inverse rules
 output.heading(3, "Inverse Output Rules")
-files.inverseRules.content = await generateInverseOutputRules(files, options)
+await generateInverseOutputRules(files, options)
 outputLines(files.inverseRules, "generate inverse output rule")
-await writeFile(files.inverseRules)
 await checkConfirm("inverse")
 
 // generate tests
 output.heading(3, "Tests")
-await generateTests(files, options)
-const tests = parseRulesTests(files.tests.content).map(
-    ({ scenario, testinput, expectedoutput }) => ({
+const tests = await generateTests(files, options)
+
+output.table(
+    tests.map(({ scenario, testinput, expectedoutput }) => ({
         scenario,
         testinput,
         expectedoutput,
-    })
+    }))
 )
-
-output.table(tests)
 output.detailsFenced(`tests (json)`, tests, "json")
-output.detailsFenced(`generated`, files.tests.content, "json")
-await writeFile(files.tests)
-
 output.detailsFenced(`test data (json)`, files.testData.content, "json")
-await writeFile(files.testData)
 await checkConfirm("test")
 
 if (!modelsUnderTest?.length) {
@@ -385,7 +373,6 @@ if (!modelsUnderTest?.length) {
     output.heading(3, `Test with Models Under Test`)
     output.itemValue(`models under test`, modelsUnderTest.join(", "))
     const results = await runTests(files, options)
-    await writeFile(files.testOutputs)
     output.startDetails(`results (table)`)
     output.table(
         results.map(
