@@ -139,3 +139,5 @@ export const DOCS_GLOSSARY = `
 `
 
 export const OK_ERR_CHOICES = ["OK", "ERR"]
+
+export const TEST_DATA_LENGTH = 64
