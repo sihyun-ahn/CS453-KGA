@@ -231,7 +231,9 @@ async function generateMarkdownReport(files: PromptPexContext) {
 
     for (const file of Object.values(files))
         if (typeof file === "object" && file.filename && file.content)
-            appendFile(file as WorkspaceFile)
+            appendFile(file as WorkspaceFile)    
+    for(const metric of files.metrics)
+        appendFile(metric)
 
     return res.filter((l) => l !== undefined).join("\n")
 }

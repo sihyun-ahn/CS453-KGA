@@ -4,7 +4,7 @@ import { generateInputSpec } from "./src/inputspecgen.mts"
 import { generateInverseOutputRules } from "./src/inverserulesgen.mts"
 import { loadPromptFiles } from "./src/loaders.mts"
 import { outputFile, outputLines } from "./src/output.mts"
-import { parseRulesTests, parseTestResults } from "./src/parsers.mts"
+import { metricName } from "./src/parsers.mts"
 import { initPerf, reportPerf } from "./src/perf.mts"
 import { computeOverview, generateReports } from "./src/reports.mts"
 import { generateOutputRules } from "./src/rulesgen.mts"
@@ -380,8 +380,14 @@ if (!modelsUnderTest?.length) {
     output.warn(`No modelsUnderTest specified. Skipping test run.`)
 } else {
     // run tests against the model(s)
-    output.heading(3, `Test with Models Under Test`)
+    output.heading(3, `Test Runs with Models Under Test`)
     output.itemValue(`models under test`, modelsUnderTest.join(", "))
+
+    output.heading(4, `Metrics`)
+    for (const metric of files.metrics)
+        output.detailsFenced(metricName(metric), metric.content, "markdown")
+
+    output.heading(4, `Test Results`)
     const results = await runTests(files, options)
 
     output.startDetails(`results (table)`)
@@ -413,7 +419,7 @@ if (!modelsUnderTest?.length) {
         )
     )
     output.endDetails()
-    output.detailsFenced(`results`, results, "csv")
+    output.detailsFenced(`results (json)`, results, "json")
 }
 
 const { overview } = await computeOverview(files, { percent: true })

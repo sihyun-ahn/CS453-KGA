@@ -66,7 +66,7 @@ async function evaluateTestMetric(
             },
             {
                 ...moptions,
-                label: `${files.name}> evaluate metric ${testResult.model} ${testResult.input.slice(0, 42)}...`,
+                label: `${files.name}> evaluate metric ${metricName(metric)} ${testResult.model} ${testResult.input.slice(0, 42)}...`,
             }
         )
     )
