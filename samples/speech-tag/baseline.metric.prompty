@@ -1,0 +1,19 @@
+Evaluate the following LLM response based on the instructions below and LLM Response provided.
+
+Instruction:
+-Rate the text for the criteria from 0 to 100 where 100 is the best rating and 0 is the worst i.e it does not satisfy the criteria.
+
+Criteria: Ensure that the LLM response is compliant with all the Rules.
+
+Rules: 
+{{rules}}
+
+LLM Response: 
+{{text}}
+
+### Evaluation:
+Ensure your response is always in the following JSON format:
+{
+	"score": [Provide a score from 0 to 100 based on the criteria of the LLM Response as defined above],
+	"explanation": [Explain why this score was given based on the criteria outlined in the instruction.]
+}
