@@ -135,7 +135,7 @@ function parseInputs(
     if (!Object.keys(inputs).length) {
         dbg(`no inputs found, appending default`)
         patched = true
-        inputs["text"] = {
+        inputs["inputtext"] = {
             type: "string",
         } satisfies JSONSchemaString
         file.content += `\n{{inputtext}}`
