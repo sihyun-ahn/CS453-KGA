@@ -394,8 +394,8 @@ if (!modelsUnderTest?.length) {
 
     output.heading(4, `Test Results`)
     const results = await runTests(files, options)
+    output.detailsFenced(`results (json)`, results, "json")
 
-    output.startDetails(`results (table)`, { expanded: true })
     output.table(
         results.map(
             ({
@@ -424,11 +424,9 @@ if (!modelsUnderTest?.length) {
             })
         )
     )
-    output.endDetails()
-
-    output.detailsFenced(`results (json)`, results, "json")
 }
 
+output.heading(3, `Results Overview`)
 const { overview } = await computeOverview(files, { percent: true })
 output.table(overview)
 
