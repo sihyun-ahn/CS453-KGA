@@ -50,6 +50,10 @@ export async function runTests(
     console.log(
         `running ${tests.length} tests (x ${runsPerTest}) with ${modelsUnderTest.length} models`
     )
+
+    output.startDetails(`running ${tests.length} tests (x ${runsPerTest})`, {
+        expanded: false,
+    })
     const testResults: PromptPexTestResult[] = []
     for (const modelUnderTest of modelsUnderTest) {
         for (let testi = 0; testi < tests.length; ++testi) {
@@ -72,6 +76,7 @@ export async function runTests(
     }
 
     await checkpoint()
+    output.endDetails()
     return testResults
 }
 
