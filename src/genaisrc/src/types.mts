@@ -337,5 +337,6 @@ export interface PromptPexEvaluation {
     content: string
     uncertainty?: number
     perplexity?: number
-    outcome: PromptPexEvalResultType
+    outcome?: PromptPexEvalResultType
+    score?: number
 }

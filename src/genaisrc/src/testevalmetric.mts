@@ -34,6 +34,16 @@ async function evaluateTestMetric(
     const { evalModel = "eval" } = options || {}
     const moptions = modelOptions(evalModel, options)
     const content = MD.content(files.prompt.content)
+    if (testResult.input === undefined)
+        return {
+            outcome: "unknown",
+            content: "test result input missing",
+        } satisfies PromptPexEvaluation
+    if (testResult.output === undefined)
+        return {
+            outcome: "unknown",
+            content: "test result output missing",
+        } satisfies PromptPexEvaluation
     const parameters = {
         prompt: content.replace(/^(system|user):/gm, ""),
         intent: files.intent.content || "",
@@ -42,7 +52,10 @@ async function evaluateTestMetric(
         input: testResult.input,
         output: testResult.output,
     }
-    dbg(`metric: ${metric.filename}`)
+    dbg(`metric: ${metric.filename} for %O`, {
+        input: parameters.input,
+        output: parameters.output,
+    })
     const res = await measure("eval.metric", () =>
         generator.runPrompt(
             (ctx) => {

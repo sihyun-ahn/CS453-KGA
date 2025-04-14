@@ -15,7 +15,7 @@ const dbg = host.logger("promptpex:parsers")
 const { output } = env
 
 export function metricName(metric: WorkspaceFile) {
-    return path.basename(metric.filename).replace(/\.metric\.prompty$/, "") 
+    return path.basename(metric.filename).replace(/\.metric\.prompty$/, "")
 }
 
 export function modelOptions(
@@ -54,16 +54,25 @@ export function checkLLMResponse(
     return parsers.unfence(res.text, "")
 }
 
+function parseScore(text: string) {
+    const res = parsers.JSONLLM(text)
+    if (typeof res === "object" && typeof res.score === "number")
+        return res.score
+    return undefined
+}
+
 export function checkLLMEvaluation(
     res: RunPromptResult,
     options?: { allowUnassisted: boolean }
 ): PromptPexEvaluation {
     const content = checkLLMResponse(res, options)
+    const score = parseScore(content)
     return {
         content,
         uncertainty: res.uncertainty,
         perplexity: res.perplexity,
-        outcome: parseOKERR(content),
+        score,
+        outcome: isNaN(score) ? parseOKERR(content) : undefined,
     } satisfies PromptPexEvaluation
 }
 
@@ -88,9 +97,9 @@ export function parseRules(rules: string, options?: PromptPexOptions) {
     const { maxRules } = options || {}
     const res = rules
         ? tidyRules(rules)
-            .split(/\r?\n/g)
-            .map((l) => l.trim())
-            .filter((l) => !!l)
+              .split(/\r?\n/g)
+              .map((l) => l.trim())
+              .filter((l) => !!l)
         : []
     return maxRules > 0 ? res.slice(0, maxRules) : res
 }
@@ -181,6 +190,6 @@ export function parseOKERR(text: string): PromptPexEvalResultType | undefined {
     return /(^|\W)ERR\s*$/.test(text)
         ? "err"
         : /(^|\W)OK\s*$/.test(text)
-            ? "ok"
-            : "unknown"
+          ? "ok"
+          : "unknown"
 }

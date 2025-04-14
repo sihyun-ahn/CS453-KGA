@@ -403,12 +403,12 @@ if (!modelsUnderTest?.length) {
                 output,
                 compliance: compliance
                     ? testCompliance === "ok"
-                        ? "✓"
+                        ? "✅"
                         : testCompliance === "err"
-                          ? "✗"
-                          : "?"
+                          ? "❌"
+                          : "❓"
                     : undefined,
-                inverse: inverse ? "✓" : "",
+                inverse: inverse ? "🔄" : "",
             })
         )
     )
