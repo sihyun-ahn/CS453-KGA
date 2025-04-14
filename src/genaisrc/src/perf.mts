@@ -45,8 +45,8 @@ export async function measure<T>(
 export function reportPerf() {
     if (!output) return
 
-    output.heading(3, "Performance")
-    output.fence(
+    output.detailsFenced(
+        "performance",
         JSON.stringify(
             Object.entries(totals).map(([id, duration]) => ({
                 id,

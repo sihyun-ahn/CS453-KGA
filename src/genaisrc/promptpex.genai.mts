@@ -430,4 +430,6 @@ output.heading(3, `Results Overview`)
 const { overview } = await computeOverview(files, { percent: true })
 output.table(overview)
 
+output.appendContent("\n\n---\n\n")
+
 reportPerf()
