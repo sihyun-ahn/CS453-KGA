@@ -1,3 +1,29 @@
+---
+name: Custom Test Result Evaluation
+description: |
+  A template for a custom evaluation of the results.
+tags:
+    - unlisted
+inputs:
+    prompt:
+        type: string
+        description: The prompt to be evaluated.
+    intent:
+        type: string
+        description: The extracted intent of the prompt.
+    inputSpec:
+        type: string
+        description: The input specification for the prompt.
+    rules:
+        type: string
+        description: The rules to be applied for the test generation.
+    input:
+        type: string
+        description: The input to be used with the prompt.
+    output:
+        type: string
+        description: The output from the model execution.
+---
 Evaluate the following LLM response based on the instructions below and LLM Response provided.
 
 Instruction:
@@ -9,7 +35,7 @@ Rules:
 {{rules}}
 
 LLM Response: 
-{{text}}
+{{output}}
 
 ### Evaluation:
 Ensure your response is always in the following JSON format:
