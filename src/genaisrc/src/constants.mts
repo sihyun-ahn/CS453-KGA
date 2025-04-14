@@ -2,6 +2,7 @@ import { fileURLToPath } from "node:url"
 import { dirname, join, resolve } from "node:path"
 
 const genaisrcSrcDir = dirname(fileURLToPath(import.meta.url))
+export const PARAMETER_INPUT_TEXT = "input_text"
 export const PROMPT_DIR = resolve(genaisrcSrcDir, "..", "..", "prompts")
 
 export const PROMPT_GENERATE_INPUT_SPEC = join(

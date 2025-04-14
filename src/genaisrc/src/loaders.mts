@@ -1,5 +1,10 @@
 import { checkConfirm } from "./confirm.mts"
-import { CONCURRENCY, PROMPT_ALL, PROMPT_DIR } from "./constants.mts"
+import {
+    CONCURRENCY,
+    PARAMETER_INPUT_TEXT,
+    PROMPT_ALL,
+    PROMPT_DIR,
+} from "./constants.mts"
 import { tidyRulesFile } from "./parsers.mts"
 import { checkPromptSafety } from "./safety.mts"
 import type {
@@ -135,10 +140,10 @@ function parseInputs(
     if (!Object.keys(inputs).length) {
         dbg(`no inputs found, appending default`)
         patched = true
-        inputs["inputtext"] = {
+        inputs[PARAMETER_INPUT_TEXT] = {
             type: "string",
         } satisfies JSONSchemaString
-        file.content += `\n{{inputtext}}`
+        file.content += `\n{{${PARAMETER_INPUT_TEXT}}}`
     }
 
     return { patched, inputs }
