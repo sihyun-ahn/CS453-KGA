@@ -10,7 +10,12 @@ import {
 } from "./parsers.mts"
 import { groupBy } from "genaiscript/runtime"
 import { resolveRule } from "./resolvers.mts"
-import type { PromptPexContext, PromptPexOptions } from "./types.mts"
+import type {
+    PromptPexContext,
+    PromptPexEvalResultType,
+    PromptPexEvaluation,
+    PromptPexOptions,
+} from "./types.mts"
 const dbg = host.logger("promptpex:reports")
 const dbgtests = host.logger("promptpex:reports:tests")
 
@@ -231,9 +236,8 @@ async function generateMarkdownReport(files: PromptPexContext) {
 
     for (const file of Object.values(files))
         if (typeof file === "object" && file.filename && file.content)
-            appendFile(file as WorkspaceFile)    
-    for(const metric of files.metrics)
-        appendFile(metric)
+            appendFile(file as WorkspaceFile)
+    for (const metric of files.metrics) appendFile(metric)
 
     return res.filter((l) => l !== undefined).join("\n")
 }
@@ -243,6 +247,22 @@ function addLineNumbers(text: string, start: number) {
         .split(/\r?\n/gi)
         .map((l, i) => `${start + i}: ${l}`)
         .join("\n")
+}
+
+export function renderEvaluationOutcome(outcome: PromptPexEvalResultType) {
+    return outcome === "ok"
+        ? "✅"
+        : outcome === "err"
+          ? "❌"
+          : outcome === "unknown"
+            ? "❓"
+            : ""
+}
+
+export function renderEvaluation(res: PromptPexEvaluation) {
+    const { score, outcome } = res
+    if (typeof score === "number") return String(score)
+    return renderEvaluationOutcome(outcome)
 }
 
 export async function generateJSONReport(files: PromptPexContext) {

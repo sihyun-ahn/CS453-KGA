@@ -6,7 +6,12 @@ import { loadPromptFiles } from "./src/loaders.mts"
 import { outputFile, outputLines } from "./src/output.mts"
 import { metricName } from "./src/parsers.mts"
 import { initPerf, reportPerf } from "./src/perf.mts"
-import { computeOverview, generateReports } from "./src/reports.mts"
+import {
+    computeOverview,
+    generateReports,
+    renderEvaluation,
+    renderEvaluationOutcome,
+} from "./src/reports.mts"
 import { generateOutputRules } from "./src/rulesgen.mts"
 import { generateTests } from "./src/testgen.mts"
 import { runTests } from "./src/testrun.mts"
@@ -390,7 +395,7 @@ if (!modelsUnderTest?.length) {
     output.heading(4, `Test Results`)
     const results = await runTests(files, options)
 
-    output.startDetails(`results (table)`)
+    output.startDetails(`results (table)`, { expanded: true })
     output.table(
         results.map(
             ({
@@ -401,24 +406,26 @@ if (!modelsUnderTest?.length) {
                 input,
                 output,
                 compliance: testCompliance,
+                metrics,
             }) => ({
                 rule,
                 model,
                 scenario,
+                inverse: inverse ? "🔄" : "",
                 input,
                 output,
-                compliance: compliance
-                    ? testCompliance === "ok"
-                        ? "✅"
-                        : testCompliance === "err"
-                          ? "❌"
-                          : "❓"
-                    : undefined,
-                inverse: inverse ? "🔄" : "",
+                compliance: renderEvaluationOutcome(testCompliance),
+                ...Object.fromEntries(
+                    Object.entries(metrics).map(([k, v]) => [
+                        k,
+                        renderEvaluation(v),
+                    ])
+                ),
             })
         )
     )
     output.endDetails()
+
     output.detailsFenced(`results (json)`, results, "json")
 }
 
