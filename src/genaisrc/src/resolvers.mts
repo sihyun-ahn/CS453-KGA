@@ -103,10 +103,10 @@ export function resolvePromptArgs(
 
 export async function resolveRuleHash(files: PromptPexContext, rule: string) {
     const content = MD.content(files.prompt.content)
-    const ruleid = await parsers.hash(content + rule, {
+    const ruleId = await parsers.hash(content + rule, {
         length: 7,
     })
-    return ruleid
+    return ruleId
 }
 
 export function resolveRule(
