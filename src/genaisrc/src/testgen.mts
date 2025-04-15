@@ -11,10 +11,9 @@ import {
     parseAllRules,
     modelOptions,
     isUnassistedResponse,
-    parseRulesTests,
 } from "./parsers.mts"
 import { measure } from "./perf.mts"
-import { resolvePromptArgs, resolveScenarios } from "./resolvers.mts"
+import { resolveScenarios } from "./resolvers.mts"
 import { convertToTestData } from "./testdata.mts"
 import type {
     PromptPexContext,
@@ -140,7 +139,6 @@ export async function generateTests(
                     },
                     {
                         ...modelOptions(rulesModel, options),
-                        //      logprobs: true,
                         label: `${files.name}> generate tests (${SCENARIO_SYMBOL} ${scenario.name} ${si + 1}/${scenarios.length}, ${RULE_SYMBOL} ${ri + 1}/${rulesGroups.length}, ${GENERATION_SYMBOL} ${testGeneration + 1}/${testGenerations})`,
                     }
                 )
