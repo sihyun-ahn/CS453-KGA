@@ -40,7 +40,7 @@ This is your user prompt.
 {{ some_input }}
  \`\`\`
 
-- The content of the markdoown is the chat conversation. 
+- The content of the Markdown is the chat conversation. 
 \`system:\` is the system prompt and \`user:\` is the user prompt.
 - The input variables are defined in the frontmatter of the prompt.
 - If not input variables are defined, PromptPex will append the generated test to the user prompt.
