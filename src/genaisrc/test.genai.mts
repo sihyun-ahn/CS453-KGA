@@ -18,6 +18,7 @@ script({
     accept: ".prompty",
     title: "test suite assuming very limited access to models",
     files: "samples/demo/demo.prompty",
+    unlisted: true
 })
 
 const { output } = env
