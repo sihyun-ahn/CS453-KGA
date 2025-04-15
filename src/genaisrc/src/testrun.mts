@@ -125,6 +125,7 @@ async function runTest(
         } satisfies PromptPexTestResult
     }
 
+    dbg(`running test %o`, test)
     const res = await measure("test.run", () =>
         generator.runPrompt(
             (ctx) => {
