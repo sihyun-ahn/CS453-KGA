@@ -131,7 +131,6 @@ async function runTest(
                 ctx.importTemplate(files.prompt, args, {
                     allowExtraArguments: true,
                 })
-                if (!Object.keys(inputs || {}).length) ctx.writeText(testInput)
             },
             {
                 ...moptions,

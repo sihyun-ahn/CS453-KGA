@@ -84,6 +84,33 @@ export async function generateTests(
                 .filter((l) => !!l)
                 .map((l) => `- ${l}`)
                 .join("\n")
+
+            const args = Object.fromEntries(
+                Object.entries(files.inputs).filter(([k]) => !parameters[k])
+            )
+            dbg(`open args: %O`, args)
+
+            const testinput_names = Object.keys(args).join(",")
+            const testinput_descriptions = Object.entries(args)
+                .map(
+                    ([k, v]) =>
+                        `- "${k}": ${v.type} = ${v.description || `Detailed input '${k}' provided to the software.`}`
+                )
+                .join("\n")
+            const testinput_example_1 = Object.keys(args)
+                .map((name) => `input '${name}' for rule 1 scenario 1`)
+                .join(",")
+            const testinput_example_2 = Object.keys(args)
+                .map((name) => `input '${name}' for rule 1 scenario 2`)
+                .join(",")
+
+            dbg(`testinput: %O`, {
+                testinput_names,
+                testinput_descriptions,
+                testinput_example_1,
+                testinput_example_2,
+            })
+
             await measure("gen.tests", () =>
                 generator.runPrompt(
                     (ctx) => {
@@ -94,13 +121,17 @@ export async function generateTests(
                             scenario: scenarioInstructions,
                             rule,
                             num_rules: rulesGroup.length,
+                            testinput_descriptions,
+                            testinput_names,
+                            testinput_example_1,
+                            testinput_example_2,
                         })
                         ctx.defChatParticipant((p, c) => {
                             const last: string = c.at(-1)?.content as string
                             dbg(`last message: %s`, last)
                             if (typeof last !== "string")
                                 throw new Error("Invalid last message")
-                            const csv = parseCsvTests(last)
+                            const csv = parseCsvTests(last, Object.keys(args))
                             if (!csv.length) {
                                 if (!repaired) {
                                     dbg(`no tests found, trying to repair`)
@@ -171,9 +202,13 @@ function chunkArray<T>(array: T[], n: number): T[][] {
     return result
 }
 
-function parseCsvTests(text: string): PromptPexTest[] {
+function parseCsvTests(
+    text: string,
+    testInputNames: string[]
+): PromptPexTest[] {
     if (!text) return []
     if (isUnassistedResponse(text)) return []
+
     const content = text.trim().replace(/\\"/g, '""')
     const rulesTests = content
         ? (CSV.parse(content, {
@@ -181,5 +216,22 @@ function parseCsvTests(text: string): PromptPexTest[] {
               repair: true,
           }) as PromptPexTest[])
         : []
-    return rulesTests.map((r) => ({ ...r, testinput: r.testinput || "" }))
+    return rulesTests.map((r) => {
+        const testinput: Record<string, string> = {}
+        for (const testInputName of testInputNames) {
+            const v = r[testInputName]
+            if (v === undefined) {
+                dbg(`testinput %s not found`, testInputName)
+                continue
+            }
+            testinput[testInputName] = v
+        }
+        return {
+            ...r,
+            testinput:
+                testInputNames.length > 1
+                    ? JSON.stringify(testinput)
+                    : testinput[testInputNames[0]],
+        }
+    })
 }

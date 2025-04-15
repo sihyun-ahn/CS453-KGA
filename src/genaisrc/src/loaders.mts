@@ -142,6 +142,7 @@ function parseInputs(
         patched = true
         inputs[PARAMETER_INPUT_TEXT] = {
             type: "string",
+            description: "Detailed input provided to the software.",
         } satisfies JSONSchemaString
         file.content += `\n{{${PARAMETER_INPUT_TEXT}}}`
     }
