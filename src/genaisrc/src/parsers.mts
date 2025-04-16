@@ -81,7 +81,7 @@ export function tidyRules(text: string) {
     return parsers
         .unfence(text, "")
         .split(/\n/g)
-        .map((line) => line.replace(/^(\d+\.|_|-|\*)\s+/i, "")) // unneded numbering
+        .map((line) => line.replace(/^(\d+\.|_|-|\*)\s+/i, "")) // un-needed numbering
         .filter((s) => !!s)
         .filter((s) => !/^\s*Rules:\s*$/i.test(s))
         .map((line) => line.replace(/^\["(.*)"\]$/, (_, rule) => rule)) // ["..."]

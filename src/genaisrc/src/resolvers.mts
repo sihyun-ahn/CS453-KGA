@@ -77,18 +77,14 @@ export function resolvePromptArgs(
         dbg(`input %s <- %s`, key, testinput)
         args[key] = testinput
     } else if (unresolved.size > 1) {
-        // not supported yet
-        dbg(`multiple unspecified inputs not supported: %O`, {
-            inputKeys,
-            unresolved,
-            testInput: testinput,
-        })
-        const parsedInputs = JSON.parse(testinput)
+        const parsedInputs = parsers.JSON5(testinput)
         dbg(`parsed inputs: %O`, parsedInputs)
-        if (typeof parsedInputs !== "object")
+        if (typeof parsedInputs !== "object") {
+            dbg(`invalid test input format: %o`, testinput)
             throw new Error(
                 `Invalid test input format, expected JSON object: ${testinput}`
             )
+        }
         Object.assign(args, parsedInputs)
     } else if (unresolved.size === 0 && inputKeys.length > 0) {
         dbg(
