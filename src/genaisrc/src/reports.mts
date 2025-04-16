@@ -101,17 +101,35 @@ export function computeOverview(
                             "ok"
                 ).length,
                 ...Object.fromEntries(
-                    files.metrics.map((m) => [
-                        metricName(m),
-                        tests.filter(
-                            (t) => t.metrics[metricName(m)].outcome === "ok"
-                        ),
-                    ])
+                    files.metrics.map((m) => {
+                        const n = metricName(m)
+                        const ms = tests
+                            .map((t) => t.metrics[n])
+                            .filter((m) => !!m)
+                        const scorer = ms.some((m) => !isNaN(m.score))
+                        return [
+                            n,
+                            scorer
+                                ? ms.reduce((total, m) => total + m.score, 0) /
+                                  ms.length
+                                : ms.filter((m) => m.outcome === "ok").length,
+                        ]
+                    })
                 ),
             }
         }
     )
     dbg(`overview: %d rows`, overview.length)
+
+    if (
+        overview.some((row) =>
+            Object.entries(row).some(([k, v], index) => typeof v === "object")
+        )
+    ) {
+        dbg(`overview has object fields %O`, overview)
+        throw new Error(`overview has invalid format`)
+    }
+
     return {
         testResults,
         testEvals,
