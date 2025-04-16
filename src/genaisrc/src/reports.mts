@@ -17,7 +17,7 @@ import type {
     PromptPexOptions,
 } from "./types.mts"
 const dbg = host.logger("promptpex:reports")
-const dbgtests = host.logger("promptpex:reports:tests")
+const dbgTests = host.logger("promptpex:reports:tests")
 
 export function computeOverview(
     files: PromptPexContext,
@@ -50,7 +50,7 @@ export function computeOverview(
             dbg(
                 `${key}: ${tests.length} tests, ${baseline.length} baseline, ${errors} errors`
             )
-            dbgtests("%O", tests)
+            dbgTests("%O", tests)
             const norm = (v: number) =>
                 tests.length === 0
                     ? "--"
@@ -155,10 +155,10 @@ async function generateMarkdownReport(files: PromptPexContext) {
     res.push("### Overview", "")
 
     const { overview } = computeOverview(files, { percent: true })
-    const overviewfn = path.join(files.dir, "overview.csv")
-    dbg(`overview: %s`, overviewfn)
+    const overviewFn = path.join(files.dir, "overview.csv")
+    dbg(`overview: %s`, overviewFn)
     await workspace.writeText(
-        overviewfn,
+        overviewFn,
         CSV.stringify(overview, { header: true })
     )
     res.push(
@@ -223,7 +223,11 @@ async function generateMarkdownReport(files: PromptPexContext) {
             res.push(CSV.markdownify(CSV.parse(file.content), { headers }))
         else if (lang === "json") {
             const data = parsers.JSON5(file.content)
-            if (Array.isArray(data) && typeof data[0] === "object")
+            if (
+                Array.isArray(data) &&
+                typeof data[0] === "object" &&
+                !Object.values(data[0]).some((f) => typeof f === "object")
+            )
                 res.push(CSV.markdownify(data, { headers }))
             else res.push("```json", file.content, "```")
         } else {
@@ -312,14 +316,14 @@ export async function generateJSONReport(files: PromptPexContext) {
 }
 
 export async function generateReports(files: PromptPexContext) {
-    const jsonreport = await generateJSONReport(files)
-    const fnjson = path.join(files.dir, "report.json")
-    dbg(`report (json): ${fnjson}`)
-    await workspace.writeText(fnjson, JSON.stringify(jsonreport, null, 2))
+    const jsonReport = await generateJSONReport(files)
+    const fnJson = path.join(files.dir, "report.json")
+    dbg(`report (json): ${fnJson}`)
+    await workspace.writeText(fnJson, JSON.stringify(jsonReport, null, 2))
 
-    const mdreport = await generateMarkdownReport(files)
+    const mdReport = await generateMarkdownReport(files)
     const fn = path.join(files.dir, "README.md")
     dbg(`report (markdown): ${fn}`)
-    await workspace.writeText(fn, mdreport)
+    await workspace.writeText(fn, mdReport)
     return fn
 }

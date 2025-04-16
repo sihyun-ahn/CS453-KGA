@@ -91,7 +91,7 @@ export async function generateTests(
             dbg(`open args: %O`, args)
 
             const argNames = Object.keys(args)
-            const testinput_names = argNames.join(",")
+            const testinput_names = argNames.join(", ")
             const testinput_descriptions = Object.entries(args)
                 .map(
                     ([k, v]) =>
