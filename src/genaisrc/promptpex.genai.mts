@@ -1,6 +1,8 @@
 import { checkConfirm } from "./src/confirm.mts"
+import { generateEvals } from "./src/evals.mts"
 import { diagnostics } from "./src/flags.mts"
 import { generateInputSpec } from "./src/inputspecgen.mts"
+import { generateIntent } from "./src/intentgen.mts"
 import { generateInverseOutputRules } from "./src/inverserulesgen.mts"
 import { loadPromptFiles } from "./src/loaders.mts"
 import { outputFile, outputLines } from "./src/output.mts"
@@ -266,6 +268,11 @@ user:
 </details>       
             `,
         },
+        createEvalRuns: {
+            type: "boolean",
+            description:
+                "Create an Evals run in OpenAI Evals. Requires OpenAI API key.",
+        },
     },
 })
 
@@ -291,6 +298,7 @@ const {
     splitRules,
     maxRulesPerTestGeneration,
     testGenerations,
+    createEvalRuns,
 } = vars as PromptPexOptions & {
     customMetric?: string
     prompt?: string
@@ -298,7 +306,7 @@ const {
     outputRulesInstructions?: string
     inverseOutputRulesInstructions?: string
 }
-const modelsUnderTest = (vars.modelsUnderTest || "")
+const modelsUnderTest: string[] = (vars.modelsUnderTest || "")
     .split(/;/g)
     .filter((m) => !!m)
 const options = {
@@ -325,6 +333,7 @@ const options = {
     splitRules,
     maxRulesPerTestGeneration,
     testGenerations,
+    createEvalRuns,
     out,
 } satisfies PromptPexOptions
 
@@ -339,7 +348,10 @@ initPerf({ output })
 const file = env.files[0] || { filename: "", content: promptText }
 const files = await loadPromptFiles(file, options)
 
-if (diagnostics) await generateReports(files)
+if (diagnostics) {
+    await generateReports(files)
+    await checkConfirm("diag")
+}
 
 output.detailsFenced(`options`, options, "yaml")
 
@@ -347,6 +359,12 @@ output.detailsFenced(`options`, options, "yaml")
 output.heading(3, `Prompt Under Test`)
 output.itemValue(`filename`, files.prompt.filename)
 output.fence(files.prompt.content, "md")
+
+// generate intent
+output.heading(3, "Intent")
+await generateIntent(files, options)
+outputFile(files.intent)
+await checkConfirm("intent")
 
 // generate input spec
 output.heading(3, "Input Specification")
@@ -380,6 +398,9 @@ output.table(
 output.detailsFenced(`tests (json)`, tests, "json")
 output.detailsFenced(`test data (json)`, files.testData.content, "json")
 await checkConfirm("test")
+
+await generateEvals(modelsUnderTest, files, tests, options)
+await checkConfirm("evals")
 
 if (!modelsUnderTest?.length) {
     output.warn(`No modelsUnderTest specified. Skipping test run.`)
