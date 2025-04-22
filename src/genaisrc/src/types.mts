@@ -218,9 +218,17 @@ export interface PromptPexContext {
     baselineTestEvals: WorkspaceFile
 
     /**
-     * Evaludation metrics prompt files
+     * Evaluation metrics prompt files
      */
     metrics: WorkspaceFile[]
+
+    /**
+     * Versions of tooling
+     */
+    versions: {
+        promptpex: string
+        node: string
+    }
 }
 
 export interface PromptPexTest {

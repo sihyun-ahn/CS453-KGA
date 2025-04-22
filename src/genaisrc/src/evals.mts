@@ -4,16 +4,10 @@ import type {
     PromptPexOptions,
     PromptPexTest,
 } from "./types.mts"
-import { metricName, parseTestEvals } from "./parsers.mts"
+import { metricName } from "./parsers.mts"
 import { OK_CHOICE, OK_ERR_CHOICES } from "./constants.mts"
 const dbg = host.logger("promptpex:evals")
 const { output } = env
-
-export interface EvalsOptions {
-    name?: string
-    model?: string
-    upload?: boolean
-}
 
 async function toEvalTemplate(file: WorkspaceFile) {
     const patched = {
@@ -89,15 +83,12 @@ const METRIC_SCHEMA = {
 
 async function evalsCreateRequest(
     files: PromptPexContext,
-    options?: PromptPexOptions & EvalsOptions
+    options?: PromptPexOptions
 ) {
-    const {
-        name = `${files.name} (promptpex)`,
-        model,
-        createEvalRuns,
-    } = options ?? {}
+    const { createEvalRuns } = options ?? {}
+    const name = `${files.name} (promptpex)`
     const { metrics, inputs } = files
-    const metricOptions = { model }
+    const metricOptions = { model: "gpt-4o" } // TODO: support other?
     const body = {
         name,
         data_source_config: {
@@ -117,6 +108,9 @@ async function evalsCreateRequest(
                 metricToTestingCriteria(metric, metricOptions)
             )
         ),
+        metadata: {
+            promptpex: files.versions.promptpex,
+        },
     } satisfies OpenAI.Evals.EvalCreateParams
     dbg(`%O`, body)
 
@@ -236,7 +230,7 @@ export async function generateEvals(
     models: string[],
     files: PromptPexContext,
     tests: PromptPexTest[],
-    options?: PromptPexOptions & EvalsOptions
+    options?: PromptPexOptions
 ) {
     output.heading(3, "Evals")
 

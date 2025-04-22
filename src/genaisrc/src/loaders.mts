@@ -13,6 +13,7 @@ import type {
     PromptPexPromptyFrontmatter,
 } from "./types.mts"
 import frontMatterSchema from "./frontmatter.json" with { type: "json" }
+import packageJson from "../../../package.json" with { type: "json" }
 const dbg = host.logger("promptpex:loaders")
 
 if (!frontMatterSchema) throw new Error("frontmatter schema not found")
@@ -109,6 +110,10 @@ export async function loadPromptFiles(
         ruleCoverages: await workspace.readText(ruleCoverage),
         baselineTestEvals: await workspace.readText(baselineTestEvals),
         metrics,
+        versions: {
+            promptpex: packageJson.version,
+            node: process.version,
+        },
     } satisfies PromptPexContext
 
     if (!disableSafety) await checkPromptSafety(res)
