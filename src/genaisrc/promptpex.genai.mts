@@ -402,7 +402,9 @@ await checkConfirm("test")
 await generateEvals(modelsUnderTest, files, tests, options)
 await checkConfirm("evals")
 
-if (!modelsUnderTest?.length) {
+if (createEvalRuns) {
+    output.note(`Evals run created, skipping local evals...`)
+} else if (!modelsUnderTest?.length) {
     output.warn(`No modelsUnderTest specified. Skipping test run.`)
 } else {
     // run tests against the model(s)

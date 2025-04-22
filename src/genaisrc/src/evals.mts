@@ -26,7 +26,10 @@ async function toEvalTemplate(file: WorkspaceFile) {
     const pp = await parsers.prompty(patched)
     return {
         input: pp.messages,
-        text: MD.content(patched.content).replace(/^(system|user|assistant):/gm, ""),
+        text: MD.content(patched.content).replace(
+            /^(system|user|assistant):/gm,
+            ""
+        ),
     }
 }
 
@@ -141,6 +144,9 @@ async function evalsCreateRequest(
         }
         const evalDef = (await res.json()) as { id: string }
         dbg(`eval: %O`, evalDef)
+        output.item(
+            `[eval dashboard](https://platform.openai.com/evaluations/${evalDef.id})`
+        )
         output.detailsFenced(`eval object`, evalDef, "json")
         return evalDef.id
     }
@@ -218,7 +224,10 @@ async function evalsCreateRun(
             output.fence(await res.text())
             throw new Error(`failed to upload eval run: ${res.statusText}`)
         }
-        const run = (await res.json()) as any
+        const run = (await res.json()) as { id: string; name: string }
+        output.item(
+            `[${run.name} dashboard](https://platform.openai.com/evaluations/${evalId}/data?run_id=${run.id})`
+        )
         output.detailsFenced(`eval run object`, run, "json")
     }
 }
@@ -229,6 +238,8 @@ export async function generateEvals(
     tests: PromptPexTest[],
     options?: PromptPexOptions & EvalsOptions
 ) {
+    output.heading(3, "Evals")
+
     const evalId = await evalsCreateRequest(files, options)
     dbg(`eval id: %s`, evalId)
     if (tests?.length) {
