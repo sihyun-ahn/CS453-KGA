@@ -13,8 +13,8 @@ async function toEvalTemplate(file: WorkspaceFile) {
     const patched = {
         filename: file.filename,
         content: file.content.replace(/\{\{\s*(?<id>\w+)\s*\}\}/g, (_, id) => {
-            if (id === "output") return "{{ sample.output_text }}"
-            return `{{ item.${id} }}`
+            if (id === "output") return "{{sample.output_text}}"
+            return `{{item.${id}}}`
         }),
     }
     const pp = await parsers.prompty(patched)
@@ -37,8 +37,8 @@ async function metricToTestingCriteria(
     const scorer = fm.tags?.includes("scorer")
     const { input } = await toEvalTemplate(metric)
     dbg(`input: %O`, input)
-    // {{ output }} -> {{ sample.output_text }}
-    // {{ * }} -> {{ item.input }}
+    // {{output}} -> {{sample.output_text}}
+    // {{*}} -> {{item.input}}
     if (scorer)
         return {
             type: "score_model",
