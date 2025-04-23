@@ -52,7 +52,7 @@ export async function convertToTestData(
             JSON.stringify(testDataRaw, null, 2)
         )
         await workspace.writeText(
-            path.changeext(files.testData.filename, ".data.raw.json"),
+            path.changeext(files.testData.filename, ".training.json"),
             JSON.stringify(testDataDataRaw, null, 2)
         )
     }
