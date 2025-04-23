@@ -43,9 +43,12 @@ export async function generateTests(
     outputWorkflowDiagram(DIAGRAM_GENERATE_TESTS, options)
 
     const scenarios = resolveScenarios(files)
-    dbg(`scenarios: ${scenarios.length}`)
+    dbg(`scenarios: %d`, scenarios.length)
     const context = MD.content(files.prompt.content)
     const pn = PROMPT_GENERATE_TESTS
+    const testSamples = (files.testSamples || []).slice(0, 5)
+    const test_samples = testSamples?.length ? YAML.stringify(testSamples) : ""
+    dbg(`test samples: %d`, test_samples)
 
     await outputPrompty(pn, options)
 
@@ -129,6 +132,7 @@ export async function generateTests(
                             testinput_example_1,
                             testinput_example_2,
                             testinput_count,
+                            test_samples,
                         })
                         ctx.defChatParticipant((p, c) => {
                             const last: string = c.at(-1)?.content as string
@@ -213,9 +217,9 @@ function parseCsvTests(
     if (!text) return []
     if (isUnassistedResponse(text)) return []
 
-    const content = text.trim().replace(/\\"/g, '""')
+    const content = parsers.unfence(text.trim().replace(/\\"/g, '""'), "csv")
     const rulesTests = content
-        ? (CSV.parse(content, {
+        ? (parsers.CSV(content, {
               delimiter: ",",
               repair: true,
           }) as PromptPexTest[])
