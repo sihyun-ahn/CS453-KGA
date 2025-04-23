@@ -379,6 +379,8 @@ To enable this mode, you need to
 - set the `OPENAI_API_KEY` environment variable to your OpenAI API key
 - set the `createEvalRuns` parameter to true.
 
+![A screenshot of the evals screen in openai](https://github.com/user-attachments/assets/988f9b7e-95a9-450f-9475-61a887a3f85f)
+
 ## Intended Uses
 
 PromptPex is shared for research purposes only. It is not meant to be used in practice. PromptPex was not extensively tested for its capabilities and properties, including its accuracy and reliability in practical use cases, security and privacy.
