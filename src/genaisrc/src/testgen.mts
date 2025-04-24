@@ -46,6 +46,7 @@ export async function generateTests(
     dbg(`scenarios: %d`, scenarios.length)
     const context = MD.content(files.prompt.content)
     const pn = PROMPT_GENERATE_TESTS
+    // TODO: parameterize how many and which test samples to use
     const testSamples = (files.testSamples || []).slice(0, 5)
     const test_samples = testSamples?.length ? YAML.stringify(testSamples) : ""
     dbg(`test samples: %d`, test_samples)
@@ -215,7 +216,6 @@ function parseCsvTests(
     testInputNames: string[]
 ): PromptPexTest[] {
     if (!text) return []
-    if (isUnassistedResponse(text)) return []
 
     const content = parsers.unfence(text.trim().replace(/\\"/g, '""'), "csv")
     const rulesTests = content
@@ -224,7 +224,7 @@ function parseCsvTests(
               repair: true,
           }) as PromptPexTest[])
         : []
-    return rulesTests
+    const res = rulesTests
         .map((r) => {
             const testinput: Record<string, string> = {}
             for (const testInputName of testInputNames) {
@@ -244,4 +244,7 @@ function parseCsvTests(
             }
         })
         .filter((t) => !!t)
+    if (!res.length)
+        output.detailsFenced(`tests - unable to parse`, text, "text")
+    return res
 }

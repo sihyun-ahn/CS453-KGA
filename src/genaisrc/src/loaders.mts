@@ -75,7 +75,10 @@ export async function loadPromptFiles(
     })
     const inputs = frontmatter.inputs as Record<string, JSONSchemaSimpleType>
     if (!inputs) throw new Error(`prompt ${promptFile.filename} has no inputs`)
-    const testSamples = await parseTestSamples(frontmatter)
+    const testSamples = await parseTestSamples(
+        filename ? path.dirname(filename) : undefined,
+        frontmatter
+    )
     const metricGlobs = [path.join(PROMPT_DIR, "*.metric.prompty")]
     if (filename)
         metricGlobs.push(path.join(path.dirname(filename), "*.metric.prompty"))
@@ -168,7 +171,7 @@ async function checkPromptFiles() {
     }
 }
 
-async function parseTestSamples(fm: PromptPexPromptyFrontmatter) {
+async function parseTestSamples(dir: string, fm: PromptPexPromptyFrontmatter) {
     const { testSamples } = fm
     if (!testSamples) return undefined
 
@@ -177,8 +180,13 @@ async function parseTestSamples(fm: PromptPexPromptyFrontmatter) {
     for (const sample of testSamples) {
         if (typeof sample === "string") {
             dbg(`loading test sample %s`, sample)
-            let data = await workspace.readData(sample)
+            const sampleFile = path.resolve(
+                dir ? path.join(dir, sample) : sample
+            )
+            dbg(`resolved sample file %s`, sampleFile)
+            let data = await workspace.readData(sampleFile)
             dbg(`%O`, data)
+            if (!data) throw new Error(`test sample ${sample} not found`)
             if (
                 !Array.isArray(data) &&
                 typeof data === "object" &&
