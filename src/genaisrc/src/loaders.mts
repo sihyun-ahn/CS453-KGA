@@ -177,8 +177,16 @@ async function parseTestSamples(fm: PromptPexPromptyFrontmatter) {
     for (const sample of testSamples) {
         if (typeof sample === "string") {
             dbg(`loading test sample %s`, sample)
-            const data = await workspace.readData(sample)
+            let data = await workspace.readData(sample)
             dbg(`%O`, data)
+            if (
+                !Array.isArray(data) &&
+                typeof data === "object" &&
+                Object.keys(data).length === 1
+            ) {
+                dbg(`using first field`)
+                data = data[Object.keys(data)[0]]
+            }
             if (!Array.isArray(data))
                 throw new Error(`test sample is not an array`)
             if (data.some((d) => typeof d !== "object"))
