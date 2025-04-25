@@ -1,6 +1,8 @@
 import { diagnostics } from "./flags.mts"
 import type {
     PromptPexContext,
+    PromptPexEvalResultType,
+    PromptPexEvaluation,
     PromptPexModelAliases,
     PromptPexOptions,
     PromptPexRuleEval,
@@ -8,8 +10,13 @@ import type {
     PromptPexTestEval,
     PromptPexTestResult,
 } from "./types.mts"
+const dbg = host.logger("promptpex:parsers")
 
 const { output } = env
+
+export function metricName(metric: WorkspaceFile) {
+    return path.basename(metric.filename).replace(/\.metric\.prompty$/, "")
+}
 
 export function modelOptions(
     modelAlias: PromptPexModelAliases,
@@ -19,37 +26,54 @@ export function modelOptions(
     return {
         model: modelAliases?.[modelAlias] || modelAlias,
         temperature,
-        // responseType: "text",
-        // RAI must be checked by an external service
         system: [],
-        cache
+        cache,
     }
-}
-
-export function parseInputs(file: WorkspaceFile) {
-    const frontmatter = MD.frontmatter(file.content) || {}
-    const inputs = frontmatter["inputs"] || {}
-    // under specified inputs, try to find any missing inputs
-    // using regex
-    if (!Object.keys(inputs).length) {
-        file.content.replace(/{{\s*([^}\s]+)\s*}}/g, (_, key) => {
-            inputs[key] = { type: "string" }
-            return ""
-        })
-    }
-
-    return inputs
 }
 
 export function isUnassistedResponse(text: string) {
     return /i can't assist with that|i'm sorry/i.test(text)
 }
 
-export function checkLLMResponse(res: RunPromptResult) {
-    if (res.error) throw new Error(res.error.message)
-    if (isUnassistedResponse(res.text))
-        throw new Error("LLM failed to generate response")
+export function checkLLMResponse(
+    res: RunPromptResult,
+    options?: { allowUnassisted: boolean }
+) {
+    if (!res) throw new Error("LLM response is undefined")
+    if (res.error) {
+        dbg(`LLM error: %O`, res.error)
+        output.warn(`LLM error: ${res.error.message}`)
+        output.fence(res.error, "yaml")
+        throw new Error(res.error.message)
+    }
+    if (isUnassistedResponse(res.text)) {
+        if (!options?.allowUnassisted)
+            throw new Error("LLM failed to generate response")
+        else output.warn(`unassisted response: ${res.text}`)
+    }
     return parsers.unfence(res.text, "")
+}
+
+function parseScore(text: string) {
+    const res = parsers.JSONLLM(text)
+    if (typeof res === "object" && typeof res.score === "number")
+        return res.score
+    return undefined
+}
+
+export function checkLLMEvaluation(
+    res: RunPromptResult,
+    options?: { allowUnassisted: boolean }
+): PromptPexEvaluation {
+    const content = checkLLMResponse(res, options)
+    const score = parseScore(content)
+    return {
+        content,
+        uncertainty: res.uncertainty,
+        perplexity: res.perplexity,
+        score,
+        outcome: isNaN(score) ? parseOKERR(content) : undefined,
+    } satisfies PromptPexEvaluation
 }
 
 export function tidyRules(text: string) {
@@ -57,9 +81,10 @@ export function tidyRules(text: string) {
     return parsers
         .unfence(text, "")
         .split(/\n/g)
-        .map((line) => line.replace(/^(\d+\.|_|-|\*)\s+/i, "")) // unneded numbering
+        .map((line) => line.replace(/^(\d+\.|_|-|\*)\s+/i, "")) // un-needed numbering
         .filter((s) => !!s)
         .filter((s) => !/^\s*Rules:\s*$/i.test(s))
+        .map((line) => line.replace(/^\["(.*)"\]$/, (_, rule) => rule)) // ["..."]
         .join("\n")
 }
 
@@ -68,25 +93,20 @@ export function tidyRulesFile(file: WorkspaceFile) {
     return file
 }
 
-export function parseRules(rules: string) {
-    return rules
+export function parseRules(rules: string, options?: PromptPexOptions) {
+    const { maxRules } = options || {}
+    const res = rules
         ? tidyRules(rules)
               .split(/\r?\n/g)
               .map((l) => l.trim())
               .filter((l) => !!l)
         : []
+    return maxRules > 0 ? res.slice(0, maxRules) : res
 }
 
 export function parseRulesTests(text: string): PromptPexTest[] {
     if (!text) return []
-    if (isUnassistedResponse(text)) return []
-    const content = text.trim().replace(/\\"/g, '""')
-    const rulesTests = content
-        ? (CSV.parse(content, {
-              delimiter: ",",
-              repair: true,
-          }) as PromptPexTest[])
-        : []
+    const rulesTests: PromptPexTest[] = parsers.JSON5(text) || []
     return rulesTests.map((r) => ({ ...r, testinput: r.testinput || "" }))
 }
 
@@ -99,6 +119,7 @@ export function parseTestResults(
     res.forEach((r) => {
         r.inverse =
             r.ruleid !== null && parseInt(r.ruleid as any) > rules.length
+        r.metrics = r.metrics || {}
     })
     for (const r of res.filter((r) => !r.error && !r.model)) {
         output.warn(
@@ -152,21 +173,22 @@ export function parsBaselineTestEvals(files: PromptPexContext) {
 }
 
 export function parseAllRules(
-    files: PromptPexContext
-): { rule: string; inverse?: boolean }[] {
-    const rules = parseRules(files.rules.content)
-    const inverseRules = parseRules(files.inverseRules.content)
+    files: PromptPexContext,
+    options?: PromptPexOptions
+) {
+    const rules = parseRules(files.rules.content, options)
+    const inverseRules = parseRules(files.inverseRules.content, options)
     const allRules = [
-        ...rules.map((rule) => ({ rule })),
+        ...rules.map((rule) => ({ rule, inverse: false })),
         ...inverseRules.map((rule) => ({ rule, inverse: true })),
     ]
     return allRules
 }
 
-export function parseOKERR(text: string): "err" | "ok" | undefined {
+export function parseOKERR(text: string): PromptPexEvalResultType | undefined {
     return /(^|\W)ERR\s*$/.test(text)
         ? "err"
         : /(^|\W)OK\s*$/.test(text)
           ? "ok"
-          : undefined
+          : "unknown"
 }

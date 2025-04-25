@@ -1,17 +1,3 @@
----
-name: Extract Elements of Text
-description: Extract specific elements of text from a given text
-source: OpenAI documentation
-url: https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-the-openai-api
-tags:
-  - sample
-  - unlisted
-  - paper
-inputs: 
-   text:
-      type: string
----
-system:
 Extract the important entities mentioned in the text below. First extract all company names, then extract all people names, then extract specific topics which fit the content and finally extract general overarching themes
 
 Desired format:
@@ -19,5 +5,5 @@ Company names: <comma_separated_list_of_company_names>
 People names: -||-
 Specific topics: -||-
 General themes: -||-
-user:
-Text: {{text}}
+
+Text: {text}

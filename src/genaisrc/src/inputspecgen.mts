@@ -1,4 +1,7 @@
-import { PROMPT_GENERATE_INPUT_SPEC } from "./constants.mts"
+import {
+    DIAGRAM_GENERATE_INPUT_SPEC,
+    PROMPT_GENERATE_INPUT_SPEC,
+} from "./constants.mts"
 import { outputWorkflowDiagram, outputPrompty } from "./output.mts"
 import { modelOptions, checkLLMResponse, tidyRules } from "./parsers.mts"
 import { measure } from "./perf.mts"
@@ -8,17 +11,17 @@ const { generator } = env
 export async function generateInputSpec(
     files: PromptPexContext,
     options?: PromptPexOptions
-) {
-    const instructions = options?.instructions?.inputSpec || ""
-    outputWorkflowDiagram(
-        `PUT(["Prompt Under Test (PUT)"])
-IS["Input Specification (IS)"]
-PUT --> IS`,
-        options
-    )
+): Promise<void> {
+    const instructions =
+        options?.instructions?.inputSpec ||
+        files.frontmatter?.instructions?.inputSpec ||
+        ""
+    outputWorkflowDiagram(DIAGRAM_GENERATE_INPUT_SPEC, options)
 
     const { rulesModel = "rules" } = options || {}
     const context = MD.content(files.prompt.content)
+    const testSamples = (files.testSamples || []).slice(0, 5)
+    const examples = testSamples?.length ? YAML.stringify(testSamples) : ""
     const pn = PROMPT_GENERATE_INPUT_SPEC
     await outputPrompty(pn, options)
     const res = await measure("gen.inputspec", () =>
@@ -27,14 +30,15 @@ PUT --> IS`,
                 ctx.importTemplate(pn, {
                     context,
                     instructions,
+                    examples,
                 })
             },
             {
                 ...modelOptions(rulesModel, options),
-                //      logprobs: true,
-                label: `${files.name}> generate input spec`,
+                label: `${files.name}> input spec`,
             }
         )
     )
-    return tidyRules(checkLLMResponse(res))
+    files.inputSpec.content = tidyRules(checkLLMResponse(res))
+    if (files.writeResults) await workspace.writeFiles([files.inputSpec])
 }

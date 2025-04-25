@@ -13,9 +13,12 @@ const { generator } = env
 export async function generateInverseOutputRules(
     files: PromptPexContext,
     options?: PromptPexOptions
-) {
+): Promise<void> {
     const { rulesModel = "rules" } = options || {}
-    const instructions = options?.instructions?.inverseOutputRules || ""
+    const instructions =
+        options?.instructions?.inverseOutputRules ||
+        files.frontmatter?.instructions?.inverseOutputRules ||
+        ""
     outputWorkflowDiagram(
         `OR["Output Rules (OR)"]
 IOR["Inverse Output Rules (IOR)"]
@@ -58,5 +61,6 @@ OR --> IOR
         )
     }
 
-    return irules
+    files.inverseRules.content = irules
+    if (files.writeResults) await workspace.writeFiles([files.inverseRules])
 }

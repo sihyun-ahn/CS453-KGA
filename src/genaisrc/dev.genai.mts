@@ -9,19 +9,21 @@ import { generateIntent } from "./src/intentgen.mts"
 import { generateOutputRules } from "./src/rulesgen.mts"
 import { loadFabricPrompts } from "./src/fabricloader.mts"
 import { generateInverseOutputRules } from "./src/inverserulesgen.mts"
+import { evaluateTestsQuality } from "./src/testquality.mts"
 
 script({
     title: "PromptPex Dev",
     unlisted: true,
     files: [
-        "samples/speech-tag/speech-tag.prompty",
+        "samples/demo/demo.prompty",
+        /*        "samples/speech-tag/speech-tag.prompty",
         "samples/text-to-p/text-to-p.prompty",
         "samples/openai-examples/elements.prompty",
         "samples/big-prompt-lib/art-prompt.prompty",
         "samples/prompt-guide/extract-names.prompty",
         "samples/text-classification/classify-input-text.prompty",
         "samples/big-prompt-lib/sentence-rewrite.prompty",
-        "samples/azure-ai-studio/shakespearean-writing-assistant.prompty",
+        "samples/azure-ai-studio/shakespearean-writing-assistant.prompty",*/
     ],
     parameters: {
         fabric: {
@@ -44,6 +46,7 @@ const { fabric, samplePrompts } = vars as {
 const out = "evals/dev"
 const commOptions: PromptPexOptions = {
     outputPrompts: true,
+    cache: true,
     evalCache: true,
 }
 
@@ -52,19 +55,30 @@ const repeatInputSpec = 1
 const repeatRules = 1
 const repeatInverseRules = 1
 const repeatTests = 1
-const repeatBaselineTests = 1
-const repeastRulesGroundedness = 5
+const repeatBaselineTests = 0
+const repeastRulesGroundedness = 0
+const repeatTestsQualityEval = 1
 const configs: (PromptPexOptions & { name: string })[] = [
     {
+        name: "github",
+        modelAliases: {
+            large: "not-supported",
+            small: "not-supported",
+            rules: "github:gpt-4o",
+            eval: "github:gpt-4o",
+            baseline: "github:gpt-4o",
+        },
+    },
+    /*    {
         name: "gpt-4o",
         modelAliases: {
             large: "not-supported",
             small: "not-supported",
-            rules: "azure:gpt-4o_2024-08-06",
-            eval: "azure:gpt-4o_2024-08-06",
-            baseline: "azure:gpt-4o_2024-08-06",
+            rules: "azure:gpt-4o_2024-11-20",
+            eval: "azure:gpt-2024-11-20",
+            baseline: "azure:gpt-4o_2024-11-20",
         },
-    },
+    },*/
     /*    {
         name: "llama3.3:70b",
         modelAliases: {
@@ -131,7 +145,7 @@ async function apply(
     fn: (
         files: PromptPexContext,
         options: PromptPexOptions
-    ) => Awaitable<string>
+    ) => Awaitable<unknown>
 ) {
     output.heading(2, title)
     const table = []
@@ -149,7 +163,6 @@ async function apply(
             for (let i = 0; i < repeat; ++i) {
                 const res = await fn(files, { ...commOptions, ...restConfig })
                 if (file) {
-                    file.content = res
                     output.fence(file.content, "text")
                 }
                 row[`${config.name}/${i}`] = res
@@ -174,7 +187,7 @@ await apply(
     (files, options) => generateInputSpec(files, options)
 )
 await apply("Rules", repeatRules, undefined, async (files, options) => {
-    files.rules.content = await generateOutputRules(files, options)
+    await generateOutputRules(files, options)
     output.fence(files.rules.content, "text")
 
     output.heading(3, "Evaluating Rules Groundedness")
@@ -236,4 +249,10 @@ await apply(
         output.detailsFenced(`data`, res, "csv")
         return ""
     }
+)
+await apply(
+    "Evaluate Tests Quality",
+    repeatTestsQualityEval,
+    (_) => _.testEvals,
+    async (files, options) => await evaluateTestsQuality(files, options)
 )

@@ -1,5 +1,5 @@
-import { DOCS_GLOSSARY } from "./constants.mts"
 import {
+    metricName,
     parseAllRules,
     parseBaselineTests,
     parseRuleEvals,
@@ -8,83 +8,128 @@ import {
     parseTestEvals,
     parseTestResults,
 } from "./parsers.mts"
+import { groupBy } from "genaiscript/runtime"
 import { resolveRule } from "./resolvers.mts"
-import type { PromptPexContext, PromptPexTestResult } from "./types.mts"
+import type {
+    PromptPexContext,
+    PromptPexEvalResultType,
+    PromptPexEvaluation,
+    PromptPexOptions,
+} from "./types.mts"
+const dbg = host.logger("promptpex:reports")
+const dbgTests = host.logger("promptpex:reports:tests")
 
 export function computeOverview(
     files: PromptPexContext,
-    options?: { percent?: boolean }
+    options?: PromptPexOptions & { percent?: boolean }
 ) {
     const { percent } = options || {}
     const testResults = parseTestResults(files)
+    dbg(`testResults: %d`, testResults.length)
     const testEvals = parseTestEvals(files)
-    const rules = parseAllRules(files)
+    dbg(`testEvals: %d`, testEvals.length)
+    const rules = parseAllRules(files, options)
+    dbg(`rules: %d`, rules.length)
     const ruleEvals = parseRuleEvals(files)
-    const testResultsPerModels = testResults.reduce(
-        (acc, result) => {
-            const group = result.error ? "error" : result.model || "???"
-            if (!acc[group]) acc[group] = []
-            acc[group].push(result)
-            return acc
-        },
-        {} as Record<string, PromptPexTestResult[]>
+    dbg(`ruleEvals: %d`, ruleEvals.length)
+
+    const defaultScenario = testResults.find((tr) => tr.scenario)?.scenario
+    const testResultsPerModelsAndScenario = groupBy(
+        testResults,
+        (result) => `${result.model}:${result.scenario || defaultScenario}`
     )
-    const overview = Object.entries(testResultsPerModels).map(
-        ([model, results]) => {
-            const tests = results.filter((tr) => tr.rule).length
+    const overview = Object.entries(testResultsPerModelsAndScenario).map(
+        ([key, results]) => {
+            const { model, scenario, error } = results[0]
+            const tests = results.filter((tr) => !tr.error && tr.rule)
+            const testPositives = tests.filter((tr) => !tr.inverse)
+            const testNegatives = tests.filter((tr) => tr.inverse)
+            const errors =
+                (error ? 1 : 0) + results.filter((tr) => tr.error).length
+            const baseline = results.filter((tr) => !tr.error && !tr.rule)
+            dbg(
+                `${key}: ${tests.length} tests, ${baseline.length} baseline, ${errors} errors`
+            )
+            dbgTests("%O", tests)
             const norm = (v: number) =>
-                tests === 0
+                tests.length === 0
                     ? "--"
                     : percent
-                      ? Math.round((v / tests) * 100) + "%"
+                      ? Math.round((v / tests.length) * 100) + "%"
                       : v
-            const baseline = results.filter((tr) => !tr.rule).length
             const bnorm = (v: number) =>
-                baseline === 0
+                baseline.length === 0
                     ? "--"
                     : percent
-                      ? Math.round((v / baseline) * 100) + "%"
+                      ? Math.round((v / baseline.length) * 100) + "%"
                       : v
             return {
                 model,
-                tests,
+                scenario,
+                errors,
+                tests: tests.length,
                 ["tests compliant"]: norm(
-                    results.filter((tr) => tr.rule && tr.compliance === "ok")
-                        .length
+                    tests.filter((tr) => tr.compliance === "ok").length
+                ),
+                ["tests compliance unknown"]: norm(
+                    tests.filter(
+                        (tr) =>
+                            tr.compliance !== "ok" && tr.compliance !== "err"
+                    ).length
                 ),
                 ["baseline compliant"]: bnorm(
-                    results.filter((tr) => !tr.rule && tr.compliance === "ok")
-                        .length
+                    baseline.filter((tr) => tr.compliance === "ok").length
                 ),
-                ["tests positive"]: results.filter(
-                    (tr) => tr.rule && !tr.inverse
+                ["tests positive"]: testPositives.length,
+                ["tests positive compliant"]: testPositives.filter(
+                    (tr) => tr.compliance === "ok"
                 ).length,
-                ["tests positive compliant"]: results.filter(
-                    (tr) => tr.rule && !tr.inverse && tr.compliance === "ok"
+                ["tests negative"]: testNegatives.length,
+                ["tests negative compliant"]: testNegatives.filter(
+                    (tr) => tr.compliance === "ok"
                 ).length,
-                ["tests negative"]: results.filter(
-                    (tr) => tr.rule && tr.inverse
-                ).length,
-                ["tests negative compliant"]: results.filter(
-                    (tr) => tr.rule && tr.inverse && tr.compliance === "ok"
-                ).length,
-                baseline,
-                ["tests valid"]: results.filter(
+                baseline: baseline.length,
+                ["tests valid"]: tests.filter(
                     (tr) =>
-                        tr.rule &&
                         testEvals.find((te) => te.id === tr.id)?.validity ===
-                            "ok"
+                        "ok"
                 ).length,
-                ["tests valid compliant"]: results.filter(
+                ["tests valid compliant"]: tests.filter(
                     (tr) =>
-                        tr.rule &&
                         tr.compliance === "ok" &&
                         testEvals.find((te) => te.id === tr.id)?.validity ===
                             "ok"
                 ).length,
+                ...Object.fromEntries(
+                    files.metrics.map((m) => {
+                        const n = metricName(m)
+                        const ms = tests
+                            .map((t) => t.metrics[n])
+                            .filter((m) => !!m)
+                        const scorer = ms.some((m) => !isNaN(m.score))
+                        return [
+                            n,
+                            scorer
+                                ? ms.reduce((total, m) => total + m.score, 0) /
+                                  ms.length
+                                : ms.filter((m) => m.outcome === "ok").length,
+                        ]
+                    })
+                ),
             }
         }
     )
+    dbg(`overview: %d rows`, overview.length)
+
+    if (
+        overview.some((row) =>
+            Object.entries(row).some(([k, v], index) => typeof v === "object")
+        )
+    ) {
+        dbg(`overview has object fields %O`, overview)
+        throw new Error(`overview has invalid format`)
+    }
+
     return {
         testResults,
         testEvals,
@@ -107,6 +152,9 @@ async function generateMarkdownReport(files: PromptPexContext) {
     const ts = testResults.length
     const oks = testResults.filter((t) => t.compliance === "ok").length
     const errs = testResults.filter((t) => t.compliance === "err").length
+    const unknowns = testResults.filter(
+        (t) => t.compliance !== "ok" && t.compliance !== "err"
+    ).length
     const rp = (n: number, t: number) =>
         `${n}/${t} (${Math.floor((n / t) * 100)}%)`
 
@@ -117,21 +165,18 @@ async function generateMarkdownReport(files: PromptPexContext) {
         `- ${inverseRules?.length ?? 0} inverse rules`,
         `- ${tests.length ?? 0} tests, ${tests.filter((t) => t.baseline).length} baseline tests`,
         testResults?.length
-            ? `- ${testResults?.length ?? 0} test results, ${rp(oks, ts)} oks, ${rp(errs, ts)} errs`
+            ? `- ${testResults?.length ?? 0} test results, ${rp(oks, ts)} oks, ${rp(errs, ts)} errs, ${rp(unknowns, ts)} unknowns`
             : undefined,
         ``,
     ].filter((l) => l !== undefined)
 
     res.push("### Overview", "")
-    res.push(`<details><summary>Glossary</summary>
-    
-${DOCS_GLOSSARY}
 
-</details>
-`)
     const { overview } = computeOverview(files, { percent: true })
+    const overviewFn = path.join(files.dir, "overview.csv")
+    dbg(`overview: %s`, overviewFn)
     await workspace.writeText(
-        path.join(files.dir, "overview.csv"),
+        overviewFn,
         CSV.stringify(overview, { header: true })
     )
     res.push(
@@ -147,13 +192,22 @@ ${DOCS_GLOSSARY}
         const ext = path.extname(file.filename).slice(1)
         const headers =
             file === files.testOutputs
-                ? ["model", "rule", "input", "output", "compliance"]
+                ? ["model", "scenario", "rule", "input", "output", "compliance"]
                 : file === files.tests
-                  ? ["testinput", "expectedoutput", "reasoning"]
+                  ? ["scenario", "testinput", "expectedoutput", "reasoning"]
                   : file === files.baselineTests
                     ? ["testinput"]
                     : file === files.testEvals
-                      ? ["rule", "model", "input", "coverage", "validity"]
+                      ? [
+                            "scenario",
+                            "rule",
+                            "model",
+                            "input",
+                            "coverage",
+                            "coverageUncertainty",
+                            "validity",
+                            "validityUncertainty",
+                        ]
                       : file === files.ruleEvals
                         ? ["ruleid", "rule", "grounded"]
                         : file === files.baselineTestEvals
@@ -163,17 +217,35 @@ ${DOCS_GLOSSARY}
             {
                 prompty: "md",
             }[ext] || ext
-        res.push(
-            "",
-            `### [${path.basename(file.filename)}](./${path.basename(file.filename)})`,
-            ""
-        )
+        const title = `[${path.basename(file.filename)}](./${path.basename(file.filename)})`
+        const useDetails =
+            file === files.baselineTestEvals ||
+            file === files.baselineTests ||
+            file === files.ruleEvals ||
+            file === files.testEvals ||
+            file === files.tests ||
+            file === files.ruleCoverages ||
+            file === files.testOutputs
+        if (useDetails)
+            res.push(
+                "",
+                "<details>",
+                `<summary>${path.basename(file.filename)}</summary>`,
+                "",
+                `- ${title}`,
+                ""
+            )
+        else res.push("", `### ${title}`, "")
 
         if (lang === "csv")
             res.push(CSV.markdownify(CSV.parse(file.content), { headers }))
         else if (lang === "json") {
             const data = parsers.JSON5(file.content)
-            if (Array.isArray(data) && typeof data[0] === "object")
+            if (
+                Array.isArray(data) &&
+                typeof data[0] === "object" &&
+                !Object.values(data[0]).some((f) => typeof f === "object")
+            )
                 res.push(CSV.markdownify(data, { headers }))
             else res.push("```json", file.content, "```")
         } else {
@@ -183,11 +255,14 @@ ${DOCS_GLOSSARY}
                 content = addLineNumbers(content, 1 + inverseRules.length)
             res.push(`${fence}${lang}`, content || "", `${fence}`, ``)
         }
+
+        if (useDetails) res.push("</details>", "")
     }
 
     for (const file of Object.values(files))
         if (typeof file === "object" && file.filename && file.content)
             appendFile(file as WorkspaceFile)
+    for (const metric of files.metrics) appendFile(metric)
 
     return res.filter((l) => l !== undefined).join("\n")
 }
@@ -197,6 +272,22 @@ function addLineNumbers(text: string, start: number) {
         .split(/\r?\n/gi)
         .map((l, i) => `${start + i}: ${l}`)
         .join("\n")
+}
+
+export function renderEvaluationOutcome(outcome: PromptPexEvalResultType) {
+    return outcome === "ok"
+        ? "✅"
+        : outcome === "err"
+          ? "❌"
+          : outcome === "unknown"
+            ? "❓"
+            : ""
+}
+
+export function renderEvaluation(res: PromptPexEvaluation) {
+    const { score, outcome } = res
+    if (typeof score === "number") return String(score)
+    return renderEvaluationOutcome(outcome)
 }
 
 export async function generateJSONReport(files: PromptPexContext) {
@@ -243,14 +334,14 @@ export async function generateJSONReport(files: PromptPexContext) {
 }
 
 export async function generateReports(files: PromptPexContext) {
-    const jsonreport = await generateJSONReport(files)
-    await workspace.writeText(
-        path.join(files.dir, "report.json"),
-        JSON.stringify(jsonreport, null, 2)
-    )
+    const jsonReport = await generateJSONReport(files)
+    const fnJson = path.join(files.dir, "report.json")
+    dbg(`report (json): ${fnJson}`)
+    await workspace.writeText(fnJson, JSON.stringify(jsonReport, null, 2))
 
-    const mdreport = await generateMarkdownReport(files)
+    const mdReport = await generateMarkdownReport(files)
     const fn = path.join(files.dir, "README.md")
-    await workspace.writeText(fn, mdreport)
+    dbg(`report (markdown): ${fn}`)
+    await workspace.writeText(fn, mdReport)
     return fn
 }

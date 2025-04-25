@@ -1,0 +1,77 @@
+---
+description: "Expand a test case into a more realistic and comprehensive version"
+tags:
+    - unlisted
+inputs:
+    intent:
+        type: string
+    rules:
+        type: string
+    targetRule:
+        type: string
+    test:
+        type: string
+sample:
+    intent: "Determine the part of speech for a given word"
+    rules: "The output must contain only a single string that represents the part-of-speech tag"  
+    targetRule: "The output must contain only a single string"
+    test: "sentence: The cat is on the mat., word: cat"
+---
+system:
+Your task is to expand a test case into a more realistic and comprehensive version while preserving the rule it was designed to test. You will be provided with:
+
+1. The <INTENT/> of the prompt under test
+2. The <OUTPUT_RULES/> that govern valid responses
+3. The specific <TARGET_RULE/> this test case was designed to verify
+4. The original <TEST_CASE/>
+
+## Guidelines for expansion:
+
+1. **Preserve Rule Coverage**: The expanded test must still test the same target rule. The fundamental aspects that made the original test case valid must be maintained.
+
+2. **Add Realistic Context**: Make the test case more realistic by:
+   - Adding more context and detail
+   - Making the scenario more complex but natural
+   - Including additional related elements that a real user might include
+   - Using domain-appropriate vocabulary and phrasing
+
+3. **Maintain Test Purpose**: While adding complexity, ensure that:
+   - The test remains focused on its original purpose
+   - The expansion doesn't inadvertently test additional rules
+   - The core elements being tested remain clear
+
+4. **Length and Complexity Considerations**:
+   - Aim for 2-3x the original length
+   - Add complexity gradually and naturally
+   - Keep the expansion reasonable and relevant to the domain
+
+5. **Natural Language**: The expanded test should:
+   - Read naturally
+   - Use appropriate domain terminology
+   - Maintain proper grammar and flow
+   - Sound like something a real user would write
+
+## Output Format:
+
+Output the expanded test case and nothing else.
+
+## Remember
+
+The goal is to create a more realistic test case that could come from actual users while still testing the same specific rule as the original.
+
+user:
+<INTENT>
+{{intent}}
+</INTENT>
+
+<OUTPUT_RULES>
+{{rules}}
+</OUTPUT_RULES>
+
+<TARGET_RULE>
+{{targetRule}}
+</TARGET_RULE>
+
+<TEST_CASE>
+{{test}}
+</TEST_CASE>

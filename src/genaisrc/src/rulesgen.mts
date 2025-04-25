@@ -1,25 +1,28 @@
-import { RULES_NUM, PROMPT_GENERATE_OUTPUT_RULES } from "./constants.mts"
+import {
+    RULES_NUM,
+    PROMPT_GENERATE_OUTPUT_RULES,
+    DIAGRAM_GENERATE_OUTPUT_RULES,
+} from "./constants.mts"
 import { outputWorkflowDiagram, outputPrompty } from "./output.mts"
 import { modelOptions, checkLLMResponse, tidyRules } from "./parsers.mts"
 import { measure } from "./perf.mts"
 import type { PromptPexContext, PromptPexOptions } from "./types.mts"
+const dbg = host.logger("promptpex:gen:rules")
 const { generator } = env
 
 export async function generateOutputRules(
     files: PromptPexContext,
     options?: PromptPexOptions & { numRules?: number }
-) {
+): Promise<void> {
     const { numRules = RULES_NUM, rulesModel = "rules" } = options || {}
-    const instructions = options?.instructions?.outputRules || ""
 
-    outputWorkflowDiagram(
-        `PUT(["Prompt Under Test (PUT)"])
-OR["Output Rules (OR)"]
+    dbg(`generating ${numRules} output rules`)
+    const instructions =
+        options?.instructions?.outputRules ||
+        files.frontmatter?.instructions?.outputRules ||
+        ""
 
-PUT --> OR        
-`,
-        options
-    )
+    outputWorkflowDiagram(DIAGRAM_GENERATE_OUTPUT_RULES, options)
 
     // generate rules
     const input_data = MD.content(files.prompt.content)
@@ -42,5 +45,7 @@ PUT --> OR
         )
     )
     const rules = tidyRules(checkLLMResponse(res))
-    return rules
+    files.rules.content = rules 
+    if (files.writeResults)
+        await workspace.writeFiles([files.rules])   
 }

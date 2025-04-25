@@ -8,10 +8,13 @@ const { generator } = env
 export async function generateIntent(
     files: PromptPexContext,
     options?: PromptPexOptions
-): Promise<string> {
+): Promise<void> {
     const { rulesModel = "rules" } = options || {}
     const context = MD.content(files.prompt.content)
-    const instructions = options?.instructions?.intent || ""
+    const instructions =
+        options?.instructions?.intent ||
+        files.frontmatter?.instructions?.intent ||
+        ""
     const pn = PROMPT_GENERATE_INTENT
     await outputPrompty(pn, options)
     const res = await measure("gen.intent", () =>
@@ -24,10 +27,10 @@ export async function generateIntent(
             },
             {
                 ...modelOptions(rulesModel, options),
-                //      logprobs: true,
-                label: `${files.name}> generate intent`,
+                label: `${files.name}> intent`,
             }
         )
     )
-    return checkLLMResponse(res)
+    files.intent.content = checkLLMResponse(res)
+    if (files.writeResults) await workspace.writeFiles([files.intent])
 }
