@@ -2,8 +2,14 @@ name: build
 on:
     push:
         branches: [main, dev]
+        paths-ignore:
+          - 'README.md'
+          - '.gitignore'
     pull_request:
         branches: [main, dev]
+        paths-ignore:
+          - 'README.md'
+          - '.gitignore'
     workflow_dispatch:
 concurrency:
     group: ${{ github.workflow }}-${{ github.ref }}-ollama
