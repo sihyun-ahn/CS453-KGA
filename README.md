@@ -1,5 +1,5 @@
 # Collaboration guidelines (CS453 team3)
-IF you encounter any git-related, issues, please contact me. (farawell777 at kaist dot ac dot kr)
+If you encounter any git-related issues, please contact me. (farawell777 at kaist dot ac dot kr)
 
 (1) Cloning
 ```bash
