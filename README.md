@@ -29,7 +29,7 @@ git commit -m "Added some features"
 git push team feature/yh_ollama_integration
 ```
 **Important: Always push to team, not origin.**
-* origin: Your personal fork of the original PromptPex repository.
+* origin: The personal fork of the original PromptPex repository.
 * upstream: The official PromptPex repository.
 * team: Our shared team repository — this is where all collaborative development takes place. Make sure to push your changes here.
 
