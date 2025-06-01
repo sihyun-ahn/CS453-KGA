@@ -315,7 +315,9 @@ export interface PromptPexTestEval {
 }
 
 export interface PromptPexRule {
+    id: string
     rule: string
+    inverseRule: string
     inverse?: boolean
 }
 

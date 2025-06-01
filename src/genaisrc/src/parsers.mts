@@ -9,6 +9,7 @@ import type {
     PromptPexTest,
     PromptPexTestEval,
     PromptPexTestResult,
+    PromptPexRule,
 } from "./types.mts"
 const dbg = host.logger("promptpex:parsers")
 
@@ -176,13 +177,11 @@ export function parseAllRules(
     files: PromptPexContext,
     options?: PromptPexOptions
 ) {
-    const rules = parseRules(files.rules.content, options)
-    const inverseRules = parseRules(files.inverseRules.content, options)
-    const allRules = [
-        ...rules.map((rule) => ({ rule, inverse: false })),
-        ...inverseRules.map((rule) => ({ rule, inverse: true })),
-    ]
-    return allRules
+    const parsed = JSON.parse(files.rules.content)
+    if (!Array.isArray(parsed)) {
+        throw new Error("Rules must be a JSON array.")
+    }
+    return parsed as PromptPexRule[]
 }
 
 export function parseOKERR(text: string): PromptPexEvalResultType | undefined {
