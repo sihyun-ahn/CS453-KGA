@@ -473,7 +473,7 @@ if (!anyStepRequested) {
         }
     }
 
-    // Step 4: Create Eval Runs
+    // Step 4: Create Eval Runs (Create an Evals run in OpenAI Evals. Requires OpenAI API key.)
     if (stepEvals) {
         // Check dependencies
         if (!files.tests?.content) {
