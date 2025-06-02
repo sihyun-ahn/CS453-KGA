@@ -118,8 +118,6 @@ export function parseTestResults(
     const res = (parsers.JSON5(files.testOutputs.content) ||
         []) as PromptPexTestResult[]
     res.forEach((r) => {
-        r.inverse =
-            r.ruleid !== null && parseInt(r.ruleid as any) > rules.length
         r.metrics = r.metrics || {}
     })
     for (const r of res.filter((r) => !r.error && !r.model)) {
@@ -129,7 +127,6 @@ export function parseTestResults(
         if (diagnostics)
             throw new Error(`missing 'model' for test result ${r.id}`)
     }
-    for (const r of res) if (isNaN(r.ruleid)) r.ruleid = null
     return res
 }
 

@@ -53,7 +53,7 @@ export async function generateTests(
 
     await outputPrompty(pn, options)
 
-    const mutatedRules = mutateRules(allRules, options)
+    const mutatedRules = mutateRules(allRules, files, options)
     const tests: PromptPexTest[] = []
 
     const checkpoint = async () => {
@@ -186,6 +186,7 @@ export async function generateTests(
 
 function mutateRules(
     rules: PromptPexRule[],
+    files: PromptPexContext,
     options?: PromptPexOptions
 ): { id: string; rule: string }[] {
     const { mutateRule } = options || {}
@@ -207,6 +208,8 @@ function mutateRules(
         if (nextIndex < rules.length) {
             rules[nextIndex].inversed = true
         }
+
+        if (files.writeResults) workspace.writeFiles([files.rules])
     }
 
     /* Generate output list:
