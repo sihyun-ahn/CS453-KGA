@@ -130,6 +130,12 @@ export interface PromptPexOptions extends PromptPexLoaderOptions {
      * Creates a new eval run in OpenAI. Requires OpenAI API key.
      */
     createEvalRuns?: boolean
+
+    /**
+     * Mutate one OR into IR if mutateRule is true.
+     * If false, the inverse rules will be generated as is.
+     */
+    mutateRule?: boolean
 }
 
 /**
@@ -318,7 +324,7 @@ export interface PromptPexRule {
     id: string
     rule: string
     inverseRule: string
-    inverse?: boolean
+    inversed?: boolean
 }
 
 export type PromptPexEvalResultType = "ok" | "err" | "unknown"

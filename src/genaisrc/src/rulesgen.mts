@@ -59,6 +59,7 @@ export async function generateOutputRules(
         id: `rule_${i + 1}`,
         rule: r,
         inverseRule: "", // Placeholder for inverse rule, filled in next step
+        inversed: false,
     }))
     files.rules.content = JSON.stringify(pairedRules, null, 2)
     if (files.writeResults) await workspace.writeFiles([files.rules])

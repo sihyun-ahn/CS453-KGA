@@ -94,7 +94,7 @@ export async function evaluateTestQuality(
                         ctx.importTemplate(PROMPT_EVAL_OUTPUT_RULE_AGREEMENT, {
                             intent,
                             rules: allRules
-                                .filter((r) => !r.inverse)
+                                .filter((r) => !r.inversed)
                                 .map((r) => r.rule)
                                 .join("\n"),
                             testInput,
@@ -151,7 +151,7 @@ export async function evaluateTestQuality(
             model: testEval.model,
             input: testEval.input,
             output: testEval.coverageText,
-            metrics: {}
+            metrics: {},
         },
         options
     )
