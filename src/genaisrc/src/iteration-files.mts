@@ -12,7 +12,12 @@ export function getIterationDirectoryPath(
     branchName: string,
     iteration: number
 ): string {
-    return path.join(files.dir || "", "mutation-runs", branchName, `iteration-${iteration}`)
+    return path.join(
+        files.dir || "",
+        "mutation-runs",
+        branchName,
+        `iteration-${iteration}`
+    )
 }
 
 export async function saveIterationFiles(
@@ -21,20 +26,24 @@ export async function saveIterationFiles(
     tests: PromptPexTest[],
     results: PromptPexTestResult[]
 ): Promise<void> {
-    const iterationDir = getIterationDirectoryPath(files, tree.currentBranch, tree.currentIteration)
-    
+    const iterationDir = getIterationDirectoryPath(
+        files,
+        tree.currentBranch,
+        tree.currentIteration
+    )
+
     // Save tests
     const testsPath = path.join(iterationDir, "tests.json")
     const testsContent = JSON.stringify(tests, null, 2)
     await workspace.writeText(testsPath, testsContent)
     dbg(`saved tests to ${testsPath}`)
-    
+
     // Save test results
     const resultsPath = path.join(iterationDir, "test-results.json")
     const resultsContent = JSON.stringify(results, null, 2)
     await workspace.writeText(resultsPath, resultsContent)
     dbg(`saved results to ${resultsPath}`)
-    
+
     // Save iteration metadata
     const metadataPath = path.join(iterationDir, "metadata.json")
     const metadata = {
@@ -43,7 +52,11 @@ export async function saveIterationFiles(
         timestamp: new Date().toISOString(),
         testsGenerated: tests.length,
         resultsCount: results.length,
-        complianceRate: results.length > 0 ? results.filter(r => r.compliance === "ok").length / results.length : 0,
+        complianceRate:
+            results.length > 0
+                ? results.filter((r) => r.compliance === "ok").length /
+                  results.length
+                : 0,
         complianceThreshold: tree.complianceThreshold,
         mutatedRuleId: getCurrentBranch(tree).mutatedRuleId,
     }
@@ -56,7 +69,11 @@ export async function saveIterationTestData(
     tree: PromptPexMutationTree,
     testDataContent: string
 ): Promise<void> {
-    const iterationDir = getIterationDirectoryPath(files, tree.currentBranch, tree.currentIteration)
+    const iterationDir = getIterationDirectoryPath(
+        files,
+        tree.currentBranch,
+        tree.currentIteration
+    )
     const testDataPath = path.join(iterationDir, "test-data.json")
     await workspace.writeText(testDataPath, testDataContent)
     dbg(`saved test data to ${testDataPath}`)
@@ -68,9 +85,13 @@ export async function loadIterationTests(
     iteration: number
 ): Promise<PromptPexTest[] | null> {
     try {
-        const iterationDir = getIterationDirectoryPath(files, branchName, iteration)
+        const iterationDir = getIterationDirectoryPath(
+            files,
+            branchName,
+            iteration
+        )
         const testsPath = path.join(iterationDir, "tests.json")
-        const content = await workspace.readText(testsPath)
+        const { content } = await workspace.readText(testsPath)
         if (!content) return null
         return JSON.parse(content) as PromptPexTest[]
     } catch (error) {
@@ -85,9 +106,13 @@ export async function loadIterationResults(
     iteration: number
 ): Promise<PromptPexTestResult[] | null> {
     try {
-        const iterationDir = getIterationDirectoryPath(files, branchName, iteration)
+        const iterationDir = getIterationDirectoryPath(
+            files,
+            branchName,
+            iteration
+        )
         const resultsPath = path.join(iterationDir, "test-results.json")
-        const content = await workspace.readText(resultsPath)
+        const { content } = await workspace.readText(resultsPath)
         if (!content) return null
         return JSON.parse(content) as PromptPexTestResult[]
     } catch (error) {
@@ -99,38 +124,44 @@ export async function loadIterationResults(
 export async function getAllIterationHistory(
     files: PromptPexContext,
     tree: PromptPexMutationTree
-): Promise<Array<{
-    branchName: string
-    iteration: number
-    tests: PromptPexTest[]
-    results: PromptPexTestResult[]
-    metadata: any
-}>> {
+): Promise<
+    Array<{
+        branchName: string
+        iteration: number
+        tests: PromptPexTest[]
+        results: PromptPexTestResult[]
+        metadata: any
+    }>
+> {
     const history = []
     const allBranches = [tree.rootBranch, ...tree.branches]
-    
+
     for (const branch of allBranches) {
         for (let i = 0; i < branch.totalIterations; i++) {
             const tests = await loadIterationTests(files, branch.name, i)
             const results = await loadIterationResults(files, branch.name, i)
-            
+
             if (tests && results) {
-                const iterationDir = getIterationDirectoryPath(files, branch.name, i)
+                const iterationDir = getIterationDirectoryPath(
+                    files,
+                    branch.name,
+                    i
+                )
                 const metadataPath = path.join(iterationDir, "metadata.json")
-                const metadataContent = await workspace.readText(metadataPath)
-                const metadata = metadataContent ? JSON.parse(metadataContent) : {}
-                
+                const { content } = await workspace.readText(metadataPath)
+                const metadata = content ? JSON.parse(content) : {}
+
                 history.push({
                     branchName: branch.name,
                     iteration: i,
                     tests,
                     results,
-                    metadata
+                    metadata,
                 })
             }
         }
     }
-    
+
     return history
 }
 
@@ -138,10 +169,10 @@ function getCurrentBranch(tree: PromptPexMutationTree) {
     if (tree.currentBranch === "original") {
         return tree.rootBranch
     }
-    
-    const branch = tree.branches.find(b => b.name === tree.currentBranch)
+
+    const branch = tree.branches.find((b) => b.name === tree.currentBranch)
     if (!branch) {
         throw new Error(`Branch not found: ${tree.currentBranch}`)
     }
     return branch
-} 
+}
