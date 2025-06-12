@@ -15,18 +15,20 @@ import {
 import { measure } from "./perf.mts"
 import { resolveScenarios } from "./resolvers.mts"
 import { convertToTestData } from "./testdata.mts"
+import { saveIterationTestData } from "./iteration-files.mts"
 import type {
     PromptPexContext,
     PromptPexOptions,
     PromptPexRule,
     PromptPexTest,
+    PromptPexIterationOptions,
 } from "./types.mts"
 const dbg = host.logger("promptpex:gen:test")
 const { generator, output } = env
 
 export async function generateTests(
     files: PromptPexContext,
-    options?: PromptPexOptions
+    options?: PromptPexIterationOptions
 ): Promise<PromptPexTest[]> {
     const {
         testsPerRule: num = TESTS_NUM,
@@ -59,8 +61,19 @@ export async function generateTests(
     const checkpoint = async () => {
         dbg(`saving ${tests.length} tests`)
         const resc = JSON.stringify(tests, null, 2)
+        
+        // Save to original location for backward compatibility
         files.tests.content = resc
         if (files.writeResults) await workspace.writeFiles(files.tests)
+        
+        // If we have iteration context, also save with unique filename
+        if (options?.enableMutationSystem && options?.currentBranch && options?.currentIteration !== undefined) {
+            const iterationFilename = `tests_${options.currentBranch}_iter${options.currentIteration}.json`
+            const iterationPath = path.join(files.dir || "", iterationFilename)
+            await workspace.writeText(iterationPath, resc)
+            dbg(`saved iteration tests to ${iterationPath}`)
+        }
+        
         await convertToTestData(files, tests)
     }
 

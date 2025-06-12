@@ -17,7 +17,8 @@ import {
 import { generateOutputRules } from "./src/rulesgen.mts"
 import { generateTests } from "./src/testgen.mts"
 import { runTests } from "./src/testrun.mts"
-import type { PromptPexOptions } from "./src/types.mts"
+import { runIterativeTestGeneration, handleMutateRules } from "./src/test-iteration.mts"
+import type { PromptPexOptions, PromptPexIterationOptions, PromptPexTestResult, PromptPexContext } from "./src/types.mts"
 
 script({
     title: "PromptPex Test Generator",
@@ -110,8 +111,7 @@ promptPex:
         },
         stepModelTests: {
             type: "boolean",
-            description: "Run Tests Against Models",
-            default: false,
+            description: "Run tests against specified models",
             uiType: "runOption",
         },
         cache: {
@@ -304,6 +304,21 @@ user:
             description:
                 "Create an Evals run in OpenAI Evals. Requires OpenAI API key.",
         },
+        complianceThreshold: {
+            type: "number",
+            description: "Compliance threshold for iteration system (0-1, default 0.5)",
+            defaultValue: 0.5,
+        },
+        maxIterationsPerBranch: {
+            type: "integer", 
+            description: "Maximum iterations per branch in iteration system (default 5)",
+            defaultValue: 5,
+        },
+        enableMutationSystem: {
+            type: "boolean",
+            description: "Enable the multi-iteration mutation system",
+            defaultValue: false,
+        },
     },
 })
 
@@ -336,6 +351,9 @@ const {
     stepTests,
     stepEvals,
     stepModelTests,
+    complianceThreshold,
+    maxIterationsPerBranch,
+    enableMutationSystem,
 } = vars as PromptPexOptions & {
     customMetric?: string
     prompt?: string
@@ -348,6 +366,9 @@ const {
     stepTests?: boolean
     stepEvals?: boolean
     stepModelTests?: boolean
+    complianceThreshold?: number
+    maxIterationsPerBranch?: number
+    enableMutationSystem?: boolean
 }
 const modelsUnderTest: string[] = (vars.modelsUnderTest || "")
     .split(/;/g)
@@ -378,6 +399,9 @@ const options = {
     testGenerations,
     createEvalRuns,
     out,
+    complianceThreshold,
+    maxIterationsPerBranch,
+    enableMutationSystem,
 } satisfies PromptPexOptions
 
 if (env.files[0] && promptText)
@@ -416,10 +440,13 @@ if (!anyStepRequested) {
     output.note("Use the step buttons above to execute each phase:")
     output.note("1. **Generate Intent & Input Spec** - Extract prompt intent and input constraints")
     output.note("2. **Generate Rules** - Extract output rules and inverse rules")  
-    output.note("3. **Generate Tests** - Create test cases from rules")
+    output.note("3. **Generate Tests** - Multi-iteration system with automatic rule mutations")
     output.note("4. **Create Eval Runs** - Generate evaluation runs")
     output.note("5. **Run Model Tests** - Execute tests against specified models")
 } else {
+    // Track whether multi-iteration mutation system was used
+    let mutationSystemWasUsed = false
+    
     // Step 1: Generate Intent and Input Specification
     if (stepIntent) {
         output.heading(3, "Intent")
@@ -446,35 +473,95 @@ if (!anyStepRequested) {
 
             output.heading(3, "Inverse Output Rules")
             await generateInverseOutputRules(files, options)
-            outputLines(files.inverseRules, "generate inverse output rule")
+            outputLines(files.rules, "generate inverse output rule")
             await checkConfirm("inverse")
         }
     }
 
-    // Step 3: Generate Tests
+    // Step 3: Generate Tests (Multi-Iteration System)
     if (stepTests) {
         // Check dependencies
         if (!files.rules?.content) {
             output.warn("⚠️ Output Rules not found. Run Step 2 first.")
         } else {
-            output.heading(3, "Tests")
-            const tests = await generateTests(files, options)
+            if (enableMutationSystem) {
+                output.heading(3, "Multi-Iteration Test Generation System")
+                
+                const iterationOptions: PromptPexIterationOptions = {
+                    ...options,
+                    complianceThreshold,
+                    maxIterationsPerBranch,
+                    enableMutationSystem,
+                }
+                
+                const { tree, finalResults } = await runIterativeTestGeneration(files, iterationOptions)
+                
+                // Show final results table
+                if (finalResults.length > 0) {
+                    output.heading(4, "Final Test Results")
+                    output.table(
+                        finalResults.map(
+                            ({
+                                scenario,
+                                rule,
+                                inverse,
+                                model,
+                                input,
+                                output,
+                                compliance: testCompliance,
+                                metrics,
+                            }) => ({
+                                rule,
+                                model,
+                                scenario,
+                                inverse: inverse ? "🔄" : "",
+                                input,
+                                output,
+                                compliance: renderEvaluationOutcome(testCompliance || "err"),
+                                ...Object.fromEntries(
+                                    Object.entries(metrics).map(([k, v]) => [
+                                        k,
+                                        renderEvaluation(v),
+                                    ])
+                                ),
+                            })
+                        )
+                    )
+                    
+                    // Show results overview
+                    output.heading(4, `Results Overview`)
+                    output.note("📊 Comprehensive results across all mutation tree branches and iterations")
+                    
+                    // Create overview from finalResults instead of files (which only has last iteration)
+                    const mutationOverview = createMutationOverview(finalResults, files, { percent: true })
+                    output.table(mutationOverview)
+                }
+                
+                // Mark that mutation system was used - this will skip steps 4 and 5
+                mutationSystemWasUsed = true
+                
+                await checkConfirm("iteration-system")
+            } else {
+                // Original single-iteration system
+                output.heading(3, "Tests")
+                const tests = await generateTests(files, options)
 
-            output.table(
-                tests.map(({ scenario, testinput, expectedoutput }) => ({
-                    scenario,
-                    testinput,
-                    expectedoutput,
-                }))
-            )
-            output.detailsFenced(`tests (json)`, tests, "json")
-            output.detailsFenced(`test data (json)`, files.testData.content, "json")
-            await checkConfirm("test")
+                output.table(
+                    tests.map(({ scenario, testinput, expectedoutput }) => ({
+                        scenario,
+                        testinput,
+                        expectedoutput,
+                    }))
+                )
+                output.detailsFenced(`tests (json)`, tests, "json")
+                output.detailsFenced(`test data (json)`, files.testData.content, "json")
+                await checkConfirm("test")
+            }
         }
     }
 
     // Step 4: Create Eval Runs (Create an Evals run in OpenAI Evals. Requires OpenAI API key.)
-    if (stepEvals) {
+    if (stepEvals && !mutationSystemWasUsed) {
         // Check dependencies
         if (!files.tests?.content) {
             output.warn("⚠️ Tests not found. Run Step 3 first.")
@@ -483,10 +570,12 @@ if (!anyStepRequested) {
             await generateEvals(modelsUnderTest, files, tests, options)
             await checkConfirm("evals")
         }
+    } else if (stepEvals && mutationSystemWasUsed) {
+        output.note("ℹ️ Skipping Eval Runs - Multi-iteration mutation system already provides comprehensive evaluation")
     }
 
     // Step 5: Run Tests Against Models
-    if (stepModelTests) {
+    if (stepModelTests && !mutationSystemWasUsed) {
         // Check dependencies  
         if (!files.tests?.content) {
             output.warn("⚠️ Tests not found. Run Step 3 first.")
@@ -536,16 +625,108 @@ if (!anyStepRequested) {
                 )
             )
         }
-    }
 
-    // Show results overview if any model tests were run
-    if (stepModelTests && !createEvalRuns && modelsUnderTest?.length) {
-        output.heading(3, `Results Overview`)
-        const { overview } = await computeOverview(files, { percent: true })
-        output.table(overview)
+        // Show results overview if any model tests were run
+        if (stepModelTests && !createEvalRuns && modelsUnderTest?.length) {
+            output.heading(3, `Results Overview`)
+            const { overview } = await computeOverview(files, { percent: true })
+            output.table(overview)
+        }
+    } else if (stepModelTests && mutationSystemWasUsed) {
+        output.note("ℹ️ Skipping Model Tests - Multi-iteration mutation system already tested models comprehensively")
     }
 }
 
 output.appendContent("\n\n---\n\n")
 
 reportPerf()
+
+// Helper function to create overview from mutation tree results
+function createMutationOverview(
+    allResults: PromptPexTestResult[], 
+    files: PromptPexContext, 
+    options?: { percent?: boolean }
+) {
+    const { percent } = options || {}
+    
+    // Group results by model:scenario
+    const groupBy = <T,>(arr: T[], keyFn: (x: T) => string): Record<string, T[]> => {
+        return arr.reduce((acc, item) => {
+            const key = keyFn(item)
+            if (!acc[key]) acc[key] = []
+            acc[key].push(item)
+            return acc
+        }, {} as Record<string, T[]>)
+    }
+    
+    const defaultScenario = allResults.find((tr) => tr.scenario)?.scenario
+    const resultsByModelAndScenario = groupBy(
+        allResults,
+        (result) => `${result.model}:${result.scenario || defaultScenario}`
+    )
+    
+    return Object.entries(resultsByModelAndScenario).map(([key, results]) => {
+        const { model, scenario, error } = results[0]
+        const tests = results.filter((tr) => !tr.error && tr.rule)
+        const testPositives = tests.filter((tr) => !tr.inverse)
+        const testNegatives = tests.filter((tr) => tr.inverse)
+        const errors = (error ? 1 : 0) + results.filter((tr) => tr.error).length
+        const baseline = results.filter((tr) => !tr.error && !tr.rule)
+        
+        const norm = (v: number) =>
+            tests.length === 0
+                ? "--"
+                : percent
+                  ? Math.round((v / tests.length) * 100) + "%"
+                  : v
+        const bnorm = (v: number) =>
+            baseline.length === 0
+                ? "--"
+                : percent
+                  ? Math.round((v / baseline.length) * 100) + "%"
+                  : v
+                  
+        return {
+            model,
+            scenario,
+            errors,
+            tests: tests.length,
+            ["tests compliant"]: norm(
+                tests.filter((tr) => tr.compliance === "ok").length
+            ),
+            ["tests compliance unknown"]: norm(
+                tests.filter(
+                    (tr) => tr.compliance !== "ok" && tr.compliance !== "err"
+                ).length
+            ),
+            ["baseline compliant"]: bnorm(
+                baseline.filter((tr) => tr.compliance === "ok").length
+            ),
+            ["tests positive"]: testPositives.length,
+            ["tests positive compliant"]: testPositives.filter(
+                (tr) => tr.compliance === "ok"
+            ).length,
+            ["tests negative"]: testNegatives.length,
+            ["tests negative compliant"]: testNegatives.filter(
+                (tr) => tr.compliance === "ok"
+            ).length,
+            baseline: baseline.length,
+            // Metrics from mutation tree results
+            ...Object.fromEntries(
+                files.metrics.map((m) => {
+                    const n = metricName(m)
+                    const ms = tests
+                        .map((t) => t.metrics[n])
+                        .filter((m) => !!m)
+                    const scorer = ms.some((m) => !isNaN(m.score))
+                    return [
+                        n,
+                        scorer
+                            ? ms.reduce((total, m) => total + m.score, 0) / ms.length
+                            : ms.filter((m) => m.outcome === "ok").length,
+                    ]
+                })
+            ),
+        }
+    })
+}

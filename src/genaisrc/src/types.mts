@@ -136,6 +136,21 @@ export interface PromptPexOptions extends PromptPexLoaderOptions {
      * If false, the inverse rules will be generated as is.
      */
     mutateRule?: boolean
+    
+    /**
+     * Compliance threshold for iteration system (0-1, default 0.5)
+     */
+    complianceThreshold?: number
+    
+    /**
+     * Maximum iterations per branch in iteration system (default 5)
+     */
+    maxIterationsPerBranch?: number
+    
+    /**
+     * Enable the multi-iteration mutation system
+     */
+    enableMutationSystem?: boolean
 }
 
 /**
@@ -363,4 +378,55 @@ export interface PromptPexEvaluation {
     perplexity?: number
     outcome?: PromptPexEvalResultType
     score?: number
+}
+
+// Multi-iteration mutation system types
+export interface PromptPexMutationNode {
+    id: string
+    branchName: string
+    iteration: number
+    mutatedRuleId?: string
+    compliance?: number
+    testsGenerated: number
+    timestamp: string
+    results?: PromptPexTestResult[]
+    isComplete: boolean
+}
+
+export interface PromptPexMutationBranch {
+    name: string
+    mutatedRuleId?: string
+    nodes: PromptPexMutationNode[]
+    isComplete: boolean
+    bestCompliance?: number
+    totalIterations: number
+}
+
+export interface PromptPexMutationTree {
+    rootBranch: PromptPexMutationBranch
+    branches: PromptPexMutationBranch[]
+    currentBranch: string
+    currentIteration: number
+    totalRules: number
+    complianceThreshold: number
+    maxIterationsPerBranch: number
+    isComplete: boolean
+    startTime: string
+    lastUpdateTime: string
+}
+
+export interface PromptPexMutationState {
+    tree: PromptPexMutationTree
+    availableBranches: string[]
+    canContinueIteration: boolean
+    canMutateRules: boolean
+    nextAction: 'continue_iteration' | 'mutate_rules' | 'complete'
+}
+
+export interface PromptPexIterationOptions extends PromptPexOptions {
+    complianceThreshold?: number
+    maxIterationsPerBranch?: number
+    enableMutationSystem?: boolean
+    currentBranch?: string
+    currentIteration?: number
 }
