@@ -18,7 +18,7 @@ script({
     accept: ".prompty",
     title: "test suite assuming very limited access to models",
     files: "samples/demo/demo.prompty",
-    unlisted: true
+    unlisted: true,
 })
 
 const { output } = env
@@ -58,7 +58,6 @@ if (!rules?.length) throw new Error("No rules found")
 
 output.heading(3, "Inverse Output Rules")
 await generateInverseOutputRules(files, options)
-output.fence(files.inverseRules.content, "text")
 const inverseRules = parseRulePairs(files.rules.content, {
     mode: "inverseRule",
 })
