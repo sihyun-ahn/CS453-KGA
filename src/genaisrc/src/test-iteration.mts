@@ -178,7 +178,7 @@ export async function runIterativeTestGeneration(
         }
     }
     
-    return { tree, finalResults: results }
+    return { tree, finalResults: await getAllResults(tree) }
 }
 
 export async function handleMutateRules(

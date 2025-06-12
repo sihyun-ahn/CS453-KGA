@@ -499,6 +499,45 @@ if (!anyStepRequested) {
                 // Show final results table
                 if (finalResults.length > 0) {
                     output.heading(4, "Final Test Results")
+                    output.note(`📋 ${finalResults.length} total test results from all branches and iterations`)
+                    
+                    // Create a more readable summary table
+                    const summaryResults = finalResults.map(
+                        ({
+                            scenario,
+                            rule,
+                            inverse,
+                            model,
+                            input,
+                            output,
+                            compliance: testCompliance,
+                            metrics,
+                        }) => {
+                            // Truncate rule text to first 50 characters + "..."
+                            const rulePreview = rule.length > 50 ? rule.substring(0, 50) + "..." : rule
+                            
+                            return {
+                                "Rule": rulePreview,
+                                "Model": model,
+                                "Scenario": scenario,
+                                "Type": inverse ? "🔄 Inverse" : "➡️ Normal",
+                                "Input": input.length > 40 ? input.substring(0, 40) + "..." : input,
+                                "Output": output.length > 60 ? output.substring(0, 60) + "..." : output,
+                                "Compliance": renderEvaluationOutcome(testCompliance || "err"),
+                                ...Object.fromEntries(
+                                    Object.entries(metrics).map(([k, v]) => [
+                                        k,
+                                        renderEvaluation(v),
+                                    ])
+                                ),
+                            }
+                        }
+                    )
+                    
+                    output.table(summaryResults)
+                    
+                    // Show detailed results in collapsible section
+                    output.startDetails("Detailed Test Results", { expanded: false })
                     output.table(
                         finalResults.map(
                             ({
@@ -527,6 +566,7 @@ if (!anyStepRequested) {
                             })
                         )
                     )
+                    output.endDetails()
                     
                     // Show results overview
                     output.heading(4, `Results Overview`)

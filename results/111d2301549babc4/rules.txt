@@ -1,0 +1,32 @@
+[
+  {
+    "id": "rule_1",
+    "rule": "A paragraph is defined as a sequence of sentences in the provided input text.",
+    "inverseRule": "A paragraph is defined by no sequences of sentences in the provided input text.",
+    "inversed": false
+  },
+  {
+    "id": "rule_2",
+    "rule": "Each paragraph is wrapped inside an opening <p> tag at the start of a line and a closing </p> tag at the end of that same paragraph, which includes its contained words unless instructed otherwise.",
+    "inverseRule": "Paragraphs are not wrapped with any HTML tags at all, regardless of content.",
+    "inversed": false
+  },
+  {
+    "id": "rule_3",
+    "rule": "Sentences are identified by one or more completed periods (.) at the end, followed optionally with commas (, ) and full stops (. ), without spaces between them since these are delimiters commonly used to delineate completion of a sentence.",
+    "inverseRule": "Sentences can be delineated by anything other than completed periods and their associated delimiters, including multiple spaces or different punctuation marks.",
+    "inversed": false
+  },
+  {
+    "id": "rule_4",
+    "rule": "Keywords within each sentence are enhanced with HTML tags according to style definitions provided, typically by wrapping the word/phrase in both <strong> tag to define it as an emphasized element to signify key information and </strong> closing tag.",
+    "inverseRule": "Keywords within sentences are never marked as emphasized using HTML tags.",
+    "inversed": false
+  },
+  {
+    "id": "rule_5",
+    "rule": "The text must be formatted without any unnecessary blank lines or spaces outside of the defined paragraph markers.",
+    "inverseRule": "Text must contain arbitrary amounts of blank lines or additional spaces before necessary paragraph markers appear.",
+    "inversed": false
+  }
+]
