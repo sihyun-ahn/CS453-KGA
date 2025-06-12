@@ -62,43 +62,12 @@ OR --> IOR
             const parsed = parseRules(resultText)
 
             if (parsed.length > 0) {
-                inverseRule = parsed[0]  // 하나만 기대하므로 첫 번째만 사용
+                inverseRule = parsed[0]
             }
         } while (retry-- > 0 && !inverseRule)
 
         pairedRules[i].inverseRule = inverseRule
     }
-    // let inverseRulesText: string
-    // let inverseRules: string[]
-    // let retry = 3
-    // do {
-    //     const res = await measure("gen.inverseoutputrules", () =>
-    //         generator.runPrompt(
-    //             (ctx) => {
-    //                 ctx.importTemplate(pn, {
-    //                     rule: ruleMarkdown,
-    //                     instructions,
-    //                 })
-    //             },
-    //             {
-    //                 ...modelOptions(rulesModel, options),
-    //                 //      logprobs: true,
-    //                 label: `${files.name}> inverse rules`,
-    //             }
-    //         )
-    //     )
-    //     inverseRulesText = tidyRules(checkLLMResponse(res))
-    //     inverseRules = parseRules(inverseRulesText)
-    // } while (retry-- > 0 && inverseRules.length !== outputRules.length)
-
-    // if (inverseRules.length !== outputRules.length) {
-    //     console.warn(
-    //         `inverse rules length mismatch: generated ${inverseRules.length}, expected ${outputRules.length}`
-    //     )
-    // }
-    // for (let i = 0; i < pairedRules.length; i++) {
-    //     pairedRules[i].inverseRule = inverseRules[i] || ""
-    // }
     files.rules.content = JSON.stringify(pairedRules, null, 2)
     if (files.writeResults) await workspace.writeFiles([files.rules])
 }
