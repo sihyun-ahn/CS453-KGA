@@ -1,0 +1,38 @@
+[
+  {
+    "id": "57e52b2",
+    "promptid": "9c50da4",
+    "rule": "1. A paragraph is defined as a sequence of sentences in the provided input text.\n2. Each paragraph is wrapped inside an opening <p> tag at the start of a line and a closing </p> tag at the end of that same paragraph, which includes its contained words unless instructed otherwise.\n3. Sentences are identified by one or more completed periods (.) at the end, followed optionally with commas (, ) and full stops (. ), without spaces between them since these are delimiters commonly used to delineate completion of a sentence.\n4. Keywords within each sentence are enhanced with HTML tags according to style definitions provided, typically by wrapping the word/phrase in both <strong> tag to define it as an emphasized element to signify key information and </strong> closing tag.\n5. The text must be formatted without any unnecessary blank lines or spaces outside of the defined paragraph markers.",
+    "scenario": "",
+    "testinput": "keywords with HTML tags",
+    "model": "qwen2.5:3b",
+    "input": "keywords with HTML tags",
+    "output": "Certainly! Below is an example of how you can format a paragraph of text into HTML using the keywords as highlighted examples. In this instance, I’ll use some common search terms as the keywords to demonstrate:\n\n```html\n<p>The quick <strong>brown</strong> fox jumps over the lazy <em>dog</em>. This sentence demonstrates the <mark>syntax</mark> of embedding key phrases within an HTML document.</p>\n```\n\nIn this snippet:\n- `\"The quick brown fox\"` — contains a keyword with a bold (strong) tag (`<strong>`).\n- `\"jumps over the lazy dog\"` — contains a phrase highlighted in different color (emphasized by `<em>`) to emphasize it.\n- `\"syntax\"` — enclosed within markup tags that display the phrase distinctly as “sytax” while also placing them at an emphasized level (using `<mark>`).\n\nFeel free to replace these keywords with your specific text and HTML structure.",
+    "metrics": {
+      "rules_compliant": {
+        "content": "{\n  \"explanation\": \"The provided text correctly demonstrates how each rule is applied, even though the actual content was not provided, it shows compliance for all given rules based on hypothetical example.\",\n  \"score\": 100\n}",
+        "score": 100
+      }
+    },
+    "compliance": "unknown",
+    "complianceText": "Minimum draft your thinking to make your decision (10 words at most).\nOK\n\nNo violation."
+  },
+  {
+    "id": "dfdcd50",
+    "promptid": "9c50da4",
+    "rule": "1. A paragraph is defined as a sequence of sentences in the provided input text.\n2. Each paragraph is wrapped inside an opening <p> tag at the start of a line and a closing </p> tag at the end of that same paragraph, which includes its contained words unless instructed otherwise.\n3. Sentences are identified by one or more completed periods (.) at the end, followed optionally with commas (, ) and full stops (. ), without spaces between them since these are delimiters commonly used to delineate completion of a sentence.\n4. Keywords within each sentence are enhanced with HTML tags according to style definitions provided, typically by wrapping the word/phrase in both <strong> tag to define it as an emphasized element to signify key information and </strong> closing tag.\n5. The text must be formatted without any unnecessary blank lines or spaces outside of the defined paragraph markers.",
+    "scenario": "",
+    "testinput": "input 'To understand rules",
+    "model": "qwen2.5:3b",
+    "input": "input 'To understand rules",
+    "output": "<p>To <mark>understand</mark> rules</p>",
+    "metrics": {
+      "rules_compliant": {
+        "content": "{\n  \"explanation\": \"The text is wrapped with an opening <p> tag at the start and a closing </p> tag at the end, indicating it is part of a paragraph. However, the keywords 'understand' are not marked as emphasized using HTML tags as required by rule 4.\",\n  \"score\": 0\n}",
+        "score": 0
+      }
+    },
+    "compliance": "ok",
+    "complianceText": "Minimum draft your thinking to make your decision (20 words at most).\nThe output wraps each sentence in paragraph tags as per the description, but it doesn't apply any additional HTML tags like {{<mark></mark>}}. It seems to me that only one rule is not followed.\n\nERR\n\nNo violation.\nOK"
+  }
+]

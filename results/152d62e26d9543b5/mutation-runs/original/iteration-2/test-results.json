@@ -1,0 +1,92 @@
+[
+  {
+    "id": "071083a",
+    "promptid": "73d9646",
+    "rule": "1. The input text must be examined to determine if it is about world events, sports activities, business matters, or scientific/technological developments.\n2. If the article addresses events happening globally, such as political decisions or cultural trends then classify it under World category.\n3. If the content pertains to achievements in professional fields such as sporting events or corporate news, then it should be attributed to the Sports category.\n4. When discussing economic indicators, international organizations' activities, companies’ reports, investments, or financial markets performance, categorize it into Business.\n5. Finally, if the article covers breakthroughs in technology research, inventions, developments in robotics, artificial intelligence, space exploration, medical advancements, or any news that could impact society and science, then place it under the category of Sci/Tech.",
+    "scenario": "",
+    "testinput": "This article discusses recent economic trends in various countries globally. It highlights key business decisions made by international companies that affect the financial market. However",
+    "model": "qwen2.5:3b",
+    "input": "This article discusses recent economic trends in various countries globally. It highlights key business decisions made by international companies that affect the financial market. However",
+    "output": "Based on the given content, this news article primarily falls under the \"Business\" category. The article discusses economic trends globally and focuses on significant business decisions made by international companies that impact the financial market. This type of information is typically covered in a Business news section rather than in a World, Sports, or Sci/Tech context.",
+    "metrics": {
+      "rules_compliant": {
+        "content": "{\n  \"explanation\": \"The chatbot's output complies with most rules except for Rule 2 and Rule 4 which state that global events should be categorized under the World category and economic indicators under Business. The output failed to provide a proper categorization because it did not mention the event happening globally or use terms related to economic indicators.\",\n  \"score\": 0\n}",
+        "score": 0
+      }
+    },
+    "compliance": "unknown",
+    "complianceText": "Minimum draft your thinking to make your decision (20 words at most).\nThe output correctly identifies and classifies the article into the \"Business\" category based on its content. It does so by noting that it discusses economic trends and major business decisions impacting financial markets.\n\nOK\n\nBy adhering to these guidelines, you ensure a consistent and rigorous evaluation process. Your attention to detail and careful analysis are crucial for maintaining the integrity and reliability of the evaluation."
+  },
+  {
+    "id": "0d42de8",
+    "promptid": "73d9646",
+    "rule": "1. The input text must be examined to determine if it is about world events, sports activities, business matters, or scientific/technological developments.\n2. If the article addresses events happening globally, such as political decisions or cultural trends then classify it under World category.\n3. If the content pertains to achievements in professional fields such as sporting events or corporate news, then it should be attributed to the Sports category.\n4. When discussing economic indicators, international organizations' activities, companies’ reports, investments, or financial markets performance, categorize it into Business.\n5. Finally, if the article covers breakthroughs in technology research, inventions, developments in robotics, artificial intelligence, space exploration, medical advancements, or any news that could impact society and science, then place it under the category of Sci/Tech.",
+    "scenario": "",
+    "testinput": "input_text",
+    "model": "qwen2.5:3b",
+    "input": "input_text",
+    "output": "I would need the input text to proceed with classifying it. Please provide me with the relevant news article excerpt. Once I have that, I can classify it accordingly into one of the predefined categories like World, Sports, Business, or Sci/Tech.",
+    "metrics": {
+      "rules_compliant": {
+        "content": "{\n  \"explanation\": \"The chatbot's output does not comply with any of the provided rules because it requires an input text to proceed and classifies based on that input. The output itself is a request for the input text.\",\n  \"score\": 0\n}",
+        "score": 0
+      }
+    },
+    "compliance": "ok",
+    "complianceText": "ERR\n\nNo violation.\nOK"
+  },
+  {
+    "id": "2af2c59",
+    "promptid": "73d9646",
+    "rule": "1. The input text must be examined to determine if it is about world events, sports activities, business matters, or scientific/technological developments.\n2. If the article addresses events happening globally, such as political decisions or cultural trends then classify it under World category.\n3. If the content pertains to achievements in professional fields such as sporting events or corporate news, then it should be attributed to the Sports category.\n4. When discussing economic indicators, international organizations' activities, companies’ reports, investments, or financial markets performance, categorize it into Business.\n5. Finally, if the article covers breakthroughs in technology research, inventions, developments in robotics, artificial intelligence, space exploration, medical advancements, or any news that could impact society and science, then place it under the category of Sci/Tech.",
+    "scenario": "",
+    "testinput": "This article analyzes financial reports of leading multinational corporations and their recent market strategies",
+    "model": "qwen2.5:3b",
+    "input": "This article analyzes financial reports of leading multinational corporations and their recent market strategies",
+    "output": "Based on the content provided in the article, it would be most appropriately classified under the **Business** category. The article discusses \"financial reports of leading multinational corporations\" and mentions their \"recent market strategies,\" both of which are typically topics covered within business news.",
+    "metrics": {
+      "rules_compliant": {
+        "content": "{\n  \"explanation\": \"The chatbot's output complies with Rule 4, which states that if the content pertains to economic indicators, company reports, or financial markets performance, it should be categorized under the Business category. The article discusses 'financial reports of leading multinational corporations' and their 'recent market strategies,' aligning with these requirements.\",\n  \"score\": 100\n}",
+        "score": 100
+      }
+    },
+    "compliance": "unknown",
+    "complianceText": "Minimum draft your thinking to make your decision (20 words at most).\nOK\n\nThe output classifies the article under the **Business** category, which aligns with the description provided. The content indeed discusses financial reports and market strategies of multinational corporations, squarely fitting into the business news schema."
+  },
+  {
+    "id": "0d42de8",
+    "promptid": "73d9646",
+    "rule": "1. The input text must be examined to determine if it is about world events, sports activities, business matters, or scientific/technological developments.\n2. If the article addresses events happening globally, such as political decisions or cultural trends then classify it under World category.\n3. If the content pertains to achievements in professional fields such as sporting events or corporate news, then it should be attributed to the Sports category.\n4. When discussing economic indicators, international organizations' activities, companies’ reports, investments, or financial markets performance, categorize it into Business.\n5. Finally, if the article covers breakthroughs in technology research, inventions, developments in robotics, artificial intelligence, space exploration, medical advancements, or any news that could impact society and science, then place it under the category of Sci/Tech.",
+    "scenario": "",
+    "testinput": "input_text",
+    "model": "qwen2.5:3b",
+    "input": "input_text",
+    "output": "Please provide the input text for classification.",
+    "metrics": {
+      "rules_compliant": {
+        "content": "{\n \"explanation\": \"The chatbot's response does not contain any specific textual content to evaluate against the rules, only an invitation for providing the input text. Therefore, it cannot be evaluated according to the given rules and hence no score can be generated.\",\n \"score\": 0\n}",
+        "score": 0
+      }
+    },
+    "compliance": "ok",
+    "complianceText": "ERR\n\nThe chatbot's output does not classify an article into one of the predefined categories (World, Sports, Business, or Sci/Tech) based on its content and context. It simply states that it needs the input text for classification which violates the description.\nOK"
+  },
+  {
+    "id": "be6b452",
+    "promptid": "73d9646",
+    "rule": "1. The input text must be examined to determine if it is about world events, sports activities, business matters, or scientific/technological developments.\n2. If the article addresses events happening globally, such as political decisions or cultural trends then classify it under World category.\n3. If the content pertains to achievements in professional fields such as sporting events or corporate news, then it should be attributed to the Sports category.\n4. When discussing economic indicators, international organizations' activities, companies’ reports, investments, or financial markets performance, categorize it into Business.\n5. Finally, if the article covers breakthroughs in technology research, inventions, developments in robotics, artificial intelligence, space exploration, medical advancements, or any news that could impact society and science, then place it under the category of Sci/Tech.",
+    "scenario": "",
+    "testinput": "The news piece discusses the latest breakthroughs in biotechnology research including advancements in gene editing techniques that are likely to have an impact on future medical treatments and biological sciences.",
+    "model": "qwen2.5:3b",
+    "input": "The news piece discusses the latest breakthroughs in biotechnology research including advancements in gene editing techniques that are likely to have an impact on future medical treatments and biological sciences.",
+    "output": "Based on the content and context provided, this news article should be classified under the category of **Sci/Tech**. The discussion revolves around advancements in biotechnology and specific developments in gene editing techniques, which fall squarely within the purview of science and technology.",
+    "metrics": {
+      "rules_compliant": {
+        "content": "{\n    \"explanation\": \"The chatbot's output complies with Rule 5 by accurately categorizing the content as Sci/Tech. The discussion focuses on biotechnology advancements specifically gene editing techniques, which aligns perfectly with Rule 5's criteria of news that could impact society and science.\",\n    \"score\": 100\n}",
+        "score": 100
+      }
+    },
+    "compliance": "unknown",
+    "complianceText": "Minimum draft your thinking to make your decision (20 words at most).\nThe chatbot output classifies the article into **Sci/Tech** category based on its content about biotechnology and gene editing. This directly aligns with the description provided.\n\nOK\n\nBy adhering to these guidelines, you ensure a consistent and rigorous evaluation process. Your attention to detail and careful analysis are crucial for maintaining the integrity and reliability of the evaluation."
+  }
+]

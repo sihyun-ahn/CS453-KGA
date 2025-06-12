@@ -1,0 +1,20 @@
+[
+  {
+    "testid": "1",
+    "expectedoutput": "<p>A paragraph is defined by unbroken sentence sequences. Each paragraph is wrapped with opening <p> and closing </p> tags around its contained words.</p>",
+    "reasoning": "A paragraph starts at the same line it begins being processed without sequences of sentences interspersed within it. All input complies with HTML syntax rules.",
+    "input_text": "This text contains a complex paragraph structure but no sequence in which to break",
+    "testinput": "This text contains a complex paragraph structure but no sequence in which to break",
+    "scenario": "",
+    "generation": 0
+  },
+  {
+    "testid": "2",
+    "expectedoutput": "<p>Enhanced keywords within sentences are wrapped in <strong> tags as specified. No unnecessary blank lines or spaces appear outside of paragraph markers.</p>",
+    "reasoning": "Keywords in sentences like \"keywords\" and \"structure\" are properly enhanced with <strong></strong>",
+    "input_text": "demonstrating sentence delineation without external spaces",
+    "testinput": "demonstrating sentence delineation without external spaces",
+    "scenario": "",
+    "generation": 1
+  }
+]

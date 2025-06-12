@@ -1,0 +1,38 @@
+[
+  {
+    "id": "39966c1",
+    "promptid": "73d9646",
+    "rule": "1. The input text must be examined to determine if it is about world events, sports activities, business matters, or scientific/technological developments.\n2. If the article addresses events happening globally, such as political decisions or cultural trends then classify it under World category.\n3. If the content pertains to achievements in professional fields such as sporting events or corporate news, then it should be attributed to the Sports category.\n4. When discussing economic indicators, international organizations' activities, companies’ reports, investments, or financial markets performance, categorize it into Business.\n5. Finally, if the article covers breakthroughs in technology research, inventions, developments in robotics, artificial intelligence, space exploration, medical advancements, or any news that could impact society and science, then place it under the category of Sci/Tech.",
+    "scenario": "",
+    "testinput": "but also checks for other categories.; Covers a mix of all rules",
+    "model": "qwen2.5:3b",
+    "input": "but also checks for other categories.; Covers a mix of all rules",
+    "output": "I need to see a specific news article or at least a snippet of text from the news article so that I can classify it into one of the predefined categories such as World, Sports, Business, or Sci/Tech. Could you please provide me with a sample piece of content?",
+    "metrics": {
+      "rules_compliant": {
+        "content": "{\n  \"explanation\": \"The chatbot's output does not provide any actual text for classification. It only asks for input which is required to classify the news article. Since it does not comply with the rule that requires knowing the input, I cannot generate a compliance score based on the given information.\",\n  \"score\": 0\n}",
+        "score": 0
+      }
+    },
+    "compliance": "ok",
+    "complianceText": "Minimum draft your thinking to make your decision (20 words at most).\nThe output does not comply because it requires specific news article details for classification.\n\nERR\n\nNo violation.\nOK"
+  },
+  {
+    "id": "561b7ed",
+    "promptid": "73d9646",
+    "rule": "1. The input text must be examined to determine if it is about world events, sports activities, business matters, or scientific/technological developments.\n2. If the article addresses events happening globally, such as political decisions or cultural trends then classify it under World category.\n3. If the content pertains to achievements in professional fields such as sporting events or corporate news, then it should be attributed to the Sports category.\n4. When discussing economic indicators, international organizations' activities, companies’ reports, investments, or financial markets performance, categorize it into Business.\n5. Finally, if the article covers breakthroughs in technology research, inventions, developments in robotics, artificial intelligence, space exploration, medical advancements, or any news that could impact society and science, then place it under the category of Sci/Tech.",
+    "scenario": "",
+    "testinput": "input_text_about_an_industry_analysis_and_market_trend_predictions_based_on_research.",
+    "model": "qwen2.5:3b",
+    "input": "input_text_about_an_industry_analysis_and_market_trend_predictions_based_on_research.",
+    "output": "Based on the provided input text \"input_text_about_an_industry_analysis_and_market_trend_predictions_based_on_research\", this appears to fall under the category of **Business**. Industry analysis, market trend predictions, and research typically belong to business-focused content as they deal with economic trends, market dynamics, and organizational management issues within industries.",
+    "metrics": {
+      "rules_compliant": {
+        "content": "",
+        "outcome": "unknown"
+      }
+    },
+    "compliance": "ok",
+    "complianceText": "Minimum draft your thinking to make your decision (20 words or fewer).\nThe output classifies the input text about an industry analysis and market predictions into the Business category. This aligns with typical content that falls under this classification.\n\nERR\n\nNo violation.\nOK"
+  }
+]

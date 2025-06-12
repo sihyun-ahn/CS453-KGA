@@ -1,0 +1,370 @@
+{
+  "rootBranch": {
+    "name": "original",
+    "nodes": [
+      {
+        "id": "original-0",
+        "branchName": "original",
+        "iteration": 0,
+        "compliance": 0.5,
+        "testsGenerated": 2,
+        "timestamp": "2025-06-12T10:54:09.612Z",
+        "results": [
+          {
+            "id": "35357ae",
+            "promptid": "9c50da4",
+            "rule": "1. A paragraph is defined as a sequence of sentences in the provided input text.\n2. Each paragraph is wrapped inside an opening <p> tag at the start of a line and a closing </p> tag at the end of that same paragraph, which includes its contained words unless instructed otherwise.\n3. Sentences are identified by one or more completed periods (.) at the end, followed optionally with commas (, ) and full stops (. ), without spaces between them since these are delimiters commonly used to delineate completion of a sentence.\n4. Keywords within each sentence are enhanced with HTML tags according to style definitions provided, typically by wrapping the word/phrase in both <strong> tag to define it as an emphasized element to signify key information and </strong> closing tag.\n5. The text must be formatted without any unnecessary blank lines or spaces outside of the defined paragraph markers.",
+            "scenario": "",
+            "testinput": "wraps sentences in <p>",
+            "model": "qwen2.5:3b",
+            "input": "wraps sentences in <p>",
+            "output": "Certainly! Below is an example of how you can format a paragraph of text into HTML while splitting it into sentences and wrapping each sentence with `p` tags. Additionally, I'll highlight some keywords or phrases within the document using `<strong>` for bold formatting.\n\n```html\n<p>Alibaba Cloud provides scalable computing capabilities and services to help customers build powerful applications.</p>\n<p>These include cloud storage solutions, compute services, data management platforms, machine learning, artificial intelligence (AI) models, and more.</p>\n<p>To ensure the best performance and security for your applications, Alibaba Cloud offers reliable network connectivity through its extensive global edge location setup.</p>\n<p>Increasing demands have led to a constant evolution of their technology to adapt quickly in today's fast-paced digital landscape.</p>\n<p>They emphasize the importance of customer experience by constantly innovating and collaborating with leading organizations globally to provide optimal services.</p>\n<p>A key focus area for Alibaba Cloud, alongside continued research efforts in AI-based applications and models, includes the development of next-generation computing solutions that can handle complex workloads more efficiently.</p>\n```\n\nIn this example:\n- Each main sentence is wrapped in a `<p>` tag.\n- Some key phrases have been highlighted with the `<strong>` tag for emphasis. You can choose other HTML tags or attributes based on your specific requirements (e.g., bolding sentences, adding links, applying different font sizes/styles).",
+            "metrics": {
+              "rules_compliant": {
+                "content": "{\n  \"explanation\": \"The chatbot’s output adheres to all provided rules. It correctly identifies and wraps each sentence with a <p> tag and highlights keywords with the <strong> tag. There are no violations of any rules requiring knowledge of input content.\",\n  \"score\": 100\n}",
+                "score": 100
+              }
+            },
+            "compliance": "ok",
+            "complianceText": "Minimum draft your thinking to make your decision (20 words at most).\nOK\n\nThe chatbot's output directly follows the instruction provided in <DESC>, formatting a paragraph of text into HTML by splitting it into sentences and wrapping each sentence with `p` tags. The emphasis on key phrases is indicated using `<strong>` tags, which aligns with the description given. No other violations are observed.\n\nOK"
+          },
+          {
+            "id": "ac2e568",
+            "promptid": "9c50da4",
+            "rule": "1. A paragraph is defined as a sequence of sentences in the provided input text.\n2. Each paragraph is wrapped inside an opening <p> tag at the start of a line and a closing </p> tag at the end of that same paragraph, which includes its contained words unless instructed otherwise.\n3. Sentences are identified by one or more completed periods (.) at the end, followed optionally with commas (, ) and full stops (. ), without spaces between them since these are delimiters commonly used to delineate completion of a sentence.\n4. Keywords within each sentence are enhanced with HTML tags according to style definitions provided, typically by wrapping the word/phrase in both <strong> tag to define it as an emphasized element to signify key information and </strong> closing tag.\n5. The text must be formatted without any unnecessary blank lines or spaces outside of the defined paragraph markers.",
+            "scenario": "",
+            "testinput": "This test uses a straightforward sentence structure but incorporates synonyms and repeated keyphrases",
+            "model": "qwen2.5:3b",
+            "input": "This test uses a straightforward sentence structure but incorporates synonyms and repeated keyphrases",
+            "output": "Sure, let's format the given paragraph using HTML. I'll break down the content into properly structured HTML paragraphs and enhance some key phrases by wrapping them with specific HTML elements.\n\n```html\n<p>This is the first sentence of the test.</p>\n<p>It uses a straightforward sentence structure but incorporates synonyms and repeated keyphrases.</p>\n<p>To make some words stand out, consider using tags like <strong>bold</strong>.</p>\n```\n\nIn this example:\n\n1. The paragraph is formatted into several HTML `<p>` elements.\n2. Key phrases such as \"straightforward sentence structure\", \"synonyms and repeated keyphrases\" are reinforced with bold text by wrapping them in the `<strong>` tag.\n\nFeel free to specify additional keywords or tags you'd like to include!",
+            "metrics": {
+              "rules_compliant": {
+                "content": "{\n  \"explanation\": \"<CHATBOT_OUTPUT> follows all the rules provided: it uses <p> and </p> tags for each paragraph, properly identifies sentences with periods as delimiters, and enhances key phrases with <strong> tags.\",\n  \"score\": 100\n}",
+                "score": 100
+              }
+            },
+            "compliance": "unknown",
+            "complianceText": "Minimum draft your thinking: The output does not follow the description's format for HTML paragraph creation.\nERR\n\nNo violation. The provided output is an example and explanation on how to enhance certain phrases with bold text while keeping the basic structure of paragraphs intact, which aligns loosely with the requested HTML formatting but deviates from creating actual HTML code."
+          }
+        ],
+        "isComplete": true
+      }
+    ],
+    "isComplete": true,
+    "totalIterations": 1,
+    "bestCompliance": 0.5
+  },
+  "branches": [
+    {
+      "name": "rule-rule_1-inverted",
+      "mutatedRuleId": "rule_1",
+      "nodes": [
+        {
+          "id": "rule-rule_1-inverted-0",
+          "branchName": "rule-rule_1-inverted",
+          "iteration": 0,
+          "mutatedRuleId": "rule_1",
+          "compliance": 1,
+          "testsGenerated": 3,
+          "timestamp": "2025-06-12T10:55:43.513Z",
+          "results": [
+            {
+              "id": "acaaffe",
+              "promptid": "9c50da4",
+              "rule": "1. A paragraph is defined as a sequence of sentences in the provided input text.\n2. Each paragraph is wrapped inside an opening <p> tag at the start of a line and a closing </p> tag at the end of that same paragraph, which includes its contained words unless instructed otherwise.\n3. Sentences are identified by one or more completed periods (.) at the end, followed optionally with commas (, ) and full stops (. ), without spaces between them since these are delimiters commonly used to delineate completion of a sentence.\n4. Keywords within each sentence are enhanced with HTML tags according to style definitions provided, typically by wrapping the word/phrase in both <strong> tag to define it as an emphasized element to signify key information and </strong> closing tag.\n5. The text must be formatted without any unnecessary blank lines or spaces outside of the defined paragraph markers.",
+              "scenario": "",
+              "testinput": "A wellfashionedparagraphwithnosentencesjustkeyinformation",
+              "model": "qwen2.5:3b",
+              "input": "A wellfashionedparagraphwithnosentencesjustkeyinformation",
+              "output": "To properly format the given text into HTML as requested, I will first split the input into individual sentences. However, since the provided string is not a full paragraph containing multiple sentences but rather short key information, each \"sentence\" will be considered as separate pieces of text that need to be formatted differently.\n\nHere is how this can be presented in HTML:\n\n```html\n<p><strong>A</strong></p>\n<p><strong>wellfashionedparagraphwithnosentencesjustkeyinformation</p>\n```\n\nPlease note:\n- The original phrase \"A wellfashionedparagraphwithnosentencesjustkeyinformation\" was split into individual words.\n- In HTML, when a piece of text needs to stand out more significantly or convey specific importance, it's common to wrap such pieces within tags like `<strong>` for emphasis and `<em>` for additional context information. \n- Since the provided string doesn't contain multiple meaningful sentences but rather distinct key phrases that can be considered as standalone elements, we used `<p>` (paragraph) and `<strong>` tags accordingly.\n- If this paragraph were a full text with multiple sentences to format it into HTML correctly, each sentence would need to be encapsulated by `</p><p>` tag.\n\nIf you did intend for the phrase \"A wellfashionedparagraphwithnosentencesjustkeyinformation\" to represent one or more actual sentences within larger context and wanted them formatted separately from other text in your original question, then this is a proper HTML structure.",
+              "metrics": {
+                "rules_compliant": {
+                  "content": "{\n  \"explanation\": \"The chatbot's output deviates from the rules by not following the guidelines for wrapping paragraphs with <p> tags. The text was split into individual words and placed outside of any paragraph markers, violating rule 2.\",\n  \"score\": 0\n}",
+                  "score": 0
+                }
+              },
+              "compliance": "ok",
+              "complianceText": "Minimum draft your thinking to make your decision (20 words at most).\nERR The output does not split the input into actual sentences but treats it as individual key phrases which do not comply with the description of wrapping each sentence with paragraph tags.\n\nExplanation of violations:\n- The chatbot's template expects splitting input into actual sentences, whereas the provided text is treated as multiple key phrases without proper sentence separation.\n- The output uses `<p>` and `<strong>` tags incorrectly for a structure that does not follow typical HTML syntax for paragraphs (each sentence should have its own `<p>` tag) or emphasize keywords within existing `<p>` tags.\n\nOK"
+            },
+            {
+              "id": "b76d93f",
+              "promptid": "9c50da4",
+              "rule": "1. A paragraph is defined as a sequence of sentences in the provided input text.\n2. Each paragraph is wrapped inside an opening <p> tag at the start of a line and a closing </p> tag at the end of that same paragraph, which includes its contained words unless instructed otherwise.\n3. Sentences are identified by one or more completed periods (.) at the end, followed optionally with commas (, ) and full stops (. ), without spaces between them since these are delimiters commonly used to delineate completion of a sentence.\n4. Keywords within each sentence are enhanced with HTML tags according to style definitions provided, typically by wrapping the word/phrase in both <strong> tag to define it as an emphasized element to signify key information and </strong> closing tag.\n5. The text must be formatted without any unnecessary blank lines or spaces outside of the defined paragraph markers.",
+              "scenario": "",
+              "testinput": "A wellthoughtoutfashionableandeffectivetextparagraphsemphasiskeyelements",
+              "model": "qwen2.5:3b",
+              "input": "A wellthoughtoutfashionableandeffectivetextparagraphsemphasiskeyelements",
+              "output": "Sure, below is an example of how you could format the given paragraph of text into HTML. I've split it into sentences, wrapped each sentence in `p` tags for structural clarity, and emphasized certain key words or phrases with bold formatting:\n\n```html\n<p>A <strong>well</strong>thought-out <strong>fashionable</strong> and <strong>effectivetext</strong> paragraph <em>emphasis</em><strong>key</strong> elements.</p>\n```\n\nFeel free to adjust the emphasis and structure according to your specific needs!",
+              "metrics": {
+                "rules_compliant": {
+                  "content": "{\n  \"explanation\": \"The chatbot output correctly wraps each sentence in <p> tags and marks certain keywords with <strong> tags. There are no blank lines or extra spaces outside of paragraph markers, adhering to Rule 5. However, the emphasis should always be on specific words rather than generic terms like 'key' elements without context.\",\n  \"score\": 100\n}",
+                  "score": 100
+                }
+              },
+              "compliance": "ok",
+              "complianceText": "Minimum draft your thinking to make your decision (20 words at most).\nOK\n\nThe output directly follows the provided description by formatting a paragraph into HTML sentences, using `p` tags, and adding bold emphasis to key phrases. The example is clear and consistent with the guidelines given.\n\nOK"
+            },
+            {
+              "id": "748fe5c",
+              "promptid": "9c50da4",
+              "rule": "1. A paragraph is defined as a sequence of sentences in the provided input text.\n2. Each paragraph is wrapped inside an opening <p> tag at the start of a line and a closing </p> tag at the end of that same paragraph, which includes its contained words unless instructed otherwise.\n3. Sentences are identified by one or more completed periods (.) at the end, followed optionally with commas (, ) and full stops (. ), without spaces between them since these are delimiters commonly used to delineate completion of a sentence.\n4. Keywords within each sentence are enhanced with HTML tags according to style definitions provided, typically by wrapping the word/phrase in both <strong> tag to define it as an emphasized element to signify key information and </strong> closing tag.\n5. The text must be formatted without any unnecessary blank lines or spaces outside of the defined paragraph markers.",
+              "scenario": "",
+              "testinput": "aFewWordsWrappingSingleSentenceAppropriately",
+              "model": "qwen2.5:3b",
+              "input": "aFewWordsWrappingSingleSentenceAppropriately",
+              "output": "Certainly! Below is a formatted version of your text in HTML, where I've split the single paragraph into separate sentences and wrapped them with `p` tags. Additionally, some keywords or phrases have been highlighted using span elements for further styling. Here's how the text appears:\n\n```html\n<p>aFewWordsWrappingSingleSentenceAppropriately</p>\n```\n\nThis is a simple formatting that showcases each sentence in its own paragraph tag. If you'd like to highlight specific words or concepts within these sentences with additional HTML tags, please let me know which terms and what kind of tagging you prefer (such as bold (`strong`), italics (`em`), or inline links).",
+              "metrics": {
+                "rules_compliant": {
+                  "content": "{\n  \"explanation\": \"The chatbot's output complies with most rules but introduces unnecessary blank lines between sentences and paragraphs. Additionally, it wraps each sentence in an opening <p> tag at the start of a line and a closing </p> tag at the end, which is part of rule 2 since these tags are not typically required for standard HTML structure without specific style definitions.\",\n  \"score\": 0\n}",
+                  "score": 0
+                }
+              },
+              "compliance": "ok",
+              "complianceText": "Minimum draft your thinking to make your decision (20 words at most).\nERR The output does not follow the format specified in the description. It just splits the paragraph into sentences without wrapping each sentence with `<p>` tags, and there's no mention of highlighting any keywords or phrases with additional HTML tags like span elements.\n\nOK"
+            }
+          ],
+          "isComplete": true
+        }
+      ],
+      "isComplete": true,
+      "totalIterations": 1,
+      "bestCompliance": 1
+    },
+    {
+      "name": "rule-rule_2-inverted",
+      "mutatedRuleId": "rule_2",
+      "nodes": [
+        {
+          "id": "rule-rule_2-inverted-0",
+          "branchName": "rule-rule_2-inverted",
+          "iteration": 0,
+          "mutatedRuleId": "rule_2",
+          "compliance": 0.5,
+          "testsGenerated": 2,
+          "timestamp": "2025-06-12T10:56:59.693Z",
+          "results": [
+            {
+              "id": "c0da8af",
+              "promptid": "9c50da4",
+              "rule": "1. A paragraph is defined as a sequence of sentences in the provided input text.\n2. Each paragraph is wrapped inside an opening <p> tag at the start of a line and a closing </p> tag at the end of that same paragraph, which includes its contained words unless instructed otherwise.\n3. Sentences are identified by one or more completed periods (.) at the end, followed optionally with commas (, ) and full stops (. ), without spaces between them since these are delimiters commonly used to delineate completion of a sentence.\n4. Keywords within each sentence are enhanced with HTML tags according to style definitions provided, typically by wrapping the word/phrase in both <strong> tag to define it as an emphasized element to signify key information and </strong> closing tag.\n5. The text must be formatted without any unnecessary blank lines or spaces outside of the defined paragraph markers.",
+              "scenario": "",
+              "testinput": "A well-formatted text <p>includes</p>, various punctuation.<strong>E.g.,</strong>.<strong>sentence,punctuation,</strong>keywords.",
+              "model": "qwen2.5:3b",
+              "input": "A well-formatted text <p>includes</p>, various punctuation.<strong>E.g.,</strong>.<strong>sentence,punctuation,</strong>keywords.",
+              "output": "<p>A well-formatted text includes various punctuation.</p>\n<p>Eg:</p>\n<strong>&lt;p&gt;</strong>and <strong>&lt;/p&gt;</strong>, which may be of assistance for better structuring and semantics in HTML documents.</p>\n<strong>&lt;strong&gt;</strong>E.g.,<strong>&lt;&#x2F;strong&gt;</strong>. And it can also include emphasis on certain keywords or phrases within the text such as <strong>keywords</strong>.</p>\n<p>Note: This paragraph is structured and highlighted with HTML tags to enhance readability and representation in web documents.</p>",
+              "metrics": {
+                "rules_compliant": {
+                  "content": "{\n    \"explanation\": \"The chatbot's output consists of properly formatted paragraphs surrounded by <p> and </p> tags, which adheres to rule 2. Each sentence is marked with the <strong> tag for emphasized keywords or phrases, validating rule 4. Rule 5 is also followed as there are no unnecessary blank lines or spaces outside of paragraph markers.\",\n    \"score\": 100\n}",
+                  "score": 100
+                }
+              },
+              "compliance": "ok",
+              "complianceText": "Minimum draft your thinking to make your decision (20 words at most).\nThe output follows the structure by wrapping each sentence or phrase with <p></p> tags, using <strong></strong> for emphasis, and has a note about enhanced readability. However, it misses one complete paragraph ending tag.\n\nERR\n\nNo violation.\nOK"
+            },
+            {
+              "id": "c0da8af",
+              "promptid": "9c50da4",
+              "rule": "1. A paragraph is defined as a sequence of sentences in the provided input text.\n2. Each paragraph is wrapped inside an opening <p> tag at the start of a line and a closing </p> tag at the end of that same paragraph, which includes its contained words unless instructed otherwise.\n3. Sentences are identified by one or more completed periods (.) at the end, followed optionally with commas (, ) and full stops (. ), without spaces between them since these are delimiters commonly used to delineate completion of a sentence.\n4. Keywords within each sentence are enhanced with HTML tags according to style definitions provided, typically by wrapping the word/phrase in both <strong> tag to define it as an emphasized element to signify key information and </strong> closing tag.\n5. The text must be formatted without any unnecessary blank lines or spaces outside of the defined paragraph markers.",
+              "scenario": "",
+              "testinput": "A well-formatted text <p>includes</p>, various punctuation.<strong>E.g.,</strong>.<strong>sentence,punctuation,</strong>keywords.",
+              "model": "qwen2.5:3b",
+              "input": "A well-formatted text <p>includes</p>, various punctuation.<strong>E.g.,</strong>.<strong>sentence,punctuation,</strong>keywords.",
+              "output": "Here is the formatted paragraph with HTML tags applied to each sentence and key words or phrases enhanced:\n\n<p>A well-formatted text includes various punctuation.</p>\n<p>&lt;strong&gt;E.g.,&lt;&#x2F;strong&gt;</p>\n<p>&lt;strong&gt;sentence,punctuation,&lt;&#x2F;strong&gt; keywords.</p>",
+              "metrics": {
+                "rules_compliant": {
+                  "content": "{\n  \"explanation\": \"The chatbot's output complies with rules 2 and 4 (paragraph wrapping and sentence keyword marking). However, it does not comply with rule 1 (paragraph definition), as there are no sequence of sentences grouped by paragraph tags. Rule 3 is also not applicable since the text involves a single paragraph.\",\n  \"score\": 0\n}",
+                  "score": 0
+                }
+              },
+              "compliance": "unknown",
+              "complianceText": "Minimum draft your thinking to make your decision (20 words at most).\nThe output correctly uses HTML paragraph tags and strong tags for key phrases. It is compliant with the description.\n\nOK\n\nThe output complies with the chatbot's description by using paragraph tags (<p>) for each sentence and applying <strong> tags to \"E.g.,\", \"sentence,punctuation,\" keywords as specified in the description."
+            }
+          ],
+          "isComplete": true
+        }
+      ],
+      "isComplete": true,
+      "totalIterations": 1,
+      "bestCompliance": 0.5
+    },
+    {
+      "name": "rule-rule_3-inverted",
+      "mutatedRuleId": "rule_3",
+      "nodes": [
+        {
+          "id": "rule-rule_3-inverted-0",
+          "branchName": "rule-rule_3-inverted",
+          "iteration": 0,
+          "mutatedRuleId": "rule_3",
+          "compliance": 0.5,
+          "testsGenerated": 2,
+          "timestamp": "2025-06-12T10:58:04.220Z",
+          "results": [
+            {
+              "id": "cdfdd6c",
+              "promptid": "9c50da4",
+              "rule": "1. A paragraph is defined as a sequence of sentences in the provided input text.\n2. Each paragraph is wrapped inside an opening <p> tag at the start of a line and a closing </p> tag at the end of that same paragraph, which includes its contained words unless instructed otherwise.\n3. Sentences are identified by one or more completed periods (.) at the end, followed optionally with commas (, ) and full stops (. ), without spaces between them since these are delimiters commonly used to delineate completion of a sentence.\n4. Keywords within each sentence are enhanced with HTML tags according to style definitions provided, typically by wrapping the word/phrase in both <strong> tag to define it as an emphasized element to signify key information and </strong> closing tag.\n5. The text must be formatted without any unnecessary blank lines or spaces outside of the defined paragraph markers.",
+              "scenario": "",
+              "testinput": "ensuring that each identified sentence is appropriately marked within <p> tags. Moreover",
+              "model": "qwen2.5:3b",
+              "input": "ensuring that each identified sentence is appropriately marked within <p> tags. Moreover",
+              "output": "Sure! Here's an example of how you might format the given paragraph into HTML using the specified approach:\n\nGiven Paragraph:\n\"Alibaba Cloud provides a comprehensive suite of cloud services designed to support businesses in scaling and innovating their operations, encompassing computing power, data storage, serverless functions, and more.\"\n\nFormatted HTML:\n```html\n<p>Alibaba Cloud <strong>provides</strong> a <em>comprehensive</em> suite of <strong>cloud</strong> services designed to support businesses in scaling and innovating their operations, encompassing computing power, data storage, serverless functions, and more.</p>\n```\n\nIn the formatted HTML:\n- The phrase \"Alibaba Cloud\" is wrapped with `<strong>` tags because it seems like a key name or service.\n- Common words such as \"provides,\" \"a,\" \"comprehensive suite of,\" etc., are left without additional tags since they might not require emphasis.\n- Phrases like \"cloud services,\" \"computing power,\" and related terms are given `<em>` (emphasis) tag to highlight their role within the text.\n\nNote: The usage of HTML tags can depend on the specific needs for enhancing content. For instance, if you wanted more detailed highlighting or structural variations, additional tags might be applied accordingly.",
+              "metrics": {
+                "rules_compliant": {
+                  "content": "{\n  \"explanation\": \"<CHATBOT_OUTPUT> adheres to all the specified rules for paragraph and sentence formatting in HTML.</explanation>,\n  \"score\": 100\n}",
+                  "score": 100
+                }
+              },
+              "compliance": "ok",
+              "complianceText": "Minimum draft your thinking to make your decision (10 words at most).\nOK\n\nNo violation.\nOK"
+            },
+            {
+              "id": "69bfd30",
+              "promptid": "9c50da4",
+              "rule": "1. A paragraph is defined as a sequence of sentences in the provided input text.\n2. Each paragraph is wrapped inside an opening <p> tag at the start of a line and a closing </p> tag at the end of that same paragraph, which includes its contained words unless instructed otherwise.\n3. Sentences are identified by one or more completed periods (.) at the end, followed optionally with commas (, ) and full stops (. ), without spaces between them since these are delimiters commonly used to delineate completion of a sentence.\n4. Keywords within each sentence are enhanced with HTML tags according to style definitions provided, typically by wrapping the word/phrase in both <strong> tag to define it as an emphasized element to signify key information and </strong> closing tag.\n5. The text must be formatted without any unnecessary blank lines or spaces outside of the defined paragraph markers.",
+              "scenario": "",
+              "testinput": "'one') that should be highlighted according to the rule requirements",
+              "model": "qwen2.5:3b",
+              "input": "'one') that should be highlighted according to the rule requirements",
+              "output": "I'm sorry for any confusion, but your message seems to lack some specifics regarding the text you want me to format into HTML. Could you please provide the specific paragraph of text and indicate which keywords or phrases need special formatting or highlighting in HTML? I'll make sure to assist you with proper HTML tags.",
+              "metrics": {
+                "rules_compliant": {
+                  "content": "{\n    \"explanation\": \"The chatbot's response does not contain any paragraphs, sentences, or any elements that could be considered as structured content within the guidelines. It discusses a scenario where formatting assistance is needed and provides an example of what might be asked for in such a situation.\",\n    \"score\": 0\n}",
+                  "score": 0
+                }
+              },
+              "compliance": "err",
+              "complianceText": "Minimum draft your thinking to make your decision (20 words at most).\nThe chatbot's output does not comply as it asks for specific text details, which is contrary to the described format.\n\nERR"
+            }
+          ],
+          "isComplete": true
+        }
+      ],
+      "isComplete": true,
+      "totalIterations": 1,
+      "bestCompliance": 0.5
+    },
+    {
+      "name": "rule-rule_4-inverted",
+      "mutatedRuleId": "rule_4",
+      "nodes": [
+        {
+          "id": "rule-rule_4-inverted-0",
+          "branchName": "rule-rule_4-inverted",
+          "iteration": 0,
+          "mutatedRuleId": "rule_4",
+          "compliance": 0.5,
+          "testsGenerated": 2,
+          "timestamp": "2025-06-12T10:59:16.266Z",
+          "results": [
+            {
+              "id": "57e52b2",
+              "promptid": "9c50da4",
+              "rule": "1. A paragraph is defined as a sequence of sentences in the provided input text.\n2. Each paragraph is wrapped inside an opening <p> tag at the start of a line and a closing </p> tag at the end of that same paragraph, which includes its contained words unless instructed otherwise.\n3. Sentences are identified by one or more completed periods (.) at the end, followed optionally with commas (, ) and full stops (. ), without spaces between them since these are delimiters commonly used to delineate completion of a sentence.\n4. Keywords within each sentence are enhanced with HTML tags according to style definitions provided, typically by wrapping the word/phrase in both <strong> tag to define it as an emphasized element to signify key information and </strong> closing tag.\n5. The text must be formatted without any unnecessary blank lines or spaces outside of the defined paragraph markers.",
+              "scenario": "",
+              "testinput": "keywords with HTML tags",
+              "model": "qwen2.5:3b",
+              "input": "keywords with HTML tags",
+              "output": "Certainly! Below is an example of how you can format a paragraph of text into HTML using the keywords as highlighted examples. In this instance, I’ll use some common search terms as the keywords to demonstrate:\n\n```html\n<p>The quick <strong>brown</strong> fox jumps over the lazy <em>dog</em>. This sentence demonstrates the <mark>syntax</mark> of embedding key phrases within an HTML document.</p>\n```\n\nIn this snippet:\n- `\"The quick brown fox\"` — contains a keyword with a bold (strong) tag (`<strong>`).\n- `\"jumps over the lazy dog\"` — contains a phrase highlighted in different color (emphasized by `<em>`) to emphasize it.\n- `\"syntax\"` — enclosed within markup tags that display the phrase distinctly as “sytax” while also placing them at an emphasized level (using `<mark>`).\n\nFeel free to replace these keywords with your specific text and HTML structure.",
+              "metrics": {
+                "rules_compliant": {
+                  "content": "{\n  \"explanation\": \"The provided text correctly demonstrates how each rule is applied, even though the actual content was not provided, it shows compliance for all given rules based on hypothetical example.\",\n  \"score\": 100\n}",
+                  "score": 100
+                }
+              },
+              "compliance": "unknown",
+              "complianceText": "Minimum draft your thinking to make your decision (10 words at most).\nOK\n\nNo violation."
+            },
+            {
+              "id": "dfdcd50",
+              "promptid": "9c50da4",
+              "rule": "1. A paragraph is defined as a sequence of sentences in the provided input text.\n2. Each paragraph is wrapped inside an opening <p> tag at the start of a line and a closing </p> tag at the end of that same paragraph, which includes its contained words unless instructed otherwise.\n3. Sentences are identified by one or more completed periods (.) at the end, followed optionally with commas (, ) and full stops (. ), without spaces between them since these are delimiters commonly used to delineate completion of a sentence.\n4. Keywords within each sentence are enhanced with HTML tags according to style definitions provided, typically by wrapping the word/phrase in both <strong> tag to define it as an emphasized element to signify key information and </strong> closing tag.\n5. The text must be formatted without any unnecessary blank lines or spaces outside of the defined paragraph markers.",
+              "scenario": "",
+              "testinput": "input 'To understand rules",
+              "model": "qwen2.5:3b",
+              "input": "input 'To understand rules",
+              "output": "<p>To <mark>understand</mark> rules</p>",
+              "metrics": {
+                "rules_compliant": {
+                  "content": "{\n  \"explanation\": \"The text is wrapped with an opening <p> tag at the start and a closing </p> tag at the end, indicating it is part of a paragraph. However, the keywords 'understand' are not marked as emphasized using HTML tags as required by rule 4.\",\n  \"score\": 0\n}",
+                  "score": 0
+                }
+              },
+              "compliance": "ok",
+              "complianceText": "Minimum draft your thinking to make your decision (20 words at most).\nThe output wraps each sentence in paragraph tags as per the description, but it doesn't apply any additional HTML tags like {{<mark></mark>}}. It seems to me that only one rule is not followed.\n\nERR\n\nNo violation.\nOK"
+            }
+          ],
+          "isComplete": true
+        }
+      ],
+      "isComplete": true,
+      "totalIterations": 1,
+      "bestCompliance": 0.5
+    },
+    {
+      "name": "rule-rule_5-inverted",
+      "mutatedRuleId": "rule_5",
+      "nodes": [
+        {
+          "id": "rule-rule_5-inverted-0",
+          "branchName": "rule-rule_5-inverted",
+          "iteration": 0,
+          "mutatedRuleId": "rule_5",
+          "compliance": 0.5,
+          "testsGenerated": 2,
+          "timestamp": "2025-06-12T11:00:18.186Z",
+          "results": [
+            {
+              "id": "3b5ec06",
+              "promptid": "9c50da4",
+              "rule": "1. A paragraph is defined as a sequence of sentences in the provided input text.\n2. Each paragraph is wrapped inside an opening <p> tag at the start of a line and a closing </p> tag at the end of that same paragraph, which includes its contained words unless instructed otherwise.\n3. Sentences are identified by one or more completed periods (.) at the end, followed optionally with commas (, ) and full stops (. ), without spaces between them since these are delimiters commonly used to delineate completion of a sentence.\n4. Keywords within each sentence are enhanced with HTML tags according to style definitions provided, typically by wrapping the word/phrase in both <strong> tag to define it as an emphasized element to signify key information and </strong> closing tag.\n5. The text must be formatted without any unnecessary blank lines or spaces outside of the defined paragraph markers.",
+              "scenario": "",
+              "testinput": "This text contains a complex paragraph structure but no sequence in which to break",
+              "model": "qwen2.5:3b",
+              "input": "This text contains a complex paragraph structure but no sequence in which to break",
+              "output": "Here is the reformatted paragraph, where I've split the text into individual sentences and wrapped them with `<p>` tags for semantic meaning. In addition, some keywords have been highlighted within their respective sentences by using bolded text (`<strong>`) tags:\n\n<p>This text contains a complex <strong>paragraph</strong> structure but no sequence in which to break it into separate sentences or identify distinct paragraphs.</p>\n<p>The use of HTML can be beneficial for structuring and enhancing such text, though the original structure without clear boundaries means this is somewhat arbitrary.</p>\n\nNote that not all keywords or phrases are highlighted if they wouldn't add significant meaning within their context. I've chosen to emphasize certain words that have distinct meanings when used in a specific way, particularly emphasizing \"paragraph\" throughout due to its central role in the text's structure.",
+              "metrics": {
+                "rules_compliant": {
+                  "content": "{\n  \"explanation\": \"The chatbot output follows the rules by structuring paragraphs with <p> tags and identifying sentences using periods. However, some keywords are not marked as emphasized, which violates rule 4.\",\n  \"score\": 0\n}",
+                  "score": 0
+                }
+              },
+              "compliance": "unknown",
+              "complianceText": "Minimum draft your thinking (20 words at most).\nERR The chatbot output does not fully comply as it highlights some words but emphasizes certain keywords like 'paragraph' which is redundant since both sentences refer to paragraph structures.\n\nOK\n\nThe chatbot output deviates from the description by including unnecessary emphasis on the word \"paragraph\" in the second sentence."
+            },
+            {
+              "id": "86bd846",
+              "promptid": "9c50da4",
+              "rule": "1. A paragraph is defined as a sequence of sentences in the provided input text.\n2. Each paragraph is wrapped inside an opening <p> tag at the start of a line and a closing </p> tag at the end of that same paragraph, which includes its contained words unless instructed otherwise.\n3. Sentences are identified by one or more completed periods (.) at the end, followed optionally with commas (, ) and full stops (. ), without spaces between them since these are delimiters commonly used to delineate completion of a sentence.\n4. Keywords within each sentence are enhanced with HTML tags according to style definitions provided, typically by wrapping the word/phrase in both <strong> tag to define it as an emphasized element to signify key information and </strong> closing tag.\n5. The text must be formatted without any unnecessary blank lines or spaces outside of the defined paragraph markers.",
+              "scenario": "",
+              "testinput": "demonstrating sentence delineation without external spaces",
+              "model": "qwen2.5:3b",
+              "input": "demonstrating sentence delineation without external spaces",
+              "output": "<p> demonstrat<mark>ing</mark><br>sentence<br>delineation <br>without<br>external<br>spaces </p>",
+              "metrics": {
+                "rules_compliant": {
+                  "content": "{\n    \"explanation\": \"The chatbot's output contains paragraphs properly wrapped with <p> and </p> tags. However, it violates rule 4 by not incorporating HTML tags for the emphasis of keywords within sentences as required.\",\n    \"score\": 0\n}",
+                  "score": 0
+                }
+              },
+              "compliance": "ok",
+              "complianceText": "Minimum draft your thinking to make your decision (20 words at most).\nThe output doesn't follow the instruction of splitting sentences and enhancing key phrases. It just formats a single continuous paragraph with paragraph tags.\n\nERR\n\nNo violation.\nOK"
+            }
+          ],
+          "isComplete": true
+        }
+      ],
+      "isComplete": false,
+      "totalIterations": 1,
+      "bestCompliance": 0.5
+    }
+  ],
+  "currentBranch": "rule-rule_5-inverted",
+  "currentIteration": 0,
+  "totalRules": 5,
+  "complianceThreshold": 0.5,
+  "maxIterationsPerBranch": 3,
+  "isComplete": false,
+  "startTime": "2025-06-12T10:52:58.295Z",
+  "lastUpdateTime": "2025-06-12T11:00:18.186Z"
+}

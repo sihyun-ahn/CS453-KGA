@@ -1,0 +1,29 @@
+[
+  {
+    "testid": "1",
+    "expectedoutput": "<p>A well <strong>fashioned</strong> paragraph with no sentences, just key emphasized words.</p>",
+    "reasoning": "Ensures adherence to rule 2 by wrapping a single sentence fully inside paragraph tags and adheres to all other rules including keywords being correctly wrapped in HTML tags.",
+    "input_text": "A wellfashionedparagraphwithnosentencesjustkeyinformation",
+    "testinput": "A wellfashionedparagraphwithnosentencesjustkeyinformation",
+    "scenario": "",
+    "generation": 0
+  },
+  {
+    "testid": "2",
+    "expectedoutput": "<p>Well thought out, <strong>fashionable</strong>, and effective text paragraphs emphasize key elements.</p>",
+    "reasoning": "Tests rule adherence with a different input structure containing multiple keywords needing HTML formatting and ensuring no sentences are separated by unnecessary blank lines.",
+    "input_text": "A wellthoughtoutfashionableandeffectivetextparagraphsemphasiskeyelements",
+    "testinput": "A wellthoughtoutfashionableandeffectivetextparagraphsemphasiskeyelements",
+    "scenario": "",
+    "generation": 1
+  },
+  {
+    "testid": "3",
+    "expectedoutput": "<p>This is just <strong>a few</strong> words, wrapping single sentence appropriately.</p>",
+    "reasoning": "Validates ability to correctly identify and handle a minimalistic paragraph conforming to multiple rules including rule 1 for avoiding sentences and rule 4 & 5 ensuring proper HTML tags are applied.",
+    "input_text": "aFewWordsWrappingSingleSentenceAppropriately",
+    "testinput": "aFewWordsWrappingSingleSentenceAppropriately",
+    "scenario": "",
+    "generation": 1
+  }
+]
