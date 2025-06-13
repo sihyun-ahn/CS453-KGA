@@ -1,0 +1,67 @@
+[
+  {
+    "id": "d025f1b",
+    "promptid": "73d9646",
+    "rule": "1. The input text must indicate the main subject matter with specific terms relevant to the category classification.\n2. If categorized under World, it should use synonyms like geopolitics, international affairs, global events or related phrases indicating an international scale topic.\n3. If categorized as Sports, it must exclusively mention words such as athlete, competition, sports event, team activities or similar sporting activities.\n4. For Business categorization, terms relating to commerce, corporation, market activity, business transactions or sector-specific topics like banking, finance are mandatory in the input text.\n5. The term related to technology and science such as robotics, computer, electronic or scientific research should be used exclusively for classification into the Sci/Tech category.",
+    "scenario": "",
+    "testinput": "international politics is an international scale topic related to global affairs.",
+    "model": "qwen2.5:3b",
+    "input": "international politics is an international scale topic related to global affairs.",
+    "output": "Based on the keywords and context provided (\"international scale\", \"global affairs\"), this news article would typically be classified under the category of **World**. Topics related to international politics often touch upon relations between nations, global negotiations, and events that have broad implications for multiple countries, which fall squarely within the purview of a World news category.",
+    "metrics": {
+      "rules_compliant": {
+        "content": "{\n    \"explanation\": \"The chatbot's output indicates that it uses keywords and context provided to reasonably classify the article under the 'World' category based on international scale and global affairs. However, we need to check whether its classification aligns with specific World-related rules (1 through 5).\",\n    \"score\": 0,\n    \"violated_rules\": [1, 3, 4, 5]\n}",
+        "score": 0,
+        "violated_rules": [
+          1,
+          3,
+          4,
+          5
+        ]
+      }
+    },
+    "compliance": "unknown",
+    "complianceText": "Minimum draft your thinking to make your decision (20 words at most).\nThe output classifies the article as 'World' based on keywords like 'international scale' and 'global affairs', aligning with the description.\n\nOK\n\nThe chatbot's output complies with the described task of classifying a news article into one of several predefined categories, such as World, Sports, Business, or Sci/Tech. The classification is based solely on context clues \"international scale\" and \"global affairs\". The output provides a justification for this categorization by explaining how these keywords relate to topics like international politics and events with broader implications across nations, which clearly fits under the World news category."
+  },
+  {
+    "id": "d8587ad",
+    "promptid": "73d9646",
+    "rule": "1. The input text must indicate the main subject matter with specific terms relevant to the category classification.\n2. If categorized under World, it should use synonyms like geopolitics, international affairs, global events or related phrases indicating an international scale topic.\n3. If categorized as Sports, it must exclusively mention words such as athlete, competition, sports event, team activities or similar sporting activities.\n4. For Business categorization, terms relating to commerce, corporation, market activity, business transactions or sector-specific topics like banking, finance are mandatory in the input text.\n5. The term related to technology and science such as robotics, computer, electronic or scientific research should be used exclusively for classification into the Sci/Tech category.",
+    "scenario": "",
+    "testinput": "athlete participated in Olympics",
+    "model": "qwen2.5:3b",
+    "input": "athlete participated in Olympics",
+    "output": "Based on the content provided (\"athlete participated in Olympics\"), this news article should be classified under the category **Sports**. The Olympics is a major international athletic event where athletes participate in various sports competitions.",
+    "metrics": {
+      "rules_compliant": {
+        "content": "{\n  \"explanation\": \"The chatbot output does not comply with rule 2 (if categorized as World, it should use synonyms like geopolitics, international affairs, global events or related phrases indicating an international scale topic.) and rule 3 (For Sports categorization, it must exclusively mention words such as athlete, competition, sports event, team activities or similar sporting activities.).\",\n  \"score\": 0,\n  \"violated_rules\": [1, 2]\n}",
+        "score": 0,
+        "violated_rules": [
+          1,
+          2
+        ]
+      }
+    },
+    "compliance": "unknown",
+    "complianceText": "Minimum draft your thinking to make your decision (10 words at most).\nOK\n\nThe output directly follows the description by classifying the news article into the appropriate \"Sports\" category based on the content provided."
+  },
+  {
+    "id": "8a8d7a9",
+    "promptid": "73d9646",
+    "rule": "1. The input text must indicate the main subject matter with specific terms relevant to the category classification.\n2. If categorized under World, it should use synonyms like geopolitics, international affairs, global events or related phrases indicating an international scale topic.\n3. If categorized as Sports, it must exclusively mention words such as athlete, competition, sports event, team activities or similar sporting activities.\n4. For Business categorization, terms relating to commerce, corporation, market activity, business transactions or sector-specific topics like banking, finance are mandatory in the input text.\n5. The term related to technology and science such as robotics, computer, electronic or scientific research should be used exclusively for classification into the Sci/Tech category.",
+    "scenario": "",
+    "testinput": "corporation conducted merger in tech market",
+    "model": "qwen2.5:3b",
+    "input": "corporation conducted merger in tech market",
+    "output": "Based on the content of the provided sentence \"corporation conducted merger in tech market\", this news article would most appropriately fall under the category of **Business**. Merger announcements are typically categorized as business news due to their focus on corporate activities and industry developments.",
+    "metrics": {
+      "rules_compliant": {
+        "content": "{\n    \"explanation\": \"The chatbot's output correctly identifies the content as Business because it includes terms related to corporations, mergers, which align with the definition of Commerce or sector-specific topics like banking, finance.\",\n    \"score\": 100,\n    \"violated_rules\": []\n}",
+        "score": 100,
+        "violated_rules": []
+      }
+    },
+    "compliance": "ok",
+    "complianceText": "Minimum draft your thinking to make your decision (20 words at most).\nOK\n\nThe output correctly classifies the news article into the Business category, aligning with the provided sentence that discusses a merger in the tech market.\n\nOK"
+  }
+]

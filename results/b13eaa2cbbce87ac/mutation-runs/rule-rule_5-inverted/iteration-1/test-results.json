@@ -1,0 +1,61 @@
+[
+  {
+    "id": "2235b6d",
+    "promptid": "d4a5f29",
+    "rule": "1. The output must be presented as a bullet-pointed or numbered list.\n2. Each item in the list represents an extracted entity from the input text.\n3. Each entity is preceded by its type of classification: company name, people name, specific topic, or general theme.\n4. It should be clear and unambiguous how each section is organized and what distinguishes one category of entities from another.\n5. The input text will determine which of these categories apply to a given word or phrase in the output list.",
+    "scenario": "",
+    "testinput": "company: Apple",
+    "model": "qwen2.5:3b",
+    "input": "company: Apple",
+    "output": "Here is the extracted entity based on your instruction:\n\n- Company: Apple",
+    "metrics": {
+      "rules_compliant": {
+        "content": "{\n \"explanation\": \"The output only provides a single entity (Apple) and it is presented as a company, which does not comply with the requirement of providing entities in a bullet-pointed or numbered list format. Moreover, since there are no other entities provided, the compliance score cannot be 100.\",\n \"score\": 0,\n \"violated_rules\": [1]\n}",
+        "score": 0,
+        "violated_rules": [
+          1
+        ]
+      }
+    },
+    "compliance": "ok",
+    "complianceText": "Minimum draft your thinking to make your decision (20 words at most).\nThe output provides a structured list of entities which include \"{{input_text}}\". The provided output does not match this format.\n\nERR\n\nNo violation.\nOK"
+  },
+  {
+    "id": "c87d69f",
+    "promptid": "d4a5f29",
+    "rule": "1. The output must be presented as a bullet-pointed or numbered list.\n2. Each item in the list represents an extracted entity from the input text.\n3. Each entity is preceded by its type of classification: company name, people name, specific topic, or general theme.\n4. It should be clear and unambiguous how each section is organized and what distinguishes one category of entities from another.\n5. The input text will determine which of these categories apply to a given word or phrase in the output list.",
+    "scenario": "",
+    "testinput": "company: Tesla",
+    "model": "qwen2.5:3b",
+    "input": "company: Tesla",
+    "output": "```json\n[\n  {\n    \"type\": \"company\",\n    \"value\": \"Tesla\"\n  }\n]\n```",
+    "metrics": {
+      "rules_compliant": {
+        "content": "{\n  \"explanation\": \"The chatbot's output is a JSON list with a single item. The type of this entity is 'company', and the value associated with it is 'Tesla'. However, there are no rule requirements that specify what constitutes whether an input must contain companies in its text. Given the context provided, Tesla could be relevant to many inputs - not just inputs containing information about Tesla.\",\n  \"score\": 0,\n  \"violated_rules\": []\n}",
+        "score": 0,
+        "violated_rules": []
+      }
+    },
+    "compliance": "ok",
+    "complianceText": "Minimum draft your thinking to make your decision (20 words at most).\nThe output is a JSON list with entities of type 'company' including \"Tesla\", which directly follows the requirement provided in <DESC>. OK"
+  },
+  {
+    "id": "1312aea",
+    "promptid": "d4a5f29",
+    "rule": "1. The output must be presented as a bullet-pointed or numbered list.\n2. Each item in the list represents an extracted entity from the input text.\n3. Each entity is preceded by its type of classification: company name, people name, specific topic, or general theme.\n4. It should be clear and unambiguous how each section is organized and what distinguishes one category of entities from another.\n5. The input text will determine which of these categories apply to a given word or phrase in the output list.",
+    "scenario": "",
+    "testinput": "specific topic: climate change",
+    "model": "qwen2.5:3b",
+    "input": "specific topic: climate change",
+    "output": "Since the task is to extract entities related to \"climate change\", I am not able to provide an actual extraction without input text. However, here's how you would typically structure such a response:\n\nSample output for specified topic 'climate change':\n\n```plaintext\n{\n  \"entities\": [\n    { \"type\": \"specific_topic\", \"value\": \"Climate Change\" },\n    // More entries can be added based on the input text:\n    { \"type\": \"company_name\", \"value\": \"Carbon Engineering Ltd.\" },\n    { \"type\": \"person_name\", \"value\": \"James Hansen\" }\n  ]\n}\n```\n\nIn this example:\n\n- **Entities**: Contains a list of entities identified in a given text.\n- **type**: Indicates the type of entity (e.g., specific_topic, company_name, person_name).\n- **value**: An indicative value to demonstrate how entities might be structured within the \"entities\" array.\n\nTo get actual extracted entities related to climate change from a provided text, you would need to provide that text. For instance:\n\nGiven an input text like: \"The Intergovernmental Panel on Climate Change (IPCC) recently released its landmark report highlighting critical issues surrounding climate change.\"\n\nIt could lead to this output:\n```plaintext\n{\n  \"entities\": [\n    { \"type\": \"specific_topic\", \"value\": \"Climate Change\" },\n    { \"type\": \"company_name\", \"value\": \"Intergovernmental Panel on Climate Change (IPCC)\" }\n  ]\n}\n```\n\nFrom the text, only \"IPCC\" is identified as a company name relevant to climate change.",
+    "metrics": {
+      "rules_compliant": {
+        "content": "{\n  \"explanation\": \"The provided output correctly identifies specific_topic 'Climate Change', and one example of a company name related to climate change ('Intergovernmental Panel on Climate Change (IPCC)'). There are no violations based on the given rules.\",\n  \"score\": 100,\n  \"violated_rules\": []\n}",
+        "score": 100,
+        "violated_rules": []
+      }
+    },
+    "compliance": "ok",
+    "complianceText": "OK"
+  }
+]

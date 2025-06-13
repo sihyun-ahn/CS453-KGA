@@ -1,0 +1,29 @@
+[
+  {
+    "testid": "1",
+    "expectedoutput": "List items contain at least one entity of each type: company name, people name, specific topic, and general theme. For example:\\n\\n* Type: Company Name - Apple Inc.\\n* Type: People Name - Steve Jobs\\n* Type: Specific Topic - Macbook Pro\\n* Type: General Theme - Innovation",
+    "reasoning": "This test ensures the output includes entities of all types as specified in the rule",
+    "input_text": "covering a range of scenarios including boundary cases and edge cases.",
+    "testinput": "covering a range of scenarios including boundary cases and edge cases.",
+    "scenario": "",
+    "generation": 0
+  },
+  {
+    "testid": "2",
+    "expectedoutput": "List items are mutually exclusive, i.e., no item can belong to multiple categories simultaneously. For example:\\n\\n* Type: Company Name - Apple Inc.\\n\\nor\\n\\n* Type: People Name - Steve Jobs\\n\\nand so on for all entity types.",
+    "reasoning": "This test ensures that each input text element belongs to only one category as per the rules",
+    "input_text": "reinforcing the exclusivity of type assignments.",
+    "testinput": "reinforcing the exclusivity of type assignments.",
+    "scenario": "",
+    "generation": 1
+  },
+  {
+    "testid": "3",
+    "expectedoutput": "List items are not allowed to be empty. Every list item must contain a valid and assigned entity type from the given four types (company name, people name, specific topic, general theme).",
+    "reasoning": "This test checks if there is at least one non-empty list item containing a valid entity type across all possible scenarios.",
+    "input_text": "input 'input_text' with potential empty or invalid list items.",
+    "testinput": "input 'input_text' with potential empty or invalid list items.",
+    "scenario": "",
+    "generation": 1
+  }
+]

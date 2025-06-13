@@ -311,6 +311,10 @@ export interface PromptPexTestResult {
     complianceText?: string
 
     metrics: Record<string, PromptPexEvaluation>
+    
+    // Branch information from mutation system
+    branchName?: string
+    iteration?: number
 }
 
 export interface PromptPexTestEval {
@@ -378,6 +382,7 @@ export interface PromptPexEvaluation {
     perplexity?: number
     outcome?: PromptPexEvalResultType
     score?: number
+    violated_rules?: number[]
 }
 
 // Multi-iteration mutation system types

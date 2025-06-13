@@ -22,7 +22,7 @@ import type {
     PromptPexTest,
 } from "./types.mts"
 
-const dbg = host.logger("promptpex:iteration")
+const dbg = console.debug
 const { output } = env
 
 export async function runIterativeTestGeneration(
@@ -310,7 +310,13 @@ async function getAllResults(tree: PromptPexMutationTree): Promise<PromptPexTest
     for (const branch of allBranches) {
         for (const node of branch.nodes) {
             if (node.results) {
-                allResults.push(...node.results)
+                // Add branch information to each test result
+                const resultsWithBranch = node.results.map(result => ({
+                    ...result,
+                    branchName: node.branchName,
+                    iteration: node.iteration
+                }))
+                allResults.push(...resultsWithBranch)
             }
         }
     }

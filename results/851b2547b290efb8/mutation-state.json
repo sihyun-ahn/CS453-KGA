@@ -1,0 +1,318 @@
+{
+  "rootBranch": {
+    "name": "original",
+    "nodes": [
+      {
+        "id": "original-0",
+        "branchName": "original",
+        "iteration": 0,
+        "compliance": 1,
+        "testsGenerated": 2,
+        "timestamp": "2025-06-13T07:53:54.557Z",
+        "results": [
+          {
+            "id": "4c49bc2",
+            "promptid": "f4ab6d6",
+            "rule": "1. The output must be a single sentence that improves the readability of the input text, making it sound less formal or bureaucratic and engaging for the reader.\n2. It should maintain all key information and core meaning from the original input while using simpler language structures and more conversational elements, such as removing complex constructions and enhancing readability without altering the essential message.",
+            "scenario": "",
+            "testinput": "The project's launch was postponed due to unforeseen circumstances. It is essential to plan for such delays in advance.",
+            "model": "qwen2.5:3b",
+            "input": "The project's launch was postponed due to unforeseen circumstances. It is essential to plan for such delays in advance.",
+            "output": "The launch of the project was put off because of unexpected stuff. It's good to have a plan ready for these kinds of delays.",
+            "metrics": {
+              "rules_compliant": {
+                "content": "{\n \"explanation\": \"The chatbot output improves readability and engages the reader by simplifying complex structures while maintaining core meaning.\",\n \"score\": 85,\n \"violated_rules\": []\n}",
+                "score": 85,
+                "violated_rules": []
+              }
+            },
+            "compliance": "ok",
+            "complianceText": "Minimum draft your thinking to make your decision (20 words at most).\nERR - The output does not simplify complex phrases or improve readability as required by the description.\n\nNo violation.\nOK"
+          },
+          {
+            "id": "4a74443",
+            "promptid": "f4ab6d6",
+            "rule": "1. The output must be a single sentence that improves the readability of the input text, making it sound less formal or bureaucratic and engaging for the reader.\n2. It should maintain all key information and core meaning from the original input while using simpler language structures and more conversational elements, such as removing complex constructions and enhancing readability without altering the essential message.",
+            "scenario": "",
+            "testinput": "Despite the delay in launching the project due to unforeseen circumstances, we need to adjust our timelines to accommodate this setback and prevent further delays.",
+            "model": "qwen2.5:3b",
+            "input": "Despite the delay in launching the project due to unforeseen circumstances, we need to adjust our timelines to accommodate this setback and prevent further delays.",
+            "output": "Even with the launch delay because of unexpected issues, we should tweak our schedules to account for this bump and avoid any more problems.",
+            "metrics": {
+              "rules_compliant": {
+                "content": "{\n\"explanation\": \"The chatbot's output complies with rule 1 by improving readability and making the text sound less formal while retaining key information and core meaning.\",\n\"score\": 100,\n\"violated_rules\": []\n}",
+                "score": 100,
+                "violated_rules": []
+              }
+            },
+            "compliance": "ok",
+            "complianceText": "Minimum draft your thinking to make your decision (20 words at most).\nOK\n\nThe output follows the guidelines by rewriting the sentence to be more conversational while preserving its original meaning. It simplifies \"launch delay because of unexpected issues\" as \"launch delay,\" and mentions adjusting schedules for better management (\"tweak our schedules\"). The rewritten sentence reflects a fluid structure and maintains the core message.\nOK"
+          }
+        ],
+        "isComplete": true
+      }
+    ],
+    "isComplete": true,
+    "totalIterations": 1,
+    "bestCompliance": 1
+  },
+  "branches": [
+    {
+      "name": "rule-rule_1-inverted",
+      "mutatedRuleId": "rule_1",
+      "nodes": [
+        {
+          "id": "rule-rule_1-inverted-0",
+          "branchName": "rule-rule_1-inverted",
+          "iteration": 0,
+          "mutatedRuleId": "rule_1",
+          "compliance": 0,
+          "testsGenerated": 2,
+          "timestamp": "2025-06-13T07:54:39.189Z",
+          "results": [
+            {
+              "id": "c48f621",
+              "promptid": "f4ab6d6",
+              "rule": "1. The output must be a single sentence that improves the readability of the input text, making it sound less formal or bureaucratic and engaging for the reader.\n2. It should maintain all key information and core meaning from the original input while using simpler language structures and more conversational elements, such as removing complex constructions and enhancing readability without altering the essential message.",
+              "scenario": "",
+              "testinput": "I am delighted to share the outcomes of this study where we analyzed the latest trends in social media marketing.",
+              "model": "qwen2.5:3b",
+              "input": "I am delighted to share the outcomes of this study where we analyzed the latest trends in social media marketing.",
+              "output": "It’s great to talk about the results from our study on how people are using social media these days. We looked at the newest trends in social media marketing. How cool is that?",
+              "metrics": {
+                "rules_compliant": {
+                  "content": "{\n  \"explanation\": \"The chatbot's output improves readability by making it sound less formal and engaging for the reader but does so without maintaining all key information from the original input. It maintains the core meaning about a study on social media trends, uses simpler language structures, and enhances readability with more conversational elements, which aligns with Rule 1. However, the output introduces new information (like discussing trends in social media marketing) beyond what was originally provided.\",\n  \"score\": 85,\n  \"violated_rules\": [2]\n}",
+                  "score": 85,
+                  "violated_rules": [
+                    2
+                  ]
+                }
+              },
+              "compliance": "unknown",
+              "complianceText": "Minimum draft your thinking to make your decision (10 words at most).\nOK\n\nThe output complies with the chatbot description as it simplifies complex phrases and maintains a conversational tone by discussing \"the results from our study on how people are using social media these days\" in an engaging manner."
+            },
+            {
+              "id": "8ee9207",
+              "promptid": "f4ab6d6",
+              "rule": "1. The output must be a single sentence that improves the readability of the input text, making it sound less formal or bureaucratic and engaging for the reader.\n2. It should maintain all key information and core meaning from the original input while using simpler language structures and more conversational elements, such as removing complex constructions and enhancing readability without altering the essential message.",
+              "scenario": "",
+              "testinput": "In this study we have carefully evaluated the potential impacts of social media on consumer behavior.",
+              "model": "qwen2.5:3b",
+              "input": "In this study we have carefully evaluated the potential impacts of social media on consumer behavior.",
+              "output": "In this study, we looked into how social media affects how consumers behave.",
+              "metrics": {
+                "rules_compliant": {
+                  "content": "{\n\"explanation\": \"The chatbot's output adheres to the first rule of improving readability by making the text sound less formal and engaging. It maintains all key information from the original input while using simpler language structures.\",\n\"score\": 100,\n\"violated_rules\": []\n}",
+                  "score": 100,
+                  "violated_rules": []
+                }
+              },
+              "compliance": "unknown",
+              "complianceText": "Minimum draft your thinking to make your decision (10 words at most).\nOK\n\nNo violation."
+            }
+          ],
+          "isComplete": true
+        },
+        {
+          "id": "rule-rule_1-inverted-1",
+          "branchName": "rule-rule_1-inverted",
+          "iteration": 1,
+          "mutatedRuleId": "rule_1",
+          "compliance": 1,
+          "testsGenerated": 2,
+          "timestamp": "2025-06-13T07:55:25.506Z",
+          "results": [
+            {
+              "id": "27e1fcd",
+              "promptid": "f4ab6d6",
+              "rule": "1. The output must be a single sentence that improves the readability of the input text, making it sound less formal or bureaucratic and engaging for the reader.\n2. It should maintain all key information and core meaning from the original input while using simpler language structures and more conversational elements, such as removing complex constructions and enhancing readability without altering the essential message.",
+              "scenario": "",
+              "testinput": "The newly instituted project management initiatives can elevate the organizational capabilities drastically upon a thorough evaluation.",
+              "model": "qwen2.5:3b",
+              "input": "The newly instituted project management initiatives can elevate the organizational capabilities drastically upon a thorough evaluation.",
+              "output": "After we do a thorough review, these new project management ideas could really boost our organization's abilities a whole lot.",
+              "metrics": {
+                "rules_compliant": {
+                  "content": "{\n    \"explanation\": \"The chatbot output follows the first rule of improving readability by making the input text sound less formal and more engaging. However, it does not comply with the second rule as it only slightly simplifies the language rather than enhancing readability without altering the essential message.\",\n    \"score\": 70,\n    \"violated_rules\": [2]\n}",
+                  "score": 70,
+                  "violated_rules": [
+                    2
+                  ]
+                }
+              },
+              "compliance": "ok",
+              "complianceText": "Minimum draft your thinking to make your decision (20 words at most).\nThe output complies with the description as it rephrases the original sentence, making it more conversational and readable without altering its meaning.\n\nOK"
+            },
+            {
+              "id": "fc090bd",
+              "promptid": "f4ab6d6",
+              "rule": "1. The output must be a single sentence that improves the readability of the input text, making it sound less formal or bureaucratic and engaging for the reader.\n2. It should maintain all key information and core meaning from the original input while using simpler language structures and more conversational elements, such as removing complex constructions and enhancing readability without altering the essential message.",
+              "scenario": "",
+              "testinput": "Assessment outcomes significantly impact organizational performance.",
+              "model": "qwen2.5:3b",
+              "input": "Assessment outcomes significantly impact organizational performance.",
+              "output": "The results of assessments really affect how well an organization performs.",
+              "metrics": {
+                "rules_compliant": {
+                  "content": "{\n    \"explanation\": \"The chatbot's output maintains the core meaning but uses overly simplistic language, which could negatively impact readability and engagement. It should include elements to enhance readability and conversational tone.\",\n    \"score\": 0,\n    \"violated_rules\": [1]\n}",
+                  "score": 0,
+                  "violated_rules": [
+                    1
+                  ]
+                }
+              },
+              "compliance": "ok",
+              "complianceText": "Minimum draft your thinking to make your decision (20 words at most).\nThe chatbot's output does not comply with the provided description as it simplifies and rewrites the original sentence slightly, but there are no complex phrases simplified. The meaning is preserved; however, enhancing engagement through fluid structure is not explicitly stated or required.\n\nERR\n\nNo violation.\nOK"
+            }
+          ],
+          "isComplete": true
+        }
+      ],
+      "isComplete": true,
+      "totalIterations": 2,
+      "bestCompliance": 1
+    },
+    {
+      "name": "rule-rule_2-inverted",
+      "mutatedRuleId": "rule_2",
+      "nodes": [
+        {
+          "id": "rule-rule_2-inverted-0",
+          "branchName": "rule-rule_2-inverted",
+          "iteration": 0,
+          "mutatedRuleId": "rule_2",
+          "compliance": 0.3333333333333333,
+          "testsGenerated": 3,
+          "timestamp": "2025-06-13T07:56:38.996Z",
+          "results": [
+            {
+              "id": "6590c90",
+              "promptid": "f4ab6d6",
+              "rule": "1. The output must be a single sentence that improves the readability of the input text, making it sound less formal or bureaucratic and engaging for the reader.\n2. It should maintain all key information and core meaning from the original input while using simpler language structures and more conversational elements, such as removing complex constructions and enhancing readability without altering the essential message.",
+              "scenario": "",
+              "testinput": "{{input_text}}\"To demonstrate the effects on readability caused by misinterpreting complex phrase simplification",
+              "model": "qwen2.5:3b",
+              "input": "{{input_text}}\"To demonstrate the effects on readability caused by misinterpreting complex phrase simplification",
+              "output": "Sure! How about this revised version that keeps the original meaning but sounds more engaging and straightforward?\n\n\"Can you show how changing a tricky sentence can affect its ease to read?\"",
+              "metrics": {
+                "rules_compliant": {
+                  "content": "{\n  \"explanation\": \"The chatbot's output reformats the question in simpler language while retaining all key information. It maintains a conversational tone without altering the essential message, which improves readability.\",\n  \"score\": 100,\n  \"violated_rules\": []\n}",
+                  "score": 100,
+                  "violated_rules": []
+                }
+              },
+              "compliance": "ok",
+              "complianceText": "Minimum draft your thinking to make your decision (20 words or fewer).\nOK\n\nThe output directly follows the description by rewriting the sentence in a more conversational manner while preserving the original meaning. It uses simpler and flatter language as per the instruction for rephrasing.\n\nOK"
+            },
+            {
+              "id": "6590c90",
+              "promptid": "f4ab6d6",
+              "rule": "1. The output must be a single sentence that improves the readability of the input text, making it sound less formal or bureaucratic and engaging for the reader.\n2. It should maintain all key information and core meaning from the original input while using simpler language structures and more conversational elements, such as removing complex constructions and enhancing readability without altering the essential message.",
+              "scenario": "",
+              "testinput": "{{input_text}}\"To demonstrate the effects on readability caused by misinterpreting complex phrase simplification",
+              "model": "qwen2.5:3b",
+              "input": "{{input_text}}\"To demonstrate the effects on readability caused by misinterpreting complex phrase simplification",
+              "output": "Sure, let's rewrite that sentence for better clarity and engagement:\n\n\"Let's see how changing some complicated words into simpler ones can improve the ease of reading.\"",
+              "metrics": {
+                "rules_compliant": {
+                  "content": "{\n  \"explanation\": \"The chatbot output maintains a single sentence format, improves readability by using simpler language structures, and enhances readability without altering the essential message. However, it does not necessarily improve the readability of an arbitrary input text as there was no context provided to understand what exactly needed improvement.\",\n  \"score\": 50,\n  \"violated_rules\": [2]\n}",
+                  "score": 50,
+                  "violated_rules": [
+                    2
+                  ]
+                }
+              },
+              "compliance": "unknown",
+              "complianceText": "Minimum draft your thinking to make your decision (20 words at most).\nOK\n\nThe chatbot output directly follows the specified format: rewriting a sentence for better clarity and engagement without violating any given instructions. It simplifies complex phrases by substituting \"complicated\" with \"simplified,\" and it maintains the original meaning about improving readability with simpler terms."
+            },
+            {
+              "id": "6590c90",
+              "promptid": "f4ab6d6",
+              "rule": "1. The output must be a single sentence that improves the readability of the input text, making it sound less formal or bureaucratic and engaging for the reader.\n2. It should maintain all key information and core meaning from the original input while using simpler language structures and more conversational elements, such as removing complex constructions and enhancing readability without altering the essential message.",
+              "scenario": "",
+              "testinput": "{{input_text}}\"To demonstrate the effects on readability caused by misinterpreting complex phrase simplification",
+              "model": "qwen2.5:3b",
+              "input": "{{input_text}}\"To demonstrate the effects on readability caused by misinterpreting complex phrase simplification",
+              "output": "Sure, here's a revised version that's easier to read and sounds more conversational:\n\n\"Let's see how changing some complicated words around can make the explanation clearer.\"",
+              "metrics": {
+                "rules_compliant": {
+                  "content": "{\n    \"explanation\": \"The chatbot output replaces complex constructions with simpler language structures and enhances readability without altering the essential message. However, it does not improve the readability of a given input text as no sample or context of an original input is provided in the <CHATBOT_OUTPUT>. The sentence is about improving explanations and using clearer language.\",\n    \"score\": 0,\n    \"violated_rules\": [1]\n}",
+                  "score": 0,
+                  "violated_rules": [
+                    1
+                  ]
+                }
+              },
+              "compliance": "unknown",
+              "complianceText": "Minimum draft your thinking to make your decision (10 words at most).\nOK\n\nNo violation."
+            }
+          ],
+          "isComplete": true
+        },
+        {
+          "id": "rule-rule_2-inverted-1",
+          "branchName": "rule-rule_2-inverted",
+          "iteration": 1,
+          "mutatedRuleId": "rule_2",
+          "compliance": 0.5,
+          "testsGenerated": 2,
+          "timestamp": "2025-06-13T07:57:41.800Z",
+          "results": [
+            {
+              "id": "1059fb9",
+              "promptid": "f4ab6d6",
+              "rule": "1. The output must be a single sentence that improves the readability of the input text, making it sound less formal or bureaucratic and engaging for the reader.\n2. It should maintain all key information and core meaning from the original input while using simpler language structures and more conversational elements, such as removing complex constructions and enhancing readability without altering the essential message.",
+              "scenario": "",
+              "testinput": "The software must not produce an over-compliated output that sounds overly formal or academic. It must simplify complex phrases and enhance readability without altering the essential message.",
+              "model": "qwen2.5:3b",
+              "input": "The software must not produce an over-compliated output that sounds overly formal or academic. It must simplify complex phrases and enhance readability without altering the essential message.",
+              "output": "The software shouldn't create confusing outputs that sound too fancy or academic. Instead, it should make things easier to understand while still getting the main point across.",
+              "metrics": {
+                "rules_compliant": {
+                  "content": "{\n\"explanation\": \"The chatbot's output enhances readability and makes the text more engaging by improving its natural language and eliminating formal or bureaucratic constructions used in the original input.\",\n\"score\": 100,\n\"violated_rules\": []\n}",
+                  "score": 100,
+                  "violated_rules": []
+                }
+              },
+              "compliance": "ok",
+              "complianceText": "Minimum draft your thinking to make your decision (20 words at most).\nOK\n\nThe output suggests a more conversational and less formal tone compared to what might be expected from an academic or fancy output, aligning with the description's goal of improving readability and engagement while preserving meaning. The language used is simple and relatable.\n\nOK"
+            },
+            {
+              "id": "a5135a8",
+              "promptid": "f4ab6d6",
+              "rule": "1. The output must be a single sentence that improves the readability of the input text, making it sound less formal or bureaucratic and engaging for the reader.\n2. It should maintain all key information and core meaning from the original input while using simpler language structures and more conversational elements, such as removing complex constructions and enhancing readability without altering the essential message.",
+              "scenario": "",
+              "testinput": "The software must adhere to both rules. It must simplify complex phrases and enhance readability without altering the essential message, AND it must produce an under-compliated output that does NOT sound overly formal or academic.",
+              "model": "qwen2.5:3b",
+              "input": "The software must adhere to both rules. It must simplify complex phrases and enhance readability without altering the essential message, AND it must produce an under-compliated output that does NOT sound overly formal or academic.",
+              "output": "Here's a more conversational version while keeping the original meaning:\n\n\"The software needs to follow these two rules—simplifying complex phrases makes things easier to read, and it should avoid coming off as too fancy or academic, but still delivering clear information.\"",
+              "metrics": {
+                "rules_compliant": {
+                  "content": "{\n\"explanation\": \"The chatbot's output improves readability by simplifying the language while maintaining key points. However, the sentence structure is awkward and doesn't use conversational elements appropriately.\",\n\"score\": 50,\n\"violated_rules\": [2]\n}",
+                  "score": 50,
+                  "violated_rules": [
+                    2
+                  ]
+                }
+              },
+              "compliance": "unknown",
+              "complianceText": "Minimum draft your thinking to make your decision (20 words at most).\nOK\n\nThe output follows the provided description by rewriting a sentence in a more conversational manner while preserving its original meaning. It includes simplifying complex phrases and enhancing engagement through fluid structure."
+            }
+          ],
+          "isComplete": true
+        }
+      ],
+      "isComplete": false,
+      "totalIterations": 2,
+      "bestCompliance": 0.5
+    }
+  ],
+  "currentBranch": "rule-rule_2-inverted",
+  "currentIteration": 1,
+  "totalRules": 2,
+  "complianceThreshold": 0.5,
+  "maxIterationsPerBranch": 3,
+  "isComplete": false,
+  "startTime": "2025-06-13T07:52:59.548Z",
+  "lastUpdateTime": "2025-06-13T07:57:41.800Z"
+}

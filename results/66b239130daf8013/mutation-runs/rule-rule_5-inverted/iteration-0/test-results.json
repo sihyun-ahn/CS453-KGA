@@ -1,0 +1,42 @@
+[
+  {
+    "id": "c1d069c",
+    "promptid": "73d9646",
+    "rule": "1. The input text must indicate the main subject matter with specific terms relevant to the category classification.\n2. If categorized under World, it should use synonyms like geopolitics, international affairs, global events or related phrases indicating an international scale topic.\n3. If categorized as Sports, it must exclusively mention words such as athlete, competition, sports event, team activities or similar sporting activities.\n4. For Business categorization, terms relating to commerce, corporation, market activity, business transactions or sector-specific topics like banking, finance are mandatory in the input text.\n5. The term related to technology and science such as robotics, computer, electronic or scientific research should be used exclusively for classification into the Sci/Tech category.",
+    "scenario": "",
+    "testinput": "input 'international affairs are driving global stability'",
+    "model": "qwen2.5:3b",
+    "input": "input 'international affairs are driving global stability'",
+    "output": "Based on the content of the input sentence \"international affairs are driving global stability\", this news article would most likely be classified under the **World** category. The statement deals with broader international relations and their impact, which fall under the purview of world news. While it could have tangential relevance to other categories like Business or Tech, its overarching context is best aligned with the World category where geopolitical and international issues are discussed.",
+    "metrics": {
+      "rules_compliant": {
+        "content": "{\n  \"explanation\": \"The chatbot's output correctly identifies the main subject matter as international affairs driving global stability, which aligns with requirement 2 of being categorized under 'World'. The input text uses terms specific to geopolitics ('international affairs', 'global stability') indicating an international scale topic.\",\n  \"score\": 100,\n  \"violated_rules\": []\n}",
+        "score": 100,
+        "violated_rules": []
+      }
+    },
+    "compliance": "ok",
+    "complianceText": "Minimum draft your thinking to make your decision (20 words at most).\nThe output classifies an article about international affairs as \"World\" without explicitly mentioning it falls under Business or Tech, aligning well with the description.\n\nOK\n\nBased on the provided guidelines and the chatbot's classification of news articles into categories such as World, Sports, Business, or Sci/Tech based solely on its content and context without knowing the input, the output complies with the chatbot’s instruction. It correctly identifies the World category for a piece about international affairs impacting global stability.\n\nOK"
+  },
+  {
+    "id": "ad20657",
+    "promptid": "73d9646",
+    "rule": "1. The input text must indicate the main subject matter with specific terms relevant to the category classification.\n2. If categorized under World, it should use synonyms like geopolitics, international affairs, global events or related phrases indicating an international scale topic.\n3. If categorized as Sports, it must exclusively mention words such as athlete, competition, sports event, team activities or similar sporting activities.\n4. For Business categorization, terms relating to commerce, corporation, market activity, business transactions or sector-specific topics like banking, finance are mandatory in the input text.\n5. The term related to technology and science such as robotics, computer, electronic or scientific research should be used exclusively for classification into the Sci/Tech category.",
+    "scenario": "",
+    "testinput": "input 'global trade unions convene'",
+    "model": "qwen2.5:3b",
+    "input": "input 'global trade unions convene'",
+    "output": "This headline \"Global trade unions convene\" falls under the category of **Business**. While it could be considered more broadly under a category like World news due to global involvement and coverage, the primary focus is on business and labor relations, which places it most accurately in the Business section.",
+    "metrics": {
+      "rules_compliant": {
+        "content": "{\n    \"explanation\": \"The chatbot output identifies 'Global trade unions convene' as belonging to the Business category. However, the headline touches upon international labor relations which aligns more closely with a World news category. This is not strictly against rule 1 (which requires specific terms for categories), but it does raise doubt about its primary classification based on specificity alone.\",\n    \"score\": 0,\n    \"violated_rules\": [1]\n}",
+        "score": 0,
+        "violated_rules": [
+          1
+        ]
+      }
+    },
+    "compliance": "ok",
+    "complianceText": "Minimum draft your thinking to make your decision (20 words at most).\nThis output violates the description by suggesting an incorrect classification for a headline related to global trade unions as Business rather than World or Sports.\n\nERR\n\nOK"
+  }
+]

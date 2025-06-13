@@ -1,0 +1,40 @@
+[
+  {
+    "id": "1c241b4",
+    "promptid": "d4a5f29",
+    "rule": "1. The output must be presented as a bullet-pointed or numbered list.\n2. Each item in the list represents an extracted entity from the input text.\n3. Each entity is preceded by its type of classification: company name, people name, specific topic, or general theme.\n4. It should be clear and unambiguous how each section is organized and what distinguishes one category of entities from another.\n5. The input text will determine which of these categories apply to a given word or phrase in the output list.",
+    "scenario": "",
+    "testinput": "Company A was founded by John Doe in 2015. Artificial Intelligence is at the core of what Company A does.",
+    "model": "qwen2.5:3b",
+    "input": "Company A was founded by John Doe in 2015. Artificial Intelligence is at the core of what Company A does.",
+    "output": "Here are the extracted entities from the given text:\n\n- **Company Name**: Company A\n- **Person Name**: John Doe\n- **Specific Topic/Concept**: Artificial Intelligence",
+    "metrics": {
+      "rules_compliant": {
+        "content": "{\n  \"explanation\": \"The output provided is a list of entity types extracted from some input text. However, there are no specific inputs given for evaluation; therefore, I can only evaluate the compliance based on the explicit categories (company name, person name, and specific topic/concept) presented in the output. The task requires ignoring anything that knows about the actual content so far, thus focusing merely on whether these entities appear properly categorized without needing to interpret their correctness with respect to inputs they might have derived from.\",\n  \"score\": 100,\n  \"violated_rules\": []\n}",
+        "score": 100,
+        "violated_rules": []
+      }
+    },
+    "compliance": "unknown",
+    "complianceText": "Minimum draft your thinking to make your decision (20 words or fewer).\nThe output provides a structured list of entities extracted from the input, including company name, person name, and specific topic/concept. This directly aligns with the prompt's requirement.\n\nOK\n\nBy adhering to these guidelines, you ensure a consistent and rigorous evaluation process. Your attention to detail and careful analysis are crucial for maintaining the integrity and reliability of the evaluation."
+  },
+  {
+    "id": "22ebf5d",
+    "promptid": "d4a5f29",
+    "rule": "1. The output must be presented as a bullet-pointed or numbered list.\n2. Each item in the list represents an extracted entity from the input text.\n3. Each entity is preceded by its type of classification: company name, people name, specific topic, or general theme.\n4. It should be clear and unambiguous how each section is organized and what distinguishes one category of entities from another.\n5. The input text will determine which of these categories apply to a given word or phrase in the output list.",
+    "scenario": "",
+    "testinput": "TechCorp developed a new line of products with an eco-friendly approach led by Jane Smith in collaboration with environmental advocates.",
+    "model": "qwen2.5:3b",
+    "input": "TechCorp developed a new line of products with an eco-friendly approach led by Jane Smith in collaboration with environmental advocates.",
+    "output": "Here is the extracted information structured as a list:\n\n- Company Name: TechCorp\n- Person Name: Jane Smith\n- Topic/Specific Name: Eco-friendly Approach\n- General Theme: Collaboration with Environmental Advocates",
+    "metrics": {
+      "rules_compliant": {
+        "content": "{\n\"explanation\": \"The chatbot's output contains four distinct sections, each of which is correctly categorized according to the provided rules. All entities are appropriately marked as company name, person name, topic/specific name, or general theme.\",\n\"score\": 100,\n\"violated_rules\": []\n}",
+        "score": 100,
+        "violated_rules": []
+      }
+    },
+    "compliance": "err",
+    "complianceText": "Minimum draft your thinking to make your decision (20 words at most).\nOK\n\nThe output presents a structured list of entities as specified in the chatbot description.\nERR"
+  }
+]

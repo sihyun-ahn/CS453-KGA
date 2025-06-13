@@ -501,40 +501,108 @@ if (!anyStepRequested) {
                     output.heading(4, "Final Test Results")
                     output.note(`📋 ${finalResults.length} total test results from all branches and iterations`)
                     
-                    // Create a more readable summary table
-                    const summaryResults = finalResults.map(
-                        ({
-                            scenario,
-                            rule,
-                            inverse,
-                            model,
-                            input,
-                            output,
-                            compliance: testCompliance,
-                            metrics,
-                        }) => {
-                            // Truncate rule text to first 50 characters + "..."
-                            const rulePreview = rule.length > 50 ? rule.substring(0, 50) + "..." : rule
-                            
-                            return {
-                                "Rule": rulePreview,
-                                "Model": model,
-                                "Scenario": scenario,
-                                "Type": inverse ? "🔄 Inverse" : "➡️ Normal",
-                                "Input": input.length > 40 ? input.substring(0, 40) + "..." : input,
-                                "Output": output.length > 60 ? output.substring(0, 60) + "..." : output,
-                                "Compliance": renderEvaluationOutcome(testCompliance || "err"),
-                                ...Object.fromEntries(
-                                    Object.entries(metrics).map(([k, v]) => [
-                                        k,
-                                        renderEvaluation(v),
-                                    ])
-                                ),
-                            }
-                        }
-                    )
+                    // Group tests by compliance status
+                    const compliantTests = finalResults.filter(result => result.compliance === "ok")
+                    const nonCompliantTests = finalResults.filter(result => result.compliance !== "ok")
                     
-                    output.table(summaryResults)
+                    // Show compliant tests
+                    if (compliantTests.length > 0) {
+                        output.heading(5, `✅ Compliant Tests (${compliantTests.length})`)
+                        const compliantSummary = compliantTests.map(
+                            ({
+                                scenario,
+                                rule,
+                                inverse,
+                                model,
+                                input,
+                                output,
+                                compliance: testCompliance,
+                                metrics,
+                                branchName,
+                                iteration,
+                            }) => {
+                                return {
+                                    "Branch": branchName || "unknown",
+                                    "Model": model,
+                                    "Scenario": scenario,
+                                    "Type": inverse ? "🔄 Inverse" : "➡️ Normal",
+                                    "Input": input.length > 40 ? input.substring(0, 40) + "..." : input,
+                                    "Output": output.length > 60 ? output.substring(0, 60) + "..." : output,
+                                    "Compliance": renderEvaluationOutcome(testCompliance || "err"),
+                                    ...Object.fromEntries(
+                                        Object.entries(metrics).map(([k, v]) => [
+                                            k,
+                                            renderEvaluation(v),
+                                        ])
+                                    ),
+                                }
+                            }
+                        )
+                        output.table(compliantSummary)
+                    }
+                    
+                    // Show non-compliant tests grouped by violated_rules
+                    if (nonCompliantTests.length > 0) {
+                        output.heading(5, `❌ Non-Compliant Tests (${nonCompliantTests.length})`)
+                        
+                        // Group by violated_rules
+                        const violatedRulesGroups = new Map<string, typeof nonCompliantTests>()
+                        
+                        for (const result of nonCompliantTests) {
+                            // Get violated_rules from the rules_compliant metric
+                            const rulesCompliantMetric = result.metrics?.rules_compliant
+                            let violatedRulesKey = "unknown"
+                            
+                            if (rulesCompliantMetric?.violated_rules && Array.isArray(rulesCompliantMetric.violated_rules)) {
+                                // Sort the array to ensure consistent grouping (e.g., [1,2] and [2,1] are the same)
+                                const sortedViolatedRules = [...rulesCompliantMetric.violated_rules].sort((a, b) => a - b)
+                                violatedRulesKey = sortedViolatedRules.length > 0 ? `[${sortedViolatedRules.join(', ')}]` : "no_violations_specified"
+                            }
+                            
+                            if (!violatedRulesGroups.has(violatedRulesKey)) {
+                                violatedRulesGroups.set(violatedRulesKey, [])
+                            }
+                            violatedRulesGroups.get(violatedRulesKey)!.push(result)
+                        }
+                        
+                        // Display each group
+                        for (const [violatedRulesKey, groupResults] of violatedRulesGroups.entries()) {
+                            output.heading(6, `Violated Rules ${violatedRulesKey} (${groupResults.length} tests)`)
+                            
+                            const groupSummary = groupResults.map(
+                                ({
+                                    scenario,
+                                    rule,
+                                    inverse,
+                                    model,
+                                    input,
+                                    output,
+                                    compliance: testCompliance,
+                                    metrics,
+                                    branchName,
+                                    iteration,
+                                }) => {
+                                    return {
+                                        "Branch": branchName || "unknown",
+                                        "Model": model,
+                                        "Scenario": scenario,
+                                        "Type": inverse ? "🔄 Inverse" : "➡️ Normal",
+                                        "Input": input.length > 40 ? input.substring(0, 40) + "..." : input,
+                                        "Output": output.length > 60 ? output.substring(0, 60) + "..." : output,
+                                        "Compliance": renderEvaluationOutcome(testCompliance || "err"),
+                                        "Violated Rules": violatedRulesKey,
+                                        ...Object.fromEntries(
+                                            Object.entries(metrics).map(([k, v]) => [
+                                                k,
+                                                renderEvaluation(v),
+                                            ])
+                                        ),
+                                    }
+                                }
+                            )
+                            output.table(groupSummary)
+                        }
+                    }
                     
                     // Show detailed results in collapsible section
                     output.startDetails("Detailed Test Results", { expanded: false })

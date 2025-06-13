@@ -1,0 +1,62 @@
+[
+  {
+    "id": "dd5c50e",
+    "promptid": "73d9646",
+    "rule": "1. The input text must indicate the main subject matter with specific terms relevant to the category classification.\n2. If categorized under World, it should use synonyms like geopolitics, international affairs, global events or related phrases indicating an international scale topic.\n3. If categorized as Sports, it must exclusively mention words such as athlete, competition, sports event, team activities or similar sporting activities.\n4. For Business categorization, terms relating to commerce, corporation, market activity, business transactions or sector-specific topics like banking, finance are mandatory in the input text.\n5. The term related to technology and science such as robotics, computer, electronic or scientific research should be used exclusively for classification into the Sci/Tech category.",
+    "scenario": "",
+    "testinput": "{{input_text}} is a string containing content about geopolitical conflicts influencing major sports events",
+    "model": "qwen2.5:3b",
+    "input": "{{input_text}} is a string containing content about geopolitical conflicts influencing major sports events",
+    "output": "Based on the content provided, which discusses geopolitical conflicts affecting major sports events, this news article would best fit into the **World** category. While it may also have overlaps with the **Sports** and potentially the **Business** categories due to its impact on industries or coverage, the primary focus appears to be on international relations and their influence on global events, which typically falls under the World category.",
+    "metrics": {
+      "rules_compliant": {
+        "content": "{\n \"explanation\": \"The chatbot's output does not explicitly state that it is related to a specific geopolitical conflict affecting sports events. It uses phrases like 'international relations' and 'global events' but lacks words related to international affairs or geopolitics, which are required for the World category.\",\n \"score\": 0,\n \"violated_rules\": [1, 2]\n}",
+        "score": 0,
+        "violated_rules": [
+          1,
+          2
+        ]
+      }
+    },
+    "compliance": "unknown",
+    "complianceText": "Minimum draft your thinking to make your decision (20 words at most).\nThe chatbot's output correctly identifies the content as primarily affecting international relations and thus fits best into the 'World' category.\n\nOK\n\nThis reasoning is based on the chatbot's conclusion that geopolitical conflicts influence sports events, which are typically classified under World news, aligning with its descriptive criteria."
+  },
+  {
+    "id": "22cc74f",
+    "promptid": "73d9646",
+    "rule": "1. The input text must indicate the main subject matter with specific terms relevant to the category classification.\n2. If categorized under World, it should use synonyms like geopolitics, international affairs, global events or related phrases indicating an international scale topic.\n3. If categorized as Sports, it must exclusively mention words such as athlete, competition, sports event, team activities or similar sporting activities.\n4. For Business categorization, terms relating to commerce, corporation, market activity, business transactions or sector-specific topics like banking, finance are mandatory in the input text.\n5. The term related to technology and science such as robotics, computer, electronic or scientific research should be used exclusively for classification into the Sci/Tech category.",
+    "scenario": "",
+    "testinput": "{{input_text}} discusses recent advancements in AI and their impact on various business sectors.",
+    "model": "qwen2.5:3b",
+    "input": "{{input_text}} discusses recent advancements in AI and their impact on various business sectors.",
+    "output": "Based on the content described in the input text, which discusses \"recent advancements in AI and their impact on various business sectors,\" this news article would best fit into the category of **Business**.虽然AI（Artificial Intelligence）主要可以归类为科学和技术领域，尤其是在研究和发展方面，然而这种文章的重点在于AI如何影响商业领域的进步和发展。因此，在没有更具体上下文或明确表明更多偏向技术应用的情况下，将其归类于\"Business\"更具实用性。",
+    "metrics": {
+      "rules_compliant": {
+        "content": "{\n  \"explanation\": \"The chatbot's output discusses the impact of AI on business sectors, indicating a Business category. It correctly mentions AI but emphasizes its commercial application over scientific research.\",\n  \"score\": 100,\n  \"violated_rules\": []\n}",
+        "score": 100,
+        "violated_rules": []
+      }
+    },
+    "compliance": "ok",
+    "complianceText": "Minimum draft your thinking to make your decision (20 words at most).\nOK\n\nThe output correctly classifies the article in the \"Business\" category based on its content discussing AI's impact on business sectors, even though the source could be categorized as scientific and technical.\nOK"
+  },
+  {
+    "id": "e37298b",
+    "promptid": "73d9646",
+    "rule": "1. The input text must indicate the main subject matter with specific terms relevant to the category classification.\n2. If categorized under World, it should use synonyms like geopolitics, international affairs, global events or related phrases indicating an international scale topic.\n3. If categorized as Sports, it must exclusively mention words such as athlete, competition, sports event, team activities or similar sporting activities.\n4. For Business categorization, terms relating to commerce, corporation, market activity, business transactions or sector-specific topics like banking, finance are mandatory in the input text.\n5. The term related to technology and science such as robotics, computer, electronic or scientific research should be used exclusively for classification into the Sci/Tech category.",
+    "scenario": "",
+    "testinput": "{{input_text}} highlights discoveries in robotic technology and the use of electronic sensors in cutting-edge experiments.",
+    "model": "qwen2.5:3b",
+    "input": "{{input_text}} highlights discoveries in robotic technology and the use of electronic sensors in cutting-edge experiments.",
+    "output": "Based on the content you provided, which highlights discoveries in robotic technology and the use of electronic sensors in cutting-edge experiments, this article would best fit into the \"Science & Technology\" category. \n\nIf we strictly categorize articles among the options given (World, Sports, Business, Sci/Tech), then \"Sci/Tech\" is the most appropriate classification for this content.",
+    "metrics": {
+      "rules_compliant": {
+        "content": "{\n    \"explanation\": \"The chatbot's output mentions discoveries in robotic technology and electronic sensors used in experiments. These topics clearly indicate that the subject matter falls under the 'Science & Technology' category, which aligns with the provided rules.\",\n    \"score\": 100,\n    \"violated_rules\": []\n}",
+        "score": 100,
+        "violated_rules": []
+      }
+    },
+    "compliance": "unknown",
+    "complianceText": "Minimum draft your thinking to make your decision (20 words at most).\nThe output correctly identifies the article's content as aligning with the \"Science & Technology\" category and classifies it accordingly, which complies with the provided description.\n\nOK\n\nBy adhering to these guidelines, you ensure a consistent and rigorous evaluation process. Your attention to detail and careful analysis are crucial for maintaining the integrity and reliability of the evaluation."
+  }
+]
