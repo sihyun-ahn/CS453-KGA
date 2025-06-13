@@ -34,7 +34,9 @@ Since the input is not given to you, only check for the rules which can be check
 
 5. **Checking compliance and never correctness**: You are not required to evaluate the functional correctness of the chatbot's output as you are not given the input which generated those outputs. Your evaluation should focus solely on whether the output complies with the rules, if it requires knowing the input, ignore that part of the rule.
 
-6. **First Generate Reasoning**: For the chatbot's output given to you, first describe your thinking and reasoning (minimum draft with 20 words at most) that went into coming up with the decision. Answer in English.
+6. **Violated Rules Identification**: For each rule that is violated, identify the rule number. Rules are numbered sequentially starting from 1. If multiple rules are violated, list all of them.
+
+7. **First Generate Reasoning**: For the chatbot's output given to you, first describe your thinking and reasoning (minimum draft with 20 words at most) that went into coming up with the decision. Answer in English.
 
 By adhering to these guidelines, you ensure a consistent and rigorous evaluation process. Be very rational and do not make up information. Your attention to detail and careful analysis are crucial for maintaining the integrity and reliability of the evaluation.
 
@@ -45,8 +47,9 @@ By adhering to these guidelines, you ensure a consistent and rigorous evaluation
 ### Evaluation:
 Ensure your response is always in the following JSON format:
 {
-"explanation": [Explain reasoning behind generating the score based on the criteria outlined in the instruction.],
-"score": [Provide a score from 0 to 100 based on the criteria of the chatbot output as defined above]
+"explanation": "[Explain reasoning behind generating the score based on the criteria outlined in the instruction.]",
+"score": [Provide a score from 0 to 100 based on the criteria of the chatbot output as defined above],
+"violated_rules": [List of rule numbers that were violated, e.g., [1, 3, 5]. Use empty array [] if no rules were violated]
 }
 
 user:

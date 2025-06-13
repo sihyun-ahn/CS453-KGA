@@ -1,0 +1,20 @@
+[
+  {
+    "testid": "1",
+    "expectedoutput": "The entity types are clearly distinguishable and not using any sequential markers",
+    "reasoning": "Ensures that entities from different categories (company name, people name, specific topic, general theme) are properly distinguished without relying on order or numbering",
+    "input_text": "Type: General_theme This is a particular concept.\nType: Specific_topic This refers to a certain field of study or area.\nType: People_name The mentioned individual is significant in the discussion.\nType: Company_name The firm or organization under investigation.",
+    "testinput": "Type: General_theme This is a particular concept.\nType: Specific_topic This refers to a certain field of study or area.\nType: People_name The mentioned individual is significant in the discussion.\nType: Company_name The firm or organization under investigation.",
+    "scenario": "",
+    "generation": 0
+  },
+  {
+    "testid": "2",
+    "expectedoutput": "Each entity type follows a clear and distinct naming convention without any sequential markers",
+    "reasoning": "Guarantees that the entity types are clearly labeled as company name, people name, specific topic, or general theme without ambiguity or order dependency",
+    "input_text": "Type: General_theme This is an abstract concept.\nType: Specific_topic It concerns a specialized area of discourse.\nType: People_name The individual represented here holds importance in the context.\nType: Company_name An organization being documented.",
+    "testinput": "Type: General_theme This is an abstract concept.\nType: Specific_topic It concerns a specialized area of discourse.\nType: People_name The individual represented here holds importance in the context.\nType: Company_name An organization being documented.",
+    "scenario": "",
+    "generation": 1
+  }
+]

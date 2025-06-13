@@ -1,0 +1,42 @@
+[
+  {
+    "id": "a1d73a4",
+    "promptid": "d4a5f29",
+    "rule": "1. The output must be presented as a bullet-pointed or numbered list.\n2. Each item in the list represents an extracted entity from the input text.\n3. Each entity is preceded by its type of classification: company name, people name, specific topic, or general theme.\n4. It should be clear and unambiguous how each section is organized and what distinguishes one category of entities from another.\n5. The input text will determine which of these categories apply to a given word or phrase in the output list.",
+    "scenario": "",
+    "testinput": "Type: people_name",
+    "model": "qwen2.5:3b",
+    "input": "Type: people_name",
+    "output": "I need an example text to extract the people names from. Please provide a sample passage so I can demonstrate how to structure the extracted information. Without a given text, I cannot generate a specific output.",
+    "metrics": {
+      "rules_compliant": {
+        "content": "{\n\"explanation\": \"The chatbot provided an explanation rather than extracting entities as per the rules, and no extraction appears in its response as stated in <RULES>. This implies non-compliance since it lacks the required structured list of extracted entities.\",\n\"score\": 0,\n\"violated_rules\": [1]\n}",
+        "score": 0,
+        "violated_rules": [
+          1
+        ]
+      }
+    },
+    "compliance": "ok",
+    "complianceText": "ERR\n\nThe chatbot's response does not comply with the provided description. The described task is about extracting entities like people names from a text. Instead, the chatbot is requesting input to demonstrate how it can structure such entities when presented with actual text.\n\nNo violation.\nOK"
+  },
+  {
+    "id": "e43ba75",
+    "promptid": "d4a5f29",
+    "rule": "1. The output must be presented as a bullet-pointed or numbered list.\n2. Each item in the list represents an extracted entity from the input text.\n3. Each entity is preceded by its type of classification: company name, people name, specific topic, or general theme.\n4. It should be clear and unambiguous how each section is organized and what distinguishes one category of entities from another.\n5. The input text will determine which of these categories apply to a given word or phrase in the output list.",
+    "scenario": "",
+    "testinput": "Type: specific_topic\\nType: people_name",
+    "model": "qwen2.5:3b",
+    "input": "Type: specific_topic\\nType: people_name",
+    "output": "I see that the type of information you're asking for doesn't directly match the input I was given. Based on your request, it seems like you might be looking to extract specific topic types or possibly names within entities from the text. Let's illustrate how this could look by using a sample chunk of text and applying this approach:\n\nSample text:\n\"The Amazon project was led by Jeff Bezos with assistance from his team. The project went through several iterations.\"\n\nIn the structured list format as per your request, it would be structured like this:\n\n1. Type: specific_topic -> Amazon project\n2. Type: people_name -> Jeff Bezos",
+    "metrics": {
+      "rules_compliant": {
+        "content": "{\n  \"explanation\": \"The provided chatbot output follows the specified JSON structure and contains a clear differentiation of entity types as required by the rules. It correctly identifies an 'specific_topic' (Amazon project) and a 'people_name' (Jeff Bezos).\",\n  \"score\": 100,\n  \"violated_rules\": []\n}",
+        "score": 100,
+        "violated_rules": []
+      }
+    },
+    "compliance": "ok",
+    "complianceText": "Minimum draft your thinking to make your decision (20 words at most).\nThe output provides a sample text and structure which matches the request for extracting types of entities from text.\n\nOK"
+  }
+]

@@ -1,0 +1,48 @@
+[
+  {
+    "id": "4ca1cbe",
+    "promptid": "d4a5f29",
+    "rule": "1. The output must be presented as a bullet-pointed or numbered list.\n2. Each item in the list represents an extracted entity from the input text.\n3. Each entity is preceded by its type of classification: company name, people name, specific topic, or general theme.\n4. It should be clear and unambiguous how each section is organized and what distinguishes one category of entities from another.\n5. The input text will determine which of these categories apply to a given word or phrase in the output list.",
+    "scenario": "",
+    "testinput": "Type: General Theme\\nType: People Name\\nType: Company Name\\nType: Specific Topic",
+    "model": "qwen2.5:3b",
+    "input": "Type: General Theme\\nType: People Name\\nType: Company Name\\nType: Specific Topic",
+    "output": "Here is the structure you requested for an example where \"affecting the internet of things,\" \"Dr. John Smith,\" \"Innovative Tech Solutions Inc., \" and \"sustainability\" are key elements:\n\n```plaintext\nType: General Theme\nSpecific topic\n\nType: People Name\nPeople name: Dr. John Smith\n\nType: Company Name\nCompany name: Innovative Tech Solutions Inc.\n\nType: Specific Topic\nSpecific topic: sustainability\n\nType: Specific Topic\nSpecific topic: affecting the internet of things\n```\n\nPlease note that if you provide a specific text containing entities, I can extract and list them for you in this structured format.",
+    "metrics": {
+      "rules_compliant": {
+        "content": "{\n    \"explanation\": \"The provided output is structured as requested with each element categorized appropriately. However, it contains duplicate entries for 'specific topic' and incorrectly categorizes 'affecting the internet of things' and 'sustainability' under this category instead of the more specific entity types.\",\n    \"score\": 0,\n    \"violated_rules\": [3]\n}",
+        "score": 0,
+        "violated_rules": [
+          3
+        ]
+      }
+    },
+    "compliance": "unknown",
+    "complianceText": "Minimum draft your thinking to make your decision (20 words at most).\nOK\n\nThe output follows the structured format provided in the description with key elements listed under their respective categories."
+  },
+  {
+    "id": "4ca1cbe",
+    "promptid": "d4a5f29",
+    "rule": "1. The output must be presented as a bullet-pointed or numbered list.\n2. Each item in the list represents an extracted entity from the input text.\n3. Each entity is preceded by its type of classification: company name, people name, specific topic, or general theme.\n4. It should be clear and unambiguous how each section is organized and what distinguishes one category of entities from another.\n5. The input text will determine which of these categories apply to a given word or phrase in the output list.",
+    "scenario": "",
+    "testinput": "Type: General Theme\\nType: People Name\\nType: Company Name\\nType: Specific Topic",
+    "model": "qwen2.5:3b",
+    "input": "Type: General Theme\\nType: People Name\\nType: Company Name\\nType: Specific Topic",
+    "output": "```plaintext\nType: General Theme\nGeneral Theme\n\nType: People Name\nPeople Name (not specified in the text provided)\n\nType: Company Name\nCompany Name (not specified in the text provided)\n\nType: Specific Topic\nSpecific Topic (not specified in the text provided)\n``` \n\nPlease provide a specific text snippet to extract entities from.",
+    "metrics": {
+      "rules_compliant": {
+        "content": "{\n\"explanation\": \"The chatbot's output is only providing entity types without any actual extracted entities. It doesn't provide any input text to extract these entities, so it cannot comply with the rules that require applying these entity types based on a given input text.\",\n\"score\": 0,\n\"violated_rules\": [\n1,\n2,\n3,\n4,\n5\n]\n}",
+        "score": 0,
+        "violated_rules": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      }
+    },
+    "compliance": "ok",
+    "complianceText": "Minimum draft your thinking to make your decision (20 words or less).\nERR\nThe output does not comply as it lists multiple types without providing any input text for reference.\n\nOK"
+  }
+]

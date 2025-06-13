@@ -11,7 +11,7 @@ import type {
     PromptPexTestResult,
     PromptPexRule,
 } from "./types.mts"
-const dbg = host.logger("promptpex:parsers")
+const dbg = console.debug
 
 const { output } = env
 
@@ -62,17 +62,31 @@ function parseScore(text: string) {
     return undefined
 }
 
+function parseViolatedRules(text: string): number[] | undefined {
+    try {
+        const res = parsers.JSONLLM(text)
+        if (typeof res === "object" && Array.isArray(res.violated_rules)) {
+            return res.violated_rules.filter(item => typeof item === "number")
+        }
+    } catch (error) {
+        // Failed to parse, return undefined
+    }
+    return undefined
+}
+
 export function checkLLMEvaluation(
     res: RunPromptResult,
     options?: { allowUnassisted: boolean }
 ): PromptPexEvaluation {
     const content = checkLLMResponse(res, options)
     const score = parseScore(content)
+    const violated_rules = parseViolatedRules(content)
     return {
         content,
         uncertainty: res.uncertainty,
         perplexity: res.perplexity,
         score,
+        violated_rules,
         outcome: isNaN(score) ? parseOKERR(content) : undefined,
     } satisfies PromptPexEvaluation
 }

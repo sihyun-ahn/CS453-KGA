@@ -1,0 +1,42 @@
+[
+  {
+    "id": "8d10bcc",
+    "promptid": "73d9646",
+    "rule": "1. The input text must indicate the main subject matter with specific terms relevant to the category classification.\n2. If categorized under World, it should use synonyms like geopolitics, international affairs, global events or related phrases indicating an international scale topic.\n3. If categorized as Sports, it must exclusively mention words such as athlete, competition, sports event, team activities or similar sporting activities.\n4. For Business categorization, terms relating to commerce, corporation, market activity, business transactions or sector-specific topics like banking, finance are mandatory in the input text.\n5. The term related to technology and science such as robotics, computer, electronic or scientific research should be used exclusively for classification into the Sci/Tech category.",
+    "scenario": "",
+    "testinput": "input 'A new geopolitical issue emerged between India and Pakistan this week.'",
+    "model": "qwen2.5:3b",
+    "input": "input 'A new geopolitical issue emerged between India and Pakistan this week.'",
+    "output": "Based on the content provided in the news article excerpt \"A new geopolitical issue emerged between India and Pakistan this week,\" it would be classified under the **World** category. Geopolitical issues typically involve international relations, conflicts or tensions that transcend national boundaries and affect global affairs, which is precisely what this extract describes regarding the relationship between India and Pakistan.",
+    "metrics": {
+      "rules_compliant": {
+        "content": "{\n    \"explanation\": \"The output correctly identifies the main subject matter as a geopolitical issue between India and Pakistan, meeting the criteria for classification under the World category. However, 'geopolitics' is not explicitly used in its place of the term 'world'. The classification is still accurate but not perfect.\",\n    \"score\": 100,\n    \"violated_rules\": []\n}",
+        "score": 100,
+        "violated_rules": []
+      }
+    },
+    "compliance": "unknown",
+    "complianceText": "Minimum draft your thinking to make your decision (20 words at most).\nThe output classifies a geopolitical issue as 'World', but geopolitical issues can also be classified under other categories like Sports, Business or Sci/Tech if they specifically align with those fields.\n\nERR\n\nNo violation."
+  },
+  {
+    "id": "197356c",
+    "promptid": "73d9646",
+    "rule": "1. The input text must indicate the main subject matter with specific terms relevant to the category classification.\n2. If categorized under World, it should use synonyms like geopolitics, international affairs, global events or related phrases indicating an international scale topic.\n3. If categorized as Sports, it must exclusively mention words such as athlete, competition, sports event, team activities or similar sporting activities.\n4. For Business categorization, terms relating to commerce, corporation, market activity, business transactions or sector-specific topics like banking, finance are mandatory in the input text.\n5. The term related to technology and science such as robotics, computer, electronic or scientific research should be used exclusively for classification into the Sci/Tech category.",
+    "scenario": "",
+    "testinput": "input 'Brazil Football team celebrates winning their World Cup match against Croatia.'",
+    "model": "qwen2.5:3b",
+    "input": "input 'Brazil Football team celebrates winning their World Cup match against Croatia.'",
+    "output": "Based on the content provided in the news article snippet, this would typically fall under the \"Sports\" category. The mention of a Brazilian football (soccer) team celebrating winning a world cup match is clearly related to sports news. However, please note that the full context and specific headline may offer more precise categorization.",
+    "metrics": {
+      "rules_compliant": {
+        "content": "{\n    \"explanation\": \"The chatbot's output indicates that the content pertains to a football (soccer) team celebrating winning a world cup match, which aligns with sports news. It does not explicitly mention 'athlete', 'competition', or 'team activities' but emphasizes the action of the Brazilian football team in the context of a championship win, which is specific to a sporting event.\",\n    \"score\": 80,\n    \"violated_rules\": [2]\n}",
+        "score": 80,
+        "violated_rules": [
+          2
+        ]
+      }
+    },
+    "compliance": "unknown",
+    "complianceText": "Minimum draft your thinking to make your decision (20 words or fewer).\nThe output classifies content as Sports despite mentioning football (soccer) team winning a world cup match, which seems unrelated to common sports news.\n\nERR\n\nThe reasoning is based on the fact that while the chatbot describes potential categorization of news article under \"Sports\", it provides additional information about mentioning Brazilian football (soccer) team and winning a world cup match. This specific detail doesn't align directly with what often constitutes typical Sports news which includes different types of sporting events not limited to World Cups or specific teams."
+  }
+]

@@ -1,14 +1,15 @@
 import { checkConfirm } from "./confirm.mts"
-import { modelOptions, checkLLMEvaluation, metricName } from "./parsers.mts"
+import { modelOptions, checkLLMEvaluation, metricName, parseAllRules } from "./parsers.mts"
 import { measure } from "./perf.mts"
 import type {
     PromptPexContext,
     PromptPexTestResult,
     PromptPexOptions,
     PromptPexEvaluation,
+    PromptPexRule,
 } from "./types.mts"
 const { generator } = env
-const dbg = host.logger("promptpex:eval:metric")
+const dbg = console.debug
 
 export async function evaluateTestMetrics(
     testResult: PromptPexTestResult,
@@ -22,6 +23,33 @@ export async function evaluateTestMetrics(
     for (const metric of metrics) {
         const res = await evaluateTestMetric(metric, files, testResult, options)
         testResult.metrics[metricName(metric)] = res
+    }
+}
+
+function getOriginalRulesText(files: PromptPexContext): string {
+    try {
+        const allRules = parseAllRules(files)
+        
+        // Extract ALL original rules by ALWAYS using rule.rule field
+        // This ensures we get every single original rule regardless of:
+        // - inversed flag state  
+        // - mutation system state
+        // - current branch being tested
+        const originalRules = allRules
+            .filter(rule => rule && rule.rule && rule.rule.trim()) // Ensure rule exists and has content
+            .map((rule, index) => `${index + 1}. ${rule.rule}`)
+        
+        dbg(`Extracted ${originalRules.length} original rules for compliance evaluation`)
+        
+        if (originalRules.length === 0) {
+            dbg('No valid rules found in parsed rules, falling back to files.rules.content')
+            return files.rules.content
+        }
+        
+        return originalRules.join('\n')
+    } catch (error) {
+        dbg(`Failed to parse original rules: ${error}. Falling back to files.rules.content`)
+        return files.rules.content
     }
 }
 
@@ -44,11 +72,18 @@ async function evaluateTestMetric(
             outcome: "unknown",
             content: "test result output missing",
         } satisfies PromptPexEvaluation
+    
+    // For rules_compliant metric, use original rules instead of mutated rules
+    const isRulesCompliantMetric = metricName(metric) === "rules_compliant"
+    const rulesText = isRulesCompliantMetric 
+        ? getOriginalRulesText(files)
+        : files.rules.content
+    
     const parameters = {
         prompt: content.replace(/^(system|user):/gm, ""),
         intent: files.intent.content || "",
         inputSpec: files.inputSpec.content || "",
-        rules: files.rules.content,
+        rules: rulesText,
         input: testResult.input,
         output: testResult.output,
     }

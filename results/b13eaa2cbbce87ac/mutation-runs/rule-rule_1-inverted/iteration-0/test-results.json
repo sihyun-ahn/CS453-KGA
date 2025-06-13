@@ -1,0 +1,40 @@
+[
+  {
+    "id": "c4f304e",
+    "promptid": "d4a5f29",
+    "rule": "1. The output must be presented as a bullet-pointed or numbered list.\n2. Each item in the list represents an extracted entity from the input text.\n3. Each entity is preceded by its type of classification: company name, people name, specific topic, or general theme.\n4. It should be clear and unambiguous how each section is organized and what distinguishes one category of entities from another.\n5. The input text will determine which of these categories apply to a given word or phrase in the output list.",
+    "scenario": "",
+    "testinput": "people: Steve Jobs",
+    "model": "qwen2.5:3b",
+    "input": "people: Steve Jobs",
+    "output": "Here is the extracted information formatted as requested:\n\n- people: Steve Jobs",
+    "metrics": {
+      "rules_compliant": {
+        "content": "{\n  \"explanation\": \"The chatbot's output only includes one entity (people) which complies with rule 1 of providing an organized list. However, there are no other entities specified in the input text that require a classification as per the rules provided.\",\n  \"score\": 100,\n  \"violated_rules\": []\n}",
+        "score": 100,
+        "violated_rules": []
+      }
+    },
+    "compliance": "ok",
+    "complianceText": "Minimum draft your thinking to make your decision (20 words at most).\nThe output lists a single person correctly following the DESC instruction in structured list format.\n\nOK"
+  },
+  {
+    "id": "c85a709",
+    "promptid": "d4a5f29",
+    "rule": "1. The output must be presented as a bullet-pointed or numbered list.\n2. Each item in the list represents an extracted entity from the input text.\n3. Each entity is preceded by its type of classification: company name, people name, specific topic, or general theme.\n4. It should be clear and unambiguous how each section is organized and what distinguishes one category of entities from another.\n5. The input text will determine which of these categories apply to a given word or phrase in the output list.",
+    "scenario": "",
+    "testinput": "people: Elon Musk",
+    "model": "qwen2.5:3b",
+    "input": "people: Elon Musk",
+    "output": "Based on the provided sentence \"people: Elon Musk\", the structured list of extracted entities is as follows:\n\n- **People Name**: Elon Musk",
+    "metrics": {
+      "rules_compliant": {
+        "content": "{\n    \"explanation\": \"The output presents a correct and clear list with appropriate entity types. The 'Elon Musk' is correctly identified as a People Name.\",\n    \"score\": 100,\n    \"violated_rules\": []\n}",
+        "score": 100,
+        "violated_rules": []
+      }
+    },
+    "compliance": "ok",
+    "complianceText": "MINIMUM DRAFT YOUR THINKING (20 words at most):\nThe output only includes one name and does not match the description which requires listing multiple entities.\n\nERR\n\nNo violation.\nOK"
+  }
+]
