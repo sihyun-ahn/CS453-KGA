@@ -23,43 +23,8 @@ GENAISCRIPT_MODEL_BASELINE="ollama:llama2"
 
 4. open http://127.0.0.1:8003 and run promptpex in GUI
 
-## Collaboration guidelines (CS453 team3)
-If you encounter any git-related issues, please contact me. (farawell777 at kaist dot ac dot kr)
-
-(1) Cloning
-```bash
-git clone https://github.com/farawell/CS453_team3.git promptpex
-```
-
-(2) Sync with the shared repo & Microsoft’s repo
-```bash
-git checkout main
-git pull team main
-git fetch upstream
-git merge upstream/main
-git push team main
-```
-
-(3) Making individual branch
-Add ‘feature’, ‘bug fix’, etc as a prefix for categorization!
-Be sure to add your name—For example, ‘yh’ for ‘Yohan’, etc:
-```bash
-git checkout -b feature/yh_ollama_integration
-```
-
-(4) Commit & Push
-```bash
-git add [Relevant files]
-git commit -m "Added some features"
-git push team feature/yh_ollama_integration
-```
-**Important: Always push to team, not origin.**
-* origin: The personal fork of the original PromptPex repository.
-* upstream: The official PromptPex repository.
-* team: Our shared team repository — this is where all collaborative development takes place. Make sure to push your changes here.
-
 ---
-# PromptPex
+# Baseline: PromptPex
 
 **Prompts** are an important part of any software project that incorporates
 the power of AI models. As a result, tools to help developers create and maintain
