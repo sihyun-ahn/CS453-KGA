@@ -1,4 +1,29 @@
-# Collaboration guidelines (CS453 team3)
+# 25’ Spring CS453 Automated Software Testing Project
+### Knowledge Graph-guided Autoregressive Test Generation for Diversity-Based Prompt Testing
+- Team 3
+  - Yohan Park (20190258) 
+  - Ihchae Ryu (20200216) 
+  - Sihyun Ahn (20200365)
+- project report: [link](https://docs.google.com/document/d/1RIMA7FQvLdZK_-emLZKSmH7OIxBFUHKbACg4FwRpNko/edit?usp=sharing)
+
+## Local deployment method
+1. add `.env` to the uppermost folder and fill it as follows (according to own local model):
+```
+GENAISCRIPT_MODEL_RULES="ollama:llama2"
+GENAISCRIPT_MODEL_EVAL="ollama:llama2"
+GENAISCRIPT_MODEL_BASELINE="ollama:llama2"
+```
+
+2. serve ollama
+  - install ollama to local environment
+  - `serve ollama`
+ 
+3. run promptpex locally
+`npx genaiscript serve`
+
+4. open http://127.0.0.1:8003 and run promptpex in GUI
+
+## Collaboration guidelines (CS453 team3)
 If you encounter any git-related issues, please contact me. (farawell777 at kaist dot ac dot kr)
 
 (1) Cloning
@@ -32,27 +57,6 @@ git push team feature/yh_ollama_integration
 * origin: The personal fork of the original PromptPex repository.
 * upstream: The official PromptPex repository.
 * team: Our shared team repository — this is where all collaborative development takes place. Make sure to push your changes here.
-
----
-# Replication Method
-### 25.05.24, Sihyun
-1. add `.env` to the uppermost folder and fill it as follows (according to own local model):
-```
-GENAISCRIPT_MODEL_RULES="ollama:llama2"
-GENAISCRIPT_MODEL_EVAL="ollama:llama2"
-GENAISCRIPT_MODEL_BASELINE="ollama:llama2"
-```
-
-2. serve own model
-- in my case: llama2
-  - install ollama
-  - serve ollama
-  - run ollama:llama2
- 
-3. run promptpex locally
-`npx genaiscript serve`
-
-4. open http://127.0.0.1:8003 and run promptpex in GUI
 
 ---
 # PromptPex
